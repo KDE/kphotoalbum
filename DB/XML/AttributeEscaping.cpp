@@ -135,30 +135,29 @@ QString DB::escapeAttributeName(const QString &str, int fileVersion)
             // will work for all input strings and covers the whole Unicode range:
             //
             // The first character of an XML attribute must be a NameStartChar. That is a-z,
-            // A-Z, ":" or "_". From the second position on, also 0-9, "." and "-" are allowed
-            // (cf. https://www.w3.org/TR/xml/ for the full specification).
+            // A-Z, ":" or "_". From the second position on, also 0-9, "." and "-" are allowed.
+            // However, ":" should only be used for namespace purposes, so we escape it (cf.
+            // https://www.w3.org/TR/xml/ for the full specification).
             //
             // To be sure to not collide with internally used attribute names, we always prepend a
-            // "_", so we only have to care about any chars not being a-z, A-Z, 0-9, ":", "_", "."
-            // and "-".
+            // "_", so we only have to care about any chars not being a-z, A-Z, 0-9, "_", "." and
+            // "-".
 
             // By default, QByteArray::toPercentEncoding encodes everything that is not a-z, A-Z,
             // 0-9, "-", ".", "_" or "~". "~" is not allowed, so we have to escape it, as well as
             // "_", because we use it as our escaping character:
             static const QByteArray s_escapeIncludes = QStringLiteral("~_").toUtf8();
 
-            // Per standard, ":" would be allowed everywhere, but Qt doesn't like it. We thus simply
-            // let QByteArray::toPercentEncoding escape it, as it does by default, and exclude
-            // nothing:
+            // We don't want to use ":", so we simply let QByteArray::toPercentEncoding escape it,
+            // as it does by default. We thus exclude nothing:
             static const QByteArray s_escapeExcludes;
 
             auto escaped = QString::fromUtf8(
                 str.toUtf8().toPercentEncoding(s_escapeExcludes, s_escapeIncludes, '_'));
 
-            // We always start with a "_", so that we can't collide with our internal attribute
-            // names. Per standard, a ":" would also be okay as a NameStartChar, but Qt's XML reader
-            // apparently doesn't like this. So we simply use a "_". It's stripped away anyway when
-            // unescaping, cf. unescapeAttributeName().
+            // We prepend a "_", so that we can't collide with our internal attribute names. This
+            // doesn't interfere with this char being used as the escaping char, as it's removed
+            // before unescaping anyway (cf. unescapeAttributeName()).
             escaped.prepend(QLatin1Char('_'));
 
             // Update the cache

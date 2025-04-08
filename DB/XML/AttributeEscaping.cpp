@@ -145,12 +145,19 @@ QString DB::escapeAttributeName(const QString &str, int fileVersion)
             // "-", ".", "_" or "~". We thus have to add some more chars to include:
             static const QByteArray s_escapeIncludes = QStringLiteral("-._~0123456789").toUtf8();
 
-            const auto escaped = QString::fromUtf8(
+            auto escaped = QString::fromUtf8(
                 str.toUtf8().toPercentEncoding(QByteArray(), s_escapeIncludes, '_'));
+
+            // We always start with a "_", so that we can't collide with our internal attribute
+            // names. Per standard, a ":" would also be okay as a NameStartChar, but Qt's XML reader
+            // apparently doesn't like this. So we simply use a "_". It's stripped away anyway when
+            // unescaping, cf. unescapeAttributeName().
+            escaped.prepend(QLatin1Char('_'));
+
+            // Update the cache
             s_cache.insert(str, escaped);
 
-            // We always start with a ":", so that we can't collide with our internal attribute names
-            return QStringLiteral(":%1").arg(escaped);
+            return escaped;
         }
     } else {
         QString escaped;

@@ -48,17 +48,18 @@ QString DB::unescapeAttributeName(const QString &str, int fileVersion)
     const bool usePercentEncoding = (fileVersion >= 11);
 
     if (usePercentEncoding) {
-        // Beginning from db v11, we use a modified percent encoding provided by QByteArray that will
-        // work for all input strings and covers the whole Unicode range. We only do this for the
-        // "compressed" format. For the "readble" format, the string is used as-is.
+        // Beginning from db v11, we use a modified percent encoding provided by QByteArray that
+        // will work for all input strings and covers the whole Unicode range. We only do this for
+        // the "compressed" format. For the "readble" format, the string is used as-is.
         if (!useCompressedFileFormat()) {
             return str;
         } else {
-            auto unEscaped = str.mid(1); // Here we strip the ":" we added in DB::FileWriter::escape
+            auto unEscaped = str.mid(1); // Here we strip the "_" we added in DB::FileWriter::escape
             unEscaped = QString::fromUtf8(QByteArray::fromPercentEncoding(unEscaped.toUtf8(), '_'));
             s_cache.insert(str, unEscaped);
             return unEscaped;
         }
+
     } else {
         // legacy escaping
         auto unEscaped = str;
@@ -165,6 +166,7 @@ QString DB::escapeAttributeName(const QString &str, int fileVersion)
 
             return escaped;
         }
+
     } else {
         QString escaped;
 

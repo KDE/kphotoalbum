@@ -8,7 +8,7 @@
 // SPDX-FileCopyrightText: 2012-2013 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2018-2020 Robert Krawitz <rlk@alum.mit.edu>
 // SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2014-2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -402,8 +402,6 @@ void DB::FileWriter::writeCategories(QXmlStreamWriter &writer, const DB::ImageIn
 
 void DB::FileWriter::writeCategoriesCompressed(QXmlStreamWriter &writer, const DB::ImageInfoPtr &info)
 {
-    QMap<QString, QList<QPair<QString, QRect>>> positionedTags;
-
     const QList<DB::CategoryPtr> categoryList = DB::ImageDB::instance()->categoryCollection()->categories();
     for (const DB::CategoryPtr &category : categoryList) {
         QString categoryName = category->name();
@@ -416,50 +414,19 @@ void DB::FileWriter::writeCategoriesCompressed(QXmlStreamWriter &writer, const D
             QStringList idList;
 
             for (const QString &itemValue : items) {
-                QRect area = info->areaForTag(categoryName, itemValue);
+                auto idString = QString::number(category->idForName(itemValue));
 
+                const auto area = info->areaForTag(categoryName, itemValue);
                 if (area.isValid()) {
-                    // Positioned tags can't be stored in the "fast" format
-                    // so we have to handle them separately
-                    positionedTags[categoryName] << QPair<QString, QRect>(itemValue, area);
-                } else {
-                    int id = category->idForName(itemValue);
-                    idList.append(QString::number(id));
+                    idString.append(QStringLiteral("+a=%1").arg(areaToString(area)));
                 }
+
+                idList.append(idString);
             }
 
-            // Possibly all ids of a category have area information, so only
-            // write the category attribute if there are actually ids to write
-            if (!idList.isEmpty()) {
-                std::sort(idList.begin(), idList.end());
-                writer.writeAttribute(escapeAttributeName(categoryName, DB::ImageDB::fileVersion()),
-                                      idList.join(QStringLiteral(",")));
-            }
-        }
-    }
-
-    // Add a "readable" sub-element for the positioned tags
-    // FIXME: can this be merged with the code in writeCategories()?
-    if (!positionedTags.isEmpty()) {
-        ElementWriter topElm(writer, QStringLiteral("options"), false);
-        topElm.writeStartElement();
-
-        QMapIterator<QString, QList<QPair<QString, QRect>>> categoryWithAreas(positionedTags);
-        while (categoryWithAreas.hasNext()) {
-            categoryWithAreas.next();
-
-            ElementWriter categoryElm(writer, QStringLiteral("option"), false);
-            categoryElm.writeStartElement();
-            writer.writeAttribute(QStringLiteral("name"), categoryWithAreas.key());
-
-            QList<QPair<QString, QRect>> areas = categoryWithAreas.value();
-            std::sort(areas.begin(), areas.end(),
-                      [](QPair<QString, QRect> a, QPair<QString, QRect> b) { return a.first < b.first; });
-            for (const auto &positionedTag : std::as_const(areas)) {
-                ElementWriter dummy(writer, QStringLiteral("value"));
-                writer.writeAttribute(QStringLiteral("value"), positionedTag.first);
-                writer.writeAttribute(QStringLiteral("area"), areaToString(positionedTag.second));
-            }
+            std::sort(idList.begin(), idList.end());
+            writer.writeAttribute(escapeAttributeName(categoryName, DB::ImageDB::fileVersion()),
+                                  idList.join(QStringLiteral(",")));
         }
     }
 }

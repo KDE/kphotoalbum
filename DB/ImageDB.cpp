@@ -13,7 +13,7 @@
 // SPDX-FileCopyrightText: 2012-2015 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2017-2020 Robert Krawitz <rlk@alum.mit.edu>
-// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2014-2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -967,7 +967,29 @@ void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPt
         if (!str.isEmpty()) {
             const QStringList list = str.split(QString::fromLatin1(","), Qt::SkipEmptyParts);
             for (const QString &tagString : list) {
-                int id = tagString.toInt();
+                int id = 0;
+                if (tagString.contains(QLatin1Char('+'))) {
+                    auto parts = tagString.split(QLatin1Char('+'));
+                    id = parts.takeFirst().toInt();
+                    for (const auto &addition : parts) {
+                        if (addition.startsWith(QStringLiteral("a="))) {
+                            const auto areaData = addition.mid(2).split(QStringLiteral(" "));
+                            if (areaData.size() == 4) {
+                                int x = areaData[0].toInt();
+                                int y = areaData[1].toInt();
+                                int w = areaData[2].toInt();
+                                int h = areaData[3].toInt();
+                                const auto area = QRect(QPoint(x, y), QPoint(x + w - 1, y + h - 1));
+                                info->addCategoryInfo(categoryName, categoryPtr->nameForId(id), area);
+                            } else {
+                                qCWarning(DBLog) << "Invalid area data";
+                            }
+                        }
+                    }
+                } else {
+                    id = tagString.toInt();
+                }
+
                 if (id != 0 || categoryPtr->isSpecialCategory()) {
                     const QString name = categoryPtr->nameForId(id);
                     info->addCategoryInfo(categoryName, name);

@@ -973,6 +973,7 @@ void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPt
 
             for (const auto &tagString : list) {
                 int id = 0;
+                QRect area;
 
                 if (! tagString.contains(QLatin1Char('+'))) {
                     // Plain number, no additional information
@@ -996,8 +997,7 @@ void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPt
                                 const auto y = areaData[1].toInt();
                                 const auto w = areaData[2].toInt();
                                 const auto h = areaData[3].toInt();
-                                const auto area = QRect(QPoint(x, y), QPoint(x + w - 1, y + h - 1));
-                                info->addCategoryInfo(categoryName, categoryPtr->nameForId(id), area);
+                                area = QRect(QPoint(x, y), QPoint(x + w - 1, y + h - 1));
                             } else {
                                 qCWarning(DBLog) << "Invalid area data for ID" << id << ":" << addition;
                             }
@@ -1007,7 +1007,7 @@ void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPt
 
                 if (id != 0 || categoryPtr->isSpecialCategory()) {
                     const QString name = categoryPtr->nameForId(id);
-                    info->addCategoryInfo(categoryName, name);
+                    info->addCategoryInfo(categoryName, name, area);
                 } else {
                     QStringList tags = categoryPtr->namesForIdZero();
                     if (tags.size() == 1) {

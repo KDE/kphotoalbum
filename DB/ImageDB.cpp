@@ -358,25 +358,10 @@ void ImageDB::readOptions(ImageInfoPtr info, DB::ReaderPtr reader, const QMap<QS
             // Read values
             while (reader->readNextStartOrStopElement(_value_).isStartToken) {
                 QString value = reader->attribute(_value_);
-
-                if (reader->hasAttribute(_area_)) {
-                    QStringList areaData = reader->attribute(_area_).split(QString::fromUtf8(" "));
-                    if (areaData.size() == 4) {
-                        int x = areaData[0].toInt();
-                        int y = areaData[1].toInt();
-                        int w = areaData[2].toInt();
-                        int h = areaData[3].toInt();
-                        QRect area = QRect(QPoint(x, y), QPoint(x + w - 1, y + h - 1));
-
-                        if (!value.isNull()) {
-                            info->addCategoryInfo(name, value, area);
-                        }
+                if (!value.isNull()) {
+                    if (reader->hasAttribute(_area_)) {
+                        info->addCategoryInfo(name, value, parseAreaData(reader->attribute(_area_)));
                     } else {
-                        qCWarning(DBLog) << "Area data has incorrect number of components in line" << reader->lineNumber()
-                                         << "-" << areaData;
-                    }
-                } else {
-                    if (!value.isNull()) {
                         info->addCategoryInfo(name, value);
                     }
                 }
@@ -948,6 +933,23 @@ ImageInfoPtr ImageDB::createImageInfo(const FileName &fileName, DB::ReaderPtr re
     return result;
 }
 
+QRect ImageDB::parseAreaData(const QString &dataString)
+{
+    const auto data = dataString.split(QLatin1Char(' '));
+
+    if (data.size() == 4) {
+        const auto x = data[0].toInt();
+        const auto y = data[1].toInt();
+        const auto w = data[2].toInt();
+        const auto h = data[3].toInt();
+        return QRect(QPoint(x, y), QPoint(x + w - 1, y + h - 1));
+
+    } else {
+        qCWarning(DBLog) << "Invalid area data, can't parse" << dataString;
+        return QRect();
+    }
+}
+
 void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPtr info, ImageDB *db, const QMap<QString, QString> *newToOldCategory)
 {
     if (db == nullptr)
@@ -991,16 +993,7 @@ void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPt
                     for (const auto &addition : parts) {
                         if (addition.startsWith(QStringLiteral("a="))) {
                             // Area data was added
-                            const auto areaData = addition.mid(2).split(QLatin1Char(' '));
-                            if (areaData.size() == 4) {
-                                const auto x = areaData[0].toInt();
-                                const auto y = areaData[1].toInt();
-                                const auto w = areaData[2].toInt();
-                                const auto h = areaData[3].toInt();
-                                area = QRect(QPoint(x, y), QPoint(x + w - 1, y + h - 1));
-                            } else {
-                                qCWarning(DBLog) << "Invalid area data for ID" << id << ":" << addition;
-                            }
+                            area = parseAreaData(addition.mid(2));
                         }
                     }
                 }

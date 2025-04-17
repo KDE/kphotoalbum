@@ -954,6 +954,7 @@ void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPt
         return;
 
     const auto categories = db->m_categoryCollection.categories();
+
     for (const DB::CategoryPtr &categoryPtr : categories) {
         const QString categoryName = categoryPtr->name();
         QString oldCategoryName;
@@ -963,31 +964,45 @@ void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPt
         } else {
             oldCategoryName = categoryName;
         }
+
         QString str = reader->attribute(escapeAttributeName(oldCategoryName, reader->fileVersion()));
+
         if (!str.isEmpty()) {
-            const QStringList list = str.split(QString::fromLatin1(","), Qt::SkipEmptyParts);
-            for (const QString &tagString : list) {
+
+            const auto list = str.split(QLatin1Char(','), Qt::SkipEmptyParts);
+
+            for (const auto &tagString : list) {
                 int id = 0;
-                if (tagString.contains(QLatin1Char('+'))) {
+
+                if (! tagString.contains(QLatin1Char('+'))) {
+                    // Plain number, no additional information
+                    id = tagString.toInt();
+
+                } else {
+                    // Additional information is present
                     auto parts = tagString.split(QLatin1Char('+'));
+
+                    // The number we want is always the first part.
+                    // Remove it from the list and parse it
                     id = parts.takeFirst().toInt();
+
+                    // Process the additional information
                     for (const auto &addition : parts) {
                         if (addition.startsWith(QStringLiteral("a="))) {
-                            const auto areaData = addition.mid(2).split(QStringLiteral(" "));
+                            // Area data was added
+                            const auto areaData = addition.mid(2).split(QLatin1Char(' '));
                             if (areaData.size() == 4) {
-                                int x = areaData[0].toInt();
-                                int y = areaData[1].toInt();
-                                int w = areaData[2].toInt();
-                                int h = areaData[3].toInt();
+                                const auto x = areaData[0].toInt();
+                                const auto y = areaData[1].toInt();
+                                const auto w = areaData[2].toInt();
+                                const auto h = areaData[3].toInt();
                                 const auto area = QRect(QPoint(x, y), QPoint(x + w - 1, y + h - 1));
                                 info->addCategoryInfo(categoryName, categoryPtr->nameForId(id), area);
                             } else {
-                                qCWarning(DBLog) << "Invalid area data";
+                                qCWarning(DBLog) << "Invalid area data for ID" << id << ":" << addition;
                             }
                         }
                     }
-                } else {
-                    id = tagString.toInt();
                 }
 
                 if (id != 0 || categoryPtr->isSpecialCategory()) {

@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2024-2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -1223,12 +1223,14 @@ bool MainWindow::Window::load()
                                       "<interface>Settings|Configure KPhotoAlbum...|Categories</interface></p>"));
     }
 
-    KMessageBox::information(this, QString::fromUtf8("<h1>Work in Progress!</h1>"
-                                                     "<p>This version of KPhotoAlbum has substantial changes to the index.xml file format!"
-                                                     "<ul>"
-                                                     "<li>Make sure you have a backup of your database!</li>"
-                                                     "<li>Be prepared to re-create any changes that you make (if we have to fix the file format)...</li>"
-                                                     "</ul></p>"));
+    QTimer::singleShot(0, this, [this] {
+        KMessageBox::information(this, QString::fromUtf8("<h1>Work in Progress!</h1>"
+                                                         "<p>This version of KPhotoAlbum has substantial changes to the index.xml file format!"
+                                                         "<ul>"
+                                                         "<li>Make sure you have a backup of your database!</li>"
+                                                         "<li>Be prepared to re-create any changes that you make (if we have to fix the file format)...</li>"
+                                                         "</ul></p>"));
+    });
 
     return true;
 }

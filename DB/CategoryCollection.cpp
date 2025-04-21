@@ -93,8 +93,18 @@ DB::GlobalCategorySortOrder *DB::CategoryCollection::globalSortOrder()
 
 void DB::CategoryCollection::initIdMap()
 {
-    QList<int> ids;
-    ids.append(0); // Make sure last() will work and start counting at 1
+    // Generate a sorted list of all existing IDs and the categories having them
+    QMap<int, QString> ids;
+    for (const auto &category : std::as_const(m_categories)) {
+        const auto id = category->id();
+        if (id > 0 && !ids.contains(id)) {
+            ids.insert(id, category->name());
+        }
+    }
+
+    // Make sure lastKey() will work and we start counting at 1
+    ids.insert(0, QString());
+
     QList<DB::CategoryPtr> newIdNeeded;
 
     for (auto category : std::as_const(m_categories)) {
@@ -103,10 +113,10 @@ void DB::CategoryCollection::initIdMap()
 
         // Check the category ID
         if (category->needsId()) {
-            if (category->id() == -1) {
+            if (category->id() <= 0) {
                 newIdNeeded.append(category);
                 qCDebug(DBLog) << "Assigning a new ID for category" << category->name();
-            } else if (ids.contains(category->id())) {
+            } else if (ids.contains(category->id()) && ids.value(category->id()) != category->name()) {
                 newIdNeeded.append(category);
                 qCWarning(DBLog) << "Duplicate ID" << category->id() << "used for category"
                                  << category->name() << "- assigning a new ID!";
@@ -115,10 +125,10 @@ void DB::CategoryCollection::initIdMap()
     }
 
     for (auto category : std::as_const(newIdNeeded)) {
-        const auto id = ids.last() + 1;
+        const auto id = ids.lastKey() + 1;
         category->setId(id);
         qCDebug(DBLog) << "Category" << category->name() << "now has ID" << id;
-        ids.append(id);
+        ids.insert(id, category->name());
     }
 }
 

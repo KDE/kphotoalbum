@@ -921,7 +921,7 @@ ImageInfoPtr ImageDB::createImageInfo(const FileName &fileName, DB::ReaderPtr re
 
     DB::ImageInfoPtr result(info);
 
-    possibleLoadCompressedCategories(reader, result, db, newToOldCategory);
+    possibleLoadCompressedCategories(reader, result, db);
 
     while (reader->readNextStartOrStopElement(_options_).isStartToken) {
         readOptions(result, reader, newToOldCategory);
@@ -950,7 +950,7 @@ QRect ImageDB::parseAreaData(const QString &dataString)
     }
 }
 
-void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPtr info, ImageDB *db, const QMap<QString, QString> *newToOldCategory)
+void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPtr info, ImageDB *db)
 {
     if (db == nullptr)
         return;
@@ -959,15 +959,10 @@ void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPt
 
     for (const DB::CategoryPtr &categoryPtr : categories) {
         const QString categoryName = categoryPtr->name();
-        QString oldCategoryName;
-        if (newToOldCategory) {
-            // translate to old categoryName, defaulting to the original name if not found:
-            oldCategoryName = newToOldCategory->value(categoryName, categoryName);
-        } else {
-            oldCategoryName = categoryName;
+        QString str;
+        if (categoryPtr->id() > 0) {
+            str = reader->attribute(QStringLiteral("tags_%1").arg(categoryPtr->id()));
         }
-
-        QString str = reader->attribute(escapeAttributeName(oldCategoryName, reader->fileVersion()));
 
         if (!str.isEmpty()) {
 

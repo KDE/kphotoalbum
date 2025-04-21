@@ -213,7 +213,7 @@ public:
 
     static int fileVersion();
     static DB::ImageInfoPtr createImageInfo(const DB::FileName &fileName, DB::ReaderPtr, ImageDB *db = nullptr, const QMap<QString, QString> *newToOldCategory = nullptr);
-    static void possibleLoadCompressedCategories(DB::ReaderPtr reader, DB::ImageInfoPtr info, ImageDB *db, const QMap<QString, QString> *newToOldCategory = nullptr);
+    static void possibleLoadCompressedCategories(DB::ReaderPtr reader, DB::ImageInfoPtr info, ImageDB *db);
 public Q_SLOTS:
     void setDateRange(const ImageDate &, bool includeFuzzyCounts);
     void clearDateRange();

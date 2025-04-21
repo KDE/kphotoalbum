@@ -427,7 +427,7 @@ void DB::FileWriter::writeCategoriesCompressed(QXmlStreamWriter &writer, const D
             }
 
             std::sort(idList.begin(), idList.end());
-            writer.writeAttribute(escapeAttributeName(categoryName, DB::ImageDB::fileVersion()),
+            writer.writeAttribute(QStringLiteral("tags_%1").arg(category->id()),
                                   idList.join(QStringLiteral(",")));
         }
     }

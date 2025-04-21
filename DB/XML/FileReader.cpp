@@ -12,7 +12,7 @@
 // SPDX-FileCopyrightText: 2015 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2014-2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -86,7 +86,7 @@ void DB::FileReader::read(const QString &configFile)
 void DB::FileReader::createSpecialCategories()
 {
     // Setup the "Folder" category
-    m_folderCategory = new DB::Category(i18n("Folder"), QString::fromLatin1("folder"),
+    m_folderCategory = new DB::Category(i18n("Folder"), -1, QString::fromLatin1("folder"),
                                         DB::Category::TreeView, 32, false);
     m_folderCategory->setType(DB::Category::FolderCategory);
     // The folder category is not stored in the XML database file,
@@ -120,7 +120,7 @@ void DB::FileReader::createSpecialCategories()
 
     if (!tokenCat) {
         // Create a new "Tokens" category
-        tokenCat = new DB::Category(i18n("Tokens"), QString::fromUtf8("tag"),
+        tokenCat = new DB::Category(i18n("Tokens"), -1, QString::fromUtf8("tag"),
                                     DB::Category::TreeView, 32, true);
         tokenCat->setType(DB::Category::TokensCategory);
         m_db->m_categoryCollection.addCategory(tokenCat);
@@ -134,7 +134,7 @@ void DB::FileReader::createSpecialCategories()
 
     // Setup the "Media Type" category
     DB::CategoryPtr mediaCat;
-    mediaCat = new DB::Category(i18n("Media Type"), QString::fromLatin1("video"),
+    mediaCat = new DB::Category(i18n("Media Type"), -1, QString::fromLatin1("video"),
                                 DB::Category::TreeView, 32, false);
     mediaCat->addItem(i18n("Image"));
     mediaCat->addItem(i18n("Video"));
@@ -180,6 +180,7 @@ void DB::FileReader::loadCategories(ReaderPtr reader)
         }
         if (!categoryName.isNull()) {
             // Read Category info
+            const auto categoryId = reader->attribute(idString, QStringLiteral("-1")).toInt();
             QString icon = reader->attribute(iconString);
             DB::Category::ViewType type = (DB::Category::ViewType)reader->attribute(viewTypeString, QString::fromLatin1("0")).toInt();
             int thumbnailSize = reader->attribute(thumbnailSizeString, QString::fromLatin1("32")).toInt();
@@ -208,7 +209,7 @@ void DB::FileReader::loadCategories(ReaderPtr reader)
                 else
                     exit(-1);
             } else {
-                cat = new DB::Category(categoryName, icon, type, thumbnailSize, show, positionable);
+                cat = new DB::Category(categoryName, categoryId, icon, type, thumbnailSize, show, positionable);
                 if (tokensCat)
                     cat->setType(DB::Category::TokensCategory);
                 m_db->m_categoryCollection.addCategory(cat);
@@ -359,7 +360,7 @@ void DB::FileReader::loadMemberGroups(ReaderPtr reader)
                     DB::CategoryPtr catPtr = m_db->m_categoryCollection.categoryForName(category);
                     if (!catPtr) { // category was not declared in "Categories"
                         qCWarning(DBLog) << "File corruption in XML database file. Inserting missing category: " << category;
-                        catPtr = new DB::Category(category, QString::fromUtf8("dialog-warning"), DB::Category::TreeView, 32, false);
+                        catPtr = new DB::Category(category, -1, QString::fromUtf8("dialog-warning"), DB::Category::TreeView, 32, false);
                         m_db->m_categoryCollection.addCategory(catPtr);
                     }
                     const QString member = catPtr->nameForId(memberItem.toInt());

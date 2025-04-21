@@ -72,6 +72,7 @@ void DB::FileWriter::save(const QString &fileName, bool isAutoSave)
 
     // prepare XML document for saving:
     m_db->m_categoryCollection.initIdMap();
+
     QFile out(fileName + QStringLiteral(".tmp"));
     if (!out.open(QIODevice::WriteOnly | QIODevice::Text)) {
         m_db->uiDelegate().error(
@@ -146,6 +147,7 @@ void DB::FileWriter::saveCategories(QXmlStreamWriter &writer)
 
         ElementWriter dummy(writer, QStringLiteral("Category"));
         writer.writeAttribute(QStringLiteral("name"), name);
+        writer.writeAttribute(QStringLiteral("id"), QString::number(category->id()));
         writer.writeAttribute(QStringLiteral("icon"), category->iconName());
         writer.writeAttribute(QStringLiteral("show"), QString::number(category->doShow()));
         writer.writeAttribute(QStringLiteral("viewtype"), QString::number(category->viewType()));

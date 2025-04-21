@@ -959,15 +959,29 @@ void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPt
 
     for (const DB::CategoryPtr &categoryPtr : categories) {
         const QString categoryName = categoryPtr->name();
-        QString oldCategoryName;
-        if (newToOldCategory) {
-            // translate to old categoryName, defaulting to the original name if not found:
-            oldCategoryName = newToOldCategory->value(categoryName, categoryName);
-        } else {
-            oldCategoryName = categoryName;
-        }
+        QString str;
 
-        QString str = reader->attribute(escapeAttributeName(oldCategoryName, reader->fileVersion()));
+        if (reader->fileVersion() >= 11) {
+            // From version 11 on, we don't use category names as attributes anymore,
+            // but "tags_" followed by the category's ID:
+            if (categoryPtr->id() > 0) {
+                str = reader->attribute(QStringLiteral("tags_%1").arg(categoryPtr->id()));
+            }
+
+        } else {
+            // Versions before 11 used escaped category names as attributes.
+            // We query those here:
+
+            QString oldCategoryName;
+            if (newToOldCategory) {
+                // translate to old categoryName, defaulting to the original name if not found:
+                oldCategoryName = newToOldCategory->value(categoryName, categoryName);
+            } else {
+                oldCategoryName = categoryName;
+            }
+
+            str = reader->attribute(escapeAttributeName(oldCategoryName, reader->fileVersion()));
+        }
 
         if (!str.isEmpty()) {
 

@@ -13,7 +13,7 @@
 // SPDX-FileCopyrightText: 2012-2015 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2017-2020 Robert Krawitz <rlk@alum.mit.edu>
-// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2014-2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -24,6 +24,7 @@
 #include "TagInfo.h"
 
 #include <DB/GroupCounter.h>
+#include <DB/XML/AttributeEscaping.h>
 #include <DB/XML/FileReader.h>
 #include <DB/XML/FileWriter.h>
 #include <Utilities/FastDateTime.h>
@@ -347,7 +348,12 @@ void ImageDB::readOptions(ImageInfoPtr info, DB::ReaderPtr reader, const QMap<QS
     static QString _area_ = QString::fromUtf8("area");
 
     while (reader->readNextStartOrStopElement(_option_).isStartToken) {
-        QString name = DB::FileReader::unescape(reader->attribute(_name_));
+        QString name = reader->attribute(_name_);
+        if (reader->fileVersion() < 11) {
+            // Un-escape legacy attribute names
+            name = unescapeAttributeName(name);
+        }
+
         // If the silent update to db version 6 has been done, use the updated category names.
         if (newToOldCategory) {
             name = newToOldCategory->key(name, name);
@@ -357,20 +363,10 @@ void ImageDB::readOptions(ImageInfoPtr info, DB::ReaderPtr reader, const QMap<QS
             // Read values
             while (reader->readNextStartOrStopElement(_value_).isStartToken) {
                 QString value = reader->attribute(_value_);
-
-                if (reader->hasAttribute(_area_)) {
-                    QStringList areaData = reader->attribute(_area_).split(QString::fromUtf8(" "));
-                    int x = areaData[0].toInt();
-                    int y = areaData[1].toInt();
-                    int w = areaData[2].toInt();
-                    int h = areaData[3].toInt();
-                    QRect area = QRect(QPoint(x, y), QPoint(x + w - 1, y + h - 1));
-
-                    if (!value.isNull()) {
-                        info->addCategoryInfo(name, value, area);
-                    }
-                } else {
-                    if (!value.isNull()) {
+                if (!value.isNull()) {
+                    if (reader->hasAttribute(_area_)) {
+                        info->addCategoryInfo(name, value, parseAreaData(reader->attribute(_area_)));
+                    } else {
                         info->addCategoryInfo(name, value);
                     }
                 }
@@ -836,7 +832,7 @@ const DB::TagInfo *ImageDB::untaggedTag() const
 int ImageDB::fileVersion()
 {
     // File format version, bump it up every time the format for the file changes.
-    return 10;
+    return 11;
 }
 
 ImageInfoPtr ImageDB::createImageInfo(const FileName &fileName, DB::ReaderPtr reader, ImageDB *db, const QMap<QString, QString> *newToOldCategory)
@@ -942,29 +938,88 @@ ImageInfoPtr ImageDB::createImageInfo(const FileName &fileName, DB::ReaderPtr re
     return result;
 }
 
+QRect ImageDB::parseAreaData(const QString &dataString)
+{
+    const auto data = dataString.split(QLatin1Char(' '));
+
+    if (data.size() == 4) {
+        const auto x = data[0].toInt();
+        const auto y = data[1].toInt();
+        const auto w = data[2].toInt();
+        const auto h = data[3].toInt();
+        return QRect(QPoint(x, y), QPoint(x + w - 1, y + h - 1));
+
+    } else {
+        qCWarning(DBLog) << "Invalid area data, can't parse" << dataString;
+        return QRect();
+    }
+}
+
 void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPtr info, ImageDB *db, const QMap<QString, QString> *newToOldCategory)
 {
     if (db == nullptr)
         return;
 
     const auto categories = db->m_categoryCollection.categories();
+
     for (const DB::CategoryPtr &categoryPtr : categories) {
         const QString categoryName = categoryPtr->name();
-        QString oldCategoryName;
-        if (newToOldCategory) {
-            // translate to old categoryName, defaulting to the original name if not found:
-            oldCategoryName = newToOldCategory->value(categoryName, categoryName);
+        QString str;
+
+        if (reader->fileVersion() >= 11) {
+            // From version 11 on, we don't use category names as attributes anymore,
+            // but "tags_" followed by the category's ID:
+            if (categoryPtr->id() > 0) {
+                str = reader->attribute(QStringLiteral("tags_%1").arg(categoryPtr->id()));
+            }
+
         } else {
-            oldCategoryName = categoryName;
+            // Versions before 11 used escaped category names as attributes.
+            // We query those here:
+
+            QString oldCategoryName;
+            if (newToOldCategory) {
+                // translate to old categoryName, defaulting to the original name if not found:
+                oldCategoryName = newToOldCategory->value(categoryName, categoryName);
+            } else {
+                oldCategoryName = categoryName;
+            }
+
+            str = reader->attribute(escapeAttributeName(oldCategoryName));
         }
-        QString str = reader->attribute(DB::FileWriter::escape(oldCategoryName));
+
         if (!str.isEmpty()) {
-            const QStringList list = str.split(QString::fromLatin1(","), Qt::SkipEmptyParts);
-            for (const QString &tagString : list) {
-                int id = tagString.toInt();
+
+            const auto list = str.split(QLatin1Char(','), Qt::SkipEmptyParts);
+
+            for (const auto &tagString : list) {
+                int id = 0;
+                QRect area;
+
+                if (! tagString.contains(QLatin1Char('+'))) {
+                    // Plain number, no additional information
+                    id = tagString.toInt();
+
+                } else {
+                    // Additional information is present
+                    auto parts = tagString.split(QLatin1Char('+'));
+
+                    // The number we want is always the first part.
+                    // Remove it from the list and parse it
+                    id = parts.takeFirst().toInt();
+
+                    // Process the additional information
+                    for (const auto &addition : parts) {
+                        if (addition.startsWith(QStringLiteral("a="))) {
+                            // Area data was added
+                            area = parseAreaData(addition.mid(2));
+                        }
+                    }
+                }
+
                 if (id != 0 || categoryPtr->isSpecialCategory()) {
                     const QString name = categoryPtr->nameForId(id);
-                    info->addCategoryInfo(categoryName, name);
+                    info->addCategoryInfo(categoryName, name, area);
                 } else {
                     QStringList tags = categoryPtr->namesForIdZero();
                     if (tags.size() == 1) {

@@ -8,17 +8,19 @@
 // SPDX-FileCopyrightText: 2009 Henner Zeller <h.zeller@acm.org>
 // SPDX-FileCopyrightText: 2012-2013 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2012-2020 Yuri Chornoivan <yurchor@ukr.net>
-// SPDX-FileCopyrightText: 2013-2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2014-2020 Robert Krawitz <rlk@alum.mit.edu>
 // SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2015 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
+// SPDX-FileCopyrightText: 2013-2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 // Local includes
 #include "FileReader.h"
 
+#include "AttributeEscaping.h"
 #include "CompressFileInfo.h"
 
 #include <DB/Category.h>
@@ -50,6 +52,7 @@ void DB::FileReader::read(const QString &configFile)
         reader->complainStartElementExpected(QString::fromUtf8("KPhotoAlbum"));
 
     m_fileVersion = reader->attribute(versionString, QString::fromLatin1("1")).toInt();
+    reader->setFileVersion(m_fileVersion);
 
     if (m_fileVersion > DB::ImageDB::fileVersion()) {
         DB::UserFeedback ret = m_db->uiDelegate().warningContinueCancel(
@@ -85,7 +88,7 @@ void DB::FileReader::read(const QString &configFile)
 void DB::FileReader::createSpecialCategories()
 {
     // Setup the "Folder" category
-    m_folderCategory = new DB::Category(i18n("Folder"), QString::fromLatin1("folder"),
+    m_folderCategory = new DB::Category(i18n("Folder"), -1, QString::fromLatin1("folder"),
                                         DB::Category::TreeView, 32, false);
     m_folderCategory->setType(DB::Category::FolderCategory);
     // The folder category is not stored in the XML database file,
@@ -119,7 +122,7 @@ void DB::FileReader::createSpecialCategories()
 
     if (!tokenCat) {
         // Create a new "Tokens" category
-        tokenCat = new DB::Category(i18n("Tokens"), QString::fromUtf8("tag"),
+        tokenCat = new DB::Category(i18n("Tokens"), -1, QString::fromUtf8("tag"),
                                     DB::Category::TreeView, 32, true);
         tokenCat->setType(DB::Category::TokensCategory);
         m_db->m_categoryCollection.addCategory(tokenCat);
@@ -133,7 +136,7 @@ void DB::FileReader::createSpecialCategories()
 
     // Setup the "Media Type" category
     DB::CategoryPtr mediaCat;
-    mediaCat = new DB::Category(i18n("Media Type"), QString::fromLatin1("video"),
+    mediaCat = new DB::Category(i18n("Media Type"), -1, QString::fromLatin1("video"),
                                 DB::Category::TreeView, 32, false);
     mediaCat->addItem(i18n("Image"));
     mediaCat->addItem(i18n("Video"));
@@ -168,9 +171,17 @@ void DB::FileReader::loadCategories(ReaderPtr reader)
         reader->complainStartElementExpected(categoriesString);
 
     while (reader->readNextStartOrStopElement(categoryString).isStartToken) {
-        const QString categoryName = unescape(reader->attribute(nameString));
+        QString categoryName = reader->attribute(nameString);
+        if (m_fileVersion < 11) {
+            // Before version 11, we did some escaping on category names, even if they were stored
+            // as agttribute values (which was never necessary). To be able to read those names
+            // correctly, we unescape them here:
+            categoryName = unescapeAttributeName(categoryName);
+        }
+
         if (!categoryName.isNull()) {
             // Read Category info
+            const auto categoryId = reader->attribute(idString, QStringLiteral("-1")).toInt();
             QString icon = reader->attribute(iconString);
             DB::Category::ViewType type = (DB::Category::ViewType)reader->attribute(viewTypeString, QString::fromLatin1("0")).toInt();
             int thumbnailSize = reader->attribute(thumbnailSizeString, QString::fromLatin1("32")).toInt();
@@ -199,7 +210,7 @@ void DB::FileReader::loadCategories(ReaderPtr reader)
                 else
                     exit(-1);
             } else {
-                cat = new DB::Category(categoryName, icon, type, thumbnailSize, show, positionable);
+                cat = new DB::Category(categoryName, categoryId, icon, type, thumbnailSize, show, positionable);
                 if (tokensCat)
                     cat->setType(DB::Category::TokensCategory);
                 m_db->m_categoryCollection.addCategory(cat);
@@ -350,7 +361,7 @@ void DB::FileReader::loadMemberGroups(ReaderPtr reader)
                     DB::CategoryPtr catPtr = m_db->m_categoryCollection.categoryForName(category);
                     if (!catPtr) { // category was not declared in "Categories"
                         qCWarning(DBLog) << "File corruption in XML database file. Inserting missing category: " << category;
-                        catPtr = new DB::Category(category, QString::fromUtf8("dialog-warning"), DB::Category::TreeView, 32, false);
+                        catPtr = new DB::Category(category, -1, QString::fromUtf8("dialog-warning"), DB::Category::TreeView, 32, false);
                         m_db->m_categoryCollection.addCategory(catPtr);
                     }
                     const QString member = catPtr->nameForId(memberItem.toInt());
@@ -586,47 +597,6 @@ DB::ReaderPtr DB::FileReader::readConfigFile(const QString &configFile)
 
     file.close();
     return reader;
-}
-
-/**
- * @brief Unescape a string used as an XML attribute name.
- *
- * @see DB::FileWriter::escape
- *
- * @param str the string to be unescaped
- * @return the unescaped string
- */
-QString DB::FileReader::unescape(const QString &str)
-{
-    static bool hashUsesCompressedFormat = useCompressedFileFormat();
-    static QHash<QString, QString> s_cache;
-    if (hashUsesCompressedFormat != useCompressedFileFormat())
-        s_cache.clear();
-    if (s_cache.contains(str))
-        return s_cache[str];
-
-    QString tmp(str);
-    // Matches encoded characters in attribute names
-    QRegularExpression rx(QStringLiteral("(_.)([0-9A-F]{2})"));
-    int pos = 0;
-
-    // Unencoding special characters if compressed XML is selected
-    // FIXME: KF6 port: Please review if this still does the same as the QRegExp stuff did
-    if (useCompressedFileFormat()) {
-        auto match = rx.match(tmp);
-        while (match.hasMatch()) {
-            QString before = match.captured(1) + match.captured(2);
-            QString after = QString::fromLatin1(QByteArray::fromHex(match.captured(2).toLocal8Bit()));
-            tmp.replace(pos, before.length(), after);
-            pos += after.length();
-            match = rx.match(tmp, pos);
-        }
-    } else {
-        tmp.replace(QStringLiteral("_"), QStringLiteral(" "));
-    }
-
-    s_cache.insert(str, tmp);
-    return tmp;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -55,6 +55,8 @@ public:
     bool hasAttribute(const QString &name);
     ElementInfo peekNext();
     [[noreturn]] void complainStartElementExpected(const QString &name);
+    void setFileVersion(int version);
+    int fileVersion() const;
 
 private:
     [[noreturn]] void reportError(const QString &);
@@ -64,6 +66,7 @@ private:
     DB::UIDelegate &m_ui;
     ElementInfo m_peek;
     const QString m_streamName;
+    int m_fileVersion;
 };
 
 typedef QSharedPointer<XmlReader> ReaderPtr;

@@ -1,8 +1,8 @@
-// SPDX-FileCopyrightText: 2004 - 2014 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2004-2014 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2006 Tuomas Suutari <tuomas@nepnep.net>
 // SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
-// SPDX-FileCopyrightText: 2013 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014 - 2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -51,10 +51,13 @@ public:
                         MediaTypeCategory,
                         TokensCategory };
 
-    Category(const QString &name, const QString &icon, ViewType type, int thumbnailSize, bool show, bool positionable = false);
+    Category(const QString &name, int id, const QString &icon, ViewType type, int thumbnailSize, bool show, bool positionable = false);
 
     QString name() const;
     void setName(const QString &name);
+
+    int id() const;
+    void setId(int id);
 
     bool positionable() const;
     void setPositionable(bool positionable);
@@ -80,6 +83,7 @@ public:
     void setType(CategoryType t);
 
     bool isSpecialCategory() const;
+    bool needsId() const;
 
     QStringList items() const;
     QStringList itemsInclCategories() const;
@@ -155,6 +159,7 @@ public:
 
 private:
     QString m_name;
+    int m_id = -1;
     QString m_icon;
     bool m_show;
     ViewType m_type;

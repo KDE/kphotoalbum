@@ -5,8 +5,8 @@
 // SPDX-FileCopyrightText: 2008-2009 Henner Zeller <h.zeller@acm.org>
 // SPDX-FileCopyrightText: 2012-2015 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2015-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2018 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2015-2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -285,6 +285,8 @@ private:
 
     // used for checking if any images are without image attribute from the database.
     static bool s_anyImageWithEmptySize;
+
+    static QRect parseAreaData(const QString &dataString);
 };
 }
 #endif /* IMAGEDB_H */

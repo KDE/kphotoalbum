@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2013 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2020 Robert Krawitz <rlk@alum.mit.edu>
-// SPDX-FileCopyrightText: 2022-2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2022-2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -107,6 +107,16 @@ QXmlStreamReader::TokenType XmlReader::readNextInternal()
         } else
             return type;
     }
+}
+
+void XmlReader::setFileVersion(int version)
+{
+    m_fileVersion = version;
+}
+
+int XmlReader::fileVersion() const
+{
+    return m_fileVersion;
 }
 
 }

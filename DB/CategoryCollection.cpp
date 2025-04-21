@@ -4,7 +4,7 @@
 // SPDX-FileCopyrightText: 2008 Jan Kundrát <jkt@flaska.net>
 // SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2015-2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2015-2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -52,6 +52,7 @@ void DB::CategoryCollection::addCategory(CategoryPtr category)
     if (category->isSpecialCategory()) {
         m_specialCategories[category->type()] = category;
     }
+
     connect(category.data(), &DB::Category::changed, this, &DB::CategoryCollection::categoryCollectionChanged);
     connect(category.data(), &DB::Category::itemRemoved, this, &DB::CategoryCollection::slotItemRemoved);
     connect(category.data(), &DB::Category::itemRenamed, this, &DB::CategoryCollection::slotItemRenamed);
@@ -60,7 +61,7 @@ void DB::CategoryCollection::addCategory(CategoryPtr category)
 
 void DB::CategoryCollection::addCategory(const QString &text, const QString &icon, Category::ViewType type, int thumbnailSize, bool show, bool positionable)
 {
-    addCategory(DB::CategoryPtr(new DB::Category(text, icon, type, thumbnailSize, show, positionable)));
+    addCategory(DB::CategoryPtr(new DB::Category(text, -1, icon, type, thumbnailSize, show, positionable)));
 }
 
 void DB::CategoryCollection::removeCategory(const QString &name)
@@ -92,8 +93,44 @@ DB::GlobalCategorySortOrder *DB::CategoryCollection::globalSortOrder()
 
 void DB::CategoryCollection::initIdMap()
 {
-    for (DB::CategoryPtr categoryPtr : std::as_const(m_categories)) {
-        categoryPtr->initIdMap();
+    // Generate a sorted list of all existing IDs and the categories having them
+    QMap<int, QString> ids;
+    for (const auto &category : std::as_const(m_categories)) {
+        const auto id = category->id();
+        if (id > 0 && !ids.contains(id)) {
+            ids.insert(id, category->name());
+        }
+    }
+
+    // Make sure lastKey() will work and we start counting at 1
+    ids.insert(0, QString());
+
+    QList<DB::CategoryPtr> newIdNeeded;
+
+    for (auto category : std::as_const(m_categories)) {
+        // Initialize the tag IDs
+        category->initIdMap();
+
+        // Check the category ID
+        if (category->needsId()) {
+            const auto id = category->id();
+            if (id <= 0) {
+                newIdNeeded.append(category);
+                qCDebug(DBLog) << "Assigning a new ID for category" << category->name();
+            } else if (ids.contains(id) && ids.value(id) != category->name()) {
+                newIdNeeded.append(category);
+                qCWarning(DBLog) << "Duplicate ID found!" << category->name() << "has ID" << id
+                                 << "which is already used by" << ids.value(id)
+                                 << " - assigning new ID!";
+            }
+        }
+    }
+
+    for (auto category : std::as_const(newIdNeeded)) {
+        const auto id = ids.lastKey() + 1;
+        category->setId(id);
+        qCDebug(DBLog) << "Category" << category->name() << "now has ID" << id;
+        ids.insert(id, category->name());
     }
 }
 

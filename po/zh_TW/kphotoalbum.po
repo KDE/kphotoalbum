@@ -5,13 +5,13 @@
 # Franklin Weng <franklin@goodhorse.idv.tw>, 2010, 2011, 2012, 2013, 2014.
 # Frank Weng (a.k.a. Franklin) <franklin at goodhorse dot idv dot tw>, 2008, 2009, 2010.
 # pan93412 <pan93412@gmail.com>, 2019.
-# SPDX-FileCopyrightText: 2024 Kisaragi Hiu <mail@kisaragi-hiu.com>
+# SPDX-FileCopyrightText: 2024, 2025 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-24 00:40+0000\n"
-"PO-Revision-Date: 2024-12-30 17:29+0900\n"
+"PO-Revision-Date: 2025-04-20 14:29+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -19,22 +19,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Franklin Weng"
+msgstr "Franklin Weng, Kisaragi Hiu"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "franklin@goodhorse.idv.tw"
+msgstr "franklin@goodhorse.idv.tw, mail@kisaragi-hiu.com"
 
 #: AnnotationDialog/AreaTagSelectDialog.cpp:87
 #, kde-format
 msgid "Tag is already used for another area"
-msgstr ""
+msgstr "標籤已被另一個區域使用"
 
 #: AnnotationDialog/DateEdit.cpp:69
 #, kde-format
@@ -183,10 +183,9 @@ msgid "Minimum megapixels:"
 msgstr "最小百萬相素值："
 
 #: AnnotationDialog/Dialog.cpp:388
-#, fuzzy, kde-format
-#| msgid "Minimum megapixels:"
+#, kde-format
 msgid "Maximum megapixels:"
-msgstr "最小百萬相素值："
+msgstr "最大百萬相素值："
 
 #: AnnotationDialog/Dialog.cpp:401
 #, kde-format
@@ -234,11 +233,10 @@ msgid "Search only for RAW files"
 msgstr "只尋找 RAW 檔"
 
 #: AnnotationDialog/Dialog.cpp:612
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum Annotations (%1/%2)"
+#, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
-msgstr "KPhotoAlbum 註記（%1/%2）"
+msgstr "註記 (%1/%2)"
 
 #: AnnotationDialog/Dialog.cpp:838
 #, kde-format
@@ -290,57 +288,47 @@ msgid "Sort by Date"
 msgstr "依日期排序"
 
 #: AnnotationDialog/Dialog.cpp:913
-#, fuzzy, kde-format
-#| msgid "Match tags from the first character."
+#, kde-format
 msgid "Match Tags from the First Character"
-msgstr "從第一個字元比對標籤。"
+msgstr "從第一個字元比對標籤"
 
 #: AnnotationDialog/Dialog.cpp:914
-#, fuzzy, kde-format
-#| msgid "Match tags from word boundaries."
+#, kde-format
 msgid "Match Tags from Word Boundaries"
-msgstr "從單字邊界比對標籤。"
+msgstr "從單字邊界比對標籤"
 
 #: AnnotationDialog/Dialog.cpp:915
-#, fuzzy, kde-format
-#| msgid "Match tags anywhere."
+#, kde-format
 msgid "Match Tags Anywhere"
-msgstr "從任意地方比對標籤。"
+msgstr "從任意地方比對標籤"
 
 #: AnnotationDialog/Dialog.cpp:932
-#, fuzzy, kde-format
-#| msgid "Show only selected Ctrl+S"
+#, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "只顯示選取的 Ctrl+S"
 
 #: AnnotationDialog/Dialog.cpp:970 Map/MapView.cpp:360
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "Settings saved!"
-msgstr "設定"
+msgstr "設定已儲存！"
 
 #: AnnotationDialog/Dialog.cpp:970
-#, fuzzy, kde-format
-#| msgid "Save Current Window Setup"
+#, kde-format
 msgid "Save current window setup"
 msgstr "儲存目前的視窗設定"
 
 #: AnnotationDialog/Dialog.cpp:1035
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Some changes are made to annotations. Do you really want to cancel all "
-#| "recent changes for each affected file?</p>"
+#, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
-msgstr "<p>有些註記做了變更。您要取消所有最近對被影響檔案的變更嗎？</p>"
+msgstr "<p>有些註記做了變更。您要捨棄所有最近對被影響檔案的變更嗎？</p>"
 
 #: AnnotationDialog/Dialog.cpp:1036
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "儲存更改嗎？"
+msgstr "捨棄變更？"
 
 #: AnnotationDialog/Dialog.cpp:1135
 #, kde-format
@@ -439,16 +427,14 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:51
-#, fuzzy, kde-format
-#| msgid "Annotate previous image"
+#, kde-format
 msgid "Annotate previous image (Page Up)"
-msgstr "註記前一張影像"
+msgstr "註記上一張影像 (PageUp)"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:57
-#, fuzzy, kde-format
-#| msgid "Annotate next image"
+#, kde-format
 msgid "Annotate next image (Page Down)"
-msgstr "註記下一張影像"
+msgstr "註記下一張影像 (PageDown)"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:82
 #, kde-format
@@ -459,16 +445,15 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:110
-#, fuzzy, kde-format
-#| msgid "Category for virtual albums:"
+#, kde-format
 msgid "Category for new areas:"
-msgstr "虛擬相簿的類別："
+msgstr "新區域的類別："
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:315
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide or show areas on the image"
-msgstr ""
+msgstr "隱藏或顯示影像上的區域"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:320
 #, kde-format
@@ -478,55 +463,50 @@ msgid ""
 "category in <interface>Settings|Configure KPhotoAlbum...|Categories</"
 "interface>, you can associate specific image areas with tags."
 msgstr ""
+"如果您在 <interface>設定|設定 KPhotoAlbum…|類別</interface> 為至少一個類別啟"
+"用 <emphasis>可定位標籤</emphasis>，您就可以為個別影像區域加上標籤。"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:325
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Areas on an image can only be shown in single-image annotation mode."
-msgstr ""
+msgstr "影像的區域只能在單影像註記模式顯示。"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:355
-#, fuzzy, kde-format
-#| msgid "Toggle fullscreen preview"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
 msgstr "切換全螢幕預覽"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:356
-#, fuzzy, kde-format
-#| msgid "Rotate counterclockwise"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
 msgstr "逆時針方向旋轉"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:357
-#, fuzzy, kde-format
-#| msgid "Rotate clockwise"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
 msgstr "順時針方向旋轉"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:358
-#, fuzzy, kde-format
-#| msgid "Copy tags from previously tagged image"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
 msgstr "從前一張已標籤的影像複製標籤"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:359
-#, fuzzy, kde-format
-#| msgid "Delete image"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete image"
 msgstr "刪除影像"
 
 #: AnnotationDialog/ListSelect.cpp:72
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Annotate..."
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
-msgstr "註記....."
+msgstr "輸入標籤…"
 
 #: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:342
 #, kde-format
@@ -556,6 +536,9 @@ msgid ""
 "Untagged Images</interface>). It will not show up here as long as it is "
 "selected for this purpose."
 msgstr ""
+"您輸入的標籤是會自動設定給新發現而無標籤的影像的標籤（參見 <interface>設定|設"
+"定 KPhotoAlbum…|類別|無標籤影像</interface>）。該標籤仍然設定為無標籤影像用的"
+"標籤的時候不會出現在這裡。"
 
 #: AnnotationDialog/ListSelect.cpp:359
 #, kde-format
@@ -563,10 +546,9 @@ msgid "No Item Selected"
 msgstr "沒有選擇任何項目"
 
 #: AnnotationDialog/ListSelect.cpp:363
-#, fuzzy, kde-format
-#| msgid "<b>Sorting</b>"
+#, kde-format
 msgid "<b>%1</b>"
-msgstr "<b>排序</b>"
+msgstr "<b>%1</b>"
 
 #: AnnotationDialog/ListSelect.cpp:369 Settings/CategoryPage.cpp:74
 #, kde-format
@@ -579,32 +561,29 @@ msgid "Rename..."
 msgstr "重新命名..."
 
 #: AnnotationDialog/ListSelect.cpp:372
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgid "<b>Tag Groups</b>"
-msgstr "新增群組"
+msgstr "<b>標籤群組</b>"
 
 #: AnnotationDialog/ListSelect.cpp:380
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgid "Tag groups"
-msgstr "新增群組"
+msgstr "標籤群組"
 
 #: AnnotationDialog/ListSelect.cpp:397
 #, kde-format
 msgid "Add this tag to a new tag group..."
-msgstr ""
+msgstr "將此標籤加入新的標籤群組…"
 
 #: AnnotationDialog/ListSelect.cpp:400
 #, kde-format
 msgid "Make this tag a tag group and add a tag..."
-msgstr ""
+msgstr "將此標籤變為標籤群組並加入其他標籤…"
 
 #: AnnotationDialog/ListSelect.cpp:406
-#, fuzzy, kde-format
-#| msgid "Really delete group %1?"
+#, kde-format
 msgid "Remove from tag group %1"
-msgstr "確定要刪除群組 %1 嗎？"
+msgstr "從標籤群組 %1 移除"
 
 #: AnnotationDialog/ListSelect.cpp:409
 #, kde-format
@@ -641,8 +620,7 @@ msgid "Really Delete %1?"
 msgstr "確定要刪除 %1 嗎？"
 
 #: AnnotationDialog/ListSelect.cpp:463
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "重新命名項目"
@@ -662,29 +640,26 @@ msgstr ""
 "新命名。</p>"
 
 #: AnnotationDialog/ListSelect.cpp:473
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "重新命名..."
+msgstr "重新命名 %1？"
 
 #: AnnotationDialog/ListSelect.cpp:477
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
-msgstr "重新命名..."
+msgstr "重新命名"
 
 #: AnnotationDialog/ListSelect.cpp:508
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgid "New tag group"
-msgstr "新增群組"
+msgstr "新增標籤群組"
 
 #: AnnotationDialog/ListSelect.cpp:509
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
-msgstr ""
+msgstr "這個標籤要加入的新標籤群組的名稱："
 
 #: AnnotationDialog/ListSelect.cpp:521
 #, kde-format
@@ -694,30 +669,27 @@ msgstr ""
 #: AnnotationDialog/ListSelect.cpp:522
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
-msgstr ""
+msgstr "要加入這個標籤群組的標籤名稱："
 
 #: AnnotationDialog/ListSelect.cpp:776
-#, fuzzy, kde-format
-#| msgid "%1 (by %2)"
+#, kde-format
 msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
 "'People (1-2)'"
 msgid "%1 (%2-%3)"
-msgstr "%1（由 %2）"
+msgstr "%1 (%2-%3)"
 
 #: AnnotationDialog/ListSelect.cpp:789
-#, fuzzy, kde-format
-#| msgid "%1 (by %2)"
+#, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
-msgstr "%1（由 %2）"
+msgstr "%1 (%2)"
 
 #: AnnotationDialog/ResizableFrame.cpp:56
-#, fuzzy, kde-format
-#| msgid "Remove Tokens"
+#, kde-format
 msgctxt "area of an image; rectangle that is overlayed upon the image"
 msgid "Remove area"
-msgstr "移除標記"
+msgstr "移除區域"
 
 #: AnnotationDialog/ResizableFrame.cpp:312
 #, kde-format
@@ -725,14 +697,13 @@ msgctxt ""
 "%1 is a prefix like 'Associate with', %2 is the tag name and %3 is the tag's "
 "category"
 msgid "%1 %2 (%3)"
-msgstr ""
+msgstr "%1 %2 (%3)"
 
 #: AnnotationDialog/ResizableFrame.cpp:316
-#, fuzzy, kde-format
-#| msgid "%1 (by %2)"
+#, kde-format
 msgctxt "%1 is the tag name and %2 is the tag's category"
 msgid "%1 (%2)"
-msgstr "%1（由 %2）"
+msgstr "%1 (%2)"
 
 #: AnnotationDialog/ResizableFrame.cpp:357
 #, kde-format
@@ -740,18 +711,20 @@ msgid ""
 "<p>%1 has already been tagged in another area on this image.</p><p>If you "
 "continue, the previous tag will be removed...</p>"
 msgstr ""
+"<p>%1 已被這張影像的另一個區域使用。</p><p>如果您繼續，先前的標籤會被移除…</"
+"p>"
 
 #: AnnotationDialog/ResizableFrame.cpp:360
 #, kde-format
 msgid "Replace existing area?"
-msgstr ""
+msgstr "取代現有的區域？"
 
 #: AnnotationDialog/ResizableFrame.cpp:461
 #, kde-format
 msgctxt ""
 "As in: remove tag %1 in category %2 [from this marked area of the image]"
 msgid "Remove tag %1 (%2)"
-msgstr ""
+msgstr "移除標籤 %1 (%2)"
 
 #: AnnotationDialog/ResizableFrame.cpp:472
 #, kde-format
@@ -891,16 +864,14 @@ msgid "Videos"
 msgstr "影片"
 
 #: Browser/AbstractCategoryModel.cpp:170
-#, fuzzy, kde-format
-#| msgid "Sort by date"
+#, kde-format
 msgid "Start Date"
-msgstr "依日期排序"
+msgstr "開始日期"
 
 #: Browser/AbstractCategoryModel.cpp:172
-#, fuzzy, kde-format
-#| msgid "Date"
+#, kde-format
 msgid "End Date"
-msgstr "日期"
+msgstr "結束日期"
 
 #: Browser/Breadcrumb.cpp:27
 #, kde-format
@@ -909,10 +880,9 @@ msgid "All"
 msgstr "全部"
 
 #: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:145
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgid "Geo Position"
-msgstr "敘述"
+msgstr "地理位置"
 
 #: Browser/OverviewPage.cpp:157
 #, kde-format
@@ -946,10 +916,9 @@ msgid "Empty Search Result"
 msgstr "空白的搜尋結果"
 
 #: Browser/OverviewPage.cpp:277
-#, fuzzy, kde-format
-#| msgid "EXIF Search"
+#, kde-format
 msgid "Exif Search"
-msgstr "EXIF 搜尋"
+msgstr "Exif 搜尋"
 
 #: Browser/OverviewPage.cpp:297
 #, kde-format
@@ -978,7 +947,7 @@ msgstr "功能尚未設定"
 #: CategoryListView/CheckDropItem.cpp:118
 #, kde-format
 msgid "\"%1\" and \"%2\""
-msgstr ""
+msgstr "\"%1\" 和 \"%2\""
 
 #: CategoryListView/CheckDropItem.cpp:122
 #, kde-format
@@ -996,24 +965,7 @@ msgid " and \"%1\""
 msgstr ""
 
 #: CategoryListView/CheckDropItem.cpp:131
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>You have just dragged an item onto another: this will make the dragged "
-#| "item a sub category of that onto which it was dropped. Sub categories may "
-#| "be used to denote facts such as 'Las Vegas is in the USA', in that "
-#| "example you would drag Las Vegas onto USA. When you have set up sub "
-#| "categories you can, for instance, see all images from the USA by simply "
-#| "selecting that item in the Browser.</p><p>Was it really your intention to "
-#| "make \"%2\" a sub category of \"%3\"?</p>"
-#| msgid_plural ""
-#| "<p>You have just dragged a number of items onto another: this will make "
-#| "the dragged items sub categories of that onto which they were dropped. "
-#| "Sub categories may be used to denote facts such as 'Las Vegas and New "
-#| "York are in the USA' in that example you would drag 'Las Vegas' and 'New "
-#| "York' onto USA. When you have set up sub categories you can, for "
-#| "instance, see all images from the USA by simply selecting that item in "
-#| "the Browser.</p><p>Was it really your intention to make \"%2\" sub "
-#| "categories of \"%3\"?</p>"
+#, kde-format
 msgid ""
 "<p>You have just dragged an item onto another. This will make the target "
 "item a tag group and define the dragged item as a member of this group. Tag "
@@ -1032,10 +984,11 @@ msgid_plural ""
 "it really your intention to make \"%3\" a tag group and add %2 as members?</"
 "p>"
 msgstr[0] ""
-"<p>您拖了一些項目到另一個項目上。這樣會使得這些被拖曳的項目變成另一個項目的子"
-"類別。比方說，您可以將「台北」與「台中」兩個項目放到「台灣」類別中變成子類"
-"別，這樣您可以在瀏覽器中直接瀏覽「台灣」的所有影像。</p> <p>您確實是想將 %2 "
-"變成 %3 的子類別嗎？</p>"
+"<p>您拖了一些項目到另一個項目上。這會讓目標變成標籤群組，並將拖曳的項目設為這"
+"個群組的成員。標籤群組可以用來標記像是「台北跟高雄在台灣」這種事實。要建立標"
+"記這個例子的標籤群組的時候可以把「台北」跟「高雄」拖曳到「台灣」上面放開。設"
+"好標籤群組之後，您可以像是在瀏覽器當中點擊「台灣」項目來看到所有來自台灣的影"
+"像。</p><p>您真的是要讓「%3」變成標籤群組並將「%2」設為成員嗎？</p>"
 
 #: CategoryListView/CheckDropItem.cpp:157
 #, kde-format
@@ -1043,33 +996,28 @@ msgid "Move Items"
 msgstr "移動項目"
 
 #: DateBar/DateBarWidget.cpp:62
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
-msgstr "日期： "
+msgstr "日期列"
 
 #: DateBar/DateBarWidget.cpp:71
 #, kde-format
 msgid "Scroll right"
-msgstr ""
+msgstr "向右滾動"
 
 #: DateBar/DateBarWidget.cpp:80
 #, kde-format
 msgid "Scroll left"
-msgstr ""
+msgstr "向左滾動"
 
 #: DateBar/DateBarWidget.cpp:89
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Zoom In"
+#, kde-format
 msgid "Zoom in"
 msgstr "放大"
 
 #: DateBar/DateBarWidget.cpp:100
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Zoom Out"
+#, kde-format
 msgid "Zoom out"
 msgstr "縮小"
 
@@ -1168,28 +1116,24 @@ msgid "10 Minutes"
 msgstr "10 分鐘"
 
 #: DateBar/ViewHandler.cpp:312
-#, fuzzy, kde-format
-#| msgid "10 Minutes"
+#, kde-format
 msgid "1 Minute"
-msgstr "10 分鐘"
+msgstr "1 分鐘"
 
 #: DateBar/ViewHandler.cpp:347
-#, fuzzy, kde-format
-#| msgid "1 second"
+#, kde-format
 msgid "10 Seconds"
-msgstr "1 秒"
+msgstr "10 秒"
 
 #: DB/Category.cpp:309
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1'."
+#, kde-format
 msgid "Unable to create folder '%1'."
-msgstr "無法建立目錄 %1。"
+msgstr "無法建立資料夾 '%1'。"
 
 #: DB/Category.cpp:309
-#, fuzzy, kde-format
-#| msgid "Unable to Create Directory"
+#, kde-format
 msgid "Unable to Create Folder"
-msgstr "無法建立目錄"
+msgstr "無法建立資料夾"
 
 #: DB/Category.cpp:318
 #, kde-format
@@ -1407,10 +1351,9 @@ msgid ""
 msgstr ""
 
 #: DB/XML/FileReader.cpp:196 DB/XML/FileReader.cpp:301
-#, fuzzy, kde-format
-#| msgid "Converting database"
+#, kde-format
 msgid "Error in database file"
-msgstr "轉換資料庫"
+msgstr "資料庫檔案中有錯誤"
 
 #: DB/XML/FileReader.cpp:256
 #, kde-format
@@ -1427,10 +1370,9 @@ msgid ""
 msgstr ""
 
 #: DB/XML/FileReader.cpp:264
-#, fuzzy, kde-format
-#| msgid "Invalid driver."
+#, kde-format
 msgid "Changed standard category names"
-msgstr "不合法的驅動程式："
+msgstr "改變了標準的類別名稱"
 
 #: DB/XML/FileReader.cpp:296
 #, kde-format
@@ -1513,7 +1455,7 @@ msgstr ""
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
-msgstr ""
+msgstr "%1<br/>"
 
 #: DB/XML/FileReader.cpp:490
 #, kde-format
@@ -1530,23 +1472,12 @@ msgid ""
 msgstr ""
 
 #: DB/XML/FileReader.cpp:499
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgid "Database repair required"
-msgstr "資料庫後端介面"
+msgstr "需要進行資料庫修復"
 
 #: DB/XML/FileReader.cpp:522
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
-#| "installation error</p><p>If you have installed KPhotoAlbum yourself, then "
-#| "you must remember to set the environment variable <b>KDEDIRS</b>, to "
-#| "point to the topmost installation directory.</p><p>If you for example ran "
-#| "cmake with <b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, then you must "
-#| "use the following environment variable setup (this example is for Bash "
-#| "and compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></"
-#| "p><p>In case you already have KDEDIRS set, simply append the string as if "
-#| "you where setting the <b>PATH</b> environment variable</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
 "installation error</p><p>If you have installed KPhotoAlbum yourself, then "
@@ -1588,10 +1519,9 @@ msgstr "事件"
 
 #. i18n("untagged"))
 #: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:443
-#, fuzzy, kde-format
-#| msgid "Untagged Images"
+#, kde-format
 msgid "untagged"
-msgstr "無標籤影像"
+msgstr "無標籤"
 
 #: DB/XML/FileReader.cpp:550 Utilities/DemoUtil.cpp:34
 #: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
@@ -1783,11 +1713,9 @@ msgid "Owner:"
 msgstr "擁有者："
 
 #: Exif/MetaDataDisplay.cpp:62
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Group name:"
+#, kde-format
 msgid "Group:"
-msgstr "群組名稱："
+msgstr "群組："
 
 #: Exif/MetaDataDisplay.cpp:66
 #, kde-format
@@ -1800,35 +1728,33 @@ msgid "Open folder with a file manager"
 msgstr "使用檔案管理員開啟資料夾"
 
 #: Exif/MetaDataDisplay.cpp:107
-#, fuzzy, kde-format
-#| msgid "%1 (by %2)"
+#, kde-format
 msgctxt ""
 "File size composed of a pre-formatted (already localized) human-readable "
 "file size (%1) and the number of bytes (%2)"
 msgid "%1 (%2 B)"
-msgstr "%1（由 %2）"
+msgstr "%1 (%2 B)"
 
 #: Exif/MetaDataDisplay.cpp:122 Exif/MetaDataDisplay.cpp:128
 #: Exif/MetaDataDisplay.cpp:134
-#, fuzzy, kde-format
-#| msgid "or"
+#, kde-format
 msgctxt "File permission shortcut for \"reading allowed\""
 msgid "r"
-msgstr "或"
+msgstr "r"
 
 #: Exif/MetaDataDisplay.cpp:124 Exif/MetaDataDisplay.cpp:130
 #: Exif/MetaDataDisplay.cpp:136
 #, kde-format
 msgctxt "File permission shortcut for \"writing allowed\""
 msgid "w"
-msgstr ""
+msgstr "w"
 
 #: Exif/MetaDataDisplay.cpp:126 Exif/MetaDataDisplay.cpp:132
 #: Exif/MetaDataDisplay.cpp:138
 #, kde-format
 msgctxt "File permission shortcut for \"executing allowed\""
 msgid "x"
-msgstr ""
+msgstr "x"
 
 #: Exif/MetaDataDisplay.cpp:157
 #, fuzzy, kde-format
@@ -1840,17 +1766,15 @@ msgid "%1 (%2)"
 msgstr "%1（由 %2）"
 
 #: Exif/ReReadDialog.cpp:28
-#, fuzzy, kde-format
-#| msgid "Read EXIF info from files"
+#, kde-format
 msgctxt "@title:window"
 msgid "Read Exif Info from Files"
-msgstr "從檔案中讀取 EXIF"
+msgstr "從檔案中讀取 Exif 資訊"
 
 #: Exif/ReReadDialog.cpp:35
-#, fuzzy, kde-format
-#| msgid "Update EXIF search database"
+#, kde-format
 msgid "Update Exif search database"
-msgstr "更新 EXIF 搜尋資料庫"
+msgstr "更新 Exif 搜尋資料庫"
 
 #: Exif/ReReadDialog.cpp:41
 #, kde-format
@@ -1858,22 +1782,19 @@ msgid "Update image date"
 msgstr "更新影像日期"
 
 #: Exif/ReReadDialog.cpp:44
-#, fuzzy, kde-format
-#| msgid "Use modification date if EXIF not found"
+#, kde-format
 msgid "Use modification date if Exif not found"
-msgstr "若找不到 EXIF 則使用變更日期"
+msgstr "若找不到 Exif 則使用變更日期"
 
 #: Exif/ReReadDialog.cpp:47
-#, fuzzy, kde-format
-#| msgid "Update image orientation from EXIF information"
+#, kde-format
 msgid "Update image orientation from Exif information"
-msgstr "從 EXIF 資訊中更新影像方向"
+msgstr "從 Exif 資訊中更新影像方向"
 
 #: Exif/ReReadDialog.cpp:50
-#, fuzzy, kde-format
-#| msgid "Update image description from EXIF information"
+#, kde-format
 msgid "Update image description from Exif information"
-msgstr "從 EXIF 資訊中更新影像描述"
+msgstr "從 Exif 資訊中更新影像描述"
 
 #: Exif/ReReadDialog.cpp:53
 #, kde-format
@@ -1881,15 +1802,12 @@ msgid "Affected Files"
 msgstr "影響的檔案"
 
 #: Exif/ReReadDialog.cpp:124
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Be aware that setting the data from EXIF may <b>overwrite</b> data you "
-#| "have previously entered manually using the image configuration dialog.</p>"
+#, kde-format
 msgid ""
 "<p>Be aware that setting the data from Exif may <b>overwrite</b> data you "
 "have previously entered manually using the image configuration dialog.</p>"
 msgstr ""
-"<p>請小心，從 EXIF 來設定資料可能會<b>覆寫</b>您先前手動輸入的資料。</p>"
+"<p>請小心，從 Exif 來設定資料可能會<b>覆寫</b>您先前手動輸入的資料。</p>"
 
 #: Exif/ReReadDialog.cpp:127
 #, kde-format
@@ -1897,11 +1815,10 @@ msgid "Override image dates"
 msgstr "覆寫影像日期"
 
 #: Exif/SearchDialog.cpp:31
-#, fuzzy, kde-format
-#| msgid "EXIF Search"
+#, kde-format
 msgctxt "@title:window"
 msgid "Exif Search"
-msgstr "EXIF 搜尋"
+msgstr "Exif 搜尋"
 
 #: Exif/SearchDialog.cpp:35
 #, kde-format
@@ -1909,10 +1826,9 @@ msgid "Settings"
 msgstr "設定"
 
 #: Exif/SearchDialog.cpp:56
-#, fuzzy, kde-format
-#| msgid "Aperture Value"
+#, kde-format
 msgid "Aperture (F Number)"
-msgstr "光圈值"
+msgstr "光圈值（F 值）"
 
 #: Exif/SearchDialog.cpp:66
 #, kde-format
@@ -2003,10 +1919,9 @@ msgid "No cameras found in the database"
 msgstr "資料庫中找不到相機"
 
 #: Exif/SearchDialog.cpp:383
-#, fuzzy, kde-format
-#| msgid "No cameras found in the database"
+#, kde-format
 msgid "No lenses found in the database"
-msgstr "資料庫中找不到相機"
+msgstr "資料庫中找不到鏡頭"
 
 #: Exif/SearchDialog.cpp:398
 #, kde-format
@@ -2014,16 +1929,18 @@ msgid ""
 "Not all images in the database have lens information. <note>Recreate the "
 "Exif search database to ensure lens data for all images.</note>"
 msgstr ""
+"資料庫裡不是沒一張影像都有鏡頭資訊。<note>重建 Exif 搜尋資料庫來確保所有影像"
+"都有鏡頭資訊。</note>"
 
 #: HTMLGenerator/Generator.cpp:54
 #, kde-format
 msgid "<p>No file name given!</p>"
-msgstr ""
+msgstr "<p>未指定檔案名稱！</p>"
 
 #: HTMLGenerator/Generator.cpp:80
 #, kde-format
 msgid "Generating images for HTML page "
-msgstr "產生 HTML 頁面所需的影像"
+msgstr "正在產生 HTML 頁面所需的影像"
 
 #: HTMLGenerator/Generator.cpp:183
 #, kde-format
@@ -2190,10 +2107,9 @@ msgid "Base folder:"
 msgstr "基礎目錄："
 
 #: HTMLGenerator/HTMLDialog.cpp:314
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgid "Gallery folder:"
-msgstr "基礎目錄："
+msgstr "相簿資料夾："
 
 #: HTMLGenerator/HTMLDialog.cpp:321
 #, fuzzy, kde-format
@@ -2214,11 +2130,13 @@ msgid ""
 "URL.</p><p>This only affects the generated <filename>.kim</filename> file.</"
 "p>"
 msgstr ""
+"<p>如果您將相簿移動到了遠端位置，請將此值設為目標 URL。</p><p>這只會影響產生"
+"的 <filename>.kim</filename> 檔案。</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:343
 #, kde-format
 msgid "Open gallery in browser:"
-msgstr ""
+msgstr "在瀏覽器中開啟相簿："
 
 #: HTMLGenerator/HTMLDialog.cpp:359
 #, kde-format
@@ -2226,10 +2144,9 @@ msgid "You must select at least one resolution."
 msgstr "您必須選擇至少一個解析度。"
 
 #: HTMLGenerator/HTMLDialog.cpp:386
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgid "Select base folder..."
-msgstr "基礎目錄："
+msgstr "選擇基礎目錄："
 
 #: HTMLGenerator/HTMLDialog.cpp:399
 #, fuzzy, kde-format
@@ -2246,8 +2163,7 @@ msgstr ""
 "的收藏都會放在不同的目錄中。</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:403
-#, fuzzy, kde-format
-#| msgid "No Base Directory Specified"
+#, kde-format
 msgid "No Base Folder Specified"
 msgstr "未指定基礎目錄"
 
@@ -2266,8 +2182,7 @@ msgstr ""
 "內。</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:412
-#, fuzzy, kde-format
-#| msgid "No Output Directory Specified"
+#, kde-format
 msgid "No Output Folder Specified"
 msgstr "未指定輸出目錄"
 
@@ -2301,11 +2216,10 @@ msgstr ""
 "%2 嗎？</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:443
-#, fuzzy, kde-format
-#| msgid "Folder"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
-msgstr "資料夾"
+msgstr "資料夾已存在"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:532 MainWindow/SplashScreen.cpp:52
@@ -2344,7 +2258,7 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:574
 #, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
-msgstr ""
+msgstr "<p>相簿資料夾不能是空的。</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:578
 #, kde-format
@@ -2404,12 +2318,12 @@ msgstr ""
 #: ImageManager/ThumbnailBuilder.cpp:103
 #, kde-format
 msgid "Building all thumbnails may take a long time."
-msgstr ""
+msgstr "建立所有縮圖可能會花很多時間。"
 
 #: ImageManager/ThumbnailBuilder.cpp:104
 #, kde-format
 msgid "Do you want to rebuild all of your thumbnails?"
-msgstr ""
+msgstr "您確定要重新建立所有縮圖嗎？"
 
 #: ImageManager/ThumbnailBuilder.cpp:178
 #, kde-format
@@ -2417,16 +2331,14 @@ msgid "Building thumbnails"
 msgstr "建立縮圖中"
 
 #: ImportExport/Export.cpp:74
-#, fuzzy, kde-format
-#| msgid "Create .kim export file"
+#, kde-format
 msgid "Save an export file"
-msgstr "建立 .kim 匯出檔"
+msgstr "儲存 .kim 匯出檔"
 
 #: ImportExport/Export.cpp:76 ImportExport/Import.cpp:30
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum database files (*.db)"
+#, kde-format
 msgid "KPhotoAlbum import files"
-msgstr "KPhotoAlbum 資料庫檔案（*.db）"
+msgstr "KPhotoAlbum 匯入檔"
 
 #: ImportExport/Export.cpp:92
 #, kde-format
@@ -2587,10 +2499,9 @@ msgid "How to Use the Export File"
 msgstr "如何使用匯出檔"
 
 #: ImportExport/Import.cpp:28
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum database files (*.db)"
+#, kde-format
 msgid "KPhotoAlbum Export Files"
-msgstr "KPhotoAlbum 資料庫檔案（*.db）"
+msgstr "KPhotoAlbum 匯出檔"
 
 #: ImportExport/Import.cpp:60
 #, kde-format
@@ -2671,15 +2582,14 @@ msgid "Destination of Images"
 msgstr "影像的目的地"
 
 #: ImportExport/ImportDialog.cpp:225
-#, fuzzy, kde-format
-#| msgid "The directory must be a subdirectory of %1"
+#, kde-format
 msgid "The folder must be a subfolder of %1"
-msgstr "目錄必須是 %1 的子目錄"
+msgstr "資料夾必須是 %1 的子資料夾"
 
 #: ImportExport/ImportDialog.cpp:228
 #, kde-format
 msgid "This folder is reserved for category images."
-msgstr ""
+msgstr "這個資料夾已保留給類別影像使用。"
 
 #: ImportExport/ImportDialog.cpp:268
 #, kde-format
@@ -2687,17 +2597,15 @@ msgid "Match Categories"
 msgstr "比對類別"
 
 #: ImportExport/ImportDialog.cpp:300
-#, fuzzy, kde-format
-#| msgid "Directory %1 does not exist. Should it be created?"
+#, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
-msgstr "目錄 %1 不存在。要建立嗎？"
+msgstr "資料夾 %1 不存在。要建立它嗎？"
 
 #: ImportExport/ImportDialog.cpp:301 MainWindow/WelcomeDialog.cpp:157
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "基礎目錄："
+msgstr "建立資料夾？"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1200
@@ -2707,10 +2615,9 @@ msgid "Create"
 msgstr "建立"
 
 #: ImportExport/ImportDialog.cpp:311
-#, fuzzy, kde-format
-#| msgid "Error creating zip file %1"
+#, kde-format
 msgid "Error creating folder %1"
-msgstr "建立 zip 檔 %1 時發生錯誤"
+msgstr "建立資料夾 %1 時發生錯誤"
 
 #: ImportExport/ImportDialog.cpp:390
 #, kde-format
@@ -2745,8 +2652,7 @@ msgid "Copy failed"
 msgstr "複製失敗"
 
 #: ImportExport/ImportHandler.cpp:241
-#, fuzzy, kde-format
-#| msgid "Continue without Asking"
+#, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "繼續，不要詢問"
@@ -2911,12 +2817,12 @@ msgstr "程式開發"
 #: kpa-thumbnailtool/main.cpp:58 main.cpp:99
 #, kde-format
 msgid "Tobias Leupold"
-msgstr ""
+msgstr "Tobias Leupold"
 
 #: kpa-thumbnailtool/main.cpp:58 main.cpp:99
 #, kde-format
 msgid "Development, Releases, Website"
-msgstr ""
+msgstr "開發、版本釋出、網站"
 
 #: kpa-thumbnailtool/main.cpp:59 main.cpp:100
 #, kde-format
@@ -2926,7 +2832,7 @@ msgstr "Jesper K. Pedersen"
 #: kpa-thumbnailtool/main.cpp:59 main.cpp:100
 #, kde-format
 msgid "Former Maintainer, Project Creator"
-msgstr ""
+msgstr "前任維護者、專案建立者"
 
 #: kpa-thumbnailtool/main.cpp:61 main.cpp:102
 #, kde-format
@@ -2959,29 +2865,28 @@ msgid "Henner Zeller"
 msgstr "Henner Zeller"
 
 #: kpa-thumbnailtool/main.cpp:70
-#, fuzzy, kde-format
-#| msgid "The directory must be a subdirectory of %1"
+#, kde-format
 msgctxt "@info:shell"
 msgid "The folder containing the .thumbnail folder."
-msgstr "目錄必須是 %1 的子目錄"
+msgstr "包含 .thumbnail 資料夾的上層資料夾。"
 
 #: kpa-thumbnailtool/main.cpp:71
 #, kde-format
 msgctxt "@info:shell"
 msgid "Print information about thumbnail cache."
-msgstr ""
+msgstr "列印關於縮圖快取的資訊。"
 
 #: kpa-thumbnailtool/main.cpp:73
 #, kde-format
 msgctxt "@info:shell"
 msgid "Convert thumbnailindex to format suitable for KPhotoAlbum >= 4.3."
-msgstr ""
+msgstr "將縮圖索引轉換為適合 KPhotoAlbum >= 4.3 的格式。"
 
 #: kpa-thumbnailtool/main.cpp:75
 #, kde-format
 msgctxt "@info:shell"
 msgid "Check thumbnail cache for consistency of thumbnail dimensions."
-msgstr ""
+msgstr "檢查縮圖快取的縮圖尺寸是否一致。"
 
 #: kpa-thumbnailtool/main.cpp:77
 #, kde-format
@@ -2990,12 +2895,13 @@ msgid ""
 "Fix inconsistent thumbnails by removing them from the cache (requires --"
 "check-thumbnail-dimensions)."
 msgstr ""
+"修正不一致的縮圖，將它們從快取移除（需要 --check-thumbnail-dimensions）。"
 
 #: kpa-thumbnailtool/main.cpp:79
 #, kde-format
 msgctxt "@info:shell"
 msgid "Remove unreferenced thumbnails from the thumbnail data files."
-msgstr ""
+msgstr "從縮圖資料檔案中移除未參照的縮圖。"
 
 #: kpa-thumbnailtool/main.cpp:81
 #, kde-format
@@ -3007,41 +2913,37 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Missing argument!\n"
-msgstr ""
+msgstr "缺乏參數！\n"
 
 #: kpa-thumbnailtool/main.cpp:102
-#, fuzzy, kde-format
-#| msgid "%1 exists, but is not a directory"
+#, kde-format
 msgctxt "@info:shell"
 msgid "%1 is not a folder!\n"
-msgstr "%1 已存在，但不是目錄"
+msgstr "%1 不是資料夾！\n"
 
 #: kpa-thumbnailtool/main.cpp:116
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1'."
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail cache folder: %1\n"
-msgstr "無法建立目錄 %1。"
+msgstr "縮圖快取資料夾：%1\n"
 
 #: kpa-thumbnailtool/main.cpp:117
-#, fuzzy, kde-format
-#| msgid "Thumbnail image size:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index file version: %1\n"
-msgstr "縮圖影像大小："
+msgstr "縮圖索引檔版本：%1\n"
 
 #: kpa-thumbnailtool/main.cpp:118
 #, kde-format
 msgctxt "@info:shell"
 msgid "Maximum supported thumbnailindex file version: %1\n"
-msgstr ""
+msgstr "最大支援的縮圖索引檔版本：%1\n"
 
 #: kpa-thumbnailtool/main.cpp:119
-#, fuzzy, kde-format
-#| msgid "Thumbnail image size:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail storage dimensions: %1 pixels\n"
-msgstr "縮圖影像大小："
+msgstr "縮圖儲存尺寸：%1 像素\n"
 
 #: kpa-thumbnailtool/main.cpp:121
 #, kde-format
@@ -3049,40 +2951,38 @@ msgctxt "@info:shell"
 msgid ""
 "Note: Thumbnail storage dimensions are defined in the configuration file "
 "prior to v5.\n"
-msgstr ""
+msgstr "註：縮圖儲存尺寸在 v5 之前是在設定檔案中所定義的。\n"
 
 #: kpa-thumbnailtool/main.cpp:123
-#, fuzzy, kde-format
-#| msgid "Number of columns:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Number of thumbnails: %1\n"
-msgstr "欄數："
+msgstr "縮圖數量：%1\n"
 
 #: kpa-thumbnailtool/main.cpp:129
-#, fuzzy, kde-format
-#| msgid "No duplicates found"
+#, kde-format
 msgctxt "@info:shell"
 msgid "No inconsistencies found.\n"
-msgstr "找不到重複"
+msgstr "沒有發現不一致。\n"
 
 #: kpa-thumbnailtool/main.cpp:133
 #, kde-format
 msgctxt "@info:shell This line is printed before a list of file names."
 msgid "The following thumbnails appear to have incorrect sizes:\n"
-msgstr ""
+msgstr "以下縮圖的尺寸似乎不正確：\n"
 
 #: kpa-thumbnailtool/main.cpp:142
 #, kde-format
 msgctxt "@info:shell"
 msgid "Removed 1 inconsistent thumbnail from the database.\n"
 msgid_plural "Removed %1 inconsistent thumbnails from the database.\n"
-msgstr[0] ""
+msgstr[0] "從資料庫移除了 %1 個不一致的縮圖。\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:20
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not open file `thumbnailindex`!\n"
-msgstr ""
+msgstr "無法開啟 `thumbnailindex` 檔案（縮圖索引檔）！\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:21
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:27
@@ -3091,44 +2991,43 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index was not changed.\n"
-msgstr ""
+msgstr "未變更縮圖索引。\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:26
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not open temporary file for writing!\n"
-msgstr ""
+msgstr "無法開啟暫存檔供寫入！\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:35
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not back up file `thumbnailindex`!\n"
-msgstr ""
+msgstr "無法備份 `thumbnailindex` 檔案（縮圖索引檔）！\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:40
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not copy temporary thumbnail index file to final location!\n"
-msgstr ""
+msgstr "無法將暫時建立的縮圖索引檔複製到最終位置！\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:41
 #, kde-format
 msgctxt "@info:shell"
 msgid "Error message was: %1\n"
-msgstr ""
+msgstr "錯誤訊息是：%1\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:55
-#, fuzzy, kde-format
-#| msgid "Thumbnail image size:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
-msgstr "縮圖影像大小："
+msgstr "縮圖索引不是第 5 版的檔案！\n"
 
 #. i18n: ectx: Menu (view)
 #: kphotoalbumui.rc:33
 #, kde-format
 msgid "&View"
-msgstr "檢視(&V))"
+msgstr "檢視(&V)"
 
 #. i18n: ectx: Menu (privacy)
 #: kphotoalbumui.rc:48
@@ -3201,10 +3100,9 @@ msgstr ""
 "的指令為：<br/>%1</p> <p>得到的錯誤訊息為：<br/>%2</p>"
 
 #: lib/kpaexif/Database.cpp:188
-#, fuzzy, kde-format
-#| msgid "Converting database"
+#, kde-format
 msgid "Error in Exif database"
-msgstr "轉換資料庫"
+msgstr "Exif 資料庫中有錯誤"
 
 #: lib/kpaexif/Database.cpp:209
 #, fuzzy, kde-format
@@ -3229,6 +3127,8 @@ msgid ""
 "<p>The Exif search database is corrupted and has no data.</p> <p>To fix this "
 "problem run Maintenance->Recreate Exif Search database.</p>"
 msgstr ""
+"<p>Exif 搜尋資料庫已毀損而沒有資料。</p><p>要修正此問題請執行維護→重建 Exif "
+"搜尋資料庫。</p>"
 
 #: main.cpp:84
 #, kde-format
@@ -3308,13 +3208,11 @@ msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
 #: main.cpp:138
-#, fuzzy, kde-format
-#| msgid ""
-#| "Numerous patches for lots of bugs plus patches for a few new features"
+#, kde-format
 msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
-msgstr "修正許多錯誤，以及提供一些新功能"
+msgstr "修正許多錯誤，以及一些新功能"
 
 #: main.cpp:143
 #, kde-format
@@ -3324,7 +3222,7 @@ msgstr "Teemu Rytilahti"
 #: main.cpp:144
 #, kde-format
 msgid "Theme support for HTML generation"
-msgstr ""
+msgstr "HTML 生成的主題支援"
 
 #: main.cpp:148
 #, kde-format
@@ -3332,14 +3230,13 @@ msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
 #: main.cpp:149
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch to sort images in the thumbnail view, plus reading time info out of "
-#| "EXIF images for existing images"
+#, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
-msgstr "在縮圖檢視中的排序功能，還有從 EXIF 影像中讀取時間資訊"
+msgstr ""
+"在縮圖檢視中排序影像的功能，\n"
+"還有從 Exif 影像中讀取時間資訊"
 
 #: main.cpp:154
 #, kde-format
@@ -3445,27 +3342,24 @@ msgid "Make Category Image"
 msgstr "建立類別影像"
 
 #: MainWindow/CopyLinkEngine.cpp:39
-#, fuzzy, kde-format
-#| msgid "Export/Copy Images..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "匯出/複製影像..."
+msgstr[0] "複製影像到 ..."
 
 #: MainWindow/CopyLinkEngine.cpp:42
-#, fuzzy, kde-format
-#| msgid "Export/Copy Images..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] "匯出/複製影像..."
+msgstr[0] "連結影像到 ..."
 
 #: MainWindow/DeleteDialog.cpp:24
-#, fuzzy, kde-format
-#| msgid "Removing items"
+#, kde-format
 msgctxt "@title:window"
 msgid "Removing Items"
-msgstr "移除項目"
+msgstr "移除項目中"
 
 #: MainWindow/DeleteDialog.cpp:64
 #, kde-format
@@ -3507,10 +3401,9 @@ msgid "Merge these images"
 msgstr "合併這些影像"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:57
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select image to keep:"
-msgstr "選擇目標："
+msgstr "選擇要保留的影像："
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:72
 #, kde-format
@@ -3595,16 +3488,15 @@ msgid "Invoke External Program"
 msgstr "啟動外部程式"
 
 #: MainWindow/FeatureDialog.cpp:55
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum Feature Status"
+#, kde-format
 msgctxt "@title:window"
 msgid "Feature Status"
-msgstr "KPhotoAlbum 功能狀態"
+msgstr "功能狀態"
 
 #: MainWindow/FeatureDialog.cpp:59
 #, kde-format
 msgid "<h1>Overview</h1><p>Optional features in KPhotoAlbum:</p>%1"
-msgstr ""
+msgstr "<h1>總覽</h1><p>KPhotoAlbum 的可選功能：</p>%1"
 
 #: MainWindow/FeatureDialog.cpp:65
 #, kde-format
@@ -3619,6 +3511,13 @@ msgid ""
 "from the package manager or an app store, you can file a bug report with the "
 "supplier of the package.</>"
 msgstr ""
+"<h1>編譯時期功能</h1><p>編譯時期功能是編譯 KPhotoAlbum 的時候才能啟用的可選功"
+"能。</p><p>如果您自己編譯 KPhotoAlbum，缺乏什麼功能的時候請查看<a href="
+"\"https://community.kde.org/KPhotoAlbum/build_instructions\">編譯說明</a>。在"
+"編譯 KPhotoAlbum 上如果您需要幫助，可以到 <a href=\"https://mail.kde.org/cgi-"
+"bin/mailman/listinfo/kphotoalbum\">KPhotoAlbum 的郵件論壇</a>上問問題。</"
+"p><p>如果您是從軟體包管理員或是應用程式商店安裝 KPhotoAlbum 的，可以向軟體包"
+"提供者回報問題。</p>"
 
 #: MainWindow/FeatureDialog.cpp:79
 #, kde-format
@@ -3627,6 +3526,8 @@ msgid ""
 "supports the <em>Purpose</em> plugin system which is part of KDE Frameworks."
 "</p>"
 msgstr ""
+"<h2><a name=\"purpose\">Purpose 外掛程式支援</a></h2><p>KPhotoAlbum 支援 "
+"<em>Purpose</em> 外掛程式系統，它是 KDE Frameworks 的一部分。</p>"
 
 #: MainWindow/FeatureDialog.cpp:83
 #, kde-format
@@ -3635,6 +3536,9 @@ msgid ""
 "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
 "images with GPS information on a map.</p>"
 msgstr ""
+"<h2><a name=\"geomap\">含有地理位置標籤影像用的地圖檢視</a></h2><p>如果 "
+"KPhotoAlbum 編譯時有包含 Marble 的支援，KPhotoAlbum 將能利用地圖顯示包含 GPS "
+"資訊的影像。</p>"
 
 #: MainWindow/FeatureDialog.cpp:88
 #, kde-format
@@ -3643,23 +3547,20 @@ msgid ""
 "depend on another package or program being available during runtime. I.e. "
 "you can enable these features by installing the right package.</p>"
 msgstr ""
+"<h1>執行時期功能</h1><p>執行時期功能是依賴執行時另一個軟體包或程式的存在的可"
+"選功能。也就是說，只要正確軟體有安裝，這些功能就能被啟用。</p>"
 
 #: MainWindow/FeatureDialog.cpp:94
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"database\">SQL database support</a></h1><p>KPhotoAlbum "
-#| "allows you to search using a certain number of EXIF tags. For this "
-#| "KPhotoAlbum needs an Sqlite database. In addition the qt package for "
-#| "sqlite (e.g.qt-sql-sqlite) must be installed.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"database\">SQLite database support</a></h2><p>KPhotoAlbum "
 "allows you to search using a certain number of Exif tags.</p><p>This feature "
 "is only available if the Qt SQLite driver is installed. On Debian-based "
 "distributions this package is usually called libqt6sql6-sqlite.</p>"
 msgstr ""
-"<h1><a name=\"database\">SQL 資料庫支援</a></h1> <p>KPhotoAlbum 允許您用特定"
-"數量的 EXIF 標籤來搜尋。此時 KPhotoALbum 需要一個 Sqlite 資料庫。此外需要安"
-"裝 Qt 的 sqlite 支援軟體包（qt-sql-sqlite）。</p>"
+"<h2><a name=\"database\">SQLite 資料庫支援</a></h2><p>KPhotoAlbum 讓您能夠用"
+"一些 Exif 標籤進行搜尋。</p><p>這個功能需要 Qt SQLite 驅動有安裝才能使用。在"
+"基於 Debian 的系統上通常它是由叫做 libqt6sql6-sqlite 的軟體包所提供的。</p>"
 
 #: MainWindow/FeatureDialog.cpp:102
 #, kde-format
@@ -3675,36 +3576,41 @@ msgid ""
 "p><p>This feature is only available if ffprobe is installed. Usually, "
 "ffprobe is also part of the FFmpeg package.</p>"
 msgstr ""
+"<h2><a name=\"video\">影片支援</a></h2><p>KPhotoAlbum 依賴 phonon 或 VLC 來顯"
+"示影片</p><h2><a name=\"videoPreview\">影片縮圖支援</a></h2><p>KPhotoAlbum 能"
+"夠使用<tt>ffmpeg</tt> 來從影片取出縮圖。這些縮圖在縮圖檢視器當中用來預覽影"
+"片。</p><p>這個功能只有在 FFmpeg 有安裝的時候才能使用。</p><h2><a name="
+"\"videoInfo\">影片中繼資料支援</a></h2><p>KPhotoAlbum 可以使用 <tt>ffprobe</"
+"tt> 來從影片取得長度資訊。有了正確的長度資訊才有辦法正確繪製影片縮圖。</p><p>"
+"這個功能只有在 ffprobe 有安裝的時候才能使用。通常 ffprobe 會跟著 FFmpeg 一起"
+"安裝。</p>"
 
 #: MainWindow/FeatureDialog.cpp:135
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Purpose plugin support"
-msgstr ""
+msgstr "Purpose 外掛程式支援"
 
 #: MainWindow/FeatureDialog.cpp:138
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Map view for geotagged images."
-msgstr ""
+msgstr "含有地理位置標籤影像用的地圖檢視。"
 
 #: MainWindow/FeatureDialog.cpp:141
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "SQLite database support"
-msgstr "影片中繼資料支援"
+msgstr "SQLite 資料庫支援"
 
 #: MainWindow/FeatureDialog.cpp:144
-#, fuzzy, kde-format
-#| msgid "Video thumbnail support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
 msgstr "影片縮圖支援"
 
 #: MainWindow/FeatureDialog.cpp:147
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video metadata support"
 msgstr "影片中繼資料支援"
@@ -3784,8 +3690,7 @@ msgid "<h1>Here you may see the date changes for the displayed items.</h1>"
 msgstr "<h1>您可以在這裡看到顯示項目的日期變更。</h1>"
 
 #: MainWindow/InvalidDateFinder.cpp:88
-#, fuzzy, kde-format
-#| msgid "Reading file properties"
+#, kde-format
 msgctxt "@title:window"
 msgid "Reading File Properties"
 msgstr "讀取檔案屬性"
@@ -3796,71 +3701,68 @@ msgid ""
 "Use <databaseFile> instead of the default. Deprecated - use '--db "
 "<databaseFile>' instead."
 msgstr ""
+"使用 <databaseFile> 而非預設資料庫檔案。已棄用 — 請改用 '--db "
+"<databaseFile>'。"
 
 #: MainWindow/Options.cpp:27 MainWindow/Options.cpp:37
-#, fuzzy, kde-format
-#| msgid "Database file:"
+#, kde-format
 msgid "databaseFile"
-msgstr "資料庫檔案："
+msgstr "databaseFile"
 
 #: MainWindow/Options.cpp:31
 #, kde-format
 msgid "Application rc file."
-msgstr ""
+msgstr "應用程式 rc 設定檔案。"
 
 #: MainWindow/Options.cpp:32
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "kphotoalbumrc"
-msgstr "KPhotoAlbum"
+msgstr "kphotoalbumrc"
 
 #: MainWindow/Options.cpp:36
 #, kde-format
 msgid "Use <databaseFile> instead of the default."
-msgstr ""
+msgstr "使用 <databaseFile> 而非預設資料庫檔案"
 
 #: MainWindow/Options.cpp:39
-#, fuzzy, kde-format
-#| msgid "Starts KPhotoAlbum with a prebuilt set of demo images"
+#, kde-format
 msgid "Starts KPhotoAlbum with a prebuilt set of demo images."
-msgstr "啟動 KPhotoAlbum 時加入預先建置好的範例圖片"
+msgstr "啟動 KPhotoAlbum 時加入預先建置好的範例圖片。"
 
 #: MainWindow/Options.cpp:42
-#, fuzzy, kde-format
-#| msgid "Import file"
+#, kde-format
 msgid "Import file."
-msgstr "匯入檔案"
+msgstr "匯入檔。"
 
 #: MainWindow/Options.cpp:43
 #, kde-format
 msgid "file.kim"
-msgstr ""
+msgstr "file.kim"
 
 #: MainWindow/Options.cpp:50
 #, kde-format
 msgid "Listen for network connections."
-msgstr ""
+msgstr "聽候網路連線。"
 
 #: MainWindow/Options.cpp:54
 #, kde-format
 msgid "Listen for network connections on address <interface_address>."
-msgstr ""
+msgstr "在位址 <interface_address> 上聽候網路連線。"
 
 #: MainWindow/Options.cpp:55
 #, kde-format
 msgid "interface_address"
-msgstr ""
+msgstr "interface_address"
 
 #: MainWindow/Options.cpp:58
 #, kde-format
 msgid "Save the database and immediately quit after showing the main window."
-msgstr ""
+msgstr "儲存資料庫並在顯示主視窗之後馬上退出。"
 
 #: MainWindow/Options.cpp:59
-#, fuzzy, kde-format
-#| msgid "Search for new images and videos on startup"
+#, kde-format
 msgid "Search for new images on startup."
-msgstr "啟動時搜尋新影像與影片"
+msgstr "啟動時搜尋新影像。"
 
 #: MainWindow/RunDialog.cpp:32
 #, no-c-format, kde-format
@@ -3901,20 +3803,16 @@ msgid "%each"
 msgstr "%each"
 
 #: MainWindow/SearchBar.cpp:20
-#, fuzzy, kde-format
-#| msgctxt "@title:window title of the 'find images' window"
-#| msgid "Search"
+#, kde-format
 msgctxt "Name/title of the search bar toolbar widget"
 msgid "Search Bar"
-msgstr "搜尋"
+msgstr "搜尋列"
 
 #: MainWindow/SearchBar.cpp:25
-#, fuzzy, kde-format
-#| msgctxt "@title:window title of the 'find images' window"
-#| msgid "Search"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Search ..."
-msgstr "搜尋"
+msgstr "搜尋…"
 
 #: MainWindow/StatisticsDialog.cpp:35
 #, kde-format
@@ -4006,10 +3904,9 @@ msgid "Total"
 msgstr "總計"
 
 #: MainWindow/StatusBar.cpp:104
-#, fuzzy, kde-format
-#| msgid "Thumbnail size:"
+#, kde-format
 msgid "Thumbnail settings..."
-msgstr "縮圖大小："
+msgstr "縮圖設定…"
 
 #: MainWindow/TokenEditor.cpp:36
 #, kde-format
@@ -4097,22 +3994,19 @@ msgid "Image/Video root folder: "
 msgstr "影像/影片根資料夾："
 
 #: MainWindow/WelcomeDialog.cpp:156
-#, fuzzy, kde-format
-#| msgid "Directory does not exist, create it?"
+#, kde-format
 msgid "Folder does not exist, create it?"
-msgstr "目錄不存在，要建立嗎？"
+msgstr "資料夾不存在，要建立它嗎？"
 
 #: MainWindow/WelcomeDialog.cpp:166
-#, fuzzy, kde-format
-#| msgid "Could not create file '%1'."
+#, kde-format
 msgid "Could not create folder %1"
-msgstr "無法建立檔案 %1。"
+msgstr "無法建立資料夾 %1"
 
 #: MainWindow/WelcomeDialog.cpp:171
-#, fuzzy, kde-format
-#| msgid "%1 exists, but is not a directory"
+#, kde-format
 msgid "%1 exists, but is not a folder"
-msgstr "%1 已存在，但不是目錄"
+msgstr "%1 已存在，但不是資料夾"
 
 #: MainWindow/WelcomeDialog.cpp:187
 #, fuzzy, kde-format
@@ -4167,8 +4061,7 @@ msgstr ""
 "要再試試範例，您可能需要保存它。</p>"
 
 #: MainWindow/Window.cpp:325
-#, fuzzy, kde-format
-#| msgid "Delete Demo Database"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "刪除範例資料庫"
@@ -4179,11 +4072,10 @@ msgid "Do you want to save the changes?"
 msgstr "您要儲存變更嗎？"
 
 #: MainWindow/Window.cpp:342
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
-msgstr "儲存更改嗎？"
+msgstr "是否儲存變更？"
 
 #: MainWindow/Window.cpp:400
 #, kde-format
@@ -4412,12 +4304,12 @@ msgstr "在縮圖視窗中顯示文字標籤"
 #: MainWindow/Window.cpp:963
 #, kde-format
 msgid "Show Categories in Thumbnails Window"
-msgstr "在縮圖視窗中顯示分類"
+msgstr "在縮圖視窗中顯示類別"
 
 #: MainWindow/Window.cpp:980
 #, kde-format
 msgid "Choose Color Scheme"
-msgstr ""
+msgstr "選擇配色方案"
 
 #: MainWindow/Window.cpp:987
 #, kde-format
@@ -4480,7 +4372,7 @@ msgstr "統計"
 #: MainWindow/Window.cpp:1022
 #, kde-format
 msgid "Mark As Untagged"
-msgstr ""
+msgstr "標記為無標籤"
 
 #: MainWindow/Window.cpp:1032
 #, kde-format
@@ -4519,18 +4411,16 @@ msgid "Use previous video thumbnail"
 msgstr "使用前一個影片縮圖"
 
 #: MainWindow/Window.cpp:1060 MainWindow/Window.cpp:1293
-#, fuzzy, kde-format
-#| msgid "Export/Copy Images..."
+#, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "匯出/複製影像..."
+msgstr[0] "複製影像到 ..."
 
 #: MainWindow/Window.cpp:1064 MainWindow/Window.cpp:1297
-#, fuzzy, kde-format
-#| msgid "Export/Copy Images..."
+#, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] "匯出/複製影像..."
+msgstr[0] "連結影像到 ..."
 
 #: MainWindow/Window.cpp:1088
 #, kde-format
@@ -4545,14 +4435,13 @@ msgstr "自動儲存... 完成"
 #: MainWindow/Window.cpp:1193
 #, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
-msgstr ""
+msgstr "<p>您要建立這個資料庫檔案嗎？<br />%1</p>"
 
 #: MainWindow/Window.cpp:1196
-#, fuzzy, kde-format
-#| msgid "Create My Own Database..."
+#, kde-format
 msgctxt "@title"
 msgid "Create database"
-msgstr "建立我的資料庫..."
+msgstr "建立資料庫"
 
 #: MainWindow/Window.cpp:1238
 #, kde-format
@@ -4562,6 +4451,9 @@ msgid ""
 "untagged tag setting under <interface>Settings|Configure KPhotoAlbum...|"
 "Categories</interface></p>"
 msgstr ""
+"<p>您已設定了無標籤影像要用的標籤，但該標籤本身或是它的類別不存在於資料庫內。"
+"</p><p>請到 <interface>設定|設定 KPhotoAlbum…|類別</interface> 檢查您的無標籤"
+"影像標籤設定值</p>"
 
 #: MainWindow/Window.cpp:1364 Settings/SettingsDialog.cpp:46
 #, kde-format
@@ -4600,7 +4492,7 @@ msgstr "<p>確定要重新開啟先前您選擇不要再顯示的訊息嗎？</p
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
-msgstr ""
+msgstr "重設對話框隱藏狀態"
 
 #: MainWindow/Window.cpp:1542
 #, kde-format
@@ -4625,32 +4517,29 @@ msgstr "內部錯誤"
 #: MainWindow/Window.cpp:1553
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
-msgstr ""
+msgstr "成功分享影像。正在複製位置到剪貼簿…"
 
 #: MainWindow/Window.cpp:1556
 #, kde-format
 msgid "Successfully shared image(s)."
-msgstr ""
+msgstr "成功分享影像。"
 
 #: MainWindow/Window.cpp:1561
 #, kde-format
 msgid "Image sharing failed with message: %1"
-msgstr ""
+msgstr "影像分享失敗，錯誤訊息：%1"
 
 #: MainWindow/Window.cpp:1612
 #, kde-format
 msgid "Open List of Files"
-msgstr "開啟檔案清單"
+msgstr "開啟多個檔案"
 
 #: MainWindow/Window.cpp:1613
-#, fuzzy, kde-format
-#| msgid ""
-#| "You can open a set of files from KPhotoAlbum's image root by listing the "
-#| "files here."
+#, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
-msgstr "您可以在此列出檔案，一次從 KPhotoAlbum 的影像集中開啟許多檔案。"
+msgstr "您可以在此列出檔案來一次開啟許多位於 KPhotoAlbum 資料庫中的檔案。"
 
 #: MainWindow/Window.cpp:1627
 #, kde-format
@@ -4691,8 +4580,7 @@ msgid "Video thumbnails are not available"
 msgstr "無法使用影片縮圖"
 
 #: Map/GeoCluster.cpp:137
-#, fuzzy, kde-format
-#| msgid "%1"
+#, kde-format
 msgctxt "The number of images in an area of the map"
 msgid "%1"
 msgstr "%1"
@@ -4700,16 +4588,15 @@ msgstr "%1"
 #: Map/MapView.cpp:168
 #, kde-format
 msgid "Save the current map settings"
-msgstr ""
+msgstr "儲存目前的地圖設定"
 
 #: Map/MapView.cpp:175
 #, kde-format
 msgid "Go to last map position"
-msgstr ""
+msgstr "前往上次的地圖位置"
 
 #: Map/MapView.cpp:182
-#, fuzzy, kde-format
-#| msgid "Show Thumbnails"
+#, kde-format
 msgid "Show thumbnails"
 msgstr "顯示縮圖"
 
@@ -4717,21 +4604,21 @@ msgstr "顯示縮圖"
 #, kde-format
 msgctxt "@action to group, as in aggregate thumbnails into clusters"
 msgid "Group adjacent thumbnails into clickable clusters"
-msgstr ""
+msgstr "將位於附近的縮圖合併成可以點擊的按鈕"
 
 #: Map/MapView.cpp:203
 #, kde-format
 msgctxt ""
 "@action Decrease size of the markers (i.e. thumbnails) drawn on the map"
 msgid "Decrease marker size"
-msgstr ""
+msgstr "降低標記尺寸"
 
 #: Map/MapView.cpp:210
 #, kde-format
 msgctxt ""
 "@action Increase size of the markers (i.e. thumbnails) drawn on the map"
 msgid "Increase marker size"
-msgstr ""
+msgstr "提高標記尺寸"
 
 #: Map/MapView.cpp:360
 #, kde-format
@@ -4739,37 +4626,35 @@ msgid "Map view"
 msgstr "地圖檢視"
 
 #: Map/MapView.cpp:387
-#, fuzzy, kde-format
-#| msgid "Loading information from images"
+#, kde-format
 msgid "<i>Loading coordinates from the images ...</i>"
-msgstr "從影像載入資訊"
+msgstr "<i>正在從影像載入座標…</i>"
 
 #: Map/MapView.cpp:403
 #, kde-format
 msgid "<i>This image does not contain geographic coordinates.</i>"
-msgstr ""
+msgstr "<i>這張影像不包含地理座標。</i>"
 
 #: Map/MapView.cpp:411
 #, kde-format
 msgid ""
 "<i>Some of the selected images do not contain geographic coordinates.</i>"
-msgstr ""
+msgstr "<i>某些所選影像不包含地理座標。</i>"
 
 #: Map/MapView.cpp:421
 #, kde-format
 msgid "<i>Search for geographic coordinates.</i>"
-msgstr ""
+msgstr "<i>搜尋地理座標。</i>"
 
 #: Map/MapView.cpp:429
 #, kde-format
 msgid "<i>None of the selected images contain geographic coordinates.</i>"
-msgstr ""
+msgstr "<i>所選影像都不包含地理座標。</i>"
 
 #: Plugins/PurposeMenu.cpp:37
-#, fuzzy, kde-format
-#| msgid "Sharpness"
+#, kde-format
 msgid "Share"
-msgstr "尖銳"
+msgstr "分享"
 
 #: RemoteControl/ConnectionIndicator.cpp:30
 #, kde-format
@@ -4782,6 +4667,11 @@ msgid ""
 "android device's address.\n"
 "The android client can be downloaded from google play."
 msgstr ""
+"這個圖示顯示 KPhotoAlbum 是否已與 Android 裝置連線。\n"
+"點擊圖示來切換是否在本地網路聆聽其他用戶端。\n"
+"如果本地網路不允許廣播封包讓 Android 用戶端與 KPhotoAlbum 能發現彼此，還是可"
+"以右鍵點擊圖示指定 Android 裝置的位址來連線。\n"
+"Android 用戶端可從 Google Play 商店下載。"
 
 #: RemoteControl/ConnectionIndicator.cpp:90
 #, fuzzy, kde-format
@@ -4792,7 +4682,7 @@ msgstr "伺服器位址："
 #: RemoteControl/Server.cpp:32
 #, kde-format
 msgid "Unable to bind to socket"
-msgstr ""
+msgstr "無法綁定 socket"
 
 #: RemoteControl/Server.cpp:33
 #, kde-format
@@ -4800,12 +4690,13 @@ msgid ""
 "Unable to listen for remote Android connections. This is likely because you "
 "have another KPhotoAlbum application running."
 msgstr ""
+"無法聽候遠端 Android 連線。通常這是因為您有另一個 KPhotoAlbum 的實體在執行"
+"中。"
 
 #: RemoteControl/Server.cpp:67
-#, fuzzy, kde-format
-#| msgid "Invalid driver."
+#, kde-format
 msgid "Invalid Version"
-msgstr "不合法的驅動程式："
+msgstr "無效版本"
 
 #: RemoteControl/Server.cpp:68
 #, kde-format
@@ -4814,27 +4705,27 @@ msgid ""
 "Desktop protocol version: %1\n"
 "Remote Control protocol version: %2"
 msgstr ""
+"遠端用戶端與桌面上的 KPhotoAlbum 版本不符。\n"
+"桌面協定版本：%1\n"
+"遠端控制協定版本：%2"
 
 #: Settings/BirthdayPage.cpp:59
-#, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Filters"
+#, kde-format
 msgctxt "@label:textedit"
 msgid "Filter ... (%1)"
-msgstr "過濾器"
+msgstr "過濾… (%1)"
 
 #: Settings/BirthdayPage.cpp:93
-#, fuzzy, kde-format
-#| msgid "Remove Tokens"
+#, kde-format
 msgid "Remove birthday"
-msgstr "移除標記"
+msgstr "移除生日"
 
 #: Settings/BirthdayPage.cpp:99
 #, kde-format
 msgid ""
 "Set the date of birth for items (say people) here, and then see their age "
 "when viewing the images."
-msgstr ""
+msgstr "在此設定人物或其他項目的生日，之後檢視影像時即可看到其年齡。"
 
 #: Settings/BirthdayPage.cpp:157
 #, kde-format
@@ -4852,16 +4743,14 @@ msgid "Birthday of %1:"
 msgstr "%1 的生日："
 
 #: Settings/BirthdayPage.cpp:233
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Annotate..."
+#, kde-format
 msgid "Enter a date..."
-msgstr "註記....."
+msgstr "輸入日期…"
 
 #: Settings/BirthdayPage.cpp:297
 #, kde-format
 msgid "<i>Select an item on the left to edit the birthday</i>"
-msgstr ""
+msgstr "<i>從左側選擇項目來編輯其生日</i>"
 
 #: Settings/CategoryPage.cpp:49
 #, fuzzy, kde-format
@@ -4883,7 +4772,7 @@ msgstr "重新命名..."
 #: Settings/CategoryPage.cpp:111
 #, kde-format
 msgid "Positionable tags:"
-msgstr ""
+msgstr "可定位標籤"
 
 #: Settings/CategoryPage.cpp:113
 #, kde-format
@@ -4891,6 +4780,8 @@ msgid ""
 "Tags in this category can be\n"
 "associated with areas within images"
 msgstr ""
+"這個類別內的標籤可以\n"
+"附加到影像的區域上"
 
 #: Settings/CategoryPage.cpp:120
 #, kde-format
@@ -4936,16 +4827,14 @@ msgid "Save the DB now"
 msgstr "現在儲存資料庫"
 
 #: Settings/CategoryPage.cpp:206
-#, fuzzy, kde-format
-#| msgctxt "Basically 'enter a category name'"
-#| msgid "<b>Setting Category: </b>"
+#, kde-format
 msgid "Settings for category <b>%1</b>"
-msgstr "<b>設定類別：</b>"
+msgstr "類別 <b>%1</b> 的設定"
 
 #: Settings/CategoryPage.cpp:209
 #, kde-format
 msgid "<i>Pending change: rename to \"%1\"</i>"
-msgstr ""
+msgstr "<i>待處理變更：重新命名為「%1」</i>"
 
 #: Settings/CategoryPage.cpp:263
 #, kde-format
@@ -4954,12 +4843,13 @@ msgid ""
 "special category name which is reserved and can't be used for a normal "
 "category.</p>"
 msgstr ""
+"<p>無法將類別「%1」重新命名為「%2」：</p><p>「%2」是一個特殊的類別名稱，保留"
+"做其他用途，不能用為普通類別的名稱。</p>"
 
 #: Settings/CategoryPage.cpp:267 Settings/CategoryPage.cpp:278
-#, fuzzy, kde-format
-#| msgid "Invalid driver."
+#, kde-format
 msgid "Invalid category name"
-msgstr "不合法的驅動程式："
+msgstr "無效類別名稱"
 
 #: Settings/CategoryPage.cpp:275
 #, kde-format
@@ -4967,6 +4857,7 @@ msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>A category with "
 "this name already exists.</p>"
 msgstr ""
+"<p>無法將類別「%1」重新命名為「%2」：</p><p>名為「%2」的類別已經存在。</p>"
 
 #: Settings/CategoryPage.cpp:292
 #, kde-format
@@ -4975,11 +4866,13 @@ msgid ""
 "pending rename action on the category \"%2\". Please save this change first."
 "</p>"
 msgstr ""
+"<p>無法將類別「%1」重新命名為「%2」：</p><p>「%2」有待處理的重新命名操作。請"
+"先儲存變更。</p>"
 
 #: Settings/CategoryPage.cpp:296
 #, kde-format
 msgid "Unsaved pending renaming action"
-msgstr ""
+msgstr "待處理而未儲存的重新命名操作"
 
 #: Settings/CategoryPage.cpp:327
 #, kde-format
@@ -4987,34 +4880,34 @@ msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
 "linked against this category will be discarded!</p>"
 msgstr ""
+"<p>您確定要讓「%1」變得不可定位嗎？</p><p>所有與此類別連結的區域都會被捨棄！"
+"</p>"
 
 #: Settings/CategoryPage.cpp:335
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
-msgstr ""
+msgstr "確認動作"
 
 #: Settings/CategoryPage.cpp:372
-#, fuzzy, kde-format
-#| msgid "New Category..."
+#, kde-format
 msgid "New category"
-msgstr "新增類別..."
+msgstr "新增類別"
 
 #: Settings/CategoryPage.cpp:404
-#, fuzzy, kde-format
-#| msgid "<p>Really delete category '%1'?</p>"
+#, kde-format
 msgid "<p>Really delete category \"%1\"?</p>"
-msgstr "<p>確定要刪除類別 %1 嗎？</p>"
+msgstr "<p>確定要刪除類別「%1」嗎？</p>"
 
 #: Settings/CategoryPage.cpp:408
 #, kde-format
 msgid "Confirm Action"
-msgstr ""
+msgstr "確認動作"
 
 #: Settings/CategoryPage.cpp:521
 #, kde-format
 msgid "<i>Choose a category to edit it</i>"
-msgstr ""
+msgstr "<i>選擇類別來編輯</i>"
 
 #: Settings/DatabaseBackendPage.cpp:23
 #, kde-format
@@ -5090,16 +4983,14 @@ msgstr ""
 "xml 檔會變得比較不容易讓人們來直接閱讀。</p>"
 
 #: Settings/ExifPage.cpp:37
-#, fuzzy, kde-format
-#| msgid "EXIF/IPTC info to show in the Viewer"
+#, kde-format
 msgid "Exif/IPTC info to show in the viewer"
-msgstr "檢視器內要顯示的 EXIF/IPTC 資訊"
+msgstr "檢視器內要顯示的 Exif/IPTC 資訊"
 
 #: Settings/ExifPage.cpp:40
-#, fuzzy, kde-format
-#| msgid "EXIF/IPTC info to show in the EXIF dialog"
+#, kde-format
 msgid "Exif/IPTC info to show in the Exif dialog"
-msgstr "EXIF 對話框內要顯示的 EXIF/IPTC 資訊"
+msgstr "Exif 對話框內要顯示的 Exif/IPTC 資訊"
 
 #: Settings/ExifPage.cpp:43
 #, kde-format
@@ -5527,17 +5418,7 @@ msgid "Listen for Android devices on startup"
 msgstr "啟動時偵測 Android 裝置"
 
 #: Settings/GeneralPage.cpp:137
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum will try to read the image date from EXIF information in "
-#| "the image. If that fails it will try to get the date from the file's time "
-#| "stamp.</p><p>However, this information will be wrong if the image was "
-#| "scanned in (you want the date the image was taken, not the date of the "
-#| "scan).</p><p>If you only scan images, in contrast to sometimes using a "
-#| "digital camera, you should reply <b>no</b>. If you never scan images, you "
-#| "should reply <b>yes</b>, otherwise reply <b>ask</b>. This will allow you "
-#| "to decide whether the images are from the scanner or the camera, from "
-#| "session to session.</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum will try to read the image date from Exif information in the "
 "image. If that fails it will try to get the date from the file's time stamp."
@@ -5548,7 +5429,7 @@ msgid ""
 "b>, otherwise reply <b>ask</b>. This will allow you to decide whether the "
 "images are from the scanner or the camera, from session to session.</p>"
 msgstr ""
-"<p>KPhotoAlbum 會試著從影像中的 EXIF 資訊中讀取影像日期。若失敗，則會從檔案的"
+"<p>KPhotoAlbum 會試著從影像中的 Exif 資訊中讀取影像日期。若失敗，則會從檔案的"
 "時間中取得。</p> <p>不過，若是影像是用掃描器掃描進來的，檔案的時間會是掃描的"
 "時間，而不是拍攝的時間。</p> <p>若您只使用掃描器掃描影像，而不是有時用數位相"
 "機，您應該回答「否」。若您從不用掃描器，則您應該回答「是」，否則請您使用「詢"
@@ -5607,7 +5488,7 @@ msgstr "檔案搜尋與版本"
 #: Settings/SettingsDialog.cpp:49
 #, kde-format
 msgid "Categories"
-msgstr "分類"
+msgstr "類別"
 
 #: Settings/SettingsDialog.cpp:50
 #, kde-format
@@ -5639,7 +5520,7 @@ msgstr "設定"
 #, kde-format
 msgctxt "@label"
 msgid "Categories and groups:"
-msgstr "分類與群組："
+msgstr "類別與群組："
 
 #: Settings/TagGroupsPage.cpp:46
 #, kde-format
@@ -5654,12 +5535,14 @@ msgid ""
 "<strong>There are pending changes on the categories page.<nl> Please save "
 "the changes before working on tag groups.</strong>"
 msgstr ""
+"<strong>類別頁面有尚未處理的變更。<nl>請先儲存變更再進行標籤處理的作業。</"
+"strong>"
 
 #: Settings/TagGroupsPage.cpp:66
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add group ..."
-msgstr ""
+msgstr "新增群組…"
 
 #: Settings/TagGroupsPage.cpp:229
 #, kde-format
@@ -5674,11 +5557,10 @@ msgid "Delete group \"%1\""
 msgstr "刪除群組「%1」"
 
 #: Settings/TagGroupsPage.cpp:310
-#, fuzzy, kde-format
-#| msgid "Take item out of category %1"
+#, kde-format
 msgctxt "@label"
 msgid "Tags in group \"%1\" of category \"%2\""
-msgstr "將項目移出類別 %1"
+msgstr "類別「%2」群組「%1」內的標籤"
 
 #: Settings/TagGroupsPage.cpp:341
 #, kde-format
@@ -5723,6 +5605,7 @@ msgid ""
 "<para>Cannot rename group \"%1\" to \"%2\": \"%2\" already exists in "
 "category \"%3\"</para>"
 msgstr ""
+"<para>無法將群組「%1」重新命名為「%2」：「%2」已存在於類別「%3」</para>"
 
 #: Settings/TagGroupsPage.cpp:510
 #, kde-kuit-format
@@ -5732,13 +5615,14 @@ msgid ""
 "will be moved to the super category of \"%1\" (\"%2\").<nl/> All other "
 "memberships of the sub-categories will stay intact.</para>"
 msgstr ""
+"<para>確認要刪除群組「%1」嗎？</para><para>這個群組內的子類別會被移動到「%1」"
+"的上層類別（「%2」）。<nl/>所有子類別的其他成員關係都不會受影響。</para>"
 
 #: Settings/TagGroupsPage.cpp:516
-#, fuzzy, kde-kuit-format
-#| msgid "<p>Really delete category '%1'?</p>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "<para>Really delete group \"%1\"?</para>"
-msgstr "<p>確定要刪除類別 %1 嗎？</p>"
+msgstr "<para>確定要刪除群組「%1」嗎？</para>"
 
 #: Settings/TagGroupsPage.cpp:521
 #, kde-format
@@ -5816,10 +5700,9 @@ msgid "Build thumbnails on demand"
 msgstr "需要時再建立縮圖"
 
 #: Settings/ThumbnailsPage.cpp:52
-#, fuzzy, kde-format
-#| msgid "Thumbnail table cells aspect ratio"
+#, kde-format
 msgid "Thumbnail table cells aspect ratio:"
-msgstr "縮圖表格的相對比例"
+msgstr "縮圖表格的相對比例："
 
 #: Settings/ThumbnailsPage.cpp:54
 #, kde-format
@@ -5973,7 +5856,7 @@ msgstr ""
 #: Settings/UntaggedGroupBox.cpp:45
 #, kde-format
 msgid "Show the untagged images tag as a normal tag"
-msgstr ""
+msgstr "將無標籤影像標籤作為普通標籤顯示"
 
 #: Settings/UntaggedGroupBox.cpp:54
 #, kde-format
@@ -5993,6 +5876,9 @@ msgid ""
 "stored in the database. Otherwise, it will be lost, and you will get an "
 "error about this tag being not present on the next start.</p>"
 msgstr ""
+"<p>新標籤「%1」已被加入類別「%2」並將會用於未加標籤的影像。</p><p>請現在進行"
+"儲存，讓這個標籤能夠存入資料庫。不進行儲存的話此標籤會丟失，而下次啟動時您會"
+"遇到此標籤不存在的錯誤。</p>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:26
 #, kde-format
@@ -6060,7 +5946,7 @@ msgstr "VLC 影片後端"
 #: Settings/ViewerPage.cpp:25
 #, kde-format
 msgid "Not Configured"
-msgstr ""
+msgstr "未設定"
 
 #: Settings/ViewerPage.cpp:42
 #, kde-format
@@ -6207,6 +6093,8 @@ msgid ""
 "Tip: Use <shortcut>Alt+Shift+<placeholder>A-Z</placeholder></shortcut> to "
 "toggle a filter for that token."
 msgstr ""
+"提示：使用 <shortcut>Alt+Shift+<placeholder>A-Z</placeholder></shortcut> 可以"
+"切換該標記的過濾器。"
 
 #: ThumbnailView/ThumbnailDND.cpp:93
 #, kde-format
@@ -6223,8 +6111,7 @@ msgstr ""
 "─「依日期與時間來排序選取項目」</b>來排序。</p>"
 
 #: ThumbnailView/ThumbnailDND.cpp:100
-#, fuzzy, kde-format
-#| msgid "Reorder Thumbnails"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
 msgstr "重新排序縮圖"
@@ -6518,7 +6405,7 @@ msgstr "播放媒體時發生錯誤"
 #: Viewer/SelectCategoryAndValue.cpp:107
 #, kde-format
 msgid "Type name of category and item"
-msgstr ""
+msgstr "輸入類別與項目的名稱"
 
 #: Viewer/SelectCategoryAndValue.cpp:136
 #, kde-format
@@ -6743,19 +6630,19 @@ msgstr "投影播放"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
-msgstr "執行投影播放"
+msgstr "進行投影播放"
 
 #: Viewer/ViewerWidget.cpp:435
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
-msgstr "執行快一點"
+msgstr "播放快一點"
 
 #: Viewer/ViewerWidget.cpp:440
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
-msgstr "執行慢一點"
+msgstr "播放慢一點"
 
 #: Viewer/ViewerWidget.cpp:478
 #, kde-format
@@ -6793,7 +6680,7 @@ msgstr "註記中"
 #: Viewer/ViewerWidget.cpp:626
 #, kde-format
 msgid "tokenizing"
-msgstr ""
+msgstr "正在標記化"
 
 #: Viewer/ViewerWidget.cpp:631
 #, kde-format
@@ -6813,19 +6700,12 @@ msgid "Stop Slideshow"
 msgstr "停止投影播放"
 
 #: Viewer/ViewerWidget.cpp:915
-#, fuzzy, kde-format
-#| msgctxt "OSD for slideshow"
-#| msgid ""
-#| "<p><center><font size=\"+4\">Starting Slideshow<br/>Ctrl++ makes the "
-#| "slideshow faster<br/>Ctrl + - makes the slideshow slower</font></center></"
-#| "p>"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
 "Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
 "slideshow slower"
-msgstr ""
-"<p><center><font size=\"+4\">開始播放投影片<br/>按住 Ctrl 與 + 會顯示快一點，"
-"Ctrl 與 - 則會慢一點</font></center></p>"
+msgstr "開始播放投影片<br/>%1 會讓投影播放更快<br/>%2 會讓投影播放更慢"
 
 #: Viewer/ViewerWidget.cpp:965
 #, kde-format
@@ -6972,6 +6852,9 @@ msgid ""
 "some platforms, this is a common problem with some video players.</"
 "p><p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>"
 msgstr ""
+"<p>KPhotoAlbum 看來先前在進行影片播放的時候崩潰了。在某些平台上，這是使用某些"
+"影片播放器的時候常發生的問題。</p><p>按 <i>繼續</i> 來讓 KPhotoAlbum 嘗試另一"
+"個影片播放後端程式…</p>"
 
 #: Viewer/ViewerWidget.cpp:1397
 #, kde-format
@@ -6979,6 +6862,7 @@ msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
 "will be used instead: <tt>%2</tt></p>"
 msgstr ""
+"<p>被中斷的影片後端：<tt>%1</tt></p><p>將改用的影片後端：<tt>%2</tt></p>"
 
 #: Viewer/ViewerWidget.cpp:1410
 #, kde-format
@@ -6986,6 +6870,8 @@ msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
 "crashed at some point.</p><p>Crash detection is now turned off.</p>"
 msgstr ""
+"<p>KPhotoAlbum 已嘗試所有可用的影片後端，但每一個後端都有崩潰過。</p><p>現已"
+"關閉崩潰偵測。</p>"
 
 #: Viewer/ViewerWidget.cpp:1468
 #, kde-format

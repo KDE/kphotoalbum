@@ -970,7 +970,7 @@ void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPt
             // From version 11 on, we don't use category names as attributes anymore,
             // but "tags_" followed by the category's ID:
             if (categoryPtr->id() > 0) {
-                str = reader->attribute(QStringLiteral("tags_%1").arg(categoryPtr->id()));
+                str = reader->attribute(QStringLiteral("tags_") % QString::number(categoryPtr->id()));
             }
 
         } else {
@@ -993,27 +993,22 @@ void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPt
             const auto list = str.split(QLatin1Char(','), Qt::SkipEmptyParts);
 
             for (const auto &tagString : list) {
-                int id = 0;
                 QRect area;
 
-                if (! tagString.contains(QLatin1Char('+'))) {
-                    // Plain number, no additional information
-                    id = tagString.toInt();
+                // Additional information is split by the '+' character; e.g. '2+a=480 285 51 53' for localized tag areas
+                auto parts = tagString.split(QLatin1Char('+'));
 
-                } else {
-                    // Additional information is present
-                    auto parts = tagString.split(QLatin1Char('+'));
+                // The number we want is always the first part.
+                // Remove it from the list and parse it
+                int id = parts.takeFirst().toInt();
 
-                    // The number we want is always the first part.
-                    // Remove it from the list and parse it
-                    id = parts.takeFirst().toInt();
-
-                    // Process the additional information
-                    for (const auto &addition : parts) {
-                        if (addition.startsWith(QStringLiteral("a="))) {
-                            // Area data was added
-                            area = parseAreaData(addition.mid(2));
-                        }
+                // Process the additional information
+                for (const auto &addition : std::as_const(parts)) {
+                    if (addition.startsWith(QStringLiteral("a="))) {
+                        // Area data was added
+                        area = parseAreaData(addition.mid(2));
+                    } else {
+                        qCWarning(DBLog) << "Unknown tag component" << addition << "in tag" << str;
                     }
                 }
 

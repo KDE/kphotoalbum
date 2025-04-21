@@ -39,7 +39,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Support database file names other than index.xml (#418647)
 
 ### Changed
- - The way XML attribute names are escaped for the "compressed" db format has been changed, along with a db version bump to 11. The escaping we used until now wasn't reliable for strings containing spaces and underscores, also it only worked for strings with Latin-1 characters. Now. the whole Unicode range is covered.
+ - The "compressed" db format has been reworked, along with a db version bump to 11. The attribute name escaping we used until now wasn't reliable for strings containing spaces and underscores, also it only worked for strings with Latin-1 characters - and it caused quite some additional problems (e.g. category names starting with a number or colliding with attribute names used interally caused KPA to crash on loading etc.). Now, the whole Unicode range can be used for category names, and one gets back what was stored 1:1. Additionally, the area information of positionable tags is no longer stored in extra tags but in a "compressed" style as well, which notably reduces the file size and reading time for databases with a lot of tags with areas.
 
 ### Dependencies
 

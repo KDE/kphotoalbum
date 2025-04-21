@@ -4,7 +4,7 @@
 // SPDX-FileCopyrightText: 2008 Laurent Montel <montel@kde.org>
 // SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2014 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2014-2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -33,8 +33,9 @@
 
 using Utilities::StringSet;
 
-DB::Category::Category(const QString &name, const QString &icon, ViewType type, int thumbnailSize, bool show, bool positionable)
+DB::Category::Category(const QString &name, int id, const QString &icon, ViewType type, int thumbnailSize, bool show, bool positionable)
     : m_name(name)
+    , m_id(id)
     , m_icon(icon)
     , m_show(show)
     , m_type(type)
@@ -53,6 +54,16 @@ QString DB::Category::name() const
 void DB::Category::setName(const QString &name)
 {
     m_name = name;
+}
+
+int DB::Category::id() const
+{
+    return m_id;
+}
+
+void DB::Category::setId(int id)
+{
+    m_id = id;
 }
 
 bool DB::Category::positionable() const
@@ -144,6 +155,12 @@ void DB::Category::setType(CategoryType t)
 bool DB::Category::isSpecialCategory() const
 {
     return m_categoryType != DB::Category::PlainCategory;
+}
+
+bool DB::Category::needsId() const
+{
+    return m_categoryType == DB::Category::PlainCategory
+        || m_categoryType == DB::Category::TokensCategory;
 }
 
 QStringList DB::Category::items() const

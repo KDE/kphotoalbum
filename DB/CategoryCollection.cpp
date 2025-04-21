@@ -113,13 +113,15 @@ void DB::CategoryCollection::initIdMap()
 
         // Check the category ID
         if (category->needsId()) {
-            if (category->id() <= 0) {
+            const auto id = category->id();
+            if (id <= 0) {
                 newIdNeeded.append(category);
                 qCDebug(DBLog) << "Assigning a new ID for category" << category->name();
-            } else if (ids.contains(category->id()) && ids.value(category->id()) != category->name()) {
+            } else if (ids.contains(id) && ids.value(id) != category->name()) {
                 newIdNeeded.append(category);
-                qCWarning(DBLog) << "Duplicate ID" << category->id() << "used for category"
-                                 << category->name() << "- assigning a new ID!";
+                qCWarning(DBLog) << "Duplicate ID found!" << category->name() << "has ID" << id
+                                 << "which is already used by" << ids.value(id)
+                                 << " - assigning new ID!";
             }
         }
     }

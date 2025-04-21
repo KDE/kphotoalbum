@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 #ifndef ATTRIBUTEESCAPING_H
@@ -15,10 +16,9 @@ namespace DB
  * @see escape
  *
  * @param str the string to be unescaped
- * @param int the db version we want to unescapeAttributeName from
  * @return the unescaped string
  */
-QString unescapeAttributeName(const QString &, int fileVersion);
+QString unescapeAttributeName(const QString &str);
 
 /**
  * @brief Escape problematic characters in a string that forms an XML attribute name.
@@ -27,11 +27,9 @@ QString unescapeAttributeName(const QString &, int fileVersion);
  * @see unescape
  *
  * @param str the string to be escaped
- * @param int the db version we want to escapeAttributeName for
  * @return the escaped string
  */
-QString escapeAttributeName(const QString &, int fileVersion);
-
+QString escapeAttributeName(const QString &str);
 }
 
 #endif // ATTRIBUTEESCAPING_H

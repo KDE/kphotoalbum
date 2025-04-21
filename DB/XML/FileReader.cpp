@@ -169,15 +169,14 @@ void DB::FileReader::loadCategories(ReaderPtr reader)
         reader->complainStartElementExpected(categoriesString);
 
     while (reader->readNextStartOrStopElement(categoryString).isStartToken) {
-        QString categoryName;
-        if (m_fileVersion >= 11) {
-            categoryName = reader->attribute(nameString);
-        } else {
-            // Category names are attribute values and do not have to be escaped or unescaped.
-            // However, before db v11, KPA did this. To be able to read pre-11 dbs correctly, we
-            // have to call unescape() here:
-            categoryName = unescapeAttributeName(reader->attribute(nameString), m_fileVersion);
+        QString categoryName = reader->attribute(nameString);
+        if (m_fileVersion < 11) {
+            // Before version 11, we did some escaping on category names, even if they were stored
+            // as agttribute values (which was never necessary). To be able to read those names
+            // correctly, we unescape them here:
+            categoryName = unescapeAttributeName(categoryName);
         }
+
         if (!categoryName.isNull()) {
             // Read Category info
             const auto categoryId = reader->attribute(idString, QStringLiteral("-1")).toInt();

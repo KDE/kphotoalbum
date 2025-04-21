@@ -348,7 +348,12 @@ void ImageDB::readOptions(ImageInfoPtr info, DB::ReaderPtr reader, const QMap<QS
     static QString _area_ = QString::fromUtf8("area");
 
     while (reader->readNextStartOrStopElement(_option_).isStartToken) {
-        QString name = unescapeAttributeName(reader->attribute(_name_), reader->fileVersion());
+        QString name = reader->attribute(_name_);
+        if (reader->fileVersion() < 11) {
+            // Un-escape legacy attribute names
+            name = unescapeAttributeName(name);
+        }
+
         // If the silent update to db version 6 has been done, use the updated category names.
         if (newToOldCategory) {
             name = newToOldCategory->key(name, name);
@@ -980,7 +985,7 @@ void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPt
                 oldCategoryName = categoryName;
             }
 
-            str = reader->attribute(escapeAttributeName(oldCategoryName, reader->fileVersion()));
+            str = reader->attribute(escapeAttributeName(oldCategoryName));
         }
 
         if (!str.isEmpty()) {

@@ -14,7 +14,6 @@
 
 #include "FileWriter.h"
 
-#include "AttributeEscaping.h"
 #include "CompressFileInfo.h"
 #include "ElementWriter.h"
 #include "NumberedBackup.h"

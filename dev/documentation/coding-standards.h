@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2009 - 2013 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
-// SPDX-FileCopyrightText: 2013 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2013 - 2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: CC-BY-SA-4.0
 
@@ -22,12 +22,12 @@ For the transition from KDE frameworks 5 (KF5) to KF6, this commitment to compat
 \li Package information is readily available. See e.g. the information for the
     <a href='https://packages.ubuntu.com/search?keywords=cmake' alt='Ubuntu package search'>cmake</a>,
     <a href='https://packages.ubuntu.com/search?keywords=extra-cmake-modules' alt='Ubuntu package search'>extra-cmake-modules</a>,
-    <a href='https://packages.ubuntu.com/libqt5gui' alt='Ubuntu package search'>libqt5gui</a> and
-    <a href='https://packages.ubuntu.com/libkf5kio-dev' alt='Ubuntu package search'>libkf5kio-dev</a> Ubuntu packages, or
+    <a href='https://packages.ubuntu.com/libqt6gui' alt='Ubuntu package search'>libqt6gui</a> and
+    <a href='https://packages.ubuntu.com/libkf6kio-dev' alt='Ubuntu package search'>libkf6kio-dev</a> Ubuntu packages, or
     <a href='https://packages.debian.org/search?keywords=cmake' alt='Debian package search'>cmake</a>,
     <a href='https://packages.debian.org/search?keywords=extra-cmake-modules' alt='Debian package search'>extra-cmake-modules</a>,
-    <a href='https://packages.debian.org/search?keywords=libkf5kio-dev' alt='Debian package search'>libkf5kio-dev</a> and
-    <a href='https://packages.debian.org/search?keywords=libqt5gui' alt='Debian package search'>libqt5gui</> Debian packages.
+    <a href='https://packages.debian.org/search?keywords=libkf6kio-dev' alt='Debian package search'>libkf6kio-dev</a> and
+    <a href='https://packages.debian.org/search?keywords=libqt6gui' alt='Debian package search'>libqt6gui</> Debian packages.
 
 <h2>Code formatting</h2>
 

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2019 - 2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -123,10 +123,6 @@ void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::Viewport
         const QRectF screenRect = screenRegion(viewPortParams, boundingRegion(), thumbs.thumbnailSizePx);
         painter->drawRect(center(), screenRect.width(), screenRect.height(), false);
         m_renderedRegion = painter->regionFromRect(center(), screenRect.width(), screenRect.height(), false);
-#if MARBLE_VERSION < QT_VERSION_CHECK(21, 04, 0)
-        // adjust region to match up with drawn region (see Marble bug https://bugs.kde.org/show_bug.cgi?id=431466):
-        m_renderedRegion.translate(static_cast<int>(-0.5 * screenRect.width()), static_cast<int>(-0.5 * screenRect.height()));
-#endif
 #ifdef MARBLE_DEBUG_GEOPAINTER
         // draw clickable region for visual inspection:
         painter->setPen(Qt::green);

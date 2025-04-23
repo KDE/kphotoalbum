@@ -1193,16 +1193,11 @@ bool MainWindow::Window::load()
                                           "<br />%1</p>",
                                           fi.absoluteFilePath());
             const QString title = i18nc("@title", "Create database");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             const auto answer = KMessageBox::questionTwoActions(this, question,
                                                                 title,
                                                                 KGuiItem(i18nc("@action:button", "Create")),
                                                                 KStandardGuiItem::cancel());
             if (answer != KMessageBox::ButtonCode::PrimaryAction) {
-#else
-            const auto answer = KMessageBox::questionYesNo(this, question);
-            if (answer != KMessageBox::Yes) {
-#endif
                 return false;
             }
         }
@@ -1529,16 +1524,11 @@ void MainWindow::Window::slotReenableMessages()
     const QString question = i18n("<p>Really enable all message boxes where you previously "
                                   "checked the do-not-show-again check box?</p>");
     const QString title = i18nc("@title", "Reset hidden dialogs");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     const auto answer = KMessageBox::questionTwoActions(this, question,
                                                         title,
                                                         KStandardGuiItem::reset(),
                                                         KStandardGuiItem::cancel());
     if (answer == KMessageBox::ButtonCode::PrimaryAction) {
-#else
-    const auto answer = KMessageBox::questionYesNo(this, question);
-    if (answer == KMessageBox::Yes) {
-#endif
         KMessageBox::enableAllMessages();
     }
 }
@@ -1950,17 +1940,12 @@ UserFeedback MainWindow::Window::askWarningContinueCancel(const QString &msg, co
 
 UserFeedback MainWindow::Window::askQuestionYesNo(const QString &msg, const QString &title, const QString &dialogId)
 {
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     const auto answer = KMessageBox::questionTwoActions(this, msg,
                                                         title,
                                                         KStandardGuiItem::ok(),
                                                         KStandardGuiItem::cancel(),
                                                         dialogId);
     const UserFeedback value = (answer == KMessageBox::ButtonCode::PrimaryAction) ? UserFeedback::Confirm : UserFeedback::Deny;
-#else
-    const auto answer = KMessageBox::questionYesNo(this, msg, title, KStandardGuiItem::yes(), KStandardGuiItem::no(), dialogId);
-    const UserFeedback value = (answer == KMessageBox::Yes) ? UserFeedback::Confirm : UserFeedback::Deny;
-#endif
     return value;
 }
 

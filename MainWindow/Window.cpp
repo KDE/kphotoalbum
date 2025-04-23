@@ -74,7 +74,6 @@
 #include <RemoteControl/RemoteInterface.h>
 #endif
 
-#include <stdexcept>
 #ifdef HAVE_STDLIB_H
 #include <stdlib.h>
 #endif
@@ -380,7 +379,7 @@ void MainWindow::Window::slotOptions()
     if (!m_settingsDialog) {
         m_settingsDialog = new Settings::SettingsDialog(this);
         // lambda expression because because reloadThumbnails has default parameters:
-        connect(m_settingsDialog, &Settings::SettingsDialog::changed, this, [=]() { this->reloadThumbnails(); });
+        connect(m_settingsDialog, &Settings::SettingsDialog::changed, this, [=, this]() { this->reloadThumbnails(); });
         connect(m_settingsDialog, &Settings::SettingsDialog::changed, this, &Window::startAutoSaveTimer);
         connect(m_settingsDialog, &Settings::SettingsDialog::changed, m_browser, &Browser::BrowserWidget::reload);
     }

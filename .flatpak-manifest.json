@@ -148,6 +148,27 @@
             ]
         },
         {
+            "name": "marble",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "config-opts": [
+                "-DBUILD_TESTING=OFF"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/release-service/25.04.0/src/marble-25.04.0.tar.xz",
+                    "sha256": "27bdf174215a66136795ef3d0a7a2f3e09d21b12d2c83ec3309d84389dd52909",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 8763,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/release-service/$version/src/marble-$version.tar.xz"
+                    }
+                }
+            ]
+        },
+        {
             "name": "kphotoalbum",
             "buildsystem": "cmake-ninja",
 				"builddir": true,

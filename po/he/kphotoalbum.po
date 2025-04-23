@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-24 00:40+0000\n"
-"PO-Revision-Date: 2025-04-20 08:06+0300\n"
+"POT-Creation-Date: 2025-04-23 00:40+0000\n"
+"PO-Revision-Date: 2025-04-22 08:21+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -86,7 +86,7 @@ msgstr ""
 "interface>, תיאור שמוטמע בפרטי ה־Exif של התמונה מיובא לשדה הזה אם הוא זמין.</"
 "para>"
 
-#: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:400
+#: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:396
 #, kde-format
 msgid "Cancel"
 msgstr "ביטול"
@@ -945,7 +945,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "חיפוש"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1775
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1784
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -960,7 +960,7 @@ msgstr ""
 "<b>קטגוריות</b></li><li>ולהגדיר את הסעיף <b>תמונות בלתי מתויגות</b></li></"
 "ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1782
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1791
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "היכולת לא הוגדרה עדיין"
@@ -1185,22 +1185,22 @@ msgstr "דקה"
 msgid "10 Seconds"
 msgstr "10 שניות"
 
-#: DB/Category.cpp:309
+#: DB/Category.cpp:326
 #, kde-format
 msgid "Unable to create folder '%1'."
 msgstr "לא ניתן ליצור את התיקייה ‚%1’."
 
-#: DB/Category.cpp:309
+#: DB/Category.cpp:326
 #, kde-format
 msgid "Unable to Create Folder"
 msgstr "לא ניתן ליצור תיקייה"
 
-#: DB/Category.cpp:318
+#: DB/Category.cpp:335
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "שגיאה בשמירת התמונה ‚%1’."
 
-#: DB/Category.cpp:318
+#: DB/Category.cpp:335
 #, kde-format
 msgid "Error Saving Image"
 msgstr "שגיאה בשמירת התמונה"
@@ -1277,7 +1277,7 @@ msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "דצמ"
 
-#: DB/ImageDB.cpp:64
+#: DB/ImageDB.cpp:65
 #, kde-format
 msgid ""
 "Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
@@ -1286,38 +1286,38 @@ msgstr ""
 "קובץ השמירה האוטומטית ‚%1’ קיים (גודלו %3 ק״ב) והוא יותר חדש מ־‚%2’. האם "
 "להשתמש בקובץ השמירה האוטומטית?"
 
-#: DB/ImageDB.cpp:67
+#: DB/ImageDB.cpp:68
 #, kde-format
 msgid "Found Autosave File"
 msgstr "נמצא קובץ שמירה אוטומטית"
 
-#: DB/ImageDB.cpp:399
+#: DB/ImageDB.cpp:395
 #, kde-format
 msgid "Loading information from images"
 msgstr "נטען מידע מתמונות"
 
-#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:868 DB/XML/FileReader.cpp:136
+#: DB/ImageDB.cpp:558 DB/ImageDB.cpp:864 DB/XML/FileReader.cpp:139
 #: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Media Type"
 msgstr "סוג מדיה"
 
-#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:869 DB/XML/FileReader.cpp:138
+#: DB/ImageDB.cpp:559 DB/ImageDB.cpp:865 DB/XML/FileReader.cpp:141
 #, kde-format
 msgid "Image"
 msgstr "תמונה"
 
-#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:870 DB/XML/FileReader.cpp:139
+#: DB/ImageDB.cpp:559 DB/ImageDB.cpp:866 DB/XML/FileReader.cpp:142
 #, kde-format
 msgid "Video"
 msgstr "וידאו"
 
-#: DB/ImageDB.cpp:974
+#: DB/ImageDB.cpp:1024
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
 msgstr "KPhotoAlbum - יש לתקן ידנית (%1)"
 
-#: DB/ImageDB.cpp:975
+#: DB/ImageDB.cpp:1025
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
@@ -1380,7 +1380,7 @@ msgctxt ""
 msgid "No other %1"
 msgstr "אין %1 נוספים"
 
-#: DB/XML/FileReader.cpp:57
+#: DB/XML/FileReader.cpp:60
 #, kde-format
 msgid ""
 "<p>The XML database file is from a newer version of KPhotoAlbum!</"
@@ -1391,25 +1391,25 @@ msgstr ""
 "שיתאפשר לך לקרוא את הקובץ הזה, אבל הכתיבה אליו חזרה, המידע שנשמר בגרסה החדשה "
 "יותר ילך לאיבוד</p>"
 
-#: DB/XML/FileReader.cpp:60
+#: DB/XML/FileReader.cpp:63
 #, kde-format
 msgid "XML database file version mismatch"
 msgstr "גרסת קובץ מסד נתונים ב־XML אינה תואמת"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: DB/XML/FileReader.cpp:88 Settings/CategoryPage.cpp:256
+#: DB/XML/FileReader.cpp:91 Settings/CategoryPage.cpp:256
 #: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Folder"
 msgstr "תיקייה"
 
-#: DB/XML/FileReader.cpp:110 DB/XML/FileReader.cpp:122
+#: DB/XML/FileReader.cpp:113 DB/XML/FileReader.cpp:125
 #, kde-format
 msgid "Tokens"
 msgstr "אסימונים"
 
-#: DB/XML/FileReader.cpp:190
+#: DB/XML/FileReader.cpp:201
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate category '%3'</p><p>Choose continue to "
@@ -1419,12 +1419,12 @@ msgstr ""
 "<p>שורה %1, עמודה %2: קטגוריה כפולה ‚%3’</p><p>נא לבחור להמשיך כדי להתעלם "
 "מקטגוריות כפולות ולנסות לתקן אוטומטית, או לבחור בביטול כדי לצאת.</p>"
 
-#: DB/XML/FileReader.cpp:196 DB/XML/FileReader.cpp:301
+#: DB/XML/FileReader.cpp:207 DB/XML/FileReader.cpp:312
 #, kde-format
 msgid "Error in database file"
 msgstr "שגיאה בקובץ מסד הנתונים"
 
-#: DB/XML/FileReader.cpp:256
+#: DB/XML/FileReader.cpp:267
 #, kde-format
 msgctxt ""
 "Leave \"Folder\" and \"Media Type\" untranslated below, those will show up "
@@ -1443,12 +1443,12 @@ msgstr ""
 "מסד הנתונים שלך.</p><p>בחלק מהמקרים עשויות להתקבל שתי קטגוריות ריקות נוספות, "
 "„Folder” (תיקייה) ו־„Media Type” (סוג אחסון), אפשר למחוק אותן.</p>"
 
-#: DB/XML/FileReader.cpp:264
+#: DB/XML/FileReader.cpp:275
 #, kde-format
 msgid "Changed standard category names"
 msgstr "שמות הקטגוריות התקניות השתנו"
 
-#: DB/XML/FileReader.cpp:296
+#: DB/XML/FileReader.cpp:307
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
@@ -1457,7 +1457,7 @@ msgstr ""
 "<p>שורה %1, עמודה %2: רשומה כפולה לקובץ ‚%3’ עם סיכום ביקורת MD5 שונה.</"
 "p><p>נדרש תיקון ידני!</p>"
 
-#: DB/XML/FileReader.cpp:435
+#: DB/XML/FileReader.cpp:446
 #, kde-format
 msgid ""
 "<p>Your images/videos are not sorted, which means that navigating using the "
@@ -1470,13 +1470,21 @@ msgid ""
 "their dates set, you can execute <b>Maintenance->Sort All by Date & Time</b> "
 "to sort them in the database. </p>"
 msgstr ""
+"<p>התמונות/הסרטונים שלך אינם מסודרים, מה שאומר שהניווט באמצעות סרגל התאריכים "
+"יעבוד אבל לא טוב כל כך.</p><p>בתפריט <b>תחזוקה</b>, אפשר למצוא את <b>הצגת "
+"תמונות עם תאריכים חלקיים</b> שניתן להשתמש בזה כדי למצוא תמונות שחסרים להן "
+"פרטי תאריך.</p><p>אז ניתן לבחור את התמונות שיש לך מעבר לספק שהתאריך הנכון "
+"שלהן נמצא או בנתוני ה־Exif שלהן או בקובץ, ולהפעיל את <b>תחזוקה->לקרוא נתוני "
+"Exif</b> כדי לקרוא את הנתונים מחדש.</p><p>לבסוף, לאחר שלכל התמונות מוגדר "
+"תאריך, אפשר להפעיל את <b>תחזוקה->סידור הכול תאריך ושעה</b> כדי לסדר אותן "
+"במסד הנתונים. </p>"
 
-#: DB/XML/FileReader.cpp:444
+#: DB/XML/FileReader.cpp:455
 #, kde-format
 msgid "Images/Videos Are Not Sorted"
 msgstr "התמונות/הסרטונים לא מסודרים"
 
-#: DB/XML/FileReader.cpp:456
+#: DB/XML/FileReader.cpp:467
 #, kde-format
 msgid ""
 "<p>Not all the images in the database have information about image sizes; "
@@ -1493,12 +1501,12 @@ msgstr ""
 "יוביל לרווח מסביב לתמונות בתצוגת התמונות הממוזערות - זה הכול - לכן זאת לא "
 "פעולה הרת גורל במיוחד.</p>"
 
-#: DB/XML/FileReader.cpp:461
+#: DB/XML/FileReader.cpp:472
 #, kde-format
 msgid "Not All Images Have Size Information"
 msgstr "לא לכל התמונות יש פרטי גודל"
 
-#: DB/XML/FileReader.cpp:475
+#: DB/XML/FileReader.cpp:486
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1509,25 +1517,25 @@ msgstr ""
 "<p>נמצאו ותוקנו מספר תקלות אחידות במסד הנתונים שלך. חלק מהקטגוריות מכילות "
 "מעתה תגיות שמוזגו במהלך התיקון.</p><p>התגיות הבאות דורשות בחינה ידנית:<ul>"
 
-#: DB/XML/FileReader.cpp:485
+#: DB/XML/FileReader.cpp:496
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
 msgstr "<li>%1:<br/>"
 
-#: DB/XML/FileReader.cpp:487
+#: DB/XML/FileReader.cpp:498
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
 msgstr "%1<br/>"
 
-#: DB/XML/FileReader.cpp:490
+#: DB/XML/FileReader.cpp:501
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
 msgstr "</li>"
 
-#: DB/XML/FileReader.cpp:495
+#: DB/XML/FileReader.cpp:506
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1537,12 +1545,12 @@ msgstr ""
 "</ul></p><p>כל התמונות שהושפעו גם סומנות בתגית <em>KPhotoAlbum - נדרש תיקון "
 "ידני</em>.</p>"
 
-#: DB/XML/FileReader.cpp:499
+#: DB/XML/FileReader.cpp:510
 #, kde-format
 msgid "Database repair required"
 msgstr "צריך לתקן את מסד הנתונים"
 
-#: DB/XML/FileReader.cpp:522
+#: DB/XML/FileReader.cpp:533
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
@@ -1564,67 +1572,67 @@ msgstr ""
 "את KDEDIRS, יש פשוט להוסיף את המחרוזת ממש כמו האופן בו מגדירים את משתנה "
 "הסביבה <b>PATH</b></p>"
 
-#: DB/XML/FileReader.cpp:530
+#: DB/XML/FileReader.cpp:541
 #, kde-format
 msgid "No default setup file found"
 msgstr "לא נמצא קובץ הגדרות כברירת מחדל"
 
-#: DB/XML/FileReader.cpp:536 Settings/BirthdayPage.cpp:135
+#: DB/XML/FileReader.cpp:547 Settings/BirthdayPage.cpp:135
 #, kde-format
 msgid "People"
 msgstr "אנשים"
 
-#: DB/XML/FileReader.cpp:537
+#: DB/XML/FileReader.cpp:548
 #, kde-format
 msgid "Places"
 msgstr "מקומות"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:538 lib/kpabase/SettingsData.cpp:433
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:433
 #, kde-format
 msgid "Events"
 msgstr "אירועים"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:443
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:443
 #, kde-format
 msgid "untagged"
 msgstr "ללא תיוג"
 
-#: DB/XML/FileReader.cpp:550 Utilities/DemoUtil.cpp:34
+#: DB/XML/FileReader.cpp:561 Utilities/DemoUtil.cpp:34
 #: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
 #: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "שגיאה בהרצת ההדגמה"
 
-#: DB/XML/FileReader.cpp:550
+#: DB/XML/FileReader.cpp:561
 #, kde-format
 msgid "Unable to open '%1' for reading"
 msgstr "לא ניתן לפתוח את ‚%1’ לקריאה"
 
-#: DB/XML/FileReader.cpp:563
+#: DB/XML/FileReader.cpp:574
 #, kde-format
 msgid "line %1 column %2 in file %3: %4"
 msgstr "שורה %1 עמודה %2 בקובץ %3:‏ %4"
 
-#: DB/XML/FileReader.cpp:565
+#: DB/XML/FileReader.cpp:576
 #, kde-format
 msgid "Failed to recover the backup: %1"
 msgstr "שחזור הגיבוי נכשל: %1"
 
-#: DB/XML/FileReader.cpp:576
+#: DB/XML/FileReader.cpp:587
 #, kde-format
 msgid "Error in file %1: No elements found"
 msgstr "שגיאה בקובץ %1: לא נמצאו רכיבים"
 
-#: DB/XML/FileReader.cpp:582
+#: DB/XML/FileReader.cpp:593
 #, kde-format
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr ""
 "שגיאה בקובץ %1: הרכיב העליון אמור להיות ‚KPhotoAlbum’ אך במקום זאת נמצא ‚%2’"
 
-#: DB/XML/FileWriter.cpp:78
+#: DB/XML/FileWriter.cpp:79
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
@@ -1633,12 +1641,12 @@ msgstr ""
 "<p>לא ניתן לשמור את מסד נתוני התמונות ל־XML.</p>לא ניתן לפתוח את הקובץ %1 "
 "עקב השגיאה הבאה: %2"
 
-#: DB/XML/FileWriter.cpp:81 DB/XML/FileWriter.cpp:117 DB/XML/FileWriter.cpp:126
+#: DB/XML/FileWriter.cpp:82 DB/XML/FileWriter.cpp:118 DB/XML/FileWriter.cpp:127
 #, kde-format
 msgid "Error while saving..."
 msgstr "שגיאה בשמירה…"
 
-#: DB/XML/FileWriter.cpp:114
+#: DB/XML/FileWriter.cpp:115
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
@@ -1647,7 +1655,7 @@ msgstr ""
 "<p>הסרת גרסה ישנה של מסד נתוני התמונות נכשלה.</p><p>נא לנסות שוב או להחליף "
 "את הקובץ %1 בקובץ %2 ידנית!</p>"
 
-#: DB/XML/FileWriter.cpp:123
+#: DB/XML/FileWriter.cpp:124
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "
@@ -4141,13 +4149,13 @@ msgid "Stacking Error"
 msgstr "שגיאת ערימה"
 
 #: MainWindow/Window.cpp:493 MainWindow/Window.cpp:619
-#: MainWindow/Window.cpp:1315 MainWindow/Window.cpp:1412
+#: MainWindow/Window.cpp:1324 MainWindow/Window.cpp:1421
 #, kde-format
 msgid "No item is selected."
 msgstr "לא נבחרו פריטים."
 
 #: MainWindow/Window.cpp:493 MainWindow/Window.cpp:619
-#: MainWindow/Window.cpp:1315 MainWindow/Window.cpp:1413
+#: MainWindow/Window.cpp:1324 MainWindow/Window.cpp:1422
 #, kde-format
 msgid "No Selection"
 msgstr "אין בחירה"
@@ -4443,7 +4451,7 @@ msgstr "להשתמש בתמונה הממוזערת של הסרטון הבא"
 msgid "Use previous video thumbnail"
 msgstr "להשתמש בתמונה הממוזערת של הסרטון הקודם"
 
-#: MainWindow/Window.cpp:1060 MainWindow/Window.cpp:1293
+#: MainWindow/Window.cpp:1060 MainWindow/Window.cpp:1302
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
@@ -4452,7 +4460,7 @@ msgstr[1] "העתקת תמונות אל…"
 msgstr[2] "העתקת תמונות אל…"
 msgstr[3] "העתקת תמונות אל…"
 
-#: MainWindow/Window.cpp:1064 MainWindow/Window.cpp:1297
+#: MainWindow/Window.cpp:1064 MainWindow/Window.cpp:1306
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
@@ -4494,46 +4502,46 @@ msgstr ""
 "קיימות במסד הנתונים.</p><p>נא לאמת את הגדרות התגית ללא מתויגות תחת "
 "<interface>הגדרות|הגדרת KPhotoAlbum…|קטגוריות</interface></p>"
 
-#: MainWindow/Window.cpp:1364 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "כללי"
 
-#: MainWindow/Window.cpp:1365 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1374 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "מציג"
 
-#: MainWindow/Window.cpp:1366
+#: MainWindow/Window.cpp:1375
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "סרגל תאריך"
 
-#: MainWindow/Window.cpp:1369
+#: MainWindow/Window.cpp:1378
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "חלונית פירוש"
 
-#: MainWindow/Window.cpp:1370 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1379 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "תצוגת תמונות ממוזערות"
 
-#: MainWindow/Window.cpp:1521
+#: MainWindow/Window.cpp:1530
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
 "show-again check box?</p>"
 msgstr "<p>להפעיל את כל תיבות ההודעה שסימנת בהן בעבר שלא להציג אותן?</p>"
 
-#: MainWindow/Window.cpp:1523
+#: MainWindow/Window.cpp:1532
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "איפוס חלוניות מוסתרות"
 
-#: MainWindow/Window.cpp:1542
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4549,32 +4557,32 @@ msgstr ""
 "p><p>KPhotoAlbum ימשיך לפעול, אבל יש סיכוי סביר שהוא יקרוס בהמשך עקב ה־make "
 "install החסר.</p>"
 
-#: MainWindow/Window.cpp:1542
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid "Internal Error"
 msgstr "שגיאה פנימית"
 
-#: MainWindow/Window.cpp:1553
+#: MainWindow/Window.cpp:1562
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "התמונות שותפו בהצלחה. המקום מועתק ללוח הגזירים…"
 
-#: MainWindow/Window.cpp:1556
+#: MainWindow/Window.cpp:1565
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "התמונות שותפו בהצלחה."
 
-#: MainWindow/Window.cpp:1561
+#: MainWindow/Window.cpp:1570
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "שיתוף תמונה נכשל עם ההודעה: %1"
 
-#: MainWindow/Window.cpp:1612
+#: MainWindow/Window.cpp:1621
 #, kde-format
 msgid "Open List of Files"
 msgstr "פתיחת רשימת קבצים"
 
-#: MainWindow/Window.cpp:1613
+#: MainWindow/Window.cpp:1622
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4583,28 +4591,28 @@ msgstr ""
 "אפשר לפתוח קבוצה של תמונות במסד הנתונים של KPhotoAlbum על ידי הצגת הקבצים "
 "כאן."
 
-#: MainWindow/Window.cpp:1627
+#: MainWindow/Window.cpp:1636
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "לא נמצאו תמונות שעונות על הקלט שלך."
 
-#: MainWindow/Window.cpp:1627
+#: MainWindow/Window.cpp:1636
 #, kde-format
 msgid "No Matches"
 msgstr "אין תוצאות"
 
-#: MainWindow/Window.cpp:1799
+#: MainWindow/Window.cpp:1808
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "פרטי ה־Exif נקראים מחדש מכל התמונות"
 
-#: MainWindow/Window.cpp:1826
+#: MainWindow/Window.cpp:1835
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "גודל תמונות ממוזערות: %1 פיקסלים (גודל אחסון: %2 פיקסלים)"
 
-#: MainWindow/Window.cpp:1879
+#: MainWindow/Window.cpp:1888
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4614,7 +4622,7 @@ msgstr ""
 "<p>לא ניתן למצוא ffmpeg במערכת.</p><p>בלעדיו, KPhotoAlbum לא יוכל להציג "
 "תמוניות ממוזערות של סרטונים ואת אורכי הסרטונים. נא להתקין את חבילת ffmpeg</p>"
 
-#: MainWindow/Window.cpp:1882
+#: MainWindow/Window.cpp:1891
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "תמונות ממוזערות של וידאו אינן זמינות"
@@ -5193,6 +5201,12 @@ msgid ""
 "<li>You can group parts of the expression using parenthesis.</li> </"
 "ul>Example: <tt>-modified\\.(jpg|tiff)</tt> </p>"
 msgstr ""
+"<p>ביטוי רגולרי ב־perl שאמור לתפוס קובץ שהשתנה. <ul><li>נקודה זה תו יחיד "
+"(<tt>\\.</tt> תופס נקודה)</li>   <li>אפשר להשתמש במכמתים <tt>*</tt>,<tt>+</"
+"tt>,<tt>?</tt>, או שאפשר לתפוס כמה     מופעים ספורים של ביטוי עם סוגריים "
+"מסולסלים (למשל: <tt>e{0,1}</tt> תופס 0 מופע אחד של התו „e”).</li>   <li>אפשר "
+"לקבץ חלקים מהביטוי בסוגריים.</li> </ul>למשל: <tt>-modified\\.(jpg|tiff)</tt> "
+"</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:133
 #, kde-format
@@ -5334,7 +5348,7 @@ msgstr ""
 #: Settings/FileVersionDetectionPage.cpp:216
 #, kde-format
 msgid "Number of threads to use for preloading (scouting) images"
-msgstr ""
+msgstr "מספר התהליכונים לטעינה טרומית (השקפה) של תמונות"
 
 #: Settings/FileVersionDetectionPage.cpp:224
 #, kde-format
@@ -5344,11 +5358,15 @@ msgid ""
 "for faster storage, but not more than the number of cores in your CPU. "
 "Default is 1, which works well for mechanical hard disks.</p>"
 msgstr ""
+"<p>מספר התהליכונים לשימוש לטעינה טרומית של התמונות כדי שתוחזקנה בזיכרון "
+"כשסיכום הביקורת שלהן מחושב.  בדרך כלל כדאי להגדיר את זה למספר גדול יותר ככל "
+"שהאחסון מהיר יותר, אבל לא יותר ממספר ליבות המעבד שלך. ברירת המחדל היא 1, "
+"שמתאימה היטב לכוננים מכניים.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:230
 #, kde-format
 msgid "Number of threads to use for thumbnailPreloading (scouting) images"
-msgstr ""
+msgstr "מספר התהליכונים לביצוע thumbnailPreloading (השקפה) על תמונות"
 
 #: Settings/FileVersionDetectionPage.cpp:238
 #, kde-format
@@ -5375,6 +5393,10 @@ msgid ""
 "may see benefit from setting this to a larger value.</p><p>KPhotoAlbum must "
 "be restarted for changes to take effect.</p>"
 msgstr ""
+"<p>מספר התהליכונים לשימוש לבניית תמונות ממוזערות.  הגדרה ל־0 תבחר אוטומטית "
+"מספר אחד פחות מכמות הליבות, לפחות אחת אך לא יותר משלוש.  אם יש לך אחסון מהיר "
+"ומעבד עם הרבה ליבות, הביצועים ישתפרו ככל שהערך הזה יהיה גדול יותר.</p><p>יש "
+"להפעיל את KPhotoAlbum מחדש כדי שהשינויים האלו ייכנסו לתוקף.</p>"
 
 #: Settings/GeneralPage.cpp:29
 #, kde-format

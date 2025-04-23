@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-24 00:40+0000\n"
+"POT-Creation-Date: 2025-04-23 00:40+0000\n"
 "PO-Revision-Date: 2025-03-24 11:58+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -92,7 +92,7 @@ msgstr ""
 "s'importarà la descripció incrustada en la informació Exif de la imatge, si "
 "està disponible.</para>"
 
-#: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:400
+#: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:396
 #, kde-format
 msgid "Cancel"
 msgstr "Cancel·la"
@@ -965,7 +965,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "cerca"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1775
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1784
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -981,7 +981,7 @@ msgstr ""
 "icona de <b>Categories</b> </li><li>Configureu la secció <b>Imatges sense "
 "etiquetes</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1782
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1791
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Funcionalitats sense configurar"
@@ -1190,22 +1190,22 @@ msgstr "1 minut"
 msgid "10 Seconds"
 msgstr "10 segons"
 
-#: DB/Category.cpp:309
+#: DB/Category.cpp:326
 #, kde-format
 msgid "Unable to create folder '%1'."
 msgstr "No s'ha pogut crear la carpeta «%1»."
 
-#: DB/Category.cpp:309
+#: DB/Category.cpp:326
 #, kde-format
 msgid "Unable to Create Folder"
 msgstr "No s'ha pogut crear la carpeta"
 
-#: DB/Category.cpp:318
+#: DB/Category.cpp:335
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "Error mentre es desava la imatge «%1»."
 
-#: DB/Category.cpp:318
+#: DB/Category.cpp:335
 #, kde-format
 msgid "Error Saving Image"
 msgstr "Error en desar la imatge"
@@ -1290,7 +1290,7 @@ msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "des"
 
-#: DB/ImageDB.cpp:64
+#: DB/ImageDB.cpp:65
 #, kde-format
 msgid ""
 "Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
@@ -1299,38 +1299,38 @@ msgstr ""
 "El fitxer «%1» de desament automàtic ja existeix (mida %3 kB) i és més nou "
 "que «%2». S'ha d'usar el fitxer de desament automàtic?"
 
-#: DB/ImageDB.cpp:67
+#: DB/ImageDB.cpp:68
 #, kde-format
 msgid "Found Autosave File"
 msgstr "Fitxer de desament automàtic"
 
-#: DB/ImageDB.cpp:399
+#: DB/ImageDB.cpp:395
 #, kde-format
 msgid "Loading information from images"
 msgstr "S'està carregant la informació des de les imatges"
 
-#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:868 DB/XML/FileReader.cpp:136
+#: DB/ImageDB.cpp:558 DB/ImageDB.cpp:864 DB/XML/FileReader.cpp:139
 #: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Media Type"
 msgstr "Tipus de suport"
 
-#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:869 DB/XML/FileReader.cpp:138
+#: DB/ImageDB.cpp:559 DB/ImageDB.cpp:865 DB/XML/FileReader.cpp:141
 #, kde-format
 msgid "Image"
 msgstr "Imatge"
 
-#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:870 DB/XML/FileReader.cpp:139
+#: DB/ImageDB.cpp:559 DB/ImageDB.cpp:866 DB/XML/FileReader.cpp:142
 #, kde-format
 msgid "Video"
 msgstr "Vídeo"
 
-#: DB/ImageDB.cpp:974
+#: DB/ImageDB.cpp:1024
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
 msgstr "KPhotoAlbum - cal una reparació manual (%1)"
 
-#: DB/ImageDB.cpp:975
+#: DB/ImageDB.cpp:1025
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
@@ -1393,7 +1393,7 @@ msgctxt ""
 msgid "No other %1"
 msgstr "Cap altre %1"
 
-#: DB/XML/FileReader.cpp:57
+#: DB/XML/FileReader.cpp:60
 #, kde-format
 msgid ""
 "<p>The XML database file is from a newer version of KPhotoAlbum!</"
@@ -1404,25 +1404,25 @@ msgstr ""
 "KPhotoAlbum!</p><p>És possible que pugueu llegir aquest fitxer, però en "
 "escriure-hi es perdrà la informació desada en la versió més nova</p>"
 
-#: DB/XML/FileReader.cpp:60
+#: DB/XML/FileReader.cpp:63
 #, kde-format
 msgid "XML database file version mismatch"
 msgstr "Desaparellament de la versió del fitxer XML de la base de dades"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: DB/XML/FileReader.cpp:88 Settings/CategoryPage.cpp:256
+#: DB/XML/FileReader.cpp:91 Settings/CategoryPage.cpp:256
 #: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Folder"
 msgstr "Carpeta"
 
-#: DB/XML/FileReader.cpp:110 DB/XML/FileReader.cpp:122
+#: DB/XML/FileReader.cpp:113 DB/XML/FileReader.cpp:125
 #, kde-format
 msgid "Tokens"
 msgstr "Símbols"
 
-#: DB/XML/FileReader.cpp:190
+#: DB/XML/FileReader.cpp:201
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate category '%3'</p><p>Choose continue to "
@@ -1433,12 +1433,12 @@ msgstr ""
 "continuar per a ignorar la categoria duplicada i intentar una reparació "
 "automàtica, o seleccionar cancel·la per a sortir.</p>"
 
-#: DB/XML/FileReader.cpp:196 DB/XML/FileReader.cpp:301
+#: DB/XML/FileReader.cpp:207 DB/XML/FileReader.cpp:312
 #, kde-format
 msgid "Error in database file"
 msgstr "Error en el fitxer de la base de dades"
 
-#: DB/XML/FileReader.cpp:256
+#: DB/XML/FileReader.cpp:267
 #, kde-format
 msgctxt ""
 "Leave \"Folder\" and \"Media Type\" untranslated below, those will show up "
@@ -1459,12 +1459,12 @@ msgstr ""
 "categories buides addicionals, «Carpeta» i «Tipus de suport». Les podeu "
 "suprimir.</p>"
 
-#: DB/XML/FileReader.cpp:264
+#: DB/XML/FileReader.cpp:275
 #, kde-format
 msgid "Changed standard category names"
 msgstr "Han canviat els noms estàndard de les categories"
 
-#: DB/XML/FileReader.cpp:296
+#: DB/XML/FileReader.cpp:307
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
@@ -1473,7 +1473,7 @@ msgstr ""
 "<p>Línia %1, columna %2: entrada duplicada per al fitxer «%3» amb una suma "
 "MD5 diferent.</p><p>Es requereix una reparació manual!</p>"
 
-#: DB/XML/FileReader.cpp:435
+#: DB/XML/FileReader.cpp:446
 #, kde-format
 msgid ""
 "<p>Your images/videos are not sorted, which means that navigating using the "
@@ -1497,12 +1497,12 @@ msgstr ""
 "la seva data informada, podeu executar «<b>Imatges -> Ordena-ho tot per data "
 "i hora</b>» per a ordenar-les a la base de dades.</p>"
 
-#: DB/XML/FileReader.cpp:444
+#: DB/XML/FileReader.cpp:455
 #, kde-format
 msgid "Images/Videos Are Not Sorted"
 msgstr "Les imatges/vídeos no estan ordenats"
 
-#: DB/XML/FileReader.cpp:456
+#: DB/XML/FileReader.cpp:467
 #, kde-format
 msgid ""
 "<p>Not all the images in the database have information about image sizes; "
@@ -1520,12 +1520,12 @@ msgstr ""
 "voltant de les imatges en la vista de miniatures -només això-, per tant, no "
 "és urgent fer-ho.</p>"
 
-#: DB/XML/FileReader.cpp:461
+#: DB/XML/FileReader.cpp:472
 #, kde-format
 msgid "Not All Images Have Size Information"
 msgstr "No totes les imatges tenen informació de la mida"
 
-#: DB/XML/FileReader.cpp:475
+#: DB/XML/FileReader.cpp:486
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1537,25 +1537,25 @@ msgstr ""
 "categories ara contenen etiquetes que s'han fusionat durant la reparació.</"
 "p><p>Les etiquetes següents requereixen una inspecció manual:<ul>"
 
-#: DB/XML/FileReader.cpp:485
+#: DB/XML/FileReader.cpp:496
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
 msgstr "<li>%1:<br/>"
 
-#: DB/XML/FileReader.cpp:487
+#: DB/XML/FileReader.cpp:498
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
 msgstr "%1<br/>"
 
-#: DB/XML/FileReader.cpp:490
+#: DB/XML/FileReader.cpp:501
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
 msgstr "</li>"
 
-#: DB/XML/FileReader.cpp:495
+#: DB/XML/FileReader.cpp:506
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1565,12 +1565,12 @@ msgstr ""
 "</ul></p><p>Totes les imatges afectades també s'han marcat amb l'etiqueta "
 "<em>KPhotoAlbum - cal una reparació manual</em>.</p>"
 
-#: DB/XML/FileReader.cpp:499
+#: DB/XML/FileReader.cpp:510
 #, kde-format
 msgid "Database repair required"
 msgstr "Es requereix la reparació de la base de dades"
 
-#: DB/XML/FileReader.cpp:522
+#: DB/XML/FileReader.cpp:533
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
@@ -1594,68 +1594,68 @@ msgstr ""
 "cas de tenir KDEDIRS ja inicialitzat, senzillament afegiu la cadena com si "
 "esteu configurant la variable <b>PATH</b></p>"
 
-#: DB/XML/FileReader.cpp:530
+#: DB/XML/FileReader.cpp:541
 #, kde-format
 msgid "No default setup file found"
 msgstr "No s'ha trobat cap fitxer de configuració per defecte"
 
-#: DB/XML/FileReader.cpp:536 Settings/BirthdayPage.cpp:135
+#: DB/XML/FileReader.cpp:547 Settings/BirthdayPage.cpp:135
 #, kde-format
 msgid "People"
 msgstr "Gent"
 
-#: DB/XML/FileReader.cpp:537
+#: DB/XML/FileReader.cpp:548
 #, kde-format
 msgid "Places"
 msgstr "Llocs"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:538 lib/kpabase/SettingsData.cpp:433
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:433
 #, kde-format
 msgid "Events"
 msgstr "Esdeveniments"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:443
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:443
 #, kde-format
 msgid "untagged"
 msgstr "Sense etiquetar"
 
-#: DB/XML/FileReader.cpp:550 Utilities/DemoUtil.cpp:34
+#: DB/XML/FileReader.cpp:561 Utilities/DemoUtil.cpp:34
 #: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
 #: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "Error en executar la demostració"
 
-#: DB/XML/FileReader.cpp:550
+#: DB/XML/FileReader.cpp:561
 #, kde-format
 msgid "Unable to open '%1' for reading"
 msgstr "No ha estat possible obrir «%1» per a lectura"
 
-#: DB/XML/FileReader.cpp:563
+#: DB/XML/FileReader.cpp:574
 #, kde-format
 msgid "line %1 column %2 in file %3: %4"
 msgstr "línia %1 columna %2 en el fitxer %3: %4"
 
-#: DB/XML/FileReader.cpp:565
+#: DB/XML/FileReader.cpp:576
 #, kde-format
 msgid "Failed to recover the backup: %1"
 msgstr "Ha fallat en recuperar la còpia de seguretat: %1"
 
-#: DB/XML/FileReader.cpp:576
+#: DB/XML/FileReader.cpp:587
 #, kde-format
 msgid "Error in file %1: No elements found"
 msgstr "Error en el fitxer %1: no s'ha trobat cap element"
 
-#: DB/XML/FileReader.cpp:582
+#: DB/XML/FileReader.cpp:593
 #, kde-format
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr ""
 "Error en el fitxer %1: s'esperava «KPhotoAlbum» com a element superior, però "
 "s'ha trobat «%2»"
 
-#: DB/XML/FileWriter.cpp:78
+#: DB/XML/FileWriter.cpp:79
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
@@ -1664,12 +1664,12 @@ msgstr ""
 "<p>No s'ha pogut desar la base de dades d'imatges a XML.</p>El fitxer %1 no "
 "s'ha pogut obrir a causa del següent error: %2"
 
-#: DB/XML/FileWriter.cpp:81 DB/XML/FileWriter.cpp:117 DB/XML/FileWriter.cpp:126
+#: DB/XML/FileWriter.cpp:82 DB/XML/FileWriter.cpp:118 DB/XML/FileWriter.cpp:127
 #, kde-format
 msgid "Error while saving..."
 msgstr "Error en desar..."
 
-#: DB/XML/FileWriter.cpp:114
+#: DB/XML/FileWriter.cpp:115
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
@@ -1679,7 +1679,7 @@ msgstr ""
 "p><p>Torneu-ho a intentar de nou o substituïu el fitxer %1 amb el fitxer %2 "
 "manualment!</p>"
 
-#: DB/XML/FileWriter.cpp:123
+#: DB/XML/FileWriter.cpp:124
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "
@@ -4251,13 +4251,13 @@ msgid "Stacking Error"
 msgstr "Error en apilar"
 
 #: MainWindow/Window.cpp:493 MainWindow/Window.cpp:619
-#: MainWindow/Window.cpp:1315 MainWindow/Window.cpp:1412
+#: MainWindow/Window.cpp:1324 MainWindow/Window.cpp:1421
 #, kde-format
 msgid "No item is selected."
 msgstr "No hi ha cap element seleccionat."
 
 #: MainWindow/Window.cpp:493 MainWindow/Window.cpp:619
-#: MainWindow/Window.cpp:1315 MainWindow/Window.cpp:1413
+#: MainWindow/Window.cpp:1324 MainWindow/Window.cpp:1422
 #, kde-format
 msgid "No Selection"
 msgstr "Cap selecció"
@@ -4553,14 +4553,14 @@ msgstr "Usa la miniatura de vídeo següent"
 msgid "Use previous video thumbnail"
 msgstr "Usa la miniatura de vídeo anterior"
 
-#: MainWindow/Window.cpp:1060 MainWindow/Window.cpp:1293
+#: MainWindow/Window.cpp:1060 MainWindow/Window.cpp:1302
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "Copia la imatge a..."
 msgstr[1] "Copia les imatges a..."
 
-#: MainWindow/Window.cpp:1064 MainWindow/Window.cpp:1297
+#: MainWindow/Window.cpp:1064 MainWindow/Window.cpp:1306
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
@@ -4602,33 +4602,33 @@ msgstr ""
 "«<interface>Arranjament -> Configura el KPhotoAlbum... -> Categories</"
 "interface>»</p>"
 
-#: MainWindow/Window.cpp:1364 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "General"
 
-#: MainWindow/Window.cpp:1365 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1374 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Visualitzador"
 
-#: MainWindow/Window.cpp:1366
+#: MainWindow/Window.cpp:1375
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Barra de dates"
 
-#: MainWindow/Window.cpp:1369
+#: MainWindow/Window.cpp:1378
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Diàleg d'anotacions"
 
-#: MainWindow/Window.cpp:1370 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1379 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Vista de miniatures"
 
-#: MainWindow/Window.cpp:1521
+#: MainWindow/Window.cpp:1530
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4637,13 +4637,13 @@ msgstr ""
 "<p>De debò habilito tots els quadres de missatge encara que abans heu marcat "
 "la casella de selecció de no mostrar-los una altra vegada?</p>"
 
-#: MainWindow/Window.cpp:1523
+#: MainWindow/Window.cpp:1532
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "Restableix els diàlegs ocults"
 
-#: MainWindow/Window.cpp:1542
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4660,34 +4660,34 @@ msgstr ""
 "continuarà executant-se, però probablement fallarà més endavant, ja que "
 "manca el «make install».</p>"
 
-#: MainWindow/Window.cpp:1542
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid "Internal Error"
 msgstr "Error intern"
 
-#: MainWindow/Window.cpp:1553
+#: MainWindow/Window.cpp:1562
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 "La/es imatge/s s'ha/n compartit correctament. Es copia la ubicació al porta-"
 "retalls..."
 
-#: MainWindow/Window.cpp:1556
+#: MainWindow/Window.cpp:1565
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "La/es imatge/s s'ha/n compartit correctament."
 
-#: MainWindow/Window.cpp:1561
+#: MainWindow/Window.cpp:1570
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Ha fallat la compartició de la imatge amb el missatge: %1"
 
-#: MainWindow/Window.cpp:1612
+#: MainWindow/Window.cpp:1621
 #, kde-format
 msgid "Open List of Files"
 msgstr "Obre la llista de fitxers"
 
-#: MainWindow/Window.cpp:1613
+#: MainWindow/Window.cpp:1622
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4696,28 +4696,28 @@ msgstr ""
 "Podeu obrir un conjunt de fitxers en la base de dades del KPhotoAlbum en "
 "llistar aquí els fitxers."
 
-#: MainWindow/Window.cpp:1627
+#: MainWindow/Window.cpp:1636
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "No s'ha trobat cap imatge que coincideixi amb la vostra entrada."
 
-#: MainWindow/Window.cpp:1627
+#: MainWindow/Window.cpp:1636
 #, kde-format
 msgid "No Matches"
 msgstr "Sense coincidències"
 
-#: MainWindow/Window.cpp:1799
+#: MainWindow/Window.cpp:1808
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "S'està tornant a llegir la informació Exif des de totes les imatges"
 
-#: MainWindow/Window.cpp:1826
+#: MainWindow/Window.cpp:1835
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Amplada de la miniatura: %1px (mida de l'emmagatzematge: %2px)"
 
-#: MainWindow/Window.cpp:1879
+#: MainWindow/Window.cpp:1888
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4728,7 +4728,7 @@ msgstr ""
 "KPhotoAlbum no podrà mostrar miniatures de vídeos ni la durada de vídeos. Si "
 "us plau, instal·leu el paquet «ffmpeg»</p>"
 
-#: MainWindow/Window.cpp:1882
+#: MainWindow/Window.cpp:1891
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Les miniatures de vídeo no estan disponibles"

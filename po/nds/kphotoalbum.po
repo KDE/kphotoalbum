@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-24 00:40+0000\n"
+"POT-Creation-Date: 2025-04-23 00:40+0000\n"
 "PO-Revision-Date: 2014-03-19 18:59+0100\n"
 "Last-Translator: Manfred Wiese <m.j.wiese@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -81,7 +81,7 @@ msgid ""
 "information is imported to this field if available.</para>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:400
+#: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:396
 #, kde-format
 msgid "Cancel"
 msgstr "Afbreken"
@@ -954,7 +954,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "Söken"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1775
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1784
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -969,7 +969,7 @@ msgstr ""
 "li><li>klick dor op dat Lüttbild <b>Kategorien</b>,</li><li>un köör den "
 "Instellenafsnitt <b>Nich-markeerte Biller</b>.</li></ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1782
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1791
 #, fuzzy, kde-format
 #| msgid "Features has not been configured"
 msgid "Feature has not been configured"
@@ -1193,24 +1193,24 @@ msgstr "10 Minuten"
 msgid "10 Seconds"
 msgstr "1 Sekunn"
 
-#: DB/Category.cpp:309
+#: DB/Category.cpp:326
 #, fuzzy, kde-format
 #| msgid "Unable to create directory '%1'."
 msgid "Unable to create folder '%1'."
 msgstr "Orner \"%1\" lett sik nich opstellen."
 
-#: DB/Category.cpp:309
+#: DB/Category.cpp:326
 #, fuzzy, kde-format
 #| msgid "Unable to Create Directory"
 msgid "Unable to Create Folder"
 msgstr "Orner lett sik nich opstellen"
 
-#: DB/Category.cpp:318
+#: DB/Category.cpp:335
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "Dat Bild \"%1\" lett sik nich sekern."
 
-#: DB/Category.cpp:318
+#: DB/Category.cpp:335
 #, kde-format
 msgid "Error Saving Image"
 msgstr "Bild lett sik nich sekern"
@@ -1287,7 +1287,7 @@ msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "Dez"
 
-#: DB/ImageDB.cpp:64
+#: DB/ImageDB.cpp:65
 #, fuzzy, kde-format
 #| msgid ""
 #| "Backup file '%1' exists and is newer than '%2'. Should the backup file be "
@@ -1299,43 +1299,43 @@ msgstr ""
 "Dat gifft en Sekern mit Naam \"%1\", de nieger is as \"%2\".  Wullt Du disse "
 "Sekerheitkopie bruken?"
 
-#: DB/ImageDB.cpp:67
+#: DB/ImageDB.cpp:68
 #, fuzzy, kde-format
 #| msgid "Found Backup File"
 msgid "Found Autosave File"
 msgstr "Sekerndatei funnen"
 
-#: DB/ImageDB.cpp:399
+#: DB/ImageDB.cpp:395
 #, kde-format
 msgid "Loading information from images"
 msgstr "Bildinformatschonen warrt laadt"
 
-#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:868 DB/XML/FileReader.cpp:136
+#: DB/ImageDB.cpp:558 DB/ImageDB.cpp:864 DB/XML/FileReader.cpp:139
 #: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Media Type"
 msgstr "Medientyp"
 
-#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:869 DB/XML/FileReader.cpp:138
+#: DB/ImageDB.cpp:559 DB/ImageDB.cpp:865 DB/XML/FileReader.cpp:141
 #, fuzzy, kde-format
 #| msgctxt "Denotes the media type (video,image)"
 #| msgid "Image"
 msgid "Image"
 msgstr "Bild"
 
-#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:870 DB/XML/FileReader.cpp:139
+#: DB/ImageDB.cpp:559 DB/ImageDB.cpp:866 DB/XML/FileReader.cpp:142
 #, fuzzy, kde-format
 #| msgctxt "Denotes the media type (video,image)"
 #| msgid "Video"
 msgid "Video"
 msgstr "Video"
 
-#: DB/ImageDB.cpp:974
+#: DB/ImageDB.cpp:1024
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
 msgstr ""
 
-#: DB/ImageDB.cpp:975
+#: DB/ImageDB.cpp:1025
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
@@ -1402,7 +1402,7 @@ msgctxt ""
 msgid "No other %1"
 msgstr "Keen anner %1"
 
-#: DB/XML/FileReader.cpp:57
+#: DB/XML/FileReader.cpp:60
 #, kde-format
 msgid ""
 "<p>The XML database file is from a newer version of KPhotoAlbum!</"
@@ -1410,7 +1410,7 @@ msgid ""
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:60
+#: DB/XML/FileReader.cpp:63
 #, fuzzy, kde-format
 #| msgid "Database conversion is ready."
 msgid "XML database file version mismatch"
@@ -1418,18 +1418,18 @@ msgstr "Ümwanneln vun de Datenbank is afslaten."
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: DB/XML/FileReader.cpp:88 Settings/CategoryPage.cpp:256
+#: DB/XML/FileReader.cpp:91 Settings/CategoryPage.cpp:256
 #: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Folder"
 msgstr "Orner"
 
-#: DB/XML/FileReader.cpp:110 DB/XML/FileReader.cpp:122
+#: DB/XML/FileReader.cpp:113 DB/XML/FileReader.cpp:125
 #, kde-format
 msgid "Tokens"
 msgstr "Betekers"
 
-#: DB/XML/FileReader.cpp:190
+#: DB/XML/FileReader.cpp:201
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate category '%3'</p><p>Choose continue to "
@@ -1437,13 +1437,13 @@ msgid ""
 "to quit.</p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:196 DB/XML/FileReader.cpp:301
+#: DB/XML/FileReader.cpp:207 DB/XML/FileReader.cpp:312
 #, fuzzy, kde-format
 #| msgid "Converting database"
 msgid "Error in database file"
 msgstr "Datenbank warrt ümwanneln"
 
-#: DB/XML/FileReader.cpp:256
+#: DB/XML/FileReader.cpp:267
 #, kde-format
 msgctxt ""
 "Leave \"Folder\" and \"Media Type\" untranslated below, those will show up "
@@ -1457,20 +1457,20 @@ msgid ""
 "and \"Media Type\". You can delete those.</p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:264
+#: DB/XML/FileReader.cpp:275
 #, fuzzy, kde-format
 #| msgid "Invalid driver."
 msgid "Changed standard category names"
 msgstr "Leeg Driever."
 
-#: DB/XML/FileReader.cpp:296
+#: DB/XML/FileReader.cpp:307
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
 "</p><p>Manual repair required!</p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:435
+#: DB/XML/FileReader.cpp:446
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Your images/videos are not sorted, which means that navigating using "
@@ -1503,12 +1503,12 @@ msgstr ""
 "Biller en Datum fastleggt is, kannst Du se mit <b>Biller -> Utsöchte na "
 "Datum un Tiet sorteren</b> binnen de Datenbank sorteren.</p>"
 
-#: DB/XML/FileReader.cpp:444
+#: DB/XML/FileReader.cpp:455
 #, kde-format
 msgid "Images/Videos Are Not Sorted"
 msgstr "Biller/Videos sünd nich sorteert"
 
-#: DB/XML/FileReader.cpp:456
+#: DB/XML/FileReader.cpp:467
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Not all the images in the database have information about image sizes; "
@@ -1532,12 +1532,12 @@ msgstr ""
 "tt>.</p><p>Deist Du dat nich, hebbt de Vöransichtbiller en beten mehr mehr "
 "free Platz ümto - dat is allens. Dat is also nich so hild, dat to doon.</p>"
 
-#: DB/XML/FileReader.cpp:461
+#: DB/XML/FileReader.cpp:472
 #, kde-format
 msgid "Not All Images Have Size Information"
 msgstr "Nich all Biller hebbt Grött-Informatschonen"
 
-#: DB/XML/FileReader.cpp:475
+#: DB/XML/FileReader.cpp:486
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1546,25 +1546,25 @@ msgid ""
 "tags require manual inspection:<ul>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:485
+#: DB/XML/FileReader.cpp:496
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:487
+#: DB/XML/FileReader.cpp:498
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:490
+#: DB/XML/FileReader.cpp:501
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:495
+#: DB/XML/FileReader.cpp:506
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1572,13 +1572,13 @@ msgid ""
 "<em>KPhotoAlbum - manual repair needed</em>.</p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:499
+#: DB/XML/FileReader.cpp:510
 #, fuzzy, kde-format
 #| msgid "Database driver:"
 msgid "Database repair required"
 msgstr "Datenbank-Driever:"
 
-#: DB/XML/FileReader.cpp:522
+#: DB/XML/FileReader.cpp:533
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
@@ -1612,90 +1612,90 @@ msgstr ""
 "den Padd an, as wenn Du de <b>PATH</b>-Variabel en nieg Padd tofögen deest.</"
 "p>"
 
-#: DB/XML/FileReader.cpp:530
+#: DB/XML/FileReader.cpp:541
 #, kde-format
 msgid "No default setup file found"
 msgstr "Standard-Instellendatei nich funnen"
 
-#: DB/XML/FileReader.cpp:536 Settings/BirthdayPage.cpp:135
+#: DB/XML/FileReader.cpp:547 Settings/BirthdayPage.cpp:135
 #, kde-format
 msgid "People"
 msgstr "Lüüd"
 
-#: DB/XML/FileReader.cpp:537
+#: DB/XML/FileReader.cpp:548
 #, kde-format
 msgid "Places"
 msgstr "Öörd"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:538 lib/kpabase/SettingsData.cpp:433
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:433
 #, kde-format
 msgid "Events"
 msgstr "Begeefnissen"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:443
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:443
 #, fuzzy, kde-format
 #| msgid "Untagged Images"
 msgid "untagged"
 msgstr "Nich-markeerte Biller"
 
-#: DB/XML/FileReader.cpp:550 Utilities/DemoUtil.cpp:34
+#: DB/XML/FileReader.cpp:561 Utilities/DemoUtil.cpp:34
 #: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
 #: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "Fehler bi't Utföhren vun de Dorstellen"
 
-#: DB/XML/FileReader.cpp:550
+#: DB/XML/FileReader.cpp:561
 #, kde-format
 msgid "Unable to open '%1' for reading"
 msgstr "\"%1\" lett sik nich lesen"
 
-#: DB/XML/FileReader.cpp:563
+#: DB/XML/FileReader.cpp:574
 #, fuzzy, kde-format
 #| msgid "Error on line %1 column %2 in file %3: %4"
 msgid "line %1 column %2 in file %3: %4"
 msgstr "Fehler bi Reeg %1, Striep %2 binnen Datei \"%3\": %4"
 
-#: DB/XML/FileReader.cpp:565
+#: DB/XML/FileReader.cpp:576
 #, kde-format
 msgid "Failed to recover the backup: %1"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:576
+#: DB/XML/FileReader.cpp:587
 #, kde-format
 msgid "Error in file %1: No elements found"
 msgstr "Fehler binnen Datei \"%1\": Keen Elementen funnen"
 
-#: DB/XML/FileReader.cpp:582
+#: DB/XML/FileReader.cpp:593
 #, kde-format
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr ""
 "Fehler binnen Datei \"%1\": \"KPhotoAlbum\" wöör as böverst Element "
 "verwacht, man funnen wöör \"%2\""
 
-#: DB/XML/FileWriter.cpp:78
+#: DB/XML/FileWriter.cpp:79
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
 "because of the following error: %2"
 msgstr ""
 
-#: DB/XML/FileWriter.cpp:81 DB/XML/FileWriter.cpp:117 DB/XML/FileWriter.cpp:126
+#: DB/XML/FileWriter.cpp:82 DB/XML/FileWriter.cpp:118 DB/XML/FileWriter.cpp:127
 #, fuzzy, kde-format
 #| msgid "Error when saving image '%1'."
 msgid "Error while saving..."
 msgstr "Dat Bild \"%1\" lett sik nich sekern."
 
-#: DB/XML/FileWriter.cpp:114
+#: DB/XML/FileWriter.cpp:115
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
 "replace the file %1 with file %2 manually!</p>"
 msgstr ""
 
-#: DB/XML/FileWriter.cpp:123
+#: DB/XML/FileWriter.cpp:124
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "
@@ -4365,13 +4365,13 @@ msgid "Stacking Error"
 msgstr "Stapelfehler"
 
 #: MainWindow/Window.cpp:493 MainWindow/Window.cpp:619
-#: MainWindow/Window.cpp:1315 MainWindow/Window.cpp:1412
+#: MainWindow/Window.cpp:1324 MainWindow/Window.cpp:1421
 #, kde-format
 msgid "No item is selected."
 msgstr "Keen Indrag is utsöcht."
 
 #: MainWindow/Window.cpp:493 MainWindow/Window.cpp:619
-#: MainWindow/Window.cpp:1315 MainWindow/Window.cpp:1413
+#: MainWindow/Window.cpp:1324 MainWindow/Window.cpp:1422
 #, kde-format
 msgid "No Selection"
 msgstr "Keen Köör"
@@ -4680,7 +4680,7 @@ msgstr "Vöransichtbiller opstellen"
 msgid "Use previous video thumbnail"
 msgstr ""
 
-#: MainWindow/Window.cpp:1060 MainWindow/Window.cpp:1293
+#: MainWindow/Window.cpp:1060 MainWindow/Window.cpp:1302
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgid "Copy image to ..."
@@ -4688,7 +4688,7 @@ msgid_plural "Copy images to ..."
 msgstr[0] "Biller exporteren/koperen..."
 msgstr[1] "Biller exporteren/koperen..."
 
-#: MainWindow/Window.cpp:1064 MainWindow/Window.cpp:1297
+#: MainWindow/Window.cpp:1064 MainWindow/Window.cpp:1306
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgid "Link image to ..."
@@ -4732,34 +4732,34 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1364 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Allgemeen"
 
-#: MainWindow/Window.cpp:1365 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1374 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Kieker"
 
-#: MainWindow/Window.cpp:1366
+#: MainWindow/Window.cpp:1375
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Datum: "
 
-#: MainWindow/Window.cpp:1369
+#: MainWindow/Window.cpp:1378
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Dialoog för't Towiesen vun Kategorien"
 
-#: MainWindow/Window.cpp:1370 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1379 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Vöransichtbild-Ansicht"
 
-#: MainWindow/Window.cpp:1521
+#: MainWindow/Window.cpp:1530
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4768,13 +4768,13 @@ msgstr ""
 "<p>Wullt Du redig all Mellen wedder anmaken, binnen de Du vördem dat "
 "Ankrüüzfeld \"Nienich wedder wiesen\" bruukt hest?</p>"
 
-#: MainWindow/Window.cpp:1523
+#: MainWindow/Window.cpp:1532
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1542
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4791,62 +4791,62 @@ msgstr ""
 "p><p>KPhotoAlbum löppt wieder, man normalerwies warrt dat ahn »make install« "
 "wull afstörten.</p>"
 
-#: MainWindow/Window.cpp:1542
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid "Internal Error"
 msgstr "Intern Fehler"
 
-#: MainWindow/Window.cpp:1553
+#: MainWindow/Window.cpp:1562
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1556
+#: MainWindow/Window.cpp:1565
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1561
+#: MainWindow/Window.cpp:1570
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1612
+#: MainWindow/Window.cpp:1621
 #, kde-format
 msgid "Open List of Files"
 msgstr "Dateilist opmaken"
 
-#: MainWindow/Window.cpp:1613
+#: MainWindow/Window.cpp:1622
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
 
-#: MainWindow/Window.cpp:1627
+#: MainWindow/Window.cpp:1636
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Keen Biller funnen, op de Dien Ingaav passt."
 
-#: MainWindow/Window.cpp:1627
+#: MainWindow/Window.cpp:1636
 #, kde-format
 msgid "No Matches"
 msgstr "Keen Drepers"
 
-#: MainWindow/Window.cpp:1799
+#: MainWindow/Window.cpp:1808
 #, fuzzy, kde-format
 #| msgid "Rereading EXIF information from all images"
 msgid "Rereading Exif information from all images"
 msgstr "All EXIF-Bildinformatschonen warrt nieg leest"
 
-#: MainWindow/Window.cpp:1826
+#: MainWindow/Window.cpp:1835
 #, fuzzy, no-c-format, kde-format
 #| msgid "Thumbnail image size:"
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Grött vun't Vöransichtbild:"
 
-#: MainWindow/Window.cpp:1879
+#: MainWindow/Window.cpp:1888
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4854,7 +4854,7 @@ msgid ""
 "the ffmpeg package</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1882
+#: MainWindow/Window.cpp:1891
 #, fuzzy, kde-format
 #| msgid "File not available"
 msgid "Video thumbnails are not available"

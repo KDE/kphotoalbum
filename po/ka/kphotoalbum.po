@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-24 00:40+0000\n"
+"POT-Creation-Date: 2025-04-23 00:40+0000\n"
 "PO-Revision-Date: 2025-03-23 05:23+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -87,7 +87,7 @@ msgstr ""
 "მორგება...|ზოგადი</interface>, აღწერა, რომელიც გამოსახულები Exif ჭდეშია "
 "ჩაშენებული, თუ არსებობს, აქ გამოჩნდება.</para>"
 
-#: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:400
+#: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:396
 #, kde-format
 msgid "Cancel"
 msgstr "გაუქმება"
@@ -946,7 +946,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "ძებნა"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1775
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1784
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -956,7 +956,7 @@ msgid ""
 "section <b>Untagged Images</b></li></ul></p>"
 msgstr ""
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1782
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1791
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "ფუნქცია მორგებული არაა"
@@ -1142,22 +1142,22 @@ msgstr "1 წთ"
 msgid "10 Seconds"
 msgstr "10 წამი"
 
-#: DB/Category.cpp:309
+#: DB/Category.cpp:326
 #, kde-format
 msgid "Unable to create folder '%1'."
 msgstr "საქაღალდის შექმნის შეცდომა: %1."
 
-#: DB/Category.cpp:309
+#: DB/Category.cpp:326
 #, kde-format
 msgid "Unable to Create Folder"
 msgstr "საქაღალდის შექმნის შეცდომა"
 
-#: DB/Category.cpp:318
+#: DB/Category.cpp:335
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "გამოსახულების ჩაწერის შეცდომა: %1."
 
-#: DB/Category.cpp:318
+#: DB/Category.cpp:335
 #, kde-format
 msgid "Error Saving Image"
 msgstr "გამოსახულების ჩაწერის შეცდომა"
@@ -1234,7 +1234,7 @@ msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "ათ"
 
-#: DB/ImageDB.cpp:64
+#: DB/ImageDB.cpp:65
 #, kde-format
 msgid ""
 "Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
@@ -1243,38 +1243,38 @@ msgstr ""
 "ავტოშენახვის ფაილი '%1' არსებობს (ზომა %3 კბ) და უფრო ახალია, ვიდრე '%2'. "
 "გამოვიყენო ავტოშენახვის ფაილი?"
 
-#: DB/ImageDB.cpp:67
+#: DB/ImageDB.cpp:68
 #, kde-format
 msgid "Found Autosave File"
 msgstr "ვიპოვე ავტომატური შენახვის ფაილი"
 
-#: DB/ImageDB.cpp:399
+#: DB/ImageDB.cpp:395
 #, kde-format
 msgid "Loading information from images"
 msgstr "გამოსახულებების ინფორმაციის ჩატვირთვა"
 
-#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:868 DB/XML/FileReader.cpp:136
+#: DB/ImageDB.cpp:558 DB/ImageDB.cpp:864 DB/XML/FileReader.cpp:139
 #: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Media Type"
 msgstr "მატარებლის ტიპი"
 
-#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:869 DB/XML/FileReader.cpp:138
+#: DB/ImageDB.cpp:559 DB/ImageDB.cpp:865 DB/XML/FileReader.cpp:141
 #, kde-format
 msgid "Image"
 msgstr "გამოსახულება"
 
-#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:870 DB/XML/FileReader.cpp:139
+#: DB/ImageDB.cpp:559 DB/ImageDB.cpp:866 DB/XML/FileReader.cpp:142
 #, kde-format
 msgid "Video"
 msgstr "ვიდეო"
 
-#: DB/ImageDB.cpp:974
+#: DB/ImageDB.cpp:1024
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
 msgstr "KPhotoAlbum - საჭიროა ხელით შეკეთება (%1)"
 
-#: DB/ImageDB.cpp:975
+#: DB/ImageDB.cpp:1025
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
@@ -1337,7 +1337,7 @@ msgctxt ""
 msgid "No other %1"
 msgstr "სხვა %1-ის გარეშე"
 
-#: DB/XML/FileReader.cpp:57
+#: DB/XML/FileReader.cpp:60
 #, kde-format
 msgid ""
 "<p>The XML database file is from a newer version of KPhotoAlbum!</"
@@ -1348,25 +1348,25 @@ msgstr ""
 "შანსი, რომ წაიკითხავთ ამ ფაილს, მაგრამ, როცა ჩაწერას დააპირებთ, ახალ "
 "ვერსიაში ხელმისაწვდომი ინფორმაცია დაიკარგება</p>"
 
-#: DB/XML/FileReader.cpp:60
+#: DB/XML/FileReader.cpp:63
 #, kde-format
 msgid "XML database file version mismatch"
 msgstr "XML მონაცემთა ბაზის ფაილის ვერსია არ ემთხვევა"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: DB/XML/FileReader.cpp:88 Settings/CategoryPage.cpp:256
+#: DB/XML/FileReader.cpp:91 Settings/CategoryPage.cpp:256
 #: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Folder"
 msgstr "საქაღალდე"
 
-#: DB/XML/FileReader.cpp:110 DB/XML/FileReader.cpp:122
+#: DB/XML/FileReader.cpp:113 DB/XML/FileReader.cpp:125
 #, kde-format
 msgid "Tokens"
 msgstr "წვდომის კოდები"
 
-#: DB/XML/FileReader.cpp:190
+#: DB/XML/FileReader.cpp:201
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate category '%3'</p><p>Choose continue to "
@@ -1377,12 +1377,12 @@ msgstr ""
 "გაგრძელება, რომ გამოტოვოთ გამეორებული კატეგორია და ამის შესწორება "
 "ავტომატურად მოხდეს, ან აირჩიეთ გაუქმება, რომ გახვიდეთ.</p>"
 
-#: DB/XML/FileReader.cpp:196 DB/XML/FileReader.cpp:301
+#: DB/XML/FileReader.cpp:207 DB/XML/FileReader.cpp:312
 #, kde-format
 msgid "Error in database file"
 msgstr "ბაზის ფაილის შეცდომა"
 
-#: DB/XML/FileReader.cpp:256
+#: DB/XML/FileReader.cpp:267
 #, kde-format
 msgctxt ""
 "Leave \"Folder\" and \"Media Type\" untranslated below, those will show up "
@@ -1396,12 +1396,12 @@ msgid ""
 "and \"Media Type\". You can delete those.</p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:264
+#: DB/XML/FileReader.cpp:275
 #, kde-format
 msgid "Changed standard category names"
 msgstr "სტანდარტული კატეგორიის სახელები შეიცვალა"
 
-#: DB/XML/FileReader.cpp:296
+#: DB/XML/FileReader.cpp:307
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
@@ -1410,7 +1410,7 @@ msgstr ""
 "<p>ხაზი %1, სვეტი %2: აღმოჩენილია გამეორებადი ჩანაწერი ფაილისთვის '%3' "
 "განსხვავებული MD5 ჯამით.</p><p>საჭიროა ხელით ჩარევა!</p>"
 
-#: DB/XML/FileReader.cpp:435
+#: DB/XML/FileReader.cpp:446
 #, kde-format
 msgid ""
 "<p>Your images/videos are not sorted, which means that navigating using the "
@@ -1424,12 +1424,12 @@ msgid ""
 "to sort them in the database. </p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:444
+#: DB/XML/FileReader.cpp:455
 #, kde-format
 msgid "Images/Videos Are Not Sorted"
 msgstr "გამოსახულებები/ვიდეოები დალაგებული არაა"
 
-#: DB/XML/FileReader.cpp:456
+#: DB/XML/FileReader.cpp:467
 #, kde-format
 msgid ""
 "<p>Not all the images in the database have information about image sizes; "
@@ -1440,12 +1440,12 @@ msgid ""
 "that is all - so there is no urgency in doing it.</p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:461
+#: DB/XML/FileReader.cpp:472
 #, kde-format
 msgid "Not All Images Have Size Information"
 msgstr "ყველა სურათს არ აქვს ზომის ინფორმაცია"
 
-#: DB/XML/FileReader.cpp:475
+#: DB/XML/FileReader.cpp:486
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1457,25 +1457,25 @@ msgstr ""
 "ზოგიერთი კატეგორია ახლა შეიცავს ჭდეს, რომლებიც გასწორებისას გაერთიანდა</"
 "p><p>ხელით ჩასწორებას საჭიროებს შემდეგი ჭდეები:<ul>"
 
-#: DB/XML/FileReader.cpp:485
+#: DB/XML/FileReader.cpp:496
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
 msgstr "<li>%1:<br/>"
 
-#: DB/XML/FileReader.cpp:487
+#: DB/XML/FileReader.cpp:498
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
 msgstr "%1<br/>"
 
-#: DB/XML/FileReader.cpp:490
+#: DB/XML/FileReader.cpp:501
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
 msgstr "</li>"
 
-#: DB/XML/FileReader.cpp:495
+#: DB/XML/FileReader.cpp:506
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1485,12 +1485,12 @@ msgstr ""
 "</ul></p><p>ყველა გამოყენებულ ფაილს ასევე აქვს ჭდე <em>KPhotoAlbum - საჭიროა "
 "ხელით ჩარევა</em>.</p>"
 
-#: DB/XML/FileReader.cpp:499
+#: DB/XML/FileReader.cpp:510
 #, kde-format
 msgid "Database repair required"
 msgstr "საჭიროა მონაცემთა ბაზის შეკეთება"
 
-#: DB/XML/FileReader.cpp:522
+#: DB/XML/FileReader.cpp:533
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
@@ -1504,68 +1504,68 @@ msgid ""
 "setting the <b>PATH</b> environment variable</p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:530
+#: DB/XML/FileReader.cpp:541
 #, kde-format
 msgid "No default setup file found"
 msgstr "ნაგულისხმები პარამეტრების ფაილი ვერ ვიპოვე"
 
-#: DB/XML/FileReader.cpp:536 Settings/BirthdayPage.cpp:135
+#: DB/XML/FileReader.cpp:547 Settings/BirthdayPage.cpp:135
 #, kde-format
 msgid "People"
 msgstr "ხალხი"
 
-#: DB/XML/FileReader.cpp:537
+#: DB/XML/FileReader.cpp:548
 #, kde-format
 msgid "Places"
 msgstr "ადგილები"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:538 lib/kpabase/SettingsData.cpp:433
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:433
 #, kde-format
 msgid "Events"
 msgstr "მოვლენები"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:443
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:443
 #, kde-format
 msgid "untagged"
 msgstr "ჭდის გარეშე"
 
-#: DB/XML/FileReader.cpp:550 Utilities/DemoUtil.cpp:34
+#: DB/XML/FileReader.cpp:561 Utilities/DemoUtil.cpp:34
 #: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
 #: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "დემოს გაშვების შეცდომა"
 
-#: DB/XML/FileReader.cpp:550
+#: DB/XML/FileReader.cpp:561
 #, kde-format
 msgid "Unable to open '%1' for reading"
 msgstr "%1-ის წასაკითხად გახსნის შეცდომა"
 
-#: DB/XML/FileReader.cpp:563
+#: DB/XML/FileReader.cpp:574
 #, kde-format
 msgid "line %1 column %2 in file %3: %4"
 msgstr "ხაზი %1 სვეტი %2 ფაილში %3: %4"
 
-#: DB/XML/FileReader.cpp:565
+#: DB/XML/FileReader.cpp:576
 #, kde-format
 msgid "Failed to recover the backup: %1"
 msgstr "მარქაფის აღდგენა ჩავარდა: %1"
 
-#: DB/XML/FileReader.cpp:576
+#: DB/XML/FileReader.cpp:587
 #, kde-format
 msgid "Error in file %1: No elements found"
 msgstr "შეცდომა ფაილში %1: ელემენტები აღმოჩენილი არაა"
 
-#: DB/XML/FileReader.cpp:582
+#: DB/XML/FileReader.cpp:593
 #, kde-format
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr ""
 "შეცდომა ფაილში %1: ელემენტის თავში მოველოდი სტრიქონს 'KPhotoAlbum', მაგრამ "
 "აღმოჩენილია '%2'"
 
-#: DB/XML/FileWriter.cpp:78
+#: DB/XML/FileWriter.cpp:79
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
@@ -1574,12 +1574,12 @@ msgstr ""
 "<p>გამოსახულებების მონაცემთა ბაზის XML-ში შენახვა შეუძლებელია</p>ფაილის %1 "
 "გახსნა შეუძლებელია შემდეგი შეცდომის გამო: %2"
 
-#: DB/XML/FileWriter.cpp:81 DB/XML/FileWriter.cpp:117 DB/XML/FileWriter.cpp:126
+#: DB/XML/FileWriter.cpp:82 DB/XML/FileWriter.cpp:118 DB/XML/FileWriter.cpp:127
 #, kde-format
 msgid "Error while saving..."
 msgstr "შეცდომა შენახვისას..."
 
-#: DB/XML/FileWriter.cpp:114
+#: DB/XML/FileWriter.cpp:115
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
@@ -1588,7 +1588,7 @@ msgstr ""
 "<p>გამოსახულებების მონაცემთა ბაზის ძველი ვერსიის წაშლა ჩავარდა.</p><p>სცადეთ "
 "თავიდან, ხელით ან ჩაანაცვლეთ ფაილი %1 ფაილით %2!</p>"
 
-#: DB/XML/FileWriter.cpp:123
+#: DB/XML/FileWriter.cpp:124
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "
@@ -3952,13 +3952,13 @@ msgid "Stacking Error"
 msgstr "დაჯგუფების შეცდომა"
 
 #: MainWindow/Window.cpp:493 MainWindow/Window.cpp:619
-#: MainWindow/Window.cpp:1315 MainWindow/Window.cpp:1412
+#: MainWindow/Window.cpp:1324 MainWindow/Window.cpp:1421
 #, kde-format
 msgid "No item is selected."
 msgstr "ელემენტი მონიშნული არაა."
 
 #: MainWindow/Window.cpp:493 MainWindow/Window.cpp:619
-#: MainWindow/Window.cpp:1315 MainWindow/Window.cpp:1413
+#: MainWindow/Window.cpp:1324 MainWindow/Window.cpp:1422
 #, kde-format
 msgid "No Selection"
 msgstr "მონიშნულის გარეშე"
@@ -4254,14 +4254,14 @@ msgstr "შემდეგი ვიდეოს მინიატურის 
 msgid "Use previous video thumbnail"
 msgstr "წინა ვიდეოს მინიატურის გამოყეება"
 
-#: MainWindow/Window.cpp:1060 MainWindow/Window.cpp:1293
+#: MainWindow/Window.cpp:1060 MainWindow/Window.cpp:1302
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "გამოსახულების კოპირება სად..."
 msgstr[1] "გამოსახულების კოპირება სად..."
 
-#: MainWindow/Window.cpp:1064 MainWindow/Window.cpp:1297
+#: MainWindow/Window.cpp:1064 MainWindow/Window.cpp:1306
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
@@ -4298,46 +4298,46 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1364 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "საერთო"
 
-#: MainWindow/Window.cpp:1365 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1374 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "მაყურებელი"
 
-#: MainWindow/Window.cpp:1366
+#: MainWindow/Window.cpp:1375
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "თარიღის ზოლი"
 
-#: MainWindow/Window.cpp:1369
+#: MainWindow/Window.cpp:1378
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "ანოტაციის ფანჯარა"
 
-#: MainWindow/Window.cpp:1370 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1379 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "მინიატურის ხედი"
 
-#: MainWindow/Window.cpp:1521
+#: MainWindow/Window.cpp:1530
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
 "show-again check box?</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1523
+#: MainWindow/Window.cpp:1532
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "დამალული დიალოგების ჩამოყრა"
 
-#: MainWindow/Window.cpp:1542
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4348,62 +4348,62 @@ msgid ""
 "on due to the missing make install.</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1542
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid "Internal Error"
 msgstr "შიდა შეცდომა"
 
-#: MainWindow/Window.cpp:1553
+#: MainWindow/Window.cpp:1562
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 "გამოსახულებები წარმატებით გაზიარდა. მიმდინარეობს მდებარეობების კოპირება "
 "ბუფერში..."
 
-#: MainWindow/Window.cpp:1556
+#: MainWindow/Window.cpp:1565
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "გამოსახულებები წარმატებით გაზიარდა."
 
-#: MainWindow/Window.cpp:1561
+#: MainWindow/Window.cpp:1570
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "გამოსახულების გაზიარება ჩავარდა შეტყობინებით: %1"
 
-#: MainWindow/Window.cpp:1612
+#: MainWindow/Window.cpp:1621
 #, kde-format
 msgid "Open List of Files"
 msgstr "ფაილების სიის გახსნა"
 
-#: MainWindow/Window.cpp:1613
+#: MainWindow/Window.cpp:1622
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
 
-#: MainWindow/Window.cpp:1627
+#: MainWindow/Window.cpp:1636
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "თქვენი შეყვანის შესაბამისი სურათები აღმოჩენილი არაა."
 
-#: MainWindow/Window.cpp:1627
+#: MainWindow/Window.cpp:1636
 #, kde-format
 msgid "No Matches"
 msgstr "დამთხვევის გარეშე"
 
-#: MainWindow/Window.cpp:1799
+#: MainWindow/Window.cpp:1808
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Exif ინფორმაციის თავიდან წაკითხვა ყველა სურათიდან"
 
-#: MainWindow/Window.cpp:1826
+#: MainWindow/Window.cpp:1835
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "მინიატურის სიგანე: %1px (საცავის ზომა: %2px)"
 
-#: MainWindow/Window.cpp:1879
+#: MainWindow/Window.cpp:1888
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4411,7 +4411,7 @@ msgid ""
 "the ffmpeg package</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1882
+#: MainWindow/Window.cpp:1891
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "ვიდეო მინიატურები მიუწვდომელია"

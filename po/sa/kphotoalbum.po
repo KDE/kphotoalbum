@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-24 00:40+0000\n"
+"POT-Creation-Date: 2025-04-23 00:40+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -88,7 +88,7 @@ msgstr ""
 "interface> इत्यस्य अधः सक्षमः अस्ति, तर्हि वर्णनम् चित्रे embedded Exif सूचना उपलब्धा "
 "चेत् अस्मिन् क्षेत्रे आयातिता भवति ।</para>"
 
-#: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:400
+#: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:396
 #, kde-format
 msgid "Cancel"
 msgstr "निरसयतु"
@@ -950,7 +950,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "अन्वेषण"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1775
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1784
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -965,7 +965,7 @@ msgstr ""
 "<b>Categories</b> चिह्नं चिनोतु</li><li> अधुना <b>Untagged Images इति</b> विभागं "
 "विन्यस्यताम्</li></ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1782
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1791
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "विशेषता विन्यस्तं नास्ति"
@@ -1170,22 +1170,22 @@ msgstr "१ मिनिट्"
 msgid "10 Seconds"
 msgstr "१० सेकेण्ड्"
 
-#: DB/Category.cpp:309
+#: DB/Category.cpp:326
 #, kde-format
 msgid "Unable to create folder '%1'."
 msgstr "'%1' पुटं निर्मातुं असमर्थम् ।"
 
-#: DB/Category.cpp:309
+#: DB/Category.cpp:326
 #, kde-format
 msgid "Unable to Create Folder"
 msgstr "समुच्चय निर्मातुं असमर्थः"
 
-#: DB/Category.cpp:318
+#: DB/Category.cpp:335
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "'%1' चित्रं रक्षन्ते सति त्रुटिः ।"
 
-#: DB/Category.cpp:318
+#: DB/Category.cpp:335
 #, kde-format
 msgid "Error Saving Image"
 msgstr "त्रुटिः चित्रं रक्षति"
@@ -1262,7 +1262,7 @@ msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "dec"
 
-#: DB/ImageDB.cpp:64
+#: DB/ImageDB.cpp:65
 #, kde-format
 msgid ""
 "Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
@@ -1271,38 +1271,38 @@ msgstr ""
 "स्वयम् रक्षणसञ्चिका '%1' अस्ति (आकारः %3 KB) तथा च '%2' इत्यस्मात् नूतना अस्ति । ऑटोसेव "
 "सञ्चिकायाः उपयोगः करणीयः वा ?"
 
-#: DB/ImageDB.cpp:67
+#: DB/ImageDB.cpp:68
 #, kde-format
 msgid "Found Autosave File"
 msgstr "Autosave File इति प्राप्तम्"
 
-#: DB/ImageDB.cpp:399
+#: DB/ImageDB.cpp:395
 #, kde-format
 msgid "Loading information from images"
 msgstr "चित्रेभ्यः सूचनां लोड् करणम्"
 
-#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:868 DB/XML/FileReader.cpp:136
+#: DB/ImageDB.cpp:558 DB/ImageDB.cpp:864 DB/XML/FileReader.cpp:139
 #: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Media Type"
 msgstr "मीडिया प्रकार"
 
-#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:869 DB/XML/FileReader.cpp:138
+#: DB/ImageDB.cpp:559 DB/ImageDB.cpp:865 DB/XML/FileReader.cpp:141
 #, kde-format
 msgid "Image"
 msgstr "छवि"
 
-#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:870 DB/XML/FileReader.cpp:139
+#: DB/ImageDB.cpp:559 DB/ImageDB.cpp:866 DB/XML/FileReader.cpp:142
 #, kde-format
 msgid "Video"
 msgstr "विडिओ"
 
-#: DB/ImageDB.cpp:974
+#: DB/ImageDB.cpp:1024
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
 msgstr "KPhotoAlbum - मैनुअल् मरम्मतस्य आवश्यकता अस्ति (%1)"
 
-#: DB/ImageDB.cpp:975
+#: DB/ImageDB.cpp:1025
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
@@ -1364,7 +1364,7 @@ msgctxt ""
 msgid "No other %1"
 msgstr "न अन्यः %1"
 
-#: DB/XML/FileReader.cpp:57
+#: DB/XML/FileReader.cpp:60
 #, kde-format
 msgid ""
 "<p>The XML database file is from a newer version of KPhotoAlbum!</"
@@ -1375,25 +1375,25 @@ msgstr ""
 "यत् भवान् एतां सञ्चिकां पठितुं शक्नोति, परन्तु पुनः लेखने नूतने संस्करणे रक्षिता सूचना नष्टा "
 "भविष्यति</p>"
 
-#: DB/XML/FileReader.cpp:60
+#: DB/XML/FileReader.cpp:63
 #, kde-format
 msgid "XML database file version mismatch"
 msgstr "XML दत्तांशकोशसञ्चिकासंस्करणस्य असङ्गतिः"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: DB/XML/FileReader.cpp:88 Settings/CategoryPage.cpp:256
+#: DB/XML/FileReader.cpp:91 Settings/CategoryPage.cpp:256
 #: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Folder"
 msgstr "समुच्चय"
 
-#: DB/XML/FileReader.cpp:110 DB/XML/FileReader.cpp:122
+#: DB/XML/FileReader.cpp:113 DB/XML/FileReader.cpp:125
 #, kde-format
 msgid "Tokens"
 msgstr "टोकन"
 
-#: DB/XML/FileReader.cpp:190
+#: DB/XML/FileReader.cpp:201
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate category '%3'</p><p>Choose continue to "
@@ -1403,12 +1403,12 @@ msgstr ""
 "<p>रेखा %1, स्तम्भः %2: द्वितीयकवर्गः &#39;%3&#39;.</p><p> द्वितीयकवर्गस्य अवहेलनां "
 "निरन्तरं कुर्वन्तु तथा च स्वचालितमरम्मतस्य प्रयासं कुर्वन्तु, अथवा त्यक्तुं रद्दं चिन्वन्तु ।</p>"
 
-#: DB/XML/FileReader.cpp:196 DB/XML/FileReader.cpp:301
+#: DB/XML/FileReader.cpp:207 DB/XML/FileReader.cpp:312
 #, kde-format
 msgid "Error in database file"
 msgstr "दत्तांशकोशसञ्चिकायां त्रुटिः"
 
-#: DB/XML/FileReader.cpp:256
+#: DB/XML/FileReader.cpp:267
 #, kde-format
 msgctxt ""
 "Leave \"Folder\" and \"Media Type\" untranslated below, those will show up "
@@ -1428,12 +1428,12 @@ msgstr ""
 "p><p> केषुचित् सन्दर्भेषु भवन्तः &quot;Folder&quot; &quot;Media Type&quot; इति "
 "अतिरिक्तं रिक्तवर्गद्वयं प्राप्तुं शक्नुवन्ति । तानि भवन्तः लोपयितुं शक्नुवन्ति।</p>"
 
-#: DB/XML/FileReader.cpp:264
+#: DB/XML/FileReader.cpp:275
 #, kde-format
 msgid "Changed standard category names"
 msgstr "मानकवर्गनामानि परिवर्तितानि"
 
-#: DB/XML/FileReader.cpp:296
+#: DB/XML/FileReader.cpp:307
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
@@ -1442,7 +1442,7 @@ msgstr ""
 "<p>%1 पङ्क्तिः, %2 स्तम्भः: भिन्न-MD5-योगेन सह &#39;%3&#39; सञ्चिकायाः कृते "
 "द्वितीयकप्रविष्टिः ।</p><p> मैनुअलमरम्मतस्य आवश्यकता अस्ति!</p>"
 
-#: DB/XML/FileReader.cpp:435
+#: DB/XML/FileReader.cpp:446
 #, kde-format
 msgid ""
 "<p>Your images/videos are not sorted, which means that navigating using the "
@@ -1465,12 +1465,12 @@ msgstr ""
 "<b>Maintenance-&gt;Sort All by Date &amp; Time इति कृत्वा</b> तान् दत्तांशकोशे "
 "क्रमयितुं निष्पादयितुं शक्नोति ।</p>"
 
-#: DB/XML/FileReader.cpp:444
+#: DB/XML/FileReader.cpp:455
 #, kde-format
 msgid "Images/Videos Are Not Sorted"
 msgstr "चित्राणि/वीडियो न क्रमबद्धानि सन्ति"
 
-#: DB/XML/FileReader.cpp:456
+#: DB/XML/FileReader.cpp:467
 #, kde-format
 msgid ""
 "<p>Not all the images in the database have information about image sizes; "
@@ -1486,12 +1486,12 @@ msgstr ""
 "चिनोतु ।</p><p> एतत् न कृत्वा लघुचित्रदृश्ये चित्राणां परितः अतिरिक्तं स्थानं भविष्यति - तत् "
 "एव - अतः तत् कर्तुं तात्कालिकता नास्ति ।</p>"
 
-#: DB/XML/FileReader.cpp:461
+#: DB/XML/FileReader.cpp:472
 #, kde-format
 msgid "Not All Images Have Size Information"
 msgstr "सर्वेषु चित्रेषु आकारस्य सूचना नास्ति"
 
-#: DB/XML/FileReader.cpp:475
+#: DB/XML/FileReader.cpp:486
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1502,25 +1502,25 @@ msgstr ""
 "<p>भवतः दत्तांशकोशे असङ्गतिः प्राप्ता, मरम्मतं च कृतम् । इदानीं केषुचित् वर्गेषु मरम्मतकाले "
 "विलीनाः टैग्स् सन्ति ।</p><p> निम्नलिखित टैग्स् इत्यस्य हस्तनिरीक्षणस्य आवश्यकता भवति:<ul>"
 
-#: DB/XML/FileReader.cpp:485
+#: DB/XML/FileReader.cpp:496
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
 msgstr "<li>%1: १.<br/>"
 
-#: DB/XML/FileReader.cpp:487
+#: DB/XML/FileReader.cpp:498
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
 msgstr "%1<br/>"
 
-#: DB/XML/FileReader.cpp:490
+#: DB/XML/FileReader.cpp:501
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
 msgstr "</li> इति"
 
-#: DB/XML/FileReader.cpp:495
+#: DB/XML/FileReader.cpp:506
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1530,12 +1530,12 @@ msgstr ""
 "</ul></p><p>सर्वाणि प्रभावितानि चित्राणि अपि <em>KPhotoAlbum - manual repair "
 "needed</em> इति टैग् इत्यनेन चिह्नितानि सन्ति |</p>"
 
-#: DB/XML/FileReader.cpp:499
+#: DB/XML/FileReader.cpp:510
 #, kde-format
 msgid "Database repair required"
 msgstr "दत्तांशकोशमरम्मतम् आवश्यकम्"
 
-#: DB/XML/FileReader.cpp:522
+#: DB/XML/FileReader.cpp:533
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
@@ -1557,68 +1557,68 @@ msgstr ""
 "समीपे पूर्वमेव KDEDIRS सेट् अस्ति, तर्हि केवलं स्ट्रिंग् योजयन्तु यथा भवान् <b>PATH</b> "
 "वातावरणचरं कुत्र सेट् करोति</p>"
 
-#: DB/XML/FileReader.cpp:530
+#: DB/XML/FileReader.cpp:541
 #, kde-format
 msgid "No default setup file found"
 msgstr "पूर्वनिर्धारितस्थापनसञ्चिका न प्राप्ता"
 
-#: DB/XML/FileReader.cpp:536 Settings/BirthdayPage.cpp:135
+#: DB/XML/FileReader.cpp:547 Settings/BirthdayPage.cpp:135
 #, kde-format
 msgid "People"
 msgstr "जनाः"
 
-#: DB/XML/FileReader.cpp:537
+#: DB/XML/FileReader.cpp:548
 #, kde-format
 msgid "Places"
 msgstr "स्थानाः"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:538 lib/kpabase/SettingsData.cpp:433
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:433
 #, kde-format
 msgid "Events"
 msgstr "घटनाः"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:443
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:443
 #, kde-format
 msgid "untagged"
 msgstr "अनटैग्ड्"
 
-#: DB/XML/FileReader.cpp:550 Utilities/DemoUtil.cpp:34
+#: DB/XML/FileReader.cpp:561 Utilities/DemoUtil.cpp:34
 #: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
 #: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "त्रुटिः प्रदर्शनं चालयति"
 
-#: DB/XML/FileReader.cpp:550
+#: DB/XML/FileReader.cpp:561
 #, kde-format
 msgid "Unable to open '%1' for reading"
 msgstr "पठनार्थं '%1' उद्घाटयितुं असमर्थः"
 
-#: DB/XML/FileReader.cpp:563
+#: DB/XML/FileReader.cpp:574
 #, kde-format
 msgid "line %1 column %2 in file %3: %4"
 msgstr "line %1 स्तम्भ %2 सञ्चिकायां %3: %4"
 
-#: DB/XML/FileReader.cpp:565
+#: DB/XML/FileReader.cpp:576
 #, kde-format
 msgid "Failed to recover the backup: %1"
 msgstr "बैकअपं पुनः प्राप्तुं असफलम्: %1"
 
-#: DB/XML/FileReader.cpp:576
+#: DB/XML/FileReader.cpp:587
 #, kde-format
 msgid "Error in file %1: No elements found"
 msgstr "%1 सञ्चिकायां त्रुटिः: कोऽपि तत्त्वः न प्राप्तः"
 
-#: DB/XML/FileReader.cpp:582
+#: DB/XML/FileReader.cpp:593
 #, kde-format
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr ""
 "%1 सञ्चिकायां त्रुटिः: 'KPhotoAlbum' इति शीर्षतत्त्वरूपेण अपेक्षितम् परन्तु '%2' इति "
 "प्राप्तम् ।"
 
-#: DB/XML/FileWriter.cpp:78
+#: DB/XML/FileWriter.cpp:79
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
@@ -1627,12 +1627,12 @@ msgstr ""
 "<p>चित्रदत्तांशकोशं XML मध्ये रक्षितुं न शक्तवान् ।</p> %1 सञ्चिका निम्नलिखितदोषेण "
 "उद्घाटयितुं न शक्यते स्म: %2"
 
-#: DB/XML/FileWriter.cpp:81 DB/XML/FileWriter.cpp:117 DB/XML/FileWriter.cpp:126
+#: DB/XML/FileWriter.cpp:82 DB/XML/FileWriter.cpp:118 DB/XML/FileWriter.cpp:127
 #, kde-format
 msgid "Error while saving..."
 msgstr "रक्षणकाले त्रुटिः..."
 
-#: DB/XML/FileWriter.cpp:114
+#: DB/XML/FileWriter.cpp:115
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
@@ -1641,7 +1641,7 @@ msgstr ""
 "<p>चित्रदत्तांशकोशस्य पुरातनसंस्करणं निष्कासयितुं असफलम् ।</p><p> कृपया पुनः प्रयासं कुर्वन्तु "
 "अथवा %1 सञ्चिकां %2 सञ्चिकायाः सह स्वहस्तेन प्रतिस्थापयन्तु!</p>"
 
-#: DB/XML/FileWriter.cpp:123
+#: DB/XML/FileWriter.cpp:124
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "
@@ -4143,13 +4143,13 @@ msgid "Stacking Error"
 msgstr "स्टैकिंग त्रुटि"
 
 #: MainWindow/Window.cpp:493 MainWindow/Window.cpp:619
-#: MainWindow/Window.cpp:1315 MainWindow/Window.cpp:1412
+#: MainWindow/Window.cpp:1324 MainWindow/Window.cpp:1421
 #, kde-format
 msgid "No item is selected."
 msgstr "कोऽपि द्रव्यः न चयनितः।"
 
 #: MainWindow/Window.cpp:493 MainWindow/Window.cpp:619
-#: MainWindow/Window.cpp:1315 MainWindow/Window.cpp:1413
+#: MainWindow/Window.cpp:1324 MainWindow/Window.cpp:1422
 #, kde-format
 msgid "No Selection"
 msgstr "न चयनम्"
@@ -4445,14 +4445,14 @@ msgstr "अग्रिमस्य विडियो लघुचित्र�
 msgid "Use previous video thumbnail"
 msgstr "पूर्वस्य विडियो लघुचित्रस्य उपयोगं कुर्वन्तु"
 
-#: MainWindow/Window.cpp:1060 MainWindow/Window.cpp:1293
+#: MainWindow/Window.cpp:1060 MainWindow/Window.cpp:1302
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "चित्रं प्रतिलिख्य ..."
 msgstr[1] "चित्राणि प्रतिलिख्य ..."
 
-#: MainWindow/Window.cpp:1064 MainWindow/Window.cpp:1297
+#: MainWindow/Window.cpp:1064 MainWindow/Window.cpp:1306
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
@@ -4492,33 +4492,33 @@ msgstr ""
 "p><p> कृपया अन्तर्गतं स्वस्य अटैग्ड् टैग् सेटिंग् समीक्षां कुर्वन्तु<interface> सेटिंग्स्|"
 "KPhotoAlbum...|वर्गाः विन्यस्तं कुर्वन्तु</interface></p>"
 
-#: MainWindow/Window.cpp:1364 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "सामान्य"
 
-#: MainWindow/Window.cpp:1365 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1374 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "दर्शक"
 
-#: MainWindow/Window.cpp:1366
+#: MainWindow/Window.cpp:1375
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "तिथि बार"
 
-#: MainWindow/Window.cpp:1369
+#: MainWindow/Window.cpp:1378
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "एनोटेशन संवाद"
 
-#: MainWindow/Window.cpp:1370 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1379 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "लघुचित्र दृश्य"
 
-#: MainWindow/Window.cpp:1521
+#: MainWindow/Window.cpp:1530
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4527,13 +4527,13 @@ msgstr ""
 "<p>यत्र पूर्वं भवान् पुनः न दर्शयतु इति चेक् बॉक्स् कृतवान् तत्र सर्वाणि सन्देशपेटिकाः यथार्थतया "
 "सक्षमं कुर्वन्तु?</p>"
 
-#: MainWindow/Window.cpp:1523
+#: MainWindow/Window.cpp:1532
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "गुप्तसंवादं पुनः सेट् कुर्वन्तु"
 
-#: MainWindow/Window.cpp:1542
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4550,32 +4550,32 @@ msgstr ""
 "करिष्यति, परन्तु make install इत्यस्य लुप्तस्य कारणेन पश्चात् क्रैश भविष्यति इति सर्वथा "
 "असम्भाव्यम् नास्ति ।</p>"
 
-#: MainWindow/Window.cpp:1542
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid "Internal Error"
 msgstr "आन्तरिकदोषः"
 
-#: MainWindow/Window.cpp:1553
+#: MainWindow/Window.cpp:1562
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "सफलतया साझाकृतं चित्रं (प्रतिबिम्बं)। स्थानस्य प्रतिलिपिं क्लिपबोर्ड् मध्ये भवति..."
 
-#: MainWindow/Window.cpp:1556
+#: MainWindow/Window.cpp:1565
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "सफलतया साझाकृतं चित्रं (प्रतिबिम्बं)।"
 
-#: MainWindow/Window.cpp:1561
+#: MainWindow/Window.cpp:1570
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "प्रतिबिम्बसाझेदारी सन्देशेन सह विफलम्: %1"
 
-#: MainWindow/Window.cpp:1612
+#: MainWindow/Window.cpp:1621
 #, kde-format
 msgid "Open List of Files"
 msgstr "सञ्चिकानां सूचीं उद्घाटयन्तु"
 
-#: MainWindow/Window.cpp:1613
+#: MainWindow/Window.cpp:1622
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4584,28 +4584,28 @@ msgstr ""
 "अत्र सञ्चिकानां सूचीं कृत्वा KPhotoAlbum इत्यस्य दत्तांशकोशे सञ्चिकानां समुच्चयं उद्घाटयितुं "
 "शक्नुवन्ति ।"
 
-#: MainWindow/Window.cpp:1627
+#: MainWindow/Window.cpp:1636
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "भवतः निवेशेन सह मेलनं कुर्वन्तः कोऽपि चित्रः न प्राप्तः ।"
 
-#: MainWindow/Window.cpp:1627
+#: MainWindow/Window.cpp:1636
 #, kde-format
 msgid "No Matches"
 msgstr "न मेलः"
 
-#: MainWindow/Window.cpp:1799
+#: MainWindow/Window.cpp:1808
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "सर्वेभ्यः चित्रेभ्यः Exif सूचनां पुनः पठति"
 
-#: MainWindow/Window.cpp:1826
+#: MainWindow/Window.cpp:1835
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "लघुचित्रविस्तारः %1px (भण्डारणस्य आकारः %2px)"
 
-#: MainWindow/Window.cpp:1879
+#: MainWindow/Window.cpp:1888
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4615,7 +4615,7 @@ msgstr ""
 "<p>प्रणाल्यां ffmpeg अन्वेष्टुं असमर्थः।</p><p> तस्य विना KPhotoAlbum विडियो लघुचित्रं "
 "विडियो दीर्घतां च प्रदर्शयितुं न शक्नोति। कृपया ffmpeg संकुलं संस्थापयन्तु</p>"
 
-#: MainWindow/Window.cpp:1882
+#: MainWindow/Window.cpp:1891
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "विडियो लघुचित्रं उपलब्धं नास्ति"

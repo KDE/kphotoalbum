@@ -1,5 +1,7 @@
 #!/usr/bin/perl
+
 # SPDX-FileCopyrightText: 2017-2020 Robert Krawitz <rlk@alum.mit.edu>
+#
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 # Maintain KPhotoAlbum index.xml files
@@ -65,45 +67,45 @@ sub usage() {
     my ($usage) = << 'FINIS';
 Usage: kpa-merge [options] file1 [file2]
 
-	If two files are provided, merge the two files and write the
-	result to stdout.  file1 is the up-to-date file containing
-	categories you wish to merge into file2; the result is printed
-	to stdout.
+    If two files are provided, merge the two files and write the
+    result to stdout.  file1 is the up-to-date file containing
+    categories you wish to merge into file2; the result is printed
+    to stdout.
 
-	Keywords and other categories are combined, such that the
-	result contains all information from both files.  Stacks are
-	also combined and merged where appropriate.
+    Keywords and other categories are combined, such that the
+    result contains all information from both files.  Stacks are
+    also combined and merged where appropriate.
 
-	Image entries present in file1 are *not* copied to file2; a
-	warning is printed.
+    Image entries present in file1 are *not* copied to file2; a
+    warning is printed.
 
-	If only one file is provided, it is processed in the same way.
-	This form can be used to clean up an index.xml file.
+    If only one file is provided, it is processed in the same way.
+    This form can be used to clean up an index.xml file.
 
-	kpa-merge currently handles version 7 and 8 files and by default
-	writes the version of the first input file.
+    kpa-merge currently handles version 7 and 8 files and by default
+    writes the version of the first input file.
 
-	kpa-merge can write either compressed or uncompressed output;
-	by default it uses the compression of the first input file.
+    kpa-merge can write either compressed or uncompressed output;
+    by default it uses the compression of the first input file.
 
-	Options:
+    Options:
 
-		-R|--reject-new-images		Don't load new images from
-						the first file
-		-B|--keep-blocked-images	Unblock blocked images in
-						the second file
-		-n|--no-output			Don't actually write the
-						result (for testing purposes)
-		-r|--replace-categories		Replace all categories from
-						images in the second file
-						with corresponding data from
-						the first (rather than merging)
-		-c|--clean-unused-labels	Purge unused labels (useful
-						for one file usage)
-		-C|--compressed-output		Force compressed output
-		-N|--no-compressed-output	Force uncompressed output
-		-V|--version			Force specified output
-						version (7 or 8).
+        -R|--reject-new-images       Don't load new images from
+                                     the first file
+        -B|--keep-blocked-images     Unblock blocked images in
+                                     the second file
+        -n|--no-output               Don't actually write the
+                                     result (for testing purposes)
+        -r|--replace-categories      Replace all categories from
+                                     images in the second file
+                                     with corresponding data from
+                                     the first (rather than merging)
+        -c|--clean-unused-labels     Purge unused labels (useful
+                                     for one file usage)
+        -C|--compressed-output       Force compressed output
+        -N|--no-compressed-output    Force uncompressed output
+        -V|--version                 Force specified output
+                                     version (7 or 8).
 FINIS
     print STDERR $usage;
     exit(1);
@@ -128,9 +130,9 @@ sub getAttributes($) {
 sub getAttribute(\@$) {
     my ($attributes, $name) = @_;
     foreach my $attr (@$attributes) {
-	if ($name eq $attr->nodeName) {
-	    return $attr;
-	}
+        if ($name eq $attr->nodeName) {
+            return $attr;
+        }
     }
     return undef;
 }
@@ -139,18 +141,18 @@ sub setAttribute(\@$$) {
     my ($attributes, $name, $value) = @_;
     my ($attr) = getAttribute(@$attributes, $name);
     if ($attr) {
-	$attr->setValue($value);
+        $attr->setValue($value);
     } else {
-	$attr = XML::LibXML::Attr->new($name, $value);
-	push @$attributes, $attr;
+        $attr = XML::LibXML::Attr->new($name, $value);
+        push @$attributes, $attr;
     }
 }
 
 sub setDefaultAttribute(\@$$) {
     my ($attributes, $name, $value) = @_;
     if (! getAttribute(@$attributes, $name)) {
-	my $attr = XML::LibXML::Attr->new($name, $value);
-	push @$attributes, $attr;
+        my $attr = XML::LibXML::Attr->new($name, $value);
+        push @$attributes, $attr;
     }
 }
 
@@ -173,7 +175,7 @@ sub loadCategory($$$) {
     $category_id_remap{$name} = {};
     my ($category) = $categories{"members"}{$name};
     if ($pass == $last_pass) {
-	$$category{"attributes"} = getAttributes($node);
+        $$category{"attributes"} = getAttributes($node);
     }
     $$category{"members"} = {} if (! defined $$category{"members"});
     my (@members);
@@ -181,41 +183,41 @@ sub loadCategory($$$) {
     my ($category_max_id) = 0;
     my %items_to_remap;
     foreach my $i (1..$children->size()) {
-	my ($child) = $children->get_node($i);
-	next if $node->nodeType() != 1 || !isNode($child, "value");
-	my ($value) = $child->getAttribute("value");
-	my ($id) = $child->getAttribute("id");
-	if ($id == 0) {
-	    print STDERR "Warning: $name:$value has id 0, will remap\n";
-	    $items_to_remap{$value} = $id;
-	} elsif (defined $category_map{$name}[$id]) {
-	    print STDERR "Warning: duplicate ID for $name:$id!\n";
-	    $items_to_remap{$value} = $id;
-	}
-	$$category{"members"}{$value} = 1;
-	$category_map{$name}[$id] = $value;
-	if ($id > $category_max_id) {
-	    $category_max_id = $id;
-	}
+        my ($child) = $children->get_node($i);
+        next if $node->nodeType() != 1 || !isNode($child, "value");
+        my ($value) = $child->getAttribute("value");
+        my ($id) = $child->getAttribute("id");
+        if ($id == 0) {
+            print STDERR "Warning: $name:$value has id 0, will remap\n";
+            $items_to_remap{$value} = $id;
+        } elsif (defined $category_map{$name}[$id]) {
+            print STDERR "Warning: duplicate ID for $name:$id!\n";
+            $items_to_remap{$value} = $id;
+        }
+        $$category{"members"}{$value} = 1;
+        $category_map{$name}[$id] = $value;
+        if ($id > $category_max_id) {
+            $category_max_id = $id;
+        }
     }
     foreach my $remap (keys %items_to_remap) {
-	$category_max_id++;
-	print STDERR "Remapping $remap from $items_to_remap{$remap} to $category_max_id\n";
-	$category_map{$remap}{$category_max_id} = $category_max_id;
-	# Uncompressed databases don't have any problem with remapping,
-	# since items are stored uncompressed.
-	if ($compressed) {
-	    my ($id) = $items_to_remap{$remap};
-	    $category_remappings{$name}{$remap}{"old"} = $id;
-	    $category_remappings{$name}{$remap}{"new"} = $category_max_id;
-	    if (defined $category_id_remap{$id}) {
-		print STDERR "*** Non-unique category remap for $id.\n";
-		print STDERR "*** Will remove member-group mappings for this id!";
-		$category_id_remap{$id} = -1;
-	    } else {
-		$category_id_remap{$id} = $category_max_id;
-	    }
-	}
+        $category_max_id++;
+        print STDERR "Remapping $remap from $items_to_remap{$remap} to $category_max_id\n";
+        $category_map{$remap}{$category_max_id} = $category_max_id;
+        # Uncompressed databases don't have any problem with remapping,
+        # since items are stored uncompressed.
+        if ($compressed) {
+            my ($id) = $items_to_remap{$remap};
+            $category_remappings{$name}{$remap}{"old"} = $id;
+            $category_remappings{$name}{$remap}{"new"} = $category_max_id;
+            if (defined $category_id_remap{$id}) {
+                print STDERR "*** Non-unique category remap for $id.\n";
+                print STDERR "*** Will remove member-group mappings for this id!";
+                $category_id_remap{$id} = -1;
+            } else {
+                $category_id_remap{$id} = $category_max_id;
+            }
+        }
     }
 }
 
@@ -223,16 +225,16 @@ sub loadCategories($$$) {
     my ($node, $pass, $compressed) = @_;
     my $children = $node->childNodes();
     if ($pass == $last_pass) {
-	$categories{"attributes"} = getAttributes($node);
+        $categories{"attributes"} = getAttributes($node);
     }
     $categories{"members"} = {} if (! defined $categories{"members"});
     # Category maps (mapping between name and ID in a compressed file)
     # will differ for each file.
     %category_map = ();
     foreach my $i (1..$children->size()) {
-	my ($child) = $children->get_node($i);
-	next if $node->nodeType() != 1 || !isNode($child, "category");
-	loadCategory($child, $pass, $compressed);
+        my ($child) = $children->get_node($i);
+        next if $node->nodeType() != 1 || !isNode($child, "category");
+        loadCategory($child, $pass, $compressed);
     }
 }
 
@@ -248,11 +250,11 @@ sub loadOptionValues($$$) {
     $images{$file}{"options"}{$name} = {} if ($opt_replace_categories || ! defined $images{$file}{"options"}{$name});
     my $children = $node->childNodes();
     foreach my $i (1..$children->size()) {
-	my ($child) = $children->get_node($i);
-	next if $node->nodeType() != 1 || !isNode($child, "value");
-	my ($val) = $child->getAttribute("value");
-	$images{$file}{"options"}{$name}{$val} = 1;
-	$categories_used{$pass}{$name}{$val} = 1;
+        my ($child) = $children->get_node($i);
+        next if $node->nodeType() != 1 || !isNode($child, "value");
+        my ($val) = $child->getAttribute("value");
+        $images{$file}{"options"}{$name}{$val} = 1;
+        $categories_used{$pass}{$name}{$val} = 1;
     }
 }
 
@@ -260,10 +262,10 @@ sub loadOptionTypes($$$) {
     my ($node, $pass, $file) = @_;
     my $children = $node->childNodes();
     foreach my $i (1..$children->size()) {
-	my ($child) = $children->get_node($i);
-	next if $node->nodeType() != 1 || !isNode($child, "option");
-	$images{$file}{"options"} = {} if ($opt_replace_categories || ! defined $images{$file}{"options"});
-	loadOptionValues($child, $pass, $file);
+        my ($child) = $children->get_node($i);
+        next if $node->nodeType() != 1 || !isNode($child, "option");
+        $images{$file}{"options"} = {} if ($opt_replace_categories || ! defined $images{$file}{"options"});
+        loadOptionValues($child, $pass, $file);
     }
 }
 
@@ -271,9 +273,9 @@ sub loadUncompressedOptions($$$) {
     my ($node, $pass, $file) = @_;
     my $children = $node->childNodes();
     foreach my $i (1..$children->size()) {
-	my ($child) = $children->get_node($i);
-	next if $node->nodeType() != 1 || !isNode($child, "options");
-	loadOptionTypes($child, $pass, $file);
+        my ($child) = $children->get_node($i);
+        next if $node->nodeType() != 1 || !isNode($child, "options");
+        loadOptionTypes($child, $pass, $file);
     }
 }
 
@@ -283,31 +285,31 @@ sub loadUncompressedOptions($$$) {
 sub loadCompressedOptions($$$) {
     my ($node, $pass, $file) = @_;
     foreach my $category (sort keys %category_map) {
-	my ($members) = $node->getAttribute($category);
-	if (defined $members && $members ne '') {
-	    my ($map) = $category_map{$category};
-	    my (@members);
-	    my (@old_members) = split(/,/, $members);
-	    foreach my $id (@old_members) {
-		if (defined $category_id_remap{$id}) {
-		    if ($category_id_remap{$id} > 0) {
-			push @members, $category_id_remap{$id};
-		    } else {
-			print STDERR "*** Cannot remap non-unique id $id on file $file\n";
-		    }
-		} elsif ($id <= 0) {
-		    print STDERR "*** Invalid option ID 0 found category '$category' in $file; omitting\n";
-		} else {
-		    push @members, $id;
-		}
-	    }
-	    $images{$file}{"options"} = {} if ($opt_replace_categories || ! defined $images{$file}{"options"});
-	    $images{$file}{"options"}{$category} = {} if (! defined $images{$file}{"options"}{$category});
-	    map {
-		$images{$file}{"options"}{$category}{$$map[$_]} = 1;
-		$categories_used{$pass}{$category}{$$map[$_]} = 1;
-	    } @members;
-	}
+        my ($members) = $node->getAttribute($category);
+        if (defined $members && $members ne '') {
+            my ($map) = $category_map{$category};
+            my (@members);
+            my (@old_members) = split(/,/, $members);
+            foreach my $id (@old_members) {
+                if (defined $category_id_remap{$id}) {
+                    if ($category_id_remap{$id} > 0) {
+                        push @members, $category_id_remap{$id};
+                    } else {
+                        print STDERR "*** Cannot remap non-unique id $id on file $file\n";
+                    }
+                } elsif ($id <= 0) {
+                    print STDERR "*** Invalid option ID 0 found category '$category' in $file; omitting\n";
+                } else {
+                    push @members, $id;
+                }
+            }
+            $images{$file}{"options"} = {} if ($opt_replace_categories || ! defined $images{$file}{"options"});
+            $images{$file}{"options"}{$category} = {} if (! defined $images{$file}{"options"}{$category});
+            map {
+                $images{$file}{"options"}{$category}{$$map[$_]} = 1;
+                $categories_used{$pass}{$category}{$$map[$_]} = 1;
+            } @members;
+        }
     }
 }
 
@@ -320,101 +322,101 @@ sub loadImage($$$) {
     $node->removeAttribute("stackId");
     $node->removeAttribute("stackOrder");
     if ($output_version == 7) {
-	# Restore any attributes defaulted in version 8
-	if (! $node->hasAttribute("angle")) {
-	    $node->setAttribute("angle", 0);
-	}
-	if (! $node->hasAttribute("endDate")) {
-	    $node->setAttribute("endDate", $node->getAttribute("startDate"));
-	}
-	if (! $node->hasAttribute("label")) {
-	    my ($label) = $file;
-	    $label =~ s,^.*/,,;
-	    $label =~ s/\.[^.]*$//;
-	    $node->setAttribute("label", $label);
-	}
+        # Restore any attributes defaulted in version 8
+        if (! $node->hasAttribute("angle")) {
+            $node->setAttribute("angle", 0);
+        }
+        if (! $node->hasAttribute("endDate")) {
+            $node->setAttribute("endDate", $node->getAttribute("startDate"));
+        }
+        if (! $node->hasAttribute("label")) {
+            my ($label) = $file;
+            $label =~ s,^.*/,,;
+            $label =~ s/\.[^.]*$//;
+            $node->setAttribute("label", $label);
+        }
     } else {
-	if ($node->hasAttribute("angle") &&
-	    $node->getAttribute("angle") eq "0") {
-	    $node->removeAttribute("angle");
-	}
-	if ($node->hasAttribute("endDate") &&
-	    $node->getAttribute("endDate") eq $node->getAttribute("startDate")) {
-	    $node->removeAttribute("endDate");
-	}
-	if ($node->hasAttribute("label")) {
-	    my ($label) = $file;
-	    $label =~ s,^.*/,,;
-	    $label =~ s/\.[^.]*$//;
-	    if ($node->getAttribute("label") eq $label) {
-		$node->removeAttribute("label");
-	    }
-	}
+        if ($node->hasAttribute("angle") &&
+            $node->getAttribute("angle") eq "0") {
+            $node->removeAttribute("angle");
+        }
+        if ($node->hasAttribute("endDate") &&
+            $node->getAttribute("endDate") eq $node->getAttribute("startDate")) {
+            $node->removeAttribute("endDate");
+        }
+        if ($node->hasAttribute("label")) {
+            my ($label) = $file;
+            $label =~ s,^.*/,,;
+            $label =~ s/\.[^.]*$//;
+            if ($node->getAttribute("label") eq $label) {
+                $node->removeAttribute("label");
+            }
+        }
     }
 
     if (!defined $images{$file}) {
-	# Always load images from the first file.  We might or might not
-	# keep images only found in the second file depending upon what
-	# the user requested.
-	if ($pass > 0) {
-	    if ($blocklist{$file}) {
-		if ($opt_keep_blocked_images) {
-		    delete $blocklist{$file};
-		} else {
-		    warn "Skipping $file in destination blocklist\n";
-		    return;
-		}
-	    } elsif ($opt_reject_new_images) {
-		warn "Skipping image $file after initial load\n";
-		return;
-	    }
-	}
-	$images{$file} = {};
-	$images{$file}{"attributes"} = getAttributes($node);
+        # Always load images from the first file.  We might or might not
+        # keep images only found in the second file depending upon what
+        # the user requested.
+        if ($pass > 0) {
+            if ($blocklist{$file}) {
+                if ($opt_keep_blocked_images) {
+                    delete $blocklist{$file};
+                } else {
+                    warn "Skipping $file in destination blocklist\n";
+                    return;
+                }
+            } elsif ($opt_reject_new_images) {
+                warn "Skipping image $file after initial load\n";
+                return;
+            }
+        }
+        $images{$file} = {};
+        $images{$file}{"attributes"} = getAttributes($node);
     } else {
-	# We want to use the pass1 attributes where available.
-	# But special case width and height; we want to use a value that's
-	# not -1.
-	my (@attributes) = $node->getAttributes();
-	my ($nattrs) = $images{$file}{"attributes"};
-	foreach my $attribute (@attributes) {
-	    my ($name) = $attribute->nodeName;
-	    my ($value) = $attribute->value;
+        # We want to use the pass1 attributes where available.
+        # But special case width and height; we want to use a value that's
+        # not -1.
+        my (@attributes) = $node->getAttributes();
+        my ($nattrs) = $images{$file}{"attributes"};
+        foreach my $attribute (@attributes) {
+            my ($name) = $attribute->nodeName;
+            my ($value) = $attribute->value;
 
-	    if (($name eq "width" || $name eq "height")) {
-		my ($attr1) = getAttribute(@$nattrs, $name);
-		if ($value ne "-1" && (! $attr1 || $attr1->value eq "-1")) {
-		    warn "Fixing $name on $file (" . $attr1->value . " => $value)\n";
-		    $attr1->setValue($value);
-		}
-	    } else {
-		setDefaultAttribute(@$nattrs, $name, $value);
-	    }
-	}
+            if (($name eq "width" || $name eq "height")) {
+                my ($attr1) = getAttribute(@$nattrs, $name);
+                if ($value ne "-1" && (! $attr1 || $attr1->value eq "-1")) {
+                    warn "Fixing $name on $file (" . $attr1->value . " => $value)\n";
+                    $attr1->setValue($value);
+                }
+            } else {
+                setDefaultAttribute(@$nattrs, $name, $value);
+            }
+        }
     }
     if ($stack) {
-	$stacks_byimage[$pass]{$file} = $stack;
-	$stacks_byid[$pass]{$stack} = [] if (! defined $stacks_byid[$pass]{$stack});
-	if (defined $stacks_byid[$pass]{$stack}[$stack_order - 1]) {
-	    warn "Duplicate stack/order ($stack, $stack_order) found for $file and $stacks_byid[$pass]{$stack}[$stack_order - 1], appending.\n";
-	    push @{$stacks_byid[$pass]{$stack}}, $file;
-	} else {
-	    $stacks_byid[$pass]{$stack}[$stack_order - 1] = $file;
-	}
-	if ($pass == $last_pass && $stack > $max_stack_pass1) {
-	    $max_stack_pass1 = $stack;
-	}
+        $stacks_byimage[$pass]{$file} = $stack;
+        $stacks_byid[$pass]{$stack} = [] if (! defined $stacks_byid[$pass]{$stack});
+        if (defined $stacks_byid[$pass]{$stack}[$stack_order - 1]) {
+            warn "Duplicate stack/order ($stack, $stack_order) found for $file and $stacks_byid[$pass]{$stack}[$stack_order - 1], appending.\n";
+            push @{$stacks_byid[$pass]{$stack}}, $file;
+        } else {
+            $stacks_byid[$pass]{$stack}[$stack_order - 1] = $file;
+        }
+        if ($pass == $last_pass && $stack > $max_stack_pass1) {
+            $max_stack_pass1 = $stack;
+        }
     }
     my ($start_date) = $node->getAttribute("startDate");
     my ($sort_key) = "$start_date$file";
     $images_seq{$file} = $sort_key;
     if ($opt_replace_categories) {
-	$images{$file}{"options"} = {};
+        $images{$file}{"options"} = {};
     }
     if ($compressed) {
-	loadCompressedOptions($node, $pass, $file);
+        loadCompressedOptions($node, $pass, $file);
     } else {
-	loadUncompressedOptions($node, $pass, $file);
+        loadUncompressedOptions($node, $pass, $file);
     }
 }
 
@@ -425,9 +427,9 @@ sub loadImages($$$) {
     $stacks_byimage[$pass] = {};
     $stacks_byid[$pass] = {};
     foreach my $i (1..$children->size()) {
-	my ($child) = $children->get_node($i);
-	next if $node->nodeType() != 1 || !isNode($child, "image");
-	loadImage($child, $pass, $compressed);
+        my ($child) = $children->get_node($i);
+        next if $node->nodeType() != 1 || !isNode($child, "image");
+        loadImage($child, $pass, $compressed);
     }
 }
 
@@ -439,9 +441,9 @@ sub loadBlocklist($$$) {
     my ($node, $pass, $compressed) = @_;
     my $children = $node->childNodes();
     foreach my $i (1..$children->size()) {
-	my ($child) = $children->get_node($i);
-	next if $node->nodeType() != 1 || !isNode($child, "block");
-	$blocklist{$child->getAttribute("file")} = 1;
+        my ($child) = $children->get_node($i);
+        next if $node->nodeType() != 1 || !isNode($child, "block");
+        $blocklist{$child->getAttribute("file")} = 1;
     }
 }
 
@@ -454,46 +456,46 @@ sub loadMemberGroup($$) {
     my ($category) = $node->getAttribute("category");
     my ($groupname) = $node->getAttribute("group-name");
     if (! defined $categories{"members"}{$category}{"members"}{$groupname}) {
-	if (! defined $orphans{$category}) {
-	    $orphans{$category}{$groupname} = 1;
-	}
-	if ($compressed && $node->hasAttribute("members") && $node->getAttribute("members") ne "") {
-	    my $suffix = (! $node->getAttribute("members") =~ /,/) ? 'ren' : '';
-	    printf STDERR "WARNING: Orphan group $category:$groupname has child$suffix %s!\n", $node->getAttribute("members");
-	} else {
-	    print STDERR "Removing orphaned member-group $category:$groupname\n";
-	    return;
-	}
+        if (! defined $orphans{$category}) {
+            $orphans{$category}{$groupname} = 1;
+        }
+        if ($compressed && $node->hasAttribute("members") && $node->getAttribute("members") ne "") {
+            my $suffix = (! $node->getAttribute("members") =~ /,/) ? 'ren' : '';
+            printf STDERR "WARNING: Orphan group $category:$groupname has child$suffix %s!\n", $node->getAttribute("members");
+        } else {
+            print STDERR "Removing orphaned member-group $category:$groupname\n";
+            return;
+        }
     }
     $member_groups{$category} = {} if (! defined $member_groups{$category});
     $group_members{$category} = {} if (! defined $group_members{$category});
     $group_members{$category}{$groupname} = {} if (! defined $group_members{$category}{$groupname});
     if ($compressed) {
-	my ($members) = $node->getAttribute("members");
-	if ($members) {
-	    my ($map) = $category_map{$category};
-	    my (@old_members) = grep { ! $_ == 0 } split(/,/, $members);
-	    my (@members);
-	    foreach my $id (@old_members) {
-		if (defined $category_id_remap{$id}) {
-		    if ($category_id_remap{$id} > 0) {
-			push @members, $category_id_remap{$id};
-		    } else {
-			print STDERR "*** Cannot remap non-unique id $id for member-group $category:$groupname\n";
-		    }
-		} else {
-		    push @members, $id;
-		}
-	    }
-	    map {
-		$member_groups{$category}{$$map[$_]} = $groupname;
-		$group_members{$category}{$groupname}{$$map[$_]} = 1;
-	    } @members;
-	}
+        my ($members) = $node->getAttribute("members");
+        if ($members) {
+            my ($map) = $category_map{$category};
+            my (@old_members) = grep { ! $_ == 0 } split(/,/, $members);
+            my (@members);
+            foreach my $id (@old_members) {
+                if (defined $category_id_remap{$id}) {
+                    if ($category_id_remap{$id} > 0) {
+                        push @members, $category_id_remap{$id};
+                    } else {
+                        print STDERR "*** Cannot remap non-unique id $id for member-group $category:$groupname\n";
+                    }
+                } else {
+                    push @members, $id;
+                }
+            }
+            map {
+                $member_groups{$category}{$$map[$_]} = $groupname;
+                $group_members{$category}{$groupname}{$$map[$_]} = 1;
+            } @members;
+        }
     } else {
-	my ($member) = $node->getAttribute("member");
-	$member_groups{$category}{$member} = $groupname;
-	$group_members{$category}{$groupname}{$member} = 1;
+        my ($member) = $node->getAttribute("member");
+        $member_groups{$category}{$member} = $groupname;
+        $group_members{$category}{$groupname}{$member} = 1;
     }
 }
 
@@ -501,9 +503,9 @@ sub loadMemberGroups($$$) {
     my ($node, $pass, $compressed) = @_;
     my $children = $node->childNodes();
     foreach my $i (1..$children->size()) {
-	my ($child) = $children->get_node($i);
-	next if $node->nodeType() != 1 || !isNode($child, "member");
-	loadMemberGroup($child, $compressed);
+        my ($child) = $children->get_node($i);
+        next if $node->nodeType() != 1 || !isNode($child, "member");
+        loadMemberGroup($child, $compressed);
     }
 }
 
@@ -516,73 +518,73 @@ sub load_file($$) {
     print STDERR "Loading $file...";
     my $doc = XML::LibXML->load_xml(location => $file);
     if (! $doc) {
-	usage();
+        usage();
     }
 
     my $kpa = ${$doc->findnodes('KPhotoAlbum')}[0];
 
     if ($pass == 0) {
-	$kpa_attributes = $kpa->findnodes("./@*");
+        $kpa_attributes = $kpa->findnodes("./@*");
     }
 
     if ($pass == 0) {
-	if ($opt_output_version != 0 &&
-	    $opt_output_version != 7 &&
-	    $opt_output_version != 8) {
-	    print STDERR "Output version must be 7 or 8";
-	    usage();
-	}
+        if ($opt_output_version != 0 &&
+            $opt_output_version != 7 &&
+            $opt_output_version != 8) {
+            print STDERR "Output version must be 7 or 8";
+            usage();
+        }
     }
     if ($kpa->getAttribute("version") != 7 &&
-	$kpa->getAttribute("version") != 8) {
-	die "kpa-merge only works with version 7 and 8 files\n";
+        $kpa->getAttribute("version") != 8) {
+        die "kpa-merge only works with version 7 and 8 files\n";
     }
     if ($pass == 0) {
-	if ($opt_output_version) {
-	    $output_version = $opt_output_version;
-	} else {
-	    $output_version = $kpa->getAttribute("version");
-	}
+        if ($opt_output_version) {
+            $output_version = $opt_output_version;
+        } else {
+            $output_version = $kpa->getAttribute("version");
+        }
     }
     # Always write a version 8 file right now.
     $kpa->setAttribute("version", $output_version);
 
     my ($compressed) = int $kpa->getAttribute("compressed");
     if ($pass == 0) {
-	if ($opt_force_compressed_output) {
-	    $compress_output = 1;
-	} elsif ($opt_force_uncompressed_output) {
-	    $compress_output = 0;
-	} else {
-	    $compress_output = $compressed;
-	}
+        if ($opt_force_compressed_output) {
+            $compress_output = 1;
+        } elsif ($opt_force_uncompressed_output) {
+            $compress_output = 0;
+        } else {
+            $compress_output = $compressed;
+        }
     }
 
     my $children = $kpa->childNodes();
 
     foreach my $i (1..$children->size()) {
-	my ($topcn) = $children->get_node($i);
-	if (isNode($topcn, "categories")) {
-	    print STDERR "categories...";
-	    loadCategories($topcn, $pass, $compressed);
-	} elsif (isNode($topcn, "images")) {
-	    print STDERR "images...";
-	    loadImages($topcn, $pass, $compressed);
-	} elsif (isNode($topcn, "blocklist")) {
-	    print STDERR "blocklist...";
-	    loadBlocklist($topcn, $pass, $compressed);
-	} elsif (isNode($topcn, "member-groups")) {
-	    print STDERR "member-groups...";
-	    loadMemberGroups($topcn, $pass, $compressed);
-	} elsif ($topcn->nodeType() == 1) {
-	    warn "Found unknown node " . $topcn->nodeName() . "\n";
-	}
+        my ($topcn) = $children->get_node($i);
+        if (isNode($topcn, "categories")) {
+            print STDERR "categories...";
+            loadCategories($topcn, $pass, $compressed);
+        } elsif (isNode($topcn, "images")) {
+            print STDERR "images...";
+            loadImages($topcn, $pass, $compressed);
+        } elsif (isNode($topcn, "blocklist")) {
+            print STDERR "blocklist...";
+            loadBlocklist($topcn, $pass, $compressed);
+        } elsif (isNode($topcn, "member-groups")) {
+            print STDERR "member-groups...";
+            loadMemberGroups($topcn, $pass, $compressed);
+        } elsif ($topcn->nodeType() == 1) {
+            warn "Found unknown node " . $topcn->nodeName() . "\n";
+        }
     }
     if (keys %warned_idx0) {
-	print STDERR "\n";
-	foreach my $k (sort keys %warned_idx0) {
-	    warn "Found $warned_idx0{$k} files with index 0 ($k $category_map{$k}[0])\n";
-	}
+        print STDERR "\n";
+        foreach my $k (sort keys %warned_idx0) {
+            warn "Found $warned_idx0{$k} files with index 0 ($k $category_map{$k}[0])\n";
+        }
     }
     print STDERR "done.\n";
 }
@@ -601,49 +603,49 @@ sub reconcile_stacks() {
     # as intended.
     print STDERR "image stacks...";
     foreach my $file (sort keys %{$stacks_byimage[0]}) {
-	if (! defined $stacks_byimage[1]{$file}) {
-	    my ($old_stack) = $stacks_byimage[0]{$file};
-	    my ($by_id_0) = $stacks_byid[0]{$old_stack};
-	    my ($found) = -1;
-	    foreach my $ofile (@$by_id_0) {
-		# Gaps in stack indices
-		next if (! defined $ofile);
-		if (defined $stacks_byimage[1]{$ofile}) {
-		    if ($found == -1) {
-			$found = $stacks_byimage[1]{$ofile};
-		    } elsif ($found != $stacks_byimage[1]{$ofile}) {
-			# If an image is in a different stack in one file
-			# vs the other, there's not much we can do.
-			warn "INCONSISTENT STACKS for $file ($found, $stacks_byimage[1]{$ofile})!\n";
-		    }
-		}
-	    }
-	    if ($found == -1) {
-		my ($new_stack) = ++$max_stack_pass1;
-		# Fix up all of the files in the renumbered stack
-		map { $stacks_byimage[1]{$_} = $new_stack; } (grep { defined $_ } @$by_id_0);
-		$stacks_byid[1]{$new_stack} = $stacks_byid[0]{$old_stack};
-	    } else {
-		$stacks_byimage[1]{$file} = $found;
-		push @{$stacks_byid[1]{$found}}, $file;
-	    }
-	}
+        if (! defined $stacks_byimage[1]{$file}) {
+            my ($old_stack) = $stacks_byimage[0]{$file};
+            my ($by_id_0) = $stacks_byid[0]{$old_stack};
+            my ($found) = -1;
+            foreach my $ofile (@$by_id_0) {
+                # Gaps in stack indices
+                next if (! defined $ofile);
+                if (defined $stacks_byimage[1]{$ofile}) {
+                    if ($found == -1) {
+                        $found = $stacks_byimage[1]{$ofile};
+                    } elsif ($found != $stacks_byimage[1]{$ofile}) {
+                        # If an image is in a different stack in one file
+                        # vs the other, there's not much we can do.
+                        warn "INCONSISTENT STACKS for $file ($found, $stacks_byimage[1]{$ofile})!\n";
+                    }
+                }
+            }
+            if ($found == -1) {
+                my ($new_stack) = ++$max_stack_pass1;
+                # Fix up all of the files in the renumbered stack
+                map { $stacks_byimage[1]{$_} = $new_stack; } (grep { defined $_ } @$by_id_0);
+                $stacks_byid[1]{$new_stack} = $stacks_byid[0]{$old_stack};
+            } else {
+                $stacks_byimage[1]{$file} = $found;
+                push @{$stacks_byid[1]{$found}}, $file;
+            }
+        }
     }
     # Now, set the stack order for each image
     my ($new_stackid) = 1;
     foreach my $stackid (sort keys %{$stacks_byid[1]}) {
-	my ($stack) = $stacks_byid[1]{$stackid};
-	my ($order) = 1;
-	foreach my $file (@$stack) {
-	    if (defined $file) {
-		$stack_order{$file} = $order++;
-	    }
-	}
-	if ($order <= 2) {
-	    $stacks_to_remove{$stackid} = 1;
-	} else {
-	    $stacks_remap{$stackid} = $new_stackid++;
-	}
+        my ($stack) = $stacks_byid[1]{$stackid};
+        my ($order) = 1;
+        foreach my $file (@$stack) {
+            if (defined $file) {
+                $stack_order{$file} = $order++;
+            }
+        }
+        if ($order <= 2) {
+            $stacks_to_remove{$stackid} = 1;
+        } else {
+            $stacks_remap{$stackid} = $new_stackid++;
+        }
     }
 }
 
@@ -666,44 +668,44 @@ sub clean_unused_labels_pass(\%) {
     my ($removed_something) = 0;
 
     foreach my $category (sort keys %{$categories{"members"}}) {
-	next if $category eq "Tokens";
-	print STDERR "  Category $category...\n";
-	my ($members) = $categories{"members"}{$category}{"members"};
-	# "Member" here is the group name
-	foreach my $member (sort keys %$members) {
-	    next if defined $$categories_in_use{$category}{$member};
-	    if (! defined $group_members{$category}{$member} ||
-		! scalar %{$group_members{$category}{$member}}) {
-		# This is not used by any images and is not the name of a group.
-		# Remove from categories
-		print STDERR "   Purging $member\n";
-		delete $$members{$member};
-		# Remove this group membership
-		my ($group) = $member_groups{$category}{$member};
-		delete $member_groups{$category}{$member};
-		if (defined $group_members{$category}{$member}) {
-		    if (scalar %{$group_members{$category}{$member}} > 0) {
-			print STDERR "      WARNING: $member still has sub-members! Not deleting.\n";
-		    } else {
-			print STDERR "      Deleting empty member-group $member\n";
-			delete $group_members{$category}{$member};
-		    }
-		}
-		# And remove it from any group it's a member of.
-		if (defined $group) {
-		    print STDERR "    Removing $member from\n";
-		    print STDERR "             $group\n";
-		    delete $group_members{$category}{$group}{$member};
-		    # Prune any groups in which this was the last member,
-		    # which may allow us to do more work in the next pass.
-		    if (scalar %{$group_members{$category}{$group}} == 0) {
-			print STDERR "    Removed last member from $group\n";
-			delete $group_members{$category}{$group};
-		    }
-		}
-		$removed_something = 1;
-	    }
-	}
+        next if $category eq "Tokens";
+        print STDERR "  Category $category...\n";
+        my ($members) = $categories{"members"}{$category}{"members"};
+        # "Member" here is the group name
+        foreach my $member (sort keys %$members) {
+            next if defined $$categories_in_use{$category}{$member};
+            if (! defined $group_members{$category}{$member} ||
+                ! scalar %{$group_members{$category}{$member}}) {
+                # This is not used by any images and is not the name of a group.
+                # Remove from categories
+                print STDERR "   Purging $member\n";
+                delete $$members{$member};
+                # Remove this group membership
+                my ($group) = $member_groups{$category}{$member};
+                delete $member_groups{$category}{$member};
+                if (defined $group_members{$category}{$member}) {
+                    if (scalar %{$group_members{$category}{$member}} > 0) {
+                        print STDERR "      WARNING: $member still has sub-members! Not deleting.\n";
+                    } else {
+                        print STDERR "      Deleting empty member-group $member\n";
+                        delete $group_members{$category}{$member};
+                    }
+                }
+                # And remove it from any group it's a member of.
+                if (defined $group) {
+                    print STDERR "    Removing $member from\n";
+                    print STDERR "             $group\n";
+                    delete $group_members{$category}{$group}{$member};
+                    # Prune any groups in which this was the last member,
+                    # which may allow us to do more work in the next pass.
+                    if (scalar %{$group_members{$category}{$group}} == 0) {
+                        print STDERR "    Removed last member from $group\n";
+                        delete $group_members{$category}{$group};
+                    }
+                }
+                $removed_something = 1;
+            }
+        }
     }
     return $removed_something;
 }
@@ -713,17 +715,17 @@ sub clean_unused_labels() {
     my %categories_in_use;
 
     foreach my $category (keys %{$categories{"members"}}) {
-	next if $category eq "Tokens";
-	$categories_in_use{$category} = ();
-	map { $categories_in_use{$category}{$_} = 1; } keys %{$categories_used{$last_pass}{$category}};
-	if (! $opt_replace_categories && $last_pass > 0) {
-	    map { $categories_in_use{$category}{$_} = 1; } keys %{$categories_used{0}{$category}};
-	}
+        next if $category eq "Tokens";
+        $categories_in_use{$category} = ();
+        map { $categories_in_use{$category}{$_} = 1; } keys %{$categories_used{$last_pass}{$category}};
+        if (! $opt_replace_categories && $last_pass > 0) {
+            map { $categories_in_use{$category}{$_} = 1; } keys %{$categories_used{0}{$category}};
+        }
     }
     my ($pass) = 0;
     do {
-	print STDERR " Pass $pass...\n";
-	$pass++;
+        print STDERR " Pass $pass...\n";
+        $pass++;
     } while (clean_unused_labels_pass(%categories_in_use));
     print STDERR "done.\n";
 }
@@ -740,10 +742,10 @@ sub clean_unused_labels() {
 sub copy_attributes($$;$) {
     my ($node, $attributes, $omit_pre_existing_categories) = @_;
     foreach my $attribute (@$attributes) {
-	if (! $omit_pre_existing_categories ||
-	    ! defined $categories{"members"}{$attribute->nodeName}) {
-	    $node->setAttribute($attribute->nodeName, $attribute->value);
-	}
+        if (! $omit_pre_existing_categories ||
+            ! defined $categories{"members"}{$attribute->nodeName}) {
+            $node->setAttribute($attribute->nodeName, $attribute->value);
+        }
     }
 }
 
@@ -762,30 +764,30 @@ sub build_categories($$) {
     %category_map = ();
 
     foreach my $cat (sort keys %$members) {
-	my %cmap;
-	my ($cnode) = addElement($dom, $new_categories, "Category");
-	my ($cat_data) = $$members{$cat};
-	copy_attributes($cnode, $$cat_data{"attributes"});
-	my ($count) = 1;
-	foreach my $value (sort keys %{$$cat_data{"members"}}) {
-	    my ($vnode) = addElement($dom, $cnode, "value");
-	    $cmap{$value} = $count;
-	    $vnode->setAttribute("value", $value);
-	    $vnode->setAttribute("id", $count++);
-	}
-	$category_map{$cat} = \%cmap;
+        my %cmap;
+        my ($cnode) = addElement($dom, $new_categories, "Category");
+        my ($cat_data) = $$members{$cat};
+        copy_attributes($cnode, $$cat_data{"attributes"});
+        my ($count) = 1;
+        foreach my $value (sort keys %{$$cat_data{"members"}}) {
+            my ($vnode) = addElement($dom, $cnode, "value");
+            $cmap{$value} = $count;
+            $vnode->setAttribute("value", $value);
+            $vnode->setAttribute("id", $count++);
+        }
+        $category_map{$cat} = \%cmap;
     }
 }
 
 sub build_image_options($$$$) {
     my ($dom, $onode, $options, $iname) = @_;
     foreach my $option (sort keys %$options) {
-	my ($oonode) = addElement($dom, $onode, "option");
-	$oonode->setAttribute("name", $option);
-	foreach my $value (sort keys %{$$options{$option}}) {
-	    my ($vnode) = addElement($dom, $oonode, "value");
-	    $vnode->setAttribute("value", $value);
-	}
+        my ($oonode) = addElement($dom, $onode, "option");
+        $oonode->setAttribute("name", $option);
+        foreach my $value (sort keys %{$$options{$option}}) {
+            my ($vnode) = addElement($dom, $oonode, "value");
+            $vnode->setAttribute("value", $value);
+        }
     }
 }
 
@@ -794,26 +796,26 @@ sub build_images($$) {
     my ($new_images) = addElement($dom, $new_kpa, 'images');
     my ($compressed) = int $new_kpa->getAttribute("compressed");
     foreach my $iname (@image_list) {
-	my ($inode) = addElement($dom, $new_images, 'image');
-	my ($image) = $images{$iname};
-	copy_attributes($inode, $$image{"attributes"}, 1);
-	if (defined $stacks_byimage[1]{$iname} &&
-	    ! defined $stacks_to_remove{$stacks_byimage[1]{$iname}}) {
-	    $inode->setAttribute("stackId",
-				 $stacks_remap{$stacks_byimage[1]{$iname}});
-	    $inode->setAttribute("stackOrder", $stack_order{$iname});
-	}
-	if (defined $$image{"options"}) {
-	    if ($compressed) {
-		foreach my $option (sort keys %{$$image{"options"}}) {
-		    my ($val) = join(",", sort {$a <=> $b} map { $category_map{$option}{$_} } keys %{$$image{"options"}{$option}});
-		    $inode->setAttribute($option, $val);
-		}
-	    } else {
-		my ($onode) = addElement($dom, $inode, 'options');
-		build_image_options($dom, $onode, $$image{"options"}, $iname);
-	    }
-	}
+        my ($inode) = addElement($dom, $new_images, 'image');
+        my ($image) = $images{$iname};
+        copy_attributes($inode, $$image{"attributes"}, 1);
+        if (defined $stacks_byimage[1]{$iname} &&
+            ! defined $stacks_to_remove{$stacks_byimage[1]{$iname}}) {
+            $inode->setAttribute("stackId",
+                                 $stacks_remap{$stacks_byimage[1]{$iname}});
+            $inode->setAttribute("stackOrder", $stack_order{$iname});
+        }
+        if (defined $$image{"options"}) {
+            if ($compressed) {
+                foreach my $option (sort keys %{$$image{"options"}}) {
+                    my ($val) = join(",", sort {$a <=> $b} map { $category_map{$option}{$_} } keys %{$$image{"options"}{$option}});
+                    $inode->setAttribute($option, $val);
+                }
+            } else {
+                my ($onode) = addElement($dom, $inode, 'options');
+                build_image_options($dom, $onode, $$image{"options"}, $iname);
+            }
+        }
     }
 }
 
@@ -821,8 +823,8 @@ sub build_blocklist($$) {
     my ($dom, $new_kpa) = @_;
     my ($new_blocklist) = addElement($dom, $new_kpa, 'blocklist');
     foreach my $file (sort keys %blocklist) {
-	my ($bnode) = addElement($dom, $new_blocklist, "block");
-	$bnode->setAttribute("file", $file);
+        my ($bnode) = addElement($dom, $new_blocklist, "block");
+        $bnode->setAttribute("file", $file);
     }
 }
 
@@ -832,27 +834,27 @@ sub build_member_groups($$) {
     my ($compressed) = int $new_kpa->getAttribute("compressed");
 
     if ($compressed) {
-	foreach my $cat (sort keys %group_members) {
-	    my ($groups) = $group_members{$cat};
-	    foreach my $group (sort keys %$groups) {
-		my ($val) = join(",", sort {$a <=> $b} map {$category_map{$cat}{$_}} keys %{$$groups{$group}});
-		my ($mnode) = addElement($dom, $new_member_groups, "member");
-		$mnode->setAttribute("category", $cat);
-		$mnode->setAttribute("group-name", $group);
-		$mnode->setAttribute("members", $val);
-	    }
-	}
+        foreach my $cat (sort keys %group_members) {
+            my ($groups) = $group_members{$cat};
+            foreach my $group (sort keys %$groups) {
+                my ($val) = join(",", sort {$a <=> $b} map {$category_map{$cat}{$_}} keys %{$$groups{$group}});
+                my ($mnode) = addElement($dom, $new_member_groups, "member");
+                $mnode->setAttribute("category", $cat);
+                $mnode->setAttribute("group-name", $group);
+                $mnode->setAttribute("members", $val);
+            }
+        }
     } else {
-	foreach my $cat (sort keys %member_groups) {
-	    my ($clist) = $member_groups{$cat};
-	    foreach my $member (sort keys %$clist) {
-		my ($groupname) = $$clist{$member};
-		my ($mnode) = addElement($dom, $new_member_groups, "member");
-		$mnode->setAttribute("category", $cat);
-		$mnode->setAttribute("group-name", $groupname);
-		$mnode->setAttribute("member", $member);
-	    }
-	}
+        foreach my $cat (sort keys %member_groups) {
+            my ($clist) = $member_groups{$cat};
+            foreach my $member (sort keys %$clist) {
+                my ($groupname) = $$clist{$member};
+                my ($mnode) = addElement($dom, $new_member_groups, "member");
+                $mnode->setAttribute("category", $cat);
+                $mnode->setAttribute("group-name", $groupname);
+                $mnode->setAttribute("member", $member);
+            }
+        }
     }
 }
 
@@ -882,21 +884,21 @@ sub build_new_doc() {
 ################################################################
 
 my (%options) = ("R"                   => \$opt_reject_new_images,
-		 "reject-new-images"   => \$opt_reject_new_images,
-		 "B"                   => \$opt_keep_blocked_images,
-		 "keep-blocked-images" => \$opt_keep_blocked_images,
-		 "n"                   => \$opt_no_output,
-		 "no-output"           => \$opt_no_output,
-		 "N"                   => \$opt_force_uncompressed_output,
-		 "no-compressed-output"=> \$opt_force_uncompressed_output,
-		 "c"                   => \$opt_clean_unused_labels,
-		 "clean-unused-labels" => \$opt_clean_unused_labels,
-		 "C"                   => \$opt_force_compressed_output,
-		 "compressed-output"   => \$opt_force_compressed_output,
-		 "r"		       => \$opt_replace_categories,
-		 "replace-categories"  => \$opt_replace_categories,
-		 "V:i"		       => \$opt_output_version,
-		 "version:i"	       => \$opt_output_version,
+                 "reject-new-images"   => \$opt_reject_new_images,
+                 "B"                   => \$opt_keep_blocked_images,
+                 "keep-blocked-images" => \$opt_keep_blocked_images,
+                 "n"                   => \$opt_no_output,
+                 "no-output"           => \$opt_no_output,
+                 "N"                   => \$opt_force_uncompressed_output,
+                 "no-compressed-output"=> \$opt_force_uncompressed_output,
+                 "c"                   => \$opt_clean_unused_labels,
+                 "clean-unused-labels" => \$opt_clean_unused_labels,
+                 "C"                   => \$opt_force_compressed_output,
+                 "compressed-output"   => \$opt_force_compressed_output,
+                 "r"                   => \$opt_replace_categories,
+                 "replace-categories"  => \$opt_replace_categories,
+                 "V:i"                 => \$opt_output_version,
+                 "version:i"           => \$opt_output_version,
     );
 
 Getopt::Long::Configure("bundling", "require_order");

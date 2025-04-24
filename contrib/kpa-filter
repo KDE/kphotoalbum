@@ -543,7 +543,13 @@ sub load_file($) {
     my $kpa = ${$doc->findnodes('KPhotoAlbum')}[0];
     if (! $kpa) {
         die "$file is not a KPhotoAlbum database.\n";
-    } elsif ($kpa->getAttribute("version") != 7 &&
+    }
+
+    if (int $kpa->getAttribute("version") == 11 && int $kpa->getAttribute("compressed") == 1) {
+        die "\nkpa-util currently can't handle compressed v11 databases. Sorry ...\n";
+    }
+
+    if ($kpa->getAttribute("version") != 7 &&
         $kpa->getAttribute("version") != 8) {
         die "kpa-list-images only works with version 7 and 8 files.\n";
     }

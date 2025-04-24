@@ -522,6 +522,13 @@ sub load_file($$) {
     }
 
     my $kpa = ${$doc->findnodes('KPhotoAlbum')}[0];
+    if (! $kpa) {
+        die "$file is not a KPhotoAlbum database.\n";
+    }
+
+    if (int $kpa->getAttribute("version") == 11 && int $kpa->getAttribute("compressed") == 1) {
+        die "\nkpa-util currently can't handle compressed v11 databases. Sorry ...\n";
+    }
 
     if ($pass == 0) {
         $kpa_attributes = $kpa->findnodes("./@*");

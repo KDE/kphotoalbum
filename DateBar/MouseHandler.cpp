@@ -1,5 +1,5 @@
-// SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003 - 2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 - 2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -110,8 +110,8 @@ void DateBar::FocusItemDragHandler::mousePressEvent(int x)
 
 void DateBar::FocusItemDragHandler::mouseMoveEvent(int x)
 {
-    int oldUnit = m_dateBar->m_currentUnit;
-    int newUnit = (x - m_dateBar->barAreaGeometry().left()) / m_dateBar->m_barWidth;
+    const int oldUnit = m_dateBar->m_currentUnit;
+    const int newUnit = (x - m_dateBar->barAreaGeometry().left()) / m_dateBar->m_barWidth;
 
     // Don't scroll further down than the last image
     // We use oldUnit here, to ensure that we scroll all the way to the end
@@ -149,8 +149,11 @@ void DateBar::BarDragHandler::mousePressEvent(int x)
 
 void DateBar::BarDragHandler::mouseMoveEvent(int x)
 {
-    int oldUnit = m_dateBar->m_currentUnit;
-    int newUnit = (x + m_movementOffset - m_dateBar->barAreaGeometry().left()) / m_dateBar->m_barWidth;
+    const int oldUnit = m_dateBar->m_currentUnit;
+    const int newUnit = (x + m_movementOffset - m_dateBar->barAreaGeometry().left()) / m_dateBar->m_barWidth;
+
+    if (oldUnit == newUnit)
+        return;
 
     // Don't scroll further down than the last image
     // We use oldUnit here, to ensure that we scroll all the way to the end

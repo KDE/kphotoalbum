@@ -1,5 +1,5 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003 - 2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 - 2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
@@ -10,6 +10,7 @@
 
 #include <DB/ImageDateCollection.h>
 #include <DB/ImageInfoList.h>
+#include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
 
 #include <Utilities/FastDateTime.h>
@@ -170,6 +171,10 @@ void DateBar::DateBarWidget::redraw()
     if (m_buffer.isNull())
         return;
 
+#ifdef DATEBAR_DEBUG_TIMING
+    QElapsedTimer timer;
+    timer.start();
+#endif
     QPainter p(&m_buffer);
     p.setRenderHint(QPainter::Antialiasing);
     p.setFont(font());
@@ -202,10 +207,25 @@ void DateBar::DateBarWidget::redraw()
     rect.setRight(right);
     rect.setLeft(rect.left() + BUTTON_WIDTH + 2);
 
+#ifdef DATEBAR_DEBUG_TIMING
+    qCDebug(TimingLog, "DateBarWidget::redraw(): background: %fs", timer.elapsed() / 1000.0);
+    timer.restart();
+#endif
     drawTickMarks(p, rect);
+#ifdef DATEBAR_DEBUG_TIMING
+    qCDebug(TimingLog, "DateBarWidget::redraw(): tickmarks: %fs", timer.elapsed() / 1000.0);
+    timer.restart();
+#endif
     drawHistograms(p);
+#ifdef DATEBAR_DEBUG_TIMING
+    qCDebug(TimingLog, "DateBarWidget::redraw(): histograms: %fs", timer.elapsed() / 1000.0);
+    timer.restart();
+#endif
     drawFocusRectangle(p);
     updateArrowState();
+#ifdef DATEBAR_DEBUG_TIMING
+    qCDebug(TimingLog, "DateBarWidget::redraw(): finishing: %fs", timer.elapsed() / 1000.0);
+#endif
     repaint();
 }
 
@@ -355,12 +375,6 @@ void DateBar::DateBarWidget::setImageDateCollection(const QExplicitlySharedDataP
 
 void DateBar::DateBarWidget::drawHistograms(QPainter &p)
 {
-    QRect rect = barAreaGeometry();
-    p.save();
-    p.setClipping(true);
-    p.setClipRect(rect);
-    p.setPen(Qt::NoPen);
-
     // determine maximum image count within visible units
     int max = 0;
     for (int unit = 0; unit <= numberOfUnits(); unit++) {
@@ -370,6 +384,15 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
             cnt += count.mp_rangeMatch;
         max = qMax(max, cnt);
     }
+    if (max == 0) {
+        return;
+    }
+
+    const QRect rect = barAreaGeometry();
+    p.save();
+    p.setClipping(true);
+    p.setClipRect(rect);
+    p.setPen(Qt::NoPen);
 
     // Calculate the font size for the largest number.
     QFont f = font();
@@ -399,23 +422,27 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
         }
         const auto unitRange = rangeForUnit(unit);
         const DB::ImageCount count = m_dates->count(unitRange);
+
+        if (count.mp_rangeMatch == 0 && count.mp_exact == 0) {
+            // no need to draw empty units
+            continue;
+        }
+
         int exactPx = 0;
         int rangePx = 0;
-        if (max != 0) {
-            double exactScaled;
-            double rangeScaled;
-            if (linearScale) {
-                exactScaled = (double)count.mp_exact / max;
-                rangeScaled = (double)count.mp_rangeMatch / max;
-            } else {
-                exactScaled = sqrt(count.mp_exact) / sqrt(max);
-                rangeScaled = sqrt(count.mp_rangeMatch) / sqrt(max);
-            }
-            // convert to pixels:
-            exactPx = (int)((double)(rect.height() - 2) * exactScaled);
-            if (m_includeFuzzyCounts)
-                rangePx = (int)((double)(rect.height() - 2) * rangeScaled);
+        double exactScaled;
+        double rangeScaled;
+        if (linearScale) {
+            exactScaled = (double)count.mp_exact / max;
+            rangeScaled = (double)count.mp_rangeMatch / max;
+        } else {
+            exactScaled = sqrt(count.mp_exact) / sqrt(max);
+            rangeScaled = sqrt(count.mp_rangeMatch) / sqrt(max);
         }
+        // convert to pixels:
+        exactPx = (int)((double)(rect.height() - 2) * exactScaled);
+        if (m_includeFuzzyCounts)
+            rangePx = (int)((double)(rect.height() - 2) * rangeScaled);
 
         Qt::BrushStyle style = Qt::SolidPattern;
         if (!isUnitSelected(unit) && hasSelection())

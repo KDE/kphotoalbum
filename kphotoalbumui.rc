@@ -1,27 +1,32 @@
-<!DOCTYPE kpartgui>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- SPDX-FileCopyrightText: none
 
      SPDX-License-Identifier: CC0-1.0
 -->
-<kpartgui name="kphotoalbum" version="55">
+<gui name="kphotoalbum"
+     version="55"
+     xmlns="http://www.kde.org/standards/kxmlgui/1.0"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0
+                         http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
       <Action name="import"/>
       <Action name="export"/>
     </Menu>
-    <Menu name="edit" >
-      <Action name="edit_copy" />
-      <Action name="edit_paste" />
-      <Action name="edit_select_all" />
-      <Action name="edit_deselect" />
+    <Menu name="edit">
+      <Action name="edit_copy"/>
+      <Action name="edit_paste"/>
+      <Action name="edit_select_all"/>
+      <Action name="edit_deselect"/>
       <Separator/>
-      <Action name="deleteSelected" />
-      <Action name="removeTokens" />
-      <Action name="showListOfFiles" />
+      <Action name="deleteSelected"/>
+      <Action name="removeTokens"/>
+      <Action name="showListOfFiles"/>
       <Separator/>
-      <Action name="rotateLeft" />
-      <Action name="rotateRight" />
+      <Action name="rotateLeft"/>
+      <Action name="rotateRight"/>
       <Separator/>
       <Action name="oneProp"/>
       <Action name="allProp"/>
@@ -29,19 +34,19 @@
       <Action name="unStackImages"/>
       <Action name="setStackHead"/>
     </Menu>
-    <Menu name="view" >
+    <Menu name="view">
       <text>&amp;View</text>
-      <Action name="viewImages" />
-      <Action name="viewImagesNewWindow" />
+      <Action name="viewImages"/>
+      <Action name="viewImagesNewWindow"/>
       <Action name="runSlideShow"/>
       <Action name="runRandomizedSlideShow"/>
       <Action name="collapseAllStacks"/>
       <Action name="expandAllStacks"/>
       <Separator/>
       <Action name="jumpToContext"/>
-      <Action name="limitToMarked" />
+      <Action name="limitToMarked"/>
       <Separator/>
-      <Action name="sortImages" />
+      <Action name="sortImages"/>
       <Action name="orderIncr"/>
       <Action name="orderDecr"/>
       <Menu name="privacy">
@@ -49,8 +54,8 @@
         <Action name="lockToDefaultScope"/>
         <Action name="unlockFromDefaultScope"/>
         <Separator/>
-        <Action name="setDefaultScopeNegative" />
-        <Action name="setDefaultScopePositive" />
+        <Action name="setDefaultScopeNegative"/>
+        <Action name="setDefaultScopePositive"/>
       </Menu>
       <Separator/>
       <Action name="showToolTipOnImages"/>
@@ -68,10 +73,10 @@
       <Separator/>
       <Action name="rebuildMD5s"/>
       <Action name="rescan"/>
-      <Action name="recreateExifDB" />
-      <Action name="reReadExifInfo" />
-      <Action name="sortAllImages" />
-      <Action name="autoStack" />
+      <Action name="recreateExifDB"/>
+      <Action name="reReadExifInfo"/>
+      <Action name="sortAllImages"/>
+      <Action name="autoStack"/>
       <Separator/>
       <Action name="removeAllThumbs"/>
       <Action name="buildThumbs"/>
@@ -83,17 +88,17 @@
     </Menu>
     <Menu name="plugins">
       <text>Plugins</text>
-   </Menu>
-   <Menu name="settings">
-     <Action name="readdAllMessages"/>
-   </Menu>
-   <Menu name="help">
-     <Action name="runDemo"/>
-     <Action name="features"/>
-     <Action name="showVideo"/>
-   </Menu>
+    </Menu>
+    <Menu name="settings">
+      <Action name="readdAllMessages"/>
+    </Menu>
+    <Menu name="help">
+      <Action name="runDemo"/>
+      <Action name="features"/>
+      <Action name="showVideo"/>
+    </Menu>
   </MenuBar>
-  <ToolBar noMerge="1"  name="mainToolBar">
+  <ToolBar noMerge="1" name="mainToolBar">
     <text>Main Toolbar</text>
     <Action name="file_save"/>
     <Action name="go_home"/>
@@ -102,4 +107,4 @@
     <Action name="view_redisplay"/>
     <Action name="runSlideShow"/>
   </ToolBar>
-</kpartgui>
+</gui>

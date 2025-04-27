@@ -1021,8 +1021,8 @@ void MainWindow::Window::setupMenuBar()
     m_markUntagged->setText(i18n("Mark As Untagged"));
 
     // The Settings menu
-    actionCollection()->addAction(KStandardAction::Preferences, QStringLiteral("configure_kpa"),
-                                  this, &Window::slotOptions);
+    KStandardAction::preferences(this, &Window::slotOptions, actionCollection());
+
     // the default configureShortcuts impl in XMLGuiFactory that is available via setupGUI
     // does not work for us because we need to add our own (non-XMLGui) actionCollections:
     KStandardAction::keyBindings(this, &Window::configureShortcuts, actionCollection());

@@ -3,7 +3,7 @@
 
      SPDX-License-Identifier: CC0-1.0
 -->
-<kpartgui name="kphotoalbum" version="51">
+<kpartgui name="kphotoalbum" version="55">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -85,8 +85,6 @@
       <text>Plugins</text>
    </Menu>
    <Menu name="settings">
-     <Action name="configure_kpa"/>
-     <Separator/>
      <Action name="readdAllMessages"/>
    </Menu>
    <Menu name="help">

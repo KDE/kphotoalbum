@@ -4,7 +4,7 @@
      SPDX-License-Identifier: CC0-1.0
 -->
 <gui name="kphotoalbum"
-     version="55"
+     version="56"
      xmlns="http://www.kde.org/standards/kxmlgui/1.0"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0

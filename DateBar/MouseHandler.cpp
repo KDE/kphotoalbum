@@ -173,8 +173,14 @@ void DateBar::BarDragHandler::mouseMoveEvent(int x)
         m_dateBar->m_currentUnit = m_dateBar->numberOfUnits();
         m_movementOffset = (m_dateBar->numberOfUnits() * m_dateBar->m_barWidth) - x + m_dateBar->m_barWidth / 2;
     }
-    m_dateBar->redraw();
+    m_dateBar->redraw(DateBarWidget::RedrawMode::Fast);
     m_dateBar->emitDateSelected();
+}
+
+void DateBar::BarDragHandler::mouseReleaseEvent()
+{
+    // after dragging ends, we need a full redraw
+    m_dateBar->redraw();
 }
 
 Utilities::FastDateTime DateBar::SelectionHandler::min() const

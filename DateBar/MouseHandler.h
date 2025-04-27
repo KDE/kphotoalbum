@@ -1,3 +1,7 @@
+/*
+ * SPDX-FileCopyrightText: 2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+ */
+
 // SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
@@ -64,6 +68,7 @@ public:
     explicit BarDragHandler(DateBarWidget *);
     void mousePressEvent(int x) override;
     void mouseMoveEvent(int x) override;
+    void mouseReleaseEvent() override;
 
 private:
     int m_movementOffset;

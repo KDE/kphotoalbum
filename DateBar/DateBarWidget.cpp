@@ -132,7 +132,7 @@ DateBar::DateBarWidget::DateBarWidget(QWidget *parent)
                                  "</list></para>"));
     setToolTip(whatsThis());
 
-    connect(Settings::SettingsData::instance(), &Settings::SettingsData::histogramScaleChanged, this, &DateBarWidget::redraw);
+    connect(Settings::SettingsData::instance(), &Settings::SettingsData::histogramScaleChanged, this, qOverload<>(&DateBarWidget::redraw));
     m_actionCollection->readSettings();
 }
 
@@ -166,7 +166,8 @@ void DateBar::DateBarWidget::paintEvent(QPaintEvent * /*event*/)
     painter.drawPixmap(0, 0, m_buffer);
 }
 
-void DateBar::DateBarWidget::redraw()
+#define DATEBAR_DEBUG_TIMING
+void DateBar::DateBarWidget::redraw(RedrawMode mode)
 {
     if (m_buffer.isNull())
         return;
@@ -216,11 +217,13 @@ void DateBar::DateBarWidget::redraw()
     qCDebug(TimingLog, "DateBarWidget::redraw(): tickmarks: %fs", timer.elapsed() / 1000.0);
     timer.restart();
 #endif
-    drawHistograms(p);
+    if (!m_fastScrolling || mode == RedrawMode::Full) {
+        drawHistograms(p);
 #ifdef DATEBAR_DEBUG_TIMING
-    qCDebug(TimingLog, "DateBarWidget::redraw(): histograms: %fs", timer.elapsed() / 1000.0);
-    timer.restart();
+        qCDebug(TimingLog, "DateBarWidget::redraw(): histograms: %fs", timer.elapsed() / 1000.0);
+        timer.restart();
 #endif
+    }
     drawFocusRectangle(p);
     updateArrowState();
 #ifdef DATEBAR_DEBUG_TIMING
@@ -909,6 +912,9 @@ void DateBar::DateBarWidget::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Escape:
         clearSelection();
         return;
+    case Qt::Key_Percent:
+        m_fastScrolling = !m_fastScrolling;
+        qDebug() << "Fast mode during scrolling:" << m_fastScrolling;
     default:
         return;
     }
@@ -1023,6 +1029,11 @@ void DateBar::DateBarWidget::wheelEvent(QWheelEvent *e)
     if (e->modifiers() & Qt::ShiftModifier)
         scrollAmount *= SCROLL_ACCELERATION;
     scroll(scrollAmount);
+}
+
+void DateBar::DateBarWidget::redraw()
+{
+    redraw(RedrawMode::Full);
 }
 
 #include "moc_DateBarWidget.cpp"

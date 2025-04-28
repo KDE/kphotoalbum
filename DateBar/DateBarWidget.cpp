@@ -242,13 +242,13 @@ void DateBar::DateBarWidget::resizeEvent(QResizeEvent *event)
 
 void DateBar::DateBarWidget::drawTickMarks(QPainter &p, const QRect &textRect)
 {
-    QRect rect = tickMarkGeometry();
+    const QRect rect = tickMarkGeometry();
     p.save();
     p.setPen(QPen(palette().color(QPalette::Text), 1));
 
-    QFont f(font());
-    QFontMetrics fm(f);
-    int fontHeight = fm.height();
+    const QFont f(font());
+    const QFontMetrics fm(f);
+    const int fontHeight = fm.height();
     int unit = 0;
     QRect clip = rect;
     clip.setHeight(rect.height() + 2 + fontHeight);
@@ -269,8 +269,8 @@ void DateBar::DateBarWidget::drawTickMarks(QPainter &p, const QRect &textRect)
         // draw tickmarks
         int h = rect.height();
         if (m_currentHandler->isMajorUnit(unit)) {
-            QString text = m_currentHandler->text(unit);
-            int w = fm.horizontalAdvance(text);
+            const QString text = m_currentHandler->text(unit);
+            const int w = fm.horizontalAdvance(text);
             p.setFont(f);
             if (textRect.right() > x + w / 2 && textRect.left() < x - w / 2)
                 p.drawText(x - w / 2, textRect.top(), w, fontHeight, Qt::TextSingleLine, text);

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-26 00:40+0000\n"
+"POT-Creation-Date: 2025-04-28 00:39+0000\n"
 "PO-Revision-Date: 2025-04-20 14:29+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -3024,31 +3024,31 @@ msgid "Thumbnail index is not a version 5 file!\n"
 msgstr "縮圖索引不是第 5 版的檔案！\n"
 
 #. i18n: ectx: Menu (view)
-#: kphotoalbumui.rc:33
+#: kphotoalbumui.rc:38
 #, kde-format
 msgid "&View"
 msgstr "檢視(&V)"
 
 #. i18n: ectx: Menu (privacy)
-#: kphotoalbumui.rc:48
+#: kphotoalbumui.rc:53
 #, kde-format
 msgid "Privacy"
 msgstr "隱私"
 
 #. i18n: ectx: Menu (maintenance)
-#: kphotoalbumui.rc:63
+#: kphotoalbumui.rc:68
 #, kde-format
 msgid "&Maintenance"
 msgstr "維護(&M)"
 
 #. i18n: ectx: Menu (plugins)
-#: kphotoalbumui.rc:85
+#: kphotoalbumui.rc:90
 #, kde-format
 msgid "Plugins"
 msgstr "外掛程式"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:99
+#: kphotoalbumui.rc:102
 #, kde-format
 msgid "Main Toolbar"
 msgstr "主工具列"

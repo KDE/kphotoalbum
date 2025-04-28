@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-26 00:40+0000\n"
+"POT-Creation-Date: 2025-04-28 00:39+0000\n"
 "PO-Revision-Date: 2025-04-22 08:21+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -3080,31 +3080,31 @@ msgid "Thumbnail index is not a version 5 file!\n"
 msgstr "מפתח התמונות הממוזערות אינו קובץ בגרסה 5!\n"
 
 #. i18n: ectx: Menu (view)
-#: kphotoalbumui.rc:33
+#: kphotoalbumui.rc:38
 #, kde-format
 msgid "&View"
 msgstr "ת&צוגה"
 
 #. i18n: ectx: Menu (privacy)
-#: kphotoalbumui.rc:48
+#: kphotoalbumui.rc:53
 #, kde-format
 msgid "Privacy"
 msgstr "פרטיות"
 
 #. i18n: ectx: Menu (maintenance)
-#: kphotoalbumui.rc:63
+#: kphotoalbumui.rc:68
 #, kde-format
 msgid "&Maintenance"
 msgstr "ת&חזוקה"
 
 #. i18n: ectx: Menu (plugins)
-#: kphotoalbumui.rc:85
+#: kphotoalbumui.rc:90
 #, kde-format
 msgid "Plugins"
 msgstr "תוספים"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:99
+#: kphotoalbumui.rc:102
 #, kde-format
 msgid "Main Toolbar"
 msgstr "סרגל כלים ראשי"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-26 00:40+0000\n"
+"POT-Creation-Date: 2025-04-28 00:39+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -3206,31 +3206,31 @@ msgid "Thumbnail index is not a version 5 file!\n"
 msgstr "ទំហំ​រូបភាព​របស់​រូបភាព​​តូច ៗ ៖"
 
 #. i18n: ectx: Menu (view)
-#: kphotoalbumui.rc:33
+#: kphotoalbumui.rc:38
 #, kde-format
 msgid "&View"
 msgstr "មើល"
 
 #. i18n: ectx: Menu (privacy)
-#: kphotoalbumui.rc:48
+#: kphotoalbumui.rc:53
 #, kde-format
 msgid "Privacy"
 msgstr "ភាពឯកជន​"
 
 #. i18n: ectx: Menu (maintenance)
-#: kphotoalbumui.rc:63
+#: kphotoalbumui.rc:68
 #, kde-format
 msgid "&Maintenance"
 msgstr "តំហែ​ទាំ"
 
 #. i18n: ectx: Menu (plugins)
-#: kphotoalbumui.rc:85
+#: kphotoalbumui.rc:90
 #, kde-format
 msgid "Plugins"
 msgstr "កម្មវិធី​ជំនួយ​"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:99
+#: kphotoalbumui.rc:102
 #, kde-format
 msgid "Main Toolbar"
 msgstr "របារ​ឧបករណ៍​មេ"

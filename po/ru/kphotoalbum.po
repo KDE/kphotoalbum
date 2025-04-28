@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-26 00:40+0000\n"
+"POT-Creation-Date: 2025-04-28 00:39+0000\n"
 "PO-Revision-Date: 2020-03-22 17:24+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -3283,31 +3283,31 @@ msgid "Thumbnail index is not a version 5 file!\n"
 msgstr "Размер миниатюр:"
 
 #. i18n: ectx: Menu (view)
-#: kphotoalbumui.rc:33
+#: kphotoalbumui.rc:38
 #, kde-format
 msgid "&View"
 msgstr "&Вид"
 
 #. i18n: ectx: Menu (privacy)
-#: kphotoalbumui.rc:48
+#: kphotoalbumui.rc:53
 #, kde-format
 msgid "Privacy"
 msgstr "Конфиденциальность"
 
 #. i18n: ectx: Menu (maintenance)
-#: kphotoalbumui.rc:63
+#: kphotoalbumui.rc:68
 #, kde-format
 msgid "&Maintenance"
 msgstr "&Обслуживание"
 
 #. i18n: ectx: Menu (plugins)
-#: kphotoalbumui.rc:85
+#: kphotoalbumui.rc:90
 #, kde-format
 msgid "Plugins"
 msgstr "Модули"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:99
+#: kphotoalbumui.rc:102
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Основная панель инструментов"

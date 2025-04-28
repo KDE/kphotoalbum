@@ -256,16 +256,22 @@ void DateBar::DateBarWidget::drawTickMarks(QPainter &p, const QRect &textRect)
     clip.setRight(clip.right() - 2);
     p.setClipRect(clip);
 
-    for (int x = rect.x(); x < rect.right(); x += m_barWidth, unit += 1) {
-        // draw selection indication
+    if (hasSelection()) {
+        const auto selection = currentSelection();
         p.save();
         p.setPen(Qt::NoPen);
         p.setBrush(palette().brush(QPalette::Highlight));
-        Utilities::FastDateTime date = dateForUnit(unit);
-        if (isUnitSelected(unit))
-            p.drawRect(QRect(x, rect.top(), m_barWidth, rect.height()));
+        for (int x = rect.x(); x < rect.right(); x += m_barWidth, unit += 1) {
+            // draw selection indication
+            Utilities::FastDateTime date = dateForUnit(unit);
+            if (selection.start() <= date && date < selection.end()) {
+                p.drawRect(QRect(x, rect.top(), m_barWidth, rect.height()));
+            }
+        }
         p.restore();
+    }
 
+    for (int x = rect.x(); x < rect.right(); x += m_barWidth, unit += 1) {
         // draw tickmarks
         int h = rect.height();
         if (m_currentHandler->isMajorUnit(unit)) {

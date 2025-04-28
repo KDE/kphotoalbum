@@ -209,25 +209,25 @@ void DateBar::DateBarWidget::redraw(RedrawMode mode)
     rect.setLeft(rect.left() + BUTTON_WIDTH + 2);
 
 #ifdef DATEBAR_DEBUG_TIMING
-    qCDebug(TimingLog, "DateBarWidget::redraw(): background: %fs", timer.elapsed() / 1000.0);
+    qCDebug(TimingLog, "DateBarWidget::redraw(): background: %lldms", timer.elapsed());
     timer.restart();
 #endif
     drawTickMarks(p, rect);
 #ifdef DATEBAR_DEBUG_TIMING
-    qCDebug(TimingLog, "DateBarWidget::redraw(): tickmarks: %fs", timer.elapsed() / 1000.0);
+    qCDebug(TimingLog, "DateBarWidget::redraw(): tickmarks: %lldms", timer.elapsed());
     timer.restart();
 #endif
     if (!m_fastScrolling || mode == RedrawMode::Full) {
         drawHistograms(p);
 #ifdef DATEBAR_DEBUG_TIMING
-        qCDebug(TimingLog, "DateBarWidget::redraw(): histograms: %fs", timer.elapsed() / 1000.0);
+        qCDebug(TimingLog, "DateBarWidget::redraw(): histograms: %lldms", timer.elapsed());
         timer.restart();
 #endif
     }
     drawFocusRectangle(p);
     updateArrowState();
 #ifdef DATEBAR_DEBUG_TIMING
-    qCDebug(TimingLog, "DateBarWidget::redraw(): finishing: %fs", timer.elapsed() / 1000.0);
+    qCDebug(TimingLog, "DateBarWidget::redraw(): finishing: %lldms", timer.elapsed());
 #endif
     repaint();
 }

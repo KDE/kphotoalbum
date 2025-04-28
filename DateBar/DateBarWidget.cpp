@@ -901,6 +901,24 @@ void DateBar::DateBarWidget::keyPressEvent(QKeyEvent *event)
     case Qt::Key_PageUp:
         offset = 10;
         break;
+    case Qt::Key_Home:
+        if (dateForUnit(0) <= m_dates->lowerLimit())
+            // if the end of the bar is visible, then set the active unit to the end.
+            m_currentUnit = unitForDate(m_dates->lowerLimit());
+        else
+            m_currentUnit = 1;
+        m_currentDate = m_dates->lowerLimit();
+        break;
+    case Qt::Key_End:
+        if (dateForUnit(numberOfUnits()) >= m_dates->upperLimit())
+            // if the end of the bar is visible, then set the active unit to the end.
+            m_currentUnit = unitForDate(m_dates->upperLimit());
+        else
+            // otherwise, move the current unit to the beginning, leaving one greyed out unit visible.
+            m_currentUnit = numberOfUnits() - 1;
+        m_currentDate = m_dates->upperLimit();
+        break;
+        /*** Attention: non-scrolling events should return, not break: ***/
     case Qt::Key_Plus:
         if (canZoomIn())
             zoom(1);
@@ -915,14 +933,18 @@ void DateBar::DateBarWidget::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Percent:
         m_fastScrolling = !m_fastScrolling;
         qDebug() << "Fast mode during scrolling:" << m_fastScrolling;
+        return;
     default:
         return;
     }
 
+    // TODO:
+    // 1. replace with scroll(offset)
     const bool selectionMode = event->modifiers() & Qt::ShiftModifier;
 
     Utilities::FastDateTime newDate = dateForUnit(offset, m_currentDate);
-    if ((offset < 0 && newDate >= m_dates->lowerLimit()) || (offset > 0 && newDate <= m_dates->upperLimit())) {
+    if ((offset < 0 && newDate >= m_dates->lowerLimit())
+        || (offset > 0 && newDate <= m_dates->upperLimit())) {
         m_currentDate = newDate;
         m_currentUnit += offset;
         if (m_currentUnit < 0)

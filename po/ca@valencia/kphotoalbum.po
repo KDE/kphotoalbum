@@ -1,18 +1,17 @@
 # Translation of kphotoalbum.po to Catalan (Valencian)
-# Copyright (C) 2007-2024 This_file_is_part_of_KDE
+# Copyright (C) 2007-2025 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Josep M. Ferrer <txemaq@gmail.com>
 # SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022, 2023 Antoni Bella Pérez <antonibella5@yahoo.com>
 # Manuel Tortosa Moreno <manutortosa@gmail.com>, 2009.
-# Josep M. Ferrer <txemaq@gmail.com>, 2024.
+# Josep M. Ferrer <txemaq@gmail.com>, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-02 01:49+0000\n"
-"PO-Revision-Date: 2024-08-03 11:41+0200\n"
+"PO-Revision-Date: 2025-04-28 10:17+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -21,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -5396,8 +5395,8 @@ msgid ""
 msgstr ""
 "<p>Si s'establix esta opció, s'apilaran les noves versions d'una imatge i "
 "situades automàticament a la part superior de la pila. D'esta manera es "
-"mostrarà la nova imatge quan la pila es trobe en estat de col·lapse -l'estat "
-"per defecte en KPhotoAlbum-.</p>"
+"mostrarà la nova imatge quan la pila es trobe en estat reduït, l'estat per "
+"defecte en KPhotoAlbum-.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:151
 #, kde-format
@@ -6405,7 +6404,7 @@ msgid ""
 "Tip: Use <shortcut>Alt+Shift+<placeholder>A-Z</placeholder></shortcut> to "
 "toggle a filter for that token."
 msgstr ""
-"Consell: Utilitzeu la drecera <shortcut>Alt+Maj+<placeholder>A-Z</"
+"Consell: Utilitzeu la drecera <shortcut>Alt+Majús+<placeholder>A-Z</"
 "placeholder></shortcut> per a canviar un filtre per a este testimoni."
 
 #: ThumbnailView/ThumbnailDND.cpp:90

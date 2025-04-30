@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-28 00:39+0000\n"
-"PO-Revision-Date: 2025-03-24 11:58+0100\n"
+"PO-Revision-Date: 2025-04-28 10:15+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -5372,8 +5372,8 @@ msgid ""
 msgstr ""
 "<p>Si s'establix esta opció, s'apilaran les noves versions d'una imatge i "
 "situades automàticament a la part superior de la pila. D'esta manera es "
-"mostrarà la nova imatge quan la pila es trobe en estat de col·lapse -l'estat "
-"per defecte en KPhotoAlbum-.</p>"
+"mostrarà la nova imatge quan la pila es trobe en estat reduït, l'estat per "
+"defecte en KPhotoAlbum-.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:151
 #, kde-format
@@ -6373,7 +6373,7 @@ msgid ""
 "Tip: Use <shortcut>Alt+Shift+<placeholder>A-Z</placeholder></shortcut> to "
 "toggle a filter for that token."
 msgstr ""
-"Consell: Utilitzeu la drecera <shortcut>Alt+Maj+<placeholder>A-Z</"
+"Consell: Utilitzeu la drecera <shortcut>Alt+Majús+<placeholder>A-Z</"
 "placeholder></shortcut> per a canviar un filtre per a este testimoni."
 
 #: ThumbnailView/ThumbnailDND.cpp:93

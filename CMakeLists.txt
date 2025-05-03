@@ -66,7 +66,7 @@ add_definitions(
 find_package(Qt6 ${MINIMUM_QT6_VERSION} REQUIRED COMPONENTS Core Sql Xml Widgets DBus Test)
 find_package(Phonon4Qt6)
 find_package(LIBVLC)
-find_package(KF6 ${MINIMUM_KF6_VERSION} REQUIRED COMPONENTS Archive Completion Config CoreAddons I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons)
+find_package(KF6 ${MINIMUM_KF6_VERSION} REQUIRED COMPONENTS Archive Completion Config CoreAddons I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons ColorScheme)
 
 find_package(JPEG REQUIRED)
 if(JPEG_FOUND)
@@ -752,6 +752,7 @@ target_link_libraries(kphotoalbum
     KF6::TextWidgets
     KF6::XmlGui
     KF6::WidgetsAddons
+    KF6::ColorScheme
     ${libRemoteControl_LIBS}
     )
 

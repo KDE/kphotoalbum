@@ -3085,17 +3085,11 @@ msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgid ""
-#| "(.) Patch with folder info made available through the browser. (.) Patch "
-#| "for adding a check box for \"and/or\" searches in the search page."
+#, kde-format
 msgid ""
 "Patch with folder info made available through the browser.\n"
 "Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
-"(.) Opravný balíček se zpřístupněním informací o složce prostřednictvím "
-"prohlížeče. (.) Opravný balíček s přidáním zaškrtávacího pole pro "
-"vyhledávání \"a/nebo\" na stránce hledání."
 
 #: main.cpp:122
 #, kde-format
@@ -3133,13 +3127,11 @@ msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
 #: main.cpp:138
-#, fuzzy, kde-format
-#| msgid ""
-#| "Numerous patches for lots of bugs plus patches for a few new features"
+#, kde-format
 msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
-msgstr "Bezpočet opravných balíčků na mnoho chyb a opravy mnoha nových funkcí"
+msgstr ""
 
 #: main.cpp:143
 #, kde-format
@@ -3157,16 +3149,11 @@ msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
 #: main.cpp:149
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch to sort images in the thumbnail view, plus reading time info out of "
-#| "Exif images for existing images"
+#, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
-"Opravný balíček pro řazení obrázků v pohledu s náhledy a dále načítání "
-"časových údajů z informací Exif existujících obrázků"
 
 #: main.cpp:154
 #, kde-format
@@ -3194,16 +3181,11 @@ msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
 #: main.cpp:165
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch which speed up loading of thumbnails plus preview in image property "
-#| "dialog."
+#, kde-format
 msgid ""
 "Patch which speeds up loading of thumbnails,\n"
 "preview in image property dialog."
 msgstr ""
-"Opravný balíček pro urychlení načítání náhledů a náhled v dialogovém okně "
-"vlastností obrázku."
 
 #: MainWindow/AutoStackImages.cpp:46
 #, kde-format
@@ -3485,22 +3467,13 @@ msgid ""
 msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:94
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"database\">SQLite database support</a></h1><p>KPhotoAlbum "
-#| "allows you to search using a certain number of Exif tags. For this "
-#| "KPhotoAlbum needs an SQLite database. In addition the Qt package for "
-#| "SQLite (e.g. qt-sql-sqlite) must be installed.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"database\">SQLite database support</a></h2><p>KPhotoAlbum "
 "allows you to search using a certain number of Exif tags.</p><p>This feature "
 "is only available if the Qt SQLite driver is installed. On Debian-based "
 "distributions this package is usually called libqt6sql6-sqlite.</p>"
 msgstr ""
-"<h1><a name=\"database\">Podpora databáze SQLite</a></h1><p>KPhotoAlbum vám "
-"umožňuje vyhledávat podle určitých značek Exif. K tomu KPhotoAlbum potřebuje "
-"databázi SQLite. Dodatečně musí být nainstalován Qt balíček pro sqlite (např."
-"qt-sql-sqlite).</p>"
 
 #: MainWindow/FeatureDialog.cpp:102
 #, kde-format
@@ -3530,25 +3503,22 @@ msgid "Map view for geotagged images."
 msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:141
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "SQLite database support"
-msgstr "Podpora metadat videa"
+msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:144
-#, fuzzy, kde-format
-#| msgid "Video thumbnail support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
-msgstr "Podpora náhledů videa"
+msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:147
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video metadata support"
-msgstr "Podpora metadat videa"
+msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:154
 #, kde-format
@@ -6865,16 +6835,3 @@ msgstr "Zobrazit velikosti obrázků"
 #, kde-format
 msgid "Show Rating"
 msgstr "Zobrazit hodnocení"
-
-#~ msgid ""
-#~ "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
-#~ "features KPhotoAlbum has, and their status:</p>%1"
-#~ msgstr ""
-#~ "<h1>Přehled</h1><p>Níže můžete vidět seznam zkompilovaných a běhových "
-#~ "funkcí programu KPhotoAlbum a jejich stav:</p>%1"
-
-#~ msgid "Plug-ins available"
-#~ msgstr "Dostupné moduly"
-
-#~ msgid "SQLite database support (used for Exif searches)"
-#~ msgstr "Podpora databáze SQLite (pro vyhledávání Exif)"

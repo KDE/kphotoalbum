@@ -384,10 +384,22 @@ void DateBar::DateBarWidget::setImageDateCollection(const QExplicitlySharedDataP
 
 void DateBar::DateBarWidget::drawHistograms(QPainter &p)
 {
+#ifdef DATEBAR_DEBUG_TIMING
+    QElapsedTimer timer;
+    timer.start();
+    QElapsedTimer timer1;
+    qint64 rangeNs = 0;
+    qint64 countNs = 0;
+#endif
     // determine maximum image count within visible units
     int max = 0;
     for (int unit = 0; unit <= numberOfUnits(); unit++) {
-        DB::ImageCount count = m_dates->count(rangeForUnit(unit));
+        timer1.start();
+        const auto range { rangeForUnit(unit) };
+        rangeNs += timer1.nsecsElapsed();
+        timer1.start();
+        DB::ImageCount count = m_dates->count(range);
+        countNs += timer1.nsecsElapsed();
         int cnt = count.mp_exact;
         if (m_includeFuzzyCounts)
             cnt += count.mp_rangeMatch;
@@ -396,6 +408,10 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
     if (max == 0) {
         return;
     }
+#ifdef DATEBAR_DEBUG_TIMING
+    qCDebug(TimingLog, "DateBarWidget::drawHistograms(): determine max. image count: %lldms (range: %lldms, count: %lldms)", timer.elapsed(), rangeNs / 1000, countNs / 1000);
+    timer.restart();
+#endif
 
     const QRect rect = barAreaGeometry();
     p.save();
@@ -416,6 +432,10 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
             break;
         }
     }
+#ifdef DATEBAR_DEBUG_TIMING
+    qCDebug(TimingLog, "DateBarWidget::drawHistograms(): calculate font size: %lldms", timer.elapsed());
+    timer.restart();
+#endif
 
     int unit = 0;
     const int minUnit = unitForDate(m_dates->lowerLimit()); // first non-empty unit
@@ -481,6 +501,10 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
         }
     }
 
+#ifdef DATEBAR_DEBUG_TIMING
+    qCDebug(TimingLog, "DateBarWidget::drawHistograms(): draw %lldms", timer.elapsed());
+    timer.restart();
+#endif
     p.restore();
 }
 

@@ -167,7 +167,6 @@ void DateBar::DateBarWidget::paintEvent(QPaintEvent * /*event*/)
     painter.drawPixmap(0, 0, m_buffer);
 }
 
-#define DATEBAR_DEBUG_TIMING
 void DateBar::DateBarWidget::redraw(RedrawMode mode)
 {
     if (m_buffer.isNull())
@@ -387,20 +386,13 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
 #ifdef DATEBAR_DEBUG_TIMING
     QElapsedTimer timer;
     timer.start();
-    QElapsedTimer timer1;
-    qint64 rangeNs = 0;
-    qint64 countNs = 0;
 #endif
     // determine maximum image count within visible units
     QVector<DB::ImageCount> counts(numberOfUnits() + 1);
     int max = 0;
     for (int unit = 0; unit <= numberOfUnits(); unit++) {
-        timer1.start();
         const auto range { rangeForUnit(unit) };
-        rangeNs += timer1.nsecsElapsed();
-        timer1.start();
         counts[unit] = m_dates->count(range);
-        countNs += timer1.nsecsElapsed();
         int cnt = counts.at(unit).mp_exact;
         if (m_includeFuzzyCounts)
             cnt += counts.at(unit).mp_rangeMatch;
@@ -410,7 +402,7 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
         return;
     }
 #ifdef DATEBAR_DEBUG_TIMING
-    qCDebug(TimingLog, "DateBarWidget::drawHistograms(): determine max. image count: %lldms (range: %lldms, count: %lldms)", timer.elapsed(), rangeNs / 1000, countNs / 1000);
+    qCDebug(TimingLog, "DateBarWidget::drawHistograms(): determine max. image count: %lldms", timer.elapsed());
     timer.restart();
 #endif
 

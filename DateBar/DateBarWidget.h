@@ -168,7 +168,7 @@ protected:
     void focusOutEvent(QFocusEvent *) override;
     void wheelEvent(QWheelEvent *e) override;
 
-    bool m_fastScrolling = true;
+    bool m_fastScrolling = true; ///< if \c true: allow fast redraw RedrawMode is fast; if \c false: always force Full redraw
     enum class RedrawMode {
         Full, ///< Full redraw; the standard case.
         Fast ///< Omit expensive drawing operations (i.e. draw without the histogram); For use when moving the datebar quickly.

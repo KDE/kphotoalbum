@@ -474,7 +474,7 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
             rangePx = (int)((double)(rect.height() - 2) * rangeScaled);
 
         Qt::BrushStyle style = Qt::SolidPattern;
-        if (!isUnitSelected(unit) && hasSelection())
+        if (hasSelection() && !isUnitSelected(unit))
             style = Qt::Dense5Pattern;
 
         p.setBrush(QBrush(Qt::yellow, style));

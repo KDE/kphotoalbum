@@ -99,6 +99,7 @@ public:
     void setOrExtendSelection(const Utilities::FastDateTime &date);
 
 private:
+    int m_currentUnit;
     Utilities::FastDateTime m_start;
     Utilities::FastDateTime m_end;
 };

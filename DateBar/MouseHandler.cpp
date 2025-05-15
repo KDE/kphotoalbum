@@ -69,6 +69,7 @@ DateBar::SelectionHandler::SelectionHandler(DateBarWidget *dateBar)
 void DateBar::SelectionHandler::mousePressEvent(int x)
 {
     const int unit = m_dateBar->unitAtPos(x);
+    m_currentUnit = unit;
     if (unit < 0)
         return;
 
@@ -79,8 +80,9 @@ void DateBar::SelectionHandler::mousePressEvent(int x)
 void DateBar::SelectionHandler::mouseMoveEvent(int x)
 {
     const int unit = m_dateBar->unitAtPos(x);
-    if (unit < 0)
+    if (unit < 0 || unit == m_currentUnit)
         return;
+    m_currentUnit = unit;
 
     Utilities::FastDateTime date = m_dateBar->dateForUnit(unit);
     if (m_start < date) {
@@ -209,6 +211,7 @@ void DateBar::SelectionHandler::clearSelection()
 
 void DateBar::SelectionHandler::mouseReleaseEvent()
 {
+    m_currentUnit = -1;
     m_dateBar->emitRangeSelection(dateRange());
 }
 

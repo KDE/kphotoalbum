@@ -126,6 +126,7 @@ DateBar::DateBarWidget::DateBarWidget(QWidget *parent)
     setWhatsThis(xi18nc("@info", "<title>The date bar</title>"
                                  "<para><list>"
                                  "<item>Scroll using the arrow buttons, the scrollwheel, or the middle mouse button.</item>"
+                                 "<item>Use the home and end buttons to scroll to the start or end.</item>"
                                  "<item>Zoom using the +/- buttons or Ctrl + scrollwheel.</item>"
                                  "<item>Restrict the view to a date range selection: Click/drag below the timeline.</item>"
                                  "<item>Jump to a date by clicking on the histogram bar.</item>"

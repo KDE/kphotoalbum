@@ -434,7 +434,7 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
     const int minUnit = unitForDate(m_dates->lowerLimit()); // first non-empty unit
     const int maxUnit = (unitForDate(m_dates->upperLimit()) != -1) ? unitForDate(m_dates->upperLimit()) : numberOfUnits(); // last non-empty unit
     const bool linearScale = Settings::SettingsData::instance()->histogramUseLinearScale();
-    for (int x = rect.x(); x + m_barWidth < rect.right(); x += m_barWidth, unit += 1) {
+    for (int x = rect.x(); x < rect.right(); x += m_barWidth, unit += 1) {
         if (unit < minUnit || unit > maxUnit) {
             Qt::BrushStyle style = Qt::SolidPattern;
 

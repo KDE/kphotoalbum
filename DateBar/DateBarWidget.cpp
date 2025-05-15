@@ -390,16 +390,18 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
     // determine maximum image count within visible units
     QVector<DB::ImageCount> counts(numberOfUnits() + 1);
     int max = 0;
-    for (int unit = 0; unit <= numberOfUnits(); unit++) {
+    int upperUnitBound;
+    if (m_fastScrolling) // just for testing
+        upperUnitBound = unitForDate(m_dates->upperLimit());
+    else
+        upperUnitBound = numberOfUnits();
+    for (int unit = 0; unit <= upperUnitBound; unit++) {
         const auto range { rangeForUnit(unit) };
         counts[unit] = m_dates->count(range);
         int cnt = counts.at(unit).mp_exact;
         if (m_includeFuzzyCounts)
             cnt += counts.at(unit).mp_rangeMatch;
         max = qMax(max, cnt);
-    }
-    if (max == 0) {
-        return;
     }
 #ifdef DATEBAR_DEBUG_TIMING
     qCDebug(TimingLog, "DateBarWidget::drawHistograms(): determine max. image count: %lldms", timer.elapsed());
@@ -449,30 +451,46 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
             continue;
         }
 
-        int exactPx = 0;
-        int rangePx = 0;
         double exactScaled;
         double rangeScaled;
+        constexpr double offset = 0.1;
         if (linearScale) {
-            exactScaled = (double)count.mp_exact / max;
-            rangeScaled = (double)count.mp_rangeMatch / max;
+            // map the value range [0,max] to the range [offset,1]:
+            const double adjustment = (offset * max) / (1 - offset);
+            exactScaled = ((double)count.mp_exact + adjustment) / (max + adjustment);
+            rangeScaled = ((double)count.mp_rangeMatch + adjustment) / (max + adjustment);
         } else {
-            exactScaled = sqrt(count.mp_exact) / sqrt(max);
-            rangeScaled = sqrt(count.mp_rangeMatch) / sqrt(max);
+            // map the value range [0,max] to the range [offset,1]:
+            const double adjustment = (offset * sqrt(max)) / (1 - offset);
+            exactScaled = (sqrt(count.mp_exact) + adjustment) / (sqrt(max) + adjustment);
+            rangeScaled = (sqrt(count.mp_rangeMatch) + adjustment) / (sqrt(max) + adjustment);
         }
-        // convert to pixels:
-        exactPx = (int)((double)(rect.height() - 2) * exactScaled);
-        if (m_includeFuzzyCounts)
-            rangePx = (int)((double)(rect.height() - 2) * rangeScaled);
 
         Qt::BrushStyle style = Qt::SolidPattern;
         if (hasSelection() && !isUnitSelected(unit))
             style = Qt::Dense5Pattern;
 
-        p.setBrush(QBrush(Qt::yellow, style));
-        p.drawRect(x + 1, rect.bottom() - rangePx, m_barWidth - 2, rangePx);
-        p.setBrush(QBrush(Qt::green, style));
-        p.drawRect(x + 1, rect.bottom() - rangePx - exactPx, m_barWidth - 2, exactPx);
+        if (m_classicHistogram) {
+            int exactPx = 0;
+            int rangePx = 0;
+            // convert to pixels:
+            exactPx = (int)((double)(rect.height() - 2) * exactScaled);
+            if (m_includeFuzzyCounts)
+                rangePx = (int)((double)(rect.height() - 2) * rangeScaled);
+
+            p.setBrush(QBrush(Qt::yellow, style));
+            p.drawRect(x + 1, rect.bottom() - rangePx, m_barWidth - 2, rangePx);
+            p.setBrush(QBrush(Qt::green, style));
+            p.drawRect(x + 1, rect.bottom() - rangePx - exactPx, m_barWidth - 2, exactPx);
+        } else {
+            p.setOpacity(rangeScaled);
+            p.setBrush(QBrush(Qt::yellow, style));
+            p.drawRect(x + 1, rect.bottom() - rect.height() + 2, m_barWidth - 2, rect.height() - 2);
+            p.setOpacity(exactScaled);
+            p.setBrush(QBrush(Qt::green, style));
+            p.drawRect(x + 1, rect.bottom() - rect.height() + 2, m_barWidth - 2, rect.height() - 2);
+            p.setOpacity(1);
+        }
 
         // Draw the numbers, if they fit.
         if (fontFound) {
@@ -482,13 +500,9 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
             p.save();
             p.translate(x + m_barWidth - 3, rect.bottom() - 2);
             p.rotate(-90);
-            QFontMetrics fontMetrics(f);
-            int w = fontMetrics.horizontalAdvance(QString::number(tot));
-            if (w < exactPx + rangePx - 2) {
-                // don't use a palette color here - otherwise it may have bad contrast with green and yellow:
-                p.setPen(Qt::black);
-                p.drawText(0, 0, QString::number(tot));
-            }
+            // don't use a palette color here - otherwise it may have bad contrast with green and yellow:
+            p.setPen(Qt::black);
+            p.drawText(0, 0, QString::number(tot));
             p.restore();
         }
     }
@@ -952,9 +966,15 @@ void DateBar::DateBarWidget::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Escape:
         clearSelection();
         return;
+    case Qt::Key_Dollar:
+        m_classicHistogram = !m_classicHistogram;
+        qDebug() << "Histogram classic mode:" << m_classicHistogram;
+        redraw();
+        return;
     case Qt::Key_Percent:
         m_fastScrolling = !m_fastScrolling;
         qDebug() << "Fast mode during scrolling:" << m_fastScrolling;
+        redraw(); // FIXME: remove before commit
         return;
     default:
         return;

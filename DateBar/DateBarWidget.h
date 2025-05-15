@@ -168,6 +168,7 @@ protected:
     void focusOutEvent(QFocusEvent *) override;
     void wheelEvent(QWheelEvent *e) override;
 
+    bool m_classicHistogram = false; ///< Enable the classic histogram bars as opposed to the modern/shaded ones.
     bool m_fastScrolling = true; ///< if \c true: allow fast redraw RedrawMode is fast; if \c false: always force Full redraw
     enum class RedrawMode {
         Full, ///< Full redraw; the standard case.

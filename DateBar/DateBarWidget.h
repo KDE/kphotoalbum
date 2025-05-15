@@ -233,7 +233,6 @@ private:
     void setViewHandlerForType(ViewType tp);
     int stringWidth(const QFontMetrics &fontMetrics, const QString &text) const;
     QPixmap m_buffer;
-    friend class DateBarTip;
 
     QExplicitlySharedDataPointer<DB::ImageDateCollection> m_dates;
     DecadeViewHandler m_decadeViewHandler;

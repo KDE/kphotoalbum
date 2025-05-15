@@ -392,17 +392,18 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
     qint64 countNs = 0;
 #endif
     // determine maximum image count within visible units
+    QVector<DB::ImageCount> counts(numberOfUnits() + 1);
     int max = 0;
     for (int unit = 0; unit <= numberOfUnits(); unit++) {
         timer1.start();
         const auto range { rangeForUnit(unit) };
         rangeNs += timer1.nsecsElapsed();
         timer1.start();
-        DB::ImageCount count = m_dates->count(range);
+        counts[unit] = m_dates->count(range);
         countNs += timer1.nsecsElapsed();
-        int cnt = count.mp_exact;
+        int cnt = counts.at(unit).mp_exact;
         if (m_includeFuzzyCounts)
-            cnt += count.mp_rangeMatch;
+            cnt += counts.at(unit).mp_rangeMatch;
         max = qMax(max, cnt);
     }
     if (max == 0) {
@@ -449,8 +450,7 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
             p.drawRect(x, 1, m_barWidth, rect.height() + 2);
             continue;
         }
-        const auto unitRange = rangeForUnit(unit);
-        const DB::ImageCount count = m_dates->count(unitRange);
+        const DB::ImageCount &count = counts.at(unit);
 
         if (count.mp_rangeMatch == 0 && count.mp_exact == 0) {
             // no need to draw empty units

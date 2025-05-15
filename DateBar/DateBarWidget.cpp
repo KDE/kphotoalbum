@@ -249,7 +249,6 @@ void DateBar::DateBarWidget::drawTickMarks(QPainter &p, const QRect &textRect)
     const QFont f(font());
     const QFontMetrics fm(f);
     const int fontHeight = fm.height();
-    int unit = 0;
     QRect clip = rect;
     clip.setHeight(rect.height() + 2 + fontHeight);
     clip.setLeft(clip.left() + 2);
@@ -261,7 +260,7 @@ void DateBar::DateBarWidget::drawTickMarks(QPainter &p, const QRect &textRect)
         p.save();
         p.setPen(Qt::NoPen);
         p.setBrush(palette().brush(QPalette::Highlight));
-        for (int x = rect.x(); x < rect.right(); x += m_barWidth, unit += 1) {
+        for (int unit = 0, x = rect.x(); x < rect.right(); x += m_barWidth, unit += 1) {
             // draw selection indication
             Utilities::FastDateTime date = dateForUnit(unit);
             if (selection.start() <= date && date < selection.end()) {
@@ -271,7 +270,7 @@ void DateBar::DateBarWidget::drawTickMarks(QPainter &p, const QRect &textRect)
         p.restore();
     }
 
-    for (int x = rect.x(); x < rect.right(); x += m_barWidth, unit += 1) {
+    for (int unit = 0, x = rect.x(); x < rect.right(); x += m_barWidth, unit += 1) {
         // draw tickmarks
         int h = rect.height();
         if (m_currentHandler->isMajorUnit(unit)) {

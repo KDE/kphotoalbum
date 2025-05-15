@@ -122,6 +122,11 @@ void DateBar::FocusItemDragHandler::mouseMoveEvent(int x)
     // better scroll a bit over than not all the way.
     if ((newUnit > oldUnit && m_dateBar->dateForUnit(oldUnit) > m_dateBar->m_dates->upperLimit()) || (newUnit < oldUnit && m_dateBar->dateForUnit(oldUnit) < m_dateBar->m_dates->lowerLimit()))
         return;
+
+    // don't scroll past the selection
+    if (m_dateBar->hasSelection() && !m_dateBar->currentSelection().includes(m_dateBar->dateForUnit(newUnit)))
+        return;
+
     m_dateBar->m_currentUnit = newUnit;
 
     if (m_dateBar->m_currentUnit < 0 || m_dateBar->m_currentUnit > m_dateBar->numberOfUnits()) {

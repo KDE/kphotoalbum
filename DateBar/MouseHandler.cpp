@@ -112,6 +112,8 @@ void DateBar::FocusItemDragHandler::mouseMoveEvent(int x)
 {
     const int oldUnit = m_dateBar->m_currentUnit;
     const int newUnit = (x - m_dateBar->barAreaGeometry().left()) / m_dateBar->m_barWidth;
+    if (oldUnit == newUnit)
+        return;
 
     // Don't scroll further down than the last image
     // We use oldUnit here, to ensure that we scroll all the way to the end

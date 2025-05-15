@@ -38,6 +38,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Added
  - Add command line option "--config"
  - Add command line option "--save-and-quit"
+ - Add home and end key shortcuts to date bar
 
 ### Changed
 
@@ -52,6 +53,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Fixed
  - Fix purpose plugin support (#501885)
  - Fix database corruption when using category names starting with numbers (#477533)
+ - Improve responsiveness of date bar
 
 ### Removed
 

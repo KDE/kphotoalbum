@@ -1,3 +1,7 @@
+/*
+ * SPDX-FileCopyrightText: 2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+ */
+
 // SPDX-FileCopyrightText: 2004 - 2010 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2005, 2007 Dirk Mueller <mueller@kde.org>
 // SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
@@ -164,15 +168,26 @@ protected:
     void focusOutEvent(QFocusEvent *) override;
     void wheelEvent(QWheelEvent *e) override;
 
+    bool m_fastScrolling = true; ///< if \c true: allow fast redraw RedrawMode is fast; if \c false: always force Full redraw
+    enum class RedrawMode {
+        Full, ///< Full redraw; the standard case.
+        Fast ///< Omit expensive drawing operations (i.e. draw without the histogram); For use when moving the datebar quickly.
+    };
     /**
-     * @brief redraw the widget
+     * @brief (Fully) redraw the widget, same as \c redraw(RedrawMode::Full).
+     *
+     */
+    void redraw();
+    /**
+     * @brief redraw the widget.
      * This method creates a QPainter and then uses the draw* methods to draw the different parts of the widget.
      * \see drawTickMarks
      * \see drawHistograms
      * \see drawFocusRectangle
      * \see drawResolutionIndicator
+     * @param mode
      */
-    void redraw();
+    void redraw(RedrawMode mode);
     void drawTickMarks(QPainter &p, const QRect &textRect);
     void drawHistograms(QPainter &p);
     void drawFocusRectangle(QPainter &p);

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-28 00:39+0000\n"
+"POT-Creation-Date: 2025-05-16 00:40+0000\n"
 "PO-Revision-Date: 2020-03-22 17:24+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -1134,23 +1134,24 @@ msgstr "Удалить выбранные"
 msgctxt "@info"
 msgid ""
 "<title>The date bar</title><para><list><item>Scroll using the arrow buttons, "
-"the scrollwheel, or the middle mouse button.</item><item>Zoom using the +/- "
+"the scrollwheel, or the middle mouse button.</item><item>Use the home and "
+"end buttons to scroll to the start or end.</item><item>Zoom using the +/- "
 "buttons or Ctrl + scrollwheel.</item><item>Restrict the view to a date range "
 "selection: Click/drag below the timeline.</item><item>Jump to a date by "
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:718
+#: DateBar/DateBarWidget.cpp:743
 #, kde-format
 msgid "Show Ranges"
 msgstr "Показать изображения с неточными датами"
 
-#: DateBar/DateBarWidget.cpp:724
+#: DateBar/DateBarWidget.cpp:749
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr "Показать индикатор разрешения"
 
-#: DateBar/DateBarWidget.cpp:849
+#: DateBar/DateBarWidget.cpp:874
 #, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
@@ -1160,7 +1161,7 @@ msgstr[1] "%1 точных"
 msgstr[2] "%1 точных"
 msgstr[3] "%1 точное"
 
-#: DateBar/DateBarWidget.cpp:850
+#: DateBar/DateBarWidget.cpp:875
 #, kde-format
 msgctxt ""
 "@info:status additional images captured in a date range that overlaps with "
@@ -1172,7 +1173,7 @@ msgstr[1] " + %1 неточных"
 msgstr[2] " + %1 неточных"
 msgstr[3] " + %1 неточное"
 
-#: DateBar/DateBarWidget.cpp:851
+#: DateBar/DateBarWidget.cpp:876
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
@@ -1182,7 +1183,7 @@ msgstr[1] " = итого %1"
 msgstr[2] " = итого %1"
 msgstr[3] " = итого %1"
 
-#: DateBar/DateBarWidget.cpp:853
+#: DateBar/DateBarWidget.cpp:878
 #, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
@@ -1192,7 +1193,7 @@ msgstr[1] "%1 изображения/видеозаписи"
 msgstr[2] "%1 изображений/видеозаписей"
 msgstr[3] "%1 изображение/видеозапись"
 
-#: DateBar/DateBarWidget.cpp:855
+#: DateBar/DateBarWidget.cpp:880
 #, kde-format
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."

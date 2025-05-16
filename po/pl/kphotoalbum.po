@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-28 00:39+0000\n"
+"POT-Creation-Date: 2025-05-16 00:40+0000\n"
 "PO-Revision-Date: 2025-02-09 08:38+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -1089,11 +1089,20 @@ msgid "Clear date selection"
 msgstr "Wyczyść wybór daty"
 
 #: DateBar/DateBarWidget.cpp:126
-#, kde-kuit-format
+#, fuzzy, kde-kuit-format
+#| msgctxt "@info"
+#| msgid ""
+#| "<title>The date bar</title><para><list><item>Scroll using the arrow "
+#| "buttons, the scrollwheel, or the middle mouse button.</item><item>Zoom "
+#| "using the +/- buttons or Ctrl + scrollwheel.</item><item>Restrict the "
+#| "view to a date range selection: Click/drag below the timeline.</"
+#| "item><item>Jump to a date by clicking on the histogram bar.</item></"
+#| "list></para>"
 msgctxt "@info"
 msgid ""
 "<title>The date bar</title><para><list><item>Scroll using the arrow buttons, "
-"the scrollwheel, or the middle mouse button.</item><item>Zoom using the +/- "
+"the scrollwheel, or the middle mouse button.</item><item>Use the home and "
+"end buttons to scroll to the start or end.</item><item>Zoom using the +/- "
 "buttons or Ctrl + scrollwheel.</item><item>Restrict the view to a date range "
 "selection: Click/drag below the timeline.</item><item>Jump to a date by "
 "clicking on the histogram bar.</item></list></para>"
@@ -1105,17 +1114,17 @@ msgstr ""
 "item><item>Przejdź do daty naciskając na pasku histogramu.</item></list></"
 "para>"
 
-#: DateBar/DateBarWidget.cpp:718
+#: DateBar/DateBarWidget.cpp:743
 #, kde-format
 msgid "Show Ranges"
 msgstr "Pokaż zakresy"
 
-#: DateBar/DateBarWidget.cpp:724
+#: DateBar/DateBarWidget.cpp:749
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr "Pokaż wskaźnik rozdzielczości"
 
-#: DateBar/DateBarWidget.cpp:849
+#: DateBar/DateBarWidget.cpp:874
 #, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
@@ -1124,7 +1133,7 @@ msgstr[0] "1 dokładny"
 msgstr[1] "%1 dokładne"
 msgstr[2] "%1 dokładnych"
 
-#: DateBar/DateBarWidget.cpp:850
+#: DateBar/DateBarWidget.cpp:875
 #, kde-format
 msgctxt ""
 "@info:status additional images captured in a date range that overlaps with "
@@ -1135,7 +1144,7 @@ msgstr[0] " + 1 zakres"
 msgstr[1] " + %1 zakresy"
 msgstr[2] " + %1 zakresów"
 
-#: DateBar/DateBarWidget.cpp:851
+#: DateBar/DateBarWidget.cpp:876
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
@@ -1144,7 +1153,7 @@ msgstr[0] " = 1 w sumie"
 msgstr[1] " = %1 w sumie"
 msgstr[2] " = %1 w sumie"
 
-#: DateBar/DateBarWidget.cpp:853
+#: DateBar/DateBarWidget.cpp:878
 #, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
@@ -1153,7 +1162,7 @@ msgstr[0] "%1 obraz/film"
 msgstr[1] "%1 obrazy/filmy"
 msgstr[2] "%1 obrazów/filmów"
 
-#: DateBar/DateBarWidget.cpp:855
+#: DateBar/DateBarWidget.cpp:880
 #, kde-format
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."

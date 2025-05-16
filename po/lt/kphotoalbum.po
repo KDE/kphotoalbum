@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-28 00:39+0000\n"
+"POT-Creation-Date: 2025-05-16 00:40+0000\n"
 "PO-Revision-Date: 2024-11-12 23:49+0200\n"
 "Last-Translator: Remigijus Jarmalavičius <remigijus@jarmalavicius.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -1021,23 +1021,24 @@ msgstr "Sukuriamos miniatiūros"
 msgctxt "@info"
 msgid ""
 "<title>The date bar</title><para><list><item>Scroll using the arrow buttons, "
-"the scrollwheel, or the middle mouse button.</item><item>Zoom using the +/- "
+"the scrollwheel, or the middle mouse button.</item><item>Use the home and "
+"end buttons to scroll to the start or end.</item><item>Zoom using the +/- "
 "buttons or Ctrl + scrollwheel.</item><item>Restrict the view to a date range "
 "selection: Click/drag below the timeline.</item><item>Jump to a date by "
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:718
+#: DateBar/DateBarWidget.cpp:743
 #, kde-format
 msgid "Show Ranges"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:724
+#: DateBar/DateBarWidget.cpp:749
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:849
+#: DateBar/DateBarWidget.cpp:874
 #, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
@@ -1047,7 +1048,7 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: DateBar/DateBarWidget.cpp:850
+#: DateBar/DateBarWidget.cpp:875
 #, kde-format
 msgctxt ""
 "@info:status additional images captured in a date range that overlaps with "
@@ -1059,7 +1060,7 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: DateBar/DateBarWidget.cpp:851
+#: DateBar/DateBarWidget.cpp:876
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
@@ -1069,7 +1070,7 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: DateBar/DateBarWidget.cpp:853
+#: DateBar/DateBarWidget.cpp:878
 #, fuzzy, kde-format
 #| msgid "1 image"
 #| msgid_plural "%1 images"
@@ -1081,7 +1082,7 @@ msgstr[1] "%1 paveikslėliai"
 msgstr[2] "%1 paveikslėlių"
 msgstr[3] "%1 paveikslėlis"
 
-#: DateBar/DateBarWidget.cpp:855
+#: DateBar/DateBarWidget.cpp:880
 #, fuzzy, kde-format
 #| msgid "%1 | %2"
 msgctxt ""

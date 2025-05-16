@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-28 00:39+0000\n"
-"PO-Revision-Date: 2025-04-03 17:48+0300\n"
+"POT-Creation-Date: 2025-05-16 00:40+0000\n"
+"PO-Revision-Date: 2025-04-08 08:05+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -1073,11 +1073,20 @@ msgid "Clear date selection"
 msgstr "Tyhjennä päivämäärävalinta"
 
 #: DateBar/DateBarWidget.cpp:126
-#, kde-kuit-format
+#, fuzzy, kde-kuit-format
+#| msgctxt "@info"
+#| msgid ""
+#| "<title>The date bar</title><para><list><item>Scroll using the arrow "
+#| "buttons, the scrollwheel, or the middle mouse button.</item><item>Zoom "
+#| "using the +/- buttons or Ctrl + scrollwheel.</item><item>Restrict the "
+#| "view to a date range selection: Click/drag below the timeline.</"
+#| "item><item>Jump to a date by clicking on the histogram bar.</item></"
+#| "list></para>"
 msgctxt "@info"
 msgid ""
 "<title>The date bar</title><para><list><item>Scroll using the arrow buttons, "
-"the scrollwheel, or the middle mouse button.</item><item>Zoom using the +/- "
+"the scrollwheel, or the middle mouse button.</item><item>Use the home and "
+"end buttons to scroll to the start or end.</item><item>Zoom using the +/- "
 "buttons or Ctrl + scrollwheel.</item><item>Restrict the view to a date range "
 "selection: Click/drag below the timeline.</item><item>Jump to a date by "
 "clicking on the histogram bar.</item></list></para>"
@@ -1088,17 +1097,17 @@ msgstr ""
 "päivämääräalueella: napsauta ja vedä aikajanan alta.</item><item>Siirry "
 "päivämäärään napsauttamalla histogrammipalkkia.</item></list></para>"
 
-#: DateBar/DateBarWidget.cpp:718
+#: DateBar/DateBarWidget.cpp:743
 #, kde-format
 msgid "Show Ranges"
 msgstr "Näytä kuvamäärät"
 
-#: DateBar/DateBarWidget.cpp:724
+#: DateBar/DateBarWidget.cpp:749
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr "Näytä tarkkuuden osoitin"
 
-#: DateBar/DateBarWidget.cpp:849
+#: DateBar/DateBarWidget.cpp:874
 #, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
@@ -1106,7 +1115,7 @@ msgid_plural "%1 exact"
 msgstr[0] "tasan 1"
 msgstr[1] "tasan %1"
 
-#: DateBar/DateBarWidget.cpp:850
+#: DateBar/DateBarWidget.cpp:875
 #, kde-format
 msgctxt ""
 "@info:status additional images captured in a date range that overlaps with "
@@ -1116,7 +1125,7 @@ msgid_plural " + %1 ranges"
 msgstr[0] " + 1 alue"
 msgstr[1] " + %1 aluetta"
 
-#: DateBar/DateBarWidget.cpp:851
+#: DateBar/DateBarWidget.cpp:876
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
@@ -1124,7 +1133,7 @@ msgid_plural " = %1 total"
 msgstr[0] " = kaikkiaan 1"
 msgstr[1] " = kaikkiaan %1"
 
-#: DateBar/DateBarWidget.cpp:853
+#: DateBar/DateBarWidget.cpp:878
 #, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
@@ -1132,7 +1141,7 @@ msgid_plural "%1 images/videos"
 msgstr[0] "%1 kuva/video"
 msgstr[1] "%1 kuvaa/videota"
 
-#: DateBar/DateBarWidget.cpp:855
+#: DateBar/DateBarWidget.cpp:880
 #, kde-format
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."
@@ -3566,7 +3575,7 @@ msgstr "Ominaisuuden tila"
 #: MainWindow/FeatureDialog.cpp:59
 #, kde-format
 msgid "<h1>Overview</h1><p>Optional features in KPhotoAlbum:</p>%1"
-msgstr ""
+msgstr "<h1>Yleiskuva</h1><p>KPhotoAlbumin valinnaiset ominaisuudet:</p>%1"
 
 #: MainWindow/FeatureDialog.cpp:65
 #, kde-format
@@ -3581,26 +3590,28 @@ msgid ""
 "from the package manager or an app store, you can file a bug report with the "
 "supplier of the package.</>"
 msgstr ""
+"<h1>Koosteominaisuudet</h1><p>Koosteominaisuudet ovat valinnaisia "
+"ominaisuuksia, jotka pitää KPhotoAlbumia koostettaessa valita käyttöön.</"
+"p><p>Jos koostit KPhotoAlbumin itse, tarkista <a href=\"https://community."
+"kde.org/KPhotoAlbum/build_instructions\">koostamisohjeista</a>, unohtuiko "
+"jotakin. os tarvitset koostamiseen apua, kysy vain rohkeasti <a href="
+"\"https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum\">KPhotoAlbumin "
+"postituslistalta</a> apua.</p><p>Jos asensit KPhotoAlbumin "
+"paketinhallinnasta tai sovelluskaupasta, voit jättää vikailmoituksen paketin "
+"toimittajalle.</p>"
 
 #: MainWindow/FeatureDialog.cpp:79
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports "
-#| "the <em>Purpose</em> plugin system.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"purpose\">Purpose plugin support</a></h2><p>KPhotoAlbum "
 "supports the <em>Purpose</em> plugin system which is part of KDE Frameworks."
 "</p>"
 msgstr ""
-"<h1><a name=\"purpose\">Liitännäistuki</a></h1><p>KPhotoAlbum tukee "
-"<em>Purpose</em>-liitännäisjärjestelmää.</p>"
+"<h1><a name=\"purpose\">Purpose-liitännäistuki</a></h1><p>KPhotoAlbum tukee "
+"<em>Purpose</em>-liitännäisjärjestelmää, joka on osa KDE Frameworksiä.</p>"
 
 #: MainWindow/FeatureDialog.cpp:83
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"geomap\">Map view for geotagged images</a></h1><p>If "
-#| "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
-#| "images with GPS information on a map.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"geomap\">Map view for geotagged images</a></h2><p>If "
 "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
@@ -3608,7 +3619,7 @@ msgid ""
 msgstr ""
 "<h1><a name=\"geomap\">Sijaintimerkittyjen kuvien karttanäkymä</a></"
 "h1><p>Jos KPhotoAlbum on koostettu Marble-tuella, KPhotoAlbum voi näyttää "
-"kuvien GPS-tiedon kartalla.</p>"
+"kuvien GPS-tiedot kartalla.</p>"
 
 #: MainWindow/FeatureDialog.cpp:88
 #, kde-format
@@ -3617,14 +3628,13 @@ msgid ""
 "depend on another package or program being available during runtime. I.e. "
 "you can enable these features by installing the right package.</p>"
 msgstr ""
+"<h1>Ajonaikaisominaisuudet</h1><p>Ajonaikaisominaisuudet ovat valinnaisia "
+"ominaisuuksia, jotka riippuvat toisen paketin tai ohjelman käytettävissä "
+"olemisesta. Nämä ominaisuudet voi ottaa käyttöön asentamalla oikean paketin."
+"</p>"
 
 #: MainWindow/FeatureDialog.cpp:94
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"database\">SQLite database support</a></h1><p>KPhotoAlbum "
-#| "allows you to search using a certain number of Exif tags. For this "
-#| "KPhotoAlbum needs an SQLite database. In addition the Qt package for "
-#| "SQLite (e.g. qt-sql-sqlite) must be installed.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"database\">SQLite database support</a></h2><p>KPhotoAlbum "
 "allows you to search using a certain number of Exif tags.</p><p>This feature "
@@ -3632,8 +3642,9 @@ msgid ""
 "distributions this package is usually called libqt6sql6-sqlite.</p>"
 msgstr ""
 "<h1><a name=\"database\">SQLite-tietokannan tuki</a></h1><p>KPhotoAlbumilla "
-"voit etsiä joitakin Exif-tietoja. Tähän tarvitaan SQLite-tietokantaa. "
-"Lisäksi on asennettava SQLiten Qt-paketti (esim. qt-sql-sqlite).</p>"
+"voi etsiä joitakin Exif-luokituksia.</p><p>Tämä ominaisuus on käytettävissä "
+"vain, jos Qt:n SQLite-ajuri on asennettu. Debian-pohjaisissa jakeluissa "
+"paketin nimi on yleensä libqt6sql6-sqlite.</p>"
 
 #: MainWindow/FeatureDialog.cpp:102
 #, kde-format
@@ -3649,40 +3660,45 @@ msgid ""
 "p><p>This feature is only available if ffprobe is installed. Usually, "
 "ffprobe is also part of the FFmpeg package.</p>"
 msgstr ""
+"<h2><a name=\"video\">Videotuki</a></h2><p>KPhotoAlbum turvautuu videoiden "
+"näyttämisessä Phononiin tai VLC:hen.</p><p>Videopienoiskuvien tekemisessä "
+"KPhotoAlbum voi käyttää <tt>ffmpeg</tt>iä. Pienoiskuvia käytetään videoiden "
+"esikatseluun pienoiskuvanäkymässä.</p><p>Tämä ominaisuus on käytettävissä "
+"vain, jos FFmpeg on asennettu.</p><h2><a name=\"videoinfo\">Videoiden "
+"metatiedon tuki</a></h2><p>Videoiden kestotiedon lukemiseen KPhotoAlbum voi "
+"käyttää <tt>ffprobe</tt>a. Oikea kestotieto vaaditaan videopienoiskuvien "
+"hahmontamiseksi oikein.</p><p>Tämä ominaisuus on käytettävissä vain, jos "
+"ffprobe on asennettu. Yleensä ffprobe on osa FFmpeg-pakettia.</p>"
 
 #: MainWindow/FeatureDialog.cpp:135
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Purpose plugin support"
-msgstr ""
+msgstr "Purpose-liitännäistuki"
 
 #: MainWindow/FeatureDialog.cpp:138
-#, fuzzy, kde-format
-#| msgid "Map view for geotagged images."
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Map view for geotagged images."
-msgstr "Sijaintimerkittyjen kuvien karttanäkymä"
+msgstr "Sijaintimerkittyjen kuvien karttanäkymä."
 
 #: MainWindow/FeatureDialog.cpp:141
-#, fuzzy, kde-format
-#| msgid "SQL database support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "SQLite database support"
-msgstr "SQL-tietokantatuki"
+msgstr "SQLite-tietokannan tuki"
 
 #: MainWindow/FeatureDialog.cpp:144
-#, fuzzy, kde-format
-#| msgid "Video thumbnail support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
-msgstr "Videotuki"
+msgstr "Videopienoiskuvien tuki"
 
 #: MainWindow/FeatureDialog.cpp:147
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video metadata support"
-msgstr "Videon metatietojen tuki"
+msgstr "Videometatietojen tuki"
 
 #: MainWindow/FeatureDialog.cpp:154
 #, kde-format

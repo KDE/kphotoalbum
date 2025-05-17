@@ -1,5 +1,5 @@
 # Spanish translations for kphotoalbum.po package.
-# Copyright (C) 2009-2025 This_file_is_part_of_KDE
+# Copyright (C) 2009-2025 This file is copyright:
 # This file is distributed under the same license as the kphotoalbum package.
 #
 # SPDX-FileCopyrightText: 2009, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-16 00:40+0000\n"
-"PO-Revision-Date: 2025-03-24 02:47+0100\n"
+"PO-Revision-Date: 2025-05-17 01:27+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -20,17 +20,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Pablo Pita Leira,Cristina Yenyxe González García,Adrián Martínez"
+msgstr ""
+"Eloy Cuadra,Pablo Pita Leira,Cristina Yenyxe González García,Adrián Martínez"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "pablo.pita@gmail.com,the.blue.valkyrie@gmail.com,sfxgt3@gmail.com"
+msgstr ""
+"ecuadra@eloihr.net,pablo.pita@gmail.com,the.blue.valkyrie@gmail.com,"
+"sfxgt3@gmail.com"
 
 #: AnnotationDialog/AreaTagSelectDialog.cpp:87
 #, kde-format
@@ -1082,15 +1085,7 @@ msgid "Clear date selection"
 msgstr "Borrar selección de fechas"
 
 #: DateBar/DateBarWidget.cpp:126
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid ""
-#| "<title>The date bar</title><para><list><item>Scroll using the arrow "
-#| "buttons, the scrollwheel, or the middle mouse button.</item><item>Zoom "
-#| "using the +/- buttons or Ctrl + scrollwheel.</item><item>Restrict the "
-#| "view to a date range selection: Click/drag below the timeline.</"
-#| "item><item>Jump to a date by clicking on the histogram bar.</item></"
-#| "list></para>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid ""
 "<title>The date bar</title><para><list><item>Scroll using the arrow buttons, "
@@ -1102,10 +1097,11 @@ msgid ""
 msgstr ""
 "<title>La barra de fechas</title><para><list><item>Puede desplazarse usando "
 "los botones de las flechas, la rueda de desplazamiento o el botón central "
-"del ratón.</item><item>Puede ampliar o reducir usando los botones +/- o Ctrl "
-"+ rueda de desplazamiento.</item><item>Puede restringir la vista a un "
-"intervalo de fechas haciendo clic y arrastrando debajo de la línea de tiempo."
-"</item><item>Puede saltar a una fecha haciendo clic en la barra del "
+"del ratón.</item><item>Use los botones «Inicio» y «Fin» para desplazarse al "
+"principio o al final.</item><item>Puede ampliar o reducir usando los botones "
+"+/- o Ctrl + rueda de desplazamiento.</item><item>Puede restringir la vista "
+"a un intervalo de fechas haciendo clic y arrastrando debajo de la línea de "
+"tiempo.</item><item>Puede saltar a una fecha haciendo clic en la barra del "
 "histograma.</item></list></para>"
 
 #: DateBar/DateBarWidget.cpp:743

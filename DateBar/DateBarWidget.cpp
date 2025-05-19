@@ -49,6 +49,8 @@ constexpr int SCROLL_ACCELERATION = 10;
 
 DateBar::DateBarWidget::DateBarWidget(QWidget *parent)
     : QWidget(parent)
+    , m_dates(QExplicitlySharedDataPointer<DB::ImageDateCollection>(
+          new DB::ImageDateCollection({})))
     , m_currentHandler(&m_yearViewHandler)
     , m_tp(YearView)
     , m_currentMouseHandler(nullptr)

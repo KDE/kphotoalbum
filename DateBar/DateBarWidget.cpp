@@ -188,11 +188,6 @@ void DateBar::DateBarWidget::redraw(RedrawMode mode)
     p.setBrush(palette().brush(QPalette::Window));
     p.drawRect(rect());
 
-    if (!m_dates) {
-        p.restore();
-        return;
-    }
-
     // Draw the area with histograms
     QRect barArea = barAreaGeometry();
 
@@ -357,6 +352,9 @@ void DateBar::DateBarWidget::setImageCollection(const DB::ImageInfoList &images)
 
 void DateBar::DateBarWidget::setImageDateCollection(const QExplicitlySharedDataPointer<DB::ImageDateCollection> &dates)
 {
+    if (!dates)
+        return;
+
     m_dates = dates;
     if (m_doAutomaticRangeAdjustment && m_dates && !m_dates->lowerLimit().isNull()) {
         const Utilities::FastDateTime start = m_dates->lowerLimit();

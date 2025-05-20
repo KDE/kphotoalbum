@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-16 00:40+0000\n"
+"POT-Creation-Date: 2025-05-20 00:40+0000\n"
 "PO-Revision-Date: 2025-05-16 09:21+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -1050,39 +1050,39 @@ msgstr[1] ""
 msgid "Move Items"
 msgstr "Mou elements"
 
-#: DateBar/DateBarWidget.cpp:63
+#: DateBar/DateBarWidget.cpp:65
 #, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
 msgstr "Barra de dates"
 
-#: DateBar/DateBarWidget.cpp:72
+#: DateBar/DateBarWidget.cpp:74
 #, kde-format
 msgid "Scroll right"
 msgstr "Desplaça a la dreta"
 
-#: DateBar/DateBarWidget.cpp:81
+#: DateBar/DateBarWidget.cpp:83
 #, kde-format
 msgid "Scroll left"
 msgstr "Desplaça a l'esquerra"
 
-#: DateBar/DateBarWidget.cpp:90
+#: DateBar/DateBarWidget.cpp:92
 #, kde-format
 msgid "Zoom in"
 msgstr "Amplia"
 
-#: DateBar/DateBarWidget.cpp:101
+#: DateBar/DateBarWidget.cpp:103
 #, kde-format
 msgid "Zoom out"
 msgstr "Redueix"
 
-#: DateBar/DateBarWidget.cpp:113
+#: DateBar/DateBarWidget.cpp:115
 #, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr "Neteja la selecció de dates"
 
-#: DateBar/DateBarWidget.cpp:126
+#: DateBar/DateBarWidget.cpp:128
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""

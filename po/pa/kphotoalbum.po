@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-16 00:40+0000\n"
+"POT-Creation-Date: 2025-05-20 00:40+0000\n"
 "PO-Revision-Date: 2010-04-16 06:52+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
@@ -992,43 +992,43 @@ msgstr[1] ""
 msgid "Move Items"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:63
+#: DateBar/DateBarWidget.cpp:65
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
 msgstr "ਮਿਤੀ: "
 
-#: DateBar/DateBarWidget.cpp:72
+#: DateBar/DateBarWidget.cpp:74
 #, kde-format
 msgid "Scroll right"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:81
+#: DateBar/DateBarWidget.cpp:83
 #, kde-format
 msgid "Scroll left"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:90
+#: DateBar/DateBarWidget.cpp:92
 #, fuzzy, kde-format
 #| msgid "Zoom In"
 msgid "Zoom in"
 msgstr "ਜ਼ੂਮ ਇਨ"
 
-#: DateBar/DateBarWidget.cpp:101
+#: DateBar/DateBarWidget.cpp:103
 #, fuzzy, kde-format
 #| msgid "Zoom Out"
 msgid "Zoom out"
 msgstr "ਜ਼ੂਮ ਆਉਟ"
 
-#: DateBar/DateBarWidget.cpp:113
+#: DateBar/DateBarWidget.cpp:115
 #, fuzzy, kde-format
 #| msgid "Generate thumbnails"
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr "ਆਮ ਥੰਮਨੇਲ"
 
-#: DateBar/DateBarWidget.cpp:126
+#: DateBar/DateBarWidget.cpp:128
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""

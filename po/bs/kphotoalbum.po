@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-16 00:40+0000\n"
+"POT-Creation-Date: 2025-05-20 00:40+0000\n"
 "PO-Revision-Date: 2015-02-26 23:46+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -1088,45 +1088,45 @@ msgstr[2] ""
 msgid "Move Items"
 msgstr "Premjesti stavke"
 
-#: DateBar/DateBarWidget.cpp:63
+#: DateBar/DateBarWidget.cpp:65
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
 msgstr "Datum "
 
-#: DateBar/DateBarWidget.cpp:72
+#: DateBar/DateBarWidget.cpp:74
 #, kde-format
 msgid "Scroll right"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:81
+#: DateBar/DateBarWidget.cpp:83
 #, kde-format
 msgid "Scroll left"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:90
+#: DateBar/DateBarWidget.cpp:92
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Zoom In"
 msgid "Zoom in"
 msgstr "Uveličaj"
 
-#: DateBar/DateBarWidget.cpp:101
+#: DateBar/DateBarWidget.cpp:103
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Zoom Out"
 msgid "Zoom out"
 msgstr "Umanji"
 
-#: DateBar/DateBarWidget.cpp:113
+#: DateBar/DateBarWidget.cpp:115
 #, fuzzy, kde-format
 #| msgid "Delete selected"
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr "Izbriši označeno"
 
-#: DateBar/DateBarWidget.cpp:126
+#: DateBar/DateBarWidget.cpp:128
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""

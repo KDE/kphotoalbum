@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-16 00:40+0000\n"
+"POT-Creation-Date: 2025-05-20 00:40+0000\n"
 "PO-Revision-Date: 2024-04-22 16:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -955,39 +955,39 @@ msgstr[0] ""
 msgid "Move Items"
 msgstr "移动项目"
 
-#: DateBar/DateBarWidget.cpp:63
+#: DateBar/DateBarWidget.cpp:65
 #, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:72
+#: DateBar/DateBarWidget.cpp:74
 #, kde-format
 msgid "Scroll right"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:81
+#: DateBar/DateBarWidget.cpp:83
 #, kde-format
 msgid "Scroll left"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:90
+#: DateBar/DateBarWidget.cpp:92
 #, kde-format
 msgid "Zoom in"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:101
+#: DateBar/DateBarWidget.cpp:103
 #, kde-format
 msgid "Zoom out"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:113
+#: DateBar/DateBarWidget.cpp:115
 #, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:126
+#: DateBar/DateBarWidget.cpp:128
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""

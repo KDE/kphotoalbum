@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-16 00:40+0000\n"
+"POT-Creation-Date: 2025-05-20 00:40+0000\n"
 "PO-Revision-Date: 2025-01-10 20:51+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -1046,39 +1046,39 @@ msgstr[1] ""
 msgid "Move Items"
 msgstr "Mugitu elementuak"
 
-#: DateBar/DateBarWidget.cpp:63
+#: DateBar/DateBarWidget.cpp:65
 #, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
 msgstr "Data-abarra"
 
-#: DateBar/DateBarWidget.cpp:72
+#: DateBar/DateBarWidget.cpp:74
 #, kde-format
 msgid "Scroll right"
 msgstr "Kiribildu eskuinera"
 
-#: DateBar/DateBarWidget.cpp:81
+#: DateBar/DateBarWidget.cpp:83
 #, kde-format
 msgid "Scroll left"
 msgstr "Kiribildu ezkerrera"
 
-#: DateBar/DateBarWidget.cpp:90
+#: DateBar/DateBarWidget.cpp:92
 #, kde-format
 msgid "Zoom in"
 msgstr "Zooma gerturatu"
 
-#: DateBar/DateBarWidget.cpp:101
+#: DateBar/DateBarWidget.cpp:103
 #, kde-format
 msgid "Zoom out"
 msgstr "Zooma urrundu"
 
-#: DateBar/DateBarWidget.cpp:113
+#: DateBar/DateBarWidget.cpp:115
 #, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr "Garbitu data hautapena"
 
-#: DateBar/DateBarWidget.cpp:126
+#: DateBar/DateBarWidget.cpp:128
 #, fuzzy, kde-kuit-format
 #| msgctxt "@info"
 #| msgid ""

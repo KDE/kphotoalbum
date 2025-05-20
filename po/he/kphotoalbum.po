@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-16 00:40+0000\n"
-"PO-Revision-Date: 2025-05-13 21:00+0300\n"
+"POT-Creation-Date: 2025-05-20 00:40+0000\n"
+"PO-Revision-Date: 2025-05-19 20:47+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.04.0\n"
+"X-Generator: Lokalize 25.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -421,7 +421,7 @@ msgid ""
 "recognition database anymore, it can be deleted in the settings.</p>"
 msgstr ""
 "<p><b>לא ניתן לשייך את התגית „%2”</b></p><p>הקטגוריה „%1” אליה שייכת התגית "
-"„%2” אינה נקודתית.</p><p>כדי להשתמש בתגית הזאת, יש לשנות את זה בהגדרות. אם "
+"„%2” אינה אזורית.</p><p>כדי להשתמש בתגית הזאת, יש לשנות את זה בהגדרות. אם "
 "התגית הזאת לא אמורה להיות עוד במסד נתוני הזיהוי, אפשר למחוק אותה דרך ההגדרות."
 "</p>"
 
@@ -435,8 +435,8 @@ msgid ""
 msgstr ""
 "<p><b>לא ניתן לשייך את התגית „%2”</b></p><p>הקטגוריה „%1” אליה שייכת התגית "
 "„%2” לא קיימת.</p><p>כדי להשתמש בתגית הזאת, יש להוסיף את הקטגוריה הזאת ולסמן "
-"אותה כנקודתית. אם התגית הזאת לא אמורה להיות במסד נתוני הזיהוי עוד, אפשר "
-"למחוק אותה דרך חלונית ההגדרות.</p>"
+"אותה כאזורית. אם התגית הזאת לא אמורה להיות במסד נתוני הזיהוי עוד, אפשר למחוק "
+"אותה דרך חלונית ההגדרות.</p>"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:51
 #, kde-format
@@ -477,6 +477,9 @@ msgid ""
 "category in <interface>Settings|Configure KPhotoAlbum...|Categories</"
 "interface>, you can associate specific image areas with tags."
 msgstr ""
+"הפעלת <emphasis>תגיות אזוריות</emphasis> לקטגוריה אחת לפחות תחת "
+"<interface>הגדרות|הגדרת KPhotoAlbum…|קטגוריות</interface>, תאפשר לך לשייך "
+"אזורים מסוימים בתמונה לתגיות."
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:325
 #, kde-format
@@ -1038,48 +1041,40 @@ msgstr[3] ""
 msgid "Move Items"
 msgstr "העברת פריטים"
 
-#: DateBar/DateBarWidget.cpp:63
+#: DateBar/DateBarWidget.cpp:65
 #, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
 msgstr "סרגל תאריך"
 
-#: DateBar/DateBarWidget.cpp:72
+#: DateBar/DateBarWidget.cpp:74
 #, kde-format
 msgid "Scroll right"
 msgstr "גלילה ימינה"
 
-#: DateBar/DateBarWidget.cpp:81
+#: DateBar/DateBarWidget.cpp:83
 #, kde-format
 msgid "Scroll left"
 msgstr "גלילה שמאלה"
 
-#: DateBar/DateBarWidget.cpp:90
+#: DateBar/DateBarWidget.cpp:92
 #, kde-format
 msgid "Zoom in"
 msgstr "התקרבות"
 
-#: DateBar/DateBarWidget.cpp:101
+#: DateBar/DateBarWidget.cpp:103
 #, kde-format
 msgid "Zoom out"
 msgstr "התרחקות"
 
-#: DateBar/DateBarWidget.cpp:113
+#: DateBar/DateBarWidget.cpp:115
 #, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr "פינוי בחירת תאריכים"
 
-#: DateBar/DateBarWidget.cpp:126
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid ""
-#| "<title>The date bar</title><para><list><item>Scroll using the arrow "
-#| "buttons, the scrollwheel, or the middle mouse button.</item><item>Zoom "
-#| "using the +/- buttons or Ctrl + scrollwheel.</item><item>Restrict the "
-#| "view to a date range selection: Click/drag below the timeline.</"
-#| "item><item>Jump to a date by clicking on the histogram bar.</item></"
-#| "list></para>"
+#: DateBar/DateBarWidget.cpp:128
+#, kde-kuit-format
 msgctxt "@info"
 msgid ""
 "<title>The date bar</title><para><list><item>Scroll using the arrow buttons, "
@@ -1090,8 +1085,9 @@ msgid ""
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
 "<title>סרגל התאריכים</title><para><list><item>אפשר לגלול בעזרת מקשי החיצים, "
-"גלגלת העכבר, או הכפתור האמצעי בעכבר.</item><item>להתקרב באמצעות המקשים +/- "
-"או Ctrl + גלגלת העכבר.</item><item>להגביל את התצוגה לטווח תאריכים נבחר: "
+"גלגלת העכבר, או הכפתור האמצעי בעכבר.</item><item>אפשר להשתמש בכפתורי הבית "
+"והסיום כדי לגלול להתחלה או לסוף.</item><item>להתקרב באמצעות המקשים +/- או "
+"Ctrl + גלגלת העכבר.</item><item>להגביל את התצוגה לטווח תאריכים נבחר: "
 "Click/גרירה מתחת לציר הזמן.</item><item>אפשר לקפוץ לתאריך על ידי לחיצה על "
 "סרגל ההיסטוגרמה.</item></list></para>"
 
@@ -2609,6 +2605,21 @@ msgid ""
 "not found in your database, or which tokens was only a partial match.</li></"
 "ol>"
 msgstr ""
+"<h1><font size=\"+2\">ברוך בואך לייבוא אל KPhotoAlbum</font></h1>האשף הזה "
+"יוביל אותך צעד אחר צעד בפעולת הייבוא. השלבים הם: <ol><li>ראשית יש לבחור אילו "
+"תמונות לייבא מקובץ הייצוא. אפשר לעשות זאת על ידי סימון התיבה שליד התמונה.</"
+"li><li>לאחר מכן יש להנחות את KPhotoAlbum באיזו תיקייה לשים את התמונות. "
+"התיקייה הזאת חייבת להיות תחת תיקיית הבסיס בה משתמש KPhotoAlbum לתמונות. "
+"התוכנה תדאג למניעת סתירה בשמות</li><li>השלב הבא הוא לציין אילו קטגוריות "
+"לייבא (אנשים, מקומות, …) וגם להנחותאת KPhotoAlbum איך לתאם בין הקטגוריות "
+"מהקבצים לקטגוריות שלך. נניח למשל שבחרת לטעון קובץ, שהקטגוריה שלו נקראת "
+"<b>Blomst</b> (פרח בדנית), אז כנראה שעדיף לך לתאם אותו לקטגוריה שלך, שכנראה "
+"נקראת <b>Blume</b> (פרח בגרמנית) - כמובן בהנחה ששפת האם שלך היא גרמנית.</"
+"li><li>השלבים האחרונים, הם התאמת האסימונים הפרטניים מהקטגוריות. יכול להיות "
+"שאני נוהג לכנות את עצמי <b>צחיק</b> במסד נתוני התמונות שלך, בעוד הכינוי "
+"המועדף עליך עבור הוא השם המלא <b>יצחק בן אהרון</b>. בשלב הזה חוסרי התאמה "
+"יודגשו באדום, כדי לאפשר לך לראות אילו אסימונים לא נמצאו במסד הנתונים שלך או "
+"אילו אסימונים תואמים באופן חלקי.</li></ol>"
 
 #: ImportExport/ImportDialog.cpp:140
 #, kde-format
@@ -4836,7 +4847,7 @@ msgstr "שינוי שם"
 #: Settings/CategoryPage.cpp:111
 #, kde-format
 msgid "Positionable tags:"
-msgstr "תגיות שניתן להציב:"
+msgstr "תגיות אזוריות:"
 
 #: Settings/CategoryPage.cpp:113
 #, kde-format
@@ -4947,8 +4958,8 @@ msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
 "linked against this category will be discarded!</p>"
 msgstr ""
-"<p>להפוך את „%1” לבלתי נקודתיות?</p><p>כל האזורים שמקושרים כנגד הקטגוריה "
-"הזאת יושלכו!</p>"
+"<p>להפוך את „%1” לבלתי משויכות לאזור?</p><p>כל האזורים שמקושרים כנגד "
+"הקטגוריה הזאת יושלכו!</p>"
 
 #: Settings/CategoryPage.cpp:335
 #, kde-format

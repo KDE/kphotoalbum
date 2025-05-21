@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-20 00:40+0000\n"
-"PO-Revision-Date: 2025-04-28 04:17+0200\n"
+"PO-Revision-Date: 2025-05-20 03:51+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2196,6 +2196,8 @@ msgid ""
 "<p>Output folder %1 already exists. Usually, this means you should specify a "
 "new folder.</p><p>Should %2 be deleted first?</p>"
 msgstr ""
+"<p>გამოტანის საქაღალდე %1 უკვე არსებობს. ჩვეულებრივ, ეს ნიშნავს, რომ ახალი "
+"საქაღალდე უნდა მიუთითოთ.</p><p>ჯერ წავშალო %2?</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:443
 #, kde-format
@@ -2474,6 +2476,8 @@ msgid ""
 "<p>XML file did not specify the source of the images, this is a strong "
 "indication that the file is corrupted</p>"
 msgstr ""
+"<p>XML ფაილი არ შეიცავს გამოსახულებების წყაროებს, რაც მიუთითებს იმაზე, რომ "
+"ფაილი დაზიანებულია</p>"
 
 #: ImportExport/ImportDialog.cpp:121
 #, kde-format

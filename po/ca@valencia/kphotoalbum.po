@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-20 00:40+0000\n"
-"PO-Revision-Date: 2025-04-28 10:15+0200\n"
+"PO-Revision-Date: 2025-05-16 09:21+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -1082,15 +1082,7 @@ msgid "Clear date selection"
 msgstr "Neteja la selecció de dates"
 
 #: DateBar/DateBarWidget.cpp:128
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid ""
-#| "<title>The date bar</title><para><list><item>Scroll using the arrow "
-#| "buttons, the scrollwheel, or the middle mouse button.</item><item>Zoom "
-#| "using the +/- buttons or Ctrl + scrollwheel.</item><item>Restrict the "
-#| "view to a date range selection: Click/drag below the timeline.</"
-#| "item><item>Jump to a date by clicking on the histogram bar.</item></"
-#| "list></para>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid ""
 "<title>The date bar</title><para><list><item>Scroll using the arrow buttons, "
@@ -1102,10 +1094,12 @@ msgid ""
 msgstr ""
 "<title>La barra de dates</title><para><list><item>El desplaçament és "
 "utilitzant els botons de fletxa, la roda del ratolí, o el botó del mig del "
-"ratolí.</item><item>Per al zoom s'utilitzen els botons +/- o «Ctrl+roda del "
-"ratolí».</item><item>Per a restringir la vista a la selecció d'un interval "
-"de dates: Clic/arrossegueu davall la línia de temps.</item><item>Aneu fins a "
-"una data fent clic en la barra de l'histograma.</item></list></para>"
+"ratolí.</item><item>Utilitzeu els botons d'inici i de final per a desplaçar "
+"fins a l'inici o el final.</item><item>Per al zoom s'utilitzen els botons "
+"+/- o «Ctrl+roda del ratolí».</item><item>Per a restringir la vista a la "
+"selecció d'un interval de dates: Clic/arrossegueu davall la línia de temps.</"
+"item><item>Aneu fins a una data clicant damunt de la barra de l'histograma.</"
+"item></list></para>"
 
 #: DateBar/DateBarWidget.cpp:743
 #, kde-format
@@ -2602,8 +2596,8 @@ msgstr ""
 "funcionar amb KPhotoAlbum. Ho podeu fer afegint la línia següent al <b>/etc/"
 "httpd/mime.types</b> o similar:<pre>application/vnd.kde.kphotoalbum-import "
 "kim</pre>Açò farà que el vostre servidor web informe Konqueror que este és "
-"un fitxer de KPhotoAlbum quan es clique en l'enllaç, en cas contrari, el "
-"servidor web informarà Konqueror que és un fitxer de text.</p>"
+"un fitxer de KPhotoAlbum quan es clique damunt de l'enllaç, en cas contrari, "
+"el servidor web informarà Konqueror que és un fitxer de text.</p>"
 
 #: ImportExport/Export.cpp:412
 #, kde-format
@@ -4833,11 +4827,11 @@ msgid ""
 "The android client can be downloaded from google play."
 msgstr ""
 "Esta icona indica si KPhotoAlbum està connectat a un dispositiu Android.\n"
-"Cliqueu en la icona per a canviar l'escolta de clients en la xarxa d'àrea "
-"local.\n"
+"Cliqueu damunt de la icona per a canviar l'escolta de clients en la xarxa "
+"d'àrea local.\n"
 "Si la xarxa d'àrea local no permet la difusió de paquets entre el client "
-"Android i KPhotoAlbum, llavors cliqueu en la icona i especifiqueu l'adreça "
-"del dispositiu Android.\n"
+"Android i KPhotoAlbum, llavors cliqueu damunt de la icona i especifiqueu "
+"l'adreça del dispositiu Android.\n"
 "El client Android es pot baixar des de Google Play."
 
 #: RemoteControl/ConnectionIndicator.cpp:90
@@ -5081,14 +5075,13 @@ msgstr "Confirma l'acció"
 #: Settings/CategoryPage.cpp:521
 #, kde-format
 msgid "<i>Choose a category to edit it</i>"
-msgstr "<i>Escolliu una categoria per a editar-la</i>"
+msgstr "<i>Trieu una categoria per a editar-la</i>"
 
 #: Settings/DatabaseBackendPage.cpp:23
 #, kde-format
 msgid "Choose speed over readability for the XML database file"
 msgstr ""
-"Trieu la velocitat sobre llegibilitat per al fitxer en XML de la base de "
-"dades"
+"Tria la velocitat sobre llegibilitat per al fitxer en XML de la base de dades"
 
 #: Settings/DatabaseBackendPage.cpp:27
 #, kde-format
@@ -5701,8 +5694,8 @@ msgstr ""
 "KPhotoAlbum s'aparellarà automàticament amb l'aplicació d'Android. Açò "
 "requerix que KPhotoAlbum en l'escriptori estiga escoltant els missatges de "
 "multidifusió. Marcant esta casella de selecció provocarà que KPhotoAlbum ho "
-"faça automàticament en iniciar. De manera alternativa, podeu clicar en la "
-"icona de connexió en la barra d'estat per a iniciar l'escolta."
+"faça automàticament en iniciar. De manera alternativa, podeu clicar damunt "
+"de la icona de connexió en la barra d'estat per a iniciar l'escolta."
 
 #: Settings/GeneralPage.cpp:170
 #, kde-format

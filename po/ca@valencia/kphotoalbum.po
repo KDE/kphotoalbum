@@ -1104,7 +1104,7 @@ msgstr ""
 "ratolí.</item><item>Per al zoom s'utilitzen els botons +/- o «Ctrl+roda del "
 "ratolí».</item><item>Per a restringir la vista a la selecció d'un interval "
 "de dates: Clic/arrossegueu davall la línia de temps.</item><item>Aneu fins a "
-"una data fent clic en la barra de l'histograma.</item></list></para>"
+"una data clicant damunt de la barra de l'histograma.</item></list></para>"
 
 #: DateBar/DateBarWidget.cpp:690
 #, kde-format
@@ -2600,8 +2600,8 @@ msgstr ""
 "funcionar amb KPhotoAlbum. Ho podeu fer afegint la línia següent al <b>/etc/"
 "httpd/mime.types</b> o similar:<pre>application/vnd.kde.kphotoalbum-import "
 "kim</pre>Açò farà que el vostre servidor web informe Konqueror que este és "
-"un fitxer de KPhotoAlbum quan es clique en l'enllaç, en cas contrari, el "
-"servidor web informarà Konqueror que és un fitxer de text.</p>"
+"un fitxer de KPhotoAlbum quan es clique damunt de l'enllaç, en cas contrari, "
+"el servidor web informarà Konqueror que és un fitxer de text.</p>"
 
 #: ImportExport/Export.cpp:412
 #, kde-format
@@ -4852,11 +4852,11 @@ msgid ""
 "The android client can be downloaded from google play."
 msgstr ""
 "Esta icona indica si KPhotoAlbum està connectat a un dispositiu Android.\n"
-"Cliqueu en la icona per a canviar l'escolta de clients en la xarxa d'àrea "
-"local.\n"
+"Cliqueu damunt de la icona per a canviar l'escolta de clients en la xarxa "
+"d'àrea local.\n"
 "Si la xarxa d'àrea local no permet la difusió de paquets entre el client "
-"Android i KPhotoAlbum, llavors cliqueu en la icona i especifiqueu l'adreça "
-"del dispositiu Android.\n"
+"Android i KPhotoAlbum, llavors cliqueu damunt de la icona i especifiqueu "
+"l'adreça del dispositiu Android.\n"
 "El client Android es pot baixar des de Google Play."
 
 #: RemoteControl/ConnectionIndicator.cpp:90
@@ -5100,12 +5100,12 @@ msgstr "Confirma l'acció"
 #: Settings/CategoryPage.cpp:533
 #, kde-format
 msgid "<i>Choose a category to edit it</i>"
-msgstr "<i>Escolliu una categoria per a editar-la</i>"
+msgstr "<i>Trieu una categoria per a editar-la</i>"
 
 #: Settings/DatabaseBackendPage.cpp:23
 #, kde-format
 msgid "Choose speed over readability for index.xml file"
-msgstr "Trieu la velocitat sobre llegibilitat per al fitxer index.xml"
+msgstr "Tria la velocitat sobre llegibilitat per al fitxer index.xml"
 
 #: Settings/DatabaseBackendPage.cpp:27
 #, kde-format
@@ -5715,8 +5715,8 @@ msgstr ""
 "KPhotoAlbum s'aparellarà automàticament amb l'aplicació d'Android. Açò "
 "requerix que KPhotoAlbum en l'escriptori estiga escoltant els missatges de "
 "multidifusió. Marcant esta casella de selecció provocarà que KPhotoAlbum ho "
-"faça automàticament en iniciar. De manera alternativa, podeu clicar en la "
-"icona de connexió en la barra d'estat per a iniciar l'escolta."
+"faça automàticament en iniciar. De manera alternativa, podeu clicar damunt "
+"de la icona de connexió en la barra d'estat per a iniciar l'escolta."
 
 #: Settings/GeneralPage.cpp:169
 #, kde-format

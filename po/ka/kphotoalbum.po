@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-20 00:40+0000\n"
-"PO-Revision-Date: 2025-05-20 03:51+0200\n"
+"PO-Revision-Date: 2025-05-25 04:09+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -2136,6 +2136,8 @@ msgid ""
 "URL.</p><p>This only affects the generated <filename>.kim</filename> file.</"
 "p>"
 msgstr ""
+"<p>თუ გნებავთ, გალერეა დაშორებულ ადგილას გადაიტანოთ, დააყენეთ ეს სამიზნე URL-"
+"ზე</p><p>ეს, მხოლოდ, შექმნილ <filename>.kim</filename> ფაილს ეხება.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:343
 #, kde-format
@@ -4390,6 +4392,8 @@ msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
+"შეგიზლიათ, KPhotoAlbum-ის მონაცემთა ბაზაში ფაილების ნაკრები მათი აქ "
+"ჩამოთვლით გახსნათ."
 
 #: MainWindow/Window.cpp:1625
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-20 00:40+0000\n"
-"PO-Revision-Date: 2025-05-25 04:09+0200\n"
+"PO-Revision-Date: 2025-05-26 04:06+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -3246,6 +3246,8 @@ msgstr "შესაბამისი სურათის ჩასმა ს
 msgid ""
 "Unstack images from their current stack and create new one for the matches"
 msgstr ""
+"გამოსახულებების მოხსნა თავიანთი მიმდინარე ნაკრებიდან და ახლის შექმნა "
+"დამთხვევებისთვის"
 
 #: MainWindow/AutoStackImages.cpp:102
 #, kde-format
@@ -3300,7 +3302,11 @@ msgid_plural ""
 "Selected %1 items will be removed from the database.<br/>What do you want to "
 "do with the files on disk?"
 msgstr[0] ""
+"მონიშნული ელემენტი წაიშლება მონაცემთა ბაზიდან.<br/>რა გნებავთ, უქნათ ფაილს "
+"დისკზე?"
 msgstr[1] ""
+"მონიშნული %1 ელემენტი წაიშლება მონაცემთა ბაზიდან.<br/>რა გნებავთ, უქნათ "
+"ფაილს დისკზე?"
 
 #: MainWindow/DeleteDialog.cpp:71
 #, kde-format
@@ -3422,7 +3428,7 @@ msgstr "ფუნქციის სტატუსი"
 #: MainWindow/FeatureDialog.cpp:59
 #, kde-format
 msgid "<h1>Overview</h1><p>Optional features in KPhotoAlbum:</p>%1"
-msgstr ""
+msgstr "<h1>გადახედეთ</h1><p>არასავალდებულო ფუნქციებს KPhotoAlbum-ში:</p>%1"
 
 #: MainWindow/FeatureDialog.cpp:65
 #, kde-format
@@ -3683,6 +3689,8 @@ msgid ""
 "<p>Enter your command to run below:</p><p><i>%all will be replaced with a "
 "file list</i></p>"
 msgstr ""
+"<p>შეიყვანეთ თქვენი გასაშვები ბრძანება ქვემოთ:</p><p><i>%all ფაილების სიით "
+"ჩანაცვლდება</i></p>"
 
 #: MainWindow/RunDialog.cpp:41
 #, no-c-format, kde-format

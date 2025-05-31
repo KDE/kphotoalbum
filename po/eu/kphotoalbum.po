@@ -2,18 +2,18 @@
 # Copyright (C) 2004, 2005, 2006, 2008 Free Software Foundation, Inc.
 # Copyright (C) 2009-2025 This file is copyright:
 # This file is distributed under the same license as the kphotoalbum package.
-# SPDX-FileCopyrightText: 2024, 2025 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2024, 2025 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
 #
 # Translators:
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2010.
 # Ander Elortondo <ander.elor@gmail.com>, 2020.
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Iñigo Salvador Azurmendi <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Iñigo Salvador Azurmendi <xalba@ni.eus>.
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-20 00:40+0000\n"
-"PO-Revision-Date: 2025-01-10 20:51+0100\n"
+"PO-Revision-Date: 2025-05-30 22:04+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 25.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1079,15 +1079,7 @@ msgid "Clear date selection"
 msgstr "Garbitu data hautapena"
 
 #: DateBar/DateBarWidget.cpp:128
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid ""
-#| "<title>The date bar</title><para><list><item>Scroll using the arrow "
-#| "buttons, the scrollwheel, or the middle mouse button.</item><item>Zoom "
-#| "using the +/- buttons or Ctrl + scrollwheel.</item><item>Restrict the "
-#| "view to a date range selection: Click/drag below the timeline.</"
-#| "item><item>Jump to a date by clicking on the histogram bar.</item></"
-#| "list></para>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid ""
 "<title>The date bar</title><para><list><item>Scroll using the arrow buttons, "
@@ -1097,11 +1089,12 @@ msgid ""
 "selection: Click/drag below the timeline.</item><item>Jump to a date by "
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
-"<title>Data-barra</title><para><list><item>Scroll using the arrow buttons, "
-"the scrollwheel, or the middle mouse button.</item><item>Zoom using the +/- "
-"buttons or Ctrl + scrollwheel.</item><item>Restrict the view to a date range "
-"selection: Click/drag below the timeline.</item><item>Jump to a date by "
-"clicking on the histogram bar.</item></list></para>"
+"<title>Data-barra</title><para><list><item>Kiribildu gezi-botoiak, "
+"kiribiltzeko gurpila, edo saguaren erdiko botoia erabiliz.</item><item>Egin "
+"zoom +/- botoiak edo Ktrl + kiribiltzeko gurpila erabiliz.</"
+"item><item>Murriztu ikuspegia data tarte hautapen batera: Egin klik/"
+"arrastatu denbora-lerroaren azpian.</item><item>Jauzi data batera histograma-"
+"barran klik eginez.</item></list></para>"
 
 #: DateBar/DateBarWidget.cpp:743
 #, kde-format
@@ -3265,17 +3258,14 @@ msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgid ""
-#| "(.) Patch with folder info made available through the browser. (.) Patch "
-#| "for adding a check box for \"and/or\" searches in the search page."
+#, kde-format
 msgid ""
 "Patch with folder info made available through the browser.\n"
 "Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
-"(.) Karpetaren informazioa duen adabakia arakatzaile bidez erabilgarri jarri "
-"da. (.) Bilaketa orrian \"eta/edo\" bilaketetarako egiaztapen-lauki bat "
-"gehitzeko adabakia."
+"Arakatzailearen bidez eskuragarri jarritako informazioa duen adabakia.\n"
+"Bilaketa orrian \"eta/edo\" bilaketetarako egiaztapen-lauki bat gehitzeko "
+"adabakia."
 
 #: main.cpp:122
 #, kde-format
@@ -3313,13 +3303,13 @@ msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
 #: main.cpp:138
-#, fuzzy, kde-format
-#| msgid ""
-#| "Numerous patches for lots of bugs plus patches for a few new features"
+#, kde-format
 msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
-msgstr "Akats ugari konpontzeko adabakiak, eginbide berriak baita ere"
+msgstr ""
+"Akats ugaritarako adabaki piloa,\n"
+"funtzio berri batzuetarako adabakiak"
 
 #: main.cpp:143
 #, kde-format
@@ -3337,16 +3327,13 @@ msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
 #: main.cpp:149
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch to sort images in the thumbnail view, plus reading time info out of "
-#| "Exif images for existing images"
+#, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
-"Koadro txikien ikuspegian irudiak ordenatzeko eta existitzen diren "
-"irudientzako EXIF irudietatik dataren informazioa irakurtzeko adabakiak."
+"Koadro txikien ikuspegian irudiak sailkatzeko adabakia,\n"
+"Exif irudietatik denbora informazioa irakurtzea, dauden irudietarako"
 
 #: main.cpp:154
 #, kde-format
@@ -3374,16 +3361,13 @@ msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
 #: main.cpp:165
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch which speed up loading of thumbnails plus preview in image property "
-#| "dialog."
+#, kde-format
 msgid ""
 "Patch which speeds up loading of thumbnails,\n"
 "preview in image property dialog."
 msgstr ""
-"Koadro txikien karga azkartzeko eta irudiaren propietateen elkarrizketa-"
-"koadroko aurrebistaren adabakia."
+"Koadro txikiak zamatzea azkartzen duen adabakia,\n"
+"aurreikuspegia irudiaren propietatea elkarrizketa-koadroan."
 
 #: MainWindow/AutoStackImages.cpp:46
 #, kde-format
@@ -3618,6 +3602,7 @@ msgstr "Eginbideen egoera"
 #, kde-format
 msgid "<h1>Overview</h1><p>Optional features in KPhotoAlbum:</p>%1"
 msgstr ""
+"<h1>Ikuspegi-orokorra</h1><p>KPhotoAlbum-en aukerako ezaugarriak:</p>%1"
 
 #: MainWindow/FeatureDialog.cpp:65
 #, kde-format
@@ -3632,34 +3617,37 @@ msgid ""
 "from the package manager or an app store, you can file a bug report with the "
 "supplier of the package.</>"
 msgstr ""
+"<h1>Exekuzio garaiko ezaugarriak</h1><p>Exekuzio garaiko ezaugarriak "
+"KPhotoAlbum eraikitzean gaitu behar diren aukerako ezaugarriak dira.</"
+"p><p>KPhotoAlbum zuk zeuk eraiki baduzu, mesedez, aztertu <a href=\"https://"
+"community.kde.org/KPhotoAlbum/build_instructions\">eraikitzeko jarraibideak</"
+"a> zerbait falta baduzu. KPhotoAlbum konpilatzeko laguntza behar baduzu, "
+"galdetu <a href=\"https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum"
+"\"> KPhotoAlbum posta-zerrendan</a>. KPhotoAlbum pakete-kudeatzailetik edo "
+"aplikazio-biltegi batetik instalatu baduzu, paketearen hornitzaileari akats-"
+"txosten bat bidal diezaiokezu.</p>"
 
 #: MainWindow/FeatureDialog.cpp:79
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports "
-#| "the <em>Purpose</em> plugin system.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"purpose\">Purpose plugin support</a></h2><p>KPhotoAlbum "
 "supports the <em>Purpose</em> plugin system which is part of KDE Frameworks."
 "</p>"
 msgstr ""
-"<h1><a name=\"purpose\">Plugin euskarria</a></h1><p>KPhotoAlbum-ek "
-"<em>Purpose</em> plugin sistema onartzen du.</p>"
+"<h2><a name=\"purpose\">Purpose pluginaren euskarria</a></h2><p>KPhotoAlbum-"
+"ek <em>Purpose</em> KDE Frameworks-en zati den plugin-sistema onartzen du.</"
+"p>"
 
 #: MainWindow/FeatureDialog.cpp:83
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"geomap\">Map view for geotagged images</a></h1><p>If "
-#| "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
-#| "images with GPS information on a map.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"geomap\">Map view for geotagged images</a></h2><p>If "
 "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
 "images with GPS information on a map.</p>"
 msgstr ""
-"<h1><a name=\"geomap\">Mapa ikuspegia geokokatutako irudientzako</a></h1><p> "
-"KPhotoAlbum Marble euskarriaz eraiki bada, KPhotoAlbum irudiak mapan "
-"erakutsi ditzake geokokapen informazioaz..</p>"
+"<h2><a name=\"geomap\">Geokokatutako irudietarako mapa-ikuspegia</a> </"
+"h2><p>KPhotoAlbum Marble-ren euskarriarekin eraiki bada, KPhotoAlbum-ek GPS "
+"informazioa duten irudiak mapa batean erakuts ditzake.</p>"
 
 #: MainWindow/FeatureDialog.cpp:88
 #, kde-format
@@ -3668,25 +3656,24 @@ msgid ""
 "depend on another package or program being available during runtime. I.e. "
 "you can enable these features by installing the right package.</p>"
 msgstr ""
+"<h1>Exekuzio garaiko ezaugarriak</h1><p>Exekuzio garaiko ezaugarriak "
+"aukerako ezaugarriak dira, exekuzio garaian beste pakete edo programa bat "
+"erabilgarri egotearen mende daudenak. Hau da, pakete egokiak instalatuz "
+"ezaugarri hauek gaitu ditzakezu.</p>"
 
 #: MainWindow/FeatureDialog.cpp:94
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"database\">SQLite database support</a></h1><p>KPhotoAlbum "
-#| "allows you to search using a certain number of Exif tags. For this "
-#| "KPhotoAlbum needs an SQLite database. In addition the Qt package for "
-#| "SQLite (e.g. qt-sql-sqlite) must be installed.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"database\">SQLite database support</a></h2><p>KPhotoAlbum "
 "allows you to search using a certain number of Exif tags.</p><p>This feature "
 "is only available if the Qt SQLite driver is installed. On Debian-based "
 "distributions this package is usually called libqt6sql6-sqlite.</p>"
 msgstr ""
-"<h1><a name=\"database\">SQLite datu-basearen euskarria</a></"
-"h1><p>KPhotoAlbum-ek EXIFen etiketa zehatz batzuk erabiliz bilaketak egitea "
-"baimentzen dizu. Horretarako, KPhotoAlbum-ek SQLite datu-basea behar du. "
-"Gainera, SQLite-ren Qt paketea (adib. qt-sql-sqlite) instalatuta egon behar "
-"da.</p>"
+"<h2><a name=\"database\">SQLite datu-basearen euskarria</a></"
+"h2><p>KPhotoAlbum-ek Exif etiketa jakin batzuk erabiliz bilaketak egiteko "
+"aukera ematen dizu.</p><p>Ezaugarri hau erabilgarri egoteko Qt SQLite "
+"gidaria instalatuta egon behar du. Debian oinarritako banaketetan pakete "
+"honek libqt6sql6-sqlite izena du.</p>"
 
 #: MainWindow/FeatureDialog.cpp:102
 #, kde-format
@@ -3702,40 +3689,47 @@ msgid ""
 "p><p>This feature is only available if ffprobe is installed. Usually, "
 "ffprobe is also part of the FFmpeg package.</p>"
 msgstr ""
+"<h2><a name=\"video\">Bideo euskarria</a></h2><p>KPhotoAlbum-ek phonon edo "
+"VLC erabiltzen ditu bideoak azaltzeko</p><h2><a name=\"videoPreview\">Bideo "
+"koadro txikien euskarria</a></h2><p>KPhotoAlbum-ek <tt>ffmpeg</tt> erabil "
+"dezake bideoetatik koadro txikiak ateratzeko. Koadro txiki horiek, koadro "
+"txiki ikustailean bideoak aurreikusteko erabiltzen dira.</p><p>Ezaugarri "
+"hori erabilgarri egoteko FFmpeg instalatuta egon behar du.</p><h2><a name="
+"\"videoInfo\">Bideo metadatuen euskarria</a></h2><p>KPhotoAlbum-ek "
+"<tt>ffprobe</tt> erabil dezake bideoetatik iraupen informazioa ateratzeko. "
+"Luzeraren informazio zuzena behar da bideo koadro txikiak ondo errendatzeko. "
+"</p><p>Ezaugarri hori erabilgarri egoteko ffprobe instalatuta egon behar du. "
+"ffprobe FFmpeg paketearen zati izan ohi da.</p>"
 
 #: MainWindow/FeatureDialog.cpp:135
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Purpose plugin support"
-msgstr ""
+msgstr "Purpose plugin euskarria"
 
 #: MainWindow/FeatureDialog.cpp:138
-#, fuzzy, kde-format
-#| msgid "Map view for geotagged images."
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Map view for geotagged images."
-msgstr "Mapa ikuspegia geokokatutako irudietan"
+msgstr "Geokokatutako irudietarako mapa-ikuspegia."
 
 #: MainWindow/FeatureDialog.cpp:141
-#, fuzzy, kde-format
-#| msgid "SQL Database Support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "SQLite database support"
-msgstr "SQL datu-basearen euskarria"
+msgstr "SQLite datu-basearen euskarria"
 
 #: MainWindow/FeatureDialog.cpp:144
-#, fuzzy, kde-format
-#| msgid "Video thumbnail support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
-msgstr "Bideoen koadro txikien euskarria"
+msgstr "Bideo koadro txikien euskarria"
 
 #: MainWindow/FeatureDialog.cpp:147
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video metadata support"
-msgstr "Bideoen matadatu euskarria"
+msgstr "Bideo metadatuen euskarria"
 
 #: MainWindow/FeatureDialog.cpp:154
 #, kde-format

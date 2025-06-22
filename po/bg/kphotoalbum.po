@@ -6847,31 +6847,3 @@ msgstr "Показване размер на изображението"
 #, kde-format
 msgid "Show Rating"
 msgstr "Показване на оценките"
-
-#~ msgid "Plug-ins available"
-#~ msgstr "Налични приставки"
-
-#, fuzzy
-#~| msgid "Error in database file"
-#~ msgid "Invalid database file"
-#~ msgstr "Грешка във файла на базата от данни"
-
-#~ msgid ""
-#~ "<p>Could not save the window layout.</p>File %1 could not be opened "
-#~ "because of the following error: %2"
-#~ msgstr ""
-#~ "<p>Не можа да се запази оформлението на прозореца.</p> Файлът %1 не може "
-#~ "да бъде отворен, порадиследната грешка: %2"
-
-#~ msgid ""
-#~ "<p>Could not save the window layout.</p>File %1 could not be written "
-#~ "because of the following error: %2"
-#~ msgstr ""
-#~ "<p>Не можа да се запази оформлението на прозореца.</p>Файлът %1 не може "
-#~ "да бъде записан, поради следната грешка: %2"
-
-#~ msgid "Loading Database"
-#~ msgstr "Зареждане на базата от данни"
-
-#~ msgid "Loading Main Window"
-#~ msgstr "Зареждане на основния прозорец"

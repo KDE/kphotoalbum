@@ -45,13 +45,13 @@ annotate all the selected items as if it was one single item. In other
 words, with this option you mass-annotate your image - e.g. saying all
 these images were shot in Copenhagen. These two options are also available from a context menu, that you
 get by right clicking the mouse in the thumbnail overview or using keyboard shortcut. An example of
-this can be seen in <xref linkend="fig-edit-properies-menu"/>.</para>
+this can be seen in <xref linkend="fig-edit-properties-menu"/>.</para>
 
-    <figure id="fig-edit-properies-menu">
+    <figure id="fig-edit-properties-menu">
       <title>Context menu for editing properties</title>
       <mediaobject>
         <imageobject>
-          <imagedata fileref="edit-properies-menu.png"
+          <imagedata fileref="edit-properties-menu.png"
             format="PNG"/>
         </imageobject>
       </mediaobject>

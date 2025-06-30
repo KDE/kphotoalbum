@@ -9,22 +9,11 @@ SPDX-License-Identifier: GFDL-1.2-only
 <chapter id="chp-browsing">
   <title>Browsing</title>
   <para>Once you have annotated your images and videos, &kphotoalbum; is ready to let you
-    browse through your images, see <xref
-      linkend="fig-browser-with-images"/>. If you compare that to <xref
+    browse through your images. If you compare that to <xref
       linkend="fig-empty-browser-window"/> , you will see that there now is
     items available in each of the categories for <literal>People</literal>,
     <literal>Places</literal>, and <literal>Keywords</literal>.</para>
-  
-  <figure id="fig-browser-with-images">
-    <title>Browser when images and videos have been annotated</title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="browser-with-images.png"
-          format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </figure>
-  
+
   <para>In the browser window you can see the categories you typed
 information into when annotating your images and videos. In addition there
 are items for searching based on EXIF information on images, browsing the
@@ -50,16 +39,18 @@ in <xref linkend="fig-browser-for-persons"/>.</para>
     <literal>Pets</literal> has a special icon. For details about that, see
     <xref linkend="sec-specifying-categories"/>.</para></footnote>,
     selecting a person will bring you back to the original state for the
-    browser, as we saw in <xref linkend="fig-browser-with-images"/>, this
-    time, however, we are <emphasis>in the scope</emphasis> of the person
-    we selected. That means that we only shows information about images and
+    browser.
+    This time, however, we are <emphasis>in the scope</emphasis> of the person
+    we selected. That means that we only show information about images and
     videos containing that person. See <xref linkend="fig-browser-for-jesper"/>
     below, which is the result of us selecting the Person <literal>Jesper</literal>, you can see an
-    indication of that in the bottom of the window. Please compare <xref
-      linkend="fig-browser-with-images"/> with <xref
-      linkend="fig-browser-for-jesper"/>, where you will see that the number
-    of available images and videos has gone down from 25 to 12, and the amount of
-    items for the different categories have also changed.</para>
+    indication of that in the bottom of the window. On the lower right side of <xref
+      linkend="fig-browser-for-jesper"/>, you will see that the number
+    of matching images and videos has gone down from 25 to 13, while the total number of images stayed the same.</para>
+
+  <para>Note that if there are only a few images in the scope, &kphotoalbum; will directly go to the thumbnail viewer (see <xref linkend="chp-thumbnail-view"/>).
+      You can configure this behaviour in the thumbnail viewer settings (see <xref linkend="opt-thumbnails"/>).
+  </para>
   
   <figure id="fig-browser-for-jesper">
     <title>Browser limited to the scope of the person <literal>Jesper</literal></title>

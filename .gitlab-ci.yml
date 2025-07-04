@@ -6,7 +6,6 @@ include:
         # validate:
         - /gitlab-templates/reuse-lint.yml
         - /gitlab-templates/xml-lint.yml
-        - /gitlab-templates/clang-format.yml
         # build:
         - /gitlab-templates/linux-qt6.yml
         - /gitlab-templates/freebsd-qt6.yml

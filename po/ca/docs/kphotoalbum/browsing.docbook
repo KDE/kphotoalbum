@@ -10,19 +10,14 @@ SPDX-License-Identifier: GFDL-1.2-only
   <title
 >Navegar</title>
   <para
->Una vegada anotades les vostres imatges i vídeos, &kphotoalbum; estarà llest per a navegar a través de les imatges, vegeu la <xref linkend="fig-browser-with-images"/>. Si es compara amb la <xref linkend="fig-empty-browser-window"/>, veureu que ara hi ha elements en cadascuna de les categories per a Gent, Llocs i Paraules clau.</para>
-  
-  <figure id="fig-browser-with-images">
-    <title
->Navegar quan les imatges i els vídeos estan anotats</title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="browser-with-images.png"
-          format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </figure>
-  
+>Una vegada anotades les vostres imatges i vídeos, &kphotoalbum; estarà llest per a navegar per les imatges. Si es compara amb la <xref linkend="fig-empty-browser-window"/>, veureu que ara hi ha elements en cadascuna de les categories de <literal
+>Gent</literal
+>, <literal
+>Llocs</literal
+> i <literal
+>Paraules clau</literal
+>.</para>
+
   <para
 >A la finestra del navegador podeu veure les categories de la informació que heu escrit dins en anotar les vostres imatges i vídeos. A més, hi ha elements per a la cerca basada en la informació EXIF ​​de les imatges, navegació per l'estructura de carpetes del disc dur, i per descomptat, mostrar les miniatures reals. Descriurem cada element al seu torn.</para
 > 
@@ -48,11 +43,14 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Pets</literal
 > (nom del gos) disposa d'una icona especial. Pels detalls sobre això, veure <xref linkend="sec-specifying-categories"/>.</para
 ></footnote
->, la selecció d'una persona us portarà de tornada a l'estat original del navegador, com hem vist a la <xref linkend="fig-browser-with-images"/>, aquesta vegada però, estem <emphasis
+>, la selecció d'una persona us portarà de tornada a l'estat original del navegador. Aquesta vegada però, estem <emphasis
 >en l'àmbit</emphasis
 > de la persona que hem seleccionat. Això vol dir que només ens mostra la informació sobre les imatges i vídeos que contenen aquesta persona. Veure la <xref linkend="fig-browser-for-jesper"/> a continuació, la qual és el resultat de la nostra selecció de la persona <literal
 >Jesper</literal
->, podeu veure una indicació d'aquesta persona a la part inferior de la finestra. Compareu la <xref linkend="fig-browser-with-images"/> amb la <xref linkend="fig-browser-for-jesper"/>, podreu veure que el nombre d'imatges i vídeos disponibles s'ha reduït de 25 a 12, i també ha canviat la quantitat d'elements per a les diferents categories.</para>
+>, podeu veure una indicació d'aquesta persona a la part inferior de la finestra. A la part dreta inferior de la <xref linkend="fig-browser-for-jesper"/>, veureu que el nombre d'imatges i vídeos coincidents s'ha reduït de 25 a 13, tot i que es manté el mateix nombre total d'imatges.</para>
+
+  <para
+>Tingueu en compte que si només hi ha poques imatges a l'àmbit, el &kphotoalbum; anirà directament al visualitzador de miniatures (vegeu <xref linkend="chp-thumbnail-view"/>). Podeu configurar aquest comportament a la configuració del visualitzador de miniatures (vegeu <xref linkend="opt-thumbnails"/>). </para>
   
   <figure id="fig-browser-for-jesper">
     <title

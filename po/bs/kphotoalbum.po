@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-20 00:40+0000\n"
+"POT-Creation-Date: 2025-07-05 00:40+0000\n"
 "PO-Revision-Date: 2015-02-26 23:46+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -3425,12 +3425,12 @@ msgstr ""
 "Zakrpa za pravljenje mogućnosti kako bi pročitali EXIF info pomoću lijepog "
 "dijaloga."
 
-#: main.cpp:116
+#: main.cpp:115
 #, kde-format
 msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
-#: main.cpp:117
+#: main.cpp:116
 #, fuzzy, kde-format
 #| msgid ""
 #| "(.) Patch with directory info made available through the browser. (.) "
@@ -3443,42 +3443,42 @@ msgstr ""
 "dodavanje potvrdnih okvira za \"i / ili\" pretraživanja na stranici za "
 "pretraživanje."
 
-#: main.cpp:122
+#: main.cpp:120
 #, kde-format
 msgid "Matthias Füssel"
 msgstr ""
 
-#: main.cpp:123
+#: main.cpp:121
 #, kde-format
 msgid "Geo Position page in browser and various bug fixes"
 msgstr ""
 
-#: main.cpp:127
+#: main.cpp:124
 #, kde-format
 msgid "Wes Hardaker"
 msgstr "Wes Hardaker"
 
-#: main.cpp:128
+#: main.cpp:125
 #, kde-format
 msgid "Some very useful features to improve workflow"
 msgstr "Neka mnogo korisna svojstva za poboljšanje radnog procesa"
 
-#: main.cpp:132
+#: main.cpp:128
 #, kde-format
 msgid "Reimar Imhof"
 msgstr "Reimar Imhof"
 
-#: main.cpp:133
+#: main.cpp:129
 #, kde-format
 msgid "Patch to sort items in option listboxes"
 msgstr "Zakrpa za sortiranje stvari u opcijama lista"
 
-#: main.cpp:137
+#: main.cpp:132
 #, kde-format
 msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
-#: main.cpp:138
+#: main.cpp:133
 #, fuzzy, kde-format
 #| msgid ""
 #| "Numerous patches for lots of bugs plus patches for a few new features"
@@ -3487,22 +3487,22 @@ msgid ""
 "patches for a few new features"
 msgstr "Brojne zakrpe za puno bugova plus zakrpe za nekoliko novih značajki"
 
-#: main.cpp:143
+#: main.cpp:137
 #, kde-format
 msgid "Teemu Rytilahti"
 msgstr "Teemu Rytilahti"
 
-#: main.cpp:144
+#: main.cpp:138
 #, kde-format
 msgid "Theme support for HTML generation"
 msgstr ""
 
-#: main.cpp:148
+#: main.cpp:141
 #, kde-format
 msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
-#: main.cpp:149
+#: main.cpp:142
 #, fuzzy, kde-format
 #| msgid ""
 #| "Patch to sort images in the thumbnail view, plus reading time info out of "
@@ -3514,32 +3514,32 @@ msgstr ""
 "Zakrpa za sortiranje slike u prikazu sličica, plus čitanje vremenske "
 "informacije iz EXIF slika za postojeće slike"
 
-#: main.cpp:154
+#: main.cpp:146
 #, kde-format
 msgid "Clytie Siddall"
 msgstr "Clytie Siddall"
 
-#: main.cpp:155
+#: main.cpp:147
 #, kde-format
 msgid "Tremendous help with the English text in the application."
 msgstr "Ogromna pomoć sa engleskim tekstom u aplikaciji."
 
-#: main.cpp:159
+#: main.cpp:150
 #, kde-format
 msgid "Will Stephenson"
 msgstr "Will Stephenson"
 
-#: main.cpp:160
+#: main.cpp:151
 #, kde-format
 msgid "Developing an Icon for KPhotoAlbum"
 msgstr "Razvijanje ikone za KPhotoAlbum"
 
-#: main.cpp:164
+#: main.cpp:154
 #, kde-format
 msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
-#: main.cpp:165
+#: main.cpp:155
 #, fuzzy, kde-format
 #| msgid ""
 #| "Patch which speed up loading of thumbnails plus preview in image property "

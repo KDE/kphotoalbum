@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-20 00:40+0000\n"
+"POT-Creation-Date: 2025-07-05 00:40+0000\n"
 "PO-Revision-Date: 2020-03-22 17:24+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -3403,12 +3403,12 @@ msgstr "Marco Caldarelli"
 msgid "Patch for making it possible to reread Exif info using a nice dialog."
 msgstr "Диалог повторной загрузки метаданных EXIF."
 
-#: main.cpp:116
+#: main.cpp:115
 #, kde-format
 msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
-#: main.cpp:117
+#: main.cpp:116
 #, fuzzy, kde-format
 #| msgid ""
 #| "(.) Patch with directory info made available through the browser. (.) "
@@ -3420,42 +3420,42 @@ msgstr ""
 "Добавление информации о папке в окне просмотра. Возможность выбора «и/или» в "
 "диалоге поиска."
 
-#: main.cpp:122
+#: main.cpp:120
 #, kde-format
 msgid "Matthias Füssel"
 msgstr "Matthias Füssel"
 
-#: main.cpp:123
+#: main.cpp:121
 #, kde-format
 msgid "Geo Position page in browser and various bug fixes"
 msgstr ""
 
-#: main.cpp:127
+#: main.cpp:124
 #, kde-format
 msgid "Wes Hardaker"
 msgstr "Wes Hardaker"
 
-#: main.cpp:128
+#: main.cpp:125
 #, kde-format
 msgid "Some very useful features to improve workflow"
 msgstr "Некоторые очень полезные функции для улучшения рабочего процесса"
 
-#: main.cpp:132
+#: main.cpp:128
 #, kde-format
 msgid "Reimar Imhof"
 msgstr "Reimar Imhof"
 
-#: main.cpp:133
+#: main.cpp:129
 #, kde-format
 msgid "Patch to sort items in option listboxes"
 msgstr "Сортировка элементов в списках меток"
 
-#: main.cpp:137
+#: main.cpp:132
 #, kde-format
 msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
-#: main.cpp:138
+#: main.cpp:133
 #, fuzzy, kde-format
 #| msgid ""
 #| "Numerous patches for lots of bugs plus patches for a few new features"
@@ -3466,22 +3466,22 @@ msgstr ""
 "Множество исправлений ошибок, а также добавление нескольких новых "
 "возможностей"
 
-#: main.cpp:143
+#: main.cpp:137
 #, kde-format
 msgid "Teemu Rytilahti"
 msgstr "Teemu Rytilahti"
 
-#: main.cpp:144
+#: main.cpp:138
 #, kde-format
 msgid "Theme support for HTML generation"
 msgstr "Поддержка оформлений при создании HTML"
 
-#: main.cpp:148
+#: main.cpp:141
 #, kde-format
 msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
-#: main.cpp:149
+#: main.cpp:142
 #, fuzzy, kde-format
 #| msgid ""
 #| "Patch to sort images in the thumbnail view, plus reading time info out of "
@@ -3493,32 +3493,32 @@ msgstr ""
 "Сортировка изображений при просмотре в виде миниатюр; чтение информации о "
 "времени из EXIF для существующих изображений"
 
-#: main.cpp:154
+#: main.cpp:146
 #, kde-format
 msgid "Clytie Siddall"
 msgstr "Clytie Siddall"
 
-#: main.cpp:155
+#: main.cpp:147
 #, kde-format
 msgid "Tremendous help with the English text in the application."
 msgstr "Огромная помощь с английским текстом в приложении"
 
-#: main.cpp:159
+#: main.cpp:150
 #, kde-format
 msgid "Will Stephenson"
 msgstr "Will Stephenson"
 
-#: main.cpp:160
+#: main.cpp:151
 #, kde-format
 msgid "Developing an Icon for KPhotoAlbum"
 msgstr "Создание значка для KPhotoAlbum"
 
-#: main.cpp:164
+#: main.cpp:154
 #, kde-format
 msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
-#: main.cpp:165
+#: main.cpp:155
 #, fuzzy, kde-format
 #| msgid ""
 #| "Patch which speed up loading of thumbnails plus preview in image property "

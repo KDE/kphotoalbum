@@ -46,14 +46,14 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></menuchoice
 >. Anoteu les vostres imatges seleccionades una a una. Per contra, si escolliu <guimenuitem
 >Anota múltiples elements a la vegada</guimenuitem
->, anotareu tots els elements seleccionats, com si fos un sol element. En altres paraules, amb aquesta opció anotareu de forma massiva les vostres imatges: &pex;, dient que totes aquestes imatges es van prendre a Copenhaguen. Aquestes dues opcions estan disponibles des d'un menú contextual que s'obté fent clic amb el &BDR; sobre la vista de miniatures o utilitzant dreceres de teclat. Podeu veure un exemple a <xref linkend="fig-edit-properies-menu"/>.</para>
+>, anotareu tots els elements seleccionats, com si fos un sol element. En altres paraules, amb aquesta opció anotareu de forma massiva les vostres imatges: &pex;, dient que totes aquestes imatges es van prendre a Copenhaguen. Aquestes dues opcions estan disponibles des d'un menú contextual que s'obté fent clic amb el &BDR; sobre la vista de miniatures o utilitzant dreceres de teclat. Podeu veure un exemple a <xref linkend="fig-edit-properties-menu"/>.</para>
 
-    <figure id="fig-edit-properies-menu">
+    <figure id="fig-edit-properties-menu">
       <title
 >Menú contextual per a editar les propietats</title>
       <mediaobject>
         <imageobject>
-          <imagedata fileref="edit-properies-menu.png"
+          <imagedata fileref="edit-properties-menu.png"
             format="PNG"/>
         </imageobject>
       </mediaobject>

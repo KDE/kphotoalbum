@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:53+0000\n"
 "PO-Revision-Date: 2024-10-07 15:40+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -3124,6 +3124,36 @@ msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
 msgstr "縮圖影像大小："
 
+#. i18n: ectx: Menu (view)
+#: kphotoalbumui.rc:33
+#, kde-format
+msgid "&View"
+msgstr "檢視(&V))"
+
+#. i18n: ectx: Menu (privacy)
+#: kphotoalbumui.rc:48
+#, kde-format
+msgid "Privacy"
+msgstr "隱私"
+
+#. i18n: ectx: Menu (maintenance)
+#: kphotoalbumui.rc:63
+#, kde-format
+msgid "&Maintenance"
+msgstr "維護(&M)"
+
+#. i18n: ectx: Menu (plugins)
+#: kphotoalbumui.rc:85
+#, kde-format
+msgid "Plugins"
+msgstr "外掛程式"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: kphotoalbumui.rc:97
+#, kde-format
+msgid "Main Toolbar"
+msgstr "主工具列"
+
 #: lib/kpabase/SettingsData.cpp:240
 #, fuzzy, kde-format
 #| msgid ""
@@ -3933,7 +3963,8 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr "<h1>統計</h1>"
 
-#: MainWindow/StatisticsDialog.cpp:59
+#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
+#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
 #, kde-format
 msgid "Category"
 msgstr "類別"
@@ -6606,6 +6637,40 @@ msgctxt "@action:inmenu"
 msgid "Clear assignment"
 msgstr "清除指定"
 
+#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
+#: Viewer/SelectCategoryAndValue.ui:14
+#, fuzzy, kde-format
+#| msgid "OK dialog"
+msgid "Dialog"
+msgstr "確定對話框"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: Viewer/SelectCategoryAndValue.ui:24
+#, fuzzy, kde-format
+#| msgid "Label"
+msgid "TextLabel"
+msgstr "標籤"
+
+#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
+#: Viewer/SelectCategoryAndValue.ui:43
+#, kde-format
+msgid "Add new Tag"
+msgstr "新增標籤"
+
+#. i18n: ectx: property (text), widget (QLabel, titleLabel)
+#: Viewer/SelectCategoryAndValue.ui:77
+#, fuzzy, kde-format
+#| msgctxt "@title:column Background job title"
+#| msgid "Title"
+msgid "Title"
+msgstr "標題"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: Viewer/SelectCategoryAndValue.ui:120
+#, kde-format
+msgid "Existing Assignments"
+msgstr "現有的指定"
+
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
@@ -7191,43 +7256,6 @@ msgstr "顯示影像大小"
 #, kde-format
 msgid "Show Rating"
 msgstr "顯示評分"
-
-#~ msgid "&View"
-#~ msgstr "檢視(&V))"
-
-#~ msgid "Privacy"
-#~ msgstr "隱私"
-
-#~ msgid "&Maintenance"
-#~ msgstr "維護(&M)"
-
-#~ msgid "Plugins"
-#~ msgstr "外掛程式"
-
-#~ msgid "Main Toolbar"
-#~ msgstr "主工具列"
-
-#, fuzzy
-#~| msgid "OK dialog"
-#~ msgid "Dialog"
-#~ msgstr "確定對話框"
-
-#, fuzzy
-#~| msgid "Label"
-#~ msgid "TextLabel"
-#~ msgstr "標籤"
-
-#~ msgid "Add new Tag"
-#~ msgstr "新增標籤"
-
-#, fuzzy
-#~| msgctxt "@title:column Background job title"
-#~| msgid "Title"
-#~ msgid "Title"
-#~ msgstr "標題"
-
-#~ msgid "Existing Assignments"
-#~ msgstr "現有的指定"
 
 #, fuzzy
 #~| msgid ""

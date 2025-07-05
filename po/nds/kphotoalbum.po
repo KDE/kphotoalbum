@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:53+0000\n"
 "PO-Revision-Date: 2014-03-19 18:59+0100\n"
 "Last-Translator: Manfred Wiese <m.j.wiese@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -3236,6 +3236,36 @@ msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
 msgstr "Grött vun't Vöransichtbild:"
 
+#. i18n: ectx: Menu (view)
+#: kphotoalbumui.rc:33
+#, kde-format
+msgid "&View"
+msgstr "&Ansicht"
+
+#. i18n: ectx: Menu (privacy)
+#: kphotoalbumui.rc:48
+#, kde-format
+msgid "Privacy"
+msgstr "Privaatrebeet"
+
+#. i18n: ectx: Menu (maintenance)
+#: kphotoalbumui.rc:63
+#, kde-format
+msgid "&Maintenance"
+msgstr "&Pleeg"
+
+#. i18n: ectx: Menu (plugins)
+#: kphotoalbumui.rc:85
+#, kde-format
+msgid "Plugins"
+msgstr "Modulen"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: kphotoalbumui.rc:97
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Hööft-Warktüüchbalken"
+
 #: lib/kpabase/SettingsData.cpp:240
 #, fuzzy, kde-format
 #| msgid ""
@@ -4100,7 +4130,8 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr "<h1>Statistik</h1>"
 
-#: MainWindow/StatisticsDialog.cpp:59
+#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
+#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
 #, kde-format
 msgid "Category"
 msgstr "Kategorie"
@@ -6799,6 +6830,40 @@ msgctxt "@action:inmenu"
 msgid "Clear assignment"
 msgstr ""
 
+#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
+#: Viewer/SelectCategoryAndValue.ui:14
+#, fuzzy, kde-format
+#| msgid "OK dialog"
+msgid "Dialog"
+msgstr "OK-Dialoog"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: Viewer/SelectCategoryAndValue.ui:24
+#, fuzzy, kde-format
+#| msgid "Label"
+msgid "TextLabel"
+msgstr "Naam"
+
+#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
+#: Viewer/SelectCategoryAndValue.ui:43
+#, kde-format
+msgid "Add new Tag"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, titleLabel)
+#: Viewer/SelectCategoryAndValue.ui:77
+#, fuzzy, kde-format
+#| msgctxt "@title:column Background job title"
+#| msgid "Title"
+msgid "Title"
+msgstr "Titel"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: Viewer/SelectCategoryAndValue.ui:120
+#, kde-format
+msgid "Existing Assignments"
+msgstr ""
+
 #: Viewer/ViewerWidget.cpp:193
 #, fuzzy, kde-format
 #| msgid "Set as First Image in Stack"
@@ -7430,37 +7495,6 @@ msgstr "Bildgrött wiesen"
 #| msgid "Show Ranges"
 msgid "Show Rating"
 msgstr "Rebeden wiesen"
-
-#~ msgid "&View"
-#~ msgstr "&Ansicht"
-
-#~ msgid "Privacy"
-#~ msgstr "Privaatrebeet"
-
-#~ msgid "&Maintenance"
-#~ msgstr "&Pleeg"
-
-#~ msgid "Plugins"
-#~ msgstr "Modulen"
-
-#~ msgid "Main Toolbar"
-#~ msgstr "Hööft-Warktüüchbalken"
-
-#, fuzzy
-#~| msgid "OK dialog"
-#~ msgid "Dialog"
-#~ msgstr "OK-Dialoog"
-
-#, fuzzy
-#~| msgid "Label"
-#~ msgid "TextLabel"
-#~ msgstr "Naam"
-
-#, fuzzy
-#~| msgctxt "@title:column Background job title"
-#~| msgid "Title"
-#~ msgid "Title"
-#~ msgstr "Titel"
 
 #, fuzzy
 #~| msgid "%1 (by %2)"

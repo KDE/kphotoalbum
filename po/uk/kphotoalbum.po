@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:53+0000\n"
 "PO-Revision-Date: 2024-08-03 10:04+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3185,6 +3185,36 @@ msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
 msgstr "Покажчик мініатюр не є файлом версії 5!\n"
 
+#. i18n: ectx: Menu (view)
+#: kphotoalbumui.rc:33
+#, kde-format
+msgid "&View"
+msgstr "П&ерегляд"
+
+#. i18n: ectx: Menu (privacy)
+#: kphotoalbumui.rc:48
+#, kde-format
+msgid "Privacy"
+msgstr "Конфіденційність"
+
+#. i18n: ectx: Menu (maintenance)
+#: kphotoalbumui.rc:63
+#, kde-format
+msgid "&Maintenance"
+msgstr "&Обслуговування"
+
+#. i18n: ectx: Menu (plugins)
+#: kphotoalbumui.rc:85
+#, kde-format
+msgid "Plugins"
+msgstr "Додатки"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: kphotoalbumui.rc:97
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Головний пенал"
+
 #: lib/kpabase/SettingsData.cpp:240
 #, kde-format
 msgid ""
@@ -4007,7 +4037,8 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr "<h1>Статистика</h1>"
 
-#: MainWindow/StatisticsDialog.cpp:59
+#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
+#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
 #, kde-format
 msgid "Category"
 msgstr "Категорія"
@@ -6811,6 +6842,36 @@ msgctxt "@action:inmenu"
 msgid "Clear assignment"
 msgstr "Вилучити призначення"
 
+#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
+#: Viewer/SelectCategoryAndValue.ui:14
+#, kde-format
+msgid "Dialog"
+msgstr "Діалогове вікно"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: Viewer/SelectCategoryAndValue.ui:24
+#, kde-format
+msgid "TextLabel"
+msgstr "TextLabel"
+
+#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
+#: Viewer/SelectCategoryAndValue.ui:43
+#, kde-format
+msgid "Add new Tag"
+msgstr "Додати нову мітку"
+
+#. i18n: ectx: property (text), widget (QLabel, titleLabel)
+#: Viewer/SelectCategoryAndValue.ui:77
+#, kde-format
+msgid "Title"
+msgstr "Заголовок"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: Viewer/SelectCategoryAndValue.ui:120
+#, kde-format
+msgid "Existing Assignments"
+msgstr "Наявні призначення"
+
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
@@ -7384,36 +7445,6 @@ msgstr "Показати розмір зображення"
 #, kde-format
 msgid "Show Rating"
 msgstr "Показати оцінку"
-
-#~ msgid "&View"
-#~ msgstr "П&ерегляд"
-
-#~ msgid "Privacy"
-#~ msgstr "Конфіденційність"
-
-#~ msgid "&Maintenance"
-#~ msgstr "&Обслуговування"
-
-#~ msgid "Plugins"
-#~ msgstr "Додатки"
-
-#~ msgid "Main Toolbar"
-#~ msgstr "Головний пенал"
-
-#~ msgid "Dialog"
-#~ msgstr "Діалогове вікно"
-
-#~ msgid "TextLabel"
-#~ msgstr "TextLabel"
-
-#~ msgid "Add new Tag"
-#~ msgstr "Додати нову мітку"
-
-#~ msgid "Title"
-#~ msgstr "Заголовок"
-
-#~ msgid "Existing Assignments"
-#~ msgstr "Наявні призначення"
 
 #~ msgid ""
 #~ "<p>Could not open given index.xml, as the provided folder does not exist."

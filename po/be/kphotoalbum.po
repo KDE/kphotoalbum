@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:53+0000\n"
 "PO-Revision-Date: 2008-01-01 23:03+0200\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@gmail.com>\n"
 "Language-Team: Belarusian (Official spelling) <i18n@mova.org>\n"
@@ -2951,6 +2951,36 @@ msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
 msgstr ""
 
+#. i18n: ectx: Menu (view)
+#: kphotoalbumui.rc:33
+#, kde-format
+msgid "&View"
+msgstr "&Выгляд"
+
+#. i18n: ectx: Menu (privacy)
+#: kphotoalbumui.rc:48
+#, kde-format
+msgid "Privacy"
+msgstr "Прыватнасць"
+
+#. i18n: ectx: Menu (maintenance)
+#: kphotoalbumui.rc:63
+#, kde-format
+msgid "&Maintenance"
+msgstr ""
+
+#. i18n: ectx: Menu (plugins)
+#: kphotoalbumui.rc:85
+#, kde-format
+msgid "Plugins"
+msgstr "Утулкі"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: kphotoalbumui.rc:97
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Галоўная панель начыння"
+
 #: lib/kpabase/SettingsData.cpp:240
 #, kde-format
 msgid ""
@@ -3673,7 +3703,8 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr ""
 
-#: MainWindow/StatisticsDialog.cpp:59
+#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
+#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
 #, kde-format
 msgid "Category"
 msgstr "Катэгорыя"
@@ -6210,6 +6241,37 @@ msgctxt "@action:inmenu"
 msgid "Clear assignment"
 msgstr ""
 
+#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
+#: Viewer/SelectCategoryAndValue.ui:14
+#, kde-format
+msgid "Dialog"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: Viewer/SelectCategoryAndValue.ui:24
+#, fuzzy, kde-format
+#| msgid "Label:"
+msgid "TextLabel"
+msgstr "Подпіс:"
+
+#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
+#: Viewer/SelectCategoryAndValue.ui:43
+#, kde-format
+msgid "Add new Tag"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, titleLabel)
+#: Viewer/SelectCategoryAndValue.ui:77
+#, kde-format
+msgid "Title"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: Viewer/SelectCategoryAndValue.ui:120
+#, kde-format
+msgid "Existing Assignments"
+msgstr ""
+
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
@@ -6808,23 +6870,6 @@ msgstr ""
 #, kde-format
 msgid "Show Rating"
 msgstr ""
-
-#~ msgid "&View"
-#~ msgstr "&Выгляд"
-
-#~ msgid "Privacy"
-#~ msgstr "Прыватнасць"
-
-#~ msgid "Plugins"
-#~ msgstr "Утулкі"
-
-#~ msgid "Main Toolbar"
-#~ msgstr "Галоўная панель начыння"
-
-#, fuzzy
-#~| msgid "Label:"
-#~ msgid "TextLabel"
-#~ msgstr "Подпіс:"
 
 #, fuzzy
 #~| msgid "<b>Sub Categories</b>"

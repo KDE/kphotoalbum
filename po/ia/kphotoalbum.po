@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:53+0000\n"
 "PO-Revision-Date: 2024-04-30 12:34+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -2907,6 +2907,36 @@ msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
 msgstr ""
 
+#. i18n: ectx: Menu (view)
+#: kphotoalbumui.rc:33
+#, kde-format
+msgid "&View"
+msgstr "&Vista"
+
+#. i18n: ectx: Menu (privacy)
+#: kphotoalbumui.rc:48
+#, kde-format
+msgid "Privacy"
+msgstr "Confidentialitate"
+
+#. i18n: ectx: Menu (maintenance)
+#: kphotoalbumui.rc:63
+#, kde-format
+msgid "&Maintenance"
+msgstr "&Mantenimento"
+
+#. i18n: ectx: Menu (plugins)
+#: kphotoalbumui.rc:85
+#, kde-format
+msgid "Plugins"
+msgstr "Plugins"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: kphotoalbumui.rc:97
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Barra de instrumento principal"
+
 #: lib/kpabase/SettingsData.cpp:240
 #, kde-format
 msgid ""
@@ -3603,7 +3633,8 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr "<h1>Statistica</h1>"
 
-#: MainWindow/StatisticsDialog.cpp:59
+#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
+#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
 #, kde-format
 msgid "Category"
 msgstr "Categoria"
@@ -6063,6 +6094,36 @@ msgctxt "@action:inmenu"
 msgid "Clear assignment"
 msgstr ""
 
+#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
+#: Viewer/SelectCategoryAndValue.ui:14
+#, kde-format
+msgid "Dialog"
+msgstr "Dialogo"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: Viewer/SelectCategoryAndValue.ui:24
+#, kde-format
+msgid "TextLabel"
+msgstr "Etiquetta de Texto (TextLabel)"
+
+#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
+#: Viewer/SelectCategoryAndValue.ui:43
+#, kde-format
+msgid "Add new Tag"
+msgstr "Adde nove etiquetta"
+
+#. i18n: ectx: property (text), widget (QLabel, titleLabel)
+#: Viewer/SelectCategoryAndValue.ui:77
+#, kde-format
+msgid "Title"
+msgstr "Titulo"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: Viewer/SelectCategoryAndValue.ui:120
+#, kde-format
+msgid "Existing Assignments"
+msgstr ""
+
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
@@ -6625,33 +6686,6 @@ msgstr "Monstra dimension de image"
 #, kde-format
 msgid "Show Rating"
 msgstr "Monstra evalutation"
-
-#~ msgid "&View"
-#~ msgstr "&Vista"
-
-#~ msgid "Privacy"
-#~ msgstr "Confidentialitate"
-
-#~ msgid "&Maintenance"
-#~ msgstr "&Mantenimento"
-
-#~ msgid "Plugins"
-#~ msgstr "Plugins"
-
-#~ msgid "Main Toolbar"
-#~ msgstr "Barra de instrumento principal"
-
-#~ msgid "Dialog"
-#~ msgstr "Dialogo"
-
-#~ msgid "TextLabel"
-#~ msgstr "Etiquetta de Texto (TextLabel)"
-
-#~ msgid "Add new Tag"
-#~ msgstr "Adde nove etiquetta"
-
-#~ msgid "Title"
-#~ msgstr "Titulo"
 
 #~ msgctxt ""
 #~ "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--"

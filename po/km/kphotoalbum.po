@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 01:49+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -3208,36 +3208,6 @@ msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
 msgstr "ទំហំ​រូបភាព​របស់​រូបភាព​​តូច ៗ ៖"
 
-#. i18n: ectx: Menu (view)
-#: kphotoalbumui.rc:33
-#, kde-format
-msgid "&View"
-msgstr "មើល"
-
-#. i18n: ectx: Menu (privacy)
-#: kphotoalbumui.rc:48
-#, kde-format
-msgid "Privacy"
-msgstr "ភាពឯកជន​"
-
-#. i18n: ectx: Menu (maintenance)
-#: kphotoalbumui.rc:63
-#, kde-format
-msgid "&Maintenance"
-msgstr "តំហែ​ទាំ"
-
-#. i18n: ectx: Menu (plugins)
-#: kphotoalbumui.rc:85
-#, kde-format
-msgid "Plugins"
-msgstr "កម្មវិធី​ជំនួយ​"
-
-#. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:97
-#, kde-format
-msgid "Main Toolbar"
-msgstr "របារ​ឧបករណ៍​មេ"
-
 #: lib/kpabase/SettingsData.cpp:240
 #, fuzzy, kde-format
 #| msgid ""
@@ -4104,8 +4074,7 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr "<h1>ស្ថិតិ</h1>​"
 
-#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
-#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Category"
 msgstr "ប្រភេទ"
@@ -6846,39 +6815,6 @@ msgctxt "@action:inmenu"
 msgid "Clear assignment"
 msgstr ""
 
-#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
-#: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
-msgid "Dialog"
-msgstr "ប្រអប់ យល់​ព្រម​"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
-msgid "TextLabel"
-msgstr "ស្លាក"
-
-#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
-#: Viewer/SelectCategoryAndValue.ui:43
-#, kde-format
-msgid "Add new Tag"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QLabel, titleLabel)
-#: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgid "Title"
-msgid "Title"
-msgstr "ចំណងជើង"
-
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: Viewer/SelectCategoryAndValue.ui:120
-#, kde-format
-msgid "Existing Assignments"
-msgstr ""
-
 #: Viewer/ViewerWidget.cpp:193
 #, fuzzy, kde-format
 #| msgid "Set as First Image in Stack"
@@ -7509,6 +7445,36 @@ msgstr "បង្ហាញ​ទំហំ​រូបភាព"
 #, kde-format
 msgid "Show Rating"
 msgstr "បង្ហាញ​ការ​វាយតម្លៃ"
+
+#~ msgid "&View"
+#~ msgstr "មើល"
+
+#~ msgid "Privacy"
+#~ msgstr "ភាពឯកជន​"
+
+#~ msgid "&Maintenance"
+#~ msgstr "តំហែ​ទាំ"
+
+#~ msgid "Plugins"
+#~ msgstr "កម្មវិធី​ជំនួយ​"
+
+#~ msgid "Main Toolbar"
+#~ msgstr "របារ​ឧបករណ៍​មេ"
+
+#, fuzzy
+#~| msgid "OK dialog"
+#~ msgid "Dialog"
+#~ msgstr "ប្រអប់ យល់​ព្រម​"
+
+#, fuzzy
+#~| msgid "Label"
+#~ msgid "TextLabel"
+#~ msgstr "ស្លាក"
+
+#, fuzzy
+#~| msgid "Title"
+#~ msgid "Title"
+#~ msgstr "ចំណងជើង"
 
 #, fuzzy
 #~| msgid ""

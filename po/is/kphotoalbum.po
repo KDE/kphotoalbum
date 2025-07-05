@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 01:49+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2019-11-07 12:43+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
@@ -2982,36 +2982,6 @@ msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
 msgstr "Stærð smámyndar:"
 
-#. i18n: ectx: Menu (view)
-#: kphotoalbumui.rc:33
-#, kde-format
-msgid "&View"
-msgstr "S&koða"
-
-#. i18n: ectx: Menu (privacy)
-#: kphotoalbumui.rc:48
-#, kde-format
-msgid "Privacy"
-msgstr "Gagnaleynd"
-
-#. i18n: ectx: Menu (maintenance)
-#: kphotoalbumui.rc:63
-#, kde-format
-msgid "&Maintenance"
-msgstr "&Viðhald"
-
-#. i18n: ectx: Menu (plugins)
-#: kphotoalbumui.rc:85
-#, kde-format
-msgid "Plugins"
-msgstr "Viðbætur"
-
-#. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:97
-#, kde-format
-msgid "Main Toolbar"
-msgstr "Aðaltækjaslá"
-
 #: lib/kpabase/SettingsData.cpp:240
 #, kde-format
 msgid ""
@@ -3730,8 +3700,7 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr "<h1>Tölfræði</h1>"
 
-#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
-#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Category"
 msgstr "Flokkur"
@@ -6272,41 +6241,6 @@ msgctxt "@action:inmenu"
 msgid "Clear assignment"
 msgstr ""
 
-#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
-#: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
-msgid "Dialog"
-msgstr "'Í lagi' glugginn"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
-msgid "TextLabel"
-msgstr "Fyrirsögn"
-
-#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
-#: Viewer/SelectCategoryAndValue.ui:43
-#, fuzzy, kde-format
-#| msgid "Add a tag"
-msgid "Add new Tag"
-msgstr "Bæta við merki"
-
-#. i18n: ectx: property (text), widget (QLabel, titleLabel)
-#: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
-msgid "Title"
-msgstr "Titill"
-
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: Viewer/SelectCategoryAndValue.ui:120
-#, kde-format
-msgid "Existing Assignments"
-msgstr ""
-
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
@@ -6891,6 +6825,42 @@ msgstr "Sýna stærð myndar"
 #, kde-format
 msgid "Show Rating"
 msgstr "Birta einkunn"
+
+#~ msgid "&View"
+#~ msgstr "S&koða"
+
+#~ msgid "Privacy"
+#~ msgstr "Gagnaleynd"
+
+#~ msgid "&Maintenance"
+#~ msgstr "&Viðhald"
+
+#~ msgid "Plugins"
+#~ msgstr "Viðbætur"
+
+#~ msgid "Main Toolbar"
+#~ msgstr "Aðaltækjaslá"
+
+#, fuzzy
+#~| msgid "OK dialog"
+#~ msgid "Dialog"
+#~ msgstr "'Í lagi' glugginn"
+
+#, fuzzy
+#~| msgid "Label"
+#~ msgid "TextLabel"
+#~ msgstr "Fyrirsögn"
+
+#, fuzzy
+#~| msgid "Add a tag"
+#~ msgid "Add new Tag"
+#~ msgstr "Bæta við merki"
+
+#, fuzzy
+#~| msgctxt "@title:column Background job title"
+#~| msgid "Title"
+#~ msgid "Title"
+#~ msgstr "Titill"
 
 #, fuzzy
 #~| msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 01:49+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2025-01-18 17:06+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -3069,36 +3069,6 @@ msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
 msgstr "قياس صورة الظفر:"
 
-#. i18n: ectx: Menu (view)
-#: kphotoalbumui.rc:33
-#, kde-format
-msgid "&View"
-msgstr "&عرض"
-
-#. i18n: ectx: Menu (privacy)
-#: kphotoalbumui.rc:48
-#, kde-format
-msgid "Privacy"
-msgstr "الخصوصية"
-
-#. i18n: ectx: Menu (maintenance)
-#: kphotoalbumui.rc:63
-#, kde-format
-msgid "&Maintenance"
-msgstr "الإشراف على ال&صيانة"
-
-#. i18n: ectx: Menu (plugins)
-#: kphotoalbumui.rc:85
-#, kde-format
-msgid "Plugins"
-msgstr "القوابس"
-
-#. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:97
-#, kde-format
-msgid "Main Toolbar"
-msgstr "شريط الأدوات الرئيسي"
-
 #: lib/kpabase/SettingsData.cpp:240
 #, kde-format
 msgid ""
@@ -3861,8 +3831,7 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr "<h1>الإحصائيّات</h1>"
 
-#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
-#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Category"
 msgstr "الصنف"
@@ -6455,36 +6424,6 @@ msgctxt "@action:inmenu"
 msgid "Clear assignment"
 msgstr ""
 
-#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
-#: Viewer/SelectCategoryAndValue.ui:14
-#, kde-format
-msgid "Dialog"
-msgstr "حواريّ"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: Viewer/SelectCategoryAndValue.ui:24
-#, kde-format
-msgid "TextLabel"
-msgstr "لصيقة نصّيّة"
-
-#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
-#: Viewer/SelectCategoryAndValue.ui:43
-#, kde-format
-msgid "Add new Tag"
-msgstr "أضف وسمًا جديدًا"
-
-#. i18n: ectx: property (text), widget (QLabel, titleLabel)
-#: Viewer/SelectCategoryAndValue.ui:77
-#, kde-format
-msgid "Title"
-msgstr "العنوان"
-
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: Viewer/SelectCategoryAndValue.ui:120
-#, kde-format
-msgid "Existing Assignments"
-msgstr ""
-
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
@@ -7056,6 +6995,33 @@ msgstr "أعرض قياس الصورة"
 #, kde-format
 msgid "Show Rating"
 msgstr "أظهر التقييم"
+
+#~ msgid "&View"
+#~ msgstr "&عرض"
+
+#~ msgid "Privacy"
+#~ msgstr "الخصوصية"
+
+#~ msgid "&Maintenance"
+#~ msgstr "الإشراف على ال&صيانة"
+
+#~ msgid "Plugins"
+#~ msgstr "القوابس"
+
+#~ msgid "Main Toolbar"
+#~ msgstr "شريط الأدوات الرئيسي"
+
+#~ msgid "Dialog"
+#~ msgstr "حواريّ"
+
+#~ msgid "TextLabel"
+#~ msgstr "لصيقة نصّيّة"
+
+#~ msgid "Add new Tag"
+#~ msgstr "أضف وسمًا جديدًا"
+
+#~ msgid "Title"
+#~ msgstr "العنوان"
 
 #, fuzzy
 #~| msgid "%1 (by %2)"

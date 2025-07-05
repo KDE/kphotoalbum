@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 01:49+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2024-07-07 07:33+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -2868,36 +2868,6 @@ msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
 msgstr ""
 
-#. i18n: ectx: Menu (view)
-#: kphotoalbumui.rc:33
-#, kde-format
-msgid "&View"
-msgstr "&ხედი"
-
-#. i18n: ectx: Menu (privacy)
-#: kphotoalbumui.rc:48
-#, kde-format
-msgid "Privacy"
-msgstr "პირადი ინფორმაცია"
-
-#. i18n: ectx: Menu (maintenance)
-#: kphotoalbumui.rc:63
-#, kde-format
-msgid "&Maintenance"
-msgstr "&შეკეთება"
-
-#. i18n: ectx: Menu (plugins)
-#: kphotoalbumui.rc:85
-#, kde-format
-msgid "Plugins"
-msgstr "დამატებები"
-
-#. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:97
-#, kde-format
-msgid "Main Toolbar"
-msgstr "ხელსაწყოთა მთავარი ზოლი"
-
 #: lib/kpabase/SettingsData.cpp:240
 #, kde-format
 msgid ""
@@ -3594,8 +3564,7 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr "<h1>სტატისტიკა</h1>"
 
-#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
-#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Category"
 msgstr "კატეგორია"
@@ -6054,36 +6023,6 @@ msgctxt "@action:inmenu"
 msgid "Clear assignment"
 msgstr ""
 
-#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
-#: Viewer/SelectCategoryAndValue.ui:14
-#, kde-format
-msgid "Dialog"
-msgstr "ფანჯარა"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: Viewer/SelectCategoryAndValue.ui:24
-#, kde-format
-msgid "TextLabel"
-msgstr "ტექსტური ჭდე"
-
-#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
-#: Viewer/SelectCategoryAndValue.ui:43
-#, kde-format
-msgid "Add new Tag"
-msgstr "ახალი ჭდის დამატება"
-
-#. i18n: ectx: property (text), widget (QLabel, titleLabel)
-#: Viewer/SelectCategoryAndValue.ui:77
-#, kde-format
-msgid "Title"
-msgstr "სათაური"
-
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: Viewer/SelectCategoryAndValue.ui:120
-#, kde-format
-msgid "Existing Assignments"
-msgstr ""
-
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
@@ -6646,6 +6585,33 @@ msgstr "გამოსახულების ზომის ჩვენე�
 #, kde-format
 msgid "Show Rating"
 msgstr "რეიტინგის ჩვენება"
+
+#~ msgid "&View"
+#~ msgstr "&ხედი"
+
+#~ msgid "Privacy"
+#~ msgstr "პირადი ინფორმაცია"
+
+#~ msgid "&Maintenance"
+#~ msgstr "&შეკეთება"
+
+#~ msgid "Plugins"
+#~ msgstr "დამატებები"
+
+#~ msgid "Main Toolbar"
+#~ msgstr "ხელსაწყოთა მთავარი ზოლი"
+
+#~ msgid "Dialog"
+#~ msgstr "ფანჯარა"
+
+#~ msgid "TextLabel"
+#~ msgstr "ტექსტური ჭდე"
+
+#~ msgid "Add new Tag"
+#~ msgstr "ახალი ჭდის დამატება"
+
+#~ msgid "Title"
+#~ msgstr "სათაური"
 
 #~ msgctxt ""
 #~ "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--"

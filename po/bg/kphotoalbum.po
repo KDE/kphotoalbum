@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 01:49+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2022-10-04 23:15+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -3017,36 +3017,6 @@ msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
 msgstr ""
 
-#. i18n: ectx: Menu (view)
-#: kphotoalbumui.rc:33
-#, kde-format
-msgid "&View"
-msgstr "&Изглед"
-
-#. i18n: ectx: Menu (privacy)
-#: kphotoalbumui.rc:48
-#, kde-format
-msgid "Privacy"
-msgstr "Поверителност"
-
-#. i18n: ectx: Menu (maintenance)
-#: kphotoalbumui.rc:63
-#, kde-format
-msgid "&Maintenance"
-msgstr "По&ддръжка"
-
-#. i18n: ectx: Menu (plugins)
-#: kphotoalbumui.rc:85
-#, kde-format
-msgid "Plugins"
-msgstr "Приставки"
-
-#. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:97
-#, kde-format
-msgid "Main Toolbar"
-msgstr "Главна лента с инструменти"
-
 #: lib/kpabase/SettingsData.cpp:240
 #, kde-format
 msgid ""
@@ -3747,8 +3717,7 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr "<h1>Статистики</h1>"
 
-#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
-#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Category"
 msgstr "Категория"
@@ -6253,41 +6222,6 @@ msgctxt "@action:inmenu"
 msgid "Clear assignment"
 msgstr ""
 
-#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
-#: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
-msgid "Dialog"
-msgstr "ОК диалогов прозорец"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
-msgid "TextLabel"
-msgstr "Етикет"
-
-#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
-#: Viewer/SelectCategoryAndValue.ui:43
-#, fuzzy, kde-format
-#| msgid "Add a tag"
-msgid "Add new Tag"
-msgstr "Добавяне на етикет"
-
-#. i18n: ectx: property (text), widget (QLabel, titleLabel)
-#: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
-msgid "Title"
-msgstr "Заглавие"
-
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: Viewer/SelectCategoryAndValue.ui:120
-#, kde-format
-msgid "Existing Assignments"
-msgstr ""
-
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
@@ -6866,3 +6800,39 @@ msgstr "Показване размер на изображението"
 #, kde-format
 msgid "Show Rating"
 msgstr "Показване на оценките"
+
+#~ msgid "&View"
+#~ msgstr "&Изглед"
+
+#~ msgid "Privacy"
+#~ msgstr "Поверителност"
+
+#~ msgid "&Maintenance"
+#~ msgstr "По&ддръжка"
+
+#~ msgid "Plugins"
+#~ msgstr "Приставки"
+
+#~ msgid "Main Toolbar"
+#~ msgstr "Главна лента с инструменти"
+
+#, fuzzy
+#~| msgid "OK dialog"
+#~ msgid "Dialog"
+#~ msgstr "ОК диалогов прозорец"
+
+#, fuzzy
+#~| msgid "Label"
+#~ msgid "TextLabel"
+#~ msgstr "Етикет"
+
+#, fuzzy
+#~| msgid "Add a tag"
+#~ msgid "Add new Tag"
+#~ msgstr "Добавяне на етикет"
+
+#, fuzzy
+#~| msgctxt "@title:column Background job title"
+#~| msgid "Title"
+#~ msgid "Title"
+#~ msgstr "Заглавие"

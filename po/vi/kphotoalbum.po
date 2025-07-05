@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 01:49+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2012-01-16 16:58+0700\n"
 "Last-Translator: Lê Hoàng Phương <herophuong93@gmail.com>\n"
 "Language-Team: Vietnamese <kde-i18n-vi@kde.org>\n"
@@ -3247,36 +3247,6 @@ msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
 msgstr "Cỡ ảnh mẫu ảnh :"
 
-#. i18n: ectx: Menu (view)
-#: kphotoalbumui.rc:33
-#, kde-format
-msgid "&View"
-msgstr "&Xem"
-
-#. i18n: ectx: Menu (privacy)
-#: kphotoalbumui.rc:48
-#, kde-format
-msgid "Privacy"
-msgstr "Riêng tư"
-
-#. i18n: ectx: Menu (maintenance)
-#: kphotoalbumui.rc:63
-#, kde-format
-msgid "&Maintenance"
-msgstr "&Bảo trì"
-
-#. i18n: ectx: Menu (plugins)
-#: kphotoalbumui.rc:85
-#, kde-format
-msgid "Plugins"
-msgstr "Bổ sung"
-
-#. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:97
-#, kde-format
-msgid "Main Toolbar"
-msgstr "Thanh công cụ chính"
-
 #: lib/kpabase/SettingsData.cpp:240
 #, kde-format
 msgid ""
@@ -4080,8 +4050,7 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
-#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Category"
 msgstr "Loại"
@@ -6763,38 +6732,6 @@ msgctxt "@action:inmenu"
 msgid "Clear assignment"
 msgstr ""
 
-#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
-#: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
-msgid "Dialog"
-msgstr "Hộp thoại Đồng ý"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label:"
-msgid "TextLabel"
-msgstr "Nhãn:"
-
-#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
-#: Viewer/SelectCategoryAndValue.ui:43
-#, kde-format
-msgid "Add new Tag"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QLabel, titleLabel)
-#: Viewer/SelectCategoryAndValue.ui:77
-#, kde-format
-msgid "Title"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: Viewer/SelectCategoryAndValue.ui:120
-#, kde-format
-msgid "Existing Assignments"
-msgstr ""
-
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
@@ -7422,6 +7359,31 @@ msgstr "Hiện cỡ ảnh"
 #| msgid "Show Ranges"
 msgid "Show Rating"
 msgstr "Hiện đánh giá"
+
+#~ msgid "&View"
+#~ msgstr "&Xem"
+
+#~ msgid "Privacy"
+#~ msgstr "Riêng tư"
+
+#~ msgid "&Maintenance"
+#~ msgstr "&Bảo trì"
+
+#~ msgid "Plugins"
+#~ msgstr "Bổ sung"
+
+#~ msgid "Main Toolbar"
+#~ msgstr "Thanh công cụ chính"
+
+#, fuzzy
+#~| msgid "OK dialog"
+#~ msgid "Dialog"
+#~ msgstr "Hộp thoại Đồng ý"
+
+#, fuzzy
+#~| msgid "Label:"
+#~ msgid "TextLabel"
+#~ msgstr "Nhãn:"
 
 #, fuzzy
 #~| msgid "%1 (by %2)"

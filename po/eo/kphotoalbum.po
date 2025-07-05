@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 01:49+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2024-12-28 17:41+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -3107,36 +3107,6 @@ msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
 msgstr "Bildeto-indekso ne estas versio 5-dosiero!\n"
 
-#. i18n: ectx: Menu (view)
-#: kphotoalbumui.rc:33
-#, kde-format
-msgid "&View"
-msgstr "&Rigardi"
-
-#. i18n: ectx: Menu (privacy)
-#: kphotoalbumui.rc:48
-#, kde-format
-msgid "Privacy"
-msgstr "Privataj aferoj"
-
-#. i18n: ectx: Menu (maintenance)
-#: kphotoalbumui.rc:63
-#, kde-format
-msgid "&Maintenance"
-msgstr "&Prizorgado"
-
-#. i18n: ectx: Menu (plugins)
-#: kphotoalbumui.rc:85
-#, kde-format
-msgid "Plugins"
-msgstr "Kromaĵoj"
-
-#. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:97
-#, kde-format
-msgid "Main Toolbar"
-msgstr "Ĉefa ilobreto"
-
 #: lib/kpabase/SettingsData.cpp:240
 #, kde-format
 msgid ""
@@ -3922,8 +3892,7 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr "<h1>Statistiko</h1>"
 
-#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
-#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Category"
 msgstr "Kategorio"
@@ -6652,36 +6621,6 @@ msgctxt "@action:inmenu"
 msgid "Clear assignment"
 msgstr "Klara tasko"
 
-#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
-#: Viewer/SelectCategoryAndValue.ui:14
-#, kde-format
-msgid "Dialog"
-msgstr "Dialogo"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: Viewer/SelectCategoryAndValue.ui:24
-#, kde-format
-msgid "TextLabel"
-msgstr "TekstEtikedo"
-
-#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
-#: Viewer/SelectCategoryAndValue.ui:43
-#, kde-format
-msgid "Add new Tag"
-msgstr "Aldoni novan Etikedon"
-
-#. i18n: ectx: property (text), widget (QLabel, titleLabel)
-#: Viewer/SelectCategoryAndValue.ui:77
-#, kde-format
-msgid "Title"
-msgstr "Titolo"
-
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: Viewer/SelectCategoryAndValue.ui:120
-#, kde-format
-msgid "Existing Assignments"
-msgstr "Ekzistantaj Asignoj"
-
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
@@ -7253,3 +7192,33 @@ msgstr "Montri Bildan Grandecon"
 #, kde-format
 msgid "Show Rating"
 msgstr "Montri Takson"
+
+#~ msgid "&View"
+#~ msgstr "&Rigardi"
+
+#~ msgid "Privacy"
+#~ msgstr "Privataj aferoj"
+
+#~ msgid "&Maintenance"
+#~ msgstr "&Prizorgado"
+
+#~ msgid "Plugins"
+#~ msgstr "Kromaĵoj"
+
+#~ msgid "Main Toolbar"
+#~ msgstr "Ĉefa ilobreto"
+
+#~ msgid "Dialog"
+#~ msgstr "Dialogo"
+
+#~ msgid "TextLabel"
+#~ msgstr "TekstEtikedo"
+
+#~ msgid "Add new Tag"
+#~ msgstr "Aldoni novan Etikedon"
+
+#~ msgid "Title"
+#~ msgstr "Titolo"
+
+#~ msgid "Existing Assignments"
+#~ msgstr "Ekzistantaj Asignoj"

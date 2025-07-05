@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 01:49+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2024-08-03 10:18+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -3151,36 +3151,6 @@ msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
 msgstr "Versie van miniaturenindex is geen versie 5 bestand!\n"
 
-#. i18n: ectx: Menu (view)
-#: kphotoalbumui.rc:33
-#, kde-format
-msgid "&View"
-msgstr "Beel&d"
-
-#. i18n: ectx: Menu (privacy)
-#: kphotoalbumui.rc:48
-#, kde-format
-msgid "Privacy"
-msgstr "Privacy"
-
-#. i18n: ectx: Menu (maintenance)
-#: kphotoalbumui.rc:63
-#, kde-format
-msgid "&Maintenance"
-msgstr "&Onderhoud"
-
-#. i18n: ectx: Menu (plugins)
-#: kphotoalbumui.rc:85
-#, kde-format
-msgid "Plugins"
-msgstr "Plug-ins"
-
-#. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:97
-#, kde-format
-msgid "Main Toolbar"
-msgstr "Hoofdwerkbalk"
-
 #: lib/kpabase/SettingsData.cpp:240
 #, kde-format
 msgid ""
@@ -3981,8 +3951,7 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr "<h1>Statistieken</h1>"
 
-#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
-#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Category"
 msgstr "Categorie"
@@ -6751,36 +6720,6 @@ msgctxt "@action:inmenu"
 msgid "Clear assignment"
 msgstr "Toekenning wissen"
 
-#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
-#: Viewer/SelectCategoryAndValue.ui:14
-#, kde-format
-msgid "Dialog"
-msgstr "Dialoog"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: Viewer/SelectCategoryAndValue.ui:24
-#, kde-format
-msgid "TextLabel"
-msgstr "Tekstlabel"
-
-#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
-#: Viewer/SelectCategoryAndValue.ui:43
-#, kde-format
-msgid "Add new Tag"
-msgstr "Nieuwe tag toevoegen"
-
-#. i18n: ectx: property (text), widget (QLabel, titleLabel)
-#: Viewer/SelectCategoryAndValue.ui:77
-#, kde-format
-msgid "Title"
-msgstr "Titel"
-
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: Viewer/SelectCategoryAndValue.ui:120
-#, kde-format
-msgid "Existing Assignments"
-msgstr "Bestaande toekenningen"
-
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
@@ -7354,6 +7293,36 @@ msgstr "Afbeeldingsgrootte tonen"
 #, kde-format
 msgid "Show Rating"
 msgstr "Waardering tonen"
+
+#~ msgid "&View"
+#~ msgstr "Beel&d"
+
+#~ msgid "Privacy"
+#~ msgstr "Privacy"
+
+#~ msgid "&Maintenance"
+#~ msgstr "&Onderhoud"
+
+#~ msgid "Plugins"
+#~ msgstr "Plug-ins"
+
+#~ msgid "Main Toolbar"
+#~ msgstr "Hoofdwerkbalk"
+
+#~ msgid "Dialog"
+#~ msgstr "Dialoog"
+
+#~ msgid "TextLabel"
+#~ msgstr "Tekstlabel"
+
+#~ msgid "Add new Tag"
+#~ msgstr "Nieuwe tag toevoegen"
+
+#~ msgid "Title"
+#~ msgstr "Titel"
+
+#~ msgid "Existing Assignments"
+#~ msgstr "Bestaande toekenningen"
 
 #~ msgid ""
 #~ "<p>Could not open given index.xml, as the provided folder does not exist."

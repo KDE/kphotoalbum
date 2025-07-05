@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 01:49+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2023-04-28 12:30+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -3180,36 +3180,6 @@ msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
 msgstr "O índice de miniaturas não é um ficheiro na versão 5!\n"
 
-#. i18n: ectx: Menu (view)
-#: kphotoalbumui.rc:33
-#, kde-format
-msgid "&View"
-msgstr "&Ver"
-
-#. i18n: ectx: Menu (privacy)
-#: kphotoalbumui.rc:48
-#, kde-format
-msgid "Privacy"
-msgstr "Privacidade"
-
-#. i18n: ectx: Menu (maintenance)
-#: kphotoalbumui.rc:63
-#, kde-format
-msgid "&Maintenance"
-msgstr "&Manutenção"
-
-#. i18n: ectx: Menu (plugins)
-#: kphotoalbumui.rc:85
-#, kde-format
-msgid "Plugins"
-msgstr "'Plugins'"
-
-#. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:97
-#, kde-format
-msgid "Main Toolbar"
-msgstr "Barra Principal"
-
 #: lib/kpabase/SettingsData.cpp:240
 #, kde-format
 msgid ""
@@ -4008,8 +3978,7 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr "<h1>Estatísticas</h1>"
 
-#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
-#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Category"
 msgstr "Categoria"
@@ -6822,41 +6791,6 @@ msgctxt "@action:inmenu"
 msgid "Clear assignment"
 msgstr ""
 
-#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
-#: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
-msgid "Dialog"
-msgstr "Janela OK"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
-msgid "TextLabel"
-msgstr "Legenda"
-
-#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
-#: Viewer/SelectCategoryAndValue.ui:43
-#, fuzzy, kde-format
-#| msgid "Add a tag"
-msgid "Add new Tag"
-msgstr "Adicionar uma marca"
-
-#. i18n: ectx: property (text), widget (QLabel, titleLabel)
-#: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
-msgid "Title"
-msgstr "Título"
-
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: Viewer/SelectCategoryAndValue.ui:120
-#, kde-format
-msgid "Existing Assignments"
-msgstr ""
-
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
@@ -7453,6 +7387,42 @@ msgstr "Mostrar o Tamanho das Imagens"
 #, kde-format
 msgid "Show Rating"
 msgstr "Mostrar a Classificação"
+
+#~ msgid "&View"
+#~ msgstr "&Ver"
+
+#~ msgid "Privacy"
+#~ msgstr "Privacidade"
+
+#~ msgid "&Maintenance"
+#~ msgstr "&Manutenção"
+
+#~ msgid "Plugins"
+#~ msgstr "'Plugins'"
+
+#~ msgid "Main Toolbar"
+#~ msgstr "Barra Principal"
+
+#, fuzzy
+#~| msgid "OK dialog"
+#~ msgid "Dialog"
+#~ msgstr "Janela OK"
+
+#, fuzzy
+#~| msgid "Label"
+#~ msgid "TextLabel"
+#~ msgstr "Legenda"
+
+#, fuzzy
+#~| msgid "Add a tag"
+#~ msgid "Add new Tag"
+#~ msgstr "Adicionar uma marca"
+
+#, fuzzy
+#~| msgctxt "@title:column Background job title"
+#~| msgid "Title"
+#~ msgid "Title"
+#~ msgstr "Título"
 
 #~ msgid ""
 #~ "<p>Could not open given index.xml, as the provided folder does not exist."

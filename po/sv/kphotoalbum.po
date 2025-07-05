@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 01:49+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2024-08-03 09:08+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -3114,36 +3114,6 @@ msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
 msgstr "Miniatyrbildsindex är inte en fil med version 5.\n"
 
-#. i18n: ectx: Menu (view)
-#: kphotoalbumui.rc:33
-#, kde-format
-msgid "&View"
-msgstr "&Visa"
-
-#. i18n: ectx: Menu (privacy)
-#: kphotoalbumui.rc:48
-#, kde-format
-msgid "Privacy"
-msgstr "Privat"
-
-#. i18n: ectx: Menu (maintenance)
-#: kphotoalbumui.rc:63
-#, kde-format
-msgid "&Maintenance"
-msgstr "&Underhåll"
-
-#. i18n: ectx: Menu (plugins)
-#: kphotoalbumui.rc:85
-#, kde-format
-msgid "Plugins"
-msgstr "Insticksprogram"
-
-#. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:97
-#, kde-format
-msgid "Main Toolbar"
-msgstr "Huvudverktygsrad"
-
 #: lib/kpabase/SettingsData.cpp:240
 #, kde-format
 msgid ""
@@ -3932,8 +3902,7 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr "<h1>Statistik</h1>"
 
-#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
-#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Category"
 msgstr "Kategori"
@@ -6664,36 +6633,6 @@ msgctxt "@action:inmenu"
 msgid "Clear assignment"
 msgstr "Ta bort tilldelning"
 
-#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
-#: Viewer/SelectCategoryAndValue.ui:14
-#, kde-format
-msgid "Dialog"
-msgstr "Dialogruta"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: Viewer/SelectCategoryAndValue.ui:24
-#, kde-format
-msgid "TextLabel"
-msgstr "Textetikett"
-
-#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
-#: Viewer/SelectCategoryAndValue.ui:43
-#, kde-format
-msgid "Add new Tag"
-msgstr "Lägg till ny etikett"
-
-#. i18n: ectx: property (text), widget (QLabel, titleLabel)
-#: Viewer/SelectCategoryAndValue.ui:77
-#, kde-format
-msgid "Title"
-msgstr "Titel"
-
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: Viewer/SelectCategoryAndValue.ui:120
-#, kde-format
-msgid "Existing Assignments"
-msgstr "Befintliga tilldelningar"
-
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
@@ -7266,6 +7205,36 @@ msgstr "Visa bildstorlek"
 #, kde-format
 msgid "Show Rating"
 msgstr "Visa betyg"
+
+#~ msgid "&View"
+#~ msgstr "&Visa"
+
+#~ msgid "Privacy"
+#~ msgstr "Privat"
+
+#~ msgid "&Maintenance"
+#~ msgstr "&Underhåll"
+
+#~ msgid "Plugins"
+#~ msgstr "Insticksprogram"
+
+#~ msgid "Main Toolbar"
+#~ msgstr "Huvudverktygsrad"
+
+#~ msgid "Dialog"
+#~ msgstr "Dialogruta"
+
+#~ msgid "TextLabel"
+#~ msgstr "Textetikett"
+
+#~ msgid "Add new Tag"
+#~ msgstr "Lägg till ny etikett"
+
+#~ msgid "Title"
+#~ msgstr "Titel"
+
+#~ msgid "Existing Assignments"
+#~ msgstr "Befintliga tilldelningar"
 
 #~ msgid ""
 #~ "<p>Could not open given index.xml, as the provided folder does not exist."

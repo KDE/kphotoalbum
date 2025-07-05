@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 01:49+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2024-11-10 18:19+0100\n"
 "Last-Translator: Roman Paholík <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -3226,36 +3226,6 @@ msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
 msgstr "Veľkosť obrázku miniatúry:"
 
-#. i18n: ectx: Menu (view)
-#: kphotoalbumui.rc:33
-#, kde-format
-msgid "&View"
-msgstr "&Zobraziť"
-
-#. i18n: ectx: Menu (privacy)
-#: kphotoalbumui.rc:48
-#, kde-format
-msgid "Privacy"
-msgstr "Súkromie"
-
-#. i18n: ectx: Menu (maintenance)
-#: kphotoalbumui.rc:63
-#, kde-format
-msgid "&Maintenance"
-msgstr "Údržba"
-
-#. i18n: ectx: Menu (plugins)
-#: kphotoalbumui.rc:85
-#, kde-format
-msgid "Plugins"
-msgstr "Moduly"
-
-#. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:97
-#, kde-format
-msgid "Main Toolbar"
-msgstr "Hlavný panel nástrojov"
-
 #: lib/kpabase/SettingsData.cpp:240
 #, fuzzy, kde-format
 #| msgid ""
@@ -4121,8 +4091,7 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr "<h1>Štatistika</h1>"
 
-#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
-#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Category"
 msgstr "Kategória"
@@ -6918,41 +6887,6 @@ msgctxt "@action:inmenu"
 msgid "Clear assignment"
 msgstr ""
 
-#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
-#: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
-msgid "Dialog"
-msgstr "Dialóg"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
-msgid "TextLabel"
-msgstr "TextLabel"
-
-#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
-#: Viewer/SelectCategoryAndValue.ui:43
-#, fuzzy, kde-format
-#| msgid "Add a tag"
-msgid "Add new Tag"
-msgstr "Pridať nový štítok..."
-
-#. i18n: ectx: property (text), widget (QLabel, titleLabel)
-#: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
-msgid "Title"
-msgstr "Názov"
-
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: Viewer/SelectCategoryAndValue.ui:120
-#, kde-format
-msgid "Existing Assignments"
-msgstr ""
-
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
@@ -7541,6 +7475,42 @@ msgstr "Zobraziť veľkosť obrázka"
 #, kde-format
 msgid "Show Rating"
 msgstr "Zobraziť hodnotenie"
+
+#~ msgid "&View"
+#~ msgstr "&Zobraziť"
+
+#~ msgid "Privacy"
+#~ msgstr "Súkromie"
+
+#~ msgid "&Maintenance"
+#~ msgstr "Údržba"
+
+#~ msgid "Plugins"
+#~ msgstr "Moduly"
+
+#~ msgid "Main Toolbar"
+#~ msgstr "Hlavný panel nástrojov"
+
+#, fuzzy
+#~| msgid "OK dialog"
+#~ msgid "Dialog"
+#~ msgstr "Dialóg"
+
+#, fuzzy
+#~| msgid "Label"
+#~ msgid "TextLabel"
+#~ msgstr "TextLabel"
+
+#, fuzzy
+#~| msgid "Add a tag"
+#~ msgid "Add new Tag"
+#~ msgstr "Pridať nový štítok..."
+
+#, fuzzy
+#~| msgctxt "@title:column Background job title"
+#~| msgid "Title"
+#~ msgid "Title"
+#~ msgstr "Názov"
 
 #, fuzzy
 #~| msgid ""

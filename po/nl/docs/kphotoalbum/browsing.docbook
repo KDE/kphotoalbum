@@ -10,25 +10,14 @@ SPDX-License-Identifier: GFDL-1.2-only
   <title
 >Browsen</title>
   <para
->Nadat u uw afbeeldingen en video's van annotaties hebt voorzien, is &kphotoalbum; klaar om u door uw afbeeldingen te laten browsen, zie <xref linkend="fig-browser-with-images"/>. Als u dat vergelijkt met <xref linkend="fig-empty-browser-window"/> dan zult u zien dat er nu items beschikbaar zijn in elk van de categorieën <literal
+>Nadat u uw afbeeldingen en video's van annotaties hebt voorzien, is &kphotoalbum; klaar om u door uw afbeeldingen te laten browsen. Als u dat vergelijkt met <xref linkend="fig-empty-browser-window"/> dan zult u zien dat er nu items beschikbaar zijn in elk van de categorieën <literal
 >Mensen</literal
 >, <literal
 >Plaatsen</literal
 > en <literal
 >Sleutelwoorden</literal
 >.</para>
-  
-  <figure id="fig-browser-with-images">
-    <title
->Browser wanneer afbeeldingen en video's van annotaties zijn voorzien</title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="browser-with-images.png"
-          format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </figure>
-  
+
   <para
 >In het browservenster kunt u de categorieën zien waarin u informatie hebt ingevoerd bij van annotaties voorzien van uw afbeeldingen en video's. Daarnaast zijn er items voor zoeken gebaseerd op EXIF-informatie in afbeeldingen, browsen door de mappenstructuur van uw harde schijf en natuurlijk het tonen van de actuele miniaturen. Laten we elk item apart beschrijven.</para
 > 
@@ -56,11 +45,14 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Huisdieren</literal
 > een speciaal pictogram heeft. Voor details daarover, zie <xref linkend="sec-specifying-categories"/>.</para
 ></footnote
->, een persoon selecteren brengt u terug naar de oorspronkelijke status voor de browser, zoals we die zagen in <xref linkend="fig-browser-with-images"/>, deze keer zijn we echter <emphasis
+>, een persoon selecteren brengt u terug naar de oorspronkelijke status voor de browser. Deze keer zijn we echter <emphasis
 >in de reeks</emphasis
 > van de geselecteerde persoon. Dat betekent dat we alleen informatie tonen over afbeeldingen en video's die die persoon bevatten. Zie onderstaand <xref linkend="fig-browser-for-jesper"/>, wat het resultaat is van onze selectie van de Persoon <literal
 >Jesper</literal
 >, u kunt een indicatie daarvan onderaan het venster zien. Vergelijk eens <xref linkend="fig-browser-with-images"/> met <xref linkend="fig-browser-for-jesper"/>, waar u zult zien dat het aantal beschikbare afbeeldingen en video's naar beneden is gegaan van 25 naar 12 en de hoeveelheid items voor de verschillende categorieën ook gewijzigd is.</para>
+
+  <para
+>Merk op dat als er slechts een paar afbeeldingen in the scoop zijn, &kphotoalbum; direct naar de miniatuurweergave zal gaan (zie <xref linkend="chp-thumbnail-view"/>). U kunt dit gedrag in de instellingen van de miniaturenviewer configureren (zie <xref linkend="opt-thumbnails"/>). </para>
   
   <figure id="fig-browser-for-jesper">
     <title

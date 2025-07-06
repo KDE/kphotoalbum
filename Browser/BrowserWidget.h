@@ -81,7 +81,7 @@ Q_SIGNALS:
     void showingOverview();
     void pathChanged(const Browser::BreadcrumbList &);
     void isSearchable(bool);
-    void isFilterable(bool);
+    void showingImages(bool);
     void isViewChangeable(bool);
     void currentViewTypeChanged(DB::Category::ViewType);
     void viewChanged(DB::ImageSearchInfo);

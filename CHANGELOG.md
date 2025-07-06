@@ -45,6 +45,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - index.xml file format version bumped to "11":
    The new file format version improves the "compressed" file format and handles arbitrary category names correctly.
    Positionable tags are also now stored natively in the "compressed" file format with far less overhead.
+ - Disable "View" actions when not appropriate (#505185)
 
 ### Dependencies
 

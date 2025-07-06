@@ -223,7 +223,6 @@ protected:
     void contextMenuEvent(QContextMenuEvent *e) override;
     void setLocked(bool b, bool force, bool recount = true);
     void configImages(const DB::ImageInfoList &list, bool oneAtATime);
-    void updateStates(bool thumbNailView);
     DB::FileNameList selectedOnDisk();
     void setupPluginMenu();
     void launchViewer(const DB::FileNameList &mediaList, bool reuse, bool slideShow, bool random);

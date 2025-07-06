@@ -801,6 +801,8 @@ void MainWindow::Window::setupMenuBar()
     m_paste = KStandardAction::paste(this, &Window::slotPasteInformation, actionCollection());
     m_paste->setEnabled(false);
     m_selectAll = KStandardAction::selectAll(m_thumbnailView, &ThumbnailView::ThumbnailFacade::selectAll, actionCollection());
+    m_selectAll->setEnabled(false);
+    connect(m_browser, &Browser::BrowserWidget::showingImages, m_selectAll, &QAction::setEnabled);
     m_clearSelection = KStandardAction::deselect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::clearSelection, actionCollection());
     m_clearSelection->setEnabled(false);
     KStandardAction::find(this, &Window::slotSearch, actionCollection());
@@ -808,6 +810,8 @@ void MainWindow::Window::setupMenuBar()
     m_deleteSelected = actionCollection()->addAction(QString::fromLatin1("deleteSelected"));
     m_deleteSelected->setText(i18nc("Delete selected images", "Delete Selected"));
     m_deleteSelected->setIcon(QIcon::fromTheme(QString::fromLatin1("edit-delete")));
+    m_deleteSelected->setEnabled(false);
+    connect(m_browser, &Browser::BrowserWidget::showingImages, m_deleteSelected, &QAction::setEnabled);
     actionCollection()->setDefaultShortcut(m_deleteSelected, Qt::Key_Delete);
     connect(m_deleteSelected, &QAction::triggered, this, &Window::slotDeleteSelected);
 
@@ -847,17 +851,25 @@ void MainWindow::Window::setupMenuBar()
     // The View menu
     m_view = actionCollection()->addAction(QString::fromLatin1("viewImages"), this, qOverload<>(&Window::slotView));
     m_view->setText(i18n("View"));
+    m_view->setEnabled(false);
+    connect(m_browser, &Browser::BrowserWidget::showingImages, m_view, &QAction::setEnabled);
 
     m_viewInNewWindow = actionCollection()->addAction(QString::fromLatin1("viewImagesNewWindow"), this, &Window::slotViewNewWindow);
     m_viewInNewWindow->setText(i18n("View (In New Window)"));
+    m_viewInNewWindow->setEnabled(false);
+    connect(m_browser, &Browser::BrowserWidget::showingImages, m_viewInNewWindow, &QAction::setEnabled);
 
     m_runSlideShow = actionCollection()->addAction(QString::fromLatin1("runSlideShow"), this, &Window::slotRunSlideShow);
     m_runSlideShow->setText(i18n("Run Slide Show"));
+    m_runSlideShow->setEnabled(false);
+    connect(m_browser, &Browser::BrowserWidget::showingImages, m_runSlideShow, &QAction::setEnabled);
     m_runSlideShow->setIcon(QIcon::fromTheme(QString::fromLatin1("view-presentation")));
     actionCollection()->setDefaultShortcut(m_runSlideShow, QKeySequence(Qt::CTRL | Qt::Key_R));
 
     m_runRandomSlideShow = actionCollection()->addAction(QString::fromLatin1("runRandomizedSlideShow"), this, &Window::slotRunRandomizedSlideShow);
     m_runRandomSlideShow->setText(i18n("Run Randomized Slide Show"));
+    m_runRandomSlideShow->setEnabled(false);
+    connect(m_browser, &Browser::BrowserWidget::showingImages, m_runRandomSlideShow, &QAction::setEnabled);
 
     a = actionCollection()->addAction(QString::fromLatin1("collapseAllStacks"),
                                       m_thumbnailView, &ThumbnailView::ThumbnailFacade::collapseAllStacks);
@@ -888,9 +900,13 @@ void MainWindow::Window::setupMenuBar()
 
     m_limitToMarked = actionCollection()->addAction(QString::fromLatin1("limitToMarked"), this, &Window::slotLimitToSelected);
     m_limitToMarked->setText(i18n("Limit View to Selection"));
+    m_limitToMarked->setEnabled(false);
+    connect(m_browser, &Browser::BrowserWidget::showingImages, m_limitToMarked, &QAction::setEnabled);
 
     m_jumpToContext = actionCollection()->addAction(QString::fromLatin1("jumpToContext"), this, &Window::slotJumpToContext);
     m_jumpToContext->setText(i18n("Jump to Context"));
+    m_jumpToContext->setEnabled(false);
+    connect(m_browser, &Browser::BrowserWidget::showingImages, m_jumpToContext, &QAction::setEnabled);
     actionCollection()->setDefaultShortcut(m_jumpToContext, QKeySequence(Qt::CTRL | Qt::Key_J));
     m_jumpToContext->setIcon(QIcon::fromTheme(QString::fromLatin1("kphotoalbum"))); // icon suggestion: go-jump (don't know the exact meaning though, so I didn't replace it right away
 
@@ -1098,7 +1114,6 @@ void MainWindow::Window::showThumbNails()
     reloadThumbnails(ThumbnailView::ClearSelection);
     m_stack->setCurrentWidget(m_thumbnailView->gui());
     m_thumbnailView->gui()->setFocus();
-    updateStates(true);
 }
 
 void MainWindow::Window::showBrowser()
@@ -1108,7 +1123,6 @@ void MainWindow::Window::showBrowser()
     m_stack->setCurrentWidget(m_browser);
     m_browser->setFocus();
     updateContextMenuFromSelectionSize(0);
-    updateStates(false);
 }
 
 void MainWindow::Window::slotOptionGroupChanged()
@@ -1475,14 +1489,6 @@ void MainWindow::Window::slotShowImagesWithChangedMD5Sum()
 #endif // DOES_STILL_NOT_WORK_IN_KPA4
 }
 
-void MainWindow::Window::updateStates(bool thumbNailView)
-{
-    m_selectAll->setEnabled(thumbNailView);
-    m_deleteSelected->setEnabled(thumbNailView);
-    m_limitToMarked->setEnabled(thumbNailView);
-    m_jumpToContext->setEnabled(thumbNailView);
-}
-
 void MainWindow::Window::slotRunSlideShow()
 {
     slotView(true, true);
@@ -1844,7 +1850,7 @@ void MainWindow::Window::createSearchBar()
     addToolBar(m_filterWidget);
     m_filterWidget->setObjectName(QString::fromUtf8("filterBar"));
     connect(m_browser, &Browser::BrowserWidget::viewChanged, ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::clearFilter);
-    connect(m_browser, &Browser::BrowserWidget::isFilterable, m_filterWidget, &ThumbnailView::FilterWidget::setEnabled);
+    connect(m_browser, &Browser::BrowserWidget::showingImages, m_filterWidget, &ThumbnailView::FilterWidget::setEnabled);
     connect(m_searchBar, &SearchBar::textChanged, ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::setFreeformFilter);
     connect(m_searchBar, &SearchBar::cleared, ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::clearFilter);
 }
@@ -1919,7 +1925,6 @@ void MainWindow::Window::showPositionBrowser()
 {
     auto positionBrowser = positionBrowserWidget();
     m_stack->setCurrentWidget(positionBrowser);
-    updateStates(false);
 }
 
 Map::MapView *MainWindow::Window::positionBrowserWidget()

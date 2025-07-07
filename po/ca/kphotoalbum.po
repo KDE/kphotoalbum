@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-05 05:53+0000\n"
-"PO-Revision-Date: 2025-04-28 10:17+0200\n"
+"PO-Revision-Date: 2025-07-06 11:05+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -3161,36 +3161,33 @@ msgstr "L'índex de miniatures no és un fitxer en la versió 5!\n"
 
 #. i18n: ectx: Menu (view)
 #: kphotoalbumui.rc:33
-#, fuzzy, kde-format
-#| msgid "View"
+#, kde-format
 msgid "&View"
-msgstr "Visualitza"
+msgstr "&Visualitza"
 
 #. i18n: ectx: Menu (privacy)
 #: kphotoalbumui.rc:48
 #, kde-format
 msgid "Privacy"
-msgstr ""
+msgstr "Privadesa"
 
 #. i18n: ectx: Menu (maintenance)
 #: kphotoalbumui.rc:63
 #, kde-format
 msgid "&Maintenance"
-msgstr ""
+msgstr "&Manteniment"
 
 #. i18n: ectx: Menu (plugins)
 #: kphotoalbumui.rc:85
 #, kde-format
 msgid "Plugins"
-msgstr ""
+msgstr "Connectors"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: kphotoalbumui.rc:97
-#, fuzzy, kde-format
-#| msgctxt "Name/title of the filter toolbar widget"
-#| msgid "Filter Toolbar"
+#, kde-format
 msgid "Main Toolbar"
-msgstr "Barra d'eines de filtre"
+msgstr "Barra d'eines principal"
 
 #: lib/kpabase/SettingsData.cpp:240
 #, kde-format
@@ -6763,30 +6760,25 @@ msgstr "Neteja l'assignació"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
+#, kde-format
 msgid "Dialog"
-msgstr "Diàleg d'acord"
+msgstr "Diàleg"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
+#, kde-format
 msgid "TextLabel"
-msgstr "Etiqueta"
+msgstr "EtiquetaDeText"
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgid "Add new Tag"
-msgstr "Afegeix una etiqueta"
+msgstr "Afegeix una etiqueta nova"
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
+#, kde-format
 msgid "Title"
 msgstr "Títol"
 
@@ -6794,7 +6786,7 @@ msgstr "Títol"
 #: Viewer/SelectCategoryAndValue.ui:120
 #, kde-format
 msgid "Existing Assignments"
-msgstr ""
+msgstr "Assignacions existents"
 
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format

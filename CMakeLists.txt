@@ -66,7 +66,7 @@ add_definitions(
 find_package(Qt6 ${MINIMUM_QT6_VERSION} REQUIRED COMPONENTS Core Sql Xml Widgets DBus Test)
 find_package(Phonon4Qt6)
 find_package(LIBVLC)
-find_package(KF6 ${MINIMUM_KF6_VERSION} REQUIRED COMPONENTS Archive Completion Config CoreAddons I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons ColorScheme)
+find_package(KF6 ${MINIMUM_KF6_VERSION} REQUIRED COMPONENTS Archive Completion Config CoreAddons I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons ColorScheme DocTools)
 
 find_package(JPEG REQUIRED)
 if(JPEG_FOUND)
@@ -795,10 +795,7 @@ install(FILES kphotoalbumrc DESTINATION ${KDE_INSTALL_CONFDIR})
 install(FILES default-setup DESTINATION "${KDE_INSTALL_DATADIR}/kphotoalbum")
 install(FILES org.kde.kphotoalbum.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 ki18n_install(po)
-
-if(KF6DocTools_FOUND)
-    kdoctools_install(po)
-endif()
+kdoctools_install(po)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
 

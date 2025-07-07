@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 00:40+0000\n"
+"POT-Creation-Date: 2025-07-07 00:40+0000\n"
 "PO-Revision-Date: 2020-03-22 17:24+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -420,12 +420,12 @@ msgstr "Завершить работу с окном комментирован
 msgid "Copy tags from previous image"
 msgstr "Копировать метки из предыдущего изображения"
 
-#: AnnotationDialog/Dialog.cpp:1303 MainWindow/Window.cpp:840
+#: AnnotationDialog/Dialog.cpp:1303 MainWindow/Window.cpp:844
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Повернуть против часовой стрелки"
 
-#: AnnotationDialog/Dialog.cpp:1306 MainWindow/Window.cpp:844
+#: AnnotationDialog/Dialog.cpp:1306 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Повернуть по часовой стрелке"
@@ -996,7 +996,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "поиск"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1773
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1779
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -1012,7 +1012,7 @@ msgstr ""
 "li><li>Произведите настройку в разделе <b>Изображения без меток</b></li></"
 "ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1780
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1786
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Функция требует настройки"
@@ -2838,7 +2838,7 @@ msgid "Create folder?"
 msgstr "Базовый каталог:"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1198
+#: MainWindow/Window.cpp:1212
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -4447,13 +4447,13 @@ msgid "Stacking Error"
 msgstr "Ошибка группировки"
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1318 MainWindow/Window.cpp:1415
+#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1429
 #, kde-format
 msgid "No item is selected."
 msgstr "Не выбрано ни одного объекта."
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1318 MainWindow/Window.cpp:1416
+#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1430
 #, kde-format
 msgid "No Selection"
 msgstr "Ничего не выделено"
@@ -4473,7 +4473,7 @@ msgstr "Сохранение... завершено."
 msgid "There are no images to be shown."
 msgstr "Нет изображений для показа."
 
-#: MainWindow/Window.cpp:761 MainWindow/Window.cpp:890
+#: MainWindow/Window.cpp:761 MainWindow/Window.cpp:902
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "Ограничить просмотр до выделенных"
@@ -4499,265 +4499,265 @@ msgstr "Импорт..."
 msgid "Export/Copy Images..."
 msgstr "Экспортировать/копировать изображения..."
 
-#: MainWindow/Window.cpp:809
+#: MainWindow/Window.cpp:811
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Удалить выбранные"
 
-#: MainWindow/Window.cpp:815
+#: MainWindow/Window.cpp:819
 #, kde-format
 msgid "Remove Tokens..."
 msgstr "Удалить ярлыки..."
 
-#: MainWindow/Window.cpp:818
+#: MainWindow/Window.cpp:822
 #, kde-format
 msgid "Open List of Files..."
 msgstr "Открыть файлы по списку..."
 
 # BUGME: please add ellipsis --aspotashev
-#: MainWindow/Window.cpp:821
+#: MainWindow/Window.cpp:825
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Комментировать отдельные изображения..."
 
 # BUGME: please add ellipsis --aspotashev
-#: MainWindow/Window.cpp:825
+#: MainWindow/Window.cpp:829
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "Комментировать несколько изображений за раз..."
 
-#: MainWindow/Window.cpp:829
+#: MainWindow/Window.cpp:833
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "Объединить изображения в группу"
 
-#: MainWindow/Window.cpp:833
+#: MainWindow/Window.cpp:837
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "Удалить изображения из группы"
 
-#: MainWindow/Window.cpp:836
+#: MainWindow/Window.cpp:840
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "Сделать первым изображением в группе"
 
-#: MainWindow/Window.cpp:849
+#: MainWindow/Window.cpp:853
 #, kde-format
 msgid "View"
 msgstr "Просмотр"
 
-#: MainWindow/Window.cpp:852
+#: MainWindow/Window.cpp:858
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Просмотр (в новом окне)"
 
-#: MainWindow/Window.cpp:855
+#: MainWindow/Window.cpp:863
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Запустить слайд-шоу"
 
-#: MainWindow/Window.cpp:860
+#: MainWindow/Window.cpp:870
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Запустить случайное слайд-шоу"
 
-#: MainWindow/Window.cpp:866
+#: MainWindow/Window.cpp:878
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "Свернуть все группы"
 
-#: MainWindow/Window.cpp:872
+#: MainWindow/Window.cpp:884
 #, kde-format
 msgid "Expand all stacks"
 msgstr "Развернуть все группы"
 
-#: MainWindow/Window.cpp:877
+#: MainWindow/Window.cpp:889
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "Сначала показывать &старые"
 
-#: MainWindow/Window.cpp:882
+#: MainWindow/Window.cpp:894
 #, kde-format
 msgid "Show &Newest First"
 msgstr "Сначала показывать &новые"
 
-#: MainWindow/Window.cpp:887
+#: MainWindow/Window.cpp:899
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Сортировать выделенные по дате и времени"
 
 # BUGME: please clarify --aspotashev
-#: MainWindow/Window.cpp:893
+#: MainWindow/Window.cpp:907
 #, kde-format
 msgid "Jump to Context"
 msgstr "Перейти к контексту"
 
-#: MainWindow/Window.cpp:899
+#: MainWindow/Window.cpp:915
 #, kde-format
 msgid "Lock Images"
 msgstr "Заблокировать изображения"
 
-#: MainWindow/Window.cpp:903
+#: MainWindow/Window.cpp:919
 #, kde-format
 msgid "Unlock"
 msgstr "Разблокировать"
 
-#: MainWindow/Window.cpp:906
+#: MainWindow/Window.cpp:922
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Заблокировать все остальные объекты"
 
-#: MainWindow/Window.cpp:909
+#: MainWindow/Window.cpp:925
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Заблокировать текущий набор объектов"
 
-#: MainWindow/Window.cpp:912
+#: MainWindow/Window.cpp:928
 #, kde-format
 msgid "Configure Current View"
 msgstr "Настроить текущий вид"
 
-#: MainWindow/Window.cpp:920
+#: MainWindow/Window.cpp:936
 #, kde-format
 msgid "Tree"
 msgstr "Иерархический список"
 
-#: MainWindow/Window.cpp:925
+#: MainWindow/Window.cpp:941
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "Иерархический список с пользовательскими значками"
 
-#: MainWindow/Window.cpp:930
+#: MainWindow/Window.cpp:946
 #, kde-format
 msgid "Icons"
 msgstr "Значки"
 
-#: MainWindow/Window.cpp:937
+#: MainWindow/Window.cpp:953
 #, kde-format
 msgid "Use natural sort order"
 msgstr ""
 
-#: MainWindow/Window.cpp:947
+#: MainWindow/Window.cpp:963
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Показывать подсказки в окне миниатюр"
 
-#: MainWindow/Window.cpp:952
+#: MainWindow/Window.cpp:968
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Labels in Thumbnails Window"
 msgstr "Показывать подсказки в окне миниатюр"
 
-#: MainWindow/Window.cpp:962
+#: MainWindow/Window.cpp:978
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Categories in Thumbnails Window"
 msgstr "Показывать подсказки в окне миниатюр"
 
-#: MainWindow/Window.cpp:979
+#: MainWindow/Window.cpp:995
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr ""
 
-#: MainWindow/Window.cpp:986
+#: MainWindow/Window.cpp:1002
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Показать объекты не на диске"
 
-#: MainWindow/Window.cpp:989
+#: MainWindow/Window.cpp:1005
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Показать объекты с неполными датами..."
 
-#: MainWindow/Window.cpp:992
+#: MainWindow/Window.cpp:1008
 #, kde-format
 msgid "Merge duplicates"
 msgstr "Объединить дубликаты..."
 
-#: MainWindow/Window.cpp:994 MainWindow/Window.cpp:1048
+#: MainWindow/Window.cpp:1010 MainWindow/Window.cpp:1064
 #, fuzzy, kde-format
 #| msgid "Recreate Selected Thumbnails"
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Пересоздать выбранные миниатюры"
 
-#: MainWindow/Window.cpp:998
+#: MainWindow/Window.cpp:1014
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Просканировать объекты заново"
 
-#: MainWindow/Window.cpp:1001
+#: MainWindow/Window.cpp:1017
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Пересоздать базу данных поиска по EXIF"
 
-#: MainWindow/Window.cpp:1004
+#: MainWindow/Window.cpp:1020
 #, kde-format
 msgid "Read Exif Info from Files..."
 msgstr "Прочитать метаданные EXIF из файлов..."
 
-#: MainWindow/Window.cpp:1007
+#: MainWindow/Window.cpp:1023
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "Сортировать все по дате и времени"
 
-#: MainWindow/Window.cpp:1011
+#: MainWindow/Window.cpp:1027
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Автоматически сгруппировать выделенные изображения..."
 
-#: MainWindow/Window.cpp:1014
+#: MainWindow/Window.cpp:1030
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Создать миниатюры"
 
-#: MainWindow/Window.cpp:1017
+#: MainWindow/Window.cpp:1033
 #, kde-format
 msgid "Statistics..."
 msgstr "Статистика..."
 
-#: MainWindow/Window.cpp:1021
+#: MainWindow/Window.cpp:1037
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "Сделать непомеченным"
 
-#: MainWindow/Window.cpp:1031
+#: MainWindow/Window.cpp:1047
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Показывать все сообщения"
 
-#: MainWindow/Window.cpp:1035
+#: MainWindow/Window.cpp:1051
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "Запустить демонстрацию KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1038
+#: MainWindow/Window.cpp:1054
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "Доступные возможности KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1041
+#: MainWindow/Window.cpp:1057
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Показать видеодемонстрации"
 
-#: MainWindow/Window.cpp:1045 Viewer/ViewerWidget.cpp:197
+#: MainWindow/Window.cpp:1061 Viewer/ViewerWidget.cpp:197
 #, fuzzy, kde-format
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "Показать метаданные EXIF"
 
-#: MainWindow/Window.cpp:1051
+#: MainWindow/Window.cpp:1067
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Использовать следующую миниатюру видеозаписи"
 
-#: MainWindow/Window.cpp:1055
+#: MainWindow/Window.cpp:1071
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Использовать предыдущую миниатюру видеозаписи"
 
-#: MainWindow/Window.cpp:1059 MainWindow/Window.cpp:1296
+#: MainWindow/Window.cpp:1075 MainWindow/Window.cpp:1310
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Copy images to..."
@@ -4768,7 +4768,7 @@ msgstr[1] "Копирование изображений"
 msgstr[2] "Копирование изображений"
 msgstr[3] "Копирование изображений"
 
-#: MainWindow/Window.cpp:1063 MainWindow/Window.cpp:1300
+#: MainWindow/Window.cpp:1079 MainWindow/Window.cpp:1314
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Link images to..."
@@ -4779,23 +4779,23 @@ msgstr[1] "Создание ссылок на изображения"
 msgstr[2] "Создание ссылок на изображения"
 msgstr[3] "Создание ссылок на изображения"
 
-#: MainWindow/Window.cpp:1087
+#: MainWindow/Window.cpp:1103
 #, kde-format
 msgid "Auto saving...."
 msgstr "Автоматическое сохранение..."
 
-#: MainWindow/Window.cpp:1090
+#: MainWindow/Window.cpp:1106
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Автоматическое сохранение... Завершено"
 
-#: MainWindow/Window.cpp:1192
+#: MainWindow/Window.cpp:1206
 #, fuzzy, kde-format
 #| msgid "Do you want to save the changes?"
 msgid "<p>Do you want to create this database file?<br />%1</p>"
 msgstr "Вы действительно хотите сохранить изменения?"
 
-#: MainWindow/Window.cpp:1195
+#: MainWindow/Window.cpp:1209
 #, fuzzy, kde-format
 #| msgid ""
 #| "Use data from\n"
@@ -4806,7 +4806,7 @@ msgstr ""
 "Использовать данные из\n"
 "базы данных"
 
-#: MainWindow/Window.cpp:1232
+#: MainWindow/Window.cpp:1246
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4819,34 +4819,34 @@ msgstr ""
 "непомеченных изображений в <interface>Настройка|Настроить KPhotoAlbum...|"
 "Категории</interface>.</p>"
 
-#: MainWindow/Window.cpp:1367 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1381 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Общие"
 
-#: MainWindow/Window.cpp:1368 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1382 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Окно просмотра"
 
-#: MainWindow/Window.cpp:1369
+#: MainWindow/Window.cpp:1383
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Дата:"
 
-#: MainWindow/Window.cpp:1372
+#: MainWindow/Window.cpp:1386
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Окно комментирования"
 
-#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Окно миниатюр"
 
-#: MainWindow/Window.cpp:1524
+#: MainWindow/Window.cpp:1530
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4855,13 +4855,13 @@ msgstr ""
 "<p>Показывать все предупреждающие диалоговые окна, которые до этого были "
 "отключены?</p>"
 
-#: MainWindow/Window.cpp:1526
+#: MainWindow/Window.cpp:1532
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1540
+#: MainWindow/Window.cpp:1546
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4878,32 +4878,32 @@ msgstr ""
 "продолжит запуск, но очень вероятно, что произойдёт аварийное завершение по "
 "причине невыполненной команды make install.</p>"
 
-#: MainWindow/Window.cpp:1540
+#: MainWindow/Window.cpp:1546
 #, kde-format
 msgid "Internal Error"
 msgstr "Внутренняя ошибка"
 
-#: MainWindow/Window.cpp:1551
+#: MainWindow/Window.cpp:1557
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1554
+#: MainWindow/Window.cpp:1560
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1559
+#: MainWindow/Window.cpp:1565
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1610
+#: MainWindow/Window.cpp:1616
 #, kde-format
 msgid "Open List of Files"
 msgstr "Открытие файлов по списку"
 
-#: MainWindow/Window.cpp:1611
+#: MainWindow/Window.cpp:1617
 #, fuzzy, kde-format
 #| msgid ""
 #| "You can open a set of files from KPhotoAlbum's image root by listing the "
@@ -4915,28 +4915,28 @@ msgstr ""
 "Вы можете открыть файлы из корневого каталога изображений KPhotoAlbum, "
 "перечислив их здесь."
 
-#: MainWindow/Window.cpp:1625
+#: MainWindow/Window.cpp:1631
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Не найдено изображений, соответствующих введённым вами данным."
 
-#: MainWindow/Window.cpp:1625
+#: MainWindow/Window.cpp:1631
 #, kde-format
 msgid "No Matches"
 msgstr "Совпадений не найдено"
 
-#: MainWindow/Window.cpp:1797
+#: MainWindow/Window.cpp:1803
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Чтение метаданных EXIF из всех изображений"
 
-#: MainWindow/Window.cpp:1824
+#: MainWindow/Window.cpp:1830
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Ширина миниатюры: %1 пикс. (размер хранения: %2 пикс.)"
 
-#: MainWindow/Window.cpp:1877
+#: MainWindow/Window.cpp:1883
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Unable to find ffmpeg or MPlayer on the system.</p><p>Without either "
@@ -4951,7 +4951,7 @@ msgstr ""
 "<p>KPhotoAlbum не сможет показывать миниатюры и продолжительность "
 "видеозаписей. Установите пакет ffmpeg или MPlayer.</p>"
 
-#: MainWindow/Window.cpp:1880
+#: MainWindow/Window.cpp:1886
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Миниатюры видеозаписей недоступны"

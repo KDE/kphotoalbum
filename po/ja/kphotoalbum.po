@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 00:40+0000\n"
+"POT-Creation-Date: 2025-07-07 00:40+0000\n"
 "PO-Revision-Date: 2008-09-24 00:02+0900\n"
 "Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -410,12 +410,12 @@ msgstr "OK ダイアログ"
 msgid "Copy tags from previous image"
 msgstr "前の画像からタグをコピーする"
 
-#: AnnotationDialog/Dialog.cpp:1303 MainWindow/Window.cpp:840
+#: AnnotationDialog/Dialog.cpp:1303 MainWindow/Window.cpp:844
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "反時計回りに回転"
 
-#: AnnotationDialog/Dialog.cpp:1306 MainWindow/Window.cpp:844
+#: AnnotationDialog/Dialog.cpp:1306 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "時計回りに回転"
@@ -977,7 +977,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "検索"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1773
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1779
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -987,7 +987,7 @@ msgid ""
 "section <b>Untagged Images</b></li></ul></p>"
 msgstr ""
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1780
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1786
 #, kde-format
 msgid "Feature has not been configured"
 msgstr ""
@@ -2804,7 +2804,7 @@ msgid "Create folder?"
 msgstr "ベースディレクトリ:"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1198
+#: MainWindow/Window.cpp:1212
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -4274,13 +4274,13 @@ msgid "Stacking Error"
 msgstr ""
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1318 MainWindow/Window.cpp:1415
+#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1429
 #, kde-format
 msgid "No item is selected."
 msgstr "アイテムが選択されていません。"
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1318 MainWindow/Window.cpp:1416
+#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1430
 #, kde-format
 msgid "No Selection"
 msgstr "選択なし"
@@ -4300,7 +4300,7 @@ msgstr "保存... 完了"
 msgid "There are no images to be shown."
 msgstr "表示する画像がありません。"
 
-#: MainWindow/Window.cpp:761 MainWindow/Window.cpp:890
+#: MainWindow/Window.cpp:761 MainWindow/Window.cpp:902
 #, fuzzy, kde-format
 #| msgid "Limit View to Marked"
 msgid "Limit View to Selection"
@@ -4327,308 +4327,308 @@ msgstr "インポート..."
 msgid "Export/Copy Images..."
 msgstr "画像をエクスポート/コピー..."
 
-#: MainWindow/Window.cpp:809
+#: MainWindow/Window.cpp:811
 #, fuzzy, kde-format
 #| msgid "Delete Selected"
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "選択したものを削除"
 
-#: MainWindow/Window.cpp:815
+#: MainWindow/Window.cpp:819
 #, fuzzy, kde-format
 #| msgid "Remove Tokens"
 msgid "Remove Tokens..."
 msgstr "トークンを削除"
 
-#: MainWindow/Window.cpp:818
+#: MainWindow/Window.cpp:822
 #, kde-format
 msgid "Open List of Files..."
 msgstr "ファイルのリストを開く..."
 
-#: MainWindow/Window.cpp:821
+#: MainWindow/Window.cpp:825
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "個々のアイテムに注釈を付ける"
 
-#: MainWindow/Window.cpp:825
+#: MainWindow/Window.cpp:829
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "同時に複数のアイテムに注釈を付ける"
 
-#: MainWindow/Window.cpp:829
+#: MainWindow/Window.cpp:833
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr ""
 
-#: MainWindow/Window.cpp:833
+#: MainWindow/Window.cpp:837
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr ""
 
-#: MainWindow/Window.cpp:836
+#: MainWindow/Window.cpp:840
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr ""
 
-#: MainWindow/Window.cpp:849
+#: MainWindow/Window.cpp:853
 #, kde-format
 msgid "View"
 msgstr "表示"
 
-#: MainWindow/Window.cpp:852
+#: MainWindow/Window.cpp:858
 #, kde-format
 msgid "View (In New Window)"
 msgstr "新しいウィンドウに表示"
 
-#: MainWindow/Window.cpp:855
+#: MainWindow/Window.cpp:863
 #, kde-format
 msgid "Run Slide Show"
 msgstr "スライドショーを開始"
 
-#: MainWindow/Window.cpp:860
+#: MainWindow/Window.cpp:870
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "ランダムスライドショーを開始"
 
-#: MainWindow/Window.cpp:866
+#: MainWindow/Window.cpp:878
 #, kde-format
 msgid "Collapse all stacks"
 msgstr ""
 
-#: MainWindow/Window.cpp:872
+#: MainWindow/Window.cpp:884
 #, kde-format
 msgid "Expand all stacks"
 msgstr ""
 
-#: MainWindow/Window.cpp:877
+#: MainWindow/Window.cpp:889
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "古いものを最初に表示(&O)"
 
-#: MainWindow/Window.cpp:882
+#: MainWindow/Window.cpp:894
 #, kde-format
 msgid "Show &Newest First"
 msgstr "新しいものを最初に表示(&N)"
 
-#: MainWindow/Window.cpp:887
+#: MainWindow/Window.cpp:899
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "選択した画像を日付と時刻でソート"
 
-#: MainWindow/Window.cpp:893
+#: MainWindow/Window.cpp:907
 #, kde-format
 msgid "Jump to Context"
 msgstr "コンテキストにジャンプ"
 
-#: MainWindow/Window.cpp:899
+#: MainWindow/Window.cpp:915
 #, kde-format
 msgid "Lock Images"
 msgstr "画像をロック"
 
-#: MainWindow/Window.cpp:903
+#: MainWindow/Window.cpp:919
 #, kde-format
 msgid "Unlock"
 msgstr "ロック解除"
 
-#: MainWindow/Window.cpp:906
+#: MainWindow/Window.cpp:922
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "他のすべてのアイテムをロック"
 
-#: MainWindow/Window.cpp:909
+#: MainWindow/Window.cpp:925
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "現在のアイテムのセットをロック"
 
-#: MainWindow/Window.cpp:912
+#: MainWindow/Window.cpp:928
 #, fuzzy, kde-format
 #| msgid "Configure View"
 msgid "Configure Current View"
 msgstr "表示設定"
 
-#: MainWindow/Window.cpp:920
+#: MainWindow/Window.cpp:936
 #, fuzzy, kde-format
 #| msgid "Theme:"
 msgid "Tree"
 msgstr "テーマ:"
 
-#: MainWindow/Window.cpp:925
+#: MainWindow/Window.cpp:941
 #, kde-format
 msgid "Tree with User Icons"
 msgstr ""
 
-#: MainWindow/Window.cpp:930
+#: MainWindow/Window.cpp:946
 #, fuzzy, kde-format
 #| msgid "Icon:"
 msgid "Icons"
 msgstr "アイコン:"
 
-#: MainWindow/Window.cpp:937
+#: MainWindow/Window.cpp:953
 #, kde-format
 msgid "Use natural sort order"
 msgstr ""
 
-#: MainWindow/Window.cpp:947
+#: MainWindow/Window.cpp:963
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "サムネイルウィンドウでツールチップを表示"
 
-#: MainWindow/Window.cpp:952
+#: MainWindow/Window.cpp:968
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Labels in Thumbnails Window"
 msgstr "サムネイルウィンドウでツールチップを表示"
 
-#: MainWindow/Window.cpp:962
+#: MainWindow/Window.cpp:978
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Categories in Thumbnails Window"
 msgstr "サムネイルウィンドウでツールチップを表示"
 
-#: MainWindow/Window.cpp:979
+#: MainWindow/Window.cpp:995
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr ""
 
-#: MainWindow/Window.cpp:986
+#: MainWindow/Window.cpp:1002
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "ディスク上にない画像と動画を表示"
 
-#: MainWindow/Window.cpp:989
+#: MainWindow/Window.cpp:1005
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "不完全な日付の画像と動画を表示..."
 
-#: MainWindow/Window.cpp:992
+#: MainWindow/Window.cpp:1008
 #, fuzzy, kde-format
 #| msgid "Merge data"
 msgid "Merge duplicates"
 msgstr "データをマージ"
 
-#: MainWindow/Window.cpp:994 MainWindow/Window.cpp:1048
+#: MainWindow/Window.cpp:1010 MainWindow/Window.cpp:1064
 #, fuzzy, kde-format
 #| msgid "Recreate Selected Thumbnails"
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "選択したサムネイルを再生成"
 
-#: MainWindow/Window.cpp:998
+#: MainWindow/Window.cpp:1014
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "画像と動画を再スキャン"
 
-#: MainWindow/Window.cpp:1001
+#: MainWindow/Window.cpp:1017
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Exif 検索データベースを再作成"
 
-#: MainWindow/Window.cpp:1004
+#: MainWindow/Window.cpp:1020
 #, fuzzy, kde-format
 #| msgid "Read EXIF Info From Files..."
 msgid "Read Exif Info from Files..."
 msgstr "ファイルから Exif 情報を読み込む..."
 
-#: MainWindow/Window.cpp:1007
+#: MainWindow/Window.cpp:1023
 #, fuzzy, kde-format
 #| msgid "Sort Selected by Date && Time"
 msgid "Sort All by Date && Time"
 msgstr "選択した画像を日付と時刻でソート"
 
-#: MainWindow/Window.cpp:1011
+#: MainWindow/Window.cpp:1027
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1014
+#: MainWindow/Window.cpp:1030
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "サムネイルを生成"
 
-#: MainWindow/Window.cpp:1017
+#: MainWindow/Window.cpp:1033
 #, fuzzy, kde-format
 #| msgid "Statistics"
 msgid "Statistics..."
 msgstr "統計"
 
-#: MainWindow/Window.cpp:1021
+#: MainWindow/Window.cpp:1037
 #, kde-format
 msgid "Mark As Untagged"
 msgstr ""
 
-#: MainWindow/Window.cpp:1031
+#: MainWindow/Window.cpp:1047
 #, kde-format
 msgid "Enable All Messages"
 msgstr "すべてのメッセージを有効にする"
 
-#: MainWindow/Window.cpp:1035
+#: MainWindow/Window.cpp:1051
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "KPhotoAlbum のデモを開始"
 
-#: MainWindow/Window.cpp:1038
+#: MainWindow/Window.cpp:1054
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "KPhotoAlbum の機能の状態"
 
-#: MainWindow/Window.cpp:1041
+#: MainWindow/Window.cpp:1057
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "デモビデオを表示"
 
-#: MainWindow/Window.cpp:1045 Viewer/ViewerWidget.cpp:197
+#: MainWindow/Window.cpp:1061 Viewer/ViewerWidget.cpp:197
 #, fuzzy, kde-format
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "Exif 情報を表示"
 
-#: MainWindow/Window.cpp:1051
+#: MainWindow/Window.cpp:1067
 #, fuzzy, kde-format
 #| msgid "Generate thumbnails"
 msgid "Use next video thumbnail"
 msgstr "サムネイルを生成する"
 
-#: MainWindow/Window.cpp:1055
+#: MainWindow/Window.cpp:1071
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr ""
 
-#: MainWindow/Window.cpp:1059 MainWindow/Window.cpp:1296
+#: MainWindow/Window.cpp:1075 MainWindow/Window.cpp:1310
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "画像をエクスポート/コピー..."
 
-#: MainWindow/Window.cpp:1063 MainWindow/Window.cpp:1300
+#: MainWindow/Window.cpp:1079 MainWindow/Window.cpp:1314
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
 msgstr[0] "画像をエクスポート/コピー..."
 
-#: MainWindow/Window.cpp:1087
+#: MainWindow/Window.cpp:1103
 #, kde-format
 msgid "Auto saving...."
 msgstr "自動保存..."
 
-#: MainWindow/Window.cpp:1090
+#: MainWindow/Window.cpp:1106
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "自動保存... 完了"
 
-#: MainWindow/Window.cpp:1192
+#: MainWindow/Window.cpp:1206
 #, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1195
+#: MainWindow/Window.cpp:1209
 #, fuzzy, kde-format
 #| msgid "Create My Own Database..."
 msgctxt "@title"
 msgid "Create database"
 msgstr "自分自身のデータベースを作成..."
 
-#: MainWindow/Window.cpp:1232
+#: MainWindow/Window.cpp:1246
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4637,34 +4637,34 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1367 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1381 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "全般"
 
-#: MainWindow/Window.cpp:1368 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1382 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "ビューア"
 
-#: MainWindow/Window.cpp:1369
+#: MainWindow/Window.cpp:1383
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "日付: "
 
-#: MainWindow/Window.cpp:1372
+#: MainWindow/Window.cpp:1386
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "注釈ダイアログ"
 
-#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "サムネイルビュー"
 
-#: MainWindow/Window.cpp:1524
+#: MainWindow/Window.cpp:1530
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Really enable all messageboxes where you previously checked the do-not-"
@@ -4676,13 +4676,13 @@ msgstr ""
 "<p><interface>次回から表示しない</interface>にチェックを入れたすべてのメッ"
 "セージボックスを有効にしますか？</p>"
 
-#: MainWindow/Window.cpp:1526
+#: MainWindow/Window.cpp:1532
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1540
+#: MainWindow/Window.cpp:1546
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4693,63 +4693,63 @@ msgid ""
 "on due to the missing make install.</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1540
+#: MainWindow/Window.cpp:1546
 #, fuzzy, kde-format
 #| msgid "Invoke External Program"
 msgid "Internal Error"
 msgstr "外部プログラムを起動"
 
-#: MainWindow/Window.cpp:1551
+#: MainWindow/Window.cpp:1557
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1554
+#: MainWindow/Window.cpp:1560
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1559
+#: MainWindow/Window.cpp:1565
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1610
+#: MainWindow/Window.cpp:1616
 #, kde-format
 msgid "Open List of Files"
 msgstr "ファイルのリストを開く"
 
-#: MainWindow/Window.cpp:1611
+#: MainWindow/Window.cpp:1617
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
 
-#: MainWindow/Window.cpp:1625
+#: MainWindow/Window.cpp:1631
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "入力されたものにマッチする画像は見つかりませんでした。"
 
-#: MainWindow/Window.cpp:1625
+#: MainWindow/Window.cpp:1631
 #, kde-format
 msgid "No Matches"
 msgstr "マッチするものがありません"
 
-#: MainWindow/Window.cpp:1797
+#: MainWindow/Window.cpp:1803
 #, fuzzy, kde-format
 #| msgid "Rereading EXIF information from all images"
 msgid "Rereading Exif information from all images"
 msgstr "すべての画像から Exif 情報を再読み取り"
 
-#: MainWindow/Window.cpp:1824
+#: MainWindow/Window.cpp:1830
 #, fuzzy, no-c-format, kde-format
 #| msgid "Thumbnail image size:"
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "サムネイル画像のサイズ:"
 
-#: MainWindow/Window.cpp:1877
+#: MainWindow/Window.cpp:1883
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4757,7 +4757,7 @@ msgid ""
 "the ffmpeg package</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1880
+#: MainWindow/Window.cpp:1886
 #, fuzzy, kde-format
 #| msgid "File not available"
 msgid "Video thumbnails are not available"

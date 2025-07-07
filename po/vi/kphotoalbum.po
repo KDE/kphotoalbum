@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 00:40+0000\n"
+"POT-Creation-Date: 2025-07-07 00:40+0000\n"
 "PO-Revision-Date: 2012-01-16 16:58+0700\n"
 "Last-Translator: Lê Hoàng Phương <herophuong93@gmail.com>\n"
 "Language-Team: Vietnamese <kde-i18n-vi@kde.org>\n"
@@ -411,13 +411,13 @@ msgstr "Hộp thoại Đồng ý"
 msgid "Copy tags from previous image"
 msgstr "Chép các thẻ từ ảnh trước"
 
-#: AnnotationDialog/Dialog.cpp:1303 MainWindow/Window.cpp:840
+#: AnnotationDialog/Dialog.cpp:1303 MainWindow/Window.cpp:844
 #, fuzzy, kde-format
 #| msgid "Rotate contra-clockwise (to the left)"
 msgid "Rotate counterclockwise"
 msgstr "Xoay theo ngược chiều kim đồng hồ"
 
-#: AnnotationDialog/Dialog.cpp:1306 MainWindow/Window.cpp:844
+#: AnnotationDialog/Dialog.cpp:1306 MainWindow/Window.cpp:848
 #, fuzzy, kde-format
 #| msgid "Rotate clockwise (to the right)"
 msgid "Rotate clockwise"
@@ -983,7 +983,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "Tìm kiếm"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1773
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1779
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -993,7 +993,7 @@ msgid ""
 "section <b>Untagged Images</b></li></ul></p>"
 msgstr ""
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1780
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1786
 #, kde-format
 msgid "Feature has not been configured"
 msgstr ""
@@ -2813,7 +2813,7 @@ msgid "Create folder?"
 msgstr "Thư mục cơ bản:"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1198
+#: MainWindow/Window.cpp:1212
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -4306,13 +4306,13 @@ msgid "Stacking Error"
 msgstr ""
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1318 MainWindow/Window.cpp:1415
+#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1429
 #, kde-format
 msgid "No item is selected."
 msgstr "Chưa chọn mục nào."
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1318 MainWindow/Window.cpp:1416
+#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1430
 #, kde-format
 msgid "No Selection"
 msgstr "Chưa chọn gì"
@@ -4332,7 +4332,7 @@ msgstr "Đang lưu... xong."
 msgid "There are no images to be shown."
 msgstr ""
 
-#: MainWindow/Window.cpp:761 MainWindow/Window.cpp:890
+#: MainWindow/Window.cpp:761 MainWindow/Window.cpp:902
 #, fuzzy, kde-format
 #| msgid "Limit View to Marked"
 msgid "Limit View to Selection"
@@ -4360,308 +4360,308 @@ msgstr "Nhập..."
 msgid "Export/Copy Images..."
 msgstr "Đang sao chép ảnh"
 
-#: MainWindow/Window.cpp:809
+#: MainWindow/Window.cpp:811
 #, fuzzy, kde-format
 #| msgid "Delete Selected"
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Xoá điều chọn"
 
-#: MainWindow/Window.cpp:815
+#: MainWindow/Window.cpp:819
 #, fuzzy, kde-format
 #| msgid "Remove Tokens"
 msgid "Remove Tokens..."
 msgstr "Gỡ bỏ hiệu bài"
 
-#: MainWindow/Window.cpp:818
+#: MainWindow/Window.cpp:822
 #, kde-format
 msgid "Open List of Files..."
 msgstr ""
 
-#: MainWindow/Window.cpp:821
+#: MainWindow/Window.cpp:825
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Chú giải mục riêng"
 
-#: MainWindow/Window.cpp:825
+#: MainWindow/Window.cpp:829
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "Chú giải đồng thời nhiều mục"
 
-#: MainWindow/Window.cpp:829
+#: MainWindow/Window.cpp:833
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr ""
 
-#: MainWindow/Window.cpp:833
+#: MainWindow/Window.cpp:837
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr ""
 
-#: MainWindow/Window.cpp:836
+#: MainWindow/Window.cpp:840
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr ""
 
-#: MainWindow/Window.cpp:849
+#: MainWindow/Window.cpp:853
 #, kde-format
 msgid "View"
 msgstr "Xem"
 
-#: MainWindow/Window.cpp:852
+#: MainWindow/Window.cpp:858
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Xem (trong cửa sổ mới)"
 
-#: MainWindow/Window.cpp:855
+#: MainWindow/Window.cpp:863
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Chạy chiếu ảnh"
 
-#: MainWindow/Window.cpp:860
+#: MainWindow/Window.cpp:870
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Chạy chiếu ảnh ngẫu nhiên"
 
-#: MainWindow/Window.cpp:866
+#: MainWindow/Window.cpp:878
 #, kde-format
 msgid "Collapse all stacks"
 msgstr ""
 
-#: MainWindow/Window.cpp:872
+#: MainWindow/Window.cpp:884
 #, kde-format
 msgid "Expand all stacks"
 msgstr ""
 
-#: MainWindow/Window.cpp:877
+#: MainWindow/Window.cpp:889
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "Hiện &cú nhất trước"
 
-#: MainWindow/Window.cpp:882
+#: MainWindow/Window.cpp:894
 #, kde-format
 msgid "Show &Newest First"
 msgstr "Hiện mới &nhất trước"
 
-#: MainWindow/Window.cpp:887
+#: MainWindow/Window.cpp:899
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Sắp xếp điều chọn theo ngày và giờ"
 
-#: MainWindow/Window.cpp:893
+#: MainWindow/Window.cpp:907
 #, kde-format
 msgid "Jump to Context"
 msgstr "Nhảy tới ngữ cảnh"
 
-#: MainWindow/Window.cpp:899
+#: MainWindow/Window.cpp:915
 #, kde-format
 msgid "Lock Images"
 msgstr "Khoá ảnh"
 
-#: MainWindow/Window.cpp:903
+#: MainWindow/Window.cpp:919
 #, kde-format
 msgid "Unlock"
 msgstr "Bỏ khoá"
 
-#: MainWindow/Window.cpp:906
+#: MainWindow/Window.cpp:922
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Khoá riêng các mục khác"
 
-#: MainWindow/Window.cpp:909
+#: MainWindow/Window.cpp:925
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Khoá riêng tập mục hiện có"
 
-#: MainWindow/Window.cpp:912
+#: MainWindow/Window.cpp:928
 #, fuzzy, kde-format
 #| msgid "Configure View"
 msgid "Configure Current View"
 msgstr "Cấu hình ô xem"
 
-#: MainWindow/Window.cpp:920
+#: MainWindow/Window.cpp:936
 #, fuzzy, kde-format
 #| msgid "Theme:"
 msgid "Tree"
 msgstr "Sắc thái:"
 
-#: MainWindow/Window.cpp:925
+#: MainWindow/Window.cpp:941
 #, kde-format
 msgid "Tree with User Icons"
 msgstr ""
 
-#: MainWindow/Window.cpp:930
+#: MainWindow/Window.cpp:946
 #, fuzzy, kde-format
 #| msgid "Icon:"
 msgid "Icons"
 msgstr "Biểu tượng:"
 
-#: MainWindow/Window.cpp:937
+#: MainWindow/Window.cpp:953
 #, kde-format
 msgid "Use natural sort order"
 msgstr ""
 
-#: MainWindow/Window.cpp:947
+#: MainWindow/Window.cpp:963
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Hiện mẹo công cụ trong cửa sổ mẫu ảnh"
 
-#: MainWindow/Window.cpp:952
+#: MainWindow/Window.cpp:968
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Labels in Thumbnails Window"
 msgstr "Hiện mẹo công cụ trong cửa sổ mẫu ảnh"
 
-#: MainWindow/Window.cpp:962
+#: MainWindow/Window.cpp:978
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Categories in Thumbnails Window"
 msgstr "Hiện mẹo công cụ trong cửa sổ mẫu ảnh"
 
-#: MainWindow/Window.cpp:979
+#: MainWindow/Window.cpp:995
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr ""
 
-#: MainWindow/Window.cpp:986
+#: MainWindow/Window.cpp:1002
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Hiển thị ảnh (động) không phải trên đĩa"
 
-#: MainWindow/Window.cpp:989
+#: MainWindow/Window.cpp:1005
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Hiển thị ảnh (động) có ngày tháng không hoàn toàn..."
 
-#: MainWindow/Window.cpp:992
+#: MainWindow/Window.cpp:1008
 #, kde-format
 msgid "Merge duplicates"
 msgstr ""
 
-#: MainWindow/Window.cpp:994 MainWindow/Window.cpp:1048
+#: MainWindow/Window.cpp:1010 MainWindow/Window.cpp:1064
 #, fuzzy, kde-format
 #| msgid "Recreate Selected Thumbnails"
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Tạo ra các mẫu ảnh đã chọn"
 
-#: MainWindow/Window.cpp:998
+#: MainWindow/Window.cpp:1014
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Quết lại tìm ảnh (động)"
 
-#: MainWindow/Window.cpp:1001
+#: MainWindow/Window.cpp:1017
 #, fuzzy, kde-format
 #| msgid "Update EXIF search database"
 msgid "Recreate Exif Search Database"
 msgstr "Cập nhật co sở dữ liệu tìm EXIF"
 
-#: MainWindow/Window.cpp:1004
+#: MainWindow/Window.cpp:1020
 #, fuzzy, kde-format
 #| msgid "Read EXIF Info From Files..."
 msgid "Read Exif Info from Files..."
 msgstr "Đọc thông tin EXIF từ tệp..."
 
-#: MainWindow/Window.cpp:1007
+#: MainWindow/Window.cpp:1023
 #, fuzzy, kde-format
 #| msgid "Sort Selected by Date && Time"
 msgid "Sort All by Date && Time"
 msgstr "Sắp xếp điều chọn theo ngày và giờ"
 
-#: MainWindow/Window.cpp:1011
+#: MainWindow/Window.cpp:1027
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1014
+#: MainWindow/Window.cpp:1030
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Xây dựng mẫu ảnh"
 
-#: MainWindow/Window.cpp:1017
+#: MainWindow/Window.cpp:1033
 #, kde-format
 msgid "Statistics..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1021
+#: MainWindow/Window.cpp:1037
 #, kde-format
 msgid "Mark As Untagged"
 msgstr ""
 
-#: MainWindow/Window.cpp:1031
+#: MainWindow/Window.cpp:1047
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Bật mọi thông điệp"
 
-#: MainWindow/Window.cpp:1035
+#: MainWindow/Window.cpp:1051
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "Chạy chứng minh KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1038
+#: MainWindow/Window.cpp:1054
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "Trạng thái tính năng KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1041
+#: MainWindow/Window.cpp:1057
 #, fuzzy, kde-format
 #| msgid "Show Videos"
 msgid "Show Demo Videos"
 msgstr "Hiện ảnh động"
 
-#: MainWindow/Window.cpp:1045 Viewer/ViewerWidget.cpp:197
+#: MainWindow/Window.cpp:1061 Viewer/ViewerWidget.cpp:197
 #, fuzzy, kde-format
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "Hiện thông tin EXIF"
 
-#: MainWindow/Window.cpp:1051
+#: MainWindow/Window.cpp:1067
 #, fuzzy, kde-format
 #| msgid "Generate thumbnails"
 msgid "Use next video thumbnail"
 msgstr "Tạo ra các mẫu ảnh"
 
-#: MainWindow/Window.cpp:1055
+#: MainWindow/Window.cpp:1071
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr ""
 
-#: MainWindow/Window.cpp:1059 MainWindow/Window.cpp:1296
+#: MainWindow/Window.cpp:1075 MainWindow/Window.cpp:1310
 #, fuzzy, kde-format
 #| msgid "Copying Images"
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "Đang sao chép ảnh"
 
-#: MainWindow/Window.cpp:1063 MainWindow/Window.cpp:1300
+#: MainWindow/Window.cpp:1079 MainWindow/Window.cpp:1314
 #, fuzzy, kde-format
 #| msgid "Copying Images"
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
 msgstr[0] "Đang sao chép ảnh"
 
-#: MainWindow/Window.cpp:1087
+#: MainWindow/Window.cpp:1103
 #, kde-format
 msgid "Auto saving...."
 msgstr "Đang tự động lưu..."
 
-#: MainWindow/Window.cpp:1090
+#: MainWindow/Window.cpp:1106
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Đang tự động lưu... xong."
 
-#: MainWindow/Window.cpp:1192
+#: MainWindow/Window.cpp:1206
 #, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1195
+#: MainWindow/Window.cpp:1209
 #, fuzzy, kde-format
 #| msgid "Create My Own Database..."
 msgctxt "@title"
 msgid "Create database"
 msgstr "Tạo cơ sở dữ liệu riêng..."
 
-#: MainWindow/Window.cpp:1232
+#: MainWindow/Window.cpp:1246
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4670,34 +4670,34 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1367 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1381 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Chung"
 
-#: MainWindow/Window.cpp:1368 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1382 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Bộ xem"
 
-#: MainWindow/Window.cpp:1369
+#: MainWindow/Window.cpp:1383
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Ngày: "
 
-#: MainWindow/Window.cpp:1372
+#: MainWindow/Window.cpp:1386
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Hộp thoại chú giải"
 
-#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Xem mẫu ảnh"
 
-#: MainWindow/Window.cpp:1524
+#: MainWindow/Window.cpp:1530
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Really enable all messageboxes where you previously checked the do-not-"
@@ -4709,13 +4709,13 @@ msgstr ""
 "<p>Thực sự hiệu lực mọi hộp thông điệp khi bạn đã đánh dấu trong hộp ở cạnh "
 "« Đừng hiện lần nữa » không?</p>"
 
-#: MainWindow/Window.cpp:1526
+#: MainWindow/Window.cpp:1532
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1540
+#: MainWindow/Window.cpp:1546
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4726,64 +4726,64 @@ msgid ""
 "on due to the missing make install.</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1540
+#: MainWindow/Window.cpp:1546
 #, fuzzy, kde-format
 #| msgid "Invoke External Program"
 msgid "Internal Error"
 msgstr "Gọi trình bên ngoài"
 
-#: MainWindow/Window.cpp:1551
+#: MainWindow/Window.cpp:1557
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1554
+#: MainWindow/Window.cpp:1560
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1559
+#: MainWindow/Window.cpp:1565
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1610
+#: MainWindow/Window.cpp:1616
 #, kde-format
 msgid "Open List of Files"
 msgstr ""
 
-#: MainWindow/Window.cpp:1611
+#: MainWindow/Window.cpp:1617
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
 
-#: MainWindow/Window.cpp:1625
+#: MainWindow/Window.cpp:1631
 #, kde-format
 msgid "No images matching your input were found."
 msgstr ""
 
-#: MainWindow/Window.cpp:1625
+#: MainWindow/Window.cpp:1631
 #, fuzzy, kde-format
 #| msgid "No other"
 msgid "No Matches"
 msgstr "Không có gì khác"
 
-#: MainWindow/Window.cpp:1797
+#: MainWindow/Window.cpp:1803
 #, fuzzy, kde-format
 #| msgid "Loading information from images"
 msgid "Rereading Exif information from all images"
 msgstr "Đang tải thông tin từ ảnh"
 
-#: MainWindow/Window.cpp:1824
+#: MainWindow/Window.cpp:1830
 #, fuzzy, no-c-format, kde-format
 #| msgid "Thumbnail image size:"
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Cỡ ảnh mẫu ảnh :"
 
-#: MainWindow/Window.cpp:1877
+#: MainWindow/Window.cpp:1883
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4791,7 +4791,7 @@ msgid ""
 "the ffmpeg package</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1880
+#: MainWindow/Window.cpp:1886
 #, fuzzy, kde-format
 #| msgid "File not available"
 msgid "Video thumbnails are not available"

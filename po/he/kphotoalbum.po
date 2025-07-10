@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-05 05:53+0000\n"
-"PO-Revision-Date: 2025-07-07 18:20+0300\n"
+"PO-Revision-Date: 2025-07-08 11:53+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -314,6 +314,8 @@ msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
 "of the following error: %2"
 msgstr ""
+"<p>לא ניתן לשמור את פריסת החלון.</p>לא ניתן לפתוח את הקובץ %1 עקב השגיאה "
+"הבאה: %2"
 
 #: AnnotationDialog/Dialog.cpp:975
 #, kde-format
@@ -321,6 +323,8 @@ msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
 "of the following error: %2"
 msgstr ""
+"<p>לא ניתן לשמור את פריסת החלון.</p>לא ניתן לכתוב לקובץ %1 עקב השגיאה הבאה: "
+"%2"
 
 #: AnnotationDialog/Dialog.cpp:1043
 #, kde-format
@@ -1365,6 +1369,9 @@ msgid ""
 "p><p>Chances are you will be able to read this file, but when writing it "
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
+"<p>קובץ מסד הנתונים (index.xml) הוא מגרסה חדשה יותר של KPhotoAlbum!</"
+"p><p>כנראה שיתאפשר לך לקרוא את הקובץ הזה, אבל הכתיבה אליו חזרה, המידע שנשמר "
+"בגרסה החדשה יותר ילך לאיבוד</p>"
 
 #: DB/XML/FileReader.cpp:61
 #, kde-format
@@ -3250,6 +3257,8 @@ msgid ""
 "Patch to sort images in the thumbnail view, plus reading time info out of "
 "Exif images for existing images"
 msgstr ""
+"טלאי לסידור התמונות בתצוגת תמונות ממוזערות,לצד קריאת פרטי הזמנים מתמונות עם "
+"Exif לתמונות קיימות"
 
 #: main.cpp:119
 #, kde-format
@@ -3587,6 +3596,8 @@ msgid ""
 "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on QtAv "
 "for displaying videos; this in turn relies on ffmpeg</p>"
 msgstr ""
+"<h1><a name=\"video\">תמיכה בווידאו</a></h1><p>KPhotoAlbum מסתמך על QtAv "
+"להצגת סרטונים, בעוד הוא מסתמך ffmpeg</p>"
 
 #: MainWindow/FeatureDialog.cpp:78
 #, kde-format
@@ -4455,7 +4466,7 @@ msgstr "קובץ מסד הנתונים שגוי"
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
 "index.xml</p>"
-msgstr ""
+msgstr "<p>קובץ המפתח שסופק לא קיים, ליצור אותו?<br />%1/index.xml</p>"
 
 #: MainWindow/Window.cpp:1245
 #, kde-format
@@ -4987,6 +4998,10 @@ msgid ""
 "down this time to approximately half, by checking this check box. The "
 "disadvantage is that the index.xml file is less readable by human eyes.</p>"
 msgstr ""
+"<p>KPhotoAlbum משתמש בקובץ index.xml יחיד בתור <i>מסד הנתונים</i> שלו. כשיש "
+"הרבה תמונות עלול לקחת הרבה זמן לקרוא את הקובץ הזה. אפשר לחתוך את הזמן הזה "
+"בערך בחצי, על ידי סימון התיבה הזאת. החיסרון בזה הוא שקובץ ה־index.xml יהיה "
+"פחות קריא לבני אדם.</p>"
 
 #: Settings/ExifPage.cpp:28
 #, kde-format
@@ -6473,17 +6488,17 @@ msgstr "שגיאה בנגינת מדיה"
 #: Viewer/QtAVDisplay.cpp:32 Viewer/QtAVDisplay.cpp:45
 #, kde-format
 msgid "Failed to set up video playback"
-msgstr ""
+msgstr "הגדרת מנגנון וידאו נכשלה"
 
 #: Viewer/QtAVDisplay.cpp:32
 #, kde-format
 msgid "Failed to set up video playback (renderer wasn't created)"
-msgstr ""
+msgstr "הגדרת מנגנון וידאו נכשלה (מעבד התצוגה לא נוצר)"
 
 #: Viewer/QtAVDisplay.cpp:45
 #, kde-format
 msgid "Failed to set up video playback (widget wasn't created)"
-msgstr ""
+msgstr "הגדרת מנגנון וידאו נכשלה (הווידג׳ט לא נוצר)"
 
 #: Viewer/SelectCategoryAndValue.cpp:107
 #, kde-format

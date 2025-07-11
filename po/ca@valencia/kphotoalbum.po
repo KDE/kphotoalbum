@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-05 05:53+0000\n"
-"PO-Revision-Date: 2025-04-28 10:17+0200\n"
+"PO-Revision-Date: 2025-07-06 11:05+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -1838,7 +1838,7 @@ msgctxt ""
 "File size composed of a pre-formatted (already localized) human-readable "
 "file size (%1) and the number of bytes (%2)"
 msgid "%1 (%2 B)"
-msgstr "%1 (%2 B)"
+msgstr "%1 (%2B)"
 
 #: Exif/MetaDataDisplay.cpp:122 Exif/MetaDataDisplay.cpp:128
 #: Exif/MetaDataDisplay.cpp:134
@@ -2329,7 +2329,9 @@ msgstr "No s'ha trobat cap tema -segurament hi ha un error d'instal·lació-"
 #: HTMLGenerator/HTMLDialog.cpp:565
 #, kde-format
 msgid "More than one theme is set as default, using theme %1"
-msgstr "S'ha establit per defecte més d'un tema. S'està emprant el tema %1"
+msgstr ""
+"S'ha establit de manera predeterminada més d'un tema. S'està emprant el tema "
+"%1"
 
 #: HTMLGenerator/HTMLDialog.cpp:572
 #, kde-format
@@ -5395,8 +5397,8 @@ msgid ""
 msgstr ""
 "<p>Si s'establix esta opció, s'apilaran les noves versions d'una imatge i "
 "situades automàticament a la part superior de la pila. D'esta manera es "
-"mostrarà la nova imatge quan la pila es trobe en estat reduït, l'estat per "
-"defecte en KPhotoAlbum-.</p>"
+"mostrarà la nova imatge quan la pila es trobe en estat reduït, l'estat "
+"predeterminat en KPhotoAlbum-.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:151
 #, kde-format

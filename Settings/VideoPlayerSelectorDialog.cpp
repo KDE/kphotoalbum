@@ -27,7 +27,7 @@ VideoPlayerSelectorDialog::VideoPlayerSelectorDialog(QWidget *parent)
     layout->addWidget(label);
 
     QString txt = i18n("<html><p>Unfortunately, there is no video player which just works out of the box for everyone.</p>"
-                       "<p>KPhotoAlbum therefore comes with three different back-ends, choose the one that works the best for you</p>"
+                       "<p>KPhotoAlbum therefore comes with two different back-ends, choose the one that works the best for you</p>"
 
                        "<p><b>VLC</b> seems to be the best supported video player back-end, meaning it can play most video formats. "
                        "It has one drawback though, it requires X11. "

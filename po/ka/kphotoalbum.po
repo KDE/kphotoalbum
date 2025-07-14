@@ -1508,7 +1508,7 @@ msgstr ""
 #: DB/XML/FileReader.cpp:541
 #, kde-format
 msgid "No default setup file found"
-msgstr "ნაგულისხმები პარამეტრების ფაილი ვერ ვიპოვე"
+msgstr "ნაგულისხმევი პარამეტრების ფაილი ვერ ვიპოვე"
 
 #: DB/XML/FileReader.cpp:547 Settings/BirthdayPage.cpp:135
 #, kde-format

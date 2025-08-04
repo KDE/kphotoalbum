@@ -4039,7 +4039,7 @@ msgstr "جاري تحميل قاعدة البيانات"
 #: MainWindow/Window.cpp:155
 #, kde-format
 msgid "Loading Main Window"
-msgstr "جاري تحميل النافذة الرئيسية"
+msgstr "جاري تحميل النافذة الرئيسة"
 
 #: MainWindow/Window.cpp:269
 #, fuzzy, kde-format
@@ -4158,7 +4158,7 @@ msgstr "صدِّر نسخ صور."
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
-msgstr "امسح المحدد"
+msgstr "امحُ المحدد"
 
 #: MainWindow/Window.cpp:826
 #, fuzzy, kde-format

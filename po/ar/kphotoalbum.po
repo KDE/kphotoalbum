@@ -4151,7 +4151,7 @@ msgstr "صدِّر نسخ صور."
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
-msgstr "امسح المحدد"
+msgstr "امحُ المحدد"
 
 #: MainWindow/Window.cpp:819
 #, fuzzy, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-05 05:53+0000\n"
-"PO-Revision-Date: 2025-01-18 17:06+0400\n"
+"PO-Revision-Date: 2025-08-04 14:58+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -260,7 +260,7 @@ msgstr "أحفظ تعيين النافذة الحالي"
 #: AnnotationDialog/Dialog.cpp:875
 #, kde-format
 msgid "Reset layout"
-msgstr "إسترجع التصميم"
+msgstr "صفّر التخطيط"
 
 #: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1281
 #: AnnotationDialog/ListSelect.cpp:110
@@ -905,7 +905,7 @@ msgstr "صور جديدة"
 #: Browser/OverviewPage.cpp:191
 #, kde-format
 msgid "Show Thumbnails"
-msgstr "أعرض الأظافر"
+msgstr "أظهر المصغرات"
 
 #: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
@@ -2104,12 +2104,12 @@ msgstr "ما هي الأشياء اللتي يجب ضمّها"
 #: HTMLGenerator/HTMLDialog.cpp:176 HTMLGenerator/HTMLDialog.cpp:177
 #, kde-format
 msgid "Layout"
-msgstr "التصميم"
+msgstr "التخطيط"
 
 #: HTMLGenerator/HTMLDialog.cpp:186 Settings/CategoryPage.cpp:127
 #, kde-format
 msgid "Thumbnail size:"
-msgstr "قياس الظفر:"
+msgstr "حجم المصغّرة:"
 
 #: HTMLGenerator/HTMLDialog.cpp:201
 #, kde-format
@@ -2394,7 +2394,7 @@ msgstr "لا تنسخ الملفات، ولّد فقط ملف .kim"
 #: ImportExport/Export.cpp:111
 #, kde-format
 msgid "Automatically copy next to .kim file"
-msgstr "أنسخ تلقائياً التالي إلى الملف .kim"
+msgstr "أنسخ آليّاً التالي إلى الملف .kim"
 
 #: ImportExport/Export.cpp:112
 #, fuzzy, kde-format
@@ -2414,7 +2414,7 @@ msgstr "إضغط ملف التصدير"
 #: ImportExport/Export.cpp:127
 #, kde-format
 msgid "Generate thumbnails"
-msgstr "أنشئ الأظافر"
+msgstr "ولّد مصغرات"
 
 #: ImportExport/Export.cpp:135
 #, kde-format
@@ -2436,7 +2436,7 @@ msgstr ""
 #: ImportExport/Export.cpp:153
 #, kde-format
 msgid "<p>Generate thumbnail images</p>"
-msgstr "<p>أنشئ صور الأظافر</p>"
+msgstr "<p>ولّد صور المصغرات</p>"
 
 #: ImportExport/Export.cpp:156
 #, fuzzy, kde-format
@@ -2487,7 +2487,7 @@ msgstr "إنشاء ملف الفهرسة"
 #: ImportExport/Export.cpp:287
 #, kde-format
 msgid "Creating thumbnails"
-msgstr "إنشاء الأظافر"
+msgstr "إنشاء المصغرات"
 
 #: ImportExport/Export.cpp:310
 #, kde-format
@@ -4294,7 +4294,7 @@ msgstr ""
 #: MainWindow/Window.cpp:962
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
-msgstr "أعرض تلميحات الأدوات في نافذة الأظافر"
+msgstr "أعرض تلميحات الأدوات في نافذة المصغرات"
 
 #: MainWindow/Window.cpp:967
 #, fuzzy, kde-format
@@ -4364,7 +4364,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1037
 #, kde-format
 msgid "Build Thumbnails"
-msgstr "بناء الأظافر"
+msgstr "ابنِ المصغرات"
 
 #: MainWindow/Window.cpp:1040
 #, kde-format
@@ -4437,12 +4437,12 @@ msgstr[5] "صدِّر نسخ صور."
 #: MainWindow/Window.cpp:1115
 #, kde-format
 msgid "Auto saving...."
-msgstr "جاري الحفظ التلقائي..."
+msgstr "جاري الحفظ الآليّ..."
 
 #: MainWindow/Window.cpp:1118
 #, kde-format
 msgid "Auto saving.... Done"
-msgstr "إنتهى الحفظ التلقائي...."
+msgstr "إنتهى الحفظ الآليّ...."
 
 #: MainWindow/Window.cpp:1222
 #, kde-format
@@ -4507,7 +4507,7 @@ msgstr "حوار إضافة التعليق"
 #: MainWindow/Window.cpp:1418 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
-msgstr "عرض الأظافر"
+msgstr "عرض المصغرات"
 
 #: MainWindow/Window.cpp:1569
 #, fuzzy, kde-format
@@ -4820,7 +4820,7 @@ msgstr "عرض مسرد"
 #: Settings/CategoryPage.cpp:143
 #, kde-format
 msgid "List View with Custom Thumbnails"
-msgstr "عرض مسرد مع الأظافر المعتادة"
+msgstr "عرض قائمة مع مصغرات مخصصة"
 
 #: Settings/CategoryPage.cpp:144
 #, kde-format
@@ -4830,7 +4830,7 @@ msgstr "عرض أيقوني"
 #: Settings/CategoryPage.cpp:145
 #, kde-format
 msgid "Icon View with Custom Thumbnails"
-msgstr "عرض أيقونة مع الأظافر المعتادة"
+msgstr "عرض أيقونة مع مصغرات مخصصة"
 
 #: Settings/CategoryPage.cpp:155
 #, kde-format
@@ -4935,7 +4935,7 @@ msgstr "إضغط ملف النسخة الإحتياطية"
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
 msgid "Auto save every:"
-msgstr "إحفظ تلقائياً كلّ:"
+msgstr "إحفظ آليّاً كلّ:"
 
 #: Settings/DatabaseBackendPage.cpp:34
 #, kde-format
@@ -5654,7 +5654,7 @@ msgstr "لا معاينة للصور"
 #: Settings/ThumbnailsPage.cpp:38
 #, kde-format
 msgid "Thumbnail image size:"
-msgstr "قياس صورة الظفر:"
+msgstr "حجم صورة المصغّرة:"
 
 #: Settings/ThumbnailsPage.cpp:47
 #, fuzzy, kde-format
@@ -5715,12 +5715,12 @@ msgstr "العرض"
 #: Settings/ThumbnailsPage.cpp:74
 #, kde-format
 msgid "Display labels in thumbnail view"
-msgstr "أعرض اللاصقات في العرض للأظافر"
+msgstr "اعرض اللاصقات في عرض المصغرات"
 
 #: Settings/ThumbnailsPage.cpp:79
 #, kde-format
 msgid "Display categories in thumbnail view"
-msgstr "أعرض الأصناف في العرض للأظافر"
+msgstr "أعرض الأصناف في عرض المصغرات"
 
 #: Settings/ThumbnailsPage.cpp:84
 #, kde-format
@@ -5915,12 +5915,12 @@ msgstr "غير مضبوط"
 #: Settings/ViewerPage.cpp:42
 #, kde-format
 msgid "Running Slide Show From Thumbnail View"
-msgstr "تنفيذ عرض الشرائح من العرض للأظافر"
+msgstr "يشغل عرض الشرائح من عرض المصغرات"
 
 #: Settings/ViewerPage.cpp:45
 #, kde-format
 msgid "Viewing Images and Videos From Thumbnail View"
-msgstr "مشهدة الصور و المرئيات من العرض للأظافر"
+msgstr "مشاهدة الصور و المرئيات من عرض المصغرات"
 
 #: Settings/ViewerPage.cpp:52
 #, kde-format

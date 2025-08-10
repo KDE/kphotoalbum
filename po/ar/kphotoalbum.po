@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-15 00:41+0000\n"
-"PO-Revision-Date: 2025-08-04 14:58+0400\n"
+"PO-Revision-Date: 2025-08-09 15:44+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -103,12 +103,12 @@ msgstr ""
 #: AnnotationDialog/Dialog.cpp:230
 #, kde-format
 msgid "Revert This Item"
-msgstr "إسترجع هذا العنصر"
+msgstr "استرجع هذا العنصر"
 
 #: AnnotationDialog/Dialog.cpp:236
 #, kde-format
 msgid "Clear Form"
-msgstr "محو الإستمارة"
+msgstr "محو الاستمارة"
 
 #: AnnotationDialog/Dialog.cpp:240
 #, kde-format
@@ -354,7 +354,7 @@ msgstr ""
 #: AnnotationDialog/Dialog.cpp:1275
 #, kde-format
 msgid "Sort Most Recently Used"
-msgstr "أفرز الأحدث إستعمال"
+msgstr "أفرز الأحدث استعمال"
 
 #: AnnotationDialog/Dialog.cpp:1278
 #, kde-format
@@ -532,7 +532,7 @@ msgstr ""
 #: AnnotationDialog/ListSelect.cpp:359
 #, kde-format
 msgid "No Item Selected"
-msgstr "لم يتم إختيار عنصر"
+msgstr "لم يحدد أي عنصر"
 
 #: AnnotationDialog/ListSelect.cpp:363
 #, kde-format
@@ -585,7 +585,7 @@ msgstr "<b>الفرز</b>"
 #: AnnotationDialog/ListSelect.cpp:415
 #, kde-format
 msgid "Usage"
-msgstr "الإستعمالية"
+msgstr "الاستعمالية"
 
 #: AnnotationDialog/ListSelect.cpp:416
 #, fuzzy, kde-format
@@ -907,7 +907,7 @@ msgstr "أظهر المصغرات"
 #: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
 msgid "Search did not match any images or videos."
-msgstr "البحث لم يتابق أي صور أو أي مرئيات."
+msgstr "البحث لم يتبق أي صور أو أي مرئيات."
 
 #: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
@@ -1541,7 +1541,7 @@ msgstr ""
 #: DB/XML/FileReader.cpp:541
 #, kde-format
 msgid "No default setup file found"
-msgstr "لم أعثر على ملف تعيينات إفتراضي"
+msgstr "لم أعثر على ملف تثبيت مبدئي"
 
 #: DB/XML/FileReader.cpp:547 Settings/BirthdayPage.cpp:135
 #, kde-format
@@ -1596,7 +1596,7 @@ msgstr "خطأ في الملف %1: لم أجد إي عنصر"
 #, kde-format
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr ""
-"خطأ في الملف %1: كنت أتوقع 'KPhotoAlbum' ككلعنصر الأعلى و لكنني وجدتُ '%2'"
+"خطأ في الملف %1: كنت أتوقع 'KPhotoAlbum' ككل عنصر الأعلى و لكنني وجدتُ '%2'"
 
 #: DB/XML/FileWriter.cpp:79
 #, kde-format
@@ -1853,7 +1853,7 @@ msgstr ""
 #: Exif/ReReadDialog.cpp:127
 #, kde-format
 msgid "Override image dates"
-msgstr "تبطيل تواريخ الصور"
+msgstr "تجاوز تواريخ الصور"
 
 #: Exif/SearchDialog.cpp:31
 #, fuzzy, kde-format
@@ -2099,7 +2099,7 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:140
 #, kde-format
 msgid "What to Include"
-msgstr "ما هي الأشياء اللتي يجب ضمّها"
+msgstr "ما هي الأشياء التي يجب ضمّها"
 
 #: HTMLGenerator/HTMLDialog.cpp:177 HTMLGenerator/HTMLDialog.cpp:178
 #, kde-format
@@ -2114,7 +2114,7 @@ msgstr "حجم المصغّرة:"
 #: HTMLGenerator/HTMLDialog.cpp:202
 #, kde-format
 msgid "Number of columns:"
-msgstr "عدد العواميد:"
+msgstr "عدد الأعمدة:"
 
 #: HTMLGenerator/HTMLDialog.cpp:217
 #, kde-format
@@ -2129,12 +2129,12 @@ msgstr "أعرض الوصف"
 #: HTMLGenerator/HTMLDialog.cpp:232
 #, kde-format
 msgid "Image Sizes"
-msgstr "قياسات الصور"
+msgstr "حجم الصور"
 
 #: HTMLGenerator/HTMLDialog.cpp:241
 #, kde-format
 msgid "Full size"
-msgstr "كامل القياس"
+msgstr "كامل الحجم"
 
 #: HTMLGenerator/HTMLDialog.cpp:286 HTMLGenerator/HTMLDialog.cpp:287
 #, kde-format
@@ -2409,7 +2409,7 @@ msgstr "صعب وصلة التالي إلى ملفّ"
 #: ImportExport/Export.cpp:123
 #, kde-format
 msgid "Compress export file"
-msgstr "إضغط ملف التصدير"
+msgstr "اضغط ملف التصدير"
 
 #: ImportExport/Export.cpp:127
 #, kde-format
@@ -2419,7 +2419,7 @@ msgstr "ولّد مصغرات"
 #: ImportExport/Export.cpp:135
 #, kde-format
 msgid "Limit maximum image dimensions to: "
-msgstr "حدّد أقصى قياسات الصورة إلى: "
+msgstr "حدّد أقصى مقاس للصورة إلى: "
 
 #: ImportExport/Export.cpp:147
 #, fuzzy, kde-format
@@ -2522,7 +2522,7 @@ msgstr ""
 #: ImportExport/Export.cpp:412
 #, kde-format
 msgid "How to Use the Export File"
-msgstr "كيفية إستعمال ملف التصدير"
+msgstr "كيفية استعمال ملف التصدير"
 
 #: ImportExport/Import.cpp:28
 #, fuzzy, kde-format
@@ -2594,7 +2594,7 @@ msgstr "ألغي خيار الكلّ"
 #: ImportExport/ImportDialog.cpp:192
 #, kde-format
 msgid "Select Which Images to Import"
-msgstr "إختر الصورة للإستيراد"
+msgstr "اختر الصورة للاستيراد"
 
 #: ImportExport/ImportDialog.cpp:204
 #, kde-format
@@ -2703,7 +2703,7 @@ msgstr "غير قادر على فتح '%1' للقراءة."
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
 msgid "Error Importing Data"
-msgstr "خطأ إستيراد البيانات"
+msgstr "خطأ استيراد البيانات"
 
 #: ImportExport/KimFileReader.cpp:35
 #, fuzzy, kde-format
@@ -3091,7 +3091,7 @@ msgstr "الإشراف على ال&صيانة"
 #: kphotoalbumui.rc:90
 #, kde-format
 msgid "Plugins"
-msgstr "القوابس"
+msgstr "الملحقات"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: kphotoalbumui.rc:102
@@ -3694,13 +3694,13 @@ msgstr "أي صور و مرئيات للعرض"
 msgid ""
 "Search for images and videos with a valid date but an invalid time stamp"
 msgstr ""
-"إبحث عن الصور و المرئيات ذات التاريخ الصالح و لكن ذات دمغة التوقيت غير "
+"ابحث عن الصور و المرئيات ذات التاريخ الصالح و لكن ذات دمغة التوقيت غير "
 "الصالحة"
 
 #: MainWindow/InvalidDateFinder.cpp:45
 #, kde-format
 msgid "Search for images and videos missing date and time"
-msgstr "إبحث عن الصور و المرئيات ذات التاريخ و دمغة التوقيت المفقودة"
+msgstr "ابحث عن الصور و المرئيات ذات التاريخ و دمغة التوقيت المفقودة"
 
 #: MainWindow/InvalidDateFinder.cpp:46
 #, kde-format
@@ -3708,7 +3708,7 @@ msgid ""
 "Search for images and videos with only partial dates (like 1971 vs. "
 "11/7-1971)"
 msgstr ""
-"إبحث عن الصور و المرئيات ذات التاريخ غير التام ( مثلاً 1971 عن 11/7/1971 )"
+"ابحث عن الصور و المرئيات ذات التاريخ غير التام ( مثلاً 1971 عن 11/7/1971 )"
 
 #: MainWindow/InvalidDateFinder.cpp:70
 #, fuzzy, kde-format
@@ -3941,12 +3941,12 @@ msgstr "أحذف العلام"
 #: MainWindow/TokenEditor.cpp:42
 #, kde-format
 msgid "Select tokens to remove from all images and videos:"
-msgstr "إختر العلًامات اللتي تحذف من كلّ الصور و المرئيات:"
+msgstr "اختر العلامات التي تحذف من كلّ الصور و المرئيات:"
 
 #: MainWindow/TokenEditor.cpp:61
 #, kde-format
 msgid "Select None"
-msgstr "إختر لا شيئ"
+msgstr "اختر لا شيئ"
 
 #: MainWindow/WelcomeDialog.cpp:46
 #, kde-format
@@ -4114,7 +4114,7 @@ msgstr "جاري الحفظ..."
 #: MainWindow/Window.cpp:543
 #, kde-format
 msgid "Saving... Done"
-msgstr "إنتهيت من الحفظ"
+msgstr "انتهيت من الحفظ"
 
 #: MainWindow/Window.cpp:691
 #, fuzzy, kde-format
@@ -4140,7 +4140,7 @@ msgstr "توليد لغة علامات النص الفائق HTML"
 #: MainWindow/Window.cpp:779
 #, kde-format
 msgid "Import..."
-msgstr "إستورِد..."
+msgstr "استورد..."
 
 #: MainWindow/Window.cpp:782
 #, fuzzy, kde-format
@@ -4227,7 +4227,7 @@ msgstr "أعرض ال&أقدم أولاً"
 #: MainWindow/Window.cpp:894
 #, kde-format
 msgid "Show &Newest First"
-msgstr "أعرض الأ&جدد أولاً"
+msgstr "أعرض الأ&حدث أولاً"
 
 #: MainWindow/Window.cpp:899
 #, kde-format
@@ -4435,7 +4435,7 @@ msgstr "جاري الحفظ الآليّ..."
 #: MainWindow/Window.cpp:1106
 #, kde-format
 msgid "Auto saving.... Done"
-msgstr "إنتهى الحفظ الآليّ...."
+msgstr "انتهى الحفظ الآليّ...."
 
 #: MainWindow/Window.cpp:1206
 #, fuzzy, kde-format
@@ -4906,7 +4906,7 @@ msgstr "إضغط ملف النسخة الإحتياطية"
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
 msgid "Auto save every:"
-msgstr "إحفظ آليّاً كلّ:"
+msgstr "احفظ آليّاً كلّ:"
 
 #: Settings/DatabaseBackendPage.cpp:34
 #, kde-format
@@ -4916,7 +4916,7 @@ msgstr " دقائق"
 #: Settings/DatabaseBackendPage.cpp:45
 #, kde-format
 msgid "Number of backups to keep:"
-msgstr "عدد النسخات الإحتياطية المحافظ عليها:"
+msgstr "عدد النسخ الاحتياطية المحافظ عليها:"
 
 #: Settings/DatabaseBackendPage.cpp:50
 #, kde-format
@@ -4975,7 +4975,7 @@ msgstr ""
 #: Settings/FileVersionDetectionPage.cpp:36
 #, kde-format
 msgid "Search for new images and videos on startup"
-msgstr "إبحث عن الصور و امرئيات الجديدة عند بدء التشغيل"
+msgstr "ابحث عن الصور و الفيديوهات الجديدة عند بدء التشغيل"
 
 #: Settings/FileVersionDetectionPage.cpp:39
 #, kde-format
@@ -5903,7 +5903,7 @@ msgstr " ثوان"
 #: Settings/ViewerPage.cpp:61
 #, kde-format
 msgid "Image cache:"
-msgstr "خابئة الصورة:"
+msgstr "خبيئة الصورة:"
 
 #: Settings/ViewerPage.cpp:67
 #, kde-format
@@ -6377,7 +6377,7 @@ msgstr ""
 #: Viewer/ImageDisplay.cpp:450
 #, kde-format
 msgid "[ zoom x%1 ]"
-msgstr "[ كبّرx%1 ]"
+msgstr "[ كبّر x%1 ]"
 
 #: Viewer/InfoBox.cpp:60
 #, kde-format

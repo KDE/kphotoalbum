@@ -38,15 +38,15 @@ SPDX-License-Identifier: GFDL-1.2-only
 >.)</para>
 
     <para
->För att beskriva bilder, markera bilderna i fråga, och välj <menuchoice
+>To annotate an images, select the images in question, and go to <menuchoice
 ><guimenu
->Redigera</guimenu
-><guisubmenu
->Beskriv enskilda objekt</guisubmenu
+>Edit</guimenu
+> <guisubmenu
+>Annotate Individual Items</guisubmenu
 ></menuchoice
->. Nu beskriver du de markerade bilderna en i taget. Om du istället väljer <guimenuitem
->Beskriv flera objekt åt gången</guimenuitem
-> beskriver du alla markerade objekt som om de var ett enda objekt. Med andra ord, beskriver du mängder av bilder, t.ex. anger du att alla bilderna togs i Köpenhamn. De två alternativen är också tillgängliga i en sammanhangsberoende meny, som visas genom att högerklicka med musen i miniatyrbildsöversikten, eller använda snabbtangenten. Ett exempel på detta visas på <xref linkend="fig-edit-properies-menu"/>.</para>
+>. Now you annotate your selected images one after the other. If you instead choose <guimenuitem
+>Annotate Multiple Items at a Time</guimenuitem
+>, you will annotate all the selected items as if it was one single item. In other words, with this option you mass-annotate your image - e.g. saying all these images were shot in Copenhagen. These two options are also available from a context menu, that you get by right clicking the mouse in the thumbnail overview or using keyboard shortcut. An example of this can be seen in <xref linkend="fig-edit-properies-menu"/>.</para>
 
     <figure id="fig-edit-properies-menu">
       <title

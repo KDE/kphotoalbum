@@ -10,17 +10,17 @@ SPDX-License-Identifier: GFDL-1.2-only
   <title
 >Bläddring</title>
   <para
->När du väl har beskrivit dina bilder, är Kfotoalbum redo att låta dig bläddra igenom bilderna, se <xref linkend="fig-browser-with-images"/>. Om du jämför det med <xref linkend="fig-empty-browser-window"/>, ser du att nu finns det objekt tillgängliga i var och en av kategorierna för <literal
->Personer</literal
+>Once you have annotated your images and videos, &kphotoalbum; is ready to let you browse through your images, see <xref linkend="fig-browser-with-images"/>. If you compare that to <xref linkend="fig-empty-browser-window"/> , you will see that there now is items available in each of the categories for <literal
+>People</literal
 >, <literal
->Platser</literal
-> och <literal
->Nyckelord</literal
+>Places</literal
+>, and <literal
+>Keywords</literal
 >.</para>
   
   <figure id="fig-browser-with-images">
     <title
->Bläddraren när bilder och videor har beskrivits</title>
+>Browser when images and videos have been annotated</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="browser-with-images.png"
@@ -50,17 +50,17 @@ SPDX-License-Identifier: GFDL-1.2-only
   </figure>
   
   <para
->Bläddraren är nu ifylld med personerna som du angav för bilderna<footnote
+>The browser is now populated with the people you specified for your images and videos <footnote
 ><para
->Du kanske märker att raden <literal
->Sällskapsdjur</literal
-> har en särskild ikon. För detaljinformation om det, se <xref linkend="sec-specifying-categories"/>.</para
+>You may notice that the item <literal
+>Pets</literal
+> has a special icon. For details about that, see <xref linkend="sec-specifying-categories"/>.</para
 ></footnote
->. Att välja en person gör att du kommer tillbaka till bläddrarens ursprungliga tillstånd, som vi såg i <xref linkend="fig-browser-with-images"/>. Den här gången har vi dock <emphasis
->valt</emphasis
-> personen. Det betyder att vi bara visar information om bilder som innehåller personen. Se <xref linkend="fig-browser-for-jesper"/> nedan, som resulterar från att vi har valt personen <literal
+>, selecting a person will bring you back to the original state for the browser, as we saw in <xref linkend="fig-browser-with-images"/>, this time, however, we are <emphasis
+>in the scope</emphasis
+> of the person we selected. That means that we only shows information about images and videos containing that person. See <xref linkend="fig-browser-for-jesper"/> below, which is the result of us selecting the Person <literal
 >Jesper</literal
->, där du kan se hur det anges längst ner i fönstret. Jämför <xref linkend="fig-browser-with-images"/> med <xref linkend="fig-browser-for-jesper"/>, där du ser att antalet tillgängliga bilder har gått ner från 25 till 12, och antal kategorier för de olika grupperna har också ändrats.</para>
+>, you can see an indication of that in the bottom of the window. Please compare <xref linkend="fig-browser-with-images"/> with <xref linkend="fig-browser-for-jesper"/>, where you will see that the number of available images and videos has gone down from 25 to 12, and the amount of items for the different categories have also changed.</para>
   
   <figure id="fig-browser-for-jesper">
     <title

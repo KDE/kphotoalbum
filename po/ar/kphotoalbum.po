@@ -2719,7 +2719,7 @@ msgstr "خطأ قراءة محتويات الدليل للملف %1 ، من ال
 #, kde-format
 msgid ""
 "Error reading index.xml file from %1; it is likely that the file is broken."
-msgstr "خطأ عند قراءة الملف index.xml من %1 ، من المحتمل أن يكون الملف معطوب."
+msgstr "خطأ عند قراءة الملف index.xml من %1، من المحتمل أن يكون الملف معطوب."
 
 #: ImportExport/KimFileReader.cpp:68
 #, fuzzy, kde-format

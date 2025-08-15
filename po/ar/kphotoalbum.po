@@ -5517,7 +5517,7 @@ msgstr "اسم المجموعة:"
 #, kde-format
 msgctxt "@info"
 msgid "<p>The group \"%1\" already exists.</p>"
-msgstr "<p>المجموعة \"%1 موجودة بالفعل.</p>"
+msgstr "<p>المجموعة \"%1 موجودة فعلًا.</p>"
 
 #: Settings/TagGroupsPage.cpp:358
 #, kde-format

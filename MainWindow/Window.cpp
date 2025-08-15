@@ -1249,15 +1249,6 @@ bool MainWindow::Window::load()
                                       "<interface>Settings|Configure KPhotoAlbum...|Categories</interface></p>"));
     }
 
-    QTimer::singleShot(0, this, [this] {
-        KMessageBox::information(this, QString::fromUtf8("<h1>Work in Progress!</h1>"
-                                                         "<p>This version of KPhotoAlbum has substantial changes to the index.xml file format!"
-                                                         "<ul>"
-                                                         "<li>Make sure you have a backup of your database!</li>"
-                                                         "<li>Be prepared to re-create any changes that you make (if we have to fix the file format)...</li>"
-                                                         "</ul></p>"));
-    });
-
     return true;
 }
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-15 00:41+0000\n"
+"POT-Creation-Date: 2025-08-16 00:41+0000\n"
 "PO-Revision-Date: 2025-03-23 07:29+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -953,7 +953,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "serĉi"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1779
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1770
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -968,7 +968,7 @@ msgstr ""
 "li><li>Nun elektu la piktogramon <b>Kategorioj</b></li><li>Nun agordu "
 "sekcion <b>Nemarkitaj Bildoj</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1786
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1777
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Trajto ne estis agordita"
@@ -4170,13 +4170,13 @@ msgid "Stacking Error"
 msgstr "Stak-eraro"
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1429
+#: MainWindow/Window.cpp:1323 MainWindow/Window.cpp:1420
 #, kde-format
 msgid "No item is selected."
 msgstr "Neniu elemento estas elektita."
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1430
+#: MainWindow/Window.cpp:1323 MainWindow/Window.cpp:1421
 #, kde-format
 msgid "No Selection"
 msgstr "Neniu elekto"
@@ -4472,14 +4472,14 @@ msgstr "Uzi sekvantan videobildeton"
 msgid "Use previous video thumbnail"
 msgstr "Uzi antaŭan videobildeton"
 
-#: MainWindow/Window.cpp:1075 MainWindow/Window.cpp:1310
+#: MainWindow/Window.cpp:1075 MainWindow/Window.cpp:1301
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "Kopii bildon al..."
 msgstr[1] "Kopii bildojn al..."
 
-#: MainWindow/Window.cpp:1079 MainWindow/Window.cpp:1314
+#: MainWindow/Window.cpp:1079 MainWindow/Window.cpp:1305
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
@@ -4520,33 +4520,33 @@ msgstr ""
 "neetikeditan agordon sub <interface>Agordoj|Agordu KPhotoAlbum...|"
 "Kategorioj</interface></p>"
 
-#: MainWindow/Window.cpp:1381 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1372 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Ĝenerala"
 
-#: MainWindow/Window.cpp:1382 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Rigardilo"
 
-#: MainWindow/Window.cpp:1383
+#: MainWindow/Window.cpp:1374
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Datobreto"
 
-#: MainWindow/Window.cpp:1386
+#: MainWindow/Window.cpp:1377
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Komentario Dialogo"
 
-#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1378 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Bildeto-Vido"
 
-#: MainWindow/Window.cpp:1530
+#: MainWindow/Window.cpp:1521
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4555,13 +4555,13 @@ msgstr ""
 "<p>Ĉu vere aktivigi ĉiujn mesaĝkestojn kie vi antaŭe markis la markobutono-"
 "ne-montri-denove?</p>"
 
-#: MainWindow/Window.cpp:1532
+#: MainWindow/Window.cpp:1523
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "Restarigi kaŝitajn dialogojn"
 
-#: MainWindow/Window.cpp:1546
+#: MainWindow/Window.cpp:1537
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4577,32 +4577,32 @@ msgstr ""
 "raporti ĉi tion kiel cimon.</p><p>KPhotoAlbum daŭrigos la rulon, sed ne "
 "estas tute malprobable ke ĝi paneos poste pro la mankanta make-instalo.</p>"
 
-#: MainWindow/Window.cpp:1546
+#: MainWindow/Window.cpp:1537
 #, kde-format
 msgid "Internal Error"
 msgstr "Interna eraro"
 
-#: MainWindow/Window.cpp:1557
+#: MainWindow/Window.cpp:1548
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "Sukcese kunhavita(j) bildo(j). Kopiante lokon al tondujo..."
 
-#: MainWindow/Window.cpp:1560
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Sukcese kunhavita(j) bildo(j)."
 
-#: MainWindow/Window.cpp:1565
+#: MainWindow/Window.cpp:1556
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Bilddividado malsukcesis kun mesaĝo: %1"
 
-#: MainWindow/Window.cpp:1616
+#: MainWindow/Window.cpp:1607
 #, kde-format
 msgid "Open List of Files"
 msgstr "Malfermi Liston de Dosieroj"
 
-#: MainWindow/Window.cpp:1617
+#: MainWindow/Window.cpp:1608
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4611,28 +4611,28 @@ msgstr ""
 "Vi povas malfermi aron da dosieroj en la datumbazo de KPhotoAlbum listigante "
 "la dosierojn ĉi tie."
 
-#: MainWindow/Window.cpp:1631
+#: MainWindow/Window.cpp:1622
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Neniuj bildoj kongruaj kun via enigo estis trovitaj."
 
-#: MainWindow/Window.cpp:1631
+#: MainWindow/Window.cpp:1622
 #, kde-format
 msgid "No Matches"
 msgstr "Neniuj Alumetoj"
 
-#: MainWindow/Window.cpp:1803
+#: MainWindow/Window.cpp:1794
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Relegante Exif-informojn de ĉiuj bildoj"
 
-#: MainWindow/Window.cpp:1830
+#: MainWindow/Window.cpp:1821
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Larĝo de bildeto: %1px (grandeco de konservado: %2px)"
 
-#: MainWindow/Window.cpp:1883
+#: MainWindow/Window.cpp:1874
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4642,7 +4642,7 @@ msgstr ""
 "<p>Ne eblas trovi ffmpeg en la sistemo.</p><p>Sen ĝi, KPhotoAlbum ne povos "
 "montri videobildetojn kaj videolongojn. Bonvolu instali la ffmpeg-pakaĵon</p>"
 
-#: MainWindow/Window.cpp:1886
+#: MainWindow/Window.cpp:1877
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Videobildetoj ne haveblas"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-15 00:41+0000\n"
+"POT-Creation-Date: 2025-08-16 00:41+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -966,7 +966,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "ស្វែងរក​"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1779
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1770
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -981,7 +981,7 @@ msgstr ""
 "li><li>ឥឡូវ​នេះ ជ្រើស​រូប​​តំណាង​ <b>ប្រភេទ​</b> </li><li>ឥឡូវ​កំណត់​រចនាសម្ព័ន្ធ​ផ្នែក​ <b>រូបភាព​"
 "ដែល​មិន​ដាក់​​ស្លាក​</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1786
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1777
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "លក្ខណៈ​នេះ​មិន​​ទាន់​ត្រូវ​បាន​កំណត់​រចនា​សម្ព័ន្ធ​ទេ​"
@@ -4347,13 +4347,13 @@ msgid "Stacking Error"
 msgstr "កំហុស​ក្នុង​ការ​ដាក់​ជា​ជង់​"
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1429
+#: MainWindow/Window.cpp:1323 MainWindow/Window.cpp:1420
 #, kde-format
 msgid "No item is selected."
 msgstr "គ្មាន​​ធាតុ​​ត្រូវ​បាន​ជ្រើស​ឡើយ​ ។"
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1430
+#: MainWindow/Window.cpp:1323 MainWindow/Window.cpp:1421
 #, kde-format
 msgid "No Selection"
 msgstr "គ្មាន​ជម្រើស​"
@@ -4663,14 +4663,14 @@ msgstr "បង្កើត​រូបភាព​តូច"
 msgid "Use previous video thumbnail"
 msgstr "ស្វែងរក​វីដេអូ​ដោយ​គ្មាន​រូបភាព​វីដេអូ​តូចៗ"
 
-#: MainWindow/Window.cpp:1075 MainWindow/Window.cpp:1310
+#: MainWindow/Window.cpp:1075 MainWindow/Window.cpp:1301
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "នាំ​ចេញ​/ចម្លង​រូបភាព​...​"
 
-#: MainWindow/Window.cpp:1079 MainWindow/Window.cpp:1314
+#: MainWindow/Window.cpp:1079 MainWindow/Window.cpp:1305
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgid "Link image to ..."
@@ -4713,47 +4713,47 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1381 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1372 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "ទូទៅ​"
 
-#: MainWindow/Window.cpp:1382 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "កម្មវិធី​មើល​"
 
-#: MainWindow/Window.cpp:1383
+#: MainWindow/Window.cpp:1374
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "កាលបរិច្ឆេទ ៖"
 
-#: MainWindow/Window.cpp:1386
+#: MainWindow/Window.cpp:1377
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "ប្រអប់​ចំណារ​ពន្យល់​"
 
-#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1378 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "ទិដ្ឋភាព​រូបភាព​តូច​"
 
-#: MainWindow/Window.cpp:1530
+#: MainWindow/Window.cpp:1521
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
 "show-again check box?</p>"
 msgstr "<p>ពិត​ជា​ចង់​បើក​ប្រអប់​សារ​ទាំង​អស់​ដែល​អ្នក​បាន​ធីក​ប្រអប់​ធីក​កុំ​បង្ហាញ​ម្តង​ទៀត ពី​មុ​ន​ឬ​ ?</p>"
 
-#: MainWindow/Window.cpp:1532
+#: MainWindow/Window.cpp:1523
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1546
+#: MainWindow/Window.cpp:1537
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4769,32 +4769,32 @@ msgstr ""
 "ជា​កំហុស ។</p><p>KPhotoAlbum នឹង​បន្ត​ប្រតិបត្តិ​ ប៉ុន្តែ​វា​ពិត​ជា​មិន​ទំនង​ថា វា​នឹង​គាំង​នៅ​ពេល​ក្រោយ​ទៀត​ "
 "ដោយសារ​តែ​បាត់​ make install ។</p>"
 
-#: MainWindow/Window.cpp:1546
+#: MainWindow/Window.cpp:1537
 #, kde-format
 msgid "Internal Error"
 msgstr "កំហុស​ខាង​ក្នុង​"
 
-#: MainWindow/Window.cpp:1557
+#: MainWindow/Window.cpp:1548
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1560
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1565
+#: MainWindow/Window.cpp:1556
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1616
+#: MainWindow/Window.cpp:1607
 #, kde-format
 msgid "Open List of Files"
 msgstr "បើក​បញ្ជី​ឯកសារ​"
 
-#: MainWindow/Window.cpp:1617
+#: MainWindow/Window.cpp:1608
 #, fuzzy, kde-format
 #| msgid ""
 #| "You can open a set of files from KPhotoAlbum's image root by listing the "
@@ -4804,30 +4804,30 @@ msgid ""
 "here."
 msgstr "អ្នក​អាច​បើក​សំណុំ​ឯកសារ​ពី root រូបភាព​របស់ KPhotoAlbum ដោយ​រាយ​ឯកសារ​នៅ​ទីនេះ ។"
 
-#: MainWindow/Window.cpp:1631
+#: MainWindow/Window.cpp:1622
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "គ្មាន​រូបភាព​ដែល​ផ្គូផ្គង​ជា​មួយ​នឹង​ការ​បញ្ចូល​របស់​អ្នក​ត្រូវ​បាន​រក​ឃើញ​ទេ ។"
 
-#: MainWindow/Window.cpp:1631
+#: MainWindow/Window.cpp:1622
 #, kde-format
 msgid "No Matches"
 msgstr "គ្មាន​ការ​ផ្គូផ្គង "
 
-#: MainWindow/Window.cpp:1803
+#: MainWindow/Window.cpp:1794
 #, fuzzy, kde-format
 #| msgid "Rereading EXIF information from all images"
 msgid "Rereading Exif information from all images"
 msgstr "អាន​ព័ត៌មាន EXIF ពី​រូបភាព​ទាំងអស់"
 
-#: MainWindow/Window.cpp:1830
+#: MainWindow/Window.cpp:1821
 #, fuzzy, no-c-format, kde-format
 #| msgid "Thumbnail image size:"
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "ទំហំ​រូបភាព​របស់​រូបភាព​​តូច ៗ ៖"
 
-#: MainWindow/Window.cpp:1883
+#: MainWindow/Window.cpp:1874
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4835,7 +4835,7 @@ msgid ""
 "the ffmpeg package</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1886
+#: MainWindow/Window.cpp:1877
 #, fuzzy, kde-format
 #| msgid "File not available"
 msgid "Video thumbnails are not available"

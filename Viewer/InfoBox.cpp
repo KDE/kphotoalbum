@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2024-2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -333,12 +333,9 @@ void Viewer::InfoBox::launchMapView()
         m_map = new Map::MapView(m_viewer, Map::UsageType::MapViewWindow);
     }
 
-    m_map->addImage(m_viewer->currentInfo());
-    m_map->buildImageClusters();
-    m_map->setShowThumbnails(false);
-    m_map->zoomToMarkers();
     m_map->show();
     m_map->raise();
+    showCurrentImageOnMap();
 }
 
 void Viewer::InfoBox::updateMapForCurrentImage(DB::FileName)
@@ -349,13 +346,18 @@ void Viewer::InfoBox::updateMapForCurrentImage(DB::FileName)
 
     if (m_viewer->currentInfo()->coordinates().hasCoordinates()) {
         m_map->displayStatus(Map::MapStatus::ImageHasCoordinates);
-        m_map->clear();
-        m_map->addImage(m_viewer->currentInfo());
-        m_map->buildImageClusters();
-        m_map->setCenter(m_viewer->currentInfo());
+        showCurrentImageOnMap();
     } else {
         m_map->displayStatus(Map::MapStatus::ImageHasNoCoordinates);
     }
+}
+
+void Viewer::InfoBox::showCurrentImageOnMap()
+{
+    m_map->clear();
+    m_map->addImage(m_viewer->currentInfo());
+    m_map->buildImageClusters();
+    m_map->setCenter(m_viewer->currentInfo());
 }
 #endif
 

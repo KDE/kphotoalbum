@@ -46,14 +46,14 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></menuchoice
 >. Adesso annota le immagini selezionate una dopo l'altra. Se invece scegli <guimenuitem
 >Annota più elementi alla volta</guimenuitem
->, annoterai gli elementi selezionati come se fossero uno solo. Ciò vuol dire che con questa opzione puoi annotare le immagini in serie, per esempio tutte quelle scattate a Copenaghen. Queste due opzioni sono anche disponibili da un menu contestuale, che ottieni facendo clic destro col mouse nella panoramica miniature o usando la scorciatoia da tastiera. Un esempio di ciò può essere visto nel<xref linkend="fig-edit-properies-menu"/>.</para>
+>, annoterai gli elementi selezionati come se fossero uno solo. Ciò vuol dire che con questa opzione puoi annotare le immagini in serie, per esempio tutte quelle scattate a Copenaghen. Queste due opzioni sono anche disponibili da un menu contestuale, che ottieni facendo clic destro col mouse nella panoramica miniature o usando la scorciatoia da tastiera. Un esempio di ciò può essere visto nel<xref linkend="fig-edit-properties-menu"/>.</para>
 
-    <figure id="fig-edit-properies-menu">
+    <figure id="fig-edit-properties-menu">
       <title
 >Menù contestuale per modificare le proprietà</title>
       <mediaobject>
         <imageobject>
-          <imagedata fileref="edit-properies-menu.png"
+          <imagedata fileref="edit-properties-menu.png"
             format="PNG"/>
         </imageobject>
       </mediaobject>

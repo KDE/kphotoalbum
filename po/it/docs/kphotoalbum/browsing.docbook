@@ -10,25 +10,14 @@ SPDX-License-Identifier: GFDL-1.2-only
   <title
 >Navigazione</title>
   <para
->Una volta che hai annotate le tue immagini e i tuoi filmati, &kphotoalbum; è pronto a farti navigare tra le tue immagini, vedi <xref linkend="fig-browser-with-images"/>. Se confronti con <xref linkend="fig-empty-browser-window"/> , vedrai che adesso ci sono elementi disponibili in ciascuna delle categorie di <literal
+>Una volta che hai annotate le tue immagini e i tuoi filmati, &kphotoalbum; è pronto a farti navigare tra le tue immagini. Se confronti con <xref linkend="fig-empty-browser-window"/> , vedrai che adesso ci sono elementi disponibili in ciascuna delle categorie di <literal
 >Persone</literal
 >, <literal
 >Luoghi</literal
 >, e <literal
 >Parole chiave</literal
 >.</para>
-  
-  <figure id="fig-browser-with-images">
-    <title
->Browser quando le immagini e i filmati sono stati annotati</title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="browser-with-images.png"
-          format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </figure>
-  
+
   <para
 >Nella finestra di navigazione puoi vedere le categorie in cui hai inserito informazioni quando hai annotato le immagini e i filmati. Inoltre, ci sono elementi per la ricerca in base alle informazioni EXIF delle immagini, per navigare la struttura delle cartelle del disco fisso, e ovviamente per mostrare le miniature vere e proprie. Descriviamo un elemento alla volta.</para
 > 
@@ -56,11 +45,14 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Animali</literal
 > ha un'icona speciale. Per maggiori dettagli, vedi <xref linkend="sec-specifying-categories"/>.</para
 ></footnote
->, selezionare una persona ti riporterà allo stato originario del browser, come abbiamo visto in <xref linkend="fig-browser-with-images"/>; questa volta, però, siamo <emphasis
+>, selezionare una persona ti riporterà allo stato originario del browser; questa volta, però, siamo <emphasis
 >nell'ambito</emphasis
 > della persona che abbiamo scelto. Ciò significa che vengono mostrate solo informazioni riguardo a immagini e filmati contenenti quella persona. Vedi <xref linkend="fig-browser-for-jesper"/> sotto, che è il risultato di aver selezionato la persona <literal
 >Jesper</literal
->, puoi vederne un'indicazione nel fondo della finestra. Per piacere confronta <xref linkend="fig-browser-with-images"/> con <xref linkend="fig-browser-for-jesper"/>, dove vedrai che il numero di immagini e filmati disponibili è sceso da 25 a 12, e anche la quantità di elementi per le diverse categorie è cambiata.</para>
+>, puoi vederne un'indicazione nel fondo della finestra. Sul lato inferiore destro di <xref linkend="fig-browser-for-jesper"/> noterai che il numero di immagini e filmati disponibili è sceso da 25 a 13, mentre il numero totale delle immagini è rimasto uguale.</para>
+
+  <para
+>Nota che se ci sono solo poche immagini nell'ambito, &kphotoalbum; andrà direttamente al visore delle miniature (vedi <xref linkend="chp-thumbnail-view"/>). Puoi configurare questo comportamento nelle impostazioni a esso relative (vedi <xref linkend="opt-thumbnails"/>). </para>
   
   <figure id="fig-browser-for-jesper">
     <title

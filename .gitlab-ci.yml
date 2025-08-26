@@ -12,6 +12,7 @@ include:
         # deploy:
         - /gitlab-templates/flatpak.yml
         # - /gitlab-templates/craft-appimage-qt6.yml
+        - /gitlab-templates/snap-snapcraft-lxd.yml
 
 ## jzarl: Until KF6 lands in Debian stable, disable CI there
 .template: &debian

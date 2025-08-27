@@ -4,6 +4,7 @@
 
 [theme]
 Name=PicBelow v1
+Name[ar]=PicBelow v1
 Name[bg]=PicBelow v1
 Name[ca]=PicBelow v1
 Name[ca@valencia]=PicBelow v1
@@ -35,6 +36,7 @@ Name[x-test]=xxPicBelow v1xx
 Name[zh_TW]=PicBelow v1
 Author=Steffen Jost
 Description=PicBelow has all its description texts above the image, ensuring that this info is not missed by those who cannot scroll.\n This theme is based upon Dark v1.0.1 by Miika Turkia and similarly allows keyboard navigation.\n Colors are grey on a deep dark red background.
+Description[ar]=يحتوي PicBelow على جميع نصوص الوصف فوق الصورة، مما يضمن عدم فقدان هذه المعلومات من قبل أولئك الذين لا يستطيعون التمرير.\n يستند هذا الموضوع إلى Dark v1.0.1 من Miika Turkia ويسمح بالمثل بالتنقل باستخدام لوحة المفاتيح.\n الألوان رمادية على خلفية حمراء داكنة عميقة.
 Description[bg]=PicBelow разполага всички текстове за описание над изображението, като гарантира, че това информация не се пропуска от тези, които не могат да превъртат.\n Тази тема се основава на Dark v1.0.1 на Miika Turkia и по подобен начин позволява навигация с клавиатурата.\n Цветовете са сиви на наситено тъмночервен фон.
 Description[ca]=El PicBelow té tots els textos de les descripcions sota la imatge, assegurant que aquesta informació no es perd quan no es pot usar el desplaçament.\n Aquest tema està basat en el Dark v1.0.1 d'en Miika Turkia i de manera semblant permet la navegació amb el teclat.\n El color és gris sobre un fons vermell fosc.
 Description[ca@valencia]=El PicBelow té tots els textos de les descripcions davall la imatge, assegurant que esta informació no es perd quan no es pot utilitzar el desplaçament.\n Este tema està basat en el Dark v1.0.1 d'en Miika Turkia i de manera pareixent permet la navegació amb el teclat.\n El color és gris sobre un fons roig fosc.

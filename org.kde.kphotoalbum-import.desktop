@@ -4,6 +4,7 @@
 
 [Desktop Entry]
 Name=KPhotoAlbum
+Name[ar]=دفتر الصور
 Name[be]=KPhotoAlbum
 Name[bg]=KPhotoAlbum
 Name[bs]=KPhotoAlbum
@@ -63,6 +64,7 @@ Name[zh_CN]=KPhotoAlbum
 Name[zh_TW]=KPhotoAlbum
 Exec=kphotoalbum --import %u
 GenericName=Photo Album
+GenericName[ar]=ألبوم صور
 GenericName[be]=Фотаальбом
 GenericName[bg]=Фотоалбум
 GenericName[bs]=Foto album

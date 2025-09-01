@@ -2252,7 +2252,7 @@ msgstr "Heu de seleccionar una resolució com a mínim."
 #: HTMLGenerator/HTMLDialog.cpp:385
 #, kde-format
 msgid "Select base folder..."
-msgstr "Trieu la carpeta base…"
+msgstr "Tria la carpeta base…"
 
 #: HTMLGenerator/HTMLDialog.cpp:398
 #, kde-format
@@ -2682,7 +2682,7 @@ msgstr "Introducció"
 #: ImportExport/ImportDialog.cpp:153 MainWindow/TokenEditor.cpp:58
 #, kde-format
 msgid "Select All"
-msgstr "Tria-ho tot"
+msgstr "Selecciona-ho tot"
 
 #: ImportExport/ImportDialog.cpp:155
 #, kde-format

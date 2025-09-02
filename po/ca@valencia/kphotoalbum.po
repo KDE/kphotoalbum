@@ -977,9 +977,9 @@ msgstr ""
 "<p>Encara no heu configurat quina etiqueta s'utilitzarà per a indicar les "
 "imatges sense etiquetar.</p><p>Per favor, seguiu els passos següents per a "
 "fer-ho:<ul><li>En la barra de menús seleccioneu <b>Configuració</b></"
-"li><li>Des d'ací seleccioneu <b>Configura KPhotoAlbum…</b></"
-"li><li>Seleccioneu la icona de <b>Categories</b> </li><li>Configureu la "
-"secció <b>Imatges sense etiquetes</b></li></ul></p>"
+"li><li>Des d'ací seleccioneu <b>Configura KPhotoAlbum…</b></li><li>Trieu la "
+"icona de <b>Categories</b> </li><li>Configureu la secció <b>Imatges sense "
+"etiquetes</b></li></ul></p>"
 
 #: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1777
 #, kde-format
@@ -1431,9 +1431,9 @@ msgid ""
 "ignore the duplicate category and try an automatic repair, or choose cancel "
 "to quit.</p>"
 msgstr ""
-"<p>Línia %1, columna %2: categoria duplicada «%3»</p><p>Seleccioneu "
-"continuar per a ignorar la categoria duplicada i intentar una reparació "
-"automàtica, o seleccionar cancel·la per a eixir.</p>"
+"<p>Línia %1, columna %2: categoria duplicada «%3»</p><p>Trieu continuar per "
+"a ignorar la categoria duplicada i intentar una reparació automàtica, o "
+"triar cancel·la per a eixir.</p>"
 
 #: DB/XML/FileReader.cpp:207 DB/XML/FileReader.cpp:312
 #, kde-format
@@ -2248,7 +2248,7 @@ msgstr "Heu de seleccionar una resolució com a mínim."
 #: HTMLGenerator/HTMLDialog.cpp:386
 #, kde-format
 msgid "Select base folder..."
-msgstr "Seleccioneu la carpeta base…"
+msgstr "Tria la carpeta base…"
 
 #: HTMLGenerator/HTMLDialog.cpp:399
 #, kde-format
@@ -2688,7 +2688,7 @@ msgstr "Desselecciona-ho tot"
 #: ImportExport/ImportDialog.cpp:192
 #, kde-format
 msgid "Select Which Images to Import"
-msgstr "Seleccioneu les imatges que s'han d'importar"
+msgstr "Trieu les imatges que s'han d'importar"
 
 #: ImportExport/ImportDialog.cpp:204
 #, kde-format
@@ -3537,7 +3537,7 @@ msgstr "Fusiona estes imatges"
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:57
 #, kde-format
 msgid "Select image to keep:"
-msgstr "Seleccioneu la imatge que s'ha de mantindre:"
+msgstr "Trieu la imatge que s'ha de mantindre:"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:72
 #, kde-format
@@ -3554,9 +3554,9 @@ msgid ""
 "the kept image</p>"
 msgstr ""
 "<p>A davall hi ha una llista de totes les imatges que estan duplicades en la "
-"base de dades.<br/>Seleccioneu les que voleu combinar, i quines de les "
-"duplicades s'haurien de mantindre.<br/>L'etiqueta i la descripció de les "
-"imatges suprimides es transferiran cap a la imatge que es manté</p>"
+"base de dades.<br/>Trieu les que voleu combinar, i quines de les duplicades "
+"s'haurien de mantindre.<br/>L'etiqueta i la descripció de les imatges "
+"suprimides es transferiran cap a la imatge que es manté</p>"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:53
 #, kde-format
@@ -3576,7 +3576,7 @@ msgstr "&Bloqueja des de la base de dades"
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:77
 #, kde-format
 msgid "Select &All"
-msgstr "Selecciona-ho &tot"
+msgstr "Tria-ho &tot"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:78
 #, kde-format
@@ -4079,8 +4079,7 @@ msgstr "Suprimiu els símbols"
 #: MainWindow/TokenEditor.cpp:42
 #, kde-format
 msgid "Select tokens to remove from all images and videos:"
-msgstr ""
-"Seleccioneu els símbols que s'han de suprimir de totes les imatges i vídeos:"
+msgstr "Trieu els símbols que s'han de suprimir de totes les imatges i vídeos:"
 
 #: MainWindow/TokenEditor.cpp:61
 #, kde-format
@@ -4104,9 +4103,9 @@ msgstr ""
 "vídeos. No modifica o canvia els vostres valuosos fitxers, només els índexs, "
 "i permet trobar amb facilitat i gestionar les vostres fotografies i vídeos.</"
 "p><p>En l'inici, KPhotoAlbum mostra la ubicació de les fotografies prement "
-"«Crea la meua pròpia base de dades». Seleccioneu este botó també si teniu "
-"una base de dades existent de KPhotoAlbum que voleu començar a utilitzar de "
-"nou.</p><p>Si vos sentiu més segur, primer proveu KPhotoAlbum amb el conjunt "
+"«Crea la meua pròpia base de dades». Trieu este botó també si teniu una base "
+"de dades existent de KPhotoAlbum que voleu començar a utilitzar de nou.</"
+"p><p>Si vos sentiu més segur, primer proveu KPhotoAlbum amb el conjunt "
 "d'imatges precompilades, premeu el botó «Carrega una demostració».</p>"
 
 #: MainWindow/WelcomeDialog.cpp:61
@@ -4178,7 +4177,7 @@ msgstr ""
 "<p>No pareix que KPhotoAlbum estiga construït amb la compatibilitat de totes "
 "les seues característiques. La següent és una llista que indica el què vos "
 "podeu perdre:<ul>%1</ul></p><p>Per als detalls de com solucionar este "
-"problema, seleccioneu en els menús «<b>Ajuda</b> -> <b>Estat de les "
+"problema, trieu en els menús «<b>Ajuda</b> -> <b>Estat de les "
 "característiques de KPhotoAlbum</b>».</p>"
 
 #: MainWindow/WelcomeDialog.cpp:192 MainWindow/WelcomeDialog.cpp:195
@@ -4461,7 +4460,7 @@ msgstr "Mostra les categories en la finestra de miniatures"
 #: MainWindow/Window.cpp:995
 #, kde-format
 msgid "Choose Color Scheme"
-msgstr "Seleccioneu l'esquema de color"
+msgstr "Trieu l'esquema de color"
 
 #: MainWindow/Window.cpp:1002
 #, kde-format
@@ -4916,7 +4915,7 @@ msgstr "Introduïu una data…"
 #, kde-format
 msgid "<i>Select an item on the left to edit the birthday</i>"
 msgstr ""
-"<i>Seleccioneu un element de l'esquerra per a editar la data de naixement</i>"
+"<i>Trieu un element de l'esquerra per a editar la data de naixement</i>"
 
 #: Settings/CategoryPage.cpp:49
 #, kde-format
@@ -5759,8 +5758,7 @@ msgstr "Categories i grups:"
 #, kde-format
 msgctxt "@label/rich"
 msgid "<strong>Select a group on the left side to add tags to it</strong>"
-msgstr ""
-"<strong>Seleccioneu un grup de l'esquerra per a afegir-hi etiquetes</strong>"
+msgstr "<strong>Trieu un grup de l'esquerra per a afegir-hi etiquetes</strong>"
 
 #: Settings/TagGroupsPage.cpp:57
 #, kde-format
@@ -6012,10 +6010,10 @@ msgid ""
 "thumbnails. This window includes a small preview image. This option "
 "configures the image size.</p>"
 msgstr ""
-"<p>Si seleccioneu <b>Configuració -&gt; Mostra informació emergent</b> en la "
-"vista de miniatures, podreu veure una xicoteta finestra emergent que "
-"mostrarà informació sobre les miniatures. Esta finestra inclou una xicoteta "
-"vista prèvia de la imatge. Esta opció configura la mida de la imatge.</p>"
+"<p>Si trieu <b>Configuració -&gt; Mostra informació emergent</b> en la vista "
+"de miniatures, podreu veure una xicoteta finestra emergent que mostrarà "
+"informació sobre les miniatures. Esta finestra inclou una xicoteta vista "
+"prèvia de la imatge. Esta opció configura la mida de la imatge.</p>"
 
 #: Settings/ThumbnailsPage.cpp:104
 #, kde-format
@@ -6052,8 +6050,8 @@ msgstr ""
 msgid ""
 "<p>Choose what aspect ratio the cells holding thumbnails should have.</p>"
 msgstr ""
-"<p>Seleccioneu la relació d'aspecte que haurien de tindre les cel·les a on "
-"estan les miniatures.</p>"
+"<p>Trieu la relació d'aspecte que haurien de tindre les cel·les a on estan "
+"les miniatures.</p>"
 
 #: Settings/ThumbnailsPage.cpp:120
 #, kde-format
@@ -6066,7 +6064,7 @@ msgid ""
 "<p>If you want to see grid around your thumbnail images, select this option."
 "</p>"
 msgstr ""
-"<p>Seleccioneu esta opció si voleu veure una quadrícula al voltant de les "
+"<p>Trieu esta opció si voleu veure una quadrícula al voltant de les "
 "miniatures de les imatges.</p>"
 
 #: Settings/ThumbnailsPage.cpp:127
@@ -6142,7 +6140,7 @@ msgstr ""
 #: Settings/VideoPlayerSelectorDialog.cpp:26
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
-msgstr "<h1>Seleccioneu un reproductor de vídeo</h1>"
+msgstr "<h1>Trieu un reproductor de vídeo</h1>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:29
 #, kde-format
@@ -6163,9 +6161,9 @@ msgid ""
 msgstr ""
 "<html><p>Desgraciadament no hi ha cap reproductor de vídeo que funcione "
 "d'inici per a tothom.</p><p>Per tant, KPhotoAlbum ve amb dos dorsals "
-"diferents. Seleccioneu el que vos funcione millor</p><p><b>VLC</b> pareix "
-"que és el dorsal de reproducció de vídeo que funciona millor, de manera que "
-"pot reproduir la majoria de formats de vídeo. Tanmateix, té un inconvenient: "
+"diferents. Trieu el que vos funcione millor</p><p><b>VLC</b> pareix que és "
+"el dorsal de reproducció de vídeo que funciona millor, de manera que pot "
+"reproduir la majoria de formats de vídeo. Tanmateix, té un inconvenient: "
 "requerix X11. Si utilitzeu Wayland, trobareu que els vídeos es mostraran en "
 "una finestra independent, i en este cas VLC segurament no s'ajustarà gaire a "
 "vós. Per altra banda, si utilitzeu X11 llavors VLC segurament és la millor "
@@ -6628,7 +6626,7 @@ msgstr "Assignació de macro"
 #: Viewer/AnnotationHandler.cpp:69
 #, kde-format
 msgid "Select item for macro key <b>%1</b>"
-msgstr "Seleccioneu un element per a la tecla de macro <b>%1</b>"
+msgstr "Trieu un element per a la tecla de macro <b>%1</b>"
 
 #: Viewer/AnnotationHandler.cpp:126
 #, kde-format
@@ -6638,7 +6636,7 @@ msgstr "Etiqueta l'element"
 #: Viewer/AnnotationHandler.cpp:126
 #, kde-format
 msgid "Select tag for image"
-msgstr "Seleccioneu una etiqueta per a la imatge"
+msgstr "Trieu una etiqueta per a la imatge"
 
 #: Viewer/CategoryImageConfig.cpp:41
 #, kde-format

@@ -87,8 +87,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/Exiv2/exiv2/releases/download/v0.28.0/exiv2-0.28.0-Source.tar.gz",
-                    "sha256": "89af3b5ef7277753ef7a7b5374ae017c6b9e304db3b688f1948e73e103491f3d",
+                    "url": "https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.7.tar.gz",
+                    "sha256": "5e292b02614dbc0cee40fe1116db2f42f63ef6b2ba430c77b614e17b8d61a638",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 769,
@@ -108,8 +108,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://www.libraw.org/data/LibRaw-0.21.2.tar.gz",
-                    "sha256": "fe7288013206854baf6e4417d0fb63ba4ed7227bf36fff021992671c2dd34b03",
+                    "url": "https://www.libraw.org/data/LibRaw-0.21.4.tar.gz",
+                    "sha256": "6be43f19397e43214ff56aab056bf3ff4925ca14012ce5a1538a172406a09e63",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 1709,
@@ -136,8 +136,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.kde.org/stable/release-service/24.08.1/src/libkdcraw-24.08.1.tar.xz",
-                    "sha256": "dceda2ebbf7479ba232e9108d1cf58d613df0fa76c990106ee59dbba8c9c32f6",
+                    "url": "https://download.kde.org/stable/release-service/25.08.0/src/libkdcraw-25.08.0.tar.xz",
+                    "sha256": "4640d1740dbb85487e57a5f07a65aca90093ec107cdc32430fea88fbea0797be",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 8763,
@@ -157,8 +157,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.kde.org/stable/release-service/25.04.0/src/marble-25.04.0.tar.xz",
-                    "sha256": "27bdf174215a66136795ef3d0a7a2f3e09d21b12d2c83ec3309d84389dd52909",
+                    "url": "https://download.kde.org/stable/release-service/25.08.0/src/marble-25.08.0.tar.xz",
+                    "sha256": "6f5bf1cebc3311ce2439c4243f90ad249722edf12a96fb927ca60b83e98c7c9a",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 8763,
@@ -171,7 +171,7 @@
         {
             "name": "kphotoalbum",
             "buildsystem": "cmake-ninja",
-				"builddir": true,
+            "builddir": true,
             "sources": [
                 {
                     "type": "dir",

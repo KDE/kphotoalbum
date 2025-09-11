@@ -9,11 +9,11 @@
     "rename-icon": "kphotoalbum",
     "finish-args": [
         "--device=dri",
+        "--filesystem=xdg-pictures",
         "--share=ipc",
         "--share=network",
         "--socket=fallback-x11",
-        "--socket=wayland",
-        "--filesystem=xdg-pictures"
+        "--socket=wayland"
     ],
     "cleanup": [
         "*.a",

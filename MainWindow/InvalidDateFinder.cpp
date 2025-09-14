@@ -98,19 +98,25 @@ void InvalidDateFinder::accept()
         if (info->isNull())
             continue;
 
-        DB::ImageDate date = info->date();
+        // This is the date/time stored in the XML database file.
+        const DB::ImageDate xmlDateTime = info->date();
         bool show = false;
         if (m_dateNotTime->isChecked()) {
+            // Read the date/time stored in the image file's header (if any) or the
+            // file's modification time otherwise (if this option is enabled in
+            // the settings).
             DB::FileInfo fi { info->fileName(), DB::EXIFMODE_DATE };
-            if (fi.dateTime().date() == date.start().date())
-                show = (fi.dateTime().time() != date.start().time());
+            const Utilities::FastDateTime imageDateTime = fi.dateTime();
+            if (imageDateTime.date() == xmlDateTime.start().date()) {
+                show = (imageDateTime.time() != xmlDateTime.start().time());
+            }
             if (show) {
-                edit->append(QString::fromLatin1("%1:<br/>existing = %2<br>new..... = %3").arg(info->fileName().relative(), date.start().toString(), fi.dateTime().toString()));
+                edit->append(QString::fromLatin1("%1:<br/>XML date = %2<br>File date = %3").arg(info->fileName().relative(), xmlDateTime.start().toString(), imageDateTime.toString()));
             }
         } else if (m_missingDate->isChecked()) {
-            show = !date.start().isValid();
+            show = !xmlDateTime.start().isValid();
         } else if (m_partialDate->isChecked()) {
-            show = (date.start() != date.end());
+            show = (xmlDateTime.start() != xmlDateTime.end());
         }
 
         if (show)

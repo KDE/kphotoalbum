@@ -24,8 +24,12 @@ DB::FileInfo::FileInfo(const DB::FileName &fileName, DB::ExifMode mode)
 {
     parseEXIV2(fileName);
 
-    if (updateDataFromFileTimeStamp(fileName, mode))
-        m_date = QFileInfo(fileName.absolute()).lastModified();
+    if (updateDataFromFileTimeStamp(fileName, mode)) {
+        const QDateTime lastModified = QFileInfo(fileName.absolute()).lastModified();
+        // Zero any fraction of a second.  The date/time is saved in ISO 8601
+        // format (no partial seconds) in the XML database.
+        m_date = lastModified.addMSecs(-lastModified.time().msec());
+    }
 }
 
 Exiv2::ExifData &DB::FileInfo::getExifData()

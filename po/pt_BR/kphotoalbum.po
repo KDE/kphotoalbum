@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-16 00:41+0000\n"
-"PO-Revision-Date: 2025-08-24 08:58-0300\n"
+"PO-Revision-Date: 2025-09-14 08:38-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.08.0\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -425,7 +425,7 @@ msgstr "Girar no sentido horário"
 #: AnnotationDialog/Dialog.cpp:1309
 #, kde-format
 msgid "Toggle fullscreen preview"
-msgstr "Alternar exibição em tela inteira"
+msgstr "Alternar exibição em tela "
 
 #: AnnotationDialog/ImagePreview.cpp:514
 #, kde-format
@@ -511,7 +511,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
-msgstr "Alternar exibição em tela inteira"
+msgstr "Alternar exibição em tela cheia"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:356
 #, kde-format
@@ -6313,7 +6313,7 @@ msgstr "Backend de vídeo:"
 #: Settings/ViewerSizeConfig.cpp:19
 #, kde-format
 msgid "Launch in full screen"
-msgstr "Abrir em tela inteira"
+msgstr "Abrir em tela cheia"
 
 #: ThumbnailView/Delegate.cpp:237
 #, kde-format
@@ -6896,7 +6896,7 @@ msgstr "Visualização pixel por pixel"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
-msgstr "Alternar para tela inteira"
+msgstr "Alternar para tela cheia"
 
 #: Viewer/ViewerWidget.cpp:427
 #, kde-format

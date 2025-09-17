@@ -49,6 +49,8 @@ Browser::BrowserWidget::BrowserWidget(QWidget *parent)
 
     createWidgets();
 
+    connect(DB::ImageDB::instance()->categoryCollection(), &DB::CategoryCollection::categoryRemoved,
+            this, &BrowserWidget::home);
     connect(DB::ImageDB::instance()->categoryCollection(), &DB::CategoryCollection::categoryCollectionChanged,
             this, &BrowserWidget::reload);
     connect(this, &BrowserWidget::viewChanged, this, &BrowserWidget::resetIconViewSearch);

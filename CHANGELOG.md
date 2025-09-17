@@ -55,6 +55,8 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix purpose plugin support (#501885)
  - Fix database corruption when using category names starting with numbers (#477533)
  - Improve responsiveness of date bar
+ - Fix spurious entries in "Search for images and videos with incomplete dates" (#505023)
+ - Fix crash when interacting with a category after deleting it (#478015)
 
 ### Removed
 

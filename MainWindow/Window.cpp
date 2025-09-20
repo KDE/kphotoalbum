@@ -1049,6 +1049,7 @@ void MainWindow::Window::setupMenuBar()
     // The help menu
     a = actionCollection()->addAction(QString::fromLatin1("runDemo"), this, &Window::runDemo);
     a->setText(i18n("Run KPhotoAlbum Demo"));
+    a->setEnabled(!Options::the()->demoMode());
 
     a = actionCollection()->addAction(QString::fromLatin1("features"), this, &Window::showFeatures);
     a->setText(i18n("KPhotoAlbum Feature Status"));

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-16 00:41+0000\n"
+"POT-Creation-Date: 2025-09-21 00:40+0000\n"
 "PO-Revision-Date: 2019-11-07 12:43+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
@@ -916,7 +916,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "leita"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1770
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1771
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -926,7 +926,7 @@ msgid ""
 "section <b>Untagged Images</b></li></ul></p>"
 msgstr ""
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1777
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1778
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Eiginleikar hafa ekki verið stilltir"
@@ -2566,7 +2566,7 @@ msgid "Create folder?"
 msgstr "Grunnmappa:"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1212
+#: MainWindow/Window.cpp:1213
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -3973,13 +3973,13 @@ msgid "Stacking Error"
 msgstr ""
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1323 MainWindow/Window.cpp:1420
+#: MainWindow/Window.cpp:1324 MainWindow/Window.cpp:1421
 #, kde-format
 msgid "No item is selected."
 msgstr "Engin gögn valin."
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1323 MainWindow/Window.cpp:1421
+#: MainWindow/Window.cpp:1324 MainWindow/Window.cpp:1422
 #, kde-format
 msgid "No Selection"
 msgstr "Ekkert valið"
@@ -4198,7 +4198,7 @@ msgstr "Birta myndir og myndskeið með ófullgerðum dagsetningum..."
 msgid "Merge duplicates"
 msgstr "Sameina tvítök"
 
-#: MainWindow/Window.cpp:1010 MainWindow/Window.cpp:1064
+#: MainWindow/Window.cpp:1010 MainWindow/Window.cpp:1065
 #, fuzzy, kde-format
 #| msgid "Recreate Selected Thumbnails"
 msgid "Refresh Selected Thumbnails and Checksums"
@@ -4254,33 +4254,33 @@ msgstr "Virkja öll skilaboð"
 msgid "Run KPhotoAlbum Demo"
 msgstr "Keyra KMyndaAlbúm sýnishorn"
 
-#: MainWindow/Window.cpp:1054
+#: MainWindow/Window.cpp:1055
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "Staða eiginleika KMyndaAlbúm"
 
-#: MainWindow/Window.cpp:1057
+#: MainWindow/Window.cpp:1058
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Sýna dæmi um myndskeið"
 
-#: MainWindow/Window.cpp:1061 Viewer/ViewerWidget.cpp:197
+#: MainWindow/Window.cpp:1062 Viewer/ViewerWidget.cpp:197
 #, fuzzy, kde-format
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "Sýna EXIF upplýsingar"
 
-#: MainWindow/Window.cpp:1067
+#: MainWindow/Window.cpp:1068
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Nota næstu smámynd myndskeiðs"
 
-#: MainWindow/Window.cpp:1071
+#: MainWindow/Window.cpp:1072
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Nota smámynd myndskeiðs"
 
-#: MainWindow/Window.cpp:1075 MainWindow/Window.cpp:1301
+#: MainWindow/Window.cpp:1076 MainWindow/Window.cpp:1302
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Copy images to..."
@@ -4289,7 +4289,7 @@ msgid_plural "Copy images to ..."
 msgstr[0] "Afrita myndir í..."
 msgstr[1] "Afrita myndir í..."
 
-#: MainWindow/Window.cpp:1079 MainWindow/Window.cpp:1305
+#: MainWindow/Window.cpp:1080 MainWindow/Window.cpp:1306
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Link images to..."
@@ -4298,30 +4298,30 @@ msgid_plural "Link images to ..."
 msgstr[0] "Tengja myndir við..."
 msgstr[1] "Tengja myndir við..."
 
-#: MainWindow/Window.cpp:1103
+#: MainWindow/Window.cpp:1104
 #, kde-format
 msgid "Auto saving...."
 msgstr "Sjálfvirk vistun...."
 
-#: MainWindow/Window.cpp:1106
+#: MainWindow/Window.cpp:1107
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Sjálfvirk vistun... Lokið"
 
-#: MainWindow/Window.cpp:1206
+#: MainWindow/Window.cpp:1207
 #, fuzzy, kde-format
 #| msgid "Do you want to save the changes?"
 msgid "<p>Do you want to create this database file?<br />%1</p>"
 msgstr "Viltu vista breytingarnar?"
 
-#: MainWindow/Window.cpp:1209
+#: MainWindow/Window.cpp:1210
 #, fuzzy, kde-format
 #| msgid "Loading Database"
 msgctxt "@title"
 msgid "Create database"
 msgstr "Hleð inn gagnagrunni"
 
-#: MainWindow/Window.cpp:1246
+#: MainWindow/Window.cpp:1247
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4330,47 +4330,47 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1372 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Almennt"
 
-#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1374 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Skoðari"
 
-#: MainWindow/Window.cpp:1374
+#: MainWindow/Window.cpp:1375
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Dagsetning: "
 
-#: MainWindow/Window.cpp:1377
+#: MainWindow/Window.cpp:1378
 #, kde-format
 msgid "Annotation Dialog"
 msgstr ""
 
-#: MainWindow/Window.cpp:1378 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1379 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Smámyndasýn"
 
-#: MainWindow/Window.cpp:1521
+#: MainWindow/Window.cpp:1522
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
 "show-again check box?</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1523
+#: MainWindow/Window.cpp:1524
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1537
+#: MainWindow/Window.cpp:1538
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4381,60 +4381,60 @@ msgid ""
 "on due to the missing make install.</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1537
+#: MainWindow/Window.cpp:1538
 #, kde-format
 msgid "Internal Error"
 msgstr "Innri villa"
 
-#: MainWindow/Window.cpp:1548
+#: MainWindow/Window.cpp:1549
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1551
+#: MainWindow/Window.cpp:1552
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1556
+#: MainWindow/Window.cpp:1557
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1607
+#: MainWindow/Window.cpp:1608
 #, kde-format
 msgid "Open List of Files"
 msgstr "Opna skráarlista"
 
-#: MainWindow/Window.cpp:1608
+#: MainWindow/Window.cpp:1609
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
 
-#: MainWindow/Window.cpp:1622
+#: MainWindow/Window.cpp:1623
 #, kde-format
 msgid "No images matching your input were found."
 msgstr ""
 
-#: MainWindow/Window.cpp:1622
+#: MainWindow/Window.cpp:1623
 #, kde-format
 msgid "No Matches"
 msgstr "Engar samsvaranir"
 
-#: MainWindow/Window.cpp:1794
+#: MainWindow/Window.cpp:1795
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Endurles EXIF upplýsingar úr öllum myndum"
 
-#: MainWindow/Window.cpp:1821
+#: MainWindow/Window.cpp:1822
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Breidd smámyndar: %1px (geymd stærð: %2px)"
 
-#: MainWindow/Window.cpp:1874
+#: MainWindow/Window.cpp:1875
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4442,7 +4442,7 @@ msgid ""
 "the ffmpeg package</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1877
+#: MainWindow/Window.cpp:1878
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Smámyndir myndskeiða eru ekki tiltæk"

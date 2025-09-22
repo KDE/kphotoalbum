@@ -68,6 +68,7 @@
 #include <QMenu>
 #include <QPoint>
 #include <QPushButton>
+#include <QRadioButton>
 #include <QSpinBox>
 #include <QStackedWidget>
 #include <QStandardPaths>
@@ -106,7 +107,7 @@ using Utilities::StringSet;
 AnnotationDialog::Dialog::Dialog(QWidget *parent)
     : QDialog(parent)
     , m_ratingChanged(false)
-    , m_conflictText(i18n("(You have differing descriptions on individual images, setting text here will override them all)"))
+    , m_conflictText(i18n("(You have differing descriptions on individual images.  Enter text to append to or replace the descriptions.)"))
 {
     Utilities::ShowBusyCursor dummy;
     ShortCutManager shortCutManager;
@@ -138,17 +139,35 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
 
     m_previewDock = createDock(i18n("Image Preview"), QString::fromLatin1("Image Preview"), Qt::TopDockWidgetArea, m_preview);
 
+    // TODO: refactor this block:
+    {
+    QWidget *top = new QWidget;
+    QVBoxLayout *vLayout = new QVBoxLayout(top);
+
+    QHBoxLayout *hLayout = new QHBoxLayout;
+    vLayout->addLayout(hLayout);
+
+    m_appendDescription = new QRadioButton(i18n("Append"));
+    m_appendDescription->setToolTip(i18n("Append new text to each description"));
+    m_replaceDescription = new QRadioButton(i18n("Replace"));
+    m_replaceDescription->setToolTip(i18n("Replace each description with the new text"));
+
+    hLayout->addWidget(m_appendDescription);
+    hLayout->addWidget(m_replaceDescription);
+
     m_description = new DescriptionEdit(this);
     m_description->setWhatsThis(i18nc("@info:whatsthis",
                                       "<para>A descriptive text of the image.</para>"
                                       "<para>If <emphasis>Use Exif description</emphasis> is enabled under "
                                       "<interface>Settings|Configure KPhotoAlbum...|General</interface>, a description "
                                       "embedded in the image Exif information is imported to this field if available.</para>"));
+    vLayout->addWidget(m_description);
 
-    m_descriptionDock = createDock(i18n("Description"), QString::fromLatin1("description"), Qt::LeftDockWidgetArea, m_description);
-    shortCutManager.addDock(m_descriptionDock, m_description);
+    m_descriptionDock = createDock(i18n("Description"), QString::fromLatin1("description"), Qt::LeftDockWidgetArea, top);
+    shortCutManager.addDock(m_descriptionDock, top);
 
     connect(m_description, &DescriptionEdit::pageUpDownPressed, this, &Dialog::descriptionPageUpDownPressed);
+    }
 
 #ifdef HAVE_MARBLE
     // -------------------------------------------------- Map representation
@@ -739,6 +758,10 @@ int AnnotationDialog::Dialog::configure(DB::ImageInfoList list, bool oneAtATime)
     if (oneAtATime) {
         m_current = 0;
         m_preview->configure(true);
+        m_appendDescription->setEnabled(false);
+        m_appendDescription->setVisible(false);
+        m_replaceDescription->setEnabled(false);
+        m_replaceDescription->setVisible(false);
         load();
     } else {
         m_preview->configure(false);
@@ -763,10 +786,18 @@ int AnnotationDialog::Dialog::configure(DB::ImageInfoList list, bool oneAtATime)
                                                   return item.description() == firstDescription;
                                               });
 
-        if (!allTextEqual)
+        m_appendDescription->setEnabled(true);
+        m_appendDescription->setVisible(true);
+        m_replaceDescription->setChecked(true);
+        m_replaceDescription->setEnabled(true);
+        m_replaceDescription->setVisible(true);
+
+        if (!allTextEqual) {
             m_description->setConflictWarning(m_conflictText);
-        else
+        }
+        else {
             m_description->setDescription(firstDescription);
+        }
     }
 
     showHelpDialog(oneAtATime ? InputSingleImageConfigMode : InputMultiImageConfigMode);
@@ -1421,7 +1452,11 @@ void AnnotationDialog::Dialog::saveAndClose()
             }
 
             if (!m_description->isEmpty()) {
-                info->setDescription(m_description->description());
+                if (m_appendDescription->isChecked()) {
+                    info->setDescription(QStringLiteral("%1 %2").arg(info->description(), m_description->description()));
+                } else {
+                    info->setDescription(m_description->description());
+                }
             }
 
             if (m_ratingChanged) {

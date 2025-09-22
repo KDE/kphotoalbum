@@ -45,6 +45,7 @@ class QDockWidget;
 class QMainWindow;
 class QProgressBar;
 class QPushButton;
+class QRadioButton;
 class QSplitter;
 class QStackedWidget;
 class QTimeEdit;
@@ -207,6 +208,9 @@ private:
     QPushButton *m_clearBut;
     QPushButton *m_okBut;
     QPushButton *m_continueLaterBut;
+    // These are used when annotating multiple images:
+    QRadioButton *m_appendDescription;
+    QRadioButton *m_replaceDescription;
     DescriptionEdit *m_description;
     QTimeEdit *m_time;
     QLabel *m_timeLabel;

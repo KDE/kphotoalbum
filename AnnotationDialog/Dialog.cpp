@@ -438,15 +438,15 @@ QWidget* AnnotationDialog::Dialog::createDescriptionWidgets()
     QHBoxLayout *hLayout = new QHBoxLayout;
     vLayout->addLayout(hLayout);
 
-    m_appendDescription = new QRadioButton(i18n("Append"));
-    m_appendDescription->setToolTip(i18n("Append new text to each description"));
-    m_replaceDescription = new QRadioButton(i18n("Replace"));
-    m_replaceDescription->setToolTip(i18n("Replace each description with the new text"));
+    m_appendButton = new QRadioButton(i18n("Append"));
+    m_appendButton->setToolTip(i18n("Append new text to each description"));
+    m_replaceButton = new QRadioButton(i18n("Replace"));
+    m_replaceButton->setToolTip(i18n("Replace each description with the new text"));
     // Default to replace mode for backwards compatibility.
-    m_replaceDescription->setChecked(true);
+    m_replaceButton->setChecked(true);
 
-    hLayout->addWidget(m_appendDescription);
-    hLayout->addWidget(m_replaceDescription);
+    hLayout->addWidget(m_appendButton);
+    hLayout->addWidget(m_replaceButton);
 
     m_description = new DescriptionEdit(this);
     m_description->setWhatsThis(i18nc("@info:whatsthis",
@@ -763,10 +763,10 @@ int AnnotationDialog::Dialog::configure(DB::ImageInfoList list, bool oneAtATime)
     if (oneAtATime) {
         m_current = 0;
         m_preview->configure(true);
-        m_appendDescription->setEnabled(false);
-        m_appendDescription->setVisible(false);
-        m_replaceDescription->setEnabled(false);
-        m_replaceDescription->setVisible(false);
+        m_appendButton->setEnabled(false);
+        m_appendButton->setVisible(false);
+        m_replaceButton->setEnabled(false);
+        m_replaceButton->setVisible(false);
         load();
     } else {
         m_preview->configure(false);
@@ -794,18 +794,18 @@ int AnnotationDialog::Dialog::configure(DB::ImageInfoList list, bool oneAtATime)
         if (!allTextEqual) {
             m_description->setConflictWarning(m_conflictText);
 
-            m_appendDescription->setEnabled(true);
-            m_appendDescription->setVisible(true);
-            m_replaceDescription->setEnabled(true);
-            m_replaceDescription->setVisible(true);
+            m_appendButton->setEnabled(true);
+            m_appendButton->setVisible(true);
+            m_replaceButton->setEnabled(true);
+            m_replaceButton->setVisible(true);
         }
         else {
             m_description->setDescription(firstDescription);
 
-            m_appendDescription->setEnabled(false);
-            m_appendDescription->setVisible(false);
-            m_replaceDescription->setEnabled(false);
-            m_replaceDescription->setVisible(false);
+            m_appendButton->setEnabled(false);
+            m_appendButton->setVisible(false);
+            m_replaceButton->setEnabled(false);
+            m_replaceButton->setVisible(false);
         }
     }
 
@@ -1461,7 +1461,7 @@ void AnnotationDialog::Dialog::saveAndClose()
             }
 
             if (!m_description->isEmpty()) {
-                if (m_appendDescription->isChecked()) {
+                if (m_appendButton->isChecked()) {
                     info->setDescription(QStringLiteral("%1 %2").arg(info->description(), m_description->description()));
                 } else {
                     info->setDescription(m_description->description());

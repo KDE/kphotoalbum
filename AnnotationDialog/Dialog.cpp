@@ -139,35 +139,11 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
 
     m_previewDock = createDock(i18n("Image Preview"), QString::fromLatin1("Image Preview"), Qt::TopDockWidgetArea, m_preview);
 
-    // TODO: refactor this block:
-    {
-    QWidget *top = new QWidget;
-    QVBoxLayout *vLayout = new QVBoxLayout(top);
-
-    QHBoxLayout *hLayout = new QHBoxLayout;
-    vLayout->addLayout(hLayout);
-
-    m_appendDescription = new QRadioButton(i18n("Append"));
-    m_appendDescription->setToolTip(i18n("Append new text to each description"));
-    m_replaceDescription = new QRadioButton(i18n("Replace"));
-    m_replaceDescription->setToolTip(i18n("Replace each description with the new text"));
-
-    hLayout->addWidget(m_appendDescription);
-    hLayout->addWidget(m_replaceDescription);
-
-    m_description = new DescriptionEdit(this);
-    m_description->setWhatsThis(i18nc("@info:whatsthis",
-                                      "<para>A descriptive text of the image.</para>"
-                                      "<para>If <emphasis>Use Exif description</emphasis> is enabled under "
-                                      "<interface>Settings|Configure KPhotoAlbum...|General</interface>, a description "
-                                      "embedded in the image Exif information is imported to this field if available.</para>"));
-    vLayout->addWidget(m_description);
-
-    m_descriptionDock = createDock(i18n("Description"), QString::fromLatin1("description"), Qt::LeftDockWidgetArea, top);
-    shortCutManager.addDock(m_descriptionDock, top);
+    QWidget* descriptionWidgets = createDescriptionWidgets();
+    m_descriptionDock = createDock(i18n("Description"), QString::fromLatin1("description"), Qt::LeftDockWidgetArea, descriptionWidgets);
+    shortCutManager.addDock(m_descriptionDock, descriptionWidgets);
 
     connect(m_description, &DescriptionEdit::pageUpDownPressed, this, &Dialog::descriptionPageUpDownPressed);
-    }
 
 #ifdef HAVE_MARBLE
     // -------------------------------------------------- Map representation
@@ -450,6 +426,35 @@ QWidget *AnnotationDialog::Dialog::createDateWidget(ShortCutManager &shortCutMan
 
     lay9->addStretch(1);
     lay2->addStretch(1);
+
+    return top;
+}
+
+QWidget* AnnotationDialog::Dialog::createDescriptionWidgets()
+{
+    QWidget *top = new QWidget;
+    QVBoxLayout *vLayout = new QVBoxLayout(top);
+
+    QHBoxLayout *hLayout = new QHBoxLayout;
+    vLayout->addLayout(hLayout);
+
+    m_appendDescription = new QRadioButton(i18n("Append"));
+    m_appendDescription->setToolTip(i18n("Append new text to each description"));
+    m_replaceDescription = new QRadioButton(i18n("Replace"));
+    m_replaceDescription->setToolTip(i18n("Replace each description with the new text"));
+    // Default to replace mode for backwards compatibility.
+    m_replaceDescription->setChecked(true);
+
+    hLayout->addWidget(m_appendDescription);
+    hLayout->addWidget(m_replaceDescription);
+
+    m_description = new DescriptionEdit(this);
+    m_description->setWhatsThis(i18nc("@info:whatsthis",
+                                      "<para>A descriptive text of the image.</para>"
+                                      "<para>If <emphasis>Use Exif description</emphasis> is enabled under "
+                                      "<interface>Settings|Configure KPhotoAlbum...|General</interface>, a description "
+                                      "embedded in the image Exif information is imported to this field if available.</para>"));
+    vLayout->addWidget(m_description);
 
     return top;
 }
@@ -786,17 +791,21 @@ int AnnotationDialog::Dialog::configure(DB::ImageInfoList list, bool oneAtATime)
                                                   return item.description() == firstDescription;
                                               });
 
-        m_appendDescription->setEnabled(true);
-        m_appendDescription->setVisible(true);
-        m_replaceDescription->setChecked(true);
-        m_replaceDescription->setEnabled(true);
-        m_replaceDescription->setVisible(true);
-
         if (!allTextEqual) {
             m_description->setConflictWarning(m_conflictText);
+
+            m_appendDescription->setEnabled(true);
+            m_appendDescription->setVisible(true);
+            m_replaceDescription->setEnabled(true);
+            m_replaceDescription->setVisible(true);
         }
         else {
             m_description->setDescription(firstDescription);
+
+            m_appendDescription->setEnabled(false);
+            m_appendDescription->setVisible(false);
+            m_replaceDescription->setEnabled(false);
+            m_replaceDescription->setVisible(false);
         }
     }
 

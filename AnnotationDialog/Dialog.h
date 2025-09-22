@@ -151,6 +151,7 @@ Q_SIGNALS:
 protected:
     QDockWidget *createDock(const QString &title, const QString &name, Qt::DockWidgetArea location, QWidget *widget);
     QWidget *createDateWidget(ShortCutManager &shortCutManager);
+    QWidget *createDescriptionWidgets();
     ListSelect *createListSel(const DB::CategoryPtr &category);
 
     void load();

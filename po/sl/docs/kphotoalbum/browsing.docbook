@@ -10,25 +10,14 @@ SPDX-License-Identifier: GFDL-1.2-only
   <title
 >Brskanje</title>
   <para
->Ko dodate opombe svojim slikam in videom, je &kphotoalbum; pripravljen, da vam omogoči brskanje po vaših slikah, glejte <xref linkend="fig-browser-with-images"/>. Če to primerjate z <xref linkend="fig-empty-browser-window"/>, boste videli, da so zdaj na voljo elementi v vsaki od kategorij za <literal
+>Ko ste slike in videoposnetke označili z opombami, vam &kphotoalbum; omogoča brskanje po slikah. Če to primerjate z <xref linkend="fig-empty-browser-window"/>, boste videli, da so zdaj v vsaki od kategorij na voljo elementi za <literal
 >Ljudje</literal
 >, <literal
->Mesta</literal
+>Kraji</literal
 > in <literal
 >Ključne besede</literal
 >.</para>
-  
-  <figure id="fig-browser-with-images">
-    <title
->Brskalnik, ko so slike in videoposnetki označeni</title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="browser-with-images.png"
-          format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </figure>
-  
+
   <para
 >V oknu brskalnika si lahko ogledate kategorije, v katere ste vnesli podatke, ko ste dodajali opombe k svojim slikam in videoposnetkom. Poleg tega obstajajo elementi za iskanje na podlagi informacij EXIF na slikah, brskanje po strukturi map na vašem trdem disku in seveda prikazovanje dejanskih sličic. Opišimo vsako postavko po vrsti.</para
 > 
@@ -50,17 +39,20 @@ SPDX-License-Identifier: GFDL-1.2-only
   </figure>
   
   <para
->Brskalnik je zdaj napolnjen z osebami, ki ste jih določili za svoje slike in videe <footnote
+>Brskalnik je zdaj poln oseb, ki ste jih določili za svoje slike in videoposnetke <footnote
 ><para
 >Morda boste opazili, da ima element <literal
 >Hišni ljubljenčki</literal
 > posebno ikono. Za podrobnosti o tem glejte <xref linkend="sec-specifying-categories"/>.</para
 ></footnote
->, če izberete osebo, vas bo vrnil v prvotno stanje brskalnika, kot smo videli v <xref linkend="fig-browser-with-images"/>, tokrat pa smo <emphasis
+>, če izberete osebo, se boste vrnili v prvotno stanje brskalnika. Tokrat pa smo <emphasis
 >v obsegu</emphasis
-> osebe, ki smo jo izbrali. To pomeni, da prikazujemo samo informacije o slikah in videoposnetkih, ki vsebujejo to osebo. Glejte <xref linkend="fig-browser-for-jesper"/> spodaj, kar je rezultat naše izbire osebe <literal
+> izbrane osebe. To pomeni, da prikazujemo le informacije o slikah in videoposnetkih, ki vsebujejo to osebo. Glejte <xref linkend="fig-browser-for-jesper"/> spodaj, kar je posledica izbire osebe <literal
 >Jesper</literal
->, indikacijo tega lahko vidite na dnu okna. Primerjajte <xref linkend="fig-browser-with-images"/> z <xref linkend="fig-browser-for-jesper"/>, kjer boste videli, da se je število razpoložljivih slik in videoposnetkov zmanjšalo s 25 na 12, spremenila pa se je tudi količina postavk za različne kategorije.</para>
+>, kar lahko vidite na dnu okna. V spodnjem desnem kotu <xref linkend="fig-browser-for-jesper"/> boste videli, da se je število ujemajočih se slik in videoposnetkov zmanjšalo s 25 na 13, medtem ko je skupno število slik ostalo enako.</para>
+
+  <para
+>Upoštevajte, da če je v obsegu le nekaj slik, bo &kphotoalbum; neposredno prešel v pregledovalnik sličic (glejte <xref linkend="chp-thumbnail-view"/>). To vedenje lahko konfigurirate v nastavitvah pregledovalnika sličic (glejte <xref linkend="opt-thumbnails"/>). </para>
   
   <figure id="fig-browser-for-jesper">
     <title

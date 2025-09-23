@@ -38,22 +38,22 @@ SPDX-License-Identifier: GFDL-1.2-only
 >.)</para>
 
     <para
->Če želite dodati opombe k slikam, izberite zadevne slike in pojdite na <menuchoice
+>Če želite slikam dodati opombe, izberite zadevne slike in pojdite na <menuchoice
 ><guimenu
 >Uredi</guimenu
 > <guisubmenu
->Dodaj opombe posameznim elementom</guisubmenu
+>Opombe posameznih elementov</guisubmenu
 ></menuchoice
->. Sedaj označite svoje izbrane slike eno za drugo. Če namesto tega izberete <guimenuitem
->Označi več elementov hkrati</guimenuitem
->, boste označili vse izbrane elemente, kot da bi šlo za en sam element. Z drugimi besedami, s to možnostjo svoje slike množično komentirate – npr. pravi, da so bile vse te slike posnete v Kopenhagnu. Ti dve možnosti sta na voljo tudi v kontekstnem meniju, ki ga dobite z desnim klikom miške v pregledu sličic ali z uporabo bližnjice na tipkovnici. Primer tega si lahko ogledate v <xref linkend="fig-edit-properies-menu"/>.</para>
+>. Zdaj označite izbrane slike eno za drugo. Če namesto tega izberete <guimenuitem
+>Opombe več elementov hkrati</guimenuitem
+>, boste označili vse izbrane elemente, kot da bi šlo za en sam element. Z drugimi besedami, s to možnostjo množično označite sliko – npr. navedete, da so bile vse te slike posnete v Københavnu. Ti dve možnosti sta na voljo tudi v kontekstnem meniju, ki ga odprete z desnim klikom na miško v pregledu sličic ali z uporabo bližnjice na tipkovnici. Primer tega si lahko ogledate v <xref linkend="fig-edit-properties-menu"/>.</para>
 
-    <figure id="fig-edit-properies-menu">
+    <figure id="fig-edit-properties-menu">
       <title
 >Kontekstni meni za urejanje lastnosti</title>
       <mediaobject>
         <imageobject>
-          <imagedata fileref="edit-properies-menu.png"
+          <imagedata fileref="edit-properties-menu.png"
             format="PNG"/>
         </imageobject>
       </mediaobject>

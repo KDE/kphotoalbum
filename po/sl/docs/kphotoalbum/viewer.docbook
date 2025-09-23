@@ -226,7 +226,7 @@ SPDX-License-Identifier: GFDL-1.2-only
   </figure>
 
 <para
->Kategorije (in posebej žetoni) so lahko prikazane v pregledovalniku sličic. Ko prikazujete kategorije v pregledovalniku sličic, lahko slikam dodate žetone, tako da preprosto pritisnete črko za žeton, ko je slika izbrana, to lahko vidite v <xref linkend="fig-tokens-in-thumbnail-viewer "/></para>
+>Kategorije (in posebej žetoni) so lahko prikazane v pregledovalniku sličic. Ko prikazujete kategorije v pregledovalniku sličic, lahko slikam dodate žetone, tako da preprosto pritisnete črko za žeton, ko je slika izbrana, to lahko vidite v <xref linkend="fig-tokens-in-thumbnail-viewer"/></para>
 
   <figure id="fig-tokens-in-thumbnail-viewer">
     <title

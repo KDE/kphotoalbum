@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-21 00:40+0000\n"
+"POT-Creation-Date: 2025-09-24 00:41+0000\n"
 "PO-Revision-Date: 2021-01-10 14:24+0100\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -47,32 +47,206 @@ msgstr "dnes"
 msgid "yesterday"
 msgstr "včera"
 
-#: AnnotationDialog/DescriptionEdit.cpp:15 AnnotationDialog/Dialog.cpp:148
+#: AnnotationDialog/DescriptionEdit.cpp:15 AnnotationDialog/Dialog.cpp:143
 #: HTMLGenerator/HTMLDialog.cpp:144 ImportExport/MD5CheckPage.cpp:66
 #, kde-format
 msgid "Description"
 msgstr "Popis"
 
-#: AnnotationDialog/Dialog.cpp:109
-#, kde-format
+#: AnnotationDialog/Dialog.cpp:110
+#, fuzzy, kde-format
+#| msgid ""
+#| "(You have differing descriptions on individual images, setting text here "
+#| "will override them all)"
 msgid ""
-"(You have differing descriptions on individual images, setting text here "
-"will override them all)"
+"(You have differing descriptions on individual images.  Enter text to append "
+"to or replace the descriptions.)"
 msgstr ""
 "(Máte rôzne popisy k jednotlivým obrázkom, ak tu nastavíte text, prepíšete "
 "ich všetky)"
 
-#: AnnotationDialog/Dialog.cpp:134
+#: AnnotationDialog/Dialog.cpp:135
 #, kde-format
 msgid "Label and Dates"
 msgstr "Štítok a dátumy"
 
-#: AnnotationDialog/Dialog.cpp:139
+#: AnnotationDialog/Dialog.cpp:140
 #, kde-format
 msgid "Image Preview"
 msgstr "Náhľad obrázka"
 
-#: AnnotationDialog/Dialog.cpp:143
+#: AnnotationDialog/Dialog.cpp:164 DB/ImageDB.cpp:396
+#, kde-format
+msgid "Cancel"
+msgstr "Zrušiť"
+
+#: AnnotationDialog/Dialog.cpp:169 AnnotationDialog/Dialog.cpp:171
+#, kde-format
+msgid "Map"
+msgstr "Mapa"
+
+#: AnnotationDialog/Dialog.cpp:177
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"The map widget allows you to view the location of images if GPS coordinates "
+"are found in the Exif information."
+msgstr ""
+"Mapový widget vám umožňuje zobraziť polohu obrázkov, ak sú GPS súradnice "
+"uvedené v informáciách Exif."
+
+#: AnnotationDialog/Dialog.cpp:225
+#, kde-format
+msgid "Revert This Item"
+msgstr "Vrátiť túto položku"
+
+#: AnnotationDialog/Dialog.cpp:231
+#, kde-format
+msgid "Clear Form"
+msgstr "Vyčistiť formulár"
+
+#: AnnotationDialog/Dialog.cpp:235
+#, kde-format
+msgid "Options..."
+msgstr "Voľby..."
+
+#: AnnotationDialog/Dialog.cpp:241
+#, kde-format
+msgid "&Done"
+msgstr "Hotovo"
+
+#: AnnotationDialog/Dialog.cpp:244
+#, kde-format
+msgid "Continue &Later"
+msgstr "Pokračovať neskôr"
+
+#: AnnotationDialog/Dialog.cpp:252 AnnotationDialog/Dialog.cpp:873
+#, kde-format
+msgctxt "@action:button"
+msgid "&Search"
+msgstr "&Hľadať"
+
+#: AnnotationDialog/Dialog.cpp:321
+#, kde-format
+msgid "Label: "
+msgstr "Popisok: "
+
+#: AnnotationDialog/Dialog.cpp:325 ImportExport/MD5CheckPage.cpp:65
+#, kde-format
+msgid "Label"
+msgstr "Štítok"
+
+#: AnnotationDialog/Dialog.cpp:334
+#, kde-format
+msgid "Date: "
+msgstr "Dátum:"
+
+#: AnnotationDialog/Dialog.cpp:350
+#, kde-format
+msgid "Time: "
+msgstr "Čas:"
+
+#: AnnotationDialog/Dialog.cpp:356
+#, kde-format
+msgid "Use Fuzzy Date"
+msgstr "Použiť nepresný dátum"
+
+#: AnnotationDialog/Dialog.cpp:358
+#, kde-format
+msgctxt "@info"
+msgid ""
+"<para>In KPhotoAlbum, images can either have an exact date and time, or a "
+"<emphasis>fuzzy</emphasis> date which happened any time during a specified "
+"time interval. Images produced by digital cameras do normally have an exact "
+"date.</para><para>If you don't know exactly when a photo was taken (e.g. if "
+"the photo comes from an analog camera), then you should set <interface>Use "
+"Fuzzy Date</interface>.</para>"
+msgstr ""
+"<para>V aplikácii KPhotoAlbum, obrázky môžu mať buď presný dátum a čas, "
+"alebo <emphasis>nepresný</emphasis> dátum, ktorý nastal kedykoľvek počas "
+"určitého časového intervalu. Obrázky produkované digitálnymi fotoaparátmi za "
+"normálnych okolností majú presný dátum.</para><para>Ak neviete presne, kedy "
+"bola snímka zhotovená (napr. v prípade, že fotografia pochádza z analógového "
+"fotoaparátu), potom by ste mali nastaviť <interface>Použiť nepresný dátum</"
+"interface>.</para>"
+
+#: AnnotationDialog/Dialog.cpp:373
+#, kde-format
+msgid "Minimum megapixels:"
+msgstr "Minimum megapixelov:"
+
+#: AnnotationDialog/Dialog.cpp:383
+#, kde-format
+msgid "Maximum megapixels:"
+msgstr "Maximum megapixelov:"
+
+#: AnnotationDialog/Dialog.cpp:396
+#, kde-format
+msgid "Rating:"
+msgstr "Hodnotenie:"
+
+#: AnnotationDialog/Dialog.cpp:404
+#, kde-format
+msgid "Rating search mode:"
+msgstr "Režim vyhľadávania hodnotenia:"
+
+#: AnnotationDialog/Dialog.cpp:408
+#, kde-format
+msgid "=="
+msgstr "=="
+
+#: AnnotationDialog/Dialog.cpp:408
+#, kde-format
+msgid ">="
+msgstr ">="
+
+#: AnnotationDialog/Dialog.cpp:408
+#, kde-format
+msgid "<="
+msgstr "<="
+
+#: AnnotationDialog/Dialog.cpp:408
+#, kde-format
+msgid "!="
+msgstr "!="
+
+#: AnnotationDialog/Dialog.cpp:416
+#, kde-format
+msgid "File Name Pattern: "
+msgstr "Vzor názvu súboru: "
+
+#: AnnotationDialog/Dialog.cpp:419
+#, kde-format
+msgid "File Name Pattern"
+msgstr "Vzor názvu súboru"
+
+#: AnnotationDialog/Dialog.cpp:424
+#, kde-format
+msgid "Search only for RAW files"
+msgstr "Hľadať iba pre RAW súbory"
+
+#: AnnotationDialog/Dialog.cpp:441
+#, kde-format
+msgid "Append"
+msgstr ""
+
+#: AnnotationDialog/Dialog.cpp:442
+#, kde-format
+msgid "Append new text to each description"
+msgstr ""
+
+#: AnnotationDialog/Dialog.cpp:443
+#, fuzzy, kde-format
+#| msgid "Places"
+msgid "Replace"
+msgstr "Miesta"
+
+#: AnnotationDialog/Dialog.cpp:444
+#, kde-format
+msgid "Replace each description with the new text"
+msgstr ""
+
+#: AnnotationDialog/Dialog.cpp:453
 #, fuzzy, kde-format
 #| msgctxt "@info:whatsthis"
 #| msgid ""
@@ -92,244 +266,94 @@ msgstr ""
 "Všeobecné</interface>, opis vložený do EXIF informácie obrázka sa importuje "
 "do tohto poľa, ak je k dispozícii.</para>"
 
-#: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:396
-#, kde-format
-msgid "Cancel"
-msgstr "Zrušiť"
-
-#: AnnotationDialog/Dialog.cpp:174 AnnotationDialog/Dialog.cpp:176
-#, kde-format
-msgid "Map"
-msgstr "Mapa"
-
-#: AnnotationDialog/Dialog.cpp:182
-#, kde-format
-msgctxt "@info:whatsthis"
-msgid ""
-"The map widget allows you to view the location of images if GPS coordinates "
-"are found in the Exif information."
-msgstr ""
-"Mapový widget vám umožňuje zobraziť polohu obrázkov, ak sú GPS súradnice "
-"uvedené v informáciách Exif."
-
-#: AnnotationDialog/Dialog.cpp:230
-#, kde-format
-msgid "Revert This Item"
-msgstr "Vrátiť túto položku"
-
-#: AnnotationDialog/Dialog.cpp:236
-#, kde-format
-msgid "Clear Form"
-msgstr "Vyčistiť formulár"
-
-#: AnnotationDialog/Dialog.cpp:240
-#, kde-format
-msgid "Options..."
-msgstr "Voľby..."
-
-#: AnnotationDialog/Dialog.cpp:246
-#, kde-format
-msgid "&Done"
-msgstr "Hotovo"
-
-#: AnnotationDialog/Dialog.cpp:249
-#, kde-format
-msgid "Continue &Later"
-msgstr "Pokračovať neskôr"
-
-#: AnnotationDialog/Dialog.cpp:257 AnnotationDialog/Dialog.cpp:833
-#, kde-format
-msgctxt "@action:button"
-msgid "&Search"
-msgstr "&Hľadať"
-
-#: AnnotationDialog/Dialog.cpp:326
-#, kde-format
-msgid "Label: "
-msgstr "Popisok: "
-
-#: AnnotationDialog/Dialog.cpp:330 ImportExport/MD5CheckPage.cpp:65
-#, kde-format
-msgid "Label"
-msgstr "Štítok"
-
-#: AnnotationDialog/Dialog.cpp:339
-#, kde-format
-msgid "Date: "
-msgstr "Dátum:"
-
-#: AnnotationDialog/Dialog.cpp:355
-#, kde-format
-msgid "Time: "
-msgstr "Čas:"
-
-#: AnnotationDialog/Dialog.cpp:361
-#, kde-format
-msgid "Use Fuzzy Date"
-msgstr "Použiť nepresný dátum"
-
-#: AnnotationDialog/Dialog.cpp:363
-#, kde-format
-msgctxt "@info"
-msgid ""
-"<para>In KPhotoAlbum, images can either have an exact date and time, or a "
-"<emphasis>fuzzy</emphasis> date which happened any time during a specified "
-"time interval. Images produced by digital cameras do normally have an exact "
-"date.</para><para>If you don't know exactly when a photo was taken (e.g. if "
-"the photo comes from an analog camera), then you should set <interface>Use "
-"Fuzzy Date</interface>.</para>"
-msgstr ""
-"<para>V aplikácii KPhotoAlbum, obrázky môžu mať buď presný dátum a čas, "
-"alebo <emphasis>nepresný</emphasis> dátum, ktorý nastal kedykoľvek počas "
-"určitého časového intervalu. Obrázky produkované digitálnymi fotoaparátmi za "
-"normálnych okolností majú presný dátum.</para><para>Ak neviete presne, kedy "
-"bola snímka zhotovená (napr. v prípade, že fotografia pochádza z analógového "
-"fotoaparátu), potom by ste mali nastaviť <interface>Použiť nepresný dátum</"
-"interface>.</para>"
-
-#: AnnotationDialog/Dialog.cpp:378
-#, kde-format
-msgid "Minimum megapixels:"
-msgstr "Minimum megapixelov:"
-
-#: AnnotationDialog/Dialog.cpp:388
-#, kde-format
-msgid "Maximum megapixels:"
-msgstr "Maximum megapixelov:"
-
-#: AnnotationDialog/Dialog.cpp:401
-#, kde-format
-msgid "Rating:"
-msgstr "Hodnotenie:"
-
-#: AnnotationDialog/Dialog.cpp:409
-#, kde-format
-msgid "Rating search mode:"
-msgstr "Režim vyhľadávania hodnotenia:"
-
-#: AnnotationDialog/Dialog.cpp:413
-#, kde-format
-msgid "=="
-msgstr "=="
-
-#: AnnotationDialog/Dialog.cpp:413
-#, kde-format
-msgid ">="
-msgstr ">="
-
-#: AnnotationDialog/Dialog.cpp:413
-#, kde-format
-msgid "<="
-msgstr "<="
-
-#: AnnotationDialog/Dialog.cpp:413
-#, kde-format
-msgid "!="
-msgstr "!="
-
-#: AnnotationDialog/Dialog.cpp:421
-#, kde-format
-msgid "File Name Pattern: "
-msgstr "Vzor názvu súboru: "
-
-#: AnnotationDialog/Dialog.cpp:424
-#, kde-format
-msgid "File Name Pattern"
-msgstr "Vzor názvu súboru"
-
-#: AnnotationDialog/Dialog.cpp:429
-#, kde-format
-msgid "Search only for RAW files"
-msgstr "Hľadať iba pre RAW súbory"
-
-#: AnnotationDialog/Dialog.cpp:612
+#: AnnotationDialog/Dialog.cpp:636
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "Anotácie (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:838
+#: AnnotationDialog/Dialog.cpp:878
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Hľadať"
 
-#: AnnotationDialog/Dialog.cpp:841
+#: AnnotationDialog/Dialog.cpp:881
 #, kde-format
 msgid "Done"
 msgstr "Hotovo"
 
-#: AnnotationDialog/Dialog.cpp:848
+#: AnnotationDialog/Dialog.cpp:888
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Anotácie"
 
-#: AnnotationDialog/Dialog.cpp:880
+#: AnnotationDialog/Dialog.cpp:920
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "Nastaviť rozloženie okien..."
 
-#: AnnotationDialog/Dialog.cpp:881
+#: AnnotationDialog/Dialog.cpp:921
 #, kde-format
 msgid "Save Current Window Setup"
 msgstr "Uložiť aktuálne nastavenie okna"
 
-#: AnnotationDialog/Dialog.cpp:882
+#: AnnotationDialog/Dialog.cpp:922
 #, kde-format
 msgid "Reset layout"
 msgstr "Vynulovať rozloženie"
 
-#: AnnotationDialog/Dialog.cpp:889 AnnotationDialog/Dialog.cpp:1268
+#: AnnotationDialog/Dialog.cpp:929 AnnotationDialog/Dialog.cpp:1308
 #: AnnotationDialog/ListSelect.cpp:110
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Triediť abecedne (strom)"
 
-#: AnnotationDialog/Dialog.cpp:893 AnnotationDialog/Dialog.cpp:1272
+#: AnnotationDialog/Dialog.cpp:933 AnnotationDialog/Dialog.cpp:1312
 #: AnnotationDialog/ListSelect.cpp:116
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Triediť abecedne (plocho)"
 
-#: AnnotationDialog/Dialog.cpp:897
+#: AnnotationDialog/Dialog.cpp:937
 #, kde-format
 msgid "Sort by Date"
 msgstr "Zoradiť podľa dátumu"
 
-#: AnnotationDialog/Dialog.cpp:913
+#: AnnotationDialog/Dialog.cpp:953
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr "Párovať značky od prvého znaku"
 
-#: AnnotationDialog/Dialog.cpp:914
+#: AnnotationDialog/Dialog.cpp:954
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr "Párovať značky od okrajov slov"
 
-#: AnnotationDialog/Dialog.cpp:915
+#: AnnotationDialog/Dialog.cpp:955
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr "Párovať značky kdekoľvek"
 
-#: AnnotationDialog/Dialog.cpp:932
+#: AnnotationDialog/Dialog.cpp:972
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "Zobraziť iba vybrané Ctrl+S"
 
-#: AnnotationDialog/Dialog.cpp:970 Map/MapView.cpp:360
+#: AnnotationDialog/Dialog.cpp:1010 Map/MapView.cpp:360
 #, fuzzy, kde-format
 #| msgid "Settings saved"
 msgid "Settings saved!"
 msgstr "Nastavenia uložené"
 
-#: AnnotationDialog/Dialog.cpp:970
+#: AnnotationDialog/Dialog.cpp:1010
 #, fuzzy, kde-format
 #| msgid "Save Current Window Setup"
 msgid "Save current window setup"
 msgstr "Uložiť aktuálne nastavenie okna"
 
-#: AnnotationDialog/Dialog.cpp:1035
+#: AnnotationDialog/Dialog.cpp:1075
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Some changes are made to annotations. Do you really want to cancel all "
@@ -341,14 +365,14 @@ msgstr ""
 "<p>Niektoré zmeny sú vykonané v anotáciách. Naozaj chcete zrušiť všetky "
 "nedávne zmeny v každom ovplyvnenom súbore?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1036
+#: AnnotationDialog/Dialog.cpp:1076
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Uložiť zmeny?"
 
-#: AnnotationDialog/Dialog.cpp:1135
+#: AnnotationDialog/Dialog.cpp:1175
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -365,7 +389,7 @@ msgstr ""
 "obrázku; ďalšie tipy na jeho použitie nájdete pri prečítaní o <a href="
 "\"help:/kphotoalbum/chp-typingIn.html\">vkladanie</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1143
+#: AnnotationDialog/Dialog.cpp:1183
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -378,52 +402,52 @@ msgstr ""
 "sa odporúča, aby ste strávili 5 minút pri čítaní <a href=\"help:/kphotoalbum/"
 "chp-typingIn.html\">Dokumentácia k tomuto dialógu</a></p>"
 
-#: AnnotationDialog/Dialog.cpp:1275
+#: AnnotationDialog/Dialog.cpp:1315
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Triediť naposledy použité"
 
-#: AnnotationDialog/Dialog.cpp:1278
+#: AnnotationDialog/Dialog.cpp:1318
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Prepnúť triedenie"
 
-#: AnnotationDialog/Dialog.cpp:1283
+#: AnnotationDialog/Dialog.cpp:1323
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Prepnúť iba zobrazenie vybraných položiek"
 
-#: AnnotationDialog/Dialog.cpp:1287
+#: AnnotationDialog/Dialog.cpp:1327
 #, kde-format
 msgid "Annotate Next"
 msgstr "Anotovať ďalší"
 
-#: AnnotationDialog/Dialog.cpp:1291
+#: AnnotationDialog/Dialog.cpp:1331
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Anotovať predošlý"
 
-#: AnnotationDialog/Dialog.cpp:1295
+#: AnnotationDialog/Dialog.cpp:1335
 #, kde-format
 msgid "OK dialog"
 msgstr "OK dialóg"
 
-#: AnnotationDialog/Dialog.cpp:1299
+#: AnnotationDialog/Dialog.cpp:1339
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Kopírovať značky z predchádzajúceho obrázka"
 
-#: AnnotationDialog/Dialog.cpp:1303 MainWindow/Window.cpp:844
+#: AnnotationDialog/Dialog.cpp:1343 MainWindow/Window.cpp:844
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Otočiť proti smeru hodinových ručičiek"
 
-#: AnnotationDialog/Dialog.cpp:1306 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1346 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Otočiť po smere hodinových ručičiek"
 
-#: AnnotationDialog/Dialog.cpp:1309
+#: AnnotationDialog/Dialog.cpp:1349
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Prepnúť celoobrazovkový náhľad"

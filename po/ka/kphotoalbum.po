@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-24 00:41+0000\n"
-"PO-Revision-Date: 2025-05-26 04:06+0200\n"
+"PO-Revision-Date: 2025-09-24 07:18+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.7\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -55,16 +55,13 @@ msgid "Description"
 msgstr "აღწერა"
 
 #: AnnotationDialog/Dialog.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "(You have differing descriptions on individual images, setting text here "
-#| "will override them all)"
+#, kde-format
 msgid ""
 "(You have differing descriptions on individual images.  Enter text to append "
 "to or replace the descriptions.)"
 msgstr ""
-"(გაქვთ განსხვავებული აღწერები თითოეული გამოსახულებისთვის. ტექსტის აქ "
-"დაყენება მათ ყველას გადაფარავს)"
+"(გაქვთ განსხვავებული აღწერები თითოეული გამოსახულებისთვის.  შეიყვანეთ ტექსტი "
+"აღწერის ბოლოში მისაწერად, ან მისი ჩანაცვლებისთვის)"
 
 #: AnnotationDialog/Dialog.cpp:135
 #, kde-format
@@ -228,23 +225,22 @@ msgstr "მხოლოდ RAW ფაილების მოძებნა"
 #: AnnotationDialog/Dialog.cpp:441
 #, kde-format
 msgid "Append"
-msgstr ""
+msgstr "ბოლოში მიწერა"
 
 #: AnnotationDialog/Dialog.cpp:442
 #, kde-format
 msgid "Append new text to each description"
-msgstr ""
+msgstr "ახალი ტექსტის მიწერა თითოეული აღწერისთვის"
 
 #: AnnotationDialog/Dialog.cpp:443
-#, fuzzy, kde-format
-#| msgid "Places"
+#, kde-format
 msgid "Replace"
-msgstr "ადგილები"
+msgstr "ჩანაცვლება"
 
 #: AnnotationDialog/Dialog.cpp:444
 #, kde-format
 msgid "Replace each description with the new text"
-msgstr ""
+msgstr "თითოეული აღწერის ჩანაცვლება ახალი ტექსტით"
 
 #: AnnotationDialog/Dialog.cpp:453
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-24 00:41+0000\n"
-"PO-Revision-Date: 2025-08-26 22:18+0400\n"
+"PO-Revision-Date: 2025-09-25 11:58+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -56,14 +56,13 @@ msgid "Description"
 msgstr "الوصف"
 
 #: AnnotationDialog/Dialog.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "(You have differing descriptions on individual images, setting text here "
-#| "will override them all)"
+#, kde-format
 msgid ""
 "(You have differing descriptions on individual images.  Enter text to append "
 "to or replace the descriptions.)"
-msgstr "(لديك أوصاف مختلفة للصور الفردية، تعيين النص هنا سيتجاوزها جميعًا)"
+msgstr ""
+"(لديك أوصاف مختلفة للصور الفردية، أدخل النص المراد إضافته إلى الأوصاف أو "
+"استبدالها.)"
 
 #: AnnotationDialog/Dialog.cpp:135
 #, kde-format
@@ -225,23 +224,22 @@ msgstr "ابحث عن ملفات RAW فقط"
 #: AnnotationDialog/Dialog.cpp:441
 #, kde-format
 msgid "Append"
-msgstr ""
+msgstr "ألحق"
 
 #: AnnotationDialog/Dialog.cpp:442
 #, kde-format
 msgid "Append new text to each description"
-msgstr ""
+msgstr "ألحق نصًا جديدًا بكل وصف"
 
 #: AnnotationDialog/Dialog.cpp:443
-#, fuzzy, kde-format
-#| msgid "Replacements"
+#, kde-format
 msgid "Replace"
-msgstr "التبديلات"
+msgstr "استبدل"
 
 #: AnnotationDialog/Dialog.cpp:444
 #, kde-format
 msgid "Replace each description with the new text"
-msgstr ""
+msgstr "استبدل بكل وصف النص الجديد"
 
 #: AnnotationDialog/Dialog.cpp:453
 #, kde-format

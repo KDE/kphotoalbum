@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-24 00:41+0000\n"
-"PO-Revision-Date: 2025-07-28 18:24+0200\n"
+"PO-Revision-Date: 2025-09-26 13:46+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.04.2\n"
+"X-Generator: Lokalize 25.08.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -55,16 +55,13 @@ msgid "Description"
 msgstr "Beskrivning"
 
 #: AnnotationDialog/Dialog.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "(You have differing descriptions on individual images, setting text here "
-#| "will override them all)"
+#, kde-format
 msgid ""
 "(You have differing descriptions on individual images.  Enter text to append "
 "to or replace the descriptions.)"
 msgstr ""
-"(Du har olika beskrivningar för individuella bilder. Att ange en text här "
-"ersätter dem alla)"
+"(Du har olika beskrivningar för individuella bilder. Ange text här för att "
+"lägga till sist i eller ersätta beskrivningarna.)"
 
 #: AnnotationDialog/Dialog.cpp:135
 #, kde-format
@@ -228,23 +225,22 @@ msgstr "Sök bara efter obehandlade filer"
 #: AnnotationDialog/Dialog.cpp:441
 #, kde-format
 msgid "Append"
-msgstr ""
+msgstr "Lägg till sist"
 
 #: AnnotationDialog/Dialog.cpp:442
 #, kde-format
 msgid "Append new text to each description"
-msgstr ""
+msgstr "Lägg till ny text sist i alla beskrivningar"
 
 #: AnnotationDialog/Dialog.cpp:443
-#, fuzzy, kde-format
-#| msgid "Places"
+#, kde-format
 msgid "Replace"
-msgstr "Platser"
+msgstr "Ersätt"
 
 #: AnnotationDialog/Dialog.cpp:444
 #, kde-format
 msgid "Replace each description with the new text"
-msgstr ""
+msgstr "Ersätt alla beskrivningar med den nya texten"
 
 #: AnnotationDialog/Dialog.cpp:453
 #, kde-format

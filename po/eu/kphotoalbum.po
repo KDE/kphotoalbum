@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-24 00:41+0000\n"
-"PO-Revision-Date: 2025-08-13 23:48+0200\n"
+"PO-Revision-Date: 2025-09-27 13:31+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.04.3\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -60,16 +60,13 @@ msgid "Description"
 msgstr "Deskribapena"
 
 #: AnnotationDialog/Dialog.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "(You have differing descriptions on individual images, setting text here "
-#| "will override them all)"
+#, kde-format
 msgid ""
 "(You have differing descriptions on individual images.  Enter text to append "
 "to or replace the descriptions.)"
 msgstr ""
-"(Bankako irudietan deskribapen ezberdinak dituzu, testua hemen ezarriz gero "
-"haiek guztiak gainidatziko ditu)"
+"(Banakako irudietan deskribapen ezberdinak dituzu. Sartu deskribapenetan "
+"erantsi edo ordezkatzeko testua.)"
 
 #: AnnotationDialog/Dialog.cpp:135
 #, kde-format
@@ -233,23 +230,22 @@ msgstr "Bilatu RAW fitxategiak bakarrik"
 #: AnnotationDialog/Dialog.cpp:441
 #, kde-format
 msgid "Append"
-msgstr ""
+msgstr "Erantsi"
 
 #: AnnotationDialog/Dialog.cpp:442
 #, kde-format
 msgid "Append new text to each description"
-msgstr ""
+msgstr "Erantsi testu berria deskribapen bakoitzari"
 
 #: AnnotationDialog/Dialog.cpp:443
-#, fuzzy, kde-format
-#| msgid "Replacements"
+#, kde-format
 msgid "Replace"
-msgstr "Remplacements"
+msgstr "Ordezkatu"
 
 #: AnnotationDialog/Dialog.cpp:444
 #, kde-format
 msgid "Replace each description with the new text"
-msgstr ""
+msgstr "Ordezkatu deskribapen bakoitza testu berriarekin"
 
 #: AnnotationDialog/Dialog.cpp:453
 #, kde-format

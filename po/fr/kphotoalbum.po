@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-24 00:41+0000\n"
-"PO-Revision-Date: 2025-07-16 09:23+0200\n"
+"PO-Revision-Date: 2025-09-25 11:34+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 25.07.80\n"
+"X-Generator: Lokalize 25.08.1\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -76,16 +76,13 @@ msgid "Description"
 msgstr "Description"
 
 #: AnnotationDialog/Dialog.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "(You have differing descriptions on individual images, setting text here "
-#| "will override them all)"
+#, kde-format
 msgid ""
 "(You have differing descriptions on individual images.  Enter text to append "
 "to or replace the descriptions.)"
 msgstr ""
-"(Vous avez des descriptions différentes sur chaque image, écrire du texte "
-"ici les écrasera toutes)"
+"(Vous avez des descriptions différentes sur des images individuelles. "
+"Veuillez saisir le texte à ajouter ou remplacer les descriptions. )"
 
 #: AnnotationDialog/Dialog.cpp:135
 #, kde-format
@@ -250,23 +247,22 @@ msgstr "Recherche uniquement sur fichiers brut (RAW)"
 #: AnnotationDialog/Dialog.cpp:441
 #, kde-format
 msgid "Append"
-msgstr ""
+msgstr "Ajouter"
 
 #: AnnotationDialog/Dialog.cpp:442
 #, kde-format
 msgid "Append new text to each description"
-msgstr ""
+msgstr "Ajouter le nouveau texte à chaque description"
 
 #: AnnotationDialog/Dialog.cpp:443
-#, fuzzy, kde-format
-#| msgid "Places"
+#, kde-format
 msgid "Replace"
-msgstr "Lieux"
+msgstr "Remplacer"
 
 #: AnnotationDialog/Dialog.cpp:444
 #, kde-format
 msgid "Replace each description with the new text"
-msgstr ""
+msgstr "Remplacer chaque description par le nouveau texte"
 
 #: AnnotationDialog/Dialog.cpp:453
 #, kde-format

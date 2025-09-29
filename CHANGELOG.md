@@ -40,6 +40,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Add command line option "--save-and-quit"
  - Add home and end key shortcuts to date bar
  - Add option to append description text when changing multiple image descriptions (#470433)
+ - Show visual feedback when setting a rating in the viewer (#509964)
 
 ### Changed
 

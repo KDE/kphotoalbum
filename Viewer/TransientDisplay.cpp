@@ -6,6 +6,7 @@
 #include "TransientDisplay.h"
 
 #include <KLocalizedString>
+#include <KRatingWidget>
 #include <QLabel>
 #include <QLayout>
 #include <QTimeLine>
@@ -21,7 +22,7 @@ Viewer::TransientDisplay::TransientDisplay(QWidget *parent)
 
     m_timer = new QTimer(this);
     m_timer->setSingleShot(true);
-    connect(m_timer, &QTimer::timeout, [this] {
+    connect(m_timer, &QTimer::timeout, this, [this] {
         if (m_nextFadeAction == FadeOut)
             m_timeLine->start();
         else
@@ -34,6 +35,17 @@ Viewer::TransientDisplay::TransientDisplay(QWidget *parent)
 void Viewer::TransientDisplay::display(const QString &text, std::chrono::milliseconds duration, FadeAction action)
 {
     setText(QLatin1String("<p><center><font size=\"+4\">%1</font></center></p>").arg(text));
+    m_nextFadeAction = action;
+    go(duration);
+}
+
+void Viewer::TransientDisplay::displayRating(short rating, std::chrono::milliseconds duration, FadeAction action)
+{
+    KRatingWidget ratingWidget(this);
+    ratingWidget.setMaxRating(10);
+    ratingWidget.setHalfStepsEnabled(true);
+    ratingWidget.setRating(rating);
+    setPixmap(ratingWidget.grab());
     m_nextFadeAction = action;
     go(duration);
 }

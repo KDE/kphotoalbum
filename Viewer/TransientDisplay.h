@@ -25,6 +25,14 @@ public:
     enum FadeAction { FadeOut,
                       NoFadeOut };
     void display(const QString &text, std::chrono::milliseconds duration = std::chrono::seconds(1), FadeAction action = FadeOut);
+    /**
+     * @brief displayRating shows a 0 to 5 star rating display for the specified amount of time.
+     * The rating can happen in half-steps, e.g. a rating of 9 translates to 4 and a half stars.
+     * @param rating a rating between 0 and 10
+     * @param duration the duration for the label to stay visible
+     * @param action fade out or disappear at once
+     */
+    void displayRating(short rating, std::chrono::milliseconds duration = std::chrono::seconds(1), FadeAction action = FadeOut);
 
 private:
     void go(std::chrono::milliseconds duration);

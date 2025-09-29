@@ -1138,6 +1138,7 @@ void Viewer::ViewerWidget::keyPressEvent(QKeyEvent *event)
     if (event->modifiers() == 0 && event->key() >= Qt::Key_0 && event->key() <= Qt::Key_5) {
         const auto rating = event->key() - Qt::Key_0;
         currentInfo()->setRating(rating * 2);
+        m_transientDisplay->displayRating(rating * 2, 500ms, TransientDisplay::NoFadeOut);
         dirty = true;
     } else if (m_tagMode == TagMode::Locked) {
         return;

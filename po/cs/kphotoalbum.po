@@ -216,7 +216,7 @@ msgstr "Vyhledávat pouze RAW soubory"
 #: AnnotationDialog/Dialog.cpp:441
 #, kde-format
 msgid "Append"
-msgstr ""
+msgstr "Přidat"
 
 #: AnnotationDialog/Dialog.cpp:442
 #, kde-format
@@ -224,10 +224,9 @@ msgid "Append new text to each description"
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:443
-#, fuzzy, kde-format
-#| msgid "Places"
+#, kde-format
 msgid "Replace"
-msgstr "Místa"
+msgstr "Nahradit"
 
 #: AnnotationDialog/Dialog.cpp:444
 #, kde-format

@@ -23,7 +23,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 cmake_minimum_required(VERSION 3.30.0)
-project(kphotoalbum LANGUAGES CXX VERSION 6.0.1)
+project(kphotoalbum LANGUAGES CXX VERSION 6.1.0)
 
 # set minimum versions here:
 set(MINIMUM_KF6_VERSION 6.0.0)

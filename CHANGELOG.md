@@ -32,8 +32,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
-(Unreleased)
-------------
+KPhotoAlbum 6.1.0 (2025-10-04)
+------------------------------
 
 ### Added
  - Add command line option "--config"
@@ -43,15 +43,10 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Show visual feedback when setting a rating in the viewer (#509964)
 
 ### Changed
-
  - index.xml file format version bumped to "11":
    The new file format version improves the "compressed" file format and handles arbitrary category names correctly.
    Positionable tags are also now stored natively in the "compressed" file format with far less overhead.
  - Disable "View" actions when not appropriate (#505185)
-
-### Dependencies
-
-### Deprecated
 
 ### Fixed
  - Fix purpose plugin support (#501885)
@@ -60,9 +55,6 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix spurious entries in "Search for images and videos with incomplete dates" (#505023)
  - Fix crash when interacting with a category after deleting it (#478015)
 
-### Removed
-
-### Security
 
 KPhotoAlbum 6.0.1 (2025-01-06)
 ------------------------------

@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+/* SPDX-FileCopyrightText: 2003-2025 The KPhotoAlbum Development Team
 
    SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -201,7 +201,8 @@ void ThumbnailView::Delegate::paintStackedIndicator(QPainter *painter, const QRe
     painter->save();
     const QColor lineColor = widget()->palette().shadow().color();
     const QColor alternateColor = widget()->palette().brightText().color();
-    for (int i = 0; i < 8; ++i) {
+    const int numLines = 7;
+    for (int i = 0; i <= numLines; ++i) {
         painter->setPen(QPen(i % 2 == 0 ? lineColor : alternateColor));
 
         painter->drawLine(bottomLeftPoint, bottomRightPoint);
@@ -212,6 +213,26 @@ void ThumbnailView::Delegate::paintStackedIndicator(QPainter *painter, const QRe
 
         bottomLeftPoint -= QPoint(isFirst(index.row()) ? 1 : 0, 1);
         bottomRightPoint -= QPoint(isLast(index.row()) ? 1 : 0, 1);
+    }
+
+    // If this thumbnail is the first in a collapsed stack, display the stack
+    // size.
+    const DB::StackID curId = getStackId(model()->imageAt(index.row()));
+    if (isFirst(index.row()) && !model()->isItemInExpandedStack(curId)) {
+        const auto stackSize = DB::ImageDB::instance()->getStackFor(fileName).size();
+        const QString text = QString::number(stackSize);
+        const QRect metricsRect = painter->fontMetrics().boundingRect(text);
+        const int margin = 3;
+        // Position the text in the corner just above and to the left of the lines.
+        const QRect textRect = QRect(pixmapRect.right() - metricsRect.width() - 2 * margin - numLines,
+                                     pixmapRect.bottom() - metricsRect.height() - margin - numLines,
+                                     metricsRect.width() + margin, metricsRect.height());
+        const QRect backgroundRect = textRect.adjusted(-margin, -margin, margin, margin);
+        QColor bgColor = widget()->palette().shadow().color();
+        bgColor.setAlpha(128);
+        painter->fillRect(backgroundRect, QBrush(bgColor));
+        painter->setPen(widget()->palette().brightText().color());
+        painter->drawText(textRect, Qt::TextDontClip, text);
     }
     painter->restore();
 }

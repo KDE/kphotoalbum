@@ -32,6 +32,25 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
+(Unreleased)
+------------
+
+### Added
+ - Display number of images on collapsed stacks (#223213)
+
+### Changed
+
+### Dependencies
+
+### Deprecated
+
+### Fixed
+
+### Removed
+
+### Security
+
+
 KPhotoAlbum 6.1.0 (2025-10-04)
 ------------------------------
 

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-30 00:41+0000\n"
+"POT-Creation-Date: 2025-10-10 00:40+0000\n"
 "PO-Revision-Date: 2025-09-24 09:20+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -2898,8 +2898,9 @@ msgstr ""
 "K Fotoğraf Albümü küçük görsel önbelleğini denetlemek ve düzenlemek için araç"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, kde-format
-msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
+#, fuzzy, kde-format
+#| msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
 msgstr "Telif hakkı © 2003–2024 K Fotoğraf Albümü Geliştirme Takımı"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
@@ -3241,8 +3242,9 @@ msgid "KDE Photo Album"
 msgstr "KDE Fotoğraf Albümü"
 
 #: main.cpp:88
-#, kde-format
-msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
+#, fuzzy, kde-format
+#| msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
 msgstr "Telif hakkı © 2003–2024 K Fotoğraf Albümü Geliştirme Takımı"
 
 #: main.cpp:111
@@ -6269,7 +6271,7 @@ msgstr "Video Arka Ucu:"
 msgid "Launch in full screen"
 msgstr "Tam boyutta çalıştır"
 
-#: ThumbnailView/Delegate.cpp:237
+#: ThumbnailView/Delegate.cpp:258
 #, kde-format
 msgctxt ""
 "No video length could be determined, so we just display 'video' instead of "

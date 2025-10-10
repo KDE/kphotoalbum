@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-30 00:41+0000\n"
+"POT-Creation-Date: 2025-10-10 00:40+0000\n"
 "PO-Revision-Date: 2025-09-27 16:14+0200\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -2915,8 +2915,9 @@ msgstr ""
 "KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, kde-format
-msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
+#, fuzzy, kde-format
+#| msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
 msgstr "Copyright (C) 2020-2024 La squadra di sviluppo di KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
@@ -3263,8 +3264,9 @@ msgid "KDE Photo Album"
 msgstr "Album fotografico di KDE"
 
 #: main.cpp:88
-#, kde-format
-msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
+#, fuzzy, kde-format
+#| msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
 msgstr "Copyright (C) 2003-2024 La squadra di sviluppo di KPhotoAlbum"
 
 #: main.cpp:111
@@ -6327,7 +6329,7 @@ msgstr "Motore video:"
 msgid "Launch in full screen"
 msgstr "Avvia a tutto schermo"
 
-#: ThumbnailView/Delegate.cpp:237
+#: ThumbnailView/Delegate.cpp:258
 #, kde-format
 msgctxt ""
 "No video length could be determined, so we just display 'video' instead of "

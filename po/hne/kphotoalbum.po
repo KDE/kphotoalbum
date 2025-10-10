@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-30 00:41+0000\n"
+"POT-Creation-Date: 2025-10-10 00:40+0000\n"
 "PO-Revision-Date: 2009-02-17 12:43+0530\n"
 "Last-Translator: Ravishankar Shrivastava <raviratlami@aol.in>\n"
 "Language-Team: Hindi <kde-i18n-doc@lists.kde.org>\n"
@@ -2808,7 +2808,7 @@ msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:48
 #, kde-format
-msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
@@ -3143,7 +3143,7 @@ msgstr "केडीई फोटो एलबम"
 
 #: main.cpp:88
 #, kde-format
-msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
 msgstr ""
 
 #: main.cpp:111
@@ -5965,7 +5965,7 @@ msgstr "डाटाबेस बैकएन्ड"
 msgid "Launch in full screen"
 msgstr "पूरा स्क्रीन मं चलाव"
 
-#: ThumbnailView/Delegate.cpp:237
+#: ThumbnailView/Delegate.cpp:258
 #, fuzzy, kde-format
 #| msgid "1 video"
 #| msgid_plural "%1 videos"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-30 00:41+0000\n"
+"POT-Creation-Date: 2025-10-10 00:40+0000\n"
 "PO-Revision-Date: 2013-02-24 11:33+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -2701,7 +2701,7 @@ msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:48
 #, kde-format
-msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
@@ -3025,7 +3025,7 @@ msgstr "केडीई फोटो अल्बम"
 
 #: main.cpp:88
 #, kde-format
-msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
 msgstr ""
 
 #: main.cpp:111
@@ -5761,7 +5761,7 @@ msgstr ""
 msgid "Launch in full screen"
 msgstr ""
 
-#: ThumbnailView/Delegate.cpp:237
+#: ThumbnailView/Delegate.cpp:258
 #, kde-format
 msgctxt ""
 "No video length could be determined, so we just display 'video' instead of "

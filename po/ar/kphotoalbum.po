@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-10 00:40+0000\n"
-"PO-Revision-Date: 2025-09-25 11:58+0400\n"
+"PO-Revision-Date: 2025-10-11 11:07+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -2924,10 +2924,9 @@ msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr "أداة لفحص وتحرير ذاكرة التخزين المؤقت للصور المصغرة لـ دفتر الصور"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
-msgstr "حقوق النشر (C) 2020-2024 فريق تطوير دفتر الصور"
+msgstr "حقوق النشر (C) 2020-2025 فريق تطوير دفتر الصور"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -3267,10 +3266,9 @@ msgid "KDE Photo Album"
 msgstr "دفتر الصور كيدي"
 
 #: main.cpp:88
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
-msgstr "حقوق النشر (C) 2003-2024 فريق تطوير دفتر الصور"
+msgstr "حقوق النشر (C) 2003-2025 فريق تطوير دفتر الصور"
 
 #: main.cpp:111
 #, kde-format

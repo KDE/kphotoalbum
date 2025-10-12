@@ -34,6 +34,7 @@
 #include <QCommandLineOption>
 #include <QCommandLineParser>
 #include <QDebug>
+#include <QImageReader>
 #include <QLocale>
 #include <QLoggingCategory>
 #include <QTemporaryFile>
@@ -164,6 +165,11 @@ int main(int argc, char **argv)
 
     parser->process(app);
     aboutData.processCommandLine(parser);
+
+    // As a security measure, Qt6 reduced the default maximum image allocation
+    // to 256MB which is too small for some images.  Increase the limit back to
+    // 2GB.
+    QImageReader::setAllocationLimit(2000);
 
     app.setWindowIcon(QIcon::fromTheme(QStringLiteral("kphotoalbum")));
 

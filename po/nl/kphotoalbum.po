@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-10 00:40+0000\n"
-"PO-Revision-Date: 2025-09-24 10:01+0200\n"
+"PO-Revision-Date: 2025-10-11 18:09+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -2922,10 +2922,9 @@ msgstr ""
 "KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2024 Het ontwikkelteam van KPhotoAlbum"
+msgstr "Copyright (C) 2003-2025 Het ontwikkelteam van KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -3271,10 +3270,9 @@ msgid "KDE Photo Album"
 msgstr "KDE Foto Album"
 
 #: main.cpp:88
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2024 Het ontwikkelteam van KPhotoAlbum"
+msgstr "Copyright (C) 2003-2025 Het ontwikkelteam van KPhotoAlbum"
 
 #: main.cpp:111
 #, kde-format

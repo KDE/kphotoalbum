@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-10 00:40+0000\n"
+"POT-Creation-Date: 2025-10-13 00:40+0000\n"
 "PO-Revision-Date: 2025-04-20 14:29+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -2816,76 +2816,76 @@ msgstr ""
 msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
 msgstr "Copyright (c) 2003-2024 KPhotoAlbum 開發團隊"
 
-#: kpa-thumbnailtool/main.cpp:56 main.cpp:97
+#: kpa-thumbnailtool/main.cpp:56 main.cpp:98
 #, fuzzy, kde-format
 #| msgid "Johannes Zarl"
 msgid "Johannes Zarl-Zierl"
 msgstr "Johannes Zarl"
 
-#: kpa-thumbnailtool/main.cpp:56 main.cpp:97
+#: kpa-thumbnailtool/main.cpp:56 main.cpp:98
 #, fuzzy, kde-format
 #| msgid "Development"
 msgid "Development, Maintainer"
 msgstr "程式開發"
 
-#: kpa-thumbnailtool/main.cpp:57 main.cpp:98
+#: kpa-thumbnailtool/main.cpp:57 main.cpp:99
 #, fuzzy, kde-format
 #| msgid "Robert L Krawitz"
 msgid "Robert Krawitz"
 msgstr "Robert L Krawitz"
 
-#: kpa-thumbnailtool/main.cpp:57 main.cpp:98
+#: kpa-thumbnailtool/main.cpp:57 main.cpp:99
 #, fuzzy, kde-format
 #| msgid "Development"
 msgid "Development, Optimization"
 msgstr "程式開發"
 
-#: kpa-thumbnailtool/main.cpp:58 main.cpp:99
+#: kpa-thumbnailtool/main.cpp:58 main.cpp:100
 #, kde-format
 msgid "Tobias Leupold"
 msgstr "Tobias Leupold"
 
-#: kpa-thumbnailtool/main.cpp:58 main.cpp:99
+#: kpa-thumbnailtool/main.cpp:58 main.cpp:100
 #, kde-format
 msgid "Development, Releases, Website"
 msgstr "開發、版本釋出、網站"
 
-#: kpa-thumbnailtool/main.cpp:59 main.cpp:100
+#: kpa-thumbnailtool/main.cpp:59 main.cpp:101
 #, kde-format
 msgid "Jesper K. Pedersen"
 msgstr "Jesper K. Pedersen"
 
-#: kpa-thumbnailtool/main.cpp:59 main.cpp:100
+#: kpa-thumbnailtool/main.cpp:59 main.cpp:101
 #, kde-format
 msgid "Former Maintainer, Project Creator"
 msgstr "前任維護者、專案建立者"
 
-#: kpa-thumbnailtool/main.cpp:61 main.cpp:102
+#: kpa-thumbnailtool/main.cpp:61 main.cpp:103
 #, kde-format
 msgid "Hassan Ibraheem"
 msgstr "Hassan Ibraheem"
 
-#: kpa-thumbnailtool/main.cpp:62 main.cpp:103
+#: kpa-thumbnailtool/main.cpp:62 main.cpp:104
 #, kde-format
 msgid "Jan Kundr&aacute;t"
 msgstr "Jan Kundr&aacute;t"
 
-#: kpa-thumbnailtool/main.cpp:63 main.cpp:104
+#: kpa-thumbnailtool/main.cpp:63 main.cpp:105
 #, kde-format
 msgid "Andreas Neustifter"
 msgstr "Andreas Neustifter"
 
-#: kpa-thumbnailtool/main.cpp:64 main.cpp:105
+#: kpa-thumbnailtool/main.cpp:64 main.cpp:106
 #, kde-format
 msgid "Tuomas Suutari"
 msgstr "Tuomas Suutari"
 
-#: kpa-thumbnailtool/main.cpp:65 main.cpp:106
+#: kpa-thumbnailtool/main.cpp:65 main.cpp:107
 #, kde-format
 msgid "Miika Turkia"
 msgstr "Miika Turkia"
 
-#: kpa-thumbnailtool/main.cpp:66 main.cpp:107
+#: kpa-thumbnailtool/main.cpp:66 main.cpp:108
 #, kde-format
 msgid "Henner Zeller"
 msgstr "Henner Zeller"
@@ -3156,40 +3156,40 @@ msgstr ""
 "<p>Exif 搜尋資料庫已毀損而沒有資料。</p><p>要修正此問題請執行維護→重建 Exif "
 "搜尋資料庫。</p>"
 
-#: main.cpp:84
+#: main.cpp:85
 #, kde-format
 msgid "KPhotoAlbum"
 msgstr "KPhotoAlbum"
 
-#: main.cpp:86
+#: main.cpp:87
 #, kde-format
 msgid "KDE Photo Album"
 msgstr "KDE 相簿"
 
-#: main.cpp:88
+#: main.cpp:89
 #, fuzzy, kde-format
 #| msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
 msgid "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
 msgstr "Copyright (c) 2003-2024 KPhotoAlbum 開發團隊"
 
-#: main.cpp:111
+#: main.cpp:112
 #, kde-format
 msgid "Marco Caldarelli"
 msgstr "Marco Caldarelli"
 
-#: main.cpp:112
+#: main.cpp:113
 #, fuzzy, kde-format
 #| msgid ""
 #| "Patch for making it possible to reread EXIF info using a nice dialog."
 msgid "Patch for making it possible to reread Exif info using a nice dialog."
 msgstr "寫一個對話框來重新讀取 EXIF 資訊"
 
-#: main.cpp:115
+#: main.cpp:116
 #, kde-format
 msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
-#: main.cpp:116
+#: main.cpp:117
 #, fuzzy, kde-format
 #| msgid ""
 #| "(.) Patch with directory info made available through the browser. (.) "
@@ -3199,64 +3199,64 @@ msgid ""
 "Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr "用瀏覽器取得目錄資訊，及新增搜尋頁面中「且/或」的勾選盒"
 
-#: main.cpp:120
+#: main.cpp:121
 #, kde-format
 msgid "Matthias Füssel"
 msgstr "Matthias Füssel"
 
-#: main.cpp:121
+#: main.cpp:122
 #, kde-format
 msgid "Geo Position page in browser and various bug fixes"
 msgstr ""
 
-#: main.cpp:124
+#: main.cpp:125
 #, kde-format
 msgid "Wes Hardaker"
 msgstr "Wes Hardaker"
 
-#: main.cpp:125
+#: main.cpp:126
 #, kde-format
 msgid "Some very useful features to improve workflow"
 msgstr "一些非常有用的功能，並改進流程"
 
-#: main.cpp:128
+#: main.cpp:129
 #, kde-format
 msgid "Reimar Imhof"
 msgstr "Reimar Imhof"
 
-#: main.cpp:129
+#: main.cpp:130
 #, kde-format
 msgid "Patch to sort items in option listboxes"
 msgstr "在條列盒中的項目排序功能"
 
-#: main.cpp:132
+#: main.cpp:133
 #, kde-format
 msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
-#: main.cpp:133
+#: main.cpp:134
 #, kde-format
 msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
 msgstr "修正許多錯誤，以及一些新功能"
 
-#: main.cpp:137
+#: main.cpp:138
 #, kde-format
 msgid "Teemu Rytilahti"
 msgstr "Teemu Rytilahti"
 
-#: main.cpp:138
+#: main.cpp:139
 #, kde-format
 msgid "Theme support for HTML generation"
 msgstr "HTML 生成的主題支援"
 
-#: main.cpp:141
+#: main.cpp:142
 #, kde-format
 msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
-#: main.cpp:142
+#: main.cpp:143
 #, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
@@ -3265,32 +3265,32 @@ msgstr ""
 "在縮圖檢視中排序影像的功能，\n"
 "還有從 Exif 影像中讀取時間資訊"
 
-#: main.cpp:146
+#: main.cpp:147
 #, kde-format
 msgid "Clytie Siddall"
 msgstr "Clytie Siddall"
 
-#: main.cpp:147
+#: main.cpp:148
 #, kde-format
 msgid "Tremendous help with the English text in the application."
 msgstr "幫忙找出應用程式中英文的問題"
 
-#: main.cpp:150
+#: main.cpp:151
 #, kde-format
 msgid "Will Stephenson"
 msgstr "Will Stephenson"
 
-#: main.cpp:151
+#: main.cpp:152
 #, kde-format
 msgid "Developing an Icon for KPhotoAlbum"
 msgstr "開發 KPhotoAlbum 的圖示"
 
-#: main.cpp:154
+#: main.cpp:155
 #, kde-format
 msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
-#: main.cpp:155
+#: main.cpp:156
 #, fuzzy, kde-format
 #| msgid ""
 #| "Patch which speed up loading of thumbnails plus preview in image property "

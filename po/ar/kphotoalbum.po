@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-10 00:40+0000\n"
+"POT-Creation-Date: 2025-10-13 00:40+0000\n"
 "PO-Revision-Date: 2025-10-11 11:07+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -2928,72 +2928,72 @@ msgstr "أداة لفحص وتحرير ذاكرة التخزين المؤقت ل
 msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
 msgstr "حقوق النشر (C) 2020-2025 فريق تطوير دفتر الصور"
 
-#: kpa-thumbnailtool/main.cpp:56 main.cpp:97
+#: kpa-thumbnailtool/main.cpp:56 main.cpp:98
 #, kde-format
 msgid "Johannes Zarl-Zierl"
 msgstr "يوهانيس زارل-زيرل"
 
-#: kpa-thumbnailtool/main.cpp:56 main.cpp:97
+#: kpa-thumbnailtool/main.cpp:56 main.cpp:98
 #, kde-format
 msgid "Development, Maintainer"
 msgstr "تطوير، صيانة"
 
-#: kpa-thumbnailtool/main.cpp:57 main.cpp:98
+#: kpa-thumbnailtool/main.cpp:57 main.cpp:99
 #, kde-format
 msgid "Robert Krawitz"
 msgstr "روبرت كراويتز"
 
-#: kpa-thumbnailtool/main.cpp:57 main.cpp:98
+#: kpa-thumbnailtool/main.cpp:57 main.cpp:99
 #, kde-format
 msgid "Development, Optimization"
 msgstr "تطوير، تحسين"
 
-#: kpa-thumbnailtool/main.cpp:58 main.cpp:99
+#: kpa-thumbnailtool/main.cpp:58 main.cpp:100
 #, kde-format
 msgid "Tobias Leupold"
 msgstr "توبياس لويبولد"
 
-#: kpa-thumbnailtool/main.cpp:58 main.cpp:99
+#: kpa-thumbnailtool/main.cpp:58 main.cpp:100
 #, kde-format
 msgid "Development, Releases, Website"
 msgstr "تطوير، إصدارات، موقع الويب"
 
-#: kpa-thumbnailtool/main.cpp:59 main.cpp:100
+#: kpa-thumbnailtool/main.cpp:59 main.cpp:101
 #, kde-format
 msgid "Jesper K. Pedersen"
 msgstr "جيسبر ك. بيدرسن"
 
-#: kpa-thumbnailtool/main.cpp:59 main.cpp:100
+#: kpa-thumbnailtool/main.cpp:59 main.cpp:101
 #, kde-format
 msgid "Former Maintainer, Project Creator"
 msgstr "الصائن السابق، منشئ المشروع"
 
-#: kpa-thumbnailtool/main.cpp:61 main.cpp:102
+#: kpa-thumbnailtool/main.cpp:61 main.cpp:103
 #, kde-format
 msgid "Hassan Ibraheem"
 msgstr "حسان إبراهيم"
 
-#: kpa-thumbnailtool/main.cpp:62 main.cpp:103
+#: kpa-thumbnailtool/main.cpp:62 main.cpp:104
 #, kde-format
 msgid "Jan Kundr&aacute;t"
 msgstr "يان كوندرات"
 
-#: kpa-thumbnailtool/main.cpp:63 main.cpp:104
+#: kpa-thumbnailtool/main.cpp:63 main.cpp:105
 #, kde-format
 msgid "Andreas Neustifter"
 msgstr "أندرياس نويسفتر"
 
-#: kpa-thumbnailtool/main.cpp:64 main.cpp:105
+#: kpa-thumbnailtool/main.cpp:64 main.cpp:106
 #, kde-format
 msgid "Tuomas Suutari"
 msgstr "تووماس سوتاري"
 
-#: kpa-thumbnailtool/main.cpp:65 main.cpp:106
+#: kpa-thumbnailtool/main.cpp:65 main.cpp:107
 #, kde-format
 msgid "Miika Turkia"
 msgstr "مييكا توركيا"
 
-#: kpa-thumbnailtool/main.cpp:66 main.cpp:107
+#: kpa-thumbnailtool/main.cpp:66 main.cpp:108
 #, kde-format
 msgid "Henner Zeller"
 msgstr "هنر زيلر"
@@ -3255,37 +3255,37 @@ msgstr ""
 "<p>قاعدة بيانات بحث Exif تالفة وليس بها بيانات.</p> <p>لإصلاح هذه المشكلة، "
 "شغّل الصيانة->إعادة إنشاء قاعدة بيانات بحث Exif.</p>"
 
-#: main.cpp:84
+#: main.cpp:85
 #, kde-format
 msgid "KPhotoAlbum"
 msgstr "دفتر الصور"
 
-#: main.cpp:86
+#: main.cpp:87
 #, kde-format
 msgid "KDE Photo Album"
 msgstr "دفتر الصور كيدي"
 
-#: main.cpp:88
+#: main.cpp:89
 #, kde-format
 msgid "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
 msgstr "حقوق النشر (C) 2003-2025 فريق تطوير دفتر الصور"
 
-#: main.cpp:111
+#: main.cpp:112
 #, kde-format
 msgid "Marco Caldarelli"
 msgstr "ماركو كالداريلي"
 
-#: main.cpp:112
+#: main.cpp:113
 #, kde-format
 msgid "Patch for making it possible to reread Exif info using a nice dialog."
 msgstr "رَقْعَة لجعل إعادة قراءة معلومات Exif باستخدام حوار لطيف ممكنة."
 
-#: main.cpp:115
+#: main.cpp:116
 #, kde-format
 msgid "Jean-Michel FAYARD"
 msgstr "جان-ميشيل فايارد"
 
-#: main.cpp:116
+#: main.cpp:117
 #, kde-format
 msgid ""
 "Patch with folder info made available through the browser.\n"
@@ -3294,42 +3294,42 @@ msgstr ""
 "رَقْعَة تجعل معلومات المجلد متاحة عبر المتصفح.\n"
 "رَقْعَة لإضافة خانة اختيار للبحث بـ \"و/أو\" في صفحة البحث."
 
-#: main.cpp:120
+#: main.cpp:121
 #, kde-format
 msgid "Matthias Füssel"
 msgstr "ماتياس فيوسل"
 
-#: main.cpp:121
+#: main.cpp:122
 #, kde-format
 msgid "Geo Position page in browser and various bug fixes"
 msgstr "صفحة الموقع الجغرافي في المتصفح وإصلاحات أخطاء متنوعة"
 
-#: main.cpp:124
+#: main.cpp:125
 #, kde-format
 msgid "Wes Hardaker"
 msgstr "ويس هارداكر"
 
-#: main.cpp:125
+#: main.cpp:126
 #, kde-format
 msgid "Some very useful features to improve workflow"
 msgstr "ميزات مفيدة جدًا لتحسين سير العمل"
 
-#: main.cpp:128
+#: main.cpp:129
 #, kde-format
 msgid "Reimar Imhof"
 msgstr "ريمر إيمهوف"
 
-#: main.cpp:129
+#: main.cpp:130
 #, kde-format
 msgid "Patch to sort items in option listboxes"
 msgstr "رُقعة لفرز العناصر في صناديق قوائم الخيارات"
 
-#: main.cpp:132
+#: main.cpp:133
 #, kde-format
 msgid "Christoph Moseler"
 msgstr "كريستوف موسيلر"
 
-#: main.cpp:133
+#: main.cpp:134
 #, kde-format
 msgid ""
 "Numerous patches for lots of bugs,\n"
@@ -3338,22 +3338,22 @@ msgstr ""
 "رُقع عديدة لأخطاء كثيرة،\n"
 "ورُقع لبعض الميزات الجديدة"
 
-#: main.cpp:137
+#: main.cpp:138
 #, kde-format
 msgid "Teemu Rytilahti"
 msgstr "تيمو ريتيلاهيتي"
 
-#: main.cpp:138
+#: main.cpp:139
 #, kde-format
 msgid "Theme support for HTML generation"
 msgstr "إتاحة السمات لتوليد HTML"
 
-#: main.cpp:141
+#: main.cpp:142
 #, kde-format
 msgid "Thomas Schwarzgruber"
 msgstr "توماس شوارزغروبر"
 
-#: main.cpp:142
+#: main.cpp:143
 #, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
@@ -3362,32 +3362,32 @@ msgstr ""
 "رُقعة لفرز الصور في عرض الصور المصغرة،\n"
 "وقراءة معلومات الوقت من صور Exif للصور الموجودة"
 
-#: main.cpp:146
+#: main.cpp:147
 #, kde-format
 msgid "Clytie Siddall"
 msgstr "كليتي سيدال"
 
-#: main.cpp:147
+#: main.cpp:148
 #, kde-format
 msgid "Tremendous help with the English text in the application."
 msgstr "مساعدة كبيرة في النص الإنجليزي في التطبيق."
 
-#: main.cpp:150
+#: main.cpp:151
 #, kde-format
 msgid "Will Stephenson"
 msgstr "ويل ستيفنسون"
 
-#: main.cpp:151
+#: main.cpp:152
 #, kde-format
 msgid "Developing an Icon for KPhotoAlbum"
 msgstr "تطوير أيقونة لـ دفتر الصور"
 
-#: main.cpp:154
+#: main.cpp:155
 #, kde-format
 msgid "Marcel Wiesweg"
 msgstr "مارسيل فيزفيغ"
 
-#: main.cpp:155
+#: main.cpp:156
 #, kde-format
 msgid ""
 "Patch which speeds up loading of thumbnails,\n"

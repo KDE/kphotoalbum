@@ -139,7 +139,7 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
 
     m_previewDock = createDock(i18n("Image Preview"), QString::fromLatin1("Image Preview"), Qt::TopDockWidgetArea, m_preview);
 
-    QWidget* descriptionWidgets = createDescriptionWidgets();
+    QWidget *descriptionWidgets = createDescriptionWidgets();
     m_descriptionDock = createDock(i18n("Description"), QString::fromLatin1("description"), Qt::LeftDockWidgetArea, descriptionWidgets);
     shortCutManager.addDock(m_descriptionDock, descriptionWidgets);
 
@@ -229,11 +229,9 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     m_clearBut = new QPushButton();
     KGuiItem::assign(m_clearBut,
                      KGuiItem(i18n("Clear Form"), QApplication::isRightToLeft() ? QString::fromLatin1("clear_left") : QString::fromLatin1("locationbar_erase")));
-    KAcceleratorManager::setNoAccel(m_clearBut);
     lay1->addWidget(m_clearBut);
 
     QPushButton *optionsBut = new QPushButton(i18n("Options..."));
-    KAcceleratorManager::setNoAccel(optionsBut);
     lay1->addWidget(optionsBut);
 
     lay1->addStretch(1);
@@ -430,7 +428,7 @@ QWidget *AnnotationDialog::Dialog::createDateWidget(ShortCutManager &shortCutMan
     return top;
 }
 
-QWidget* AnnotationDialog::Dialog::createDescriptionWidgets()
+QWidget *AnnotationDialog::Dialog::createDescriptionWidgets()
 {
     QWidget *top = new QWidget;
     QVBoxLayout *vLayout = new QVBoxLayout(top);
@@ -798,8 +796,7 @@ int AnnotationDialog::Dialog::configure(DB::ImageInfoList list, bool oneAtATime)
             m_appendButton->setVisible(true);
             m_replaceButton->setEnabled(true);
             m_replaceButton->setVisible(true);
-        }
-        else {
+        } else {
             m_description->setDescription(firstDescription);
 
             m_appendButton->setEnabled(false);
@@ -1357,6 +1354,12 @@ void AnnotationDialog::Dialog::setupActions()
     action = m_actions->addAction(QString::fromLatin1("annotationdialog-toggle-viewer"), this, &Dialog::togglePreview);
     action->setText(i18n("Toggle fullscreen preview"));
     m_actions->setDefaultShortcut(action, QKeySequence(Qt::CTRL | Qt::Key_Space));
+
+    action = m_actions->addAction(QString::fromLatin1("annotationdialog-clear-form"), this, &Dialog::slotClearSearchForm);
+    action->setText(i18n("Clear Form"));
+
+    action = m_actions->addAction(QString::fromLatin1("annotationdialog-options"), this, &Dialog::slotOptions);
+    action->setText(i18n("Options..."));
 
     const auto allActions = m_actions->actions();
     for (QAction *action : allActions) {

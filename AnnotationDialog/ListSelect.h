@@ -73,6 +73,10 @@ public:
     void deselectTag(QString tag);
 
 public Q_SLOTS:
+    /**
+     * Clear the selection and reset the and/or buttons if in SearchMode.
+     */
+    void clear();
     void slotReturn();
     void slotExternalReturn(const QString &text);
     void slotSortDate();

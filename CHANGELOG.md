@@ -46,6 +46,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
 ### Fixed
  - Allow large images up to an in-memory size of 2GB (#219112)
+ - Make "Clear form" button in search dialog actually clear all form fields.
 
 ### Removed
 

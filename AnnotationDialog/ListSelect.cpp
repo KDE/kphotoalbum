@@ -926,6 +926,14 @@ void AnnotationDialog::ListSelect::deselectTag(QString tag)
     matchingTags.first()->setCheckState(0, Qt::Unchecked);
 }
 
+void ListSelect::clear()
+{
+    setSelection({});
+    if (m_mode == SearchMode) {
+        m_or->setChecked(true);
+    }
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:
 
 #include "moc_ListSelect.cpp"

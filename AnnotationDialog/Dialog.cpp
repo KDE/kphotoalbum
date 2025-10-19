@@ -895,6 +895,15 @@ void AnnotationDialog::Dialog::setup()
 
 void AnnotationDialog::Dialog::slotClearSearchForm()
 {
+    m_imageFilePattern->clear();
+    m_megapixel->clear();
+    m_max_megapixel->clear();
+    m_rating->setRating(0);
+    m_ratingSearchMode->clear();
+    m_searchRAW->setCheckState(Qt::Unchecked);
+    for (auto &listSelect : std::as_const(m_optionList)) {
+        listSelect->clear();
+    }
     loadInfo(DB::ImageSearchInfo());
 }
 

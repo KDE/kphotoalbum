@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2012-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2012-2025 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
@@ -19,6 +19,7 @@
 #include <KLocalizedString>
 #include <QDebug>
 #include <QDialogButtonBox>
+#include <QFileInfo>
 #include <QLabel>
 #include <QPushButton>
 #include <QRadioButton>
@@ -147,17 +148,39 @@ void DuplicateMerger::findDuplicates()
         m_matches[md5].append(fileName);
     }
 
-    bool anyFound = false;
-    for (QMap<DB::MD5, DB::FileNameList>::const_iterator it = m_matches.constBegin();
-         it != m_matches.constEnd(); ++it) {
+    // Sort any duplicates in order of increasing birth time to make the
+    // positioning in the dialog consistent (ie. the oldest duplicate in each
+    // row is mentioned first and is the default selected radio button).
+    for (QMap<DB::MD5, DB::FileNameList>::iterator it = m_matches.begin();
+         it != m_matches.end(); ++it) {
         if (it.value().count() > 1) {
-            addRow(it.key());
-            anyFound = true;
+            std::sort(it.value().begin(), it.value().end(),
+                      [](DB::FileName a, DB::FileName b) {
+                          const QFileInfo aInfo(a.absolute());
+                          const QFileInfo bInfo(b.absolute());
+
+                          return aInfo.birthTime() < bInfo.birthTime();
+                      });
         }
     }
 
-    if (!anyFound) {
+    // This is used to sort the rows (selectors) in the dialog by relative
+    // pathname of the oldest image in each set of duplicates.
+    QMap<QString, DB::MD5> displayOrderMap;
+
+    for (QMap<DB::MD5, DB::FileNameList>::const_iterator it = m_matches.constBegin();
+         it != m_matches.constEnd(); ++it) {
+        if (it.value().count() > 1) {
+            displayOrderMap.insert(it.value().first().relative(), it.key());
+        }
+    }
+
+    if (displayOrderMap.empty()) {
         tellThatNoDuplicatesWereFound();
+    } else {
+        for (DB::MD5 md5 : displayOrderMap.values()) {
+            addRow(md5);
+        }
     }
 
     updateSelectionCount();

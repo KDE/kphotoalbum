@@ -56,7 +56,7 @@ public:
     };
 #endif
     QCommandLineOption saveAndQuit { QLatin1String("save-and-quit"), i18n("Save the database and immediately quit after showing the main window.") };
-    QCommandLineOption searchOnStartup { QLatin1String("search"), i18n("Search for new images on startup.") };
+    QCommandLineOption searchOnStartup { { QLatin1String("rescan"), QLatin1String("search") }, i18n("Search for new images on startup.") };
 };
 }
 

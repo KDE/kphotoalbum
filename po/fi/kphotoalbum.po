@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-13 00:40+0000\n"
-"PO-Revision-Date: 2025-08-14 18:21+0300\n"
+"PO-Revision-Date: 2025-10-13 21:08+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -64,16 +64,13 @@ msgid "Description"
 msgstr "Kuvaus"
 
 #: AnnotationDialog/Dialog.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "(You have differing descriptions on individual images, setting text here "
-#| "will override them all)"
+#, kde-format
 msgid ""
 "(You have differing descriptions on individual images.  Enter text to append "
 "to or replace the descriptions.)"
 msgstr ""
-"(Yksittäisten kuvien kuvaukset eroavat toisistaan: jos annat tähän "
-"kuvauksen, kaikkien kuvien teksti muutetaan)"
+"(Yksittäisten kuvien kuvaukset eroavat toisistaan. Syötä teksti, joka "
+"lisätään kuvauksiin tai joilla korvataan ne.)"
 
 #: AnnotationDialog/Dialog.cpp:135
 #, kde-format
@@ -237,23 +234,22 @@ msgstr "Etsi vain RAW-tiedostoja"
 #: AnnotationDialog/Dialog.cpp:441
 #, kde-format
 msgid "Append"
-msgstr ""
+msgstr "Lisää"
 
 #: AnnotationDialog/Dialog.cpp:442
 #, kde-format
 msgid "Append new text to each description"
-msgstr ""
+msgstr "Lisää kuhunkin kuvaukseen uutta tekstiä"
 
 #: AnnotationDialog/Dialog.cpp:443
-#, fuzzy, kde-format
-#| msgid "Places"
+#, kde-format
 msgid "Replace"
-msgstr "Paikat"
+msgstr "Korvaa"
 
 #: AnnotationDialog/Dialog.cpp:444
 #, kde-format
 msgid "Replace each description with the new text"
-msgstr ""
+msgstr "Korvaa kukin kuvaus uudella tekstillä"
 
 #: AnnotationDialog/Dialog.cpp:453
 #, kde-format
@@ -2887,10 +2883,9 @@ msgstr ""
 "Työkalu KPhotoAlbumin pienoiskuvavälimuistin tarkasteluun ja muokkaukseen"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
-msgstr "Tekijänoikeudet © 2020–2024 KPhotoAlbumin kehitystyöryhmä"
+msgstr "Tekijänoikeudet © 2020–2025 KPhotoAlbumin kehitystyöryhmä"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:98
 #, kde-format
@@ -3231,10 +3226,9 @@ msgid "KDE Photo Album"
 msgstr "KDE:n valokuva-albumi"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
-msgstr "Tekijänoikeudet © 2003–2024 KPhotoAlbumin kehitystyöryhmä"
+msgstr "Tekijänoikeudet © 2003–2025 KPhotoAlbumin kehitystyöryhmä"
 
 #: main.cpp:112
 #, kde-format

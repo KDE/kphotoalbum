@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-13 00:40+0000\n"
-"PO-Revision-Date: 2025-09-27 13:31+0200\n"
+"PO-Revision-Date: 2025-10-18 12:25+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -2909,10 +2909,9 @@ msgstr ""
 "KPhontoAlbum-eko koadro txikien cachea ikuskatzeko eta editatzeko tresna"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2024 KPhotoAlbum garapen taldea"
+msgstr "Copyright (C) 2020-2025 KPhotoAlbum garapen taldea"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:98
 #, kde-format
@@ -3257,10 +3256,9 @@ msgid "KDE Photo Album"
 msgstr "KDEko argazkien albuma"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2024 KPhotoAlbum garapen taldea"
+msgstr "Copyright (C) 2003-2025 KPhotoAlbum garapen taldea"
 
 #: main.cpp:112
 #, kde-format

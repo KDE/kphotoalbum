@@ -1,12 +1,11 @@
-/* SPDX-FileCopyrightText: 2018 Robert Krawitz <rlk@alum.mit.edu>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2018 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "OptimizedFileList.h"
 
-#include "FastDir.h"
-
+#include <kpabase/FastDir.h>
 #include <kpabase/Logging.h>
 
 extern "C" {

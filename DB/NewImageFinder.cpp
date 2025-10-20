@@ -1,23 +1,22 @@
-// SPDX-FileCopyrightText: 2005-2013 Jesper K. Pedersen <jesper.pedersen@kdab.com>
-// SPDX-FileCopyrightText: 2006-2010 Tuomas Suutari <tuomas@nepnep.net>
-// SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
-// SPDX-FileCopyrightText: 2007-2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2005 - 2013 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2006 - 2010 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007 - 2008 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2007 - 2010 Jan Kundrát <jkt@flaska.net>
 // SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
-// SPDX-FileCopyrightText: 2008-2009 Henner Zeller <h.zeller@acm.org>
-// SPDX-FileCopyrightText: 2010-2012 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2008 - 2009 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2010 - 2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
 // SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
-// SPDX-FileCopyrightText: 2012-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2012 - 2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
-// SPDX-FileCopyrightText: 2017-2019 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2015 - 2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2017 - 2019 Robert Krawitz <rlk@alum.mit.edu>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
-// SPDX-FileCopyrightText: 2015-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "NewImageFinder.h"
 
-#include "FastDir.h"
 #include "ImageDB.h"
 #include "ImageScout.h"
 #include "MD5Map.h"
@@ -43,6 +42,7 @@
 #include <QProgressBar>
 #include <QProgressDialog>
 #include <QStringList>
+#include <kpabase/FastDir.h>
 #include <kpabase/FileExtensions.h>
 #include <kpabase/FileNameUtil.h>
 #include <kpabase/FileUtil.h>

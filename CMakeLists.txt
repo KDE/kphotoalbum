@@ -413,8 +413,6 @@ set(libDB_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryPtr.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/ExifMode.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/ExifMode.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/DB/FastDir.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/DB/FastDir.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/FileInfo.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/FileInfo.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/GroupCounter.cpp"

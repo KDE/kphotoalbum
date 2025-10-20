@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2021-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2021 - 2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 # SPDX-FileCopyrightText: 2024 Tobias Leupold <tl at stonemx dot de>
 #
 # SPDX-License-Identifier: BSD-3-Clause
@@ -37,6 +37,8 @@ add_library(kpabase
     kpabase/enums.h
     kpabase/CrashSentinel.cpp
     kpabase/CrashSentinel.h
+    kpabase/FastDir.cpp
+    kpabase/FastDir.h
     kpabase/FileName.cpp
     kpabase/FileName.h
     kpabase/FileNameList.cpp

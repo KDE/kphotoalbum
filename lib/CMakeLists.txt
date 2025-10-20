@@ -21,7 +21,7 @@ set_package_properties(KDcrawQt6
     TYPE OPTIONAL
     PURPOSE "Enables RAW image support"
     )
-set(HAVE_KDCRAW ${KF6KDcraw_FOUND})
+set(HAVE_KDCRAW ${KDcrawQt6_FOUND})
 
 configure_file(kpabase/config-kpa-kdcraw.h.in "${CMAKE_CURRENT_BINARY_DIR}/kpabase/config-kpa-kdcraw.h")
 configure_file(kpabase/config-kpa-plugins.h.in "${CMAKE_CURRENT_BINARY_DIR}/kpabase/config-kpa-plugins.h")

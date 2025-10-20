@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-13 00:40+0000\n"
+"POT-Creation-Date: 2025-10-20 00:40+0000\n"
 "PO-Revision-Date: 2012-01-16 16:58+0700\n"
 "Last-Translator: Lê Hoàng Phương <herophuong93@gmail.com>\n"
 "Language-Team: Vietnamese <kde-i18n-vi@kde.org>\n"
@@ -95,62 +95,62 @@ msgstr ""
 msgid "Revert This Item"
 msgstr "Hoàn nguyên mục này"
 
-#: AnnotationDialog/Dialog.cpp:231
+#: AnnotationDialog/Dialog.cpp:231 AnnotationDialog/Dialog.cpp:1359
 #, kde-format
 msgid "Clear Form"
 msgstr "Xoá sạch đơn"
 
-#: AnnotationDialog/Dialog.cpp:235
+#: AnnotationDialog/Dialog.cpp:234 AnnotationDialog/Dialog.cpp:1362
 #, fuzzy, kde-format
 #| msgid "Options"
 msgid "Options..."
 msgstr "Tuỳ chọn"
 
-#: AnnotationDialog/Dialog.cpp:241
+#: AnnotationDialog/Dialog.cpp:239
 #, fuzzy, kde-format
 #| msgid "Donate"
 msgid "&Done"
 msgstr "Tăng"
 
-#: AnnotationDialog/Dialog.cpp:244
+#: AnnotationDialog/Dialog.cpp:242
 #, kde-format
 msgid "Continue &Later"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:252 AnnotationDialog/Dialog.cpp:873
+#: AnnotationDialog/Dialog.cpp:250 AnnotationDialog/Dialog.cpp:870
 #, fuzzy, kde-format
 #| msgid "&Search"
 msgctxt "@action:button"
 msgid "&Search"
 msgstr "&Tìm kiếm"
 
-#: AnnotationDialog/Dialog.cpp:321
+#: AnnotationDialog/Dialog.cpp:319
 #, kde-format
 msgid "Label: "
 msgstr "Nhãn: "
 
-#: AnnotationDialog/Dialog.cpp:325 ImportExport/MD5CheckPage.cpp:65
+#: AnnotationDialog/Dialog.cpp:323 ImportExport/MD5CheckPage.cpp:65
 #, fuzzy, kde-format
 #| msgid "Label:"
 msgid "Label"
 msgstr "Nhãn:"
 
-#: AnnotationDialog/Dialog.cpp:334
+#: AnnotationDialog/Dialog.cpp:332
 #, kde-format
 msgid "Date: "
 msgstr "Ngày: "
 
-#: AnnotationDialog/Dialog.cpp:350
+#: AnnotationDialog/Dialog.cpp:348
 #, kde-format
 msgid "Time: "
 msgstr "Giờ: "
 
-#: AnnotationDialog/Dialog.cpp:356
+#: AnnotationDialog/Dialog.cpp:354
 #, kde-format
 msgid "Use Fuzzy Date"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:358
+#: AnnotationDialog/Dialog.cpp:356
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -162,84 +162,84 @@ msgid ""
 "Fuzzy Date</interface>.</para>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:373
+#: AnnotationDialog/Dialog.cpp:371
 #, kde-format
 msgid "Minimum megapixels:"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:383
+#: AnnotationDialog/Dialog.cpp:381
 #, kde-format
 msgid "Maximum megapixels:"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:396
+#: AnnotationDialog/Dialog.cpp:394
 #, kde-format
 msgid "Rating:"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:404
+#: AnnotationDialog/Dialog.cpp:402
 #, kde-format
 msgid "Rating search mode:"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:408
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "=="
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:408
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid ">="
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:408
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "<="
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:408
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "!="
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:416
+#: AnnotationDialog/Dialog.cpp:414
 #, kde-format
 msgid "File Name Pattern: "
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:419
+#: AnnotationDialog/Dialog.cpp:417
 #, kde-format
 msgid "File Name Pattern"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:424
+#: AnnotationDialog/Dialog.cpp:422
 #, fuzzy, kde-format
 #| msgid "Searching for New Images and Videos"
 msgid "Search only for RAW files"
 msgstr "Đang tìm kiếm ảnh (động) mới"
 
-#: AnnotationDialog/Dialog.cpp:441
+#: AnnotationDialog/Dialog.cpp:439
 #, kde-format
 msgid "Append"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:442
+#: AnnotationDialog/Dialog.cpp:440
 #, kde-format
 msgid "Append new text to each description"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:443
+#: AnnotationDialog/Dialog.cpp:441
 #, fuzzy, kde-format
 #| msgid "Places"
 msgid "Replace"
 msgstr "Nơi"
 
-#: AnnotationDialog/Dialog.cpp:444
+#: AnnotationDialog/Dialog.cpp:442
 #, kde-format
 msgid "Replace each description with the new text"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:453
+#: AnnotationDialog/Dialog.cpp:451
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -249,101 +249,101 @@ msgid ""
 "information is imported to this field if available.</para>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:636
+#: AnnotationDialog/Dialog.cpp:634
 #, fuzzy, kde-format
 #| msgid "KPhotoAlbum Annotations (%1/%2)"
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "Chú giải KPhotoAlbum (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:878
+#: AnnotationDialog/Dialog.cpp:875
 #, fuzzy, kde-format
 #| msgid "Search"
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Tìm kiếm"
 
-#: AnnotationDialog/Dialog.cpp:881
+#: AnnotationDialog/Dialog.cpp:878
 #, fuzzy, kde-format
 #| msgid "Donate"
 msgid "Done"
 msgstr "Tăng"
 
-#: AnnotationDialog/Dialog.cpp:888
+#: AnnotationDialog/Dialog.cpp:885
 #, fuzzy, kde-format
 #| msgid "Annotations"
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Chú giải"
 
-#: AnnotationDialog/Dialog.cpp:920
+#: AnnotationDialog/Dialog.cpp:926
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "Cấu hình bố cục cửa sổ..."
 
-#: AnnotationDialog/Dialog.cpp:921
+#: AnnotationDialog/Dialog.cpp:927
 #, kde-format
 msgid "Save Current Window Setup"
 msgstr "Lưu thiết lập cửa sổ hiện có"
 
-#: AnnotationDialog/Dialog.cpp:922
+#: AnnotationDialog/Dialog.cpp:928
 #, kde-format
 msgid "Reset layout"
 msgstr "Đặt lại bố cục"
 
-#: AnnotationDialog/Dialog.cpp:929 AnnotationDialog/Dialog.cpp:1308
+#: AnnotationDialog/Dialog.cpp:935 AnnotationDialog/Dialog.cpp:1314
 #: AnnotationDialog/ListSelect.cpp:110
 #, fuzzy, kde-format
 #| msgid "Sort Alphabetically"
 msgid "Sort Alphabetically (Tree)"
 msgstr "Sắp xếp theo thứ tự abc"
 
-#: AnnotationDialog/Dialog.cpp:933 AnnotationDialog/Dialog.cpp:1312
+#: AnnotationDialog/Dialog.cpp:939 AnnotationDialog/Dialog.cpp:1318
 #: AnnotationDialog/ListSelect.cpp:116
 #, fuzzy, kde-format
 #| msgid "Sort Alphabetically"
 msgid "Sort Alphabetically (Flat)"
 msgstr "Sắp xếp theo thứ tự abc"
 
-#: AnnotationDialog/Dialog.cpp:937
+#: AnnotationDialog/Dialog.cpp:943
 #, fuzzy, kde-format
 #| msgid "Sort Selected by Date && Time"
 msgid "Sort by Date"
 msgstr "Sắp xếp điều chọn theo ngày và giờ"
 
-#: AnnotationDialog/Dialog.cpp:953
+#: AnnotationDialog/Dialog.cpp:959
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:954
+#: AnnotationDialog/Dialog.cpp:960
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:955
+#: AnnotationDialog/Dialog.cpp:961
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:972
+#: AnnotationDialog/Dialog.cpp:978
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1010 Map/MapView.cpp:360
+#: AnnotationDialog/Dialog.cpp:1016 Map/MapView.cpp:360
 #, fuzzy, kde-format
 #| msgid "Settings"
 msgid "Settings saved!"
 msgstr "Thiết lập"
 
-#: AnnotationDialog/Dialog.cpp:1010
+#: AnnotationDialog/Dialog.cpp:1016
 #, fuzzy, kde-format
 #| msgid "Save Current Window Setup"
 msgid "Save current window setup"
 msgstr "Lưu thiết lập cửa sổ hiện có"
 
-#: AnnotationDialog/Dialog.cpp:1075
+#: AnnotationDialog/Dialog.cpp:1081
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Some changes are made to annotations. Do you really want to cancel all "
@@ -355,14 +355,14 @@ msgstr ""
 "<p>Chú giải đã sửa đổi. Bạn có thực sự muốn thôi mọi thay đổi vừa làm cho "
 "mỗi tệp có tác động không?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1076
+#: AnnotationDialog/Dialog.cpp:1082
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Lưu thay đổi ?"
 
-#: AnnotationDialog/Dialog.cpp:1175
+#: AnnotationDialog/Dialog.cpp:1181
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -378,7 +378,7 @@ msgstr ""
 "được dùng để gõ vào thông tin về ảnh. Có mẹo thêm về cách sử dụng trong phần "
 "<a href=\"help:/kphotoalbum/chp-typingIn.html\">gõ vào</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1183
+#: AnnotationDialog/Dialog.cpp:1189
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>You have just opened one of the most important windows in KPhotoAlbum; "
@@ -397,54 +397,54 @@ msgstr ""
 "khuyên bạn mất 5 phút để đọc <a href=\"help:/kphotoalbum/chp-typingIn.html"
 "\">tài liệu hướng dẫn về hộp thoại này</a></p>"
 
-#: AnnotationDialog/Dialog.cpp:1315
+#: AnnotationDialog/Dialog.cpp:1321
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Sắp xếp các điều vừa dùng"
 
-#: AnnotationDialog/Dialog.cpp:1318
+#: AnnotationDialog/Dialog.cpp:1324
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Bật/tắt sắp xếp"
 
-#: AnnotationDialog/Dialog.cpp:1323
+#: AnnotationDialog/Dialog.cpp:1329
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Bật/tắt hiện chỉ các mục đã chọn"
 
-#: AnnotationDialog/Dialog.cpp:1327
+#: AnnotationDialog/Dialog.cpp:1333
 #, kde-format
 msgid "Annotate Next"
 msgstr "Chú giải kế"
 
-#: AnnotationDialog/Dialog.cpp:1331
+#: AnnotationDialog/Dialog.cpp:1337
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Chú giải trước"
 
-#: AnnotationDialog/Dialog.cpp:1335
+#: AnnotationDialog/Dialog.cpp:1341
 #, kde-format
 msgid "OK dialog"
 msgstr "Hộp thoại Đồng ý"
 
-#: AnnotationDialog/Dialog.cpp:1339
+#: AnnotationDialog/Dialog.cpp:1345
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Chép các thẻ từ ảnh trước"
 
-#: AnnotationDialog/Dialog.cpp:1343 MainWindow/Window.cpp:844
+#: AnnotationDialog/Dialog.cpp:1349 MainWindow/Window.cpp:844
 #, fuzzy, kde-format
 #| msgid "Rotate contra-clockwise (to the left)"
 msgid "Rotate counterclockwise"
 msgstr "Xoay theo ngược chiều kim đồng hồ"
 
-#: AnnotationDialog/Dialog.cpp:1346 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1352 MainWindow/Window.cpp:848
 #, fuzzy, kde-format
 #| msgid "Rotate clockwise (to the right)"
 msgid "Rotate clockwise"
 msgstr "Xoay theo chiều kim đồng hồ"
 
-#: AnnotationDialog/Dialog.cpp:1349
+#: AnnotationDialog/Dialog.cpp:1355
 #, fuzzy, kde-format
 #| msgid "Toggle Full Screen"
 msgid "Toggle fullscreen preview"
@@ -3643,7 +3643,7 @@ msgctxt "i for info"
 msgid "i"
 msgstr ""
 
-#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:44
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:45
 #, kde-format
 msgid ""
 "<p>Below is a list of all images that are duplicate in your database.<br/"
@@ -3652,41 +3652,41 @@ msgid ""
 "the kept image</p>"
 msgstr ""
 
-#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:53
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:54
 #, kde-format
 msgid "Move to &trash"
 msgstr ""
 
-#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:54
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:55
 #, fuzzy, kde-format
 #| msgid "Delete file from disk as well"
 msgid "&Delete from disk"
 msgstr "Cũng xoá tệp ra đĩa"
 
-#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:55
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:56
 #, kde-format
 msgid "&Block from database"
 msgstr ""
 
-#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:77
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:78
 #, fuzzy, kde-format
 #| msgid "Select All"
 msgid "Select &All"
 msgstr "Chọn tất cả"
 
-#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:78
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:79
 #, fuzzy, kde-format
 #| msgid "Select None"
 msgid "Select &None"
 msgstr "Chọn Không gì"
 
-#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:135
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:136
 #, fuzzy, kde-format
 #| msgid "No Item Selected"
 msgid "%1 of %2 selected"
 msgstr "Chưa chọn mục nào"
 
-#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:183
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:206
 #, fuzzy, kde-format
 #| msgid "No default setup file found"
 msgid "No duplicates found"

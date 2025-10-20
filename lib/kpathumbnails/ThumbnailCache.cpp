@@ -73,7 +73,7 @@ public:
 
 QString defaultThumbnailDirectory()
 {
-    return QString::fromLatin1(".thumbnails/");
+    return QString::fromLatin1(".thumbnails");
 }
 }
 

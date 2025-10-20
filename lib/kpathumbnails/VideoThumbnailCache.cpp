@@ -226,7 +226,7 @@ bool ImageManager::VideoThumbnailCache::setStillFrame(const DB::FileName &name, 
 
 QString ImageManager::defaultVideoThumbnailDirectory()
 {
-    return QString::fromLatin1(".videoThumbnails/");
+    return QString::fromLatin1(".videoThumbnails");
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

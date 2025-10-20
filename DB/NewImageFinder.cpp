@@ -437,8 +437,10 @@ void NewImageFinder::searchForNewFiles(const DB::FileNameSet &loadedFiles, QStri
     const QStringList dirList = dir.entryList();
     ImageManager::RAWImageDecoder rawDec;
     QStringList excluded;
-    excluded << Settings::SettingsData::instance()->excludeDirectories();
-    excluded = excluded.at(0).split(QString::fromLatin1(","));
+    excluded << Settings::SettingsData::instance()->excludeDirectories().split(QString::fromLatin1(","));
+    excluded << ImageManager::defaultThumbnailDirectory();
+    excluded << ImageManager::defaultVideoThumbnailDirectory();
+    excluded << QString::fromLatin1("CategoryImages");
 
     bool skipSymlinks = Settings::SettingsData::instance()->skipSymlinks();
 
@@ -450,8 +452,7 @@ void NewImageFinder::searchForNewFiles(const DB::FileNameSet &loadedFiles, QStri
         const DB::FileName file = DB::FileName::fromAbsolutePath(directory + QString::fromLatin1("/") + *it);
         if ((*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..")
             || excluded.contains((*it)) || loadedFiles.contains(file)
-            || KPABase::fileCanBeSkipped(loadedFiles, file)
-            || (*it) == QString::fromLatin1("CategoryImages"))
+            || KPABase::fileCanBeSkipped(loadedFiles, file))
             continue;
 
         QFileInfo fi(file.absolute());

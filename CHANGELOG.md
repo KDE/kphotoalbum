@@ -40,6 +40,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Add commandline option "--rescan" as a synonym for "--search". In the future, "--search" may become deprecated at some point.
 
 ### Changed
+ - Thumbnail cache and video thumbnail cache directories are now always ignored while searching for new images.
 
 ### Dependencies
 

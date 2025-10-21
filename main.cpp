@@ -180,7 +180,7 @@ int main(int argc, char **argv)
         app.setStyleSheet(STYLE);
     app.setAttribute(Qt::AA_UseStyleSheetPropagationInWidgetStyles);
 
-    qDebug() << "kphotoalbumrc:" << KConfig::mainConfigName();
+    qCDebug(MainLog) << "kphotoalbumrc:" << KConfig::mainConfigName();
 
     new MainWindow::SplashScreen();
 

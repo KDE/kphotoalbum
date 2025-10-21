@@ -954,7 +954,6 @@ void DateBar::DateBarWidget::keyPressEvent(QKeyEvent *event)
         return;
     case Qt::Key_Percent:
         m_fastScrolling = !m_fastScrolling;
-        qDebug() << "Fast mode during scrolling:" << m_fastScrolling;
         return;
     default:
         return;

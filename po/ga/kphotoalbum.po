@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-graphics/kphotoalbum.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-20 00:40+0000\n"
+"POT-Creation-Date: 2025-10-22 00:41+0000\n"
 "PO-Revision-Date: 2007-06-29 09:44-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -1341,7 +1341,7 @@ msgctxt "Separator in a list of tags"
 msgid ", "
 msgstr ""
 
-#: DB/NewImageFinder.cpp:487
+#: DB/NewImageFinder.cpp:488
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1349,7 +1349,7 @@ msgid ""
 "new images are found.</p>"
 msgstr ""
 
-#: DB/NewImageFinder.cpp:702
+#: DB/NewImageFinder.cpp:703
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
@@ -1359,14 +1359,14 @@ msgstr[2] ""
 msgstr[3] ""
 msgstr[4] ""
 
-#: DB/NewImageFinder.cpp:703
+#: DB/NewImageFinder.cpp:704
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
 "images even when you have moved them on the disk.</p>"
 msgstr ""
 
-#: DB/NewImageFinder.cpp:747
+#: DB/NewImageFinder.cpp:748
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "Níorbh fhéidir na comhaid seo a leanas a léamh:"

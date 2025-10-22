@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-20 00:40+0000\n"
+"POT-Creation-Date: 2025-10-22 00:41+0000\n"
 "PO-Revision-Date: 2019-11-07 12:43+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
@@ -1275,7 +1275,7 @@ msgctxt "Separator in a list of tags"
 msgid ", "
 msgstr ""
 
-#: DB/NewImageFinder.cpp:487
+#: DB/NewImageFinder.cpp:488
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1286,14 +1286,14 @@ msgstr ""
 "myndanna hvað það tekur langan tíma.<br/>Hinsvegar er eingöngu töf við "
 "yfirferðina þegar nýjar myndir finnast.</p>"
 
-#: DB/NewImageFinder.cpp:702
+#: DB/NewImageFinder.cpp:703
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] "<p><b>Reikna gátsummu fyrir %1 skrá</b></p>"
 msgstr[1] "<p><b>Reikna gátsummur fyrir %1 skrár</b></p>"
 
-#: DB/NewImageFinder.cpp:703
+#: DB/NewImageFinder.cpp:704
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1302,7 +1302,7 @@ msgstr ""
 "<p>Með því að geyma gátsummu fyrir hverja mynd þá getur KMyndaAlbúm fundið "
 "aftur myndir jafnvel þegar þú hefur flutt þær til á diskinum.</p>"
 
-#: DB/NewImageFinder.cpp:747
+#: DB/NewImageFinder.cpp:748
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "Eftirfarandi skrár tókst ekki að lesa:"

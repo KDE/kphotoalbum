@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-20 00:40+0000\n"
+"POT-Creation-Date: 2025-10-22 00:41+0000\n"
 "PO-Revision-Date: 2025-10-10 09:56+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -1349,7 +1349,7 @@ msgctxt "Separator in a list of tags"
 msgid ", "
 msgstr ", "
 
-#: DB/NewImageFinder.cpp:487
+#: DB/NewImageFinder.cpp:488
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1359,7 +1359,7 @@ msgstr ""
 "<p><b>טעינת מידע מקבצים חדשים</b></p><p>כתלות במספר התמונות, הפעולה הזאת "
 "עלולה לארוך זמן מה.<br/>עם זאת, התהליך יתעכב רק כשנמצאות תמונות חדשות.</p>"
 
-#: DB/NewImageFinder.cpp:702
+#: DB/NewImageFinder.cpp:703
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
@@ -1368,7 +1368,7 @@ msgstr[1] "<p><b>מתבצע חישוב סיכום ביקורת של שני קב�
 msgstr[2] "<p><b>מתבצע חישוב סיכום ביקורת של %1 קבצים</b></p>"
 msgstr[3] "<p><b>מתבצע חישוב סיכום ביקורת של %1 קבצים</b></p>"
 
-#: DB/NewImageFinder.cpp:703
+#: DB/NewImageFinder.cpp:704
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1377,7 +1377,7 @@ msgstr ""
 "<p>אחסון סיכום ביקורת לכל אחת מהתמונות מאפשר ל־KPhotoAlbum למצוא תמונות "
 "אפילו לאחר שהועברו למקום אחר בכונן.</p>"
 
-#: DB/NewImageFinder.cpp:747
+#: DB/NewImageFinder.cpp:748
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "לא ניתן לקרוא את הקבצים הבאים:"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-20 00:40+0000\n"
+"POT-Creation-Date: 2025-10-22 00:41+0000\n"
 "PO-Revision-Date: 2025-10-10 10:09+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -1358,7 +1358,7 @@ msgctxt "Separator in a list of tags"
 msgid ", "
 msgstr ", "
 
-#: DB/NewImageFinder.cpp:487
+#: DB/NewImageFinder.cpp:488
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1369,7 +1369,7 @@ msgstr ""
 "del nombre d'imatges, açò pot tardar un temps.<br/>Malgrat tot, només hi "
 "haurà un retard quan es troben imatges noves.</p>"
 
-#: DB/NewImageFinder.cpp:702
+#: DB/NewImageFinder.cpp:703
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
@@ -1377,7 +1377,7 @@ msgstr[0] "<p><b>S'està calculant la suma de verificació del fitxer %1</b></p>
 msgstr[1] ""
 "<p><b>S'estan calculant les sumes de verificació dels fitxers %1</b></p>"
 
-#: DB/NewImageFinder.cpp:703
+#: DB/NewImageFinder.cpp:704
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1386,7 +1386,7 @@ msgstr ""
 "<p>En emmagatzemar la suma de verificació per a cada imatge, KPhotoAlbum és "
 "capaç de trobar les imatges, encara que les moveu pel disc.</p>"
 
-#: DB/NewImageFinder.cpp:747
+#: DB/NewImageFinder.cpp:748
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "No s'han pogut llegir els fitxers següents:"

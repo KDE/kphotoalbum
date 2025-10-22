@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-20 00:40+0000\n"
+"POT-Creation-Date: 2025-10-22 00:41+0000\n"
 "PO-Revision-Date: 2025-10-18 12:25+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -1345,7 +1345,7 @@ msgctxt "Separator in a list of tags"
 msgid ", "
 msgstr ", "
 
-#: DB/NewImageFinder.cpp:487
+#: DB/NewImageFinder.cpp:488
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1356,14 +1356,14 @@ msgstr ""
 "arabera, honek denbora pixka bat emango du<br/>Hala ere, irudi berriak "
 "aurkitzean soilik gertatzen da atzerapena.</p>"
 
-#: DB/NewImageFinder.cpp:702
+#: DB/NewImageFinder.cpp:703
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] "<p><b>%1 fitxategiaren egiaztapen-batura kalkulatzen</b></p>"
 msgstr[1] "<p><b>%1 fitxategien egiaztapen-batura kalkulatzen</b></p>"
 
-#: DB/NewImageFinder.cpp:703
+#: DB/NewImageFinder.cpp:704
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1372,7 +1372,7 @@ msgstr ""
 "<p>Irudi bakoitzaren egiaztapen-batura gordetzean Kphotoalbum irudiak aurki "
 "ditzake nahiz eta irudia lekuz aldatu diskoan.</p>"
 
-#: DB/NewImageFinder.cpp:747
+#: DB/NewImageFinder.cpp:748
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "Ezin izan dira honako fitxategiak irakurri:"

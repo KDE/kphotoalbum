@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-20 00:40+0000\n"
+"POT-Creation-Date: 2025-10-22 00:41+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1341,7 +1341,7 @@ msgctxt "Separator in a list of tags"
 msgid ", "
 msgstr ", ९. "
 
-#: DB/NewImageFinder.cpp:487
+#: DB/NewImageFinder.cpp:488
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1352,14 +1352,14 @@ msgstr ""
 "समयं यावत् भवितुं शक्नोति ।<br/> परन्तु नूतनानि चित्राणि प्राप्यन्ते चेत् एव विलम्बः भवति ।</"
 "p>"
 
-#: DB/NewImageFinder.cpp:702
+#: DB/NewImageFinder.cpp:703
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] "<p><b>%1 सञ्चिकायाः कृते चेकसमस्य गणना</b></p>"
 msgstr[1] "<p><b>%1 सञ्चिकानां कृते चेकसमस्य गणना</b></p>"
 
-#: DB/NewImageFinder.cpp:703
+#: DB/NewImageFinder.cpp:704
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1368,7 +1368,7 @@ msgstr ""
 "<p>प्रत्येकस्य चित्रस्य कृते चेकसमं संग्रह्य KPhotoAlbum भवता डिस्कमध्ये स्थानान्तरितेऽपि "
 "चित्राणि अन्वेष्टुं समर्थः भवति ।</p>"
 
-#: DB/NewImageFinder.cpp:747
+#: DB/NewImageFinder.cpp:748
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "निम्नलिखितसञ्चिकाः पठितुं न शक्यन्ते स्म:"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-20 00:40+0000\n"
+"POT-Creation-Date: 2025-10-22 00:41+0000\n"
 "PO-Revision-Date: 2015-02-26 23:46+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -1403,7 +1403,7 @@ msgctxt "Separator in a list of tags"
 msgid ", "
 msgstr ""
 
-#: DB/NewImageFinder.cpp:487
+#: DB/NewImageFinder.cpp:488
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1414,7 +1414,7 @@ msgstr ""
 "broja slika, moglo bi potrajati.<br/>Međutim, tu je odgađanje samo kada je "
 "nova slika pronađena.</p>"
 
-#: DB/NewImageFinder.cpp:702
+#: DB/NewImageFinder.cpp:703
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
@@ -1422,7 +1422,7 @@ msgstr[0] "<p><b>Proračunavanje checksum za %1 datoteku</b></p>"
 msgstr[1] "<p><b>Proračunavanje checksum za %1 datoteke</b></p>"
 msgstr[2] "<p><b>Proračunavanje checksum za %1 datoteka</b></p>"
 
-#: DB/NewImageFinder.cpp:703
+#: DB/NewImageFinder.cpp:704
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1431,7 +1431,7 @@ msgstr ""
 "<p>Stavljanjem kontrolne sume KPhotoAlbum može tražiti slike i kada ste ih "
 "uklonili s diska.</p>"
 
-#: DB/NewImageFinder.cpp:747
+#: DB/NewImageFinder.cpp:748
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "Sljedeći fajlovi nisu mogli biti pročitani:"

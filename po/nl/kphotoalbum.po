@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-20 00:40+0000\n"
+"POT-Creation-Date: 2025-10-22 00:41+0000\n"
 "PO-Revision-Date: 2025-10-11 18:09+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -1353,7 +1353,7 @@ msgctxt "Separator in a list of tags"
 msgid ", "
 msgstr ", "
 
-#: DB/NewImageFinder.cpp:487
+#: DB/NewImageFinder.cpp:488
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1364,14 +1364,14 @@ msgstr ""
 "aantal afbeeldingen kan dit enige tijd in beslag nemen.<br/>Dit geldt echter "
 "alleen als er nieuwe afbeeldingen zijn gevonden.</p>"
 
-#: DB/NewImageFinder.cpp:702
+#: DB/NewImageFinder.cpp:703
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] "<p><b>Bezig de controlesom te bereken voor %1 bestand</b></p>"
 msgstr[1] "<p><b>Bezig de controlesom te bereken voor %1 bestanden</b></p>"
 
-#: DB/NewImageFinder.cpp:703
+#: DB/NewImageFinder.cpp:704
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1380,7 +1380,7 @@ msgstr ""
 "<p>Door een controlesom op te slaan voor elke afbeelding kan KPhotoAlbum "
 "afbeeldingen terugvinden als ze op de schijf zijn verplaatst.</p>"
 
-#: DB/NewImageFinder.cpp:747
+#: DB/NewImageFinder.cpp:748
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "De volgende bestanden konden niet worden gelezen:"

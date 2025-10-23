@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2025 The KPhotoAlbum Development Team
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -50,7 +51,12 @@ void ThumbnailView::MouseTrackingInteraction::handleCursorOverNewIcon()
     if (fileName != lastFileNameUnderCursor) {
         if (!fileName.isNull() && !lastFileNameUnderCursor.isNull()) {
             Q_EMIT fileIdUnderCursorChanged(fileName);
-            model()->updateCell(lastFileNameUnderCursor);
+            const QModelIndex lastIndex = model()->fileNameToIndex(lastFileNameUnderCursor);
+            if (lastIndex.isValid()) {
+                // The index is invalid if it refers to a file that is
+                // not in the current view (eg. when the view changes).
+                model()->updateCell(lastIndex);
+            }
             model()->updateCell(fileName);
         }
         lastFileNameUnderCursor = fileName;

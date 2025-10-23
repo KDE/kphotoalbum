@@ -5,6 +5,7 @@
 // SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2019-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2020 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2009-2025 The KPhotoAlbum Development Team
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -76,12 +77,29 @@ public:
     void setImageList(const DB::FileNameList &list);
     DB::FileNameList imageList(Order) const;
     int imageCount() const;
-    void setOverrideImage(const DB::FileName &fileName, const QPixmap &pixmap);
+
+    /**
+     * Sets a new thumbnail pixmap for the specified image file by setting
+     * m_overrideFileName and m_overrideImage to override the default thumbnail
+     * for the file.  If the pixmap is null, resets m_overrideFileName.
+     *
+     * @see pixmap()
+     *
+     * @return true if m_overrideFileName is set to a valid image in the view.
+     */
+    bool setOverrideImage(const DB::FileName &fileName, const QPixmap &pixmap);
 
     //-------------------------------------------------- Misc.
     void updateDisplayModel();
     void updateIndexCache();
     void setSortDirection(SortDirection);
+
+    /**
+     * @return the thumbnail pixmap for the specified file.  If the filename
+     * matches m_overrideFileName, returns the override image instead.
+     *
+     * @see setOverrideImage()
+     */
     QPixmap pixmap(const DB::FileName &fileName) const;
 
     /**

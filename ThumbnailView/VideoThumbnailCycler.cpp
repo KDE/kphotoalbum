@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2012-2025 The KPhotoAlbum Development Team
 
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -50,7 +51,10 @@ void ThumbnailView::VideoThumbnailCycler::setActive(const DB::FileName &fileName
 void ThumbnailView::VideoThumbnailCycler::gotFrame(const QImage &image)
 {
     QImage img = image.scaled(ThumbnailView::CellGeometry::preferredIconSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    m_model->setOverrideImage(m_fileName, QPixmap::fromImage(img));
+    if (!m_model->setOverrideImage(m_fileName, QPixmap::fromImage(img))) {
+        // The image is no longer in the current view.
+        stopCycle();
+    }
 }
 
 void ThumbnailView::VideoThumbnailCycler::resetPreviousThumbail()

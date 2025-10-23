@@ -5,6 +5,7 @@
 // SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2015 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2015-2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2009-2025 The KPhotoAlbum Development Team
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -253,15 +254,23 @@ int ThumbnailView::ThumbnailModel::imageCount() const
     return m_displayList.size();
 }
 
-void ThumbnailView::ThumbnailModel::setOverrideImage(const DB::FileName &fileName, const QPixmap &pixmap)
+bool ThumbnailView::ThumbnailModel::setOverrideImage(const DB::FileName &fileName, const QPixmap &pixmap)
 {
-    if (pixmap.isNull())
+    if (pixmap.isNull()) {
         m_overrideFileName = DB::FileName();
-    else {
-        m_overrideFileName = fileName;
-        m_overrideImage = pixmap;
+        return false;
     }
-    Q_EMIT dataChanged(fileNameToIndex(fileName), fileNameToIndex(fileName));
+
+    m_overrideFileName = fileName;
+    m_overrideImage = pixmap;
+
+    const QModelIndex index = fileNameToIndex(fileName);
+
+    if (index.isValid()) {
+        Q_EMIT dataChanged(index, index);
+    }
+
+    return index.isValid();
 }
 
 DB::FileName ThumbnailView::ThumbnailModel::imageAt(int index) const

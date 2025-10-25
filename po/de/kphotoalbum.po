@@ -2963,10 +2963,9 @@ msgstr ""
 "Vorschaubilder"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2020-2023 Das KPhotoAlbum-Entwicklerteam"
+msgstr "© 2020–2025 Das KPhotoAlbum-Entwicklungsteam"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:98
 #, kde-format
@@ -3313,10 +3312,9 @@ msgid "KDE Photo Album"
 msgstr "KDE-Fotoalbum"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2023 Das KPhotoAlbum-Entwicklerteam"
+msgstr "© 2003–2025 Das KPhotoAlbum-Entwicklungsteam"
 
 #: main.cpp:112
 #, kde-format

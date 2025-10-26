@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-22 00:41+0000\n"
+"POT-Creation-Date: 2025-10-26 00:40+0000\n"
 "PO-Revision-Date: 2024-11-12 23:49+0200\n"
 "Last-Translator: Remigijus Jarmalavičius <remigijus@jarmalavicius.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -1261,7 +1261,7 @@ msgid "Loading information from images"
 msgstr ""
 
 #: DB/ImageDB.cpp:558 DB/ImageDB.cpp:864 DB/XML/FileReader.cpp:139
-#: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:355
+#: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:364
 #, kde-format
 msgid "Media Type"
 msgstr ""
@@ -1358,7 +1358,7 @@ msgstr ""
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: DB/XML/FileReader.cpp:91 Settings/CategoryPage.cpp:256
-#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:355
+#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:364
 #, kde-format
 msgid "Folder"
 msgstr "Aplankas"

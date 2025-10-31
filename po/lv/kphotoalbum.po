@@ -3334,13 +3334,13 @@ msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
 #: main.cpp:143
-#, kde-format
+#, fuzzy, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
-"Ielāps attēlu kārtošanai sīktēlu skatā,\b laika informācijas lasīšanai no "
-"attēlu „Exif“ jau esošiem attēliem"
+"Ielāps attēlu kārtošanai sīktēlu skatā,\n"
+" laika informācijas lasīšanai no attēlu „Exif“ jau esošiem attēliem"
 
 #: main.cpp:147
 #, kde-format

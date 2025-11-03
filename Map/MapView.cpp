@@ -515,6 +515,7 @@ void Map::MapView::mouseReleaseEvent(QMouseEvent *event)
 void Map::MapView::mouseMoveEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::NoButton) {
+        // check cursor position against clusters and show arrow if there's a clickable object
         if (m_mapWidget->geometry().contains(event->pos())) {
             const auto mapPos = event->pos() - m_mapWidget->pos();
             for (const auto *topLevelCluster : std::as_const(m_geoClusters)) {
@@ -522,7 +523,9 @@ void Map::MapView::mouseMoveEvent(QMouseEvent *event)
                 // Note(jzarl) unfortunately we cannot use QWidget::setCursor here
                 if (subCluster) {
                     QGuiApplication::setOverrideCursor(Qt::ArrowCursor);
+                    break;
                 } else {
+                    // "Hand"
                     QGuiApplication::restoreOverrideCursor();
                 }
             }

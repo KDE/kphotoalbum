@@ -41,6 +41,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
 ### Changed
  - Thumbnail cache and video thumbnail cache directories are now always ignored while searching for new images.
+ - Do not automatically select an image cluster on the map when moving the map if the mouse action started on an image cluster.
 
 ### Dependencies
 

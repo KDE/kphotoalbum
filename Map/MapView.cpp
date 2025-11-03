@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: 2015-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014 - 2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2015 - 2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
-// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -514,6 +514,9 @@ void Map::MapView::mouseReleaseEvent(QMouseEvent *event)
 
 void Map::MapView::mouseMoveEvent(QMouseEvent *event)
 {
+    // cancel geocluster selection when map is moved
+    m_preselectedCluster = nullptr;
+
     if (event->button() == Qt::NoButton) {
         // check cursor position against clusters and show arrow if there's a clickable object
         if (m_mapWidget->geometry().contains(event->pos())) {

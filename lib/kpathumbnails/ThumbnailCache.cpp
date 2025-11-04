@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2025 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
@@ -171,6 +171,10 @@ void ImageManager::ThumbnailCache::insert(const DB::FileName &name, const QByteA
     }
     thumbnailLocker.unlock();
 
+    // Only emit when a thumbnail is updated, not when a new thumbnail is
+    // inserted.
+    bool emitThumbnailUpdated = false;
+
     if (m_hash.contains(name)) {
         CacheFileInfo info = m_hash[name];
         if (info.fileIndex == m_currentFile && info.offset == m_currentOffset && info.size == sizeBytes) {
@@ -184,6 +188,7 @@ void ImageManager::ThumbnailCache::insert(const DB::FileName &name, const QByteA
             qCDebug(ImageManagerLog) << "Setting new thumbnail for image " << name.relative() << ", need full save! ";
             QMutexLocker saveLocker(&m_saveLock);
             m_needsFullSave = true;
+            emitThumbnailUpdated = true;
         }
     }
 
@@ -211,7 +216,9 @@ void ImageManager::ThumbnailCache::insert(const DB::FileName &name, const QByteA
         saveInternal();
     }
 
-    Q_EMIT thumbnailUpdated(name);
+    if (emitThumbnailUpdated) {
+        Q_EMIT thumbnailUpdated(name);
+    }
 }
 
 QString ImageManager::ThumbnailCache::fileNameForIndex(int index) const

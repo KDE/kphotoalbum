@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2025 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
@@ -157,6 +158,14 @@ void KPATest::TestThumbnailCache::insertRemove()
     thumbnailCache.insert(someImageFileName, someImage);
     QCOMPARE(thumbnailCache.size(), 1);
     QVERIFY(thumbnailCache.contains(someImageFileName));
+    // Signal thumbnailUpdated is not emitted for a newly inserted file.
+    QCOMPARE(thumbnailUpdatedSpy.count(), 0);
+    someImage.fill(Qt::blue);
+    QVERIFY(!someImage.isNull());
+    thumbnailCache.insert(someImageFileName, someImage);
+    QCOMPARE(thumbnailCache.size(), 1);
+    QVERIFY(thumbnailCache.contains(someImageFileName));
+    // Signal thumbnailUpdated is emitted for a modified file.
     QCOMPARE(thumbnailUpdatedSpy.count(), 1);
     thumbnailUpdatedSpy.clear();
 
@@ -167,7 +176,8 @@ void KPATest::TestThumbnailCache::insertRemove()
     thumbnailCache.insert(otherImageFileName, otherImage);
     QCOMPARE(thumbnailCache.size(), 2);
     QVERIFY(thumbnailCache.contains(otherImageFileName));
-    QCOMPARE(thumbnailUpdatedSpy.count(), 1);
+    // Signal thumbnailUpdated is not emitted for a newly inserted file.
+    QCOMPARE(thumbnailUpdatedSpy.count(), 0);
     thumbnailUpdatedSpy.clear();
 
     // TODO(jzarl) inserted images should be the same as the ones we look up

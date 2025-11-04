@@ -1,5 +1,6 @@
-// SPDX-FileCopyrightText: 2003 - 2020 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2021 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003-2025 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2021-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -196,8 +197,8 @@ Q_SIGNALS:
     void saveComplete();
 
     /**
-     * @brief thumbnailChanged is emitted when a thumbnail for a file was inserted.
-     * @param name the name of the inserted or updated file
+     * @brief thumbnailUpdated is emitted when a thumbnail for a file is updated.
+     * @param name the name of the updated file
      */
     void thumbnailUpdated(const DB::FileName &name);
 

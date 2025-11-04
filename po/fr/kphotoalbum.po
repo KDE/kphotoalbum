@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-26 00:40+0000\n"
-"PO-Revision-Date: 2025-09-25 11:34+0200\n"
+"PO-Revision-Date: 2025-10-12 10:27+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -1492,7 +1492,7 @@ msgstr ""
 "« standards ».</b></p><p>Cela signifie que certaines de vos catégories "
 "seront affichées en anglais.</p><p>Vous pouvez à tout moment les renommer "
 "manuellement et enregistrer votre base de données.</p><p>Dans certains cas, "
-"deux nouvelles catégories vides peuvent apparaître, « Dossier » et « Type de "
+"deux nouvelles catégories vides peuvent apparaitre, « Dossier » et « Type de "
 "média ». Vous pouvez les supprimer.</p>"
 
 #: DB/XML/FileReader.cpp:275
@@ -1630,7 +1630,7 @@ msgstr ""
 "variable d'environnement suivante (cet exemple concerne les environnements "
 "compatibles avec Bash) :</p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>Si "
 "vous avez déjà défini la variable « KDEDIRS », complétez simplement la "
-"chaîne comme vous le feriez pour la variable d'environnement <b>PATH</b>.</p>"
+"chaine comme vous le feriez pour la variable d'environnement <b>PATH</b>.</p>"
 
 #: DB/XML/FileReader.cpp:541
 #, kde-format
@@ -2707,10 +2707,10 @@ msgstr ""
 "pour Fleurs), alors que vous souhaitez la faire correspondre avec une "
 "catégorie que vous avez peut être intitulée <tt>Blume</tt> (ce qui est le "
 "mot en Allemand pour Fleurs) - si vous êtes Allemand, bien sur.</li><li>La "
-"dernière étape est de faire correspondre individuellement les chaînes de "
+"dernière étape est de faire correspondre individuellement les chaines de "
 "catégories. Je peux m'appeler <tt>Jesper</tt> dans ma base de données "
 "d'images, alors que vous préférerez m'appeler par mon nom complet <tt>Jesper "
-"K. Pedersen</tt>, en l'occurrence. À cette étape, les chaînes sans "
+"K. Pedersen</tt>, en l'occurrence. À cette étape, les chaines sans "
 "correspondance sont surlignées en rouge ce qui permet de repérer celles "
 "absentes ou encore en correspondance partielle.</li></ol>"
 
@@ -2955,10 +2955,9 @@ msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr "Outil pour inspecter et modifier le cache de vignettes de KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2020 - 2024 L'équipe de développement de KPhotoAlbum"
+msgstr "Copyright (C) 2020 - 2025 L'équipe de développement de KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:98
 #, kde-format
@@ -3308,10 +3307,9 @@ msgid "KDE Photo Album"
 msgstr "Album photo pour KDE"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003 - 2024 L'équipe de développement de KPhotoAlbum"
+msgstr "Copyright (C) 2003 - 2025 L'équipe de développement de KPhotoAlbum"
 
 #: main.cpp:112
 #, kde-format
@@ -3323,7 +3321,7 @@ msgstr "Marco Caldarelli"
 msgid "Patch for making it possible to reread Exif info using a nice dialog."
 msgstr ""
 "Patch permettant de relire les informations « EXIF » à l'aide d'une jolie "
-"boîte de dialogue."
+"boite de dialogue."
 
 #: main.cpp:116
 #, kde-format
@@ -3442,7 +3440,7 @@ msgid ""
 "preview in image property dialog."
 msgstr ""
 "Correctif pour l'accélération du chargement des vignettes, \n"
-"Réalisation d'un aperçu dans la boîte de dialogue de propriétés."
+"Réalisation d'un aperçu dans la boite de dialogue de propriétés."
 
 #: MainWindow/AutoStackImages.cpp:46
 #, kde-format
@@ -4050,12 +4048,12 @@ msgstr ""
 "autrement dit un simple compteur de toutes les images</td></"
 "tr><tr><td>Balises par images</td><td>C'est la moyenne du nombre de balises "
 "par image</td></tr></table><br/><br/>Ne prêtez pas trop d'importance à cette "
-"boîte de dialogue car elle a l'inconvénient de compter les catégories ET les "
+"boite de dialogue car elle a l'inconvénient de compter les catégories ET les "
 "sous-catégories.<br/>Ainsi si une image a été prise à Toulouse, Haute-"
 "Garonne, France, les 3 balises seront comptées pour cette image<br/>alors "
 "qu'on ne devrait en avoir qu'une.<br/>Je ne suis pas vraiment sûr que ce "
 "soit la peine de corriger ce bogue (car ce sera très difficile à corriger), "
-"<br/>donc la boîte de dialogue sera peut-être supprimés de nouveau."
+"<br/>donc la boite de dialogue sera peut-être supprimés de nouveau."
 
 #: MainWindow/StatisticsDialog.cpp:52
 #, kde-format
@@ -4708,7 +4706,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
-msgstr "Ré-initialiser les boîtes de dialogue masquées"
+msgstr "Ré-initialiser les boites de dialogue masquées"
 
 #: MainWindow/Window.cpp:1538
 #, kde-format
@@ -5189,7 +5187,7 @@ msgstr ""
 "<p>KPhotoAlbum permet d'enregistrer le fichier « XML »de base de données en "
 "conservant des copies (Par exemple, pour un fichier de base de données nommé "
 "« index.xml », les archives sont nommées « index.xml~1~ », « index.xml~2~ » "
-"etc). De plus, vous pouvez utiliser la boîte de dialogue de réglage pour "
+"etc). De plus, vous pouvez utiliser la boite de dialogue de réglage pour "
 "spécifier le nombre de fichiers d'archive à conserver. KPhotoAlbum "
 "supprimera les fichiers d'archive les plus anciens lorsque le nombre maximal "
 "d'archives spécifié est atteint. </p><p>Le fichier « XML » de base de "
@@ -5220,7 +5218,7 @@ msgstr "Informations « EXIF / IPTC » visibles dans l'afficheur"
 #, kde-format
 msgid "Exif/IPTC info to show in the Exif dialog"
 msgstr ""
-"Informations « EXIF / IPTC » visibles dans la boîte de dialogue « EXIF »"
+"Informations « EXIF / IPTC » visibles dans la boite de dialogue « EXIF »"
 
 #: Settings/ExifPage.cpp:43
 #, kde-format
@@ -5386,7 +5384,7 @@ msgstr ""
 "<p>Quand KPhotoAlbum recherche des nouveaux fichiers et trouve un fichier "
 "qui correspond à <i>l'expression rationnelle de recherche des fichiers "
 "modifiés</i>, il est supposé qu'une version originale de l'image existera. "
-"Le schéma de l'expression rationnelle sera remplacé par la <i>chaîne de "
+"Le schéma de l'expression rationnelle sera remplacé par la <i>chaine de "
 "remplacement du fichier original</i> et si ce fichier existe, toutes les "
 "métadonnées associées (informations de catégories, de notes, etc.) seront "
 "copiées ou déplacées du fichier original vers le nouveau.</p>"
@@ -5419,10 +5417,10 @@ msgid ""
 "string is used to replace the match in the new file's name until an original "
 "file is found or we run out of options.</p>"
 msgstr ""
-"<p>Une chaîne qui est utilisée pour remplacer la correspondance depuis "
+"<p>Une chaine qui est utilisée pour remplacer la correspondance depuis "
 "<i>Expression rationnelle de recherche de versions de fichiers</i>. Ceci "
 "peut être une liste séparée par des points-virgules (<tt> ; </tt>). Chaque "
-"chaîne est utilisée pour remplacer la correspondance dans le nom du nouveau "
+"chaine est utilisée pour remplacer la correspondance dans le nom du nouveau "
 "fichier jusqu'à ce qu'un fichier original ne soit trouvé ou que toutes les "
 "options n'aient été épuisés.</p>"
 
@@ -7367,7 +7365,7 @@ msgstr "Afficher"
 #: Viewer/VisibleOptionsMenu.cpp:31
 #, kde-format
 msgid "Show Info Box"
-msgstr "Afficher la boîte d'information"
+msgstr "Afficher la boite d'information"
 
 #: Viewer/VisibleOptionsMenu.cpp:38
 #, kde-format

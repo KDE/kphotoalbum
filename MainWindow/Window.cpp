@@ -1231,6 +1231,13 @@ bool MainWindow::Window::load()
 
     DB::ImageDB::setupXMLDB(configFile, *this);
 
+    // When a fresh demo is started, the EXIF database does not exist.  Create it so
+    // eg. geolocation data is available.
+    if (Options::the()->demoMode() && DB::ImageDB::instance()->exifDB()->size() == 0) {
+        const auto allImageFiles = DB::ImageDB::instance()->files(DB::MediaType::Image);
+        DB::ImageDB::instance()->exifDB()->add(allImageFiles);
+    }
+
     const QString thumbnailDirectory = QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath(ImageManager::defaultThumbnailDirectory());
     m_thumbnailCache = new ImageManager::ThumbnailCache { thumbnailDirectory };
     // thumbnail size from cache overrides config value:

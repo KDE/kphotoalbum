@@ -26,7 +26,7 @@ SPDX-License-Identifier: GFDL-1.2-only
   </figure>
 
   <para
->Au cas où la boîte d'informations serait située au dessus de la zone de photos que vous êtes entrain de voir, vous pouvez simplement l'attraper avec la souris et la déplacer ailleurs sur une photo. Il est possible de configurer ce qui peut être montré dans la boîte d'information et bien sûr, si elle doit être affichée ou non. Toutes ces options sont disponibles par un clic-droit de la souris sur l'afficheur. Le menu contextuel peut être vu ci-dessous à l'adresse <xref linkend="fig-viewer-contextmenu"/>.</para>
+>Au cas où la boite d'informations serait située au dessus de la zone de photos que vous êtes entrain de voir, vous pouvez simplement l'attraper avec la souris et la déplacer ailleurs sur une photo. Il est possible de configurer ce qui peut être montré dans la boite d'information et bien sûr, si elle doit être affichée ou non. Toutes ces options sont disponibles par un clic-droit de la souris sur l'afficheur. Le menu contextuel peut être vu ci-dessous à l'adresse <xref linkend="fig-viewer-contextmenu"/>.</para>
 
   <figure id="fig-viewer-contextmenu">
     <title
@@ -118,7 +118,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Annotation des images à partir de l'afficheur</title>
 <para
 >Traditionnellement, le principal moyen d'étiqueter des images est <link linkend="chp-typingIn"
->la boîte de dialogue d'annotation</link
+>la boite de dialogue d'annotation</link
 >. Au fil des ans, quelques tentatives différentes ont été faites pour intégrer l'étiquetage dans l'afficheur. La première tentative a été d'associer des jetons dans l'afficheur. Une tentative ultérieure a été de permettre de faire un étiquetage directement en saisissant une partie d'un élément de catégorie. En outre, des éléments de catégorie pouvaient être affectés aux touches de fonction du clavier. Le code pour tout cela a maintenant été modernisé pour rendre le flux de travail beaucoup plus intuitif et découvrable.</para>
 
 <para
@@ -259,7 +259,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >s</keycap
 > tout en regardant des images et en étant en <emphasis
 >mode « Associer un mode d'étiquettes</emphasis
->. Cela a fait apparaître la boîte de dialogue où je peux spécifier quelle étiquette attribuée à cette touche.</para>
+>. Cela a fait apparaitre la boite de dialogue où je peux spécifier quelle étiquette attribuée à cette touche.</para>
 
 <figure id="fig-assign-macro-step1">
   <title
@@ -303,7 +303,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 </figure>
 
 <para
->Dans <xref linkend="fig-assign-macro-overview"/> ci-dessous, vous pouvez voir les associations de touches existants dans le côté droit de la boîte de dialogue.</para>
+>Dans <xref linkend="fig-assign-macro-overview"/> ci-dessous, vous pouvez voir les associations de touches existants dans le côté droit de la boite de dialogue.</para>
 <figure id="fig-assign-macro-overview">
   <title
 >Aperçu des correspondances de touches attribuées</title>

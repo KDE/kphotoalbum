@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-26 00:40+0000\n"
+"POT-Creation-Date: 2025-11-05 00:42+0000\n"
 "PO-Revision-Date: 2008-09-24 00:02+0900\n"
 "Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -998,7 +998,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "検索"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1771
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1778
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -1008,7 +1008,7 @@ msgid ""
 "section <b>Untagged Images</b></li></ul></p>"
 msgstr ""
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1778
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1785
 #, kde-format
 msgid "Feature has not been configured"
 msgstr ""
@@ -4295,13 +4295,13 @@ msgid "Stacking Error"
 msgstr ""
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1324 MainWindow/Window.cpp:1421
+#: MainWindow/Window.cpp:1331 MainWindow/Window.cpp:1428
 #, kde-format
 msgid "No item is selected."
 msgstr "アイテムが選択されていません。"
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1324 MainWindow/Window.cpp:1422
+#: MainWindow/Window.cpp:1331 MainWindow/Window.cpp:1429
 #, kde-format
 msgid "No Selection"
 msgstr "選択なし"
@@ -4613,14 +4613,14 @@ msgstr "サムネイルを生成する"
 msgid "Use previous video thumbnail"
 msgstr ""
 
-#: MainWindow/Window.cpp:1076 MainWindow/Window.cpp:1302
+#: MainWindow/Window.cpp:1076 MainWindow/Window.cpp:1309
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "画像をエクスポート/コピー..."
 
-#: MainWindow/Window.cpp:1080 MainWindow/Window.cpp:1306
+#: MainWindow/Window.cpp:1080 MainWindow/Window.cpp:1313
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgid "Link image to ..."
@@ -4649,7 +4649,7 @@ msgctxt "@title"
 msgid "Create database"
 msgstr "自分自身のデータベースを作成..."
 
-#: MainWindow/Window.cpp:1247
+#: MainWindow/Window.cpp:1254
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4658,34 +4658,34 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1380 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "全般"
 
-#: MainWindow/Window.cpp:1374 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1381 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "ビューア"
 
-#: MainWindow/Window.cpp:1375
+#: MainWindow/Window.cpp:1382
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "日付: "
 
-#: MainWindow/Window.cpp:1378
+#: MainWindow/Window.cpp:1385
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "注釈ダイアログ"
 
-#: MainWindow/Window.cpp:1379 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1386 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "サムネイルビュー"
 
-#: MainWindow/Window.cpp:1522
+#: MainWindow/Window.cpp:1529
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Really enable all messageboxes where you previously checked the do-not-"
@@ -4697,13 +4697,13 @@ msgstr ""
 "<p><interface>次回から表示しない</interface>にチェックを入れたすべてのメッ"
 "セージボックスを有効にしますか？</p>"
 
-#: MainWindow/Window.cpp:1524
+#: MainWindow/Window.cpp:1531
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1538
+#: MainWindow/Window.cpp:1545
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4714,63 +4714,63 @@ msgid ""
 "on due to the missing make install.</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1538
+#: MainWindow/Window.cpp:1545
 #, fuzzy, kde-format
 #| msgid "Invoke External Program"
 msgid "Internal Error"
 msgstr "外部プログラムを起動"
 
-#: MainWindow/Window.cpp:1549
+#: MainWindow/Window.cpp:1556
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1552
+#: MainWindow/Window.cpp:1559
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1557
+#: MainWindow/Window.cpp:1564
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1608
+#: MainWindow/Window.cpp:1615
 #, kde-format
 msgid "Open List of Files"
 msgstr "ファイルのリストを開く"
 
-#: MainWindow/Window.cpp:1609
+#: MainWindow/Window.cpp:1616
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
 
-#: MainWindow/Window.cpp:1623
+#: MainWindow/Window.cpp:1630
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "入力されたものにマッチする画像は見つかりませんでした。"
 
-#: MainWindow/Window.cpp:1623
+#: MainWindow/Window.cpp:1630
 #, kde-format
 msgid "No Matches"
 msgstr "マッチするものがありません"
 
-#: MainWindow/Window.cpp:1795
+#: MainWindow/Window.cpp:1802
 #, fuzzy, kde-format
 #| msgid "Rereading EXIF information from all images"
 msgid "Rereading Exif information from all images"
 msgstr "すべての画像から Exif 情報を再読み取り"
 
-#: MainWindow/Window.cpp:1822
+#: MainWindow/Window.cpp:1829
 #, fuzzy, no-c-format, kde-format
 #| msgid "Thumbnail image size:"
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "サムネイル画像のサイズ:"
 
-#: MainWindow/Window.cpp:1875
+#: MainWindow/Window.cpp:1882
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4778,7 +4778,7 @@ msgid ""
 "the ffmpeg package</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1878
+#: MainWindow/Window.cpp:1885
 #, fuzzy, kde-format
 #| msgid "File not available"
 msgid "Video thumbnails are not available"

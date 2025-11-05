@@ -17,7 +17,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 ><guimenuitem
 >Configurer KPhotoAlbum...</guimenuitem
 ></menuchoice
-> dans la barre de menu, vous permettra d'accéder à la boîte de dialogue d'options. Ce chapitre vous indiquera les options de configuration disponible là.</para>
+> dans la barre de menu, vous permettra d'accéder à la boite de dialogue d'options. Ce chapitre vous indiquera les options de configuration disponible là.</para>
 
 
 <sect1 id="opt-general">
@@ -155,7 +155,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >.</para>
 
 <para
->Dans<xref linkend="fig-options-group"/> en dessous, vous pouvez voir la boîte de dialogue permettant de configurer les catégories existantes. Pour chaque catégorie, vous spécifiez une étiquette et une icône.</para>
+>Dans<xref linkend="fig-options-group"/> en dessous, vous pouvez voir la boite de dialogue permettant de configurer les catégories existantes. Pour chaque catégorie, vous spécifiez une étiquette et une icône.</para>
 
 <figure id="fig-options-group">
 <title
@@ -176,7 +176,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Sous-catégories</title>
 
 <para
->Les sous-catégories sont abordées dans <xref linkend="sec-member-groups-in-property-editor"/>. A partir de la boîte de paramétrage, il est possible de configurer de tous les groupes de membres, &cad; de configurer tous les membres d'un groupe en une fois, plutôt que que de configurer tous les groupes pour un membre comme cela existait dans <xref linkend="sec-member-groups-in-property-editor"/>.</para>
+>Les sous-catégories sont abordées dans <xref linkend="sec-member-groups-in-property-editor"/>. A partir de la boite de paramétrage, il est possible de configurer de tous les groupes de membres, &cad; de configurer tous les membres d'un groupe en une fois, plutôt que que de configurer tous les groupes pour un membre comme cela existait dans <xref linkend="sec-member-groups-in-property-editor"/>.</para>
 
 <para
 >Dans <xref linkend="fig-options-member"/>, vous pouvez voir la page de configuration pour spécifier les groupes de membres. Au sommet, il y a une liste déroulante où vous pouvez spécifier quelle catégorie vous voulez configurer. Sur le coté gauche, vous voyez une liste avec la catégorie courante et sur la partie droite, une liste avec les sous-catégories.</para>

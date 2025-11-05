@@ -51,7 +51,7 @@ SPDX-License-Identifier: GFDL-1.2-only
       <title
 >Boîte de dialogue « Export »</title>
       <para
->Ce chapitre vous détaillera le fonctionnement de la boîte de dialogue « Export » disponible à partir du menu <menuchoice
+>Ce chapitre vous détaillera le fonctionnement de la boite de dialogue « Export » disponible à partir du menu <menuchoice
 ><guimenu
 >Fichier</guimenu
 ><guimenuitem
@@ -60,7 +60,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >.</para>
 
       <para
->Le paramètre le plus important dans cette boîte de dialogue est de spécifier si le fichier <literal role="extension"
+>Le paramètre le plus important dans cette boite de dialogue est de spécifier si le fichier <literal role="extension"
 >.kim</literal
 > devra être interne ou externe (voir la description ci-dessus). Vous avez les trois options suivantes :  <itemizedlist>
           <listitem
@@ -130,7 +130,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 
 <figure id="fig-import-dialog">
 <title
->Faire correspondre « Personnes » dans la boîte de dialogue « Importation » </title>
+>Faire correspondre « Personnes » dans la boite de dialogue « Importation » </title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="import-dialog.png" format="PNG"/>
@@ -139,7 +139,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 </figure>
 
 <para
->Dans la copie d'écran, vous pouvez voir que Donna est la même personne dans le fichier « .kim » et dans ma base de données - le nom est montré en noir pour indiquer une parfaite correspondance dans la base de données. Les trois autre noms n'ont pas trouvé dans la base de données, ainsi, à la fois Jesper et Anne Marie ont été trouvé comme correspondant à une sous-chaîne. Ainsi, ceux- ci sont suggérés. Enfin, dans ma base de données, je n'avais pas de Denis (ou je pourrais l'avoir nommé différemment), ainsi, &kphotoalbum; me suggère simplement Denis comme nom pour l'importation.</para>
+>Dans la copie d'écran, vous pouvez voir que Donna est la même personne dans le fichier « .kim » et dans ma base de données - le nom est montré en noir pour indiquer une parfaite correspondance dans la base de données. Les trois autre noms n'ont pas trouvé dans la base de données, ainsi, à la fois Jesper et Anne Marie ont été trouvé comme correspondant à une sous-chaine. Ainsi, ceux- ci sont suggérés. Enfin, dans ma base de données, je n'avais pas de Denis (ou je pourrais l'avoir nommé différemment), ainsi, &kphotoalbum; me suggère simplement Denis comme nom pour l'importation.</para>
 
 </sect1>
   </chapter>

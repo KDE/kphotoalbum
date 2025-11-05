@@ -84,7 +84,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 ><guimenuitem
 >Supprimer les photos sélectionnées</guimenuitem
 ></menuchoice
->. En procédant de cette façon, &kphotoalbum; vous affichera la boîte de dialogue dans <xref linkend="fig-delete-images"/></para>
+>. En procédant de cette façon, &kphotoalbum; vous affichera la boite de dialogue dans <xref linkend="fig-delete-images"/></para>
 
 <figure id="fig-delete-images">
 <title

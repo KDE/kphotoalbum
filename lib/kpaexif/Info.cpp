@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2023-2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2003 - 2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 - 2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2023 - 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -25,12 +25,11 @@ namespace
 {
 QString cStringWithEncoding(const char *c_str, const QString &charset)
 {
-    // FIXME KF6 port: Check if this does what it should do
     auto codec = QStringDecoder(charset.toUtf8().data());
     if (!codec.isValid()) {
         codec = QStringDecoder(QStringConverter::System);
     }
-    return codec.decode(QByteArray::fromRawData(c_str, sizeof(c_str)));
+    return codec.decode(c_str);
 }
 
 } // namespace

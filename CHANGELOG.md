@@ -53,6 +53,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Allow setting keyboard shortcuts for "Clear Form" and "Options..." items in Annotation/Search dialog (#306044)
  - Fix detection of KDcraw
  - Fix appearance of mouse cursor in the map view (i.e. indicate clickable items on the map)
+ - Fix display of EXIF date/time data (#511546)
 
 ### Removed
 

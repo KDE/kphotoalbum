@@ -58,7 +58,7 @@ msgstr "描述"
 msgid ""
 "(You have differing descriptions on individual images.  Enter text to append "
 "to or replace the descriptions.)"
-msgstr ""
+msgstr "(您对单个图像的描述有所不同。请输入文本以追加或替换描述。)"
 
 #: AnnotationDialog/Dialog.cpp:135
 #, kde-format
@@ -214,22 +214,22 @@ msgstr "仅搜索 RAW 文件"
 #: AnnotationDialog/Dialog.cpp:439
 #, kde-format
 msgid "Append"
-msgstr ""
+msgstr "附加"
 
 #: AnnotationDialog/Dialog.cpp:440
 #, kde-format
 msgid "Append new text to each description"
-msgstr ""
+msgstr "将新文本附加到每个描述"
 
 #: AnnotationDialog/Dialog.cpp:441
 #, kde-format
 msgid "Replace"
-msgstr ""
+msgstr "替换"
 
 #: AnnotationDialog/Dialog.cpp:442
 #, kde-format
 msgid "Replace each description with the new text"
-msgstr ""
+msgstr "用新文本替换每个描述"
 
 #: AnnotationDialog/Dialog.cpp:451
 #, kde-format
@@ -324,7 +324,7 @@ msgstr ""
 #: AnnotationDialog/Dialog.cpp:1016
 #, kde-format
 msgid "Save current window setup"
-msgstr ""
+msgstr "保存当前窗口设置"
 
 #: AnnotationDialog/Dialog.cpp:1081
 #, kde-format
@@ -1018,6 +1018,10 @@ msgid ""
 "selection: Click/drag below the timeline.</item><item>Jump to a date by "
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
+"<title>日期栏</title><para><list><item>使用箭头按钮、滚轮或鼠标中键进行滚动。"
+"</item><item>使用首页和尾页按钮滚动到起始或结束位置。</item><item>使用 +/- 按"
+"钮或 Ctrl + 滚轮进行缩放。</item><item>限制视图到日期范围选择：在时间轴下方点"
+"击/拖动。</item><item>通过点击直方图栏跳转到指定日期。</item></list></para>"
 
 #: DateBar/DateBarWidget.cpp:743
 #, kde-format
@@ -1303,11 +1307,13 @@ msgid ""
 "p><p>Chances are you will be able to read this file, but when writing it "
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
+"<p>该 XML 数据库文件来自较新版本的 KPhotoAlbum！</p><p>程序会尝试读取此文件，"
+"但在将其保存时，保存在较新版本中的信息将会丢失。</p>"
 
 #: DB/XML/FileReader.cpp:63
 #, kde-format
 msgid "XML database file version mismatch"
-msgstr ""
+msgstr "XML 数据库文件版本不匹配"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
@@ -2655,7 +2661,7 @@ msgstr ""
 #: kpa-thumbnailtool/main.cpp:48
 #, kde-format
 msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
-msgstr ""
+msgstr "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:98
 #, kde-format
@@ -2974,7 +2980,7 @@ msgstr "KDE 相册"
 #: main.cpp:89
 #, kde-format
 msgid "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
-msgstr ""
+msgstr "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
 
 #: main.cpp:112
 #, kde-format
@@ -2997,6 +3003,8 @@ msgid ""
 "Patch with folder info made available through the browser.\n"
 "Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
+"通过浏览器提供文件夹信息的补丁。\n"
+"用于在搜索页面添加“和/或”搜索复选框的补丁。"
 
 #: main.cpp:121
 #, kde-format
@@ -3039,6 +3047,8 @@ msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
 msgstr ""
+"修复了大量错误的众多补丁，\n"
+"以及一些新功能的补丁"
 
 #: main.cpp:138
 #, kde-format
@@ -3061,6 +3071,8 @@ msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
+"补丁用于在缩略图视图中对图像进行排序，  \n"
+"从现有图像的Exif信息中读取时间数据。"
 
 #: main.cpp:147
 #, kde-format
@@ -3093,6 +3105,8 @@ msgid ""
 "Patch which speeds up loading of thumbnails,\n"
 "preview in image property dialog."
 msgstr ""
+"加快缩略图加载速度的补丁，\n"
+"图像属性对话框中的预览。"
 
 #: MainWindow/AutoStackImages.cpp:46
 #, kde-format
@@ -3311,7 +3325,7 @@ msgstr ""
 #: MainWindow/FeatureDialog.cpp:59
 #, kde-format
 msgid "<h1>Overview</h1><p>Optional features in KPhotoAlbum:</p>%1"
-msgstr ""
+msgstr "<h1>概述</h1><p>KPhotoAlbum 的可选功能：</p>%1"
 
 #: MainWindow/FeatureDialog.cpp:65
 #, kde-format
@@ -3326,6 +3340,13 @@ msgid ""
 "from the package manager or an app store, you can file a bug report with the "
 "supplier of the package.</>"
 msgstr ""
+"<h1>构建时功能</h1><p>构建时功能是可选功能，需要在构建 KPhotoAlbum 时启用。</"
+"p><p>如果您自行构建了 KPhotoAlbum，请检查<a href=\"https://community.kde.org/"
+"KPhotoAlbum/build_instructions\">构建说明</a>，检查是否有遗漏的内容。如果您在"
+"编译 KPhotoAlbum 时需要帮助，可以随时在<a href=\"https://mail.kde.org/cgi-"
+"bin/mailman/listinfo/kphotoalbum\">KPhotoAlbum 邮件列表</a>上寻求帮助。</"
+"p><p>如果您通过包管理器或应用商店安装了 KPhotoAlbum，可以向该软件包的提供者提"
+"交错误报告。</p>"
 
 #: MainWindow/FeatureDialog.cpp:79
 #, kde-format
@@ -3334,6 +3355,8 @@ msgid ""
 "supports the <em>Purpose</em> plugin system which is part of KDE Frameworks."
 "</p>"
 msgstr ""
+"<h2><a name=\"purpose\">Purpose 插件支持</a></h2><p>KPhotoAlbum 支持作为 KDE "
+"Frameworks 一部分的 <em>Purpose</em> 插件系统。</p>"
 
 #: MainWindow/FeatureDialog.cpp:83
 #, kde-format
@@ -3342,6 +3365,9 @@ msgid ""
 "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
 "images with GPS information on a map.</p>"
 msgstr ""
+"<h2><a name=\"geomap\">携带地理位置图像的地图视图</a></h2><p>如果 "
+"KPhotoAlbum 是通过支持 Marble 构建的，KPhotoAlbum 可以在地图上显示带有 GPS 信"
+"息的图像。</p>"
 
 #: MainWindow/FeatureDialog.cpp:88
 #, kde-format
@@ -3350,6 +3376,8 @@ msgid ""
 "depend on another package or program being available during runtime. I.e. "
 "you can enable these features by installing the right package.</p>"
 msgstr ""
+"<h1>运行时功能</h1><p>运行时功能是可选功能，具体取决于运行时是否有可用的其他"
+"软件包或程序。也就是说，您可以通过安装正确的软件包来启用这些功能。</p>"
 
 #: MainWindow/FeatureDialog.cpp:94
 #, kde-format
@@ -3359,6 +3387,9 @@ msgid ""
 "is only available if the Qt SQLite driver is installed. On Debian-based "
 "distributions this package is usually called libqt6sql6-sqlite.</p>"
 msgstr ""
+"<h2><a name=\"database\">SQLite 数据库支持</a></h2><p>KPhotoAlbum 允许您使用"
+"一定数量的 Exif 标签进行搜索。</p><p>此功能仅在安装了 Qt SQLite 驱动程序时可"
+"用。在基于 Debian 的发行版中，该软件包通常称为 libqt6sql6-sqlite。</p>"
 
 #: MainWindow/FeatureDialog.cpp:102
 #, kde-format
@@ -3374,12 +3405,20 @@ msgid ""
 "p><p>This feature is only available if ffprobe is installed. Usually, "
 "ffprobe is also part of the FFmpeg package.</p>"
 msgstr ""
+"<h2><a name=\"video\">视频支持</a></h2><p>KPhotoAlbum 依靠 phonon 或 VLC 来显"
+"示视频。</p><h2><a name=\"videoPreview\">视频缩略图支持</a></"
+"h2><p>KPhotoAlbum 可以使用 <tt>ffmpeg</tt> 从视频中提取缩略图。这些缩略图用于"
+"在缩略图查看器中预览视频。</p><p>此功能仅在安装 FFmpeg 后可用。</p><h2><a "
+"name=\"videoInfo\">视频元数据支持</a></h2><p>KPhotoAlbum 会使用 <tt>ffprobe</"
+"tt> 从视频中提取时长信息。正确的时长信息对于正确渲染视频缩略图是必要的。</"
+"p><p>此功能仅在安装 ffprobe 后可用。通常 ffprobe 也是 FFmpeg 软件包的一部分。"
+"</p>"
 
 #: MainWindow/FeatureDialog.cpp:135
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Purpose plugin support"
-msgstr ""
+msgstr "Purpose 插件支持"
 
 #: MainWindow/FeatureDialog.cpp:138
 #, kde-format
@@ -3391,7 +3430,7 @@ msgstr ""
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "SQLite database support"
-msgstr ""
+msgstr "SQLite 数据库支持"
 
 #: MainWindow/FeatureDialog.cpp:144
 #, kde-format
@@ -3500,12 +3539,12 @@ msgstr ""
 #: MainWindow/Options.cpp:31
 #, kde-format
 msgid "Application rc file."
-msgstr ""
+msgstr "应用程序 rc 文件。"
 
 #: MainWindow/Options.cpp:32
 #, kde-format
 msgid "kphotoalbumrc"
-msgstr ""
+msgstr "kphotoalbumrc"
 
 #: MainWindow/Options.cpp:36
 #, kde-format
@@ -3545,7 +3584,7 @@ msgstr ""
 #: MainWindow/Options.cpp:58
 #, kde-format
 msgid "Save the database and immediately quit after showing the main window."
-msgstr ""
+msgstr "保存数据库并在显示主窗口后立即退出。"
 
 #: MainWindow/Options.cpp:59
 #, kde-format
@@ -4164,7 +4203,7 @@ msgstr "自动保存.... 完成"
 #: MainWindow/Window.cpp:1207
 #, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
-msgstr ""
+msgstr "<p>是否要创建此数据库文件？<br />%1</p>"
 
 #: MainWindow/Window.cpp:1210
 #, kde-format
@@ -4608,12 +4647,12 @@ msgstr ""
 #: Settings/DatabaseBackendPage.cpp:23
 #, kde-format
 msgid "Choose speed over readability for the XML database file"
-msgstr ""
+msgstr "选择 XML 数据库文件的人类可读性"
 
 #: Settings/DatabaseBackendPage.cpp:27
 #, kde-format
 msgid "Compress backup files"
-msgstr ""
+msgstr "压缩备份文件"
 
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
@@ -4647,6 +4686,12 @@ msgid ""
 "images, and in that case it is useful to ask KPhotoAlbum to zip the backup "
 "files to preserve disk space.</p>"
 msgstr ""
+"<p>KPhotoAlbum 能够通过保留副本（例如，对于名为 index.xml 的数据库文件，备份"
+"文件将命名为 index.xml~0001~、index.xml~0002~ 等）来备份 XML 数据库文件，您可"
+"以使用微调框指定要保留的备份文件数量。当备份文件数量达到最大值时，"
+"KPhotoAlbum 将删除最旧的备份文件。</p><p>如果您的图片数量很多，XML 数据库文件"
+"可能会显著增大，在这种情况下，可以让 KPhotoAlbum 压缩备份文件以节省磁盘空间。"
+"</p>"
 
 #: Settings/DatabaseBackendPage.cpp:68
 #, kde-format
@@ -4656,6 +4701,9 @@ msgid ""
 "time to approximately half, by checking this check box. The disadvantage is "
 "that the XML database file is less readable by human eyes.</p>"
 msgstr ""
+"<p>KPhotoAlbum 使用单个 XML 文件作为其<i>数据库</i>。如果图片数量较多，读取该"
+"文件可能需要较长时间。通过勾选此复选框，可将时间缩短至大约一半。缺点是 XML 数"
+"据库文件的可读性会降低。</p>"
 
 #: Settings/ExifPage.cpp:37
 #, kde-format
@@ -5510,6 +5558,15 @@ msgid ""
 "can at any time change the backend from Settings -> Viewer</font></b></p></"
 "html>"
 msgstr ""
+"<html><p>没有任何一款视频播放器能够开箱即用满足所有人的需求。</p><p>因此，"
+"KPhotoAlbum 提供了两种不同的后端，请选择最适合您的那一个。</p><p><b>VLC</b> "
+"似乎是支持最广泛的视频播放器后端，它可以播放大多数视频格式，但它需要 X11。如"
+"果您使用 Wayland会话，您会发现视频会在单独的窗口中显示，这种情况下 VLC 可能不"
+"太适合您。但如果您使用的是 X11，那么 VLC 很可能就是您的最佳选择。</p><p>传统"
+"上，KPhotoAlbum 使用 <b>Phonon</b> 作为视频播放器后端。不过我们也遗憾地发现，"
+"它可能在播放某些视频格式时会崩溃，这可能是由于我们的测试系统没有被正确配置。"
+"</p><p><b><font color=red>您可以随时通过 设置 -> 查看器 更换后端。</font></"
+"b></p></html>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:49
 #: Settings/VideoPlayerSelectorDialog.cpp:58
@@ -5732,7 +5789,7 @@ msgstr ""
 msgid ""
 "<p>Could not locate the demo database in any of the following standard "
 "locations:</p><p>%1</p>"
-msgstr ""
+msgstr "<p>无法在以下任何标准位置找到演示数据库：</p><p>%1</p>"
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format

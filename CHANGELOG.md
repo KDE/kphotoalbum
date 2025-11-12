@@ -51,9 +51,10 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Allow large images up to an in-memory size of 2GB (#219112)
  - Make "Clear form" button in search dialog actually clear all form fields.
  - Allow setting keyboard shortcuts for "Clear Form" and "Options..." items in Annotation/Search dialog (#306044)
- - Fix detection of KDcraw
+ - Fix detection of KDcraw during build time
  - Fix appearance of mouse cursor in the map view (i.e. indicate clickable items on the map)
  - Fix display of EXIF date/time data (#511546)
+ - Fix several warnings in the console output (#505015)
 
 ### Removed
 

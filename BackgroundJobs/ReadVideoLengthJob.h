@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2025 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -12,7 +13,7 @@ namespace BackgroundJobs
 {
 
 /**
-  \brief Read the length of a video file and writes that to the database
+  \brief Attempts to read the length and creation time of a video file and writes that to the database.
   \see \ref videothumbnails
 */
 class ReadVideoLengthJob : public BackgroundTaskManager::JobInterface
@@ -26,7 +27,12 @@ public:
     QString details() const override;
 
 private Q_SLOTS:
+    // These are emitted when valid metadata is extracted.
+    void creationTimeFound(QDateTime dateTime);
     void lengthFound(int);
+
+    // These are emitted when valid metadata cannot be extracted.
+    void unableToDetermineCreationTime();
     void unableToDetermineLength();
 
 private:

@@ -29,6 +29,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="it">KPhotoAlbum</name>
   <name xml:lang="ka">KPhotoAlbum</name>
   <name xml:lang="ko">KPhotoAlbum</name>
+  <name xml:lang="lv">KPhotoAlbum</name>
   <name xml:lang="nl">KPhotoAlbum</name>
   <name xml:lang="nn">KPhotoAlbum</name>
   <name xml:lang="pl">KPhotoAlbum</name>
@@ -67,6 +68,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="it">Software KDE per la gestione delle immagini</summary>
   <summary xml:lang="ka">KDE-ის გამოსახულებების მართვის პროგრამა</summary>
   <summary xml:lang="ko">KDE 사진 관리 소프트웨어</summary>
+  <summary xml:lang="lv">KDE attēlu kārtošanas programmatūra</summary>
   <summary xml:lang="nl">Software voor beheer van afbeeldingen</summary>
   <summary xml:lang="nn">KDE-basert bilethandsaming</summary>
   <summary xml:lang="pl">Oprogramowanie do zarządzania obrazami w KDE</summary>
@@ -102,6 +104,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="it">KPhotoAlbum è un'applicazione per etichettare e gestire una raccolta di immagini in modo da poter eseguire ricerche al suo interno.</p>
     <p xml:lang="ka">KPhotoAlbum პროგრამაა გამოსახულებების სამართავად და მათზე ჭდეების დასადებად, მათი ძებნადობის უზრუნველსაყოფად.</p>
     <p xml:lang="ko">KPhotoAlbum은 사진 모음집에 태그를 붙이고 관리하여 검색할 수 있게 하는 앱입니다.</p>
+    <p xml:lang="lv">„KPhotoAlbum“ ir programma fotogrāfiju kolekciju birkošanai un pārvaldīšanai, lai ļautu atrast fotogrāfijas.-</p>
     <p xml:lang="nl">KPhotoAlbum is een toepassing voor aanbrengen van tags en beheer van een fotoverzameling en deze doorzoekbaar maken.</p>
     <p xml:lang="nn">KPhotoAlbum er eit program for handsaming av bilete, med støtte for merkelappar og søk.</p>
     <p xml:lang="pl">KPhotoAlbum jest programem do znaczenia i zarządzania zbiorami zdjęć.</p>
@@ -140,6 +143,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="it">La schermata principale in KPhotoAlbum</caption>
       <caption xml:lang="ka">KPhotoAlbum-ის მთავარი ეკრანი</caption>
       <caption xml:lang="ko">KPhotoAlbum 주 화면</caption>
+      <caption xml:lang="lv">„KPhotoAlbum“ galvenais ekrāns</caption>
       <caption xml:lang="nl">Het hoofdscherm in KPhotoAlbum</caption>
       <caption xml:lang="nn">Hovudskjermen i KPhotoAlbum</caption>
       <caption xml:lang="pl">Ekran główny w KPhotoAlbum</caption>

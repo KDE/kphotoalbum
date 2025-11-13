@@ -4,7 +4,7 @@
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-#include "VideoLengthExtractor.h"
+#include "VideoMetaDataExtractor.h"
 
 #include <MainWindow/FeatureDialog.h>
 #include <Utilities/Process.h>
@@ -14,13 +14,13 @@
 
 #define STR(x) QString::fromUtf8(x)
 
-ImageManager::VideoLengthExtractor::VideoLengthExtractor(QObject *parent)
+ImageManager::VideoMetaDataExtractor::VideoMetaDataExtractor(QObject *parent)
     : QObject(parent)
     , m_process(nullptr)
 {
 }
 
-void ImageManager::VideoLengthExtractor::extract(const DB::FileName &fileName)
+void ImageManager::VideoMetaDataExtractor::extract(const DB::FileName &fileName)
 {
     m_fileName = fileName;
     if (m_process) {
@@ -51,7 +51,7 @@ void ImageManager::VideoLengthExtractor::extract(const DB::FileName &fileName)
     m_process->start(MainWindow::FeatureDialog::ffprobeBinary(), arguments);
 }
 
-void ImageManager::VideoLengthExtractor::processEnded()
+void ImageManager::VideoMetaDataExtractor::processEnded()
 {
     if (!m_process->stdErr().isEmpty())
         qCDebug(ImageManagerLog) << m_process->stdErr();
@@ -117,4 +117,4 @@ void ImageManager::VideoLengthExtractor::processEnded()
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
 
-#include "moc_VideoLengthExtractor.cpp"
+#include "moc_VideoMetaDataExtractor.cpp"

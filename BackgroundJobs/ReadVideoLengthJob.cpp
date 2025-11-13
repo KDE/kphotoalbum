@@ -7,7 +7,7 @@
 
 #include <BackgroundTaskManager/JobInfo.h>
 #include <DB/ImageDB.h>
-#include <ImageManager/VideoLengthExtractor.h>
+#include <ImageManager/VideoMetaDataExtractor.h>
 #include <MainWindow/DirtyIndicator.h>
 
 #include <KLocalizedString>
@@ -20,12 +20,12 @@ BackgroundJobs::ReadVideoLengthJob::ReadVideoLengthJob(const DB::FileName &fileN
 
 void BackgroundJobs::ReadVideoLengthJob::execute()
 {
-    ImageManager::VideoLengthExtractor *extractor = new ImageManager::VideoLengthExtractor(this);
+    ImageManager::VideoMetaDataExtractor *extractor = new ImageManager::VideoMetaDataExtractor(this);
     extractor->extract(m_fileName);
-    connect(extractor, &ImageManager::VideoLengthExtractor::creationTimeFound, this, &ReadVideoLengthJob::creationTimeFound);
-    connect(extractor, &ImageManager::VideoLengthExtractor::lengthFound, this, &ReadVideoLengthJob::lengthFound);
-    connect(extractor, &ImageManager::VideoLengthExtractor::unableToDetermineCreationTime, this, &ReadVideoLengthJob::unableToDetermineCreationTime);
-    connect(extractor, &ImageManager::VideoLengthExtractor::unableToDetermineLength, this, &ReadVideoLengthJob::unableToDetermineLength);
+    connect(extractor, &ImageManager::VideoMetaDataExtractor::creationTimeFound, this, &ReadVideoLengthJob::creationTimeFound);
+    connect(extractor, &ImageManager::VideoMetaDataExtractor::lengthFound, this, &ReadVideoLengthJob::lengthFound);
+    connect(extractor, &ImageManager::VideoMetaDataExtractor::unableToDetermineCreationTime, this, &ReadVideoLengthJob::unableToDetermineCreationTime);
+    connect(extractor, &ImageManager::VideoMetaDataExtractor::unableToDetermineLength, this, &ReadVideoLengthJob::unableToDetermineLength);
 }
 
 QString BackgroundJobs::ReadVideoLengthJob::title() const

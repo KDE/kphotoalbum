@@ -3,8 +3,8 @@
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-#ifndef VIDEOLENGTHEXTRACTOR_H
-#define VIDEOLENGTHEXTRACTOR_H
+#ifndef VIDEOMETADATAEXTRACTOR_H
+#define VIDEOMETADATAEXTRACTOR_H
 
 #include <kpabase/FileName.h>
 
@@ -22,11 +22,11 @@ namespace ImageManager
   \brief Attempts to determine the length and creation date/time for a video file.
   \see \ref videothumbnails
 */
-class VideoLengthExtractor : public QObject
+class VideoMetaDataExtractor : public QObject
 {
     Q_OBJECT
 public:
-    explicit VideoLengthExtractor(QObject *parent = nullptr);
+    explicit VideoMetaDataExtractor(QObject *parent = nullptr);
     void extract(const DB::FileName &fileName);
 
 Q_SIGNALS:
@@ -48,5 +48,5 @@ private:
 
 }
 
-#endif // VIDEOLENGTHEXTRACTOR_H
+#endif // VIDEOMETADATAEXTRACTOR_H
 // vi:expandtab:tabstop=4 shiftwidth=4:

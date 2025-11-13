@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-05 00:42+0000\n"
-"PO-Revision-Date: 2025-10-28 16:44+0200\n"
+"PO-Revision-Date: 2025-11-11 18:42+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
@@ -2898,10 +2898,9 @@ msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr "Rīks „KPhotoAlbum“ sīktēlu kešatmiņas pārbaudīšanai un rediģēšanai"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
-msgstr "Autortiesības (C) 2020—2024 „KPhotoAlbum“ izstrādātāju komanda"
+msgstr "Autortiesības (C) 2020—2025 „KPhotoAlbum“ izstrādātāju komanda"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:98
 #, kde-format
@@ -3245,10 +3244,9 @@ msgid "KDE Photo Album"
 msgstr "KDE Fotoalbums"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
-msgstr "Autortiesības (C) 2003—2024 „KPhotoAlbum“ izstrādātāju komanda"
+msgstr "Autortiesības (C) 2003—2025 „KPhotoAlbum“ izstrādātāju komanda"
 
 #: main.cpp:112
 #, kde-format
@@ -3334,13 +3332,13 @@ msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
 #: main.cpp:143
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
 "Ielāps attēlu kārtošanai sīktēlu skatā,\n"
-" laika informācijas lasīšanai no attēlu „Exif“ jau esošiem attēliem"
+"laika informācijas lasīšana no attēlu „Exif“ jau esošajiem attēliem"
 
 #: main.cpp:147
 #, kde-format

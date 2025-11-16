@@ -9,8 +9,11 @@
 #include <DB/ImageDB.h>
 #include <ImageManager/VideoMetaDataExtractor.h>
 #include <MainWindow/DirtyIndicator.h>
+#include <kpabase/Logging.h>
 
 #include <KLocalizedString>
+
+#include <QFileInfo>
 
 BackgroundJobs::ReadVideoLengthJob::ReadVideoLengthJob(const DB::FileName &fileName, BackgroundTaskManager::Priority priority)
     : JobInterface(priority)
@@ -53,16 +56,27 @@ void BackgroundJobs::ReadVideoLengthJob::creationTimeFound(QDateTime dateTime)
 {
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName);
 
-    // Don't override a user-annotated date.
-    if (!info->date().isFuzzy()) {
-        const auto newDateTime = DB::ImageDate(dateTime);
+    const auto newDateTime = DB::ImageDate(dateTime);
+    const auto fileInfo = QFileInfo(m_fileName.absolute());
+    auto lastModifiedTime = fileInfo.lastModified();
 
+    // Zero any fraction of a second.  DB::FileInfo drops any fraction of a
+    // second from the last modified time.
+    const auto lastModified = DB::ImageDate(lastModifiedTime.addMSecs(-lastModifiedTime.time().msec()));
+
+    // Don't override a user-configured datetime.
+    if (info->date() == lastModified) {
         // Only mark dirty if it is required.
         if (info->date() != newDateTime) {
             info->setDate(newDateTime);
             MainWindow::DirtyIndicator::markDirty();
         }
+    } else {
+        qCDebug(ImageManagerLog) << "Not overriding user-configured date"
+                                 << info->date().toString(true) << "with lastModified="
+                                 << lastModified.toString(true) << "for" << m_fileName.relative();
     }
+
     Q_EMIT completed();
 }
 

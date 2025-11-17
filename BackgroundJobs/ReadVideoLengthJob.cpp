@@ -18,6 +18,8 @@
 BackgroundJobs::ReadVideoLengthJob::ReadVideoLengthJob(const DB::FileName &fileName, BackgroundTaskManager::Priority priority)
     : JobInterface(priority)
     , m_fileName(fileName)
+    , m_creationTimeCompleted(false)
+    , m_lengthCompleted(false)
 {
 }
 
@@ -43,17 +45,21 @@ QString BackgroundJobs::ReadVideoLengthJob::details() const
 
 void BackgroundJobs::ReadVideoLengthJob::lengthFound(int length)
 {
+    m_lengthCompleted = true;
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName);
+
     // Only mark dirty if it is required
     if (info->videoLength() != length) {
         info->setVideoLength(length);
         MainWindow::DirtyIndicator::markDirty();
     }
-    Q_EMIT completed();
+
+    checkCompleted();
 }
 
 void BackgroundJobs::ReadVideoLengthJob::creationTimeFound(QDateTime dateTime)
 {
+    m_creationTimeCompleted = true;
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName);
 
     const auto newDateTime = DB::ImageDate(dateTime);
@@ -77,18 +83,27 @@ void BackgroundJobs::ReadVideoLengthJob::creationTimeFound(QDateTime dateTime)
                                  << lastModified.toString(true) << "for" << m_fileName.relative();
     }
 
-    Q_EMIT completed();
+    checkCompleted();
 }
 
 void BackgroundJobs::ReadVideoLengthJob::unableToDetermineLength()
 {
+    m_lengthCompleted = true;
     // PENDING(blackie) Should we mark these as trouble, so we don't try them over and over again?
-    Q_EMIT completed();
+    checkCompleted();
 }
 
 void BackgroundJobs::ReadVideoLengthJob::unableToDetermineCreationTime()
 {
-    Q_EMIT completed();
+    m_creationTimeCompleted = true;
+    checkCompleted();
+}
+
+void BackgroundJobs::ReadVideoLengthJob::checkCompleted()
+{
+    if (m_creationTimeCompleted && m_lengthCompleted) {
+        Q_EMIT completed();
+    }
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

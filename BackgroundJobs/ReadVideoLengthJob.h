@@ -37,6 +37,13 @@ private Q_SLOTS:
 
 private:
     DB::FileName m_fileName;
+
+    // These are set to true when the corresponding metadata is extracted.
+    bool m_creationTimeCompleted;
+    bool m_lengthCompleted;
+
+    // Emits completed if all metadata extraction is completed.
+    void checkCompleted();
 };
 
 }

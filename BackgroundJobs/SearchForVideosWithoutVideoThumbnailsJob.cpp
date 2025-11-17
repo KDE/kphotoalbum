@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2012-2025 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2022 Tobias Leupold <tl@stonemx.de>

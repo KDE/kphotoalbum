@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2012-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2012-2025 The KPhotoAlbum Development Team
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 

@@ -4,7 +4,7 @@
 
 #include "SearchForVideosWithoutLengthInfo.h"
 
-#include "ReadVideoLengthJob.h"
+#include "ReadVideoMetaDataJob.h"
 
 #include <BackgroundTaskManager/JobInfo.h>
 #include <BackgroundTaskManager/JobManager.h>
@@ -35,7 +35,7 @@ void BackgroundJobs::SearchForVideosWithoutLengthInfo::execute()
         int length = info->videoLength();
         if (length == -1) {
             BackgroundTaskManager::JobManager::instance()->addJob(
-                new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest));
+                new BackgroundJobs::ReadVideoMetaDataJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest));
         }
     }
     Q_EMIT completed();

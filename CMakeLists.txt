@@ -625,8 +625,8 @@ set(libBackgroundTaskManager_SRCS
 set(libBackgroundJobs_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/SearchForVideosWithoutLengthInfo.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/ReadVideoLengthJob.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/ReadVideoLengthJob.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/ReadVideoMetaDataJob.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/ReadVideoMetaDataJob.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/HandleVideoThumbnailRequestJob.cpp"

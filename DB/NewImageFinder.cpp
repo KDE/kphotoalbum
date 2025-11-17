@@ -21,7 +21,7 @@
 #include "ImageScout.h"
 #include "MD5Map.h"
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
-#include <BackgroundJobs/ReadVideoLengthJob.h>
+#include <BackgroundJobs/ReadVideoMetaDataJob.h>
 #include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
 #include <BackgroundTaskManager/JobManager.h>
 #include <ImageManager/RawImageDecoder.h>
@@ -653,7 +653,7 @@ void NewImageFinder::loadExtraFile(const DB::FileName &newFileName, DB::MediaTyp
     if (info->isVideo() && MainWindow::FeatureDialog::hasVideoThumbnailer()) {
         // needs to be done *after* insertion into database
         BackgroundTaskManager::JobManager::instance()->addJob(
-            new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest));
+            new BackgroundJobs::ReadVideoMetaDataJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest));
     }
 }
 

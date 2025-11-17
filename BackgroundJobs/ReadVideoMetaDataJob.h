@@ -3,8 +3,8 @@
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#ifndef READVIDEOLENGTHJOB_H
-#define READVIDEOLENGTHJOB_H
+#ifndef READVIDEOMETADATAJOB_H
+#define READVIDEOMETADATAJOB_H
 
 #include <BackgroundTaskManager/JobInterface.h>
 #include <kpabase/FileName.h>
@@ -16,12 +16,12 @@ namespace BackgroundJobs
   \brief Attempts to read the length and creation time of a video file and writes that to the database.
   \see \ref videothumbnails
 */
-class ReadVideoLengthJob : public BackgroundTaskManager::JobInterface
+class ReadVideoMetaDataJob : public BackgroundTaskManager::JobInterface
 {
     Q_OBJECT
 
 public:
-    ReadVideoLengthJob(const DB::FileName &fileName, BackgroundTaskManager::Priority priority);
+    ReadVideoMetaDataJob(const DB::FileName &fileName, BackgroundTaskManager::Priority priority);
     void execute() override;
     QString title() const override;
     QString details() const override;
@@ -47,5 +47,5 @@ private:
 };
 
 }
-#endif // READVIDEOLENGTHJOB_H
+#endif // READVIDEOMETADATAJOB_H
 // vi:expandtab:tabstop=4 shiftwidth=4:

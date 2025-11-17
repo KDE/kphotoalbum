@@ -7,7 +7,7 @@
 
 #include <BackgroundJobs/ExtractOneThumbnailJob.h>
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
-#include <BackgroundJobs/ReadVideoLengthJob.h>
+#include <BackgroundJobs/ReadVideoMetaDataJob.h>
 #include <BackgroundTaskManager/JobManager.h>
 #include <MainWindow/FeatureDialog.h>
 #include <MainWindow/Window.h>
@@ -52,7 +52,7 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
     cancelPreviousJobs();
     m_pendingRequest = false;
 
-    BackgroundJobs::ReadVideoLengthJob *lengthJob = new BackgroundJobs::ReadVideoLengthJob(fileName, BackgroundTaskManager::ForegroundCycleRequest);
+    BackgroundJobs::ReadVideoMetaDataJob *lengthJob = new BackgroundJobs::ReadVideoMetaDataJob(fileName, BackgroundTaskManager::ForegroundCycleRequest);
 
     qCDebug(ImageManagerLog) << "VideoThumbnails: Creating thumbnails for" << fileName.relative();
     for (int i = 0; i < 10; ++i) {

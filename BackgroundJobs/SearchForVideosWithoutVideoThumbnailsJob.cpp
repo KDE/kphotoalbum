@@ -8,7 +8,7 @@
 
 #include "ExtractOneThumbnailJob.h"
 #include "HandleVideoThumbnailRequestJob.h"
-#include "ReadVideoLengthJob.h"
+#include "ReadVideoMetaDataJob.h"
 #include "kpathumbnails/VideoThumbnailCache.h"
 
 #include <BackgroundTaskManager/JobInfo.h>
@@ -37,7 +37,7 @@ void BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::execute()
         if (videoThumbnailCache->contains(info->fileName()))
             continue;
 
-        BackgroundJobs::ReadVideoLengthJob *readVideoLengthJob = new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest);
+        BackgroundJobs::ReadVideoMetaDataJob *readVideoLengthJob = new BackgroundJobs::ReadVideoMetaDataJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest);
 
         for (int i = 0; i < 10; ++i) {
             if (videoThumbnailCache->contains(info->fileName(), i))

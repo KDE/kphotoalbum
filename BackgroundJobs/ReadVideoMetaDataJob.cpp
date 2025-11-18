@@ -35,7 +35,7 @@ void BackgroundJobs::ReadVideoMetaDataJob::execute()
 
 QString BackgroundJobs::ReadVideoMetaDataJob::title() const
 {
-    return i18n("Read Video Length");
+    return i18n("Read Video Metadata");
 }
 
 QString BackgroundJobs::ReadVideoMetaDataJob::details() const

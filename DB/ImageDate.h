@@ -6,10 +6,12 @@
 
 #ifndef IMAGEDATE_H
 #define IMAGEDATE_H
+
 #include <Utilities/FastDateTime.h>
 #include <QDebug>
 #include <qstring.h>
 #include <qstringlist.h>
+#include <QTime>
 
 namespace DB
 {
@@ -154,6 +156,11 @@ public:
 
 private:
     Utilities::FastDateTime m_start, m_end;
+
+    /**
+     * @returns the given time with any fraction of a second zeroed
+     */
+    static QTime zeroMSec(const QTime& time);
 };
 
 /**

@@ -64,23 +64,26 @@ void BackgroundJobs::ReadVideoMetaDataJob::creationTimeFound(QDateTime dateTime)
 
     const auto newDateTime = DB::ImageDate(dateTime);
     const auto fileInfo = QFileInfo(m_fileName.absolute());
-    auto lastModifiedTime = fileInfo.lastModified();
+    const auto lastModified = DB::ImageDate(fileInfo.lastModified());
 
-    // Zero any fraction of a second.  DB::FileInfo drops any fraction of a
-    // second from the last modified time.
-    const auto lastModified = DB::ImageDate(lastModifiedTime.addMSecs(-lastModifiedTime.time().msec()));
-
-    // Don't override a user-configured datetime.
+    // If the date/time stored in the database is different from the file's
+    // modification date/time, the user might have configured it so don't
+    // override.
     if (info->date() == lastModified) {
         // Only mark dirty if it is required.
         if (info->date() != newDateTime) {
+            qCDebug(ImageManagerLog) << "Setting extracted time"
+                                     << newDateTime.toString(true)
+                                     << "for" << m_fileName.relative();
             info->setDate(newDateTime);
             MainWindow::DirtyIndicator::markDirty();
         }
     } else {
-        qCDebug(ImageManagerLog) << "Not overriding user-configured date"
-                                 << info->date().toString(true) << "with lastModified="
-                                 << lastModified.toString(true) << "for" << m_fileName.relative();
+        qCDebug(ImageManagerLog) << "Not overriding info->date()="
+                                 << info->date().toString(true)
+                                 << "with extracted time"
+                                 << newDateTime.toString(true)
+                                 << "for" << m_fileName.relative();
     }
 
     checkCompleted();

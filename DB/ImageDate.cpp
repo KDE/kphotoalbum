@@ -75,9 +75,9 @@ ImageDate::ImageDate(const QDate &date)
 {
 }
 
-ImageDate::ImageDate(const Utilities::FastDateTime &date)
-    : m_start(date)
-    , m_end(date)
+ImageDate::ImageDate(const Utilities::FastDateTime &dateTime)
+    : m_start(dateTime.date(), zeroMSec(dateTime.time()))
+    , m_end(m_start)
 {
 }
 
@@ -201,11 +201,11 @@ bool ImageDate::operator<(const ImageDate &other) const
 ImageDate::ImageDate(const Utilities::FastDateTime &start, const Utilities::FastDateTime &end)
 {
     if (!start.isValid() || !end.isValid() || start <= end) {
-        m_start = start;
-        m_end = end;
+        m_start = Utilities::FastDateTime(start.date(), zeroMSec(start.time()));
+        m_end = Utilities::FastDateTime(end.date(), zeroMSec(end.time()));
     } else {
-        m_start = end;
-        m_end = start;
+        m_start = Utilities::FastDateTime(end.date(), zeroMSec(end.time()));
+        m_end = Utilities::FastDateTime(start.date(), zeroMSec(start.time()));
     }
 }
 
@@ -286,7 +286,7 @@ ImageDate::ImageDate(const QDate &start, const QDate &end, const QTime &time)
     const QDate validatedEnd = (end.isValid()) ? end : start;
 
     if (start == validatedEnd && time.isValid()) {
-        m_start = Utilities::FastDateTime(start, time);
+        m_start = Utilities::FastDateTime(start, zeroMSec(time));
         m_end = m_start;
     } else {
         if (start > validatedEnd) {
@@ -329,6 +329,13 @@ void ImageDate::extendTo(const ImageDate &other)
         if (other.m_end > m_end)
             m_end = other.m_end;
     }
+}
+
+QTime ImageDate::zeroMSec(const QTime& time)
+{
+    // Zero any fraction of a second because the XML database only supports
+    // whole seconds.
+    return time.addMSecs(-time.msec());
 }
 
 QDate DB::parseDateString(const QString &dateString, bool assumeStartDate)

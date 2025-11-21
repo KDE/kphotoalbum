@@ -31,6 +31,7 @@ void ImageManager::VideoMetaDataExtractor::extract(const DB::FileName &fileName)
     }
 
     if (!MainWindow::FeatureDialog::hasVideoProber()) {
+        Q_EMIT unableToDetermineCreationTime();
         Q_EMIT unableToDetermineLength();
         return;
     }
@@ -57,59 +58,64 @@ void ImageManager::VideoMetaDataExtractor::processEnded()
         qCDebug(ImageManagerLog) << m_process->stdErr();
 
     const QStringList list = m_process->stdOut().split(QChar::fromLatin1('\n'), Qt::SkipEmptyParts);
-    // ffprobe -v 0 just prints two lines, except if panicking
-    if (list.count() < 2) {
-        qCWarning(ImageManagerLog) << "Unable to parse video length from ffprobe output!"
-                                   << "Output was:\n"
-                                   << m_process->stdOut();
-        Q_EMIT unableToDetermineCreationTime();
-        Q_EMIT unableToDetermineLength();
-        return;
-    }
+
+    bool creationTimeOK = false;
+    bool lengthOK = false;
 
     // The output looks similar to this (from demo/movie.avi):
     // duration=4.533288
     // TAG:creation_time=2006-10-29 14:33:55
-    for (auto line : list) {
+    for (const auto& line : list) {
         const QStringList fields = line.split(QChar::fromLatin1('='));
 
-        if (fields.count() != 2) {
-            qCWarning(ImageManagerLog) << "Unable to parse ffprobe output!"
-                                       << "Line was:\n"
-                                       << line;
-            Q_EMIT unableToDetermineCreationTime();
-            Q_EMIT unableToDetermineLength();
-            return;
-        }
+        if (fields.count() == 2) {
+            if (fields[0] == QString::fromLatin1("duration")) {
+                const QString lenStr = fields[1].trimmed();
+                bool ok = false;
+                const double length = lenStr.toDouble(&ok);
 
-        if (fields[0] == QString::fromLatin1("duration")) {
-            const QString lenStr = fields[1].trimmed();
+                if (ok && length > 0) {
+                    lengthOK = true;
+                    Q_EMIT lengthFound(int(length));
+                } else {
+                    qCWarning(ImageManagerLog) << "Unable to parse length from"
+                                               << lenStr
+                                               << "in line:\n"
+                                               << line;
+                }
+            } else if (fields[0] == QString::fromLatin1("TAG:creation_time")) {
+                const QDateTime dateTime = QDateTime::fromString(fields[1], Qt::ISODate);
 
-            bool ok = false;
-            const double length = lenStr.toDouble(&ok);
-            if (!ok) {
-                qCWarning(ImageManagerLog) << STR("Unable to convert string \"%1\"to double (for file %2)").arg(lenStr, m_fileName.absolute());
-                Q_EMIT unableToDetermineLength();
-                return;
-            }
-
-            if (length == 0) {
-                qCWarning(ImageManagerLog) << "video length returned was 0 for file " << m_fileName.absolute();
-                Q_EMIT unableToDetermineLength();
-                return;
-            }
-
-            Q_EMIT lengthFound(int(length));
-        } else if (fields[0] == QString::fromLatin1("TAG:creation_time")) {
-            // TAG:creation_time=2006-10-29 14:33:55
-            const QDateTime dateTime = QDateTime::fromString(fields[1], Qt::ISODate);
-
-            if (dateTime.isValid()) {
-                Q_EMIT creationTimeFound(dateTime);
+                if (dateTime.isValid()) {
+                    creationTimeOK = true;
+                    Q_EMIT creationTimeFound(dateTime);
+                }
             } else {
-                Q_EMIT unableToDetermineCreationTime();
+                qCDebug(ImageManagerLog) << "Ignoring line:\n"
+                                         << line;
             }
+        } else {
+            qCWarning(ImageManagerLog) << "Expected 2 fields but found"
+                                       << fields.count()
+                                       << "in line:\n"
+                                       << line;
         }
+    }
+
+    if (!creationTimeOK) {
+        qCWarning(ImageManagerLog) << "Unable to parse video creation time for"
+                                   << m_fileName.relative()
+                                   << "from ffprobe output:\n"
+                                   << m_process->stdOut();
+        Q_EMIT unableToDetermineCreationTime();
+    }
+
+    if (!lengthOK) {
+        qCWarning(ImageManagerLog) << "Unable to parse video length for"
+                                   << m_fileName.relative()
+                                   << "from ffprobe output:\n"
+                                   << m_process->stdOut();
+        Q_EMIT unableToDetermineLength();
     }
 
     m_process->deleteLater();

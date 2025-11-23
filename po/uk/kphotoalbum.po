@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:50+0000\n"
+"POT-Creation-Date: 2025-11-23 00:41+0000\n"
 "PO-Revision-Date: 2025-10-10 21:52+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -805,9 +805,10 @@ msgstr "Видобування мініатюр"
 msgid "Extract Video Thumbnail"
 msgstr "Видобування мініатюр відео"
 
-#: BackgroundJobs/ReadVideoLengthJob.cpp:30
-#, kde-format
-msgid "Read Video Length"
+#: BackgroundJobs/ReadVideoMetaDataJob.cpp:38
+#, fuzzy, kde-format
+#| msgid "Read Video Length"
+msgid "Read Video Metadata"
 msgstr "Читання даних щодо тривалості відео"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
@@ -815,7 +816,7 @@ msgstr "Читання даних щодо тривалості відео"
 msgid "Search for videos without length information"
 msgstr "Шукати відео без даних щодо тривалості"
 
-#: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:57
+#: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:58
 #, kde-format
 msgid "Searching for videos without video thumbnails"
 msgstr "Шукати відео без мініатюр"
@@ -1261,73 +1262,73 @@ msgstr "Помилка під час збереження зображення �
 msgid "Error Saving Image"
 msgstr "Помилка під час збереження зображення"
 
-#: DB/ImageDate.cpp:33
+#: DB/ImageDate.cpp:34
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jan"
 msgstr "січ"
 
-#: DB/ImageDate.cpp:33
+#: DB/ImageDate.cpp:34
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "feb"
 msgstr "лют"
 
-#: DB/ImageDate.cpp:34
+#: DB/ImageDate.cpp:35
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "mar"
 msgstr "бер"
 
-#: DB/ImageDate.cpp:34
+#: DB/ImageDate.cpp:35
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "apr"
 msgstr "кві"
 
-#: DB/ImageDate.cpp:35
+#: DB/ImageDate.cpp:36
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "may"
 msgstr "тра"
 
-#: DB/ImageDate.cpp:35
+#: DB/ImageDate.cpp:36
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jun"
 msgstr "чер"
 
-#: DB/ImageDate.cpp:36
+#: DB/ImageDate.cpp:37
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jul"
 msgstr "лип"
 
-#: DB/ImageDate.cpp:36
+#: DB/ImageDate.cpp:37
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "aug"
 msgstr "сер"
 
-#: DB/ImageDate.cpp:37
+#: DB/ImageDate.cpp:38
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "sep"
 msgstr "вер"
 
-#: DB/ImageDate.cpp:37
+#: DB/ImageDate.cpp:38
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "oct"
 msgstr "жов"
 
-#: DB/ImageDate.cpp:38
+#: DB/ImageDate.cpp:39
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "nov"
 msgstr "лис"
 
-#: DB/ImageDate.cpp:38
+#: DB/ImageDate.cpp:39
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "dec"

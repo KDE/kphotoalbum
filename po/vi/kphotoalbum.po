@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:50+0000\n"
+"POT-Creation-Date: 2025-11-23 00:41+0000\n"
 "PO-Revision-Date: 2012-01-16 16:58+0700\n"
 "Last-Translator: Lê Hoàng Phương <herophuong93@gmail.com>\n"
 "Language-Team: Vietnamese <kde-i18n-vi@kde.org>\n"
@@ -817,17 +817,18 @@ msgstr "Đang tạo các mẫu ảnh"
 msgid "Extract Video Thumbnail"
 msgstr "Đang tạo các mẫu ảnh"
 
-#: BackgroundJobs/ReadVideoLengthJob.cpp:30
-#, kde-format
-msgid "Read Video Length"
-msgstr ""
+#: BackgroundJobs/ReadVideoMetaDataJob.cpp:38
+#, fuzzy, kde-format
+#| msgid "AVI video support"
+msgid "Read Video Metadata"
+msgstr "Hỗ trợ ảnh động AVI"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
 msgid "Search for videos without length information"
 msgstr ""
 
-#: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:57
+#: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:58
 #, kde-format
 msgid "Searching for videos without video thumbnails"
 msgstr ""
@@ -1240,84 +1241,84 @@ msgstr "Găp lỗi khi lưu ảnh « %1 »."
 msgid "Error Saving Image"
 msgstr "Gặp lỗi khi lưu ảnh"
 
-#: DB/ImageDate.cpp:33
+#: DB/ImageDate.cpp:34
 #, fuzzy, kde-format
 #| msgid "jan"
 msgctxt "Abbreviated month name"
 msgid "jan"
 msgstr "th1"
 
-#: DB/ImageDate.cpp:33
+#: DB/ImageDate.cpp:34
 #, fuzzy, kde-format
 #| msgid "feb"
 msgctxt "Abbreviated month name"
 msgid "feb"
 msgstr "th2"
 
-#: DB/ImageDate.cpp:34
+#: DB/ImageDate.cpp:35
 #, fuzzy, kde-format
 #| msgid "mar"
 msgctxt "Abbreviated month name"
 msgid "mar"
 msgstr "th3"
 
-#: DB/ImageDate.cpp:34
+#: DB/ImageDate.cpp:35
 #, fuzzy, kde-format
 #| msgid "apr"
 msgctxt "Abbreviated month name"
 msgid "apr"
 msgstr "th4"
 
-#: DB/ImageDate.cpp:35
+#: DB/ImageDate.cpp:36
 #, fuzzy, kde-format
 #| msgid "may"
 msgctxt "Abbreviated month name"
 msgid "may"
 msgstr "th5"
 
-#: DB/ImageDate.cpp:35
+#: DB/ImageDate.cpp:36
 #, fuzzy, kde-format
 #| msgid "jun"
 msgctxt "Abbreviated month name"
 msgid "jun"
 msgstr "th6"
 
-#: DB/ImageDate.cpp:36
+#: DB/ImageDate.cpp:37
 #, fuzzy, kde-format
 #| msgid "jul"
 msgctxt "Abbreviated month name"
 msgid "jul"
 msgstr "th7"
 
-#: DB/ImageDate.cpp:36
+#: DB/ImageDate.cpp:37
 #, fuzzy, kde-format
 #| msgid "aug"
 msgctxt "Abbreviated month name"
 msgid "aug"
 msgstr "th8"
 
-#: DB/ImageDate.cpp:37
+#: DB/ImageDate.cpp:38
 #, fuzzy, kde-format
 #| msgid "sep"
 msgctxt "Abbreviated month name"
 msgid "sep"
 msgstr "th9"
 
-#: DB/ImageDate.cpp:37
+#: DB/ImageDate.cpp:38
 #, fuzzy, kde-format
 #| msgid "oct"
 msgctxt "Abbreviated month name"
 msgid "oct"
 msgstr "th10"
 
-#: DB/ImageDate.cpp:38
+#: DB/ImageDate.cpp:39
 #, fuzzy, kde-format
 #| msgid "nov"
 msgctxt "Abbreviated month name"
 msgid "nov"
 msgstr "th11"
 
-#: DB/ImageDate.cpp:38
+#: DB/ImageDate.cpp:39
 #, fuzzy, kde-format
 #| msgid "dec"
 msgctxt "Abbreviated month name"

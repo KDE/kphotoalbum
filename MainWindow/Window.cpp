@@ -1017,7 +1017,7 @@ void MainWindow::Window::setupMenuBar()
     recreateExif->setText(i18n("Recreate Exif Search Database"));
 
     QAction *rereadExif = actionCollection()->addAction(QString::fromLatin1("reReadExifInfo"), this, &Window::slotReReadExifInfo);
-    rereadExif->setText(i18n("Read Exif Info from Files..."));
+    rereadExif->setText(i18n("Read Metadata from Files..."));
 
     m_sortAllByDateAndTime = actionCollection()->addAction(QString::fromLatin1("sortAllImages"), this, &Window::slotSortAllByDateAndTime);
     m_sortAllByDateAndTime->setText(i18n("Sort All by Date && Time"));

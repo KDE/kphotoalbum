@@ -55,6 +55,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix appearance of mouse cursor in the map view (i.e. indicate clickable items on the map)
  - Fix display of EXIF date/time data (#511546)
  - Fix several warnings in the console output (#505015)
+ - Use embedded 'creation_time' data in video files instead of file creation time (#472520)
 
 ### Removed
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-23 00:41+0000\n"
+"POT-Creation-Date: 2025-11-24 00:41+0000\n"
 "PO-Revision-Date: 2012-01-16 16:58+0700\n"
 "Last-Translator: Lê Hoàng Phương <herophuong93@gmail.com>\n"
 "Language-Team: Vietnamese <kde-i18n-vi@kde.org>\n"
@@ -4580,7 +4580,7 @@ msgstr "Cập nhật co sở dữ liệu tìm EXIF"
 #: MainWindow/Window.cpp:1020
 #, fuzzy, kde-format
 #| msgid "Read EXIF Info From Files..."
-msgid "Read Exif Info from Files..."
+msgid "Read Metadata from Files..."
 msgstr "Đọc thông tin EXIF từ tệp..."
 
 #: MainWindow/Window.cpp:1023

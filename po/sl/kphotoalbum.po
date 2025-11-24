@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-23 00:41+0000\n"
-"PO-Revision-Date: 2025-10-10 06:56+0200\n"
+"POT-Creation-Date: 2025-11-24 00:41+0000\n"
+"PO-Revision-Date: 2025-11-23 08:08+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -795,10 +795,9 @@ msgid "Extract Video Thumbnail"
 msgstr "Izvleci video-sličico"
 
 #: BackgroundJobs/ReadVideoMetaDataJob.cpp:38
-#, fuzzy, kde-format
-#| msgid "Read Video Length"
+#, kde-format
 msgid "Read Video Metadata"
-msgstr "Preberi dolžino videoposnetka"
+msgstr "Preberi metapodatke videoposnetka"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
@@ -4516,8 +4515,9 @@ msgid "Recreate Exif Search Database"
 msgstr "Ponovno izdelaj zbirko podatkov za iskanje Exif"
 
 #: MainWindow/Window.cpp:1020
-#, kde-format
-msgid "Read Exif Info from Files..."
+#, fuzzy, kde-format
+#| msgid "Read Exif Info from Files..."
+msgid "Read Metadata from Files..."
 msgstr "Preberi podatke Exif iz datotek ..."
 
 #: MainWindow/Window.cpp:1023

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-23 00:41+0000\n"
+"POT-Creation-Date: 2025-11-24 00:41+0000\n"
 "PO-Revision-Date: 2025-10-10 21:30+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -4452,8 +4452,9 @@ msgid "Recreate Exif Search Database"
 msgstr "Skapa om Exif-sökdatabasen"
 
 #: MainWindow/Window.cpp:1020
-#, kde-format
-msgid "Read Exif Info from Files..."
+#, fuzzy, kde-format
+#| msgid "Read Exif Info from Files..."
+msgid "Read Metadata from Files..."
 msgstr "Läs Exif-information från filer..."
 
 #: MainWindow/Window.cpp:1023

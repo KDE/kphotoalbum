@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-23 00:41+0000\n"
-"PO-Revision-Date: 2025-10-10 06:10+0200\n"
+"POT-Creation-Date: 2025-11-24 00:41+0000\n"
+"PO-Revision-Date: 2025-11-23 07:18+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -793,10 +793,9 @@ msgid "Extract Video Thumbnail"
 msgstr "ვიდეოს მინიატურის გაშლა"
 
 #: BackgroundJobs/ReadVideoMetaDataJob.cpp:38
-#, fuzzy, kde-format
-#| msgid "Read Video Length"
+#, kde-format
 msgid "Read Video Metadata"
-msgstr "ვიდეოს სიგრძის წაკითხვა"
+msgstr "ვიდეოს მეტამონაცემების წაკითხვა"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
@@ -4230,8 +4229,9 @@ msgid "Recreate Exif Search Database"
 msgstr "Exif-ის ძებნის მონაცემთა ბაზის თავიდან შექმნა"
 
 #: MainWindow/Window.cpp:1020
-#, kde-format
-msgid "Read Exif Info from Files..."
+#, fuzzy, kde-format
+#| msgid "Read Exif Info from Files..."
+msgid "Read Metadata from Files..."
 msgstr "Exif ინფორმაციის წაკითხვა ფაილებიდან..."
 
 #: MainWindow/Window.cpp:1023

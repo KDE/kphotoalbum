@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-23 00:41+0000\n"
-"PO-Revision-Date: 2025-10-11 17:59+0200\n"
+"POT-Creation-Date: 2025-11-24 00:41+0000\n"
+"PO-Revision-Date: 2025-11-23 18:14+0100\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -801,10 +801,9 @@ msgid "Extract Video Thumbnail"
 msgstr "Estrai miniature video"
 
 #: BackgroundJobs/ReadVideoMetaDataJob.cpp:38
-#, fuzzy, kde-format
-#| msgid "Read Video Length"
+#, kde-format
 msgid "Read Video Metadata"
-msgstr "Leggi lunghezza del video"
+msgstr "Leggi metadati del video"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
@@ -4497,9 +4496,10 @@ msgid "Recreate Exif Search Database"
 msgstr "Ricostruisci la banca dati delle ricerche EXIF"
 
 #: MainWindow/Window.cpp:1020
-#, kde-format
-msgid "Read Exif Info from Files..."
-msgstr "Leggi informazioni Exif dai file..."
+#, fuzzy, kde-format
+#| msgid "Re-Read Metadata from Files..."
+msgid "Read Metadata from Files..."
+msgstr "Rileggi dati aggiuntivi dai file..."
 
 #: MainWindow/Window.cpp:1023
 #, kde-format
@@ -7323,6 +7323,9 @@ msgstr "Mostra dimensioni delle immagini"
 msgid "Show Rating"
 msgstr "Mostra voto"
 
+#~ msgid "Read Exif Info from Files..."
+#~ msgstr "Leggi informazioni Exif dai file..."
+
 #~ msgid ""
 #~ "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
 #~ "features KPhotoAlbum has, and their status:</p>%1"
@@ -9661,9 +9664,6 @@ msgstr "Mostra voto"
 
 #~ msgid "Reset Quick Search"
 #~ msgstr "Reimposta la ricerca rapida"
-
-#~ msgid "Re-Read Metadata from Files..."
-#~ msgstr "Rileggi dati aggiuntivi dai file..."
 
 #~ msgid "Write Metadata to Files..."
 #~ msgstr "Scrivi dati aggiuntivi sui file..."

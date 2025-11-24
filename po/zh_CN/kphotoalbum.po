@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-23 00:41+0000\n"
+"POT-Creation-Date: 2025-11-24 00:41+0000\n"
 "PO-Revision-Date: 2024-04-22 16:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -4114,9 +4114,14 @@ msgid "Recreate Exif Search Database"
 msgstr "重新创建 Exif 搜索数据库"
 
 #: MainWindow/Window.cpp:1020
-#, kde-format
-msgid "Read Exif Info from Files..."
+#, fuzzy, kde-format
+#| msgid ""
+#| "Use data from\n"
+#| "Import File"
+msgid "Read Metadata from Files..."
 msgstr ""
+"使用导入文件\n"
+"的数据"
 
 #: MainWindow/Window.cpp:1023
 #, kde-format

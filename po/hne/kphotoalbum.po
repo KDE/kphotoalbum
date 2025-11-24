@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-23 00:41+0000\n"
+"POT-Creation-Date: 2025-11-24 00:41+0000\n"
 "PO-Revision-Date: 2009-02-17 12:43+0530\n"
 "Last-Translator: Ravishankar Shrivastava <raviratlami@aol.in>\n"
 "Language-Team: Hindi <kde-i18n-doc@lists.kde.org>\n"
@@ -4311,7 +4311,7 @@ msgstr "एक्जिफ सर्च डाटाबेस फिर से �
 #: MainWindow/Window.cpp:1020
 #, fuzzy, kde-format
 #| msgid "Read EXIF Info From Files..."
-msgid "Read Exif Info from Files..."
+msgid "Read Metadata from Files..."
 msgstr "फाइल मन से एक्सइफ जानकारी पढ़व..."
 
 #: MainWindow/Window.cpp:1023

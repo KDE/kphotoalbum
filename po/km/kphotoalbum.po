@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-23 00:41+0000\n"
+"POT-Creation-Date: 2025-11-24 00:41+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -4620,7 +4620,7 @@ msgstr "បង្កើត​មូលដ្ឋាន​ទិន្នន័យ
 #: MainWindow/Window.cpp:1020
 #, fuzzy, kde-format
 #| msgid "Read EXIF Info From Files..."
-msgid "Read Exif Info from Files..."
+msgid "Read Metadata from Files..."
 msgstr "អាន​ព័ត៌មាន​ EXIF ​ពី​ឯកសារ​...​"
 
 #: MainWindow/Window.cpp:1023

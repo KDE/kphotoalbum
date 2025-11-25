@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-24 00:41+0000\n"
-"PO-Revision-Date: 2025-11-23 07:18+0100\n"
+"PO-Revision-Date: 2025-11-24 06:32+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -4229,10 +4229,9 @@ msgid "Recreate Exif Search Database"
 msgstr "Exif-ის ძებნის მონაცემთა ბაზის თავიდან შექმნა"
 
 #: MainWindow/Window.cpp:1020
-#, fuzzy, kde-format
-#| msgid "Read Exif Info from Files..."
+#, kde-format
 msgid "Read Metadata from Files..."
-msgstr "Exif ინფორმაციის წაკითხვა ფაილებიდან..."
+msgstr "მეტამონაცემების წაკითხვა ფაილებიდან..."
 
 #: MainWindow/Window.cpp:1023
 #, kde-format

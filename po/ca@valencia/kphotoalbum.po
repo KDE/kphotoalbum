@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-24 00:41+0000\n"
-"PO-Revision-Date: 2025-10-10 10:09+0200\n"
+"PO-Revision-Date: 2025-11-24 09:05+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -215,12 +215,12 @@ msgstr "!="
 #: AnnotationDialog/Dialog.cpp:414
 #, kde-format
 msgid "File Name Pattern: "
-msgstr "Patró de nom de fitxer: "
+msgstr "Patró del nom de fitxer: "
 
 #: AnnotationDialog/Dialog.cpp:417
 #, kde-format
 msgid "File Name Pattern"
-msgstr "Patró de nom de fitxer"
+msgstr "Patró del nom de fitxer"
 
 #: AnnotationDialog/Dialog.cpp:422
 #, kde-format
@@ -335,7 +335,7 @@ msgstr "Coincidència d'etiquetes en qualsevol lloc"
 #: AnnotationDialog/Dialog.cpp:978
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
-msgstr "Mostra només els seleccionats Ctrl+S"
+msgstr "Mostra només els seleccionats «Ctrl+S»"
 
 #: AnnotationDialog/Dialog.cpp:1016 Map/MapView.cpp:360
 #, kde-format
@@ -577,7 +577,7 @@ msgstr "Ordena per data"
 #: AnnotationDialog/ListSelect.cpp:128
 #, kde-format
 msgid "Show only selected Ctrl+S"
-msgstr "Mostra només els seleccionats Ctrl+S"
+msgstr "Mostra només els seleccionats «Ctrl+S»"
 
 #: AnnotationDialog/ListSelect.cpp:177
 #, kde-format
@@ -804,10 +804,9 @@ msgid "Extract Video Thumbnail"
 msgstr "Extracció de les miniatures de vídeo"
 
 #: BackgroundJobs/ReadVideoMetaDataJob.cpp:38
-#, fuzzy, kde-format
-#| msgid "Read Video Length"
+#, kde-format
 msgid "Read Video Metadata"
-msgstr "Lectura de la duració del vídeo"
+msgstr "Llig les metadades de vídeo"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
@@ -4514,10 +4513,9 @@ msgid "Recreate Exif Search Database"
 msgstr "Torna a crear la base de dades de la busca Exif"
 
 #: MainWindow/Window.cpp:1020
-#, fuzzy, kde-format
-#| msgid "Read Exif Info from Files..."
+#, kde-format
 msgid "Read Metadata from Files..."
-msgstr "Llig la informació Exif des dels fitxers…"
+msgstr "Llig les metadades des dels fitxers…"
 
 #: MainWindow/Window.cpp:1023
 #, kde-format

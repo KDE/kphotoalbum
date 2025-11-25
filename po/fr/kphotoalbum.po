@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-24 00:41+0000\n"
-"PO-Revision-Date: 2025-10-12 10:27+0200\n"
+"PO-Revision-Date: 2025-11-24 19:35+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.11.80\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -825,10 +825,9 @@ msgid "Extract Video Thumbnail"
 msgstr "Création des vignettes des vidéos"
 
 #: BackgroundJobs/ReadVideoMetaDataJob.cpp:38
-#, fuzzy, kde-format
-#| msgid "Read Video Length"
+#, kde-format
 msgid "Read Video Metadata"
-msgstr "Lecture de la taille de la vidéo"
+msgstr "Lire les métadonnées de la vidéo"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
@@ -4555,10 +4554,9 @@ msgid "Recreate Exif Search Database"
 msgstr "Recréer la base de donnée de recherche « EXIF »"
 
 #: MainWindow/Window.cpp:1020
-#, fuzzy, kde-format
-#| msgid "Read Exif Info from Files..."
+#, kde-format
 msgid "Read Metadata from Files..."
-msgstr "Lire les informations « EXIF » des fichiers..."
+msgstr "Lire les métadonnées à partir des fichiers..."
 
 #: MainWindow/Window.cpp:1023
 #, kde-format

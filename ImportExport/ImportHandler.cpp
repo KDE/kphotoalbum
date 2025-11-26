@@ -1,6 +1,7 @@
-// SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003 - 2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2021 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2025 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -11,11 +12,14 @@
 #include "Logging.h"
 
 #include <Browser/BrowserWidget.h>
+#include <BackgroundJobs/ReadVideoMetaDataJob.h>
+#include <BackgroundTaskManager/JobManager.h>
 #include <DB/Category.h>
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <DB/MD5.h>
 #include <DB/MD5Map.h>
+#include <MainWindow/FeatureDialog.h>
 #include <MainWindow/Window.h>
 #include <Utilities/UniqFilenameMapper.h>
 
@@ -316,12 +320,19 @@ void ImportExport::ImportHandler::addNewRecord(DB::ImageInfoPtr info)
     updateInfo->setDate(info->date());
     updateInfo->setAngle(info->angle());
     updateInfo->setMD5Sum(DB::MD5Sum(updateInfo->fileName()));
+    updateInfo->setSize(info->size());
 
     DB::ImageInfoList list;
     list.append(updateInfo);
     DB::ImageDB::instance()->addImages(list);
 
     updateCategories(info, updateInfo, true);
+
+    if (info->isVideo() && MainWindow::FeatureDialog::hasVideoThumbnailer()) {
+        // needs to be done *after* insertion into database
+        BackgroundTaskManager::JobManager::instance()->addJob(
+            new BackgroundJobs::ReadVideoMetaDataJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest));
+    }
 }
 
 void ImportExport::ImportHandler::updateCategories(DB::ImageInfoPtr XMLInfo, DB::ImageInfoPtr DBInfo, bool forceReplace)

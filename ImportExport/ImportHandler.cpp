@@ -328,7 +328,7 @@ void ImportExport::ImportHandler::addNewRecord(DB::ImageInfoPtr info)
 
     updateCategories(info, updateInfo, true);
 
-    if (info->isVideo() && MainWindow::FeatureDialog::hasVideoThumbnailer()) {
+    if (info->isVideo() && MainWindow::FeatureDialog::hasVideoProber()) {
         // needs to be done *after* insertion into database
         BackgroundTaskManager::JobManager::instance()->addJob(
             new BackgroundJobs::ReadVideoMetaDataJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest));

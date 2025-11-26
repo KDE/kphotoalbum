@@ -367,7 +367,7 @@ void ImageInfo::renameCategory(const QString &oldName, const QString &newName)
     m_taggedAreas.remove(oldName);
 }
 
-void ImageInfo::setMD5Sum(const MD5 &sum, bool storeEXIF)
+void ImageInfo::setMD5SumAndStoreEXIF(const MD5 &sum)
 {
     if (sum != m_md5sum) {
         // if we make a QObject derived class out of imageinfo, we might invalidate thumbnails from here
@@ -383,18 +383,15 @@ void ImageInfo::setMD5Sum(const MD5 &sum, bool storeEXIF)
         if (m_description.isEmpty())
             mode |= EXIFMODE_DESCRIPTION;
 
-        if (!storeEXIF)
-            mode &= ~EXIFMODE_DATABASE_UPDATE;
         readExif(fileName(), mode);
-        if (storeEXIF) {
-            // Size isn't really EXIF, but this is the most obvious
-            // place to extract it
-            QImageReader reader(m_fileName.absolute());
-            if (reader.canRead()) {
-                m_size = reader.size();
-                if (m_angle == 90 || m_angle == 270)
-                    m_size.transpose();
-            }
+
+        // Size isn't really EXIF, but this is the most obvious
+        // place to extract it
+        QImageReader reader(m_fileName.absolute());
+        if (reader.canRead()) {
+            m_size = reader.size();
+            if (m_angle == 90 || m_angle == 270)
+                m_size.transpose();
         }
 
         // FIXME (ZaJ): it *should* make sense to set the ImageDB::md5Map() from here, but I want
@@ -403,6 +400,14 @@ void ImageInfo::setMD5Sum(const MD5 &sum, bool storeEXIF)
 
         // image size is invalidated by the thumbnail builder, if needed
 
+        markDirty();
+    }
+    m_md5sum = sum;
+}
+
+void ImageInfo::setMD5Sum(const MD5 &sum)
+{
+    if (sum != m_md5sum) {
         markDirty();
     }
     m_md5sum = sum;

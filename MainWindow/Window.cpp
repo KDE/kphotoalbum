@@ -1584,7 +1584,7 @@ void MainWindow::Window::slotImagesChanged(const QList<QUrl> &urls)
             thumbnailCache()->removeThumbnail(fileName);
             // update MD5sum:
             MD5 md5sum = MD5Sum(fileName);
-            DB::ImageDB::instance()->info(fileName)->setMD5Sum(md5sum);
+            DB::ImageDB::instance()->info(fileName)->setMD5SumAndStoreEXIF(md5sum);
         }
     }
     m_statusBar->mp_dirtyIndicator->markDirty();

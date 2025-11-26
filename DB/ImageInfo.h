@@ -188,7 +188,8 @@ public:
     static bool imageOnDisk(const DB::FileName &fileName);
 
     const MD5 &MD5Sum() const { return m_md5sum; }
-    void setMD5Sum(const MD5 &sum, bool storeEXIF = true);
+    void setMD5SumAndStoreEXIF(const MD5 &sum);
+    void setMD5Sum(const MD5 &sum);
 
     void setLocked(bool);
     bool isLocked() const;

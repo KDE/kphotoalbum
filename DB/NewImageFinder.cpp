@@ -620,7 +620,7 @@ void NewImageFinder::loadExtraFile(const DB::FileName &newFileName, DB::MediaTyp
     DB::ImageDB::instance()->addImages(newImages, false);
 
     // also inserts image into exif db if present:
-    info->setMD5Sum(sum);
+    info->setMD5SumAndStoreEXIF(sum);
     DB::ImageDB::instance()->md5Map()->insert(sum, info->fileName());
 
     if (originalInfo && Settings::SettingsData::instance()->autoStackNewFiles()) {
@@ -731,7 +731,7 @@ bool NewImageFinder::calculateMD5sums(
 
         ImageInfoPtr info = ImageDB::instance()->info(fileName);
         if (info->MD5Sum() != md5) {
-            info->setMD5Sum(md5);
+            info->setMD5SumAndStoreEXIF(md5);
             dirty = true;
             MainWindow::Window::theMainWindow()->thumbnailCache()->removeThumbnail(fileName);
             MainWindow::Window::theMainWindow()->videoThumbnailCache()->removeThumbnail(fileName);

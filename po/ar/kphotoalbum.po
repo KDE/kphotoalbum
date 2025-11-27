@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-24 00:41+0000\n"
-"PO-Revision-Date: 2025-10-11 11:07+0400\n"
+"PO-Revision-Date: 2025-11-26 10:32+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -788,10 +788,9 @@ msgid "Extract Video Thumbnail"
 msgstr "استخراج صورة مصغرة للفيديو"
 
 #: BackgroundJobs/ReadVideoMetaDataJob.cpp:38
-#, fuzzy, kde-format
-#| msgid "Read Video Length"
+#, kde-format
 msgid "Read Video Metadata"
-msgstr "اقرأ طول الفيديو"
+msgstr "اقرأ البيانات الوصفية للفيديو"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
@@ -4512,10 +4511,9 @@ msgid "Recreate Exif Search Database"
 msgstr "أعد إنشاء قاعدة بيانات بحث Exif"
 
 #: MainWindow/Window.cpp:1020
-#, fuzzy, kde-format
-#| msgid "Read Exif Info from Files..."
+#, kde-format
 msgid "Read Metadata from Files..."
-msgstr "اقرأ معلومات Exif من الملفات..."
+msgstr "اقرأ البيانات الوصفية من الملفات…"
 
 #: MainWindow/Window.cpp:1023
 #, kde-format

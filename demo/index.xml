@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KPhotoAlbum version="9" compressed="0">
+<KPhotoAlbum version="11" compressed="0">
     <Categories>
-        <Category name="Events" icon="dialog-password" show="1" viewtype="0" thumbnailsize="32" positionable="0">
+        <Category name="Events" id="1" icon="dialog-password" show="1" viewtype="0" thumbnailsize="32" positionable="0">
             <value value="scanned in" id="1"/>
             <value value="scenic" id="2"/>
             <value value="desktop" id="3"/>
@@ -9,7 +9,7 @@
             <value value="fun" id="5"/>
             <value value="untagged" id="6" meta="mark-untagged"/>
         </Category>
-        <Category name="Places" icon="applications-internet" show="1" viewtype="0" thumbnailsize="32" positionable="0">
+        <Category name="Places" id="2" icon="applications-internet" show="1" viewtype="0" thumbnailsize="32" positionable="0">
             <value value="Grand Canyon" id="1"/>
             <value value="Esbjerg" id="2"/>
             <value value="Las Vegas" id="3"/>
@@ -21,7 +21,7 @@
             <value value="Denmark" id="9"/>
             <value value="USA" id="10"/>
         </Category>
-        <Category name="People" icon="system-users" show="1" viewtype="3" thumbnailsize="128" positionable="1">
+        <Category name="People" id="3" icon="system-users" show="1" viewtype="3" thumbnailsize="128" positionable="1">
             <value value="Pets" id="1"/>
             <value value="Jesper" id="2"/>
             <value value="Jim" id="3"/>
@@ -31,7 +31,7 @@
             <value value="Blackie" id="7"/>
             <value value="Spiff" id="8"/>
         </Category>
-        <Category name="Tokens" icon="flag-blue" show="1" viewtype="0" thumbnailsize="32" positionable="0" meta="tokens">
+        <Category name="Tokens" id="4" icon="flag-blue" show="1" viewtype="0" thumbnailsize="32" positionable="0" meta="tokens">
             <value value="Z" id="26"/>
             <value value="Y" id="1"/>
             <value value="X" id="2"/>
@@ -61,17 +61,17 @@
         </Category>
     </Categories>
     <images>
-        <image file="new_wave_2.jpg" label="new_wave" description="Back when I was a young boy I considered myself a new waver. This involved always being dressed in black, and listening to bands like Depeche Mode, The Cure, Front 242 and Nitzer Ebb." startDate="1988-01-01T00:00:00" endDate="1990-12-31T23:59:59" md5sum="caa5e7dbf256332544b7ca1e2dfc692d" width="800" height="549">
+        <image file="new_wave_2.jpg" label="new_wave" description="Back when I was a young boy I considered myself a new waver. This involved always being dressed in black, and listening to bands like Depeche Mode, The Cure, Front 242 and Nitzer Ebb." startDate="1988-01-01T00:00:00" endDate="1990-12-31T23:59:59" md5sum="e31a2581c9fca86ba26811797fd0c885" width="800" height="549">
             <options>
                 <option name="Events">
                     <value value="new wave"/>
                     <value value="scanned in"/>
                 </option>
-                <option name="Places">
-                    <value value="Esbjerg"/>
-                </option>
                 <option name="People">
                     <value value="Jesper"/>
+                </option>
+                <option name="Places">
+                    <value value="Esbjerg"/>
                 </option>
             </options>
         </image>
@@ -82,95 +82,95 @@
                     <value value="new wave"/>
                     <value value="scanned in"/>
                 </option>
-                <option name="Places">
-                    <value value="Denmark"/>
-                </option>
                 <option name="People">
                     <value value="Jesper"/>
                 </option>
+                <option name="Places">
+                    <value value="Denmark"/>
+                </option>
             </options>
         </image>
-        <image file="blackie.jpg" description="My nick name on the internet is &quot;blackie&quot;. The reason for this is that when I got my first login to a UNIX machine, I had an electric eel named blackie." startDate="1990-01-01T00:00:00" endDate="1991-12-31T23:59:59" md5sum="25057b76c5c5d00f40a8cc38f05b003a" width="800" height="549">
+        <image file="blackie.jpg" description="My nick name on the internet is &quot;blackie&quot;. The reason for this is that when I got my first login to a UNIX machine, I had an electric eel named blackie." startDate="1990-01-01T00:00:00" endDate="1991-12-31T23:59:59" md5sum="eecf751df28234c206eaa0524fbf2500" width="800" height="549">
             <options>
                 <option name="Events">
                     <value value="scanned in"/>
                 </option>
-                <option name="Places">
-                    <value value="Odense"/>
-                </option>
                 <option name="People">
                     <value value="Blackie"/>
                 </option>
+                <option name="Places">
+                    <value value="Odense"/>
+                </option>
             </options>
         </image>
-        <image file="spiff_2.jpg" label="spiff" description="I've always loved animals. This was my beer eating pet named Spiff." startDate="1995-01-01T00:00:00" endDate="1995-12-31T23:59:59" md5sum="a2f5e541eac3b24d8ee4ea7ad94dc226" width="800" height="550">
+        <image file="spiff_2.jpg" label="spiff" description="I've always loved animals. This was my beer eating pet named Spiff." startDate="1995-01-01T00:00:00" endDate="1995-12-31T23:59:59" md5sum="5887e8ff59dce0d535edfbbbfce458d4" width="800" height="550">
             <options>
                 <option name="Events">
                     <value value="fun"/>
                     <value value="scanned in"/>
                 </option>
-                <option name="Places">
-                    <value value="Odense"/>
-                </option>
                 <option name="People">
                     <value value="Spiff"/>
-                </option>
-            </options>
-        </image>
-        <image file="spiff.jpg" startDate="1998-01-01T00:00:00" endDate="1998-12-31T23:59:59" md5sum="e67d83f78d9e06d36d9698a015b401bf" width="800" height="551">
-            <options>
-                <option name="Events">
-                    <value value="scanned in"/>
                 </option>
                 <option name="Places">
                     <value value="Odense"/>
                 </option>
-                <option name="People">
-                    <value value="Spiff"/>
-                </option>
             </options>
         </image>
-        <image file="qt-logo.jpg" description="KDE is build on top of the toolkit called Qt. In my daytime job I teach Qt programming. I once gave a course to these two guys, which later turned into a very strong friendship. The tattoo is the Qt logo." startDate="2002-01-01T00:00:00" endDate="2003-12-31T23:59:59" md5sum="7babbdcaf611a488353a70cdc89bcf41" width="800" height="542">
+        <image file="spiff.jpg" startDate="1998-01-01T00:00:00" endDate="1998-12-31T23:59:59" md5sum="84e518fea967225a3fcc8176bb7b519b" width="800" height="551">
             <options>
                 <option name="Events">
                     <value value="scanned in"/>
                 </option>
+                <option name="People">
+                    <value value="Spiff"/>
+                </option>
                 <option name="Places">
-                    <value value="Las Vegas"/>
+                    <value value="Odense"/>
+                </option>
+            </options>
+        </image>
+        <image file="qt-logo.jpg" description="KDE is build on top of the toolkit called Qt. In my daytime job I teach Qt programming. I once gave a course to these two guys, which later turned into a very strong friendship. The tattoo is the Qt logo." startDate="2002-01-01T00:00:00" endDate="2003-12-31T23:59:59" md5sum="a05958b9c156207ec91ea7396fec88eb" width="800" height="542">
+            <options>
+                <option name="Events">
+                    <value value="scanned in"/>
                 </option>
                 <option name="People">
                     <value value="Jesper" area="342 89 148 157"/>
                     <value value="Jim" area="558 45 137 144"/>
                     <value value="Wayne" area="144 78 148 152"/>
                 </option>
+                <option name="Places">
+                    <value value="Las Vegas"/>
+                </option>
             </options>
         </image>
-        <image file="grand_canyon_1.jpg" label="grand_canyon" startDate="2003-01-02T00:00:00" endDate="2003-01-02T23:59:59" angle="180" md5sum="b4cb3a885b2be09bc6e40adbfca97ec3" width="800" height="535">
+        <image file="grand_canyon_1.jpg" label="grand_canyon" startDate="2003-01-02T00:00:00" endDate="2003-01-02T23:59:59" angle="180" md5sum="8b93d79e96f41704403efaa9b197bdad" width="800" height="535">
             <options>
                 <option name="Events">
                     <value value="scanned in"/>
                     <value value="scenic"/>
                 </option>
-                <option name="Places">
-                    <value value="Grand Canyon"/>
-                </option>
                 <option name="People">
                     <value value="Anne Helene"/>
                     <value value="Jesper"/>
                 </option>
-            </options>
-        </image>
-        <image file="grand_canyon_2.jpg" label="grand_canyon" startDate="2003-01-02T14:48:54" md5sum="d8e5f1c525749073e8321f071eb8278c" width="800" height="600">
-            <options>
                 <option name="Places">
                     <value value="Grand Canyon"/>
                 </option>
+            </options>
+        </image>
+        <image file="grand_canyon_2.jpg" label="grand_canyon" startDate="2003-01-02T14:48:54" md5sum="f67669bbc3cd92092281da8632834095" width="800" height="600">
+            <options>
                 <option name="People">
                     <value value="Jesper"/>
                 </option>
+                <option name="Places">
+                    <value value="Grand Canyon"/>
+                </option>
             </options>
         </image>
-        <image file="grand_canyon_3.jpg" label="grand_canyon" startDate="2003-01-02T15:31:00" md5sum="fda4b61c3aa66da83d1ee6284dffc3ce" width="800" height="600">
+        <image file="grand_canyon_3.jpg" label="grand_canyon" startDate="2003-01-02T15:31:00" md5sum="6edd2f200bb78526c8fb6f5e11e8e758" width="800" height="600">
             <options>
                 <option name="Events">
                     <value value="scenic"/>
@@ -180,24 +180,24 @@
                 </option>
             </options>
         </image>
-        <image file="donna_2.jpg" label="donna" startDate="2003-05-18T17:01:01" md5sum="7e3a08585b84fa49ed6db121591c81bc" width="800" height="600">
+        <image file="donna_2.jpg" label="donna" startDate="2003-05-18T17:01:01" md5sum="2744779aede15f120dd18a79a9b6cb87" width="800" height="600">
             <options>
-                <option name="Places">
-                    <value value="Esbjerg"/>
-                </option>
                 <option name="People">
                     <value value="Donna"/>
                 </option>
+                <option name="Places">
+                    <value value="Esbjerg"/>
+                </option>
             </options>
         </image>
-        <image file="wayne.jpg" description="Wayne and Jim live in Las Vegas. I visit them everytime I'm in the neighborhood :-) One would expect that I spent a lot of money gambling when going to Las Vegas, but all my money is spent on beer and pool :-)" startDate="2003-11-15T20:51:59" angle="90" md5sum="3584d334581f5f9a692d81a63c97b1f0" width="600" height="800">
+        <image file="wayne.jpg" description="Wayne and Jim live in Las Vegas. I visit them everytime I'm in the neighborhood :-) One would expect that I spent a lot of money gambling when going to Las Vegas, but all my money is spent on beer and pool :-)" startDate="2003-11-15T20:51:59" angle="90" md5sum="3a14749ed936fa14180661dfc5b13688" width="600" height="800">
             <options>
-                <option name="Places">
-                    <value value="Las Vegas"/>
-                </option>
                 <option name="People">
                     <value value="Jim" area="480 285 51 53"/>
                     <value value="Wayne" area="166 265 56 56"/>
+                </option>
+                <option name="Places">
+                    <value value="Las Vegas"/>
                 </option>
             </options>
         </image>
@@ -215,7 +215,7 @@
                 </option>
             </options>
         </image>
-        <image file="skagen_2.jpg" label="skagen" description="This is skagen, the northern part of Denmark." startDate="2005-06-24T18:38:48" md5sum="d05821f81cc26c7545a0dcd5f84c0e4e" width="800" height="600">
+        <image file="skagen_2.jpg" label="skagen" description="This is skagen, the northern part of Denmark." startDate="2005-06-24T18:38:48" md5sum="9cdab05aca24e6fb4f477603715c063c" width="800" height="600">
             <options>
                 <option name="Events">
                     <value value="scenic"/>
@@ -225,7 +225,7 @@
                 </option>
             </options>
         </image>
-        <image file="skagen.jpg" startDate="2005-07-28T11:09:07" md5sum="de46775f4d45d79c239ecfa35b48d8dd" width="800" height="533">
+        <image file="skagen.jpg" startDate="2005-07-28T11:09:07" md5sum="ac08e970774da992a8041c450fb525c9" width="800" height="533">
             <options>
                 <option name="Events">
                     <value value="desktop"/>
@@ -236,27 +236,27 @@
                 </option>
             </options>
         </image>
-        <image file="anne_helene.jpg" description="May I introduce Anne Helene, my girlfriend for more than 10 years." startDate="2005-07-28T11:18:48" md5sum="dc1e885f3d0e9b20bffa5fd3ceebe116" width="400" height="600">
+        <image file="anne_helene.jpg" description="May I introduce Anne Helene, my girlfriend for more than 10 years." startDate="2005-07-28T11:18:48" md5sum="3a87cf7f2bf961c361210be2f1ddc879" width="400" height="600">
             <options>
-                <option name="Places">
-                    <value value="Skagen"/>
-                </option>
                 <option name="People">
                     <value value="Anne Helene"/>
                 </option>
-            </options>
-        </image>
-        <image file="cold_water.jpg" description="The interesting thing about skagen is that you may stand with a foot in Skagerrak and a foot in Kattegat. Besides the waters being named different on each side, waves actually also meet from each side which looks really cool. If you've never been there, you should really go (Honk the horn when you drive by Hjørring, where I currently live :-) Learn more about Skagen from http://en.wikipedia.org/wiki/Skagen" startDate="2005-07-28T12:01:56" md5sum="dfde7d5951a9a3f567796172d45ce5ed" width="800" height="533">
-            <options>
                 <option name="Places">
                     <value value="Skagen"/>
                 </option>
+            </options>
+        </image>
+        <image file="cold_water.jpg" description="The interesting thing about skagen is that you may stand with a foot in Skagerrak and a foot in Kattegat. Besides the waters being named different on each side, waves actually also meet from each side which looks really cool. If you've never been there, you should really go (Honk the horn when you drive by Hjørring, where I currently live :-) Learn more about Skagen from http://en.wikipedia.org/wiki/Skagen" startDate="2005-07-28T12:01:56" md5sum="f92f1affe608e066593b5fd4011e112b" width="800" height="533">
+            <options>
                 <option name="People">
                     <value value="Jesper"/>
                 </option>
+                <option name="Places">
+                    <value value="Skagen"/>
+                </option>
             </options>
         </image>
-        <image file="sunset.jpg" startDate="2005-11-25T16:23:10" md5sum="12fefdc2ca3aa86d4606480927732a36" width="800" height="532">
+        <image file="sunset.jpg" startDate="2005-11-25T16:23:10" md5sum="7c5a39bb574400ed66fa0490d1e0f330" width="800" height="532">
             <options>
                 <option name="Events">
                     <value value="desktop"/>
@@ -291,29 +291,29 @@
                 </option>
             </options>
         </image>
-        <image file="bar55_2.jpg" label="bar55" startDate="2006-02-10T21:33:29" md5sum="b58171a20ca7e407ea96a62b1517e734" width="800" height="600">
+        <image file="bar55_2.jpg" label="bar55" startDate="2006-02-10T21:33:29" md5sum="7fe1db29e77f5f6621b36a89d5c76529" width="800" height="600">
             <options>
-                <option name="Places">
-                    <value value="New York"/>
-                </option>
                 <option name="People">
                     <value value="Anne Helene"/>
                     <value value="Jesper"/>
                 </option>
-            </options>
-        </image>
-        <image file="bar55.jpg" startDate="2006-02-10T22:22:11" md5sum="6c0e38708e46338afdad6c2ccf703cba" width="800" height="600">
-            <options>
                 <option name="Places">
                     <value value="New York"/>
                 </option>
+            </options>
+        </image>
+        <image file="bar55.jpg" startDate="2006-02-11T04:22:11" md5sum="5887787fd8a6aa40846ef3809635dc74" width="800" height="600">
+            <options>
                 <option name="People">
                     <value value="Anne Helene"/>
                     <value value="Jesper"/>
                 </option>
+                <option name="Places">
+                    <value value="New York"/>
+                </option>
             </options>
         </image>
-        <image file="snow.jpg" startDate="2006-02-12T18:10:17" md5sum="42d4893725219e945ffc6d63a529cabd" width="800" height="600">
+        <image file="snow.jpg" startDate="2006-02-12T18:10:17" md5sum="a959ec6dd0c898bdbf74ee071a38ece6" width="800" height="600">
             <options>
                 <option name="Events">
                     <value value="desktop"/>
@@ -325,11 +325,11 @@
         </image>
         <image file="movie.avi" description="In the very early days when installing your sounds card under Linux, you would hear Linus Torvalds say &quot;Hi my name is Linus, and I pronounce it Linus&quot;. So what better phrase to use for demoing KPhotoAlbums video support? :-)" startDate="2006-10-29T19:53:58" md5sum="ceebdcfa9d26516d3874296c335cb133" width="97" height="72" videoLength="4">
             <options>
-                <option name="Places">
-                    <value value="Denmark"/>
-                </option>
                 <option name="People">
                     <value value="Jesper"/>
+                </option>
+                <option name="Places">
+                    <value value="Denmark"/>
                 </option>
             </options>
         </image>
@@ -348,4 +348,5 @@
         <member category="Places" group-name="USA" member="New York"/>
         <member category="Places" group-name="USA" member="Newark"/>
     </member-groups>
+    <global-sort-order/>
 </KPhotoAlbum>

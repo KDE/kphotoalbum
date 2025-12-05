@@ -368,47 +368,41 @@ void ImageInfo::renameCategory(const QString &oldName, const QString &newName)
     m_taggedAreas.remove(oldName);
 }
 
-void ImageInfo::setMD5SumAndStoreEXIF(const MD5 &sum)
+void ImageInfo::setMD5Sum(const MD5 &sum, UpdateMetaData updateType)
 {
     if (sum != m_md5sum) {
         // if we make a QObject derived class out of imageinfo, we might invalidate thumbnails from here
 
-        // file changed -> reload/invalidate metadata:
-        ExifMode mode = EXIFMODE_ORIENTATION | EXIFMODE_DATABASE_UPDATE;
-        // fuzzy dates are usually set for a reason
-        if (!m_date.isFuzzy())
-            mode |= EXIFMODE_DATE;
-        // FIXME (ZaJ): the "right" thing to do would be to update the description
-        //              - if it is currently empty (done.)
-        //              - if it has been set from the exif info and not been changed (TODO)
-        if (m_description.isEmpty())
-            mode |= EXIFMODE_DESCRIPTION;
+        if (updateType == UpdateMetaData::All) {
+            // file changed -> reload/invalidate metadata:
+            ExifMode mode = EXIFMODE_ORIENTATION | EXIFMODE_DATABASE_UPDATE;
+            // fuzzy dates are usually set for a reason
+            if (!m_date.isFuzzy())
+                mode |= EXIFMODE_DATE;
+            // FIXME (ZaJ): the "right" thing to do would be to update the description
+            //              - if it is currently empty (done.)
+            //              - if it has been set from the exif info and not been changed (TODO)
+            if (m_description.isEmpty())
+                mode |= EXIFMODE_DESCRIPTION;
 
-        readExif(fileName(), mode);
+            readExif(fileName(), mode);
 
-        // Size isn't really EXIF, but this is the most obvious
-        // place to extract it
-        QImageReader reader(m_fileName.absolute());
-        if (reader.canRead()) {
-            m_size = reader.size();
-            if (m_angle == 90 || m_angle == 270)
-                m_size.transpose();
+            // Size isn't really EXIF, but this is the most obvious
+            // place to extract it
+            QImageReader reader(m_fileName.absolute());
+            if (reader.canRead()) {
+                m_size = reader.size();
+                if (m_angle == 90 || m_angle == 270)
+                    m_size.transpose();
+            }
+
+            // FIXME (ZaJ): it *should* make sense to set the ImageDB::md5Map() from here, but I want
+            //              to make sure I fully understand everything first...
+            //              this could also be done as signal md5Changed(old,new)
+
+            // image size is invalidated by the thumbnail builder, if needed
         }
 
-        // FIXME (ZaJ): it *should* make sense to set the ImageDB::md5Map() from here, but I want
-        //              to make sure I fully understand everything first...
-        //              this could also be done as signal md5Changed(old,new)
-
-        // image size is invalidated by the thumbnail builder, if needed
-
-        markDirty();
-    }
-    m_md5sum = sum;
-}
-
-void ImageInfo::setMD5Sum(const MD5 &sum)
-{
-    if (sum != m_md5sum) {
         markDirty();
     }
     m_md5sum = sum;

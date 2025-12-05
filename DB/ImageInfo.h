@@ -189,8 +189,25 @@ public:
     static bool imageOnDisk(const DB::FileName &fileName);
 
     const MD5 &MD5Sum() const { return m_md5sum; }
-    void setMD5SumAndStoreEXIF(const MD5 &sum);
-    void setMD5Sum(const MD5 &sum);
+
+    /**
+     * @brief What file metadata to update when the MD5 sum changes.
+     * @see setMD5Sum()
+     */
+    enum class UpdateMetaData {
+        None = 0b0000, ///< Do not update any metadata
+        All = 0b1111 ///< Update all metadata
+    };
+
+    /**
+     * Sets the MD5 sum.  A change in the MD5 sum implies the file contents
+     * have changed so this method also optionally updates various attributes
+     * from the file metadata.
+     *
+     * @param sum is the file's new MD5 sum
+     * @param updateType defines the metadata updates to perform
+     */
+    void setMD5Sum(const MD5 &sum, UpdateMetaData updateType);
 
     void setLocked(bool);
     bool isLocked() const;

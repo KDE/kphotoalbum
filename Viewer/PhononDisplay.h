@@ -5,7 +5,6 @@
 
 #pragma once
 
-#include "AbstractDisplay.h"
 #include "VideoDisplay.h"
 
 #include <QResizeEvent>

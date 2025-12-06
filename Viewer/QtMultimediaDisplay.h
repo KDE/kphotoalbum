@@ -7,11 +7,14 @@
 
 #include "VideoDisplay.h"
 
-class QMediaPlayer;
+#include <QMediaPlayer>
+
 class QVideoWidget;
 
 namespace Viewer
 {
+
+class VideoToolBar;
 
 class QtMultimediaDisplay : public Viewer::VideoDisplay
 {
@@ -19,28 +22,33 @@ class QtMultimediaDisplay : public Viewer::VideoDisplay
 public:
     QtMultimediaDisplay(QWidget *parent);
     ~QtMultimediaDisplay() override;
-    // bool setImageImpl(DB::ImageInfoPtr info, bool forward) override;
-    // bool isPaused() const override;
-    // bool isPlaying() const override;
-    // QImage screenShoot() override;
-    // void relativeSeek(int msec) override;
+    bool setImageImpl(DB::ImageInfoPtr info, bool forward) override;
+    bool isPaused() const override;
+    bool isPlaying() const override;
+    QImage screenShoot() override;
+    void relativeSeek(int msec) override;
 
 public Q_SLOTS:
     // void zoomIn() override;
     // void zoomOut() override;
     // void zoomFull() override;
     // void zoomPixelForPixel() override;
-    // void stop() override;
-    // void playPause() override;
-    // void restart() override;
+    void stop() override;
+    void playPause() override;
+    void restart() override;
     // void rotate(const DB::ImageInfoPtr &info) override;
 
 protected:
     void setup();
 
+protected Q_SLOTS:
+    void updatePlaybackState(QMediaPlayer::PlaybackState newState);
+
 private:
     QMediaPlayer *m_mediaPlayer;
     QVideoWidget *m_videoWidget;
+    VideoToolBar *m_videoToolBar;
+    void errorOccurred(QMediaPlayer::Error, const QString &errorString);
 };
 
 } // namespace Viewer

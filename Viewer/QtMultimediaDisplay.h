@@ -36,13 +36,16 @@ public Q_SLOTS:
     void stop() override;
     void playPause() override;
     void restart() override;
-    // void rotate(const DB::ImageInfoPtr &info) override;
+    void rotate(const DB::ImageInfoPtr &info) override;
 
 protected:
     void setup();
+    void setVideoWidgetSize();
+    void resizeEvent(QResizeEvent *) override;
 
 protected Q_SLOTS:
     void updatePlaybackState(QMediaPlayer::PlaybackState newState);
+    void updateDuration(qint64 duration);
 
 private:
     QMediaPlayer *m_mediaPlayer;

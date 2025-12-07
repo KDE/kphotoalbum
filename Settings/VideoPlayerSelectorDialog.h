@@ -41,6 +41,7 @@ public:
     Settings::VideoBackend backend() const;
 
 private:
+    QRadioButton *m_qtmm;
     QRadioButton *m_vlc;
     QRadioButton *m_phonon;
 };

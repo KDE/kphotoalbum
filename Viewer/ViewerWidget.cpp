@@ -28,6 +28,7 @@
 #include "ImageDisplay.h"
 #include "InfoBox.h"
 #include "Logging.h"
+#include "QtMultimediaDisplay.h"
 #include <kpabase/config-kpa-videobackends.h>
 
 #if Phonon4Qt6_FOUND
@@ -1426,6 +1427,8 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSent
     }
 
     switch (backend) {
+    case Settings::VideoBackend::QtMultimedia:
+        return new QtMultimediaDisplay(parent);
     case Settings::VideoBackend::VLC:
 #if LIBVLC_FOUND
         return new VLCDisplay(parent);

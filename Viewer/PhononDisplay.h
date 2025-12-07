@@ -32,9 +32,6 @@ public:
     QImage screenShoot() override;
     void relativeSeek(int msec) override;
 
-Q_SIGNALS:
-    void stopped();
-
 public Q_SLOTS:
     void zoomIn() override;
     void zoomOut() override;

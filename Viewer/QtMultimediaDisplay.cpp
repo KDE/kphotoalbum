@@ -84,8 +84,12 @@ void Viewer::QtMultimediaDisplay::resizeEvent(QResizeEvent *ev)
 
 void Viewer::QtMultimediaDisplay::updatePlaybackState(QMediaPlayer::PlaybackState newState)
 {
-    if (newState == QMediaPlayer::StoppedState)
+    if (newState == QMediaPlayer::StoppedState) {
+        // jump to first frame, so that play/unpause will work as expected:
+        m_mediaPlayer->setPosition(0);
+        m_mediaPlayer->pause();
         Q_EMIT Viewer::VideoDisplay::stopped();
+    }
 }
 
 void Viewer::QtMultimediaDisplay::updateDuration(qint64 duration)

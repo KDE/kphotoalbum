@@ -58,37 +58,6 @@ void Viewer::QtMultimediaDisplay::setup()
     connect(m_mediaPlayer->audioOutput(), &QAudioOutput::mutedChanged, this, &QtMultimediaDisplay::updateMuteState);
 }
 
-void Viewer::QtMultimediaDisplay::setVideoWidgetSize()
-{
-    QSize videoSize;
-    videoSize = m_videoWidget->sizeHint();
-    // if (m_zoomType == FullZoom) {
-    //     videoSize = QSize(size().width(), size().height() - m_videoToolBar->height());
-    //     if (m_videoWidget->sizeHint().width() > 0) {
-    //         m_zoomFactor = videoSize.width() / m_videoWidget->sizeHint().width();
-    //     }
-    // } else {
-    //     videoSize = m_videoWidget->sizeHint();
-    //     if (m_zoomType == FixedZoom)
-    //         videoSize *= m_zoomFactor;
-    // }
-
-    m_videoWidget->resize(videoSize);
-
-    QPoint pos = QPoint(width() / 2, (height() - m_videoToolBar->sizeHint().height()) / 2) - QPoint(videoSize.width() / 2, videoSize.height() / 2);
-    m_videoWidget->move(pos);
-
-    m_videoToolBar->move(0, height() - m_videoToolBar->sizeHint().height());
-    m_videoToolBar->resize(width(), m_videoToolBar->sizeHint().height());
-    m_videoToolBar->setRange(0, m_mediaPlayer->duration());
-}
-
-void Viewer::QtMultimediaDisplay::resizeEvent(QResizeEvent *ev)
-{
-    AbstractDisplay::resizeEvent(ev);
-    setVideoWidgetSize();
-}
-
 void Viewer::QtMultimediaDisplay::updatePlaybackState(QMediaPlayer::PlaybackState newState)
 {
     if (newState == QMediaPlayer::StoppedState) {
@@ -135,7 +104,6 @@ bool Viewer::QtMultimediaDisplay::setImageImpl(DB::ImageInfoPtr info, bool /*for
 {
     m_mediaPlayer->setSource(QUrl::fromLocalFile(info->fileName().absolute()));
     m_mediaPlayer->play();
-    setVideoWidgetSize();
 
     return true;
 }

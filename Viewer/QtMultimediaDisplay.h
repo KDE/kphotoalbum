@@ -56,8 +56,6 @@ public Q_SLOTS:
 
 protected:
     void setup();
-    void setVideoWidgetSize();
-    void resizeEvent(QResizeEvent *) override;
 
 protected Q_SLOTS:
     void updatePlaybackState(QMediaPlayer::PlaybackState newState);

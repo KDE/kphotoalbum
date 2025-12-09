@@ -27,6 +27,7 @@ public:
     bool isPlaying() const override;
     QImage screenShoot() override;
     void relativeSeek(int msec) override;
+    bool canRotate() override;
 
 public Q_SLOTS:
     // void zoomIn() override;
@@ -36,6 +37,10 @@ public Q_SLOTS:
     void stop() override;
     void playPause() override;
     void restart() override;
+    /**
+     * @brief rotate is not supported by QtMultimediaDisplay.
+     * @param info
+     */
     void rotate(const DB::ImageInfoPtr &info) override;
 
 protected:

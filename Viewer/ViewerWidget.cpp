@@ -556,6 +556,7 @@ void Viewer::ViewerWidget::contextMenuEvent(QContextMenuEvent *e)
 
         m_stop->setEnabled(m_videoDisplay->isPlaying());
     }
+    m_rotateMenu->setEnabled(m_display->canRotate());
 
     m_popup->exec(e->globalPos());
     e->setAccepted(true);

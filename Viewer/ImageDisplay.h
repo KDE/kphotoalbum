@@ -59,6 +59,8 @@ public:
     bool filterContrastStretch();
     bool filterHistogramEqualization();
 
+    bool canRotate() override;
+
 public Q_SLOTS:
     void zoomIn() override;
     void zoomOut() override;

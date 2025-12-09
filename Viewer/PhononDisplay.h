@@ -31,6 +31,7 @@ public:
     bool isPlaying() const override;
     QImage screenShoot() override;
     void relativeSeek(int msec) override;
+    bool canRotate() override;
 
 public Q_SLOTS:
     void zoomIn() override;

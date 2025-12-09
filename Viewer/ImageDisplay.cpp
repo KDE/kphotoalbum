@@ -437,6 +437,11 @@ bool Viewer::ImageDisplay::filterHistogramEqualization()
     return true;
 }
 
+bool Viewer::ImageDisplay::canRotate()
+{
+    return true;
+}
+
 void Viewer::ImageDisplay::updateZoomCaption()
 {
     const QSize imgSize = m_loadedImage.size();

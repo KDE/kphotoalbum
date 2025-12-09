@@ -194,4 +194,9 @@ void Viewer::VLCDisplay::restart()
     setImageImpl(m_info, true);
 }
 
+bool Viewer::VLCDisplay::canRotate()
+{
+    return true;
+}
+
 #include "moc_VLCDisplay.cpp"

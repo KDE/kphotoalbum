@@ -138,6 +138,11 @@ void Viewer::QtMultimediaDisplay::relativeSeek(int msec)
     m_mediaPlayer->setPosition(m_mediaPlayer->position() + msec);
 }
 
+bool Viewer::QtMultimediaDisplay::canRotate()
+{
+    return false;
+}
+
 void Viewer::QtMultimediaDisplay::stop()
 {
     m_mediaPlayer->stop();
@@ -157,9 +162,9 @@ void Viewer::QtMultimediaDisplay::restart()
     m_mediaPlayer->play();
 }
 
-void Viewer::QtMultimediaDisplay::rotate(const DB::ImageInfoPtr &info)
+void Viewer::QtMultimediaDisplay::rotate(const DB::ImageInfoPtr & /*info*/)
 {
-    // NOP
+    // not supported
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

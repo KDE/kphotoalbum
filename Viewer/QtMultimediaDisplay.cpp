@@ -15,6 +15,12 @@
 #include <QVideoSink>
 #include <QVideoWidget>
 
+namespace
+{
+constexpr qreal LOUDNESS_TO_VOLTAGE_EXPONENT = qreal(0.67);
+constexpr qreal VOLTAGE_TO_LOUDNESS_EXPONENT = qreal(1.0 / LOUDNESS_TO_VOLTAGE_EXPONENT);
+}
+
 Viewer::QtMultimediaDisplay::QtMultimediaDisplay(QWidget *parent)
     : Viewer::VideoDisplay(parent)
     , m_mediaPlayer(new QMediaPlayer(this))
@@ -34,6 +40,7 @@ void Viewer::QtMultimediaDisplay::setup()
 {
     m_mediaPlayer->setAudioOutput(new QAudioOutput(m_mediaPlayer));
     m_mediaPlayer->setVideoOutput(m_videoWidget);
+    updateVolume(m_mediaPlayer->audioOutput()->volume());
 
     m_videoWidget->setFocus();
     m_videoWidget->resize(1024, 768);
@@ -44,11 +51,11 @@ void Viewer::QtMultimediaDisplay::setup()
     connect(m_mediaPlayer, &QMediaPlayer::positionChanged, m_videoToolBar, &Viewer::VideoToolBar::setPosition);
     connect(m_mediaPlayer, &QMediaPlayer::durationChanged, this, &QtMultimediaDisplay::updateDuration);
     connect(m_videoToolBar, &VideoToolBar::positionChanged, m_mediaPlayer, &QMediaPlayer::setPosition);
-    // // use proxy slots to avoid a signal-loop between the VideoToolBar and the Phonon::AudioOutput
-    // connect(m_videoToolBar, &VideoToolBar::volumeChanged, this, &PhononDisplay::changeVolume);
-    // connect(m_audioDevice, &Phonon::AudioOutput::volumeChanged, this, &PhononDisplay::updateVolume);
-    // connect(m_videoToolBar, &VideoToolBar::muted, this, &PhononDisplay::setMuted);
-    // connect(m_audioDevice, &Phonon::AudioOutput::mutedChanged, this, &PhononDisplay::updateMuteState);
+    // use proxy slots to avoid a signal-loop between the VideoToolBar and the QAudioOutput
+    connect(m_videoToolBar, &VideoToolBar::volumeChanged, this, &QtMultimediaDisplay::changeVolume);
+    connect(m_mediaPlayer->audioOutput(), &QAudioOutput::volumeChanged, this, &QtMultimediaDisplay::updateVolume);
+    connect(m_videoToolBar, &VideoToolBar::muted, this, &QtMultimediaDisplay::setMuted);
+    connect(m_mediaPlayer->audioOutput(), &QAudioOutput::mutedChanged, this, &QtMultimediaDisplay::updateMuteState);
 }
 
 void Viewer::QtMultimediaDisplay::setVideoWidgetSize()
@@ -95,6 +102,21 @@ void Viewer::QtMultimediaDisplay::updatePlaybackState(QMediaPlayer::PlaybackStat
 void Viewer::QtMultimediaDisplay::updateDuration(qint64 duration)
 {
     m_videoToolBar->setRange(0, duration);
+}
+
+void Viewer::QtMultimediaDisplay::updateVolume(float newVolumeVolt)
+{
+    const QSignalBlocker blocker { m_videoToolBar };
+    const auto volume = qPow(newVolumeVolt, VOLTAGE_TO_LOUDNESS_EXPONENT) * 100.0;
+    m_videoToolBar->setVolume(volume);
+    qCDebug(ViewerLog) << "QtMultimediaDisplay volume is now at" << volume;
+}
+
+void Viewer::QtMultimediaDisplay::updateMuteState(bool mute)
+{
+    const QSignalBlocker blocker { m_videoToolBar };
+    m_videoToolBar->setMuted(mute);
+    qCDebug(ViewerLog) << "QtMultimediaDisplay mute state is now" << mute;
 }
 
 void Viewer::QtMultimediaDisplay::errorOccurred(QMediaPlayer::Error, const QString &errorString)
@@ -165,6 +187,18 @@ void Viewer::QtMultimediaDisplay::restart()
 void Viewer::QtMultimediaDisplay::rotate(const DB::ImageInfoPtr & /*info*/)
 {
     // not supported
+}
+
+void Viewer::QtMultimediaDisplay::changeVolume(int newVolumePercent)
+{
+    auto *audioOutput = m_mediaPlayer->audioOutput();
+    audioOutput->setVolume(qPow(newVolumePercent / 100.0, LOUDNESS_TO_VOLTAGE_EXPONENT));
+}
+
+void Viewer::QtMultimediaDisplay::setMuted(bool mute)
+{
+    auto *audioOutput = m_mediaPlayer->audioOutput();
+    audioOutput->setMuted(mute);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

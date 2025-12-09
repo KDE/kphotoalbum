@@ -42,6 +42,17 @@ public Q_SLOTS:
      * @param info
      */
     void rotate(const DB::ImageInfoPtr &info) override;
+    /**
+     * @brief changeVolume changes the audio volume of the video.
+     * @param newVolumePercent the new volume in percent between 0 and 100
+     */
+    void changeVolume(int newVolumePercent);
+    /**
+     * @brief setMuted mutes or unmutes the audio volume of the video.
+     * After muting and then unmuting again, the audio volume is the same as before muting.
+     * @param mute
+     */
+    void setMuted(bool mute);
 
 protected:
     void setup();
@@ -51,6 +62,8 @@ protected:
 protected Q_SLOTS:
     void updatePlaybackState(QMediaPlayer::PlaybackState newState);
     void updateDuration(qint64 duration);
+    void updateVolume(float newVolumeVolt);
+    void updateMuteState(bool mute);
 
 private:
     QMediaPlayer *m_mediaPlayer;

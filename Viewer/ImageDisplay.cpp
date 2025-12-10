@@ -442,6 +442,11 @@ bool Viewer::ImageDisplay::canRotate()
     return true;
 }
 
+bool Viewer::ImageDisplay::canZoom()
+{
+    return true;
+}
+
 void Viewer::ImageDisplay::updateZoomCaption()
 {
     const QSize imgSize = m_loadedImage.size();

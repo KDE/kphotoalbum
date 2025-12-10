@@ -259,6 +259,11 @@ bool Viewer::PhononDisplay::canRotate()
     return false;
 }
 
+bool Viewer::PhononDisplay::canZoom()
+{
+    return true;
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:
 
 #include "moc_PhononDisplay.cpp"

@@ -28,12 +28,9 @@ public:
     QImage screenShoot() override;
     void relativeSeek(int msec) override;
     bool canRotate() override;
+    bool canZoom() override;
 
 public Q_SLOTS:
-    // void zoomIn() override;
-    // void zoomOut() override;
-    // void zoomFull() override;
-    // void zoomPixelForPixel() override;
     void stop() override;
     void playPause() override;
     void restart() override;

@@ -199,4 +199,9 @@ bool Viewer::VLCDisplay::canRotate()
     return true;
 }
 
+bool Viewer::VLCDisplay::canZoom()
+{
+    return false;
+}
+
 #include "moc_VLCDisplay.cpp"

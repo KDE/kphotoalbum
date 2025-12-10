@@ -246,6 +246,7 @@ private:
     QRect m_textRect;
     QMenu *m_popup;
     QMenu *m_rotateMenu;
+    QMenu *m_zoomMenu;
     QMenu *m_filterMenu;
     MainWindow::ExternalPopup *m_externalPopup;
     MainWindow::CategoryImagePopup *m_categoryImagePopup;

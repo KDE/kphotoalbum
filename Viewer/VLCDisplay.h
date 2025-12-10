@@ -34,6 +34,7 @@ public:
     void relativeSeek(int msec) override;
     void restart() override;
     bool canRotate() override;
+    bool canZoom() override;
 
 public Q_SLOTS:
     void updateInterface();

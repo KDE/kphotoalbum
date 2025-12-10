@@ -133,6 +133,11 @@ bool Viewer::QtMultimediaDisplay::canRotate()
     return false;
 }
 
+bool Viewer::QtMultimediaDisplay::canZoom()
+{
+    return false;
+}
+
 void Viewer::QtMultimediaDisplay::stop()
 {
     m_mediaPlayer->stop();

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-24 00:41+0000\n"
-"PO-Revision-Date: 2025-11-24 09:05+0100\n"
+"PO-Revision-Date: 2025-12-10 10:05+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -4101,7 +4101,7 @@ msgstr "Seleccioneu els símbols a suprimir de totes les imatges i vídeos:"
 #: MainWindow/TokenEditor.cpp:61
 #, kde-format
 msgid "Select None"
-msgstr "Res seleccionat"
+msgstr "No seleccionis res"
 
 #: MainWindow/WelcomeDialog.cpp:46
 #, kde-format

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-24 00:41+0000\n"
-"PO-Revision-Date: 2025-11-24 09:05+0100\n"
+"PO-Revision-Date: 2025-12-10 10:05+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -1230,7 +1230,7 @@ msgstr "S'ha produït un error mentre es guardava la imatge «%1»."
 #: DB/Category.cpp:335
 #, kde-format
 msgid "Error Saving Image"
-msgstr "S'ha produït un error en guardar la imatge"
+msgstr "S'ha produït un error mentre es guardava la imatge"
 
 # skip-rule: abbreviations-jan
 #: DB/ImageDate.cpp:34
@@ -1606,9 +1606,9 @@ msgid ""
 "setting the <b>PATH</b> environment variable</p>"
 msgstr ""
 "<p>KPhotoAlbum no ha sigut capaç de carregar una configuració "
-"predeterminada, açò indica que hi ha un error en la instal·lació</p><p>Si "
-"heu instal·lat KPhotoAlbum vós mateix, heu de recordar de restablir la "
-"variable d'entorn <b>KDEDIRS</b>, per a que apunte cap a la carpeta "
+"predeterminada, açò indica que hi ha un error durant la instal·lació</"
+"p><p>Si heu instal·lat KPhotoAlbum vós mateix, heu de recordar de restablir "
+"la variable d'entorn <b>KDEDIRS</b>, per a que apunte cap a la carpeta "
 "d'instal·lació més alta.</p><p>Si, per exemple, executeu «cmake» amb <b>-"
 "DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, llavors heu d'utilitzar l'opció "
 "següent per a la variable d'entorn (este exemple és per a Bash i els "
@@ -1648,7 +1648,7 @@ msgstr "Sense etiquetar"
 #: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
-msgstr "S'ha produït un error en executar la demostració"
+msgstr "S'ha produït un error mentre s'executava la demostració"
 
 #: DB/XML/FileReader.cpp:561
 #, kde-format
@@ -1663,7 +1663,7 @@ msgstr "línia %1 columna %2 en el fitxer %3: %4"
 #: DB/XML/FileReader.cpp:576
 #, kde-format
 msgid "Failed to recover the backup: %1"
-msgstr "No s'ha pogut recuperar la còpia de seguretat: %1"
+msgstr "Ha fallat mentre es recuperava la còpia de seguretat: %1"
 
 #: DB/XML/FileReader.cpp:587
 #, kde-format
@@ -1689,7 +1689,7 @@ msgstr ""
 #: DB/XML/FileWriter.cpp:82 DB/XML/FileWriter.cpp:118 DB/XML/FileWriter.cpp:127
 #, kde-format
 msgid "Error while saving..."
-msgstr "S'ha produït un error en guardar…"
+msgstr "S'ha produït un error mentre es guardava…"
 
 #: DB/XML/FileWriter.cpp:115
 #, kde-format
@@ -1697,9 +1697,9 @@ msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
 "replace the file %1 with file %2 manually!</p>"
 msgstr ""
-"<p>S'ha produït un error en eliminar la versió antiga de la base de dades "
-"d'imatges.</p><p>Torneu-ho a provar de nou o substituïu el fitxer %1 amb el "
-"fitxer %2 manualment!</p>"
+"<p>S'ha produït un error mentre s'eliminava la versió antiga de la base de "
+"dades d'imatges.</p><p>Torneu-ho a provar de nou o substituïu el fitxer %1 "
+"amb el fitxer %2 manualment!</p>"
 
 #: DB/XML/FileWriter.cpp:124
 #, kde-format
@@ -1707,29 +1707,30 @@ msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "
 "again or rename file %1 to %2 manually!</p>"
 msgstr ""
-"<p>S'ha produït un error en moure el fitxer en XML temporal a una ubicació "
-"permanent.</p><p>Torneu-ho a provar de nou o canvieu de nom el fitxer %1 a "
-"%2 manualment!</p>"
+"<p>S'ha produït un error mentre es movia el fitxer en XML temporal a una "
+"ubicació permanent.</p><p>Torneu-ho a provar de nou o canvieu de nom el "
+"fitxer %1 a %2 manualment!</p>"
 
 #: DB/XML/NumberedBackup.cpp:43
 #, kde-format
 msgid "Error creating zip file %1"
-msgstr "S'ha produït un error en crear el fitxer zip %1"
+msgstr "S'ha produït un error mentre es creava el fitxer zip %1"
 
 #: DB/XML/NumberedBackup.cpp:43 DB/XML/NumberedBackup.cpp:48
 #, kde-format
 msgid "Error Making Numbered Backup"
-msgstr "S'ha produït un error en fer la còpia de seguretat numerada"
+msgstr "S'ha produït un error mentre es feia la còpia de seguretat numerada"
 
 #: DB/XML/NumberedBackup.cpp:48
 #, kde-format
 msgid "Error writing file %1 to zip file %2"
-msgstr "S'ha produït un error en escriure el fitxer %1 en el fitxer zip %2"
+msgstr ""
+"S'ha produït un error mentre s'escrivia el fitxer %1 en el fitxer zip %2"
 
 #: DB/XML/XmlReader.cpp:43
 #, kde-format
 msgid "Error reading next element"
-msgstr "S'ha produït un error en llegir l'element següent"
+msgstr "S'ha produït un error mentre es llegia l'element següent"
 
 #: DB/XML/XmlReader.cpp:46
 #, kde-format
@@ -1773,7 +1774,7 @@ msgstr "<p>Camí de la base de dades: <filename>%1</filename></p>"
 #: DB/XML/XmlReader.cpp:94
 #, kde-format
 msgid "Error while reading database file"
-msgstr "S'ha produït un error en llegir el fitxer de la base de dades"
+msgstr "S'ha produït un error mentre es llegia el fitxer de la base de dades"
 
 #: Exif/InfoDialog.cpp:35
 #, kde-format
@@ -2068,7 +2069,7 @@ msgstr "Generant les imatges per a la pàgina HTML "
 #: HTMLGenerator/Generator.cpp:183
 #, kde-format
 msgid "Error copying %1 to %2"
-msgstr "S'ha produït un error en copiar %1 a %2"
+msgstr "S'ha produït un error mentre es copiava %1 a %2"
 
 #: HTMLGenerator/Generator.cpp:470
 #, kde-format
@@ -2308,8 +2309,8 @@ msgid ""
 "<p>Error while reading information about %1. This is most likely because the "
 "folder does not exist.</p><p>The error message was: %2</p>"
 msgstr ""
-"<p>S'ha produït un error en llegir informació quant a %1. El més probable és "
-"que la carpeta no existisca.</p><p>El missatge d'error és: %2</p>"
+"<p>S'ha produït un error mentre es llegia informació quant a %1. El més "
+"probable és que la carpeta no existisca.</p><p>El missatge d'error és: %2</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:429
 #, kde-format
@@ -2380,7 +2381,7 @@ msgstr "<p>La carpeta d'eixida ja existix.</p>"
 #: ImageManager/ExtractOneVideoFrame.cpp:93
 #, kde-format
 msgid "Failed to start"
-msgstr "No s'ha pogut iniciar"
+msgstr "Ha fallat mentre s'iniciava"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:96
 #, kde-format
@@ -2411,8 +2412,8 @@ msgstr "S'ha produït un error desconegut"
 #, kde-format
 msgid "<p>Error when extracting video thumbnails.<br/>Error was: %1</p>"
 msgstr ""
-"<p>S'ha produït un error en extraure les miniatures de vídeo.<br/>L'error "
-"és: %1</p>"
+"<p>S'ha produït un error mentre s'extreien les miniatures de vídeo.<br/"
+">L'error és: %1</p>"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:137
 #, kde-format
@@ -2570,7 +2571,7 @@ msgstr ""
 #: ImportExport/Export.cpp:242
 #, kde-format
 msgid "Error creating zip file"
-msgstr "S'ha produït un error en crear el fitxer zip"
+msgstr "S'ha produït un error mentre es creava el fitxer zip"
 
 #: ImportExport/Export.cpp:256
 #, kde-format
@@ -2595,7 +2596,7 @@ msgstr "S'estan copiant els fitxers d'imatge"
 #: ImportExport/Export.cpp:375
 #, kde-format
 msgid "Error writing file %1"
-msgstr "S'ha produït un error en escriure el fitxer %1"
+msgstr "S'ha produït un error mentre s'escrivia el fitxer %1"
 
 #: ImportExport/Export.cpp:403
 #, kde-format
@@ -2756,7 +2757,7 @@ msgstr "Crea"
 #: ImportExport/ImportDialog.cpp:311
 #, kde-format
 msgid "Error creating folder %1"
-msgstr "S'ha produït un error en crear la carpeta %1"
+msgstr "S'ha produït un error mentre es creava la carpeta %1"
 
 #: ImportExport/ImportDialog.cpp:390
 #, kde-format
@@ -2772,7 +2773,7 @@ msgstr "Copiant les imatges"
 #: ImportExport/ImportHandler.cpp:170
 #, kde-format
 msgid "Error when writing image %1"
-msgstr "S'ha produït un error en escriure la imatge %1"
+msgstr "S'ha produït un error mentre s'escrivia la imatge %1"
 
 #: ImportExport/ImportHandler.cpp:189
 #, kde-format
@@ -2814,7 +2815,7 @@ msgstr "No ha sigut possible obrir «%1» per a lectura."
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
 msgid "Error Importing Data"
-msgstr "S'ha produït un error en importar dades"
+msgstr "S'ha produït un error mentre s'importaven dades"
 
 #: ImportExport/KimFileReader.cpp:35
 #, kde-format
@@ -2822,16 +2823,16 @@ msgid ""
 "Error reading folder contents of file %1; it is likely that the file is "
 "broken."
 msgstr ""
-"S'ha produït un error en llegir el contingut de la carpeta del fitxer %1; "
-"segurament el fitxer està trencat."
+"S'ha produït un error mentre es llegia el contingut de la carpeta del fitxer "
+"%1; segurament el fitxer està trencat."
 
 #: ImportExport/KimFileReader.cpp:48
 #, kde-format
 msgid ""
 "Error reading index.xml file from %1; it is likely that the file is broken."
 msgstr ""
-"S'ha produït un error en llegir el fitxer index.xml des de %1; segurament el "
-"fitxer està trencat."
+"S'ha produït un error mentre es llegia el fitxer index.xml des de %1; "
+"segurament el fitxer està trencat."
 
 #: ImportExport/KimFileReader.cpp:68
 #, kde-format
@@ -3239,9 +3240,9 @@ msgid ""
 "command that was attempted to be executed was:<br/>%1</p><p>The error "
 "message obtained was:<br/>%2</p>"
 msgstr ""
-"<p>S'ha produït un error en executar la busca en la base de dades de l'Exif. "
-"Segurament l'error és degut a un fitxer trencat de la base de dades.</"
-"p><p>Per a arreglar este problema executeu «Manteniment -> Reconstruïx la "
+"<p>S'ha produït un error mentre s'executava la busca en la base de dades de "
+"l'Exif. Segurament l'error és degut a un fitxer trencat de la base de dades."
+"</p><p>Per a arreglar este problema executeu «Manteniment -> Reconstruïx la "
 "base de dades de busques Exif».</p><hr/><p>Per a depuració: l'ordre que "
 "s'intenta executar és:<br/>%1</p><p>El missatge d'error que s'ha obtingut és:"
 "<br/>%2</p>"
@@ -3258,10 +3259,10 @@ msgid ""
 "this problem run Maintenance->Recreate Exif Search database.</p><hr/><p>The "
 "error message obtained was:<br/>%1</p>"
 msgstr ""
-"<p>S'ha produït un error en obrir la base de dades de l'Exif.</p><p>Per a "
-"arreglar este problema executeu «Manteniment -> Reconstruïx la base de dades "
-"de busques Exif».</p><hr/><p>El missatge d'error que s'ha obtingut és:<br/>"
-"%1</p>"
+"<p>S'ha produït un error mentre s'obria la base de dades de l'Exif.</"
+"p><p>Per a arreglar este problema executeu «Manteniment -> Reconstruïx la "
+"base de dades de busques Exif».</p><hr/><p>El missatge d'error que s'ha "
+"obtingut és:<br/>%1</p>"
 
 #: lib/kpaexif/Database.cpp:259
 #, kde-format
@@ -4104,7 +4105,7 @@ msgstr "Trieu els símbols que s'han de suprimir de totes les imatges i vídeos:
 #: MainWindow/TokenEditor.cpp:61
 #, kde-format
 msgid "Select None"
-msgstr "Res seleccionat"
+msgstr "No selecciones res"
 
 #: MainWindow/WelcomeDialog.cpp:46
 #, kde-format
@@ -4262,7 +4263,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
-msgstr "Problema en apilar"
+msgstr "Problema mentre s'apilava"
 
 #: MainWindow/Window.cpp:412
 #, kde-format
@@ -4272,7 +4273,7 @@ msgstr "S'ha produït un error desconegut, ha fallat la creació de la pila."
 #: MainWindow/Window.cpp:413
 #, kde-format
 msgid "Stacking Error"
-msgstr "S'ha produït un error en apilar"
+msgstr "S'ha produït un error mentre s'apilava"
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
 #: MainWindow/Window.cpp:1331 MainWindow/Window.cpp:1428
@@ -6423,7 +6424,7 @@ msgstr "Reordenació de les miniatures"
 #: Utilities/DeleteFiles.cpp:37
 #, kde-format
 msgid "Error Deleting Files"
-msgstr "S'ha produït un error en suprimir fitxers"
+msgstr "S'ha produït un error mentre se suprimien fitxers"
 
 #: Utilities/DemoUtil.cpp:34
 #, kde-format
@@ -6713,7 +6714,7 @@ msgstr "Mostra la ubicació geogràfica d'esta imatge en un mapa"
 #: Viewer/PhononDisplay.cpp:183
 #, kde-format
 msgid "Error playing media"
-msgstr "S'ha produït un error en reproduir el suport"
+msgstr "S'ha produït un error mentre es reproduia el suport"
 
 #: Viewer/SelectCategoryAndValue.cpp:107
 #, kde-format

@@ -481,7 +481,12 @@ void Viewer::ViewerWidget::load()
     }
 
     setCurrentWidget(m_display);
-    m_infoBox->raise();
+    if (isVideo)
+        m_infoBox->hide();
+    else {
+        m_infoBox->show();
+        m_infoBox->raise();
+    }
 
     updateContextMenuState(isVideo);
 

@@ -4241,9 +4241,13 @@ msgstr "Znovu vytvořit vyhledávací databázi Exif"
 
 #: MainWindow/Window.cpp:1020
 #, fuzzy, kde-format
-#| msgid "Read Exif Info from Files..."
+#| msgid ""
+#| "Use data from\n"
+#| "Import File"
 msgid "Read Metadata from Files..."
-msgstr "Načíst informace Exif ze souborů..."
+msgstr ""
+"Použít data z\n"
+" importního souboru"
 
 #: MainWindow/Window.cpp:1023
 #, kde-format

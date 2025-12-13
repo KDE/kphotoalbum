@@ -29,6 +29,8 @@ static QString videoBackendTextFromEnum(Settings::VideoBackend backend)
         return QString::fromUtf8("QtAV");
     case Settings::VideoBackend::Phonon:
         return QString::fromUtf8("Phonon");
+    case Settings::VideoBackend::QtMultimedia:
+        return QString::fromUtf8("QtMultimedia");
     }
     Q_UNREACHABLE();
     return {}; // Make CI shut up.

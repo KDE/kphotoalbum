@@ -19,6 +19,21 @@ class AbstractDisplay : public QWidget
 public:
     explicit AbstractDisplay(QWidget *parent);
     bool setImage(DB::ImageInfoPtr info, bool forward);
+    /**
+     * @brief canRotate
+     * @return \c true, if the display supports rotation of the image, or \c false otherwise.
+     * @see rotate(const DB::ImageInfoPtr &)
+     */
+    virtual bool canRotate() = 0;
+    /**
+     * @brief canZoom
+     * @return \c true, if the display supports zooming of the image, or \c false otherwise.
+     * @see zoomIn()
+     * @see zoomOut()
+     * @see zoomFull()
+     * @see zoomPixelForPixel()
+     */
+    virtual bool canZoom() = 0;
 
 public Q_SLOTS:
     virtual void zoomIn() { };

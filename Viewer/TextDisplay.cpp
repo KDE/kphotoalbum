@@ -39,6 +39,16 @@ void Viewer::TextDisplay::setText(const QString text)
     m_text->setText(text);
 }
 
+bool Viewer::TextDisplay::canRotate()
+{
+    return false;
+}
+
+bool Viewer::TextDisplay::canZoom()
+{
+    return false;
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:
 
 #include "moc_TextDisplay.cpp"

@@ -80,7 +80,8 @@ enum WindowId {
 enum class VideoBackend { NotConfigured = 0b0000,
                           Phonon = 0b0001,
                           QtAV = 0b0010, ///< deprecated legacy value. No longer used except for backwards-compatibility with existing configuration files.
-                          VLC = 0b0100 };
+                          VLC = 0b0100,
+                          QtMultimedia = 0b1000 };
 Q_DECLARE_FLAGS(VideoBackends, VideoBackend)
 Q_FLAG_NS(VideoBackend)
 

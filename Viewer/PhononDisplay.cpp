@@ -254,6 +254,16 @@ void Viewer::PhononDisplay::relativeSeek(int msec)
     m_mediaObject->seek(m_mediaObject->currentTime() + msec);
 }
 
+bool Viewer::PhononDisplay::canRotate()
+{
+    return false;
+}
+
+bool Viewer::PhononDisplay::canZoom()
+{
+    return true;
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:
 
 #include "moc_PhononDisplay.cpp"

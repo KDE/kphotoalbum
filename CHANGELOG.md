@@ -38,6 +38,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Added
  - Display number of images on collapsed stacks (#223213)
  - Add commandline option "--rescan" as a synonym for "--search". In the future, "--search" may become deprecated at some point.
+ - Add support for QtMultimedia video backend
 
 ### Changed
  - Thumbnail cache and video thumbnail cache directories are now always ignored while searching for new images.

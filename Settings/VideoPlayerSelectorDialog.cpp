@@ -27,7 +27,7 @@ VideoPlayerSelectorDialog::VideoPlayerSelectorDialog(QWidget *parent)
     layout->addWidget(label);
 
     QString txt = i18n("<html><p>Unfortunately, there is no video player which just works out of the box for everyone.</p>"
-                       "<p>KPhotoAlbum therefore comes with two different back-ends, choose the one that works the best for you</p>"
+                       "<p>KPhotoAlbum therefore comes with three different back-ends, choose the one that works the best for you</p>"
 
                        "<p><b>VLC</b> seems to be the best supported video player back-end, meaning it can play most video formats. "
                        "It has one drawback though, it requires X11. "
@@ -37,10 +37,16 @@ VideoPlayerSelectorDialog::VideoPlayerSelectorDialog(QWidget *parent)
                        "<p>Traditionally KPhotoAlbum has been using <b>Phonon</b> as the video player back-end. We've unfortunately seen it crash "
                        "on many different video formats - possibly because our system wasn't correctly configured.</p>"
 
+                       "<p><b>QtMultimedia</b> is the newest video player back-end of the three. It is a standard component of Qt. "
+                       "Expect it to become the new default, and maybe only back-end.</p>"
+
                        "<p><b><font color=red>You can at any time change the backend from Settings -> Viewer</font></b></p></html>");
     label = new QLabel(txt);
     label->setWordWrap(true);
     layout->addWidget(label);
+
+    m_qtmm = new QRadioButton(QString::fromUtf8("QtMultimedia"));
+    layout->addWidget(m_qtmm);
 
     bool somethingNotAvailable = false;
     if (availableVideoBackends().testFlag(VideoBackend::VLC)) {
@@ -65,6 +71,8 @@ VideoPlayerSelectorDialog::VideoPlayerSelectorDialog(QWidget *parent)
     QRadioButton *rb = [&] {
         QRadioButton *candidate = nullptr;
         switch (backend) {
+        case VideoBackend::QtMultimedia:
+            candidate = m_qtmm;
         case VideoBackend::Phonon:
             candidate = m_phonon;
             break;
@@ -97,7 +105,9 @@ VideoPlayerSelectorDialog::VideoPlayerSelectorDialog(QWidget *parent)
 
 VideoBackend VideoPlayerSelectorDialog::backend() const
 {
-    if (m_vlc->isChecked())
+    if (m_qtmm->isChecked())
+        return VideoBackend::QtMultimedia;
+    else if (m_vlc->isChecked())
         return VideoBackend::VLC;
     else
         return VideoBackend::Phonon;
@@ -105,14 +115,13 @@ VideoBackend VideoPlayerSelectorDialog::backend() const
 
 constexpr VideoBackends availableVideoBackends()
 {
-    VideoBackends availableBackends;
+    VideoBackends availableBackends = VideoBackend::QtMultimedia;
 #if LIBVLC_FOUND
     availableBackends |= VideoBackend::VLC;
 #endif
 #if Phonon4Qt6_FOUND
     availableBackends |= VideoBackend::Phonon;
 #endif
-    static_assert(LIBVLC_FOUND || Phonon4Qt6_FOUND, "A video backend must be provided. The build system should bail out if none is available.");
     return availableBackends;
 }
 
@@ -124,7 +133,7 @@ VideoBackend preferredVideoBackend(const VideoBackend configuredBackend, const V
     }
 
     // change backend priority here:
-    for (const VideoBackend candidate : { VideoBackend::Phonon, VideoBackend::VLC }) {
+    for (const VideoBackend candidate : { VideoBackend::QtMultimedia, VideoBackend::Phonon, VideoBackend::VLC }) {
         if (availableVideoBackends().testFlag(candidate) && !exclusions.testFlag(candidate)) {
             qCDebug(SettingsLog) << "preferredVideoBackend(): backend is viable:" << candidate;
             return candidate;
@@ -138,6 +147,9 @@ VideoBackend preferredVideoBackend(const VideoBackend configuredBackend, const V
 QString localizedEnumName(const VideoBackend backend)
 {
     switch (backend) {
+    case Settings::VideoBackend::QtMultimedia:
+        return i18nc("A friendly name for the video backend", "QtMultimedia video backend");
+        break;
     case VideoBackend::NotConfigured:
         return i18nc("A friendly name for the video backend", "Unconfigured video backend");
     case VideoBackend::Phonon:

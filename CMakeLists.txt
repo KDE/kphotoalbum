@@ -63,7 +63,7 @@ add_definitions(
 
 ########### dependencies  ###############
 
-find_package(Qt6 ${MINIMUM_QT6_VERSION} REQUIRED COMPONENTS Core Sql Xml Widgets DBus Test)
+find_package(Qt6 ${MINIMUM_QT6_VERSION} REQUIRED COMPONENTS Core Sql Xml Widgets DBus Test Multimedia MultimediaWidgets)
 find_package(Phonon4Qt6)
 find_package(LIBVLC)
 find_package(KF6 ${MINIMUM_KF6_VERSION} REQUIRED COMPONENTS Archive Completion Config CoreAddons I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons ColorScheme DocTools)
@@ -95,10 +95,6 @@ set_package_properties(Marble
     PURPOSE "Enables support for geographic map location using embedded GPS information."
     )
 set(HAVE_MARBLE ${Marble_FOUND})
-
-if(NOT Phonon4Qt6_FOUND AND NOT LIBVLC_FOUND)
-    message(FATAL_ERROR "A video backend must be provided. CMake failed to find any of Phonon and VLC")
-endif()
 
 set(libdatebar_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/DateBar/documentation.h"
@@ -246,6 +242,8 @@ set(libViewer_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/AnnotationHandler.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/SelectCategoryAndValue.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/SelectCategoryAndValue.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/QtMultimediaDisplay.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/QtMultimediaDisplay.h"
     )
 
 ki18n_wrap_ui(libViewer_SRCS
@@ -640,6 +638,7 @@ set(libRemoteControl_SRCS)
 set(libRemoteControl_LIBS)
 if(KPA_ENABLE_REMOTECONTROL)
     find_package(Qt6 ${MINIMUM_QT6_VERSION} REQUIRED COMPONENTS Network)
+    find_package(Qt6 REQUIRED COMPONENTS MultimediaWidgets)
     # requires cmake 3.12
     add_compile_definitions(KPA_ENABLE_REMOTECONTROL)
     set(libRemoteControl_LIBS Qt6::Network)
@@ -732,6 +731,8 @@ target_link_libraries(kphotoalbum
     Qt6::Xml
     Qt6::Widgets
     Qt6::DBus
+    Qt6::Multimedia
+    Qt6::MultimediaWidgets
     KPA::Base
     KPA::Thumbnails
     KPA::Exif

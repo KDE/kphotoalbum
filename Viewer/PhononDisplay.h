@@ -5,7 +5,6 @@
 
 #pragma once
 
-#include "AbstractDisplay.h"
 #include "VideoDisplay.h"
 
 #include <QResizeEvent>
@@ -32,9 +31,8 @@ public:
     bool isPlaying() const override;
     QImage screenShoot() override;
     void relativeSeek(int msec) override;
-
-Q_SIGNALS:
-    void stopped();
+    bool canRotate() override;
+    bool canZoom() override;
 
 public Q_SLOTS:
     void zoomIn() override;

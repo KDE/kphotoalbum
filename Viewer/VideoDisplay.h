@@ -22,6 +22,9 @@ public:
     virtual void restart() = 0;
 
 Q_SIGNALS:
+    /**
+     * @brief stopped is emitted when the playback is stopped (e.g. because it has reached the end)
+     */
     void stopped();
 };
 

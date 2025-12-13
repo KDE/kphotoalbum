@@ -404,9 +404,10 @@ setValueFunc_(setVideoBackend, VideoBackend, "Viewer"_L1, "videoBackend", static
         value = VideoBackend::NotConfigured;
 #endif
         break;
-    case VideoBackend::NotConfigured:
+    case Settings::VideoBackend::QtMultimedia:
+        value = VideoBackend::QtMultimedia;
         break;
-    default:
+    case VideoBackend::NotConfigured:
         qCWarning(BaseLog) << "Ignoring invalid configuration value for Viewer.videoBackend...";
         value = VideoBackend::NotConfigured;
     }

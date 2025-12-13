@@ -28,6 +28,7 @@
 #include "ImageDisplay.h"
 #include "InfoBox.h"
 #include "Logging.h"
+#include "QtMultimediaDisplay.h"
 #include <kpabase/config-kpa-videobackends.h>
 
 #if Phonon4Qt6_FOUND
@@ -384,41 +385,41 @@ void Viewer::ViewerWidget::createSkipMenu()
 
 void Viewer::ViewerWidget::createZoomMenu()
 {
-    QMenu *popup = new QMenu(m_popup);
-    popup->setTitle(i18nc("@action:inmenu", "Zoom"));
+    m_zoomMenu = new QMenu(m_popup);
+    m_zoomMenu->setTitle(i18nc("@action:inmenu", "Zoom"));
 
     // PENDING(blackie) Only for image display?
     QAction *action = m_actions->addAction(QString::fromLatin1("viewer-zoom-in"), this, &ViewerWidget::zoomIn);
     action->setText(i18nc("@action:inmenu", "Zoom In"));
     action->setShortcut(Qt::Key_Plus);
     m_actions->setShortcutsConfigurable(action, false);
-    popup->addAction(action);
+    m_zoomMenu->addAction(action);
 
     action = m_actions->addAction(QString::fromLatin1("viewer-zoom-out"), this, &ViewerWidget::zoomOut);
     action->setText(i18nc("@action:inmenu", "Zoom Out"));
     action->setShortcut(Qt::Key_Minus);
     m_actions->setShortcutsConfigurable(action, false);
-    popup->addAction(action);
+    m_zoomMenu->addAction(action);
 
     action = m_actions->addAction(QString::fromLatin1("viewer-zoom-full"), this, &ViewerWidget::zoomFull);
     action->setText(i18nc("@action:inmenu", "Full View"));
     action->setShortcut(Qt::Key_Period);
     m_actions->setShortcutsConfigurable(action, false);
-    popup->addAction(action);
+    m_zoomMenu->addAction(action);
 
     action = m_actions->addAction(QString::fromLatin1("viewer-zoom-pixel"), this, &ViewerWidget::zoomPixelForPixel);
     action->setText(i18nc("@action:inmenu", "Pixel for Pixel View"));
     action->setShortcut(Qt::Key_Equal);
     m_actions->setShortcutsConfigurable(action, false);
-    popup->addAction(action);
+    m_zoomMenu->addAction(action);
 
     action = m_actions->addAction(QString::fromLatin1("viewer-toggle-fullscreen"), this, &ViewerWidget::toggleFullScreen);
     action->setText(i18nc("@action:inmenu", "Toggle Full Screen"));
     action->setShortcuts(QList<QKeySequence>() << Qt::Key_F11 << Qt::Key_Return);
     action->setVisible(m_type == UsageType::FullFeaturedViewer);
-    popup->addAction(action);
+    m_zoomMenu->addAction(action);
 
-    m_popup->addMenu(popup);
+    m_popup->addMenu(m_zoomMenu);
 }
 
 void Viewer::ViewerWidget::createSlideShowMenu()
@@ -480,7 +481,12 @@ void Viewer::ViewerWidget::load()
     }
 
     setCurrentWidget(m_display);
-    m_infoBox->raise();
+    if (isVideo)
+        m_infoBox->hide();
+    else {
+        m_infoBox->show();
+        m_infoBox->raise();
+    }
 
     updateContextMenuState(isVideo);
 
@@ -555,6 +561,8 @@ void Viewer::ViewerWidget::contextMenuEvent(QContextMenuEvent *e)
 
         m_stop->setEnabled(m_videoDisplay->isPlaying());
     }
+    m_rotateMenu->setEnabled(m_display->canRotate());
+    m_zoomMenu->setEnabled(m_display->canZoom());
 
     m_popup->exec(e->globalPos());
     e->setAccepted(true);
@@ -1426,6 +1434,8 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSent
     }
 
     switch (backend) {
+    case Settings::VideoBackend::QtMultimedia:
+        return new QtMultimediaDisplay(parent);
     case Settings::VideoBackend::VLC:
 #if LIBVLC_FOUND
         return new VLCDisplay(parent);

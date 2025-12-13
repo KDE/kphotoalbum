@@ -21,6 +21,8 @@ class TextDisplay : public Viewer::AbstractDisplay
 public:
     explicit TextDisplay(QWidget *parent);
     void setText(const QString text);
+    bool canRotate() override;
+    bool canZoom() override;
 
 public Q_SLOTS:
     /* zooming doesn't make sense for textual display */

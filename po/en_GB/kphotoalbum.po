@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-24 00:41+0000\n"
+"POT-Creation-Date: 2025-12-14 00:40+0000\n"
 "PO-Revision-Date: 2024-11-01 14:04+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -1619,13 +1619,13 @@ msgid "Places"
 msgstr "Places"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:433
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:434
 #, kde-format
 msgid "Events"
 msgstr "Events"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:443
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:444
 #, kde-format
 msgid "untagged"
 msgstr "untagged"
@@ -4514,7 +4514,7 @@ msgstr "KPhotoAlbum Feature Status"
 msgid "Show Demo Videos"
 msgstr "Show Demo Videos"
 
-#: MainWindow/Window.cpp:1062 Viewer/ViewerWidget.cpp:197
+#: MainWindow/Window.cpp:1062 Viewer/ViewerWidget.cpp:198
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Show EXIF Info and file metadata"
@@ -6114,18 +6114,20 @@ msgstr "<h1>Choose a Video Player</h1>"
 #| "change the backend from Settings -> Viewer</font></b></p></html>"
 msgid ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
-"box for everyone.</p><p>KPhotoAlbum therefore comes with two different back-"
-"ends, choose the one that works the best for you</p><p><b>VLC</b> seems to "
-"be the best supported video player back-end, meaning it can play most video "
-"formats. It has one drawback though, it requires X11. If you use Wayland, "
-"then you will find that the videos shows up in a window of their own, and in "
-"this case VLC is likely not a very good fit for you. If on the other hand "
-"you do use X11 then VLC is likely your best choice.</p><p>Traditionally "
-"KPhotoAlbum has been using <b>Phonon</b> as the video player back-end. We've "
-"unfortunately seen it crash on many different video formats - possibly "
-"because our system wasn't correctly configured.</p><p><b><font color=red>You "
-"can at any time change the backend from Settings -> Viewer</font></b></p></"
-"html>"
+"box for everyone.</p><p>KPhotoAlbum therefore comes with three different "
+"back-ends, choose the one that works the best for you</p><p><b>VLC</b> seems "
+"to be the best supported video player back-end, meaning it can play most "
+"video formats. It has one drawback though, it requires X11. If you use "
+"Wayland, then you will find that the videos shows up in a window of their "
+"own, and in this case VLC is likely not a very good fit for you. If on the "
+"other hand you do use X11 then VLC is likely your best choice.</"
+"p><p>Traditionally KPhotoAlbum has been using <b>Phonon</b> as the video "
+"player back-end. We've unfortunately seen it crash on many different video "
+"formats - possibly because our system wasn't correctly configured.</"
+"p><p><b>QtMultimedia</b> is the newest video player back-end of the three. "
+"It is a standard component of Qt. Expect it to become the new default, and "
+"maybe only back-end.</p><p><b><font color=red>You can at any time change the "
+"backend from Settings -> Viewer</font></b></p></html>"
 msgstr ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
 "box for everyone.</p><p>KPhotoAlbum therefore comes with three different "
@@ -6141,13 +6143,13 @@ msgstr ""
 "p><p><b><font color=red>You can at any time change the backend from Settings "
 "-> Viewer</font></b></p></html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:49
-#: Settings/VideoPlayerSelectorDialog.cpp:58
+#: Settings/VideoPlayerSelectorDialog.cpp:55
+#: Settings/VideoPlayerSelectorDialog.cpp:64
 #, kde-format
 msgid " (NOT AVAILABLE)"
 msgstr " (NOT AVAILABLE)"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:84
+#: Settings/VideoPlayerSelectorDialog.cpp:92
 #, kde-format
 msgid ""
 "<html><h1>Missing back-end</h1>The back-ends which are not available are due "
@@ -6162,25 +6164,33 @@ msgstr ""
 "ends. If you on the other hand got KPhotoAlbum from your system, then please "
 "talk to the maintainer of the package.</html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:142
+#: Settings/VideoPlayerSelectorDialog.cpp:151
+#, fuzzy, kde-format
+#| msgctxt "A friendly name for the video backend"
+#| msgid "QtAV video backend"
+msgctxt "A friendly name for the video backend"
+msgid "QtMultimedia video backend"
+msgstr "QtAV video backend"
+
+#: Settings/VideoPlayerSelectorDialog.cpp:154
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
 msgstr "Unconfigured video backend"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:144
+#: Settings/VideoPlayerSelectorDialog.cpp:156
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
 msgstr "Phonon video backend"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:146
+#: Settings/VideoPlayerSelectorDialog.cpp:158
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
 msgstr "QtAV video backend"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:148
+#: Settings/VideoPlayerSelectorDialog.cpp:160
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
@@ -6191,57 +6201,57 @@ msgstr "VLC video backend"
 msgid "Not Configured"
 msgstr "Not Configured"
 
-#: Settings/ViewerPage.cpp:42
+#: Settings/ViewerPage.cpp:44
 #, kde-format
 msgid "Running Slide Show From Thumbnail View"
 msgstr "Running Slide Show From Thumbnail View"
 
-#: Settings/ViewerPage.cpp:45
+#: Settings/ViewerPage.cpp:47
 #, kde-format
 msgid "Viewing Images and Videos From Thumbnail View"
 msgstr "Viewing Images and Videos From Thumbnail View"
 
-#: Settings/ViewerPage.cpp:52
+#: Settings/ViewerPage.cpp:54
 #, kde-format
 msgid "Slideshow interval:"
 msgstr "Slideshow interval:"
 
-#: Settings/ViewerPage.cpp:58
+#: Settings/ViewerPage.cpp:60
 #, kde-format
 msgid " sec"
 msgstr " sec"
 
-#: Settings/ViewerPage.cpp:61
+#: Settings/ViewerPage.cpp:63
 #, kde-format
 msgid "Image cache:"
 msgstr "Image cache:"
 
-#: Settings/ViewerPage.cpp:67
+#: Settings/ViewerPage.cpp:69
 #, kde-format
 msgid " Mbytes"
 msgstr " Mbytes"
 
-#: Settings/ViewerPage.cpp:73
+#: Settings/ViewerPage.cpp:75
 #, kde-format
 msgid "Standard size in viewer:"
 msgstr "Standard size in viewer:"
 
-#: Settings/ViewerPage.cpp:75
+#: Settings/ViewerPage.cpp:77
 #, kde-format
 msgid "Full Viewer Size"
 msgstr "Full Viewer Size"
 
-#: Settings/ViewerPage.cpp:75
+#: Settings/ViewerPage.cpp:77
 #, kde-format
 msgid "Natural Image Size"
 msgstr "Natural Image Size"
 
-#: Settings/ViewerPage.cpp:75
+#: Settings/ViewerPage.cpp:77
 #, kde-format
 msgid "Natural Image Size If Possible"
 msgstr "Natural Image Size If Possible"
 
-#: Settings/ViewerPage.cpp:80
+#: Settings/ViewerPage.cpp:82
 #, kde-format
 msgid ""
 "<p>Set the standard size for images to be displayed in the viewer.</p> "
@@ -6260,22 +6270,22 @@ msgstr ""
 "pixel if it would fit the window, otherwise it will be shrunk to fit the "
 "viewer.</p>"
 
-#: Settings/ViewerPage.cpp:87
+#: Settings/ViewerPage.cpp:89
 #, kde-format
 msgid "Scaling algorithm:"
 msgstr "Scaling algorithm:"
 
-#: Settings/ViewerPage.cpp:89
+#: Settings/ViewerPage.cpp:91
 #, kde-format
 msgid "Fastest"
 msgstr "Fastest"
 
-#: Settings/ViewerPage.cpp:89
+#: Settings/ViewerPage.cpp:91
 #, kde-format
 msgid "Best"
 msgstr "Best"
 
-#: Settings/ViewerPage.cpp:94
+#: Settings/ViewerPage.cpp:96
 #, kde-format
 msgid ""
 "<p>When displaying images, KPhotoAlbum normally performs smooth scaling of "
@@ -6286,7 +6296,7 @@ msgstr ""
 "the image. If this option is not set, KPhotoAlbum will use a faster but less "
 "smooth scaling method.</p>"
 
-#: Settings/ViewerPage.cpp:99
+#: Settings/ViewerPage.cpp:101
 #, kde-format
 msgid "Video Backend:"
 msgstr "Video Backend:"
@@ -6643,7 +6653,7 @@ msgstr "Set"
 msgid "Insufficient color depth for this filter"
 msgstr "Insufficient colour depth for this filter"
 
-#: Viewer/ImageDisplay.cpp:450
+#: Viewer/ImageDisplay.cpp:460
 #, kde-format
 msgid "[ zoom x%1 ]"
 msgstr "[ zoom x%1 ]"
@@ -6653,7 +6663,7 @@ msgstr "[ zoom x%1 ]"
 msgid "Show the geographic position of this image on a map"
 msgstr "Show the geographic position of this image on a map"
 
-#: Viewer/PhononDisplay.cpp:183
+#: Viewer/PhononDisplay.cpp:183 Viewer/QtMultimediaDisplay.cpp:94
 #, kde-format
 msgid "Error playing media"
 msgstr "Error playing media"
@@ -6714,248 +6724,248 @@ msgstr "Title"
 msgid "Existing Assignments"
 msgstr "Existing Assignments"
 
-#: Viewer/ViewerWidget.cpp:191
+#: Viewer/ViewerWidget.cpp:192
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
 msgstr "Set as First Image in Stack"
 
-#: Viewer/ViewerWidget.cpp:203
+#: Viewer/ViewerWidget.cpp:204
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
 msgstr "Copy image to ..."
 
-#: Viewer/ViewerWidget.cpp:209
+#: Viewer/ViewerWidget.cpp:210
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
 msgstr "Link image to ..."
 
-#: Viewer/ViewerWidget.cpp:217
+#: Viewer/ViewerWidget.cpp:218
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Close"
 
-#: Viewer/ViewerWidget.cpp:279
+#: Viewer/ViewerWidget.cpp:280
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "Rotate"
 
-#: Viewer/ViewerWidget.cpp:290
+#: Viewer/ViewerWidget.cpp:291
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
 msgstr "Rotate clockwise"
 
-#: Viewer/ViewerWidget.cpp:291
+#: Viewer/ViewerWidget.cpp:292
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
 msgstr "Flip Over"
 
-#: Viewer/ViewerWidget.cpp:292
+#: Viewer/ViewerWidget.cpp:293
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
 msgstr "Rotate anticlockwise"
 
-#: Viewer/ViewerWidget.cpp:303
+#: Viewer/ViewerWidget.cpp:304
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "Skip"
 
-#: Viewer/ViewerWidget.cpp:306
+#: Viewer/ViewerWidget.cpp:307
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "First"
 
-#: Viewer/ViewerWidget.cpp:313
+#: Viewer/ViewerWidget.cpp:314
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "Last"
 
-#: Viewer/ViewerWidget.cpp:320
+#: Viewer/ViewerWidget.cpp:321
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
 msgstr "Show Next"
 
-#: Viewer/ViewerWidget.cpp:326
+#: Viewer/ViewerWidget.cpp:327
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "Skip 10 Forwards"
 
-#: Viewer/ViewerWidget.cpp:332
+#: Viewer/ViewerWidget.cpp:333
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "Skip 100 Forwards"
 
-#: Viewer/ViewerWidget.cpp:338
+#: Viewer/ViewerWidget.cpp:339
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "Skip 1000 Forwards"
 
-#: Viewer/ViewerWidget.cpp:344
+#: Viewer/ViewerWidget.cpp:345
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "Show Previous"
 
-#: Viewer/ViewerWidget.cpp:350
+#: Viewer/ViewerWidget.cpp:351
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "Skip 10 Backwards"
 
-#: Viewer/ViewerWidget.cpp:356
+#: Viewer/ViewerWidget.cpp:357
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "Skip 100 Backwards"
 
-#: Viewer/ViewerWidget.cpp:362
+#: Viewer/ViewerWidget.cpp:363
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "Skip 1000 Backwards"
 
-#: Viewer/ViewerWidget.cpp:368
+#: Viewer/ViewerWidget.cpp:369
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "Delete Image"
 
-#: Viewer/ViewerWidget.cpp:373
+#: Viewer/ViewerWidget.cpp:374
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
 msgstr "Remove Image from Display List"
 
-#: Viewer/ViewerWidget.cpp:388
+#: Viewer/ViewerWidget.cpp:389
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "Zoom"
 
-#: Viewer/ViewerWidget.cpp:392
+#: Viewer/ViewerWidget.cpp:393
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "Zoom In"
 
-#: Viewer/ViewerWidget.cpp:398
+#: Viewer/ViewerWidget.cpp:399
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "Zoom Out"
 
-#: Viewer/ViewerWidget.cpp:404
+#: Viewer/ViewerWidget.cpp:405
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "Full View"
 
-#: Viewer/ViewerWidget.cpp:410
+#: Viewer/ViewerWidget.cpp:411
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
 msgstr "Pixel for Pixel View"
 
-#: Viewer/ViewerWidget.cpp:416
+#: Viewer/ViewerWidget.cpp:417
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "Toggle Full Screen"
 
-#: Viewer/ViewerWidget.cpp:427
+#: Viewer/ViewerWidget.cpp:428
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Slideshow"
 
-#: Viewer/ViewerWidget.cpp:430 Viewer/ViewerWidget.cpp:904
+#: Viewer/ViewerWidget.cpp:431 Viewer/ViewerWidget.cpp:912
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "Run Slideshow"
 
-#: Viewer/ViewerWidget.cpp:435
+#: Viewer/ViewerWidget.cpp:436
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
 msgstr "Run Faster"
 
-#: Viewer/ViewerWidget.cpp:440
+#: Viewer/ViewerWidget.cpp:441
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
 msgstr "Run Slower"
 
-#: Viewer/ViewerWidget.cpp:478
+#: Viewer/ViewerWidget.cpp:479
 #, kde-format
 msgid "File not available"
 msgstr "File not available"
 
-#: Viewer/ViewerWidget.cpp:516
+#: Viewer/ViewerWidget.cpp:522
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
 msgstr "%1 %2"
 
-#: Viewer/ViewerWidget.cpp:552
+#: Viewer/ViewerWidget.cpp:558
 #, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
 msgstr "Play"
 
-#: Viewer/ViewerWidget.cpp:554
+#: Viewer/ViewerWidget.cpp:560
 #, kde-format
 msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "Pause"
 
-#: Viewer/ViewerWidget.cpp:622
+#: Viewer/ViewerWidget.cpp:630
 #, kde-format
 msgid "locked"
 msgstr "locked"
 
-#: Viewer/ViewerWidget.cpp:624
+#: Viewer/ViewerWidget.cpp:632
 #, kde-format
 msgid "annotating"
 msgstr "annotating"
 
-#: Viewer/ViewerWidget.cpp:626
+#: Viewer/ViewerWidget.cpp:634
 #, kde-format
 msgid "tokenizing"
 msgstr "tokenising"
 
-#: Viewer/ViewerWidget.cpp:631
+#: Viewer/ViewerWidget.cpp:639
 #, kde-format
 msgid "Change display mode to %1"
 msgstr "Change display mode to %1"
 
-#: Viewer/ViewerWidget.cpp:907
+#: Viewer/ViewerWidget.cpp:915
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
 msgstr "Ending Slideshow"
 
-#: Viewer/ViewerWidget.cpp:910
+#: Viewer/ViewerWidget.cpp:918
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "Stop Slideshow"
 
-#: Viewer/ViewerWidget.cpp:915
+#: Viewer/ViewerWidget.cpp:923
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
@@ -6965,145 +6975,145 @@ msgstr ""
 "Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
 "slideshow slower"
 
-#: Viewer/ViewerWidget.cpp:965
+#: Viewer/ViewerWidget.cpp:973
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
 msgstr "%1&nbsp;s"
 
-#: Viewer/ViewerWidget.cpp:1227
+#: Viewer/ViewerWidget.cpp:1235
 #, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
 msgstr "Edit Image Description"
 
-#: Viewer/ViewerWidget.cpp:1227
+#: Viewer/ViewerWidget.cpp:1235
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
 msgstr "Image Description"
 
-#: Viewer/ViewerWidget.cpp:1242
+#: Viewer/ViewerWidget.cpp:1250
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Seek"
 
-#: Viewer/ViewerWidget.cpp:1264
+#: Viewer/ViewerWidget.cpp:1272
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "10 minutes backwards"
 
-#: Viewer/ViewerWidget.cpp:1265
+#: Viewer/ViewerWidget.cpp:1273
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "1 minute backwards"
 
-#: Viewer/ViewerWidget.cpp:1266
+#: Viewer/ViewerWidget.cpp:1274
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "10 seconds backwards"
 
-#: Viewer/ViewerWidget.cpp:1267
+#: Viewer/ViewerWidget.cpp:1275
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "1 seconds backwards"
 
-#: Viewer/ViewerWidget.cpp:1268
+#: Viewer/ViewerWidget.cpp:1276
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "100 milliseconds backwards"
 
-#: Viewer/ViewerWidget.cpp:1269
+#: Viewer/ViewerWidget.cpp:1277
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "100 milliseconds forwards"
 
-#: Viewer/ViewerWidget.cpp:1270
+#: Viewer/ViewerWidget.cpp:1278
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "1 seconds forwards"
 
-#: Viewer/ViewerWidget.cpp:1271
+#: Viewer/ViewerWidget.cpp:1279
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "10 seconds forwards"
 
-#: Viewer/ViewerWidget.cpp:1272
+#: Viewer/ViewerWidget.cpp:1280
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "1 minute forwards"
 
-#: Viewer/ViewerWidget.cpp:1273
+#: Viewer/ViewerWidget.cpp:1281
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "10 minutes forwards"
 
-#: Viewer/ViewerWidget.cpp:1281
+#: Viewer/ViewerWidget.cpp:1289
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Stop"
 
-#: Viewer/ViewerWidget.cpp:1293
+#: Viewer/ViewerWidget.cpp:1301
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "Use current frame in thumbnail view"
 
-#: Viewer/ViewerWidget.cpp:1300
+#: Viewer/ViewerWidget.cpp:1308
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Restart"
 
-#: Viewer/ViewerWidget.cpp:1316
+#: Viewer/ViewerWidget.cpp:1324
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Filters"
 
-#: Viewer/ViewerWidget.cpp:1319
+#: Viewer/ViewerWidget.cpp:1327
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Remove All Filters"
 
-#: Viewer/ViewerWidget.cpp:1323
+#: Viewer/ViewerWidget.cpp:1331
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Apply Greyscale Filter"
 
-#: Viewer/ViewerWidget.cpp:1328
+#: Viewer/ViewerWidget.cpp:1336
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Apply Contrast Stretching Filter"
 
-#: Viewer/ViewerWidget.cpp:1333
+#: Viewer/ViewerWidget.cpp:1341
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "Apply Histogram Equalisation Filter"
 
-#: Viewer/ViewerWidget.cpp:1338
+#: Viewer/ViewerWidget.cpp:1346
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "Apply Monochrome Filter"
 
-#: Viewer/ViewerWidget.cpp:1394
+#: Viewer/ViewerWidget.cpp:1402
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -7114,7 +7124,7 @@ msgstr ""
 "some platforms, this is a common problem with some video players.</"
 "p><p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>"
 
-#: Viewer/ViewerWidget.cpp:1398
+#: Viewer/ViewerWidget.cpp:1406
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
@@ -7123,7 +7133,7 @@ msgstr ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
 "will be used instead: <tt>%2</tt></p>"
 
-#: Viewer/ViewerWidget.cpp:1411
+#: Viewer/ViewerWidget.cpp:1419
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
@@ -7132,101 +7142,101 @@ msgstr ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
 "crashed at some point.</p><p>Crash detection is now turned off.</p>"
 
-#: Viewer/ViewerWidget.cpp:1469
+#: Viewer/ViewerWidget.cpp:1479
 #, kde-format
 msgid "Annotate"
 msgstr "Annotate"
 
-#: Viewer/ViewerWidget.cpp:1488
+#: Viewer/ViewerWidget.cpp:1498
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "Help"
 
-#: Viewer/ViewerWidget.cpp:1490
+#: Viewer/ViewerWidget.cpp:1500
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Annotation Dialogue Box"
 
-#: Viewer/ViewerWidget.cpp:1491
+#: Viewer/ViewerWidget.cpp:1501
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Add tag"
 
-#: Viewer/ViewerWidget.cpp:1491
+#: Viewer/ViewerWidget.cpp:1501
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "CTRL+a"
 
-#: Viewer/ViewerWidget.cpp:1494
+#: Viewer/ViewerWidget.cpp:1504
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "Copy Data from Previous Image"
 
-#: Viewer/ViewerWidget.cpp:1495
+#: Viewer/ViewerWidget.cpp:1505
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "CTRL+c"
 
-#: Viewer/ViewerWidget.cpp:1498
+#: Viewer/ViewerWidget.cpp:1508
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Edit Description"
 
-#: Viewer/ViewerWidget.cpp:1499
+#: Viewer/ViewerWidget.cpp:1509
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "CTRL+d"
 
-#: Viewer/ViewerWidget.cpp:1502
+#: Viewer/ViewerWidget.cpp:1512
 #, kde-format
 msgid "Annotation Mode"
 msgstr "Annotation Mode"
 
-#: Viewer/ViewerWidget.cpp:1504
+#: Viewer/ViewerWidget.cpp:1514
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "Locked"
 
-#: Viewer/ViewerWidget.cpp:1505
+#: Viewer/ViewerWidget.cpp:1515
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "CTRL+l"
 
-#: Viewer/ViewerWidget.cpp:1509
+#: Viewer/ViewerWidget.cpp:1519
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "Assign Tags"
 
-#: Viewer/ViewerWidget.cpp:1510
+#: Viewer/ViewerWidget.cpp:1520
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1513
+#: Viewer/ViewerWidget.cpp:1523
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Assign Tokens"
 
-#: Viewer/ViewerWidget.cpp:1514
+#: Viewer/ViewerWidget.cpp:1524
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "CTRL+t"
 
-#: Viewer/ViewerWidget.cpp:1677
+#: Viewer/ViewerWidget.cpp:1687
 #, kde-format
 msgid "Token %1"
 msgstr "Token %1"

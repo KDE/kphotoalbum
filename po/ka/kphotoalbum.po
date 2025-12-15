@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-14 00:40+0000\n"
-"PO-Revision-Date: 2025-11-24 06:32+0100\n"
+"PO-Revision-Date: 2025-12-14 06:27+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -5708,12 +5708,10 @@ msgid ""
 msgstr ""
 
 #: Settings/VideoPlayerSelectorDialog.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "A friendly name for the video backend"
-#| msgid "QtAV video backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
-msgstr "ვიდეო უკანაბოლო QtAV"
+msgstr "QtMultimedia-ის ვიდეო უკანაბოლო"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:154
 #, kde-format

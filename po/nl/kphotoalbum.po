@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-14 00:40+0000\n"
-"PO-Revision-Date: 2025-11-24 12:00+0100\n"
+"PO-Revision-Date: 2025-12-14 14:40+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -6159,21 +6159,7 @@ msgid "<h1>Choose a Video Player</h1>"
 msgstr "<h1>Een videospeler kiezen</h1>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:29
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html><p>Unfortunately, there is no video player which just works out of "
-#| "the box for everyone.</p><p>KPhotoAlbum therefore comes with two "
-#| "different back-ends, choose the one that works the best for you</"
-#| "p><p><b>VLC</b> seems to be the best supported video player back-end, "
-#| "meaning it can play most video formats. It has one drawback though, it "
-#| "requires X11. If you use Wayland, then you will find that the videos "
-#| "shows up in a window of their own, and in this case VLC is likely not a "
-#| "very good fit for you. If on the other hand you do use X11 then VLC is "
-#| "likely your best choice.</p><p>Traditionally KPhotoAlbum has been using "
-#| "<b>Phonon</b> as the video player back-end. We've unfortunately seen it "
-#| "crash on many different video formats - possibly because our system "
-#| "wasn't correctly configured.</p><p><b><font color=red>You can at any time "
-#| "change the backend from Settings -> Viewer</font></b></p></html>"
+#, kde-format
 msgid ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
 "box for everyone.</p><p>KPhotoAlbum therefore comes with three different "
@@ -6192,7 +6178,7 @@ msgid ""
 "backend from Settings -> Viewer</font></b></p></html>"
 msgstr ""
 "<html><p>Er zijn helaas geen videospelers die voor iedereen gewoon werken "
-"werken.</p><p>KPhotoAlbum komt daarom met twee verschillende back-ends, kies "
+"werken.</p><p>KPhotoAlbum komt daarom met drie verschillende back-ends, kies "
 "diegene die het best voor u werkt</p><p><b>VLC</b> lijkt de best "
 "ondersteunde videospelerback-end te zijn, wat betekent dat het de meeste "
 "videoformaten kan afspelen. Het heeft echter één nadeel, het vereist X11. "
@@ -6202,8 +6188,11 @@ msgstr ""
 "beste keuze.</p><p>Traditioneel gebruikte KPhotoAlbum <b>Phonon</b> als de "
 "videospelerback-end. Helaas hebben we het zien crashen op veel verschillende "
 "videoformaten - mogelijk omdat ons systeem niet juist was geconfigureerd.</"
-"p><p><b><font color=red>U kunt op elk moment de backend uit Instellingen -> "
-"Viewer wijzigen</font></b></p></html>"
+"p><p><b>QtMultimedia</b> is de nieuwste videospelerback-end van de drie. Het "
+"is een standaard component van Qt. er wordt verwacht dat het de nieuwe "
+"standaard zal worden en misschien de enige back-end.</p><p><b><font "
+"color=red>U kunt op elk moment de backend uit Instellingen -> Viewer "
+"wijzigen</font></b></p></html>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:55
 #: Settings/VideoPlayerSelectorDialog.cpp:64
@@ -6227,12 +6216,10 @@ msgstr ""
 "neem dan contact op met de onderhouder van het pakket.</html>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "A friendly name for the video backend"
-#| msgid "QtAV video backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
-msgstr "Videobackend QtAV"
+msgstr "QtMultimedia videoback-end"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:154
 #, kde-format

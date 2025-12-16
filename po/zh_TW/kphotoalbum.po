@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-14 00:40+0000\n"
-"PO-Revision-Date: 2025-04-20 14:29+0900\n"
+"PO-Revision-Date: 2025-12-16 21:17+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 25.04.0\n"
+"X-Generator: Lokalize 26.03.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -233,10 +233,9 @@ msgid "Append new text to each description"
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:441
-#, fuzzy, kde-format
-#| msgid "Places"
+#, kde-format
 msgid "Replace"
-msgstr "地方"
+msgstr "取代"
 
 #: AnnotationDialog/Dialog.cpp:442
 #, kde-format
@@ -688,7 +687,7 @@ msgstr "這個標籤要加入的新標籤群組的名稱："
 #: AnnotationDialog/ListSelect.cpp:521
 #, kde-format
 msgid "Add a tag"
-msgstr ""
+msgstr "新增標籤"
 
 #: AnnotationDialog/ListSelect.cpp:522
 #, kde-format
@@ -775,10 +774,9 @@ msgid "Extract Video Thumbnail"
 msgstr "取出影片縮圖"
 
 #: BackgroundJobs/ReadVideoMetaDataJob.cpp:38
-#, fuzzy, kde-format
-#| msgid "Read Video Length"
+#, kde-format
 msgid "Read Video Metadata"
-msgstr "讀取影片長度"
+msgstr "讀取影片中繼資料"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
@@ -1590,10 +1588,9 @@ msgstr ""
 "<p>無法將影像資料庫儲存到 XML。</p>檔案 %1 無法開啟，因為發生以下的錯誤：%2"
 
 #: DB/XML/FileWriter.cpp:82 DB/XML/FileWriter.cpp:118 DB/XML/FileWriter.cpp:127
-#, fuzzy, kde-format
-#| msgid "Error when saving image '%1'."
+#, kde-format
 msgid "Error while saving..."
-msgstr "儲存影像 %1 時發生錯誤"
+msgstr "儲存時發生錯誤..."
 
 #: DB/XML/FileWriter.cpp:115
 #, kde-format
@@ -1678,11 +1675,10 @@ msgid "Error while reading database file"
 msgstr "轉換資料庫"
 
 #: Exif/InfoDialog.cpp:35
-#, fuzzy, kde-format
-#| msgid "EXIF Information"
+#, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
-msgstr "EXIF 資訊"
+msgstr "Exif 資訊和檔案中繼資料"
 
 #: Exif/InfoDialog.cpp:75
 #, kde-format
@@ -1697,16 +1693,14 @@ msgid "IPTC character set:"
 msgstr "IPTC 字元集："
 
 #: Exif/InfoDialog.cpp:98
-#, fuzzy, kde-format
-#| msgid "Exif Info"
+#, kde-format
 msgid "Exif info"
 msgstr "Exif 資訊"
 
 #: Exif/InfoDialog.cpp:99
-#, fuzzy, kde-format
-#| msgid "Video support"
+#, kde-format
 msgid "File metadata"
-msgstr "影片支援"
+msgstr "檔案中繼資料"
 
 #: Exif/MetaDataDisplay.cpp:37
 #, kde-format
@@ -1783,13 +1777,12 @@ msgid "x"
 msgstr "x"
 
 #: Exif/MetaDataDisplay.cpp:157
-#, fuzzy, kde-format
-#| msgid "%1 (by %2)"
+#, kde-format
 msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and its octal representation (e.g. \"0644\")"
 msgid "%1 (%2)"
-msgstr "%1（由 %2）"
+msgstr "%1 (%2)"
 
 #: Exif/ReReadDialog.cpp:28
 #, kde-format
@@ -2127,10 +2120,9 @@ msgid "Destination"
 msgstr "目的地"
 
 #: HTMLGenerator/HTMLDialog.cpp:297
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgid "Base folder:"
-msgstr "基礎目錄："
+msgstr "基礎資料夾："
 
 #: HTMLGenerator/HTMLDialog.cpp:314
 #, kde-format
@@ -2138,16 +2130,14 @@ msgid "Gallery folder:"
 msgstr "相簿資料夾："
 
 #: HTMLGenerator/HTMLDialog.cpp:321
-#, fuzzy, kde-format
-#| msgid "Output directory:"
+#, kde-format
 msgid "Output folder:"
-msgstr "輸出目錄："
+msgstr "輸出資料夾："
 
 #: HTMLGenerator/HTMLDialog.cpp:332
-#, fuzzy, kde-format
-#| msgid "URL for final destination:"
+#, kde-format
 msgid "URL for final destination of .kim file:"
-msgstr "最後描述的網址："
+msgstr ".kim 檔案最終目的地的網址："
 
 #: HTMLGenerator/HTMLDialog.cpp:334
 #, kde-format
@@ -2792,7 +2782,7 @@ msgstr "合併資料"
 #: ImportExport/MD5CheckPage.cpp:68
 #, kde-format
 msgid "Date and Time"
-msgstr "日期與時間/li>"
+msgstr "日期與時間"
 
 #: kpa-thumbnailtool/main.cpp:32
 #, kde-format
@@ -2818,28 +2808,24 @@ msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
 msgstr "Copyright (c) 2003-2024 KPhotoAlbum 開發團隊"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:98
-#, fuzzy, kde-format
-#| msgid "Johannes Zarl"
+#, kde-format
 msgid "Johannes Zarl-Zierl"
-msgstr "Johannes Zarl"
+msgstr "Johannes Zarl-Zierl"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:98
-#, fuzzy, kde-format
-#| msgid "Development"
+#, kde-format
 msgid "Development, Maintainer"
-msgstr "程式開發"
+msgstr "開發、維護者"
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:99
-#, fuzzy, kde-format
-#| msgid "Robert L Krawitz"
+#, kde-format
 msgid "Robert Krawitz"
-msgstr "Robert L Krawitz"
+msgstr "Robert Krawitz"
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:99
-#, fuzzy, kde-format
-#| msgid "Development"
+#, kde-format
 msgid "Development, Optimization"
-msgstr "程式開發"
+msgstr "開發、效能改善"
 
 #: kpa-thumbnailtool/main.cpp:58 main.cpp:100
 #, kde-format
@@ -3329,11 +3315,7 @@ msgid "Stack images created within the following time-frame:"
 msgstr ""
 
 #: MainWindow/AutoStackImages.cpp:87
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "The whole sentence should read: *Stack images that are shot within x "
-#| "seconds of each other*. (This being the text after x.)"
-#| msgid "seconds"
+#, kde-format
 msgctxt "Unit suffix on a QSpinBox; note the space at the beginning."
 msgid " seconds"
 msgstr " 秒"
@@ -4371,10 +4353,9 @@ msgid "Recreate Exif Search Database"
 msgstr "重建 Exif 搜尋資料庫"
 
 #: MainWindow/Window.cpp:1020
-#, fuzzy, kde-format
-#| msgid "Read EXIF Info From Files..."
+#, kde-format
 msgid "Read Metadata from Files..."
-msgstr "從檔案中讀取 EXIF..."
+msgstr "從檔案中讀取中繼資料..."
 
 #: MainWindow/Window.cpp:1023
 #, kde-format
@@ -4392,10 +4373,9 @@ msgid "Build Thumbnails"
 msgstr "建立縮圖"
 
 #: MainWindow/Window.cpp:1033
-#, fuzzy, kde-format
-#| msgid "Statistics"
+#, kde-format
 msgid "Statistics..."
-msgstr "統計"
+msgstr "統計..."
 
 #: MainWindow/Window.cpp:1037
 #, kde-format
@@ -4423,10 +4403,9 @@ msgid "Show Demo Videos"
 msgstr "顯示範例影片"
 
 #: MainWindow/Window.cpp:1062 Viewer/ViewerWidget.cpp:198
-#, fuzzy, kde-format
-#| msgid "Show Exif Info"
+#, kde-format
 msgid "Show Exif Info and file metadata"
-msgstr "顯示 Exif 資訊"
+msgstr "顯示 Exif 資訊和檔案中繼資料"
 
 #: MainWindow/Window.cpp:1068
 #, kde-format
@@ -4781,10 +4760,9 @@ msgid "<i>Select an item on the left to edit the birthday</i>"
 msgstr "<i>從左側選擇項目來編輯其生日</i>"
 
 #: Settings/CategoryPage.cpp:49
-#, fuzzy, kde-format
-#| msgid "Categories"
+#, kde-format
 msgid "Category Settings"
-msgstr "類別"
+msgstr "類別設定"
 
 #: Settings/CategoryPage.cpp:70
 #, kde-format
@@ -4792,10 +4770,9 @@ msgid "New"
 msgstr "新增"
 
 #: Settings/CategoryPage.cpp:78
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgid "Rename"
-msgstr "重新命名..."
+msgstr "重新命名"
 
 #: Settings/CategoryPage.cpp:111
 #, kde-format
@@ -5950,12 +5927,10 @@ msgid ""
 msgstr ""
 
 #: Settings/VideoPlayerSelectorDialog.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "A friendly name for the video backend"
-#| msgid "QtAV video backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
-msgstr "QtAV 影片後端"
+msgstr "QtMultimedia 影片後端"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:154
 #, kde-format
@@ -6303,12 +6278,10 @@ msgid " (%1 ago)"
 msgstr " (%1 前)"
 
 #: Utilities/Timespan.cpp:162
-#, fuzzy, kde-format
-#| msgctxt "short for: x megapixels"
-#| msgid " (%1MP)"
+#, kde-format
 msgctxt "Like \"6 to 7 years ago\""
 msgid " (%1 to %2 ago)"
-msgstr "（%1百萬像素）"
+msgstr " (%1 到 %2 前)"
 
 #: Utilities/Timespan.cpp:177
 #, kde-format

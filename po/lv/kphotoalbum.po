@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-14 00:40+0000\n"
+"POT-Creation-Date: 2025-12-18 00:41+0000\n"
 "PO-Revision-Date: 2025-11-11 18:42+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -2733,34 +2733,34 @@ msgstr "Kļūda, izveidojot mapi „%1“"
 msgid "How to resolve clashes"
 msgstr "Kā atrisināt sadursmes"
 
-#: ImportExport/ImportHandler.cpp:93 ImportExport/ImportHandler.cpp:155
+#: ImportExport/ImportHandler.cpp:97 ImportExport/ImportHandler.cpp:159
 #, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "Kopēt attēlus"
 
-#: ImportExport/ImportHandler.cpp:170
+#: ImportExport/ImportHandler.cpp:174
 #, kde-format
 msgid "Error when writing image %1"
 msgstr "Kļūda,rakstot attēlu „%1“"
 
-#: ImportExport/ImportHandler.cpp:189
+#: ImportExport/ImportHandler.cpp:193
 #, kde-format
 msgid "Updating Database"
 msgstr "Atjaunina datubāzi"
 
-#: ImportExport/ImportHandler.cpp:234
+#: ImportExport/ImportHandler.cpp:238
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
 msgstr "Neizdodas kopēt no šīm vietām:"
 
-#: ImportExport/ImportHandler.cpp:235
+#: ImportExport/ImportHandler.cpp:239
 #, kde-format
 msgctxt "@title"
 msgid "Copy failed"
 msgstr "Kopēšanas neizdevās"
 
-#: ImportExport/ImportHandler.cpp:241
+#: ImportExport/ImportHandler.cpp:245
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"

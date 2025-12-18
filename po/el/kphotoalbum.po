@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-14 00:40+0000\n"
+"POT-Creation-Date: 2025-12-18 00:41+0000\n"
 "PO-Revision-Date: 2017-10-16 18:16+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -2825,35 +2825,35 @@ msgstr "Σφάλμα κατά τη δημιουργία του συμπιεσμ�
 msgid "How to resolve clashes"
 msgstr "Μέθοδος χειρισμού συγκρούσεων"
 
-#: ImportExport/ImportHandler.cpp:93 ImportExport/ImportHandler.cpp:155
+#: ImportExport/ImportHandler.cpp:97 ImportExport/ImportHandler.cpp:159
 #, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "Αντιγραφή εικόνων"
 
-#: ImportExport/ImportHandler.cpp:170
+#: ImportExport/ImportHandler.cpp:174
 #, kde-format
 msgid "Error when writing image %1"
 msgstr "Σφάλμα κατά την εγγραφή της εικόνας %1"
 
-#: ImportExport/ImportHandler.cpp:189
+#: ImportExport/ImportHandler.cpp:193
 #, kde-format
 msgid "Updating Database"
 msgstr "Ενημέρωση βάσης δεδομένων"
 
-#: ImportExport/ImportHandler.cpp:234
+#: ImportExport/ImportHandler.cpp:238
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
 msgstr "Αδυναμία αντιγραφής αρχείου από τις παρακάτω τοποθεσίες:"
 
-#: ImportExport/ImportHandler.cpp:235
+#: ImportExport/ImportHandler.cpp:239
 #, fuzzy, kde-format
 #| msgid "Copying image files"
 msgctxt "@title"
 msgid "Copy failed"
 msgstr "Αντιγραφή αρχείων εικόνας"
 
-#: ImportExport/ImportHandler.cpp:241
+#: ImportExport/ImportHandler.cpp:245
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"

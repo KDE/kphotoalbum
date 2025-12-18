@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-14 00:40+0000\n"
+"POT-Creation-Date: 2025-12-18 00:41+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -2716,34 +2716,34 @@ msgstr "%1 पुटस्य निर्माणे त्रुटिः"
 msgid "How to resolve clashes"
 msgstr "संघर्षस्य समाधानं कथं करणीयम्"
 
-#: ImportExport/ImportHandler.cpp:93 ImportExport/ImportHandler.cpp:155
+#: ImportExport/ImportHandler.cpp:97 ImportExport/ImportHandler.cpp:159
 #, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "चित्राणां प्रतिलिपिः"
 
-#: ImportExport/ImportHandler.cpp:170
+#: ImportExport/ImportHandler.cpp:174
 #, kde-format
 msgid "Error when writing image %1"
 msgstr "%1 प्रतिबिम्बं लिखन्ते सति त्रुटिः"
 
-#: ImportExport/ImportHandler.cpp:189
+#: ImportExport/ImportHandler.cpp:193
 #, kde-format
 msgid "Updating Database"
 msgstr "दत्तांशकोशस्य अद्यतनीकरणम्"
 
-#: ImportExport/ImportHandler.cpp:234
+#: ImportExport/ImportHandler.cpp:238
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
 msgstr "निम्नलिखितस्थानेषु कस्मात् अपि प्रतिलिपिं कर्तुं न शक्यते:"
 
-#: ImportExport/ImportHandler.cpp:235
+#: ImportExport/ImportHandler.cpp:239
 #, kde-format
 msgctxt "@title"
 msgid "Copy failed"
 msgstr "प्रतिलिपिः असफलः अभवत्"
 
-#: ImportExport/ImportHandler.cpp:241
+#: ImportExport/ImportHandler.cpp:245
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"

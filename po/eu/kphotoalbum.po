@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-14 00:40+0000\n"
+"POT-Creation-Date: 2025-12-18 00:41+0000\n"
 "PO-Revision-Date: 2025-12-14 18:55+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -2741,34 +2741,34 @@ msgstr "Errorea %1 karpeta sortzean"
 msgid "How to resolve clashes"
 msgstr "Nola konpondu talkak"
 
-#: ImportExport/ImportHandler.cpp:93 ImportExport/ImportHandler.cpp:155
+#: ImportExport/ImportHandler.cpp:97 ImportExport/ImportHandler.cpp:159
 #, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "Irudiak kopiatzen"
 
-#: ImportExport/ImportHandler.cpp:170
+#: ImportExport/ImportHandler.cpp:174
 #, kde-format
 msgid "Error when writing image %1"
 msgstr "Errorea %1 irudia idaztean"
 
-#: ImportExport/ImportHandler.cpp:189
+#: ImportExport/ImportHandler.cpp:193
 #, kde-format
 msgid "Updating Database"
 msgstr "Datu-basea eguneratzen"
 
-#: ImportExport/ImportHandler.cpp:234
+#: ImportExport/ImportHandler.cpp:238
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
 msgstr "Ezin da ezer kopiatu kokaleku hauetatik:"
 
-#: ImportExport/ImportHandler.cpp:235
+#: ImportExport/ImportHandler.cpp:239
 #, kde-format
 msgctxt "@title"
 msgid "Copy failed"
 msgstr "Kopiatzea huts egin du"
 
-#: ImportExport/ImportHandler.cpp:241
+#: ImportExport/ImportHandler.cpp:245
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"

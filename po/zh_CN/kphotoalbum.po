@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-14 00:40+0000\n"
+"POT-Creation-Date: 2025-12-18 00:41+0000\n"
 "PO-Revision-Date: 2024-04-22 16:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -2507,34 +2507,34 @@ msgstr ""
 msgid "How to resolve clashes"
 msgstr "处理崩溃的方式"
 
-#: ImportExport/ImportHandler.cpp:93 ImportExport/ImportHandler.cpp:155
+#: ImportExport/ImportHandler.cpp:97 ImportExport/ImportHandler.cpp:159
 #, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "正在复制图像"
 
-#: ImportExport/ImportHandler.cpp:170
+#: ImportExport/ImportHandler.cpp:174
 #, kde-format
 msgid "Error when writing image %1"
 msgstr "写入图像 %1 出错"
 
-#: ImportExport/ImportHandler.cpp:189
+#: ImportExport/ImportHandler.cpp:193
 #, kde-format
 msgid "Updating Database"
 msgstr "正在更新数据库"
 
-#: ImportExport/ImportHandler.cpp:234
+#: ImportExport/ImportHandler.cpp:238
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
 msgstr ""
 
-#: ImportExport/ImportHandler.cpp:235
+#: ImportExport/ImportHandler.cpp:239
 #, kde-format
 msgctxt "@title"
 msgid "Copy failed"
 msgstr ""
 
-#: ImportExport/ImportHandler.cpp:241
+#: ImportExport/ImportHandler.cpp:245
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"

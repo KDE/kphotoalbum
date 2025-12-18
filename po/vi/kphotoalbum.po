@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-14 00:40+0000\n"
+"POT-Creation-Date: 2025-12-18 00:41+0000\n"
 "PO-Revision-Date: 2012-01-16 16:58+0700\n"
 "Last-Translator: Lê Hoàng Phương <herophuong93@gmail.com>\n"
 "Language-Team: Vietnamese <kde-i18n-vi@kde.org>\n"
@@ -2853,38 +2853,38 @@ msgstr "Gặp lỗi khi tạo tệp zip %1"
 msgid "How to resolve clashes"
 msgstr "Cách thao tác ảnh"
 
-#: ImportExport/ImportHandler.cpp:93 ImportExport/ImportHandler.cpp:155
+#: ImportExport/ImportHandler.cpp:97 ImportExport/ImportHandler.cpp:159
 #, fuzzy, kde-format
 #| msgid "Copying Images"
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "Đang sao chép ảnh"
 
-#: ImportExport/ImportHandler.cpp:170
+#: ImportExport/ImportHandler.cpp:174
 #, fuzzy, kde-format
 #| msgid "Error when writing image %s"
 msgid "Error when writing image %1"
 msgstr "Găp lỗi khi ghi ảnh %s"
 
-#: ImportExport/ImportHandler.cpp:189
+#: ImportExport/ImportHandler.cpp:193
 #, fuzzy, kde-format
 #| msgid "Loading Database"
 msgid "Updating Database"
 msgstr "Đang nạp cơ sở dữ liệu"
 
-#: ImportExport/ImportHandler.cpp:234
+#: ImportExport/ImportHandler.cpp:238
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
 msgstr ""
 
-#: ImportExport/ImportHandler.cpp:235
+#: ImportExport/ImportHandler.cpp:239
 #, fuzzy, kde-format
 #| msgid "Copying image files"
 msgctxt "@title"
 msgid "Copy failed"
 msgstr "Đang sao chép các tệp ảnh"
 
-#: ImportExport/ImportHandler.cpp:241
+#: ImportExport/ImportHandler.cpp:245
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"

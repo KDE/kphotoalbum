@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-14 00:40+0000\n"
+"POT-Creation-Date: 2025-12-18 00:41+0000\n"
 "PO-Revision-Date: 2008-09-24 00:02+0900\n"
 "Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -2843,37 +2843,37 @@ msgstr "ZIP ファイル ‘%1’ の作成でエラー"
 msgid "How to resolve clashes"
 msgstr "衝突を解決する方法"
 
-#: ImportExport/ImportHandler.cpp:93 ImportExport/ImportHandler.cpp:155
+#: ImportExport/ImportHandler.cpp:97 ImportExport/ImportHandler.cpp:159
 #, fuzzy, kde-format
 #| msgid "Copying Images"
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "画像をコピー"
 
-#: ImportExport/ImportHandler.cpp:170
+#: ImportExport/ImportHandler.cpp:174
 #, kde-format
 msgid "Error when writing image %1"
 msgstr "画像 '%1' の書き込みでエラー"
 
-#: ImportExport/ImportHandler.cpp:189
+#: ImportExport/ImportHandler.cpp:193
 #, kde-format
 msgid "Updating Database"
 msgstr "データベースを更新中"
 
-#: ImportExport/ImportHandler.cpp:234
+#: ImportExport/ImportHandler.cpp:238
 #, fuzzy, kde-format
 #| msgid "Can't copy file from any of the following locations:"
 msgid "Cannot copy from any of the following locations:"
 msgstr "以下のいずれの場所からもファイルをコピーできません:"
 
-#: ImportExport/ImportHandler.cpp:235
+#: ImportExport/ImportHandler.cpp:239
 #, fuzzy, kde-format
 #| msgid "Copying image files"
 msgctxt "@title"
 msgid "Copy failed"
 msgstr "画像ファイルをコピー"
 
-#: ImportExport/ImportHandler.cpp:241
+#: ImportExport/ImportHandler.cpp:245
 #, fuzzy, kde-format
 #| msgid "Continue without Asking"
 msgctxt "@action:button"

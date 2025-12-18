@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-graphics/kphotoalbum.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-14 00:40+0000\n"
+"POT-Creation-Date: 2025-12-18 00:41+0000\n"
 "PO-Revision-Date: 2007-06-29 09:44-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -2641,36 +2641,36 @@ msgstr "Earráid agus comhad zip %1 á chruthú"
 msgid "How to resolve clashes"
 msgstr ""
 
-#: ImportExport/ImportHandler.cpp:93 ImportExport/ImportHandler.cpp:155
+#: ImportExport/ImportHandler.cpp:97 ImportExport/ImportHandler.cpp:159
 #, fuzzy, kde-format
 #| msgid "Copying Images"
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "Íomhánna á Cóipeáil"
 
-#: ImportExport/ImportHandler.cpp:170
+#: ImportExport/ImportHandler.cpp:174
 #, kde-format
 msgid "Error when writing image %1"
 msgstr "Earráid agus íomhá %1 á scríobh"
 
-#: ImportExport/ImportHandler.cpp:189
+#: ImportExport/ImportHandler.cpp:193
 #, kde-format
 msgid "Updating Database"
 msgstr "Bunachar Sonraí á Nuashonrú"
 
-#: ImportExport/ImportHandler.cpp:234
+#: ImportExport/ImportHandler.cpp:238
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
 msgstr ""
 
-#: ImportExport/ImportHandler.cpp:235
+#: ImportExport/ImportHandler.cpp:239
 #, fuzzy, kde-format
 #| msgid "Copying image files"
 msgctxt "@title"
 msgid "Copy failed"
 msgstr "Comhaid íomhá á gcóipeáil"
 
-#: ImportExport/ImportHandler.cpp:241
+#: ImportExport/ImportHandler.cpp:245
 #, fuzzy, kde-format
 #| msgid "Continue without Asking"
 msgctxt "@action:button"

@@ -73,6 +73,7 @@ VideoPlayerSelectorDialog::VideoPlayerSelectorDialog(QWidget *parent)
         switch (backend) {
         case VideoBackend::QtMultimedia:
             candidate = m_qtmm;
+            break;
         case VideoBackend::Phonon:
             candidate = m_phonon;
             break;

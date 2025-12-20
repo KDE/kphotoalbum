@@ -13,16 +13,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:41+0000\n"
-"PO-Revision-Date: 2025-11-24 16:28+0300\n"
-"Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
+"POT-Creation-Date: 2025-12-20 00:40+0000\n"
+"PO-Revision-Date: 2025-12-19 11:37+0300\n"
+"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.08.2\n"
+"X-Generator: Lokalize 25.11.80\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -6083,21 +6083,7 @@ msgid "<h1>Choose a Video Player</h1>"
 msgstr "<h1>Bir Video Oynatıcısı Seçin</h1>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:29
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html><p>Unfortunately, there is no video player which just works out of "
-#| "the box for everyone.</p><p>KPhotoAlbum therefore comes with two "
-#| "different back-ends, choose the one that works the best for you</"
-#| "p><p><b>VLC</b> seems to be the best supported video player back-end, "
-#| "meaning it can play most video formats. It has one drawback though, it "
-#| "requires X11. If you use Wayland, then you will find that the videos "
-#| "shows up in a window of their own, and in this case VLC is likely not a "
-#| "very good fit for you. If on the other hand you do use X11 then VLC is "
-#| "likely your best choice.</p><p>Traditionally KPhotoAlbum has been using "
-#| "<b>Phonon</b> as the video player back-end. We've unfortunately seen it "
-#| "crash on many different video formats - possibly because our system "
-#| "wasn't correctly configured.</p><p><b><font color=red>You can at any time "
-#| "change the backend from Settings -> Viewer</font></b></p></html>"
+#, kde-format
 msgid ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
 "box for everyone.</p><p>KPhotoAlbum therefore comes with three different "
@@ -6126,7 +6112,10 @@ msgstr ""
 "seçebilirsiniz.</p><p>Eskiden beri K Fotoğraf Albümü, arka uç olarak "
 "<b>Phonon</b> kullanıyordu. Ne yazık ki çoğu video biçimini oynatırken "
 "çöktüğünü gözlemledik; büyük olasılıkla bizim sistemimiz düzgünce "
-"yapılandırılmamıştı.</p><p><b><font color=red>Arka ucu, “Ayarlar → "
+"yapılandırılmamıştı.</p><p><b>QtMultimedia</b>, bunların arasından en yeni "
+"video oynatıcısı arka ucudur. Qt’nin standart bir bileşenidir. Yakın zamanda "
+"öntanımlı seçenek olmasını ve hatta tek arka uç olarak kalmasını "
+"bekleyebilirsiniz.</p><p><b><font color=red>Arka ucu, “Ayarlar → "
 "Görüntüleyici” menüsünden istediğiniz zaman değiştirebilirsiniz</font></b></"
 "p></html>"
 
@@ -6136,7 +6125,7 @@ msgstr ""
 msgid " (NOT AVAILABLE)"
 msgstr " (KULLANILAMAZ)"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:92
+#: Settings/VideoPlayerSelectorDialog.cpp:93
 #, kde-format
 msgid ""
 "<html><h1>Missing back-end</h1>The back-ends which are not available are due "
@@ -6151,33 +6140,31 @@ msgstr ""
 "Fotoğraf Albümü sisteminizde yükle geldiyse paketin bakımcısına başvurun.</"
 "html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "A friendly name for the video backend"
-#| msgid "QtAV video backend"
+#: Settings/VideoPlayerSelectorDialog.cpp:152
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
-msgstr "QtAV video arka ucu"
+msgstr "QtMultimedia video arka ucu"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:154
+#: Settings/VideoPlayerSelectorDialog.cpp:155
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
 msgstr "Yapılandırılmamış video arka ucu"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:156
+#: Settings/VideoPlayerSelectorDialog.cpp:157
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
 msgstr "Phonon video arka ucu"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:158
+#: Settings/VideoPlayerSelectorDialog.cpp:159
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
 msgstr "QtAV video arka ucu"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:160
+#: Settings/VideoPlayerSelectorDialog.cpp:161
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"

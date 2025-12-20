@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:41+0000\n"
+"POT-Creation-Date: 2025-12-20 00:40+0000\n"
 "PO-Revision-Date: 2025-12-14 08:18+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -6176,7 +6176,7 @@ msgstr ""
 msgid " (NOT AVAILABLE)"
 msgstr " (NI NA VOLJO)"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:92
+#: Settings/VideoPlayerSelectorDialog.cpp:93
 #, kde-format
 msgid ""
 "<html><h1>Missing back-end</h1>The back-ends which are not available are due "
@@ -6191,31 +6191,31 @@ msgstr ""
 "strani dobili KPhotoAlbum prek svojega sistema, potem se pogovorite z "
 "vzdrževalcem paketa.</html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:151
+#: Settings/VideoPlayerSelectorDialog.cpp:152
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
 msgstr "Zaledje za video QtMultimedia"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:154
+#: Settings/VideoPlayerSelectorDialog.cpp:155
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
 msgstr "Nekonfigurirano zaledje za video"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:156
+#: Settings/VideoPlayerSelectorDialog.cpp:157
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
 msgstr "Zaledje za video Phonon"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:158
+#: Settings/VideoPlayerSelectorDialog.cpp:159
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
 msgstr "Zaledje za video QtAV"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:160
+#: Settings/VideoPlayerSelectorDialog.cpp:161
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"

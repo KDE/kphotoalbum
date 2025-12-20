@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:41+0000\n"
+"POT-Creation-Date: 2025-12-20 00:40+0000\n"
 "PO-Revision-Date: 2025-12-14 18:55+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -6159,7 +6159,7 @@ msgstr ""
 msgid " (NOT AVAILABLE)"
 msgstr "(EZ ERABILGARRI)"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:92
+#: Settings/VideoPlayerSelectorDialog.cpp:93
 #, kde-format
 msgid ""
 "<html><h1>Missing back-end</h1>The back-ends which are not available are due "
@@ -6174,31 +6174,31 @@ msgstr ""
 "paketeak bilatu. Kontrara, KPhotoAlbum zure sistematik jaso baduzu, orduan, "
 "mesedez hitz egin ezazu paketearen mantentzailearekin.</html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:151
+#: Settings/VideoPlayerSelectorDialog.cpp:152
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
 msgstr "QtMultimedia bideo bizkarraldekoa"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:154
+#: Settings/VideoPlayerSelectorDialog.cpp:155
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
 msgstr "Konfiguratu gabe bideo bizkarraldekoa"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:156
+#: Settings/VideoPlayerSelectorDialog.cpp:157
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
 msgstr "Phonon bideo bizkarraldekoa"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:158
+#: Settings/VideoPlayerSelectorDialog.cpp:159
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
 msgstr "QtAV bideo bizkarraldekoa"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:160
+#: Settings/VideoPlayerSelectorDialog.cpp:161
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"

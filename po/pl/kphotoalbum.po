@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:41+0000\n"
+"POT-Creation-Date: 2025-12-20 00:40+0000\n"
 "PO-Revision-Date: 2025-02-09 08:38+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -6211,7 +6211,7 @@ msgstr ""
 msgid " (NOT AVAILABLE)"
 msgstr " (Niedostępny)"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:92
+#: Settings/VideoPlayerSelectorDialog.cpp:93
 #, kde-format
 msgid ""
 "<html><h1>Missing back-end</h1>The back-ends which are not available are due "
@@ -6226,7 +6226,7 @@ msgstr ""
 "programistycznych silników. Jeśli jednak masz KPhotoAlbum ze swojego "
 "systemu, to spróbuj porozmawiać z opiekunem pakietu.</html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:151
+#: Settings/VideoPlayerSelectorDialog.cpp:152
 #, fuzzy, kde-format
 #| msgctxt "A friendly name for the video backend"
 #| msgid "QtAV video backend"
@@ -6234,25 +6234,25 @@ msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
 msgstr "Obsługa filmów QtAV"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:154
+#: Settings/VideoPlayerSelectorDialog.cpp:155
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
 msgstr "Nieustawiona obsługa filmów"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:156
+#: Settings/VideoPlayerSelectorDialog.cpp:157
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
 msgstr "Obsługa filmów Phonon"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:158
+#: Settings/VideoPlayerSelectorDialog.cpp:159
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
 msgstr "Obsługa filmów QtAV"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:160
+#: Settings/VideoPlayerSelectorDialog.cpp:161
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"

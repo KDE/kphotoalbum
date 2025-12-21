@@ -10,25 +10,14 @@ SPDX-License-Identifier: GFDL-1.2-only
   <title
 >Navegação</title>
   <para
->Logo que você tenha indicado as propriedades para as suas imagens e vídeos, o &kphotoalbum; está pronto para deixá-lo navegar nas suas imagens, como pode ser visto em <xref linkend="fig-browser-with-images"/>. Se comparar isto a <xref linkend="fig-empty-browser-window"/>, irá ver que existem agora itens disponíveis em cada um dos grupos <literal
+>Logo que você tenha indicado as propriedades para as suas imagens e vídeos, o &kphotoalbum; está pronto para deixá-lo navegar pelas suas imagens. Se comparar isto a <xref linkend="fig-empty-browser-window"/>, irá ver que existem agora itens disponíveis em cada uma das categorias <literal
 >Pessoas</literal
 >, <literal
 >Locais</literal
 > e <literal
 >Palavras-chave</literal
 >.</para>
-  
-  <figure id="fig-browser-with-images">
-    <title
->Navegação quando as imagens e vídeos tiverem sido anotados</title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="browser-with-images.png"
-          format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </figure>
-  
+
   <para
 >Na janela do navegador, o usuário poderá ver os grupos de opções para os quais escreveu alguma informação ao anotar as suas imagens e vídeos. Além disso, existem itens para procurar com base na informação EXIF das imagens, navegar na estrutura de pastas do seu disco rígido e para mostrar as miniaturas de fato. Serão agora descritas uma de cada vez.</para
 > 
@@ -50,17 +39,20 @@ SPDX-License-Identifier: GFDL-1.2-only
   </figure>
   
   <para
->O navegador está agora preenchido com as pessoas que indicou para as suas imagens <footnote
+>O navegador agora está preenchido com as pessoas que você especificou para suas imagens e vídeos <footnote
 ><para
->Você poderá reparar que o item <literal
->Animais Domésticos</literal
-> tem um ícone especial. Para mais detalhes sobre o assunto, veja em <xref linkend="sec-specifying-categories"/>.</para
+>Você pode notar que o item <literal
+>Animais de estimação</literal
+> tem um ícone especial. Para obter detalhes sobre isso, consulte <xref linkend="sec-specifying-categories"/>.</para
 ></footnote
->; se selecionar uma pessoa irá voltar ao estado original do navegador, como foi visto em <xref linkend="fig-browser-with-images"/>, só que desta vez <emphasis
->o âmbito</emphasis
-> é o da pessoa que foi selecionada. Isto significa que só são mostradas informações sobre as imagens que contêm essa pessoa. Veja abaixo o <xref linkend="fig-browser-for-jesper"/>, que é o resultado de escolher a pessoa <literal
+>, selecionar uma pessoa o levará de volta ao estado original do navegador. Desta vez, no entanto, estamos <emphasis
+>no escopo</emphasis
+> da pessoa que selecionamos. Isso significa que mostramos apenas informações sobre imagens e vídeos que contêm essa pessoa. Veja<xref linkend="fig-browser-for-jesper"/> abaixo, que é o resultado de selecionarmos a Pessoa <literal
 >Jesper</literal
->, onde poderá ver uma indicação desse fato no fundo da janela. Por favor compare o <xref linkend="fig-browser-with-images"/> com o <xref linkend="fig-browser-for-jesper"/>, onde poderá ver que o número de imagens disponíveis desceu de 24 para 10 e o número de categorias para os diferentes grupos mudou também.</para>
+>, você pode ver uma indicação disso na parte inferior da janela. Na parte inferior direita de <xref linkend="fig-browser-for-jesper"/>, você verá que o número de imagens e vídeos correspondentes diminuiu de 25 para 13, enquanto o número total de imagens permaneceu o mesmo.</para>
+
+  <para
+>Observe que, se houver apenas algumas imagens no escopo, &kphotoalbum; irá diretamente para o visualizador de miniaturas (consulte <xref linkend="chp-thumbnail-view"/>). Você pode configurar esse comportamento nas configurações do visualizador de miniaturas (consulte <xref linkend="opt-thumbnails"/>). </para>
   
   <figure id="fig-browser-for-jesper">
     <title

@@ -46,14 +46,14 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></menuchoice
 >, onde poderá anotar as suas imagens selecionadas, uma após à outra. Se, por outro lado, escolher <guimenuitem
 >Anotar vários itens de uma vez</guimenuitem
->, poderá definir as propriedades para todas as imagens selecionadas, como se fossem apenas um item. Em outras palavras, poderá anotar as suas imagens em bloco - p.ex., dizer que todas elas foram tiradas em Copenhagen. Estas duas opções estão também disponíveis a partir de um menu de contexto que poderá obter se clicar com o botão direito do mouse na janela das miniaturas ou usando o atalho de teclado. Um exemplo pode ser visto em <xref linkend="fig-edit-properies-menu"/>.</para>
+>, poderá definir as propriedades para todas as imagens selecionadas, como se fossem apenas um item. Em outras palavras, poderá anotar as suas imagens em bloco - p.ex., dizer que todas elas foram tiradas em Copenhagen. Estas duas opções estão também disponíveis a partir de um menu de contexto que poderá obter se clicar com o botão direito do mouse na janela das miniaturas ou usando o atalho de teclado. Um exemplo pode ser visto em <xref linkend="fig-edit-properties-menu"/>.</para>
 
-    <figure id="fig-edit-properies-menu">
+    <figure id="fig-edit-properties-menu">
       <title
 >Menu de contexto para editar as propriedades</title>
       <mediaobject>
         <imageobject>
-          <imagedata fileref="edit-properies-menu.png"
+          <imagedata fileref="edit-properties-menu.png"
             format="PNG"/>
         </imageobject>
       </mediaobject>
@@ -209,7 +209,37 @@ SPDX-License-Identifier: GFDL-1.2-only
 
   </sect1>
 
-  </chapter>
+<sect1>
+    <title
+>Anotar enquanto visualiza suas imagens</title>
+    <para
+>Durante algumas décadas, etiquetamos nossas imagens conforme descrito acima, mas no verão de 2023, tornou-se possível etiquetar imagens enquanto as visualizamos. Este recurso não oferece todos os recursos descritos acima, mas proporciona um fluxo de trabalho muito mais rápido para etiquetar imagens.</para>
+    <para
+>As funcionalidades ausentes ao anotar imagens a partir do visualizador, para os quais você precisa acessar esta caixa de diálogo, são:</para>
+    <itemizedlist>
+    <listitem
+><para
+>Anotar várias imagens de uma vez</para
+></listitem>
+    <listitem
+><para
+>Etiquetar partes individuais de uma imagem (este rosto é...)</para
+></listitem>
+    <listitem
+><para
+>Configurar grupos de etiquetas (&ie;, especificar que Las Vegas fica nos EUA, para que você veja imagens com a etiqueta Las Vegas ao visualizar imagens dos EUA)</para
+></listitem>
+    <listitem
+><para
+>Configurar datas da imagem</para
+></listitem>
+    </itemizedlist>
+    <para>
+    <link linkend="annotating-from-the-viewer"
+>Consulte a seção sobre anotações a partir do visualizador</link>
+    </para>
+</sect1>
+</chapter>
 
 
 <!-- Keep this comment at the end of the file

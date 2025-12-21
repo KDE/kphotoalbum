@@ -71,7 +71,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >.</para>
 
   <para
->Uma funcionalidade muito útil do visualizador do &kphotoalbum; é a sua capacidade de ir para o modo tela inteira. Neste modo, o visualizador irá usar todo o espaço da tela, bastando pressionar a tecla Return para o fazer entrar e sair do modo de tela inteira.</para>
+>Uma funcionalidade muito útil do visualizador do &kphotoalbum; é a sua capacidade de ir para o modo tela cheia. Neste modo, o visualizador irá usar todo o espaço da tela, bastando pressionar a tecla Return para o fazer entrar e sair do modo de tela cheia.</para>
 
   <para
 >Com o visualizador, você poderá ampliar e reduzir a sua imagem, bastando para isso arrastar um retângulo com o mouse. Se pressionar a tecla Menos irá reduzir de novo. Se pressionar a tecla Mais irá ampliar a imagem com base no seu centro. O <xref linkend="fig-marking-zoom-rectangle"/> abaixo mostra como se marca um retângulo de ampliação e o <xref linkend="fig-zoomed-view"/> mostra o resultado da mesma ampliação.</para>
@@ -113,21 +113,89 @@ SPDX-License-Identifier: GFDL-1.2-only
 
 
 
+<sect1 id="annotating-from-the-viewer">
+<title
+>Anotações em imagens a partir do visualizador</title>
+<para
+>Tradicionalmente, a principal forma de etiquetar imagens era através da <link linkend="chp-typingIn"
+>caixa de diálogo de anotações</link
+>. Ao longo dos anos, algumas tentativas foram feitas para integrar a etiquetagem ao visualizador. A primeira tentativa foi atribuir tokens no visualizador; uma tentativa posterior possibilitou a etiquetagem direta digitando parte de um item de categoria. Além disso, os itens de categoria podiam ser atribuídos a teclas de função do teclado. O código para tudo isso foi modernizado para tornar o fluxo de trabalho muito mais intuitivo e fácil de usar.</para>
+
+<para
+>Existem três modos de anotação de imagens no visualizador:</para>
+<itemizedlist>
+    <listitem
+><para
+><emphasis
+>Bloqueado</emphasis
+> - Este é o modo padrão ao iniciar o visualizador - aqui, nenhuma anotação ou tokenização ocorrerá. Isso garante que você não anote imagens acidentalmente ao visualizá-las.</para
+></listitem>
+    <listitem
+><para
+><emphasis
+>Atribuir tokens</emphasis
+> - Isso permite que você defina tokens em imagens, simplesmente pressionando uma tecla de A a Z no teclado.</para
+></listitem>
+    <listitem
+><para
+><emphasis
+>Atribuir etiquetas</emphasis
+> - Isso permite atribuir macros a uma tecla do teclado. Por exemplo, <emphasis
+>L</emphasis
+> poderia significar definir o item <emphasis
+>Las Vegas</emphasis
+> na categoria <emphasis
+>Localização</emphasis
+>. Além disso, também permite definir qualquer etiqueta em uma imagem.</para
+></listitem>
+</itemizedlist>
+<para
+>Os modos são selecionados no menu de contexto, como pode ser visto em <xref linkend="fig-ctxmenu-for-mode-selection"/>. </para>
+<para
+>Os dois modos são descritos em detalhes abaixo. </para>
+
+  <figure id="fig-ctxmenu-for-mode-selection">
+    <title
+>Selecionando o modo de anotação no visualizador</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="annotation-mode.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+</sect1>
+
+
+
+
 <sect1 id="tokens">
 <title
->Definir os Itens do Visualizador</title>
+>Configuração de tokens a partir do visualizador</title>
 <para
->Ao ver as imagens, você poderá descobrir que uma determinada imagem contém uma pessoa, cujo nome você se esqueceu de definir nas imagens. Neste momento, você poderá cancelar a sua visualização e saltar para a janela de configuração da imagem para apontar a pessoa. Contudo, frequentemente, poderá desejar apenas marcar a imagem e continuar a ver as restantes.</para>
+>Imagine que você queira enviar várias imagens para uma gráfica para que sejam reveladas em papel. Para ver quais você deseja, você inicia o visualizador nas imagens e as classifica como <emphasis
+>boas</emphasis
+>, <emphasis
+>ruins</emphasis
+> ou <emphasis
+>talvez</emphasis
+>, enquanto inspeciona cada uma delas.</para>
 
 <para
->Uma situação alternativa é a seguinte: Deseja enviar um conjunto de imagens para uma impressora para que estas sejam reveladas em papel. Para ver o que deseja revelar, poderá iniciar o visualizador das imagens e depois querer marcar as imagens como boas ou más, enquanto vê cada uma das imagens.</para>
-
-<para
->Para os dois exemplos acima, o visualizador permite-lhe definir itens para as imagens, enquanto as vê. Os itens são identificados de A a Z e você poderá atribuir um item, simplesmente pressionando a letra desse item. Em <xref linkend="fig-images-with-tokens"/>, poderá ver uma imagem em que estão atribuídos os itens A, B e C.</para>
+>Você pode, é claro, criar alguns novos itens (por exemplo, <emphasis
+>Bom</emphasis
+>, <emphasis
+>Ruim</emphasis
+>, <emphasis
+>Talvez</emphasis
+>) para uma categoria existente, digamos a categoria <emphasis
+>Álbum</emphasis
+>. No entanto, como você provavelmente não precisará dessas etiquetas depois de enviar as imagens para a impressora, existe uma maneira mais fácil, que é simplesmente definir tokens nas imagens. Os tokens são nomeados de A a Z, e você define um token simplesmente pressionando a letra correspondente. Em <xref linkend="fig-images-with-tokens"/> você pode ver uma imagem onde os tokens A, B e C estão definidos.</para>
 
   <figure id="fig-images-with-tokens">
     <title
->Uma Imagem com Itens</title>
+>Uma imagem com tokens</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images-with-tokens.png"
@@ -136,12 +204,19 @@ SPDX-License-Identifier: GFDL-1.2-only
     </mediaobject>
   </figure>
 
+  <para
+>Para que isso funcione, você precisa estar no modo <emphasis
+>Atribuir tokens</emphasis
+>. Veja <xref linkend="fig-ctxmenu-for-mode-selection"/></para>
+
 <para
->Logo que tenha atribuído itens às suas imagens, os itens ficarão disponíveis para navegação normal no navegador, como pode ser visto em <xref linkend="fig-tokens-in-browser"/>. Deste modo, quando você tiver marcado as imagens que necessitem de ser editadas, impressas ou manipuladas de outra forma qualquer, basta escolher as imagens e anotar todas as imagens de uma vez (como está descrito em <xref linkend="sect-specifying-properties-for-all-images-simultaneously"/>), usar um plugin para copiar as imagens selecionadas para um CD ou o que desejar fazer com elas.</para>
+>Depois de definir os tokens nas suas imagens, eles estarão disponíveis para navegação normal no navegador, como pode ser visto em <xref linkend="fig-tokens-in-browser"/>. Portanto, quando você tiver marcado as imagens que precisam ser editadas, impressas, ou qualquer outra coisa, basta navegar até as imagens e processar o conjunto a partir daí, por exemplo, usando <emphasis
+>copiar imagens para...</emphasis
+> no menu de contexto.</para>
 
   <figure id="fig-tokens-in-browser">
     <title
->Itens Vistos no Navegador</title>
+>Tokens vistos no navegador</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="tokens-in-browser.png"
@@ -155,7 +230,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 
   <figure id="fig-tokens-in-thumbnail-viewer">
     <title
->Itens Vistos no Visualizador de Miniaturas</title>
+>Tokens vistos no visualizador de miniaturas</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="tokens-in-thumbnail-viewer.png"
@@ -168,150 +243,98 @@ SPDX-License-Identifier: GFDL-1.2-only
 
 </sect1>
 
-<sect1 id="category-selectors-in-viewer">
+<sect1>
     <title
->Definir as categorias do visualizador</title>
-    <para
->A categoria pode ser selecionada no visualizador se começar a digitar o nome dela. A seleção é feita imediatamente quando existir apenas uma categoria correspondente.</para>
+>Etiquetagem de imagens a partir do visualizador</title>
+<para
+>Etiquetar imagens pode ser cansativo, mesmo no &kphotoalbum;, principalmente quando você está atrasado e tem milhares ou dezenas de milhares de imagens que precisam de etiquetagem adequada. Felizmente, agora é possível adicionar etiquetas com o pressionar de uma única tecla ao visualizar as imagens. A ideia por trás dessa forma de trabalhar com imagens é que a maioria das imagens mostra as mesmas pessoas nos mesmos lugares, além de algumas participações especiais de vez em quando — por exemplo, o local das suas férias ou alguns amigos que estavam te visitando por uma semana.</para>
 
-    <para
->Para mudar para o modo de seleção da categoria, basta clicar na barra (/). As opções possíveis são apresentadas após o texto 'Atribuição:' entre parênteses, sendo imediatamente revistas ao digitar mais letras. Quando selecionar uma categoria, você poderá continuar a digitação para selecionar o valor do item. A imagem seguinte mostra isto em ação, e abaixo, uma explicação de como tudo isto funciona. </para>
+<para
+>Para adicionar etiquetas às suas imagens enquanto as visualiza, você precisa entrar no <emphasis
+>Modo de atribuição de etiquetas</emphasis
+> - veja <xref linkend="fig-ctxmenu-for-mode-selection"/>. Com esse modo ativado, basta pressionar uma tecla de letra no seu teclado para atribuir ou usar a etiqueta atribuída.</para>
 
+<para
+>Na <xref linkend="fig-assign-macro-step1"/> abaixo, acabei de pressionar <keycap
+>s</keycap
+> enquanto visualizava imagens e estava no modo <emphasis
+>Atribuir etiquetas</emphasis
+>. Isso abriu a caixa de diálogo onde posso especificar qual etiqueta atribuir a essa tecla.</para>
 
-<figure id="category-selectors">
-<title
->Selecionar as categorias do visualizador</title>
-<mediaobject>
-<imageobject>
-<imagedata fileref="category-selectors.png" format="PNG"/>
-</imageobject>
-</mediaobject>
+<figure id="fig-assign-macro-step1">
+  <title
+>Passo 1 - atribuir uma macro à tecla <emphasis
+>s</emphasis
+></title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-step1.png" format="PNG"/></imageobject>
+   </mediaobject>
 </figure>
 
 <para
->Siga a configuração da categoria abaixo para compreender melhor esta explicação. Se começar a digitar "/P", o campo de texto irá mudar de "Elementos" para "Palavras-chave" (desde que o P seja único). Depois disso, se digitar "b" irá atribuir imediatamente a palavra-chave "boa" à imagem. Se digitar "a" irá mostrar "Aborrecida", atribuindo o resultado à imagem. Se digitar "/p" irá funcionar de forma semelhante para "Pessoas". <itemizedlist mark='opencircle'>
-    <listitem
-><para
->Itens</para>
-    <itemizedlist mark='opencircle'>
-        <listitem
-><para
->A..Z</para
-></listitem>
-    </itemizedlist>
-    </listitem>
-    <listitem>
-    <para
->Palavras-chave</para>
-    <itemizedlist mark='opencircle'>
-        <listitem
-><para
->Boa</para
-></listitem>
-        <listitem
-><para
->Ruim</para
-></listitem>
-        <listitem
-><para
->Aborrecida</para
-></listitem>
-    </itemizedlist>
-    </listitem>
-    <listitem>
-    <para
->Pessoas</para>
-    <itemizedlist mark='opencircle'>
-        <listitem
-><para
->George</para
-></listitem>
-        <listitem
-><para
->Fred</para
-></listitem>
-    </itemizedlist>
-    </listitem>
-    <listitem>
-    <para
->Locais</para>
-    <itemizedlist mark='opencircle'>
-        <listitem
-><para
->Internet</para
-></listitem>
-    </itemizedlist>
-    </listitem>
-</itemizedlist>
-</para>
-
-<sect2>
-    <title
->Palavras exatas</title>
-<para
->Se quiser inserir uma nova palavra ou tiver palavras como "boa" e "boas", você precisa estar apto a digitar a palavra exata que deseja inserir ou selecionar. Isso pode ser obtido se iniciar a palavra com aspas (") e terminar com vírgula (,). Se tivesse selecionado "boa" imediatamente após ser digitado, você poderia não selecionar "boas" e, nesse caso, teria que aguardar o pressionamento de mais teclas. <figure id="keyword-exact">
-<title
->Selecionar as palavras exatas no visualizador</title>
-<mediaobject>
-<imageobject>
-<imagedata fileref="keyword-exact.png" format="PNG"/>
-</imageobject>
-</mediaobject>
-</figure>
-</para>
-</sect2>
-
-<sect2>
-    <title
->Sempre iniciar com a seleção da categoria</title>
-<para
->Se digitar duas '/'s seguidas, irá alternar entre dois modos diferentes: o modo padrão descrito acima e um modo de seleção da categoria. No último modo, voltaremos para a seleção da categoria após uma correspondência. Dessa forma, você pode selecionar os itens de forma contínua em categorias diferentes. Faria a correspondência mais rápida possível, de forma que se digitasse "Pa" iria corresponder a "Palavras-chave/Aborrecida" no exemplo acima. </para>
-</sect2>
-<sect2>
-    <title
->Atribuindo atalhos</title>
-<para
->Se o campo atual estiver em branco (p.ex., se não estiver selecionando nada neste momento) e você tiver clicado em uma das teclas de função da F1 à F12 (ou acimada da F35, se o seu teclado suportar isto), irá atribuir a última definição correspondente a essa tecla. Você pode aplicar a mesma atribuição às novas imagens, pressionando tecla do atalho. Para remover, use a tecla Shift e o atalho (<keycombo
+>Em seguida, na edição de linha, digitei <emphasis
+>sp</emphasis
+>, que sugeriu "People / Je<emphasis
+>sp</emphasis
+>er" e "People / <emphasis
+>Sp</emphasis
+>iff". Ambas as opções corresponderam às letras que digitei. Pressionando a seta para baixo para selecionar <emphasis
+>Spiff</emphasis
+> e pressionando Enter, a letra <emphasis
+>s</emphasis
+> será atribuída à adição da etiqueta <emphasis
+>People / Spiff</emphasis
+> à imagem visualizada. Essa atribuição será salva para sessões futuras. Para reatribuir s a outra etiqueta, basta pressionar <keycombo action="simul"
 >&Shift;<keycap
->F#</keycap
+>s</keycap
 ></keycombo
->). Isto é útil para atribuir rapidamente itens frequentes de forma repetida ao seu conjunto de imagens atual. Ele armazena tanto a categoria como o item da mesma. Estes atalhos são armazenados até o fechamento do &kphotoalbum;, não existindo suporte para substituir o atalho atribuído. </para>
-  </sect2>
-</sect1>
+>.</para>
 
-
-<!-- Drawing on images feature has been dropped
-  <sect1 id="drawing-on-images">
-    <title
->Drawing on Images</title>
-    <para
->Sometimes it might not be obvious what you want to show with a
-given image, for that purpose &kphotoalbum; allows you to draw on the
-images. </para>
-
-<para
->The actual drawing is not saved to the image, but rather to the
-database, that way you can undo your drawing at a later point.</para>
-
-<para
->In <xref linkend="fig-draw-on-image"/> you can see an image drawn
-on. To bring &kphotoalbum; in to drawing mode, select <guimenuitem
->Draw on
-Image</guimenuitem
-> from the context menu. To quit drawing, press the cross in
-the toolbar at the top of the window.</para>
-
-<figure id="fig-draw-on-image">
-<title
->Drawing on Images</title>
-<mediaobject>
-<imageobject>
-<imagedata fileref="draw-on-image.png" format="PNG"/>
-</imageobject>
-</mediaobject>
+<figure id="fig-assign-macro-step2">
+  <title
+>Passo 2 - atribuir uma macro - digitando <emphasis
+>sp</emphasis
+></title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-step2.png" format="PNG"/></imageobject>
+   </mediaobject>
 </figure>
-  </sect1>
--->
+
+<para
+>Na figura <xref linkend="fig-assign-macro-overview"/> abaixo, você pode ver as combinações de teclas existentes no lado direito da caixa de diálogo.</para>
+<figure id="fig-assign-macro-overview">
+  <title
+>Visão geral das associações de teclas atribuídas</title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-overview.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>Caso a etiqueta que você deseja atribuir ainda não exista em seu banco de dados, basta pressionar o botão <emphasis
+>Adicionar nova</emphasis
+> para criá-la. Isso pode ser visto na <xref linkend="fig-assign-macro-add-new-value.png"/> abaixo</para>
+
+<figure id="fig-assign-macro-add-new-value.png">
+  <title
+>Adicionar uma nova etiqueta</title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-add-new-value.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>Ao adicionar etiquetas às imagens do visualizador, você pode querer adicionar uma etiqueta sem vinculá-la a uma tecla. Para isso, basta pressionar <keycombo
+>&Ctrl;<keycap
+>a</keycap
+></keycombo
+></para>
+
+</sect1>
 </chapter>
 
 <!-- Keep this comment at the end of the file

@@ -454,7 +454,7 @@ msgstr ""
 "<p><b>“%2” künyesi ilişkilendirilemiyor</b></p><p>“%2” künyesi, “%1” "
 "kategorisine konumlandırılabilir değil.</p><p>Eğer bu künyeyi kullanmak "
 "istiyorsanız “Ayarlar” penceresinden bunu değiştirin. Eğer bu künyenin "
-"tanıma veritabanında olmasını istemiyorsanız ayarlardan silebilirsiniz.</p>"
+"tanıma veri tabanında olmasını istemiyorsanız ayarlardan silebilirsiniz.</p>"
 
 #: AnnotationDialog/ImagePreview.cpp:528
 #, kde-format
@@ -467,7 +467,7 @@ msgstr ""
 "<p><b>“%2” künyesi ilişkilendirilemiyor</b></p><p>“%2” künyesi, “%1” "
 "kategorisinde bulunmuyor.</p><p>Eğer bu künyeyi kullanmak istiyorsanız bu "
 "kategoriyi ekleyin ve konumlandırılabilir olarak işaretleyin. Eğer bu "
-"künyenin tanıma veritabanında olmasını istemyorsanız ayarlardan "
+"künyenin tanıma veri tabanında olmasını istemyorsanız ayarlardan "
 "silebilirsiniz.</p>"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:51
@@ -1404,14 +1404,14 @@ msgid ""
 "p><p>Chances are you will be able to read this file, but when writing it "
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
-"<p>XML veritabanı dosyası yeni bir K Fotoğraf Albümü sürümüne ait!</p><p>Bu "
+"<p>XML veri tabanı dosyası yeni bir K Fotoğraf Albümü sürümüne ait!</p><p>Bu "
 "dosyayı okuyabileceksiniz; ancak geri yazıldığında, yeni sürüme kaydedilen "
 "bilgiler kaybedilecek</p>"
 
 #: DB/XML/FileReader.cpp:63
 #, kde-format
 msgid "XML database file version mismatch"
-msgstr "XML veritabanı dosyası sürümü uyuşmazlığı"
+msgstr "XML veri tabanı dosyası sürümü uyuşmazlığı"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
@@ -1440,7 +1440,7 @@ msgstr ""
 #: DB/XML/FileReader.cpp:207 DB/XML/FileReader.cpp:312
 #, kde-format
 msgid "Error in database file"
-msgstr "Veritabanı dosyasında hata"
+msgstr "Veri tabanı dosyasında hata"
 
 #: DB/XML/FileReader.cpp:267
 #, kde-format
@@ -1459,7 +1459,7 @@ msgstr ""
 "çevirmiyor.</b></p><p>Bu şu anlama geliyor –eğer İngilizce haricinde bir "
 "yerel kullanıyorsanız– bazı kategorileriniz artık İngilizce "
 "görüntülenecektir.</p><p>İstediğiniz zaman kategorileri elle yeniden "
-"adlandırıp veritabanınızı kaydedebilirsiniz.</p><p>Bazı durumlarda “Dizin” "
+"adlandırıp veri tabanınızı kaydedebilirsiniz.</p><p>Bazı durumlarda “Dizin” "
 "ve “Ortam Türü” adında iki fazla boş kategoriniz olabilir. Bunları "
 "silebilirsiniz.</p>"
 
@@ -1497,8 +1497,8 @@ msgstr ""
 "kullanabilirsiniz.</p>Daha sonra Exif verisinde veya dosyada doğru tarih "
 "bilgisi içerdiğine inandığınız görselleri seçebilir ve bilgiyi yeniden "
 "okumak için <b>Bakım → Exif Bilgisini Oku</b> yolunu çalıştırabilirsiniz.</"
-"p><p>Son olarak, tüm görsellerin tarihleri belirlendiğinde, görselleri "
-"veritabanında sınıflandırmak için <b>Görseller → Seçili Görselleri Tarih ve "
+"p><p>Son olarak, tüm görsellerin tarihleri belirlendiğinde, görselleri veri "
+"tabanında sınıflandırmak için <b>Görseller → Seçili Görselleri Tarih ve "
 "Zamana Göre Sırala</b> yolunu çalıştırın.</p>"
 
 #: DB/XML/FileReader.cpp:455
@@ -1516,7 +1516,7 @@ msgid ""
 "doing so will result in extra space around images in the thumbnail view - "
 "that is all - so there is no urgency in doing it.</p>"
 msgstr ""
-"<p>Veritabanındaki bütün görsellerin görsel boyutları bilgileri mevcut "
+"<p>Veri tabanındaki bütün görsellerin görsel boyutları bilgileri mevcut "
 "değil; bu bilgi küçük görsel görünümünde en iyi sonuç için gerekmektedir. "
 "Bunu düzeltmek için <b>Bakım</b> menüsüne gidin, önce <b>Bütün Küçük "
 "Görselleri Kaldır…</b>’ı seçin, daha sonra <tt>Küçük Görsel Oluştur</tt> "
@@ -1536,7 +1536,7 @@ msgid ""
 "now contain tags that were merged during the repair.</p><p>The following "
 "tags require manual inspection:<ul>"
 msgstr ""
-"<p>Veritabanınızda bulunan tutarsızlıklar onarıldı. Bazı kategorilerde "
+"<p>Veri tabanınızda bulunan tutarsızlıklar onarıldı. Bazı kategorilerde "
 "onarım sırasında birleştirilen künyeler olabilir.</p><p>Aşağıdaki künyelere "
 "bir bakmanız gerekiyor:<ul>"
 
@@ -1571,7 +1571,7 @@ msgstr ""
 #: DB/XML/FileReader.cpp:510
 #, kde-format
 msgid "Database repair required"
-msgstr "Veritabanı onarımı gerekiyor"
+msgstr "Veri tabanı onarımı gerekiyor"
 
 #: DB/XML/FileReader.cpp:533
 #, kde-format
@@ -1662,8 +1662,8 @@ msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
 "because of the following error: %2"
 msgstr ""
-"<p>Görsel veritabanı XML’ye kaydedilemedi.</p>%1 dosyası açılamadı; çünkü şu "
-"hata oluştu: %2"
+"<p>Görsel veri tabanı XML’ye kaydedilemedi.</p>%1 dosyası açılamadı; çünkü "
+"şu hata oluştu: %2"
 
 #: DB/XML/FileWriter.cpp:82 DB/XML/FileWriter.cpp:118 DB/XML/FileWriter.cpp:127
 #, kde-format
@@ -1676,7 +1676,7 @@ msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
 "replace the file %1 with file %2 manually!</p>"
 msgstr ""
-"<p>Eski görsel veritabanı silinemedi.</p><p>Lütfen yeniden deneyin veya %1 "
+"<p>Eski görsel veri tabanı silinemedi.</p><p>Lütfen yeniden deneyin veya %1 "
 "dosyasını %2 ile değiştirin!</p>"
 
 #: DB/XML/FileWriter.cpp:124
@@ -1743,12 +1743,12 @@ msgstr "<p>Ek hata bilgisi:<nl/><message>%1</message></p>"
 #: DB/XML/XmlReader.cpp:91
 #, kde-kuit-format
 msgid "<p>Database path: <filename>%1</filename></p>"
-msgstr "<p>Veritabanı yolu: <filename>%1</filename></p>"
+msgstr "<p>Veri tabanı yolu: <filename>%1</filename></p>"
 
 #: DB/XML/XmlReader.cpp:94
 #, kde-format
 msgid "Error while reading database file"
-msgstr "Veritabanı dosyası okunurken hata"
+msgstr "Veri tabanı dosyası okunurken hata"
 
 #: Exif/InfoDialog.cpp:35
 #, kde-format
@@ -1869,7 +1869,7 @@ msgstr "Dosyalardan Exif Bilgisi Oku"
 #: Exif/ReReadDialog.cpp:35
 #, kde-format
 msgid "Update Exif search database"
-msgstr "Exif arama veritabanını güncelle"
+msgstr "Exif arama veri tabanını güncelle"
 
 #: Exif/ReReadDialog.cpp:41
 #, kde-format
@@ -2013,12 +2013,12 @@ msgstr "Doygunluk"
 #: Exif/SearchDialog.cpp:363
 #, kde-format
 msgid "No cameras found in the database"
-msgstr "Veritabanında hiç kamera bulunamadı"
+msgstr "Veri tabanında hiç kamera bulunamadı"
 
 #: Exif/SearchDialog.cpp:383
 #, kde-format
 msgid "No lenses found in the database"
-msgstr "Veritabanında hiç mercek bulunamadı"
+msgstr "Veri tabanında hiç mercek bulunamadı"
 
 #: Exif/SearchDialog.cpp:398
 #, kde-format
@@ -2026,8 +2026,8 @@ msgid ""
 "Not all images in the database have lens information. <note>Recreate the "
 "Exif search database to ensure lens data for all images.</note>"
 msgstr ""
-"Veritabanındaki tüm görsellerde mercek bilgisi yok. <note>Tüm görsellerin "
-"mercek bilgisine iye olduğundan emin olmak için Exif arama veritabanını "
+"Veri tabanındaki tüm görsellerde mercek bilgisi yok. <note>Tüm görsellerin "
+"mercek bilgisine iye olduğundan emin olmak için Exif arama veri tabanını "
 "yeniden oluşturun.</note>"
 
 #: HTMLGenerator/Generator.cpp:54
@@ -2580,7 +2580,7 @@ msgid ""
 "server will just tell konqueror that it is a plain text file.</p>"
 msgstr ""
 "<p>Diğer K Fotoğraf Albümü kullanıcıları, dosya menüsünden <b>İçe Aktar</b> "
-"diyerek, içe aktarma dosyasını veritabanlarına yükleyebilirler.</p><p>Eğer "
+"diyerek, içe aktarma dosyasını veri tabanlarına yükleyebilirler.</p><p>Eğer "
 "dosyayı bir web sitesinde bulurlarsa ve web hizmeti doğru bir şekilde "
 "yapılandırılmışsa yapmaları gereken tek şey basit olarak Konqueror içinde "
 "ona tıklamaktır. Bunu etkinleştirmek için web sunucunuzun K Fotoğraf Albümü "
@@ -2744,7 +2744,7 @@ msgstr "%1 görsel dosyasına yazma hatası"
 #: ImportExport/ImportHandler.cpp:193
 #, kde-format
 msgid "Updating Database"
-msgstr "Veritabanı Güncelleniyor"
+msgstr "Veri Tabanı Güncelleniyor"
 
 #: ImportExport/ImportHandler.cpp:238
 #, kde-format
@@ -2771,7 +2771,7 @@ msgstr "Dosyadaki anahtar"
 #: ImportExport/ImportMatcher.cpp:44
 #, kde-format
 msgid "Key in your database"
-msgstr "Veritabanınızdaki anahtar"
+msgstr "Veri tabanınızdaki anahtar"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
@@ -2846,10 +2846,10 @@ msgid_plural ""
 "%1 images from the import file, have the same MD5 sum as images in the "
 "Database, how should that be resolved?"
 msgstr[0] ""
-"İçe aktarılacak dosyadaki %1 görsel veritabanındaki görsellerle aynı MD5 "
+"İçe aktarılacak dosyadaki %1 görsel veri tabanındaki görsellerle aynı MD5 "
 "özetine sahip. Bu nasıl çözülmeli?"
 msgstr[1] ""
-"İçe aktarılacak dosyadaki %1 görsel veritabanındaki görsellerle aynı MD5 "
+"İçe aktarılacak dosyadaki %1 görsel veri tabanındaki görsellerle aynı MD5 "
 "özetine sahip. Bu nasıl çözülmeli?"
 
 #: ImportExport/MD5CheckPage.cpp:55
@@ -2867,7 +2867,7 @@ msgid ""
 "Use data from\n"
 "Database"
 msgstr ""
-"Veritabanındaki\n"
+"Veri tabanındaki\n"
 "verileri kullan"
 
 #: ImportExport/MD5CheckPage.cpp:61
@@ -3090,8 +3090,8 @@ msgstr "Aşağıdaki küçük görseller, doğru olmayan boyutlarda:\n"
 msgctxt "@info:shell"
 msgid "Removed 1 inconsistent thumbnail from the database.\n"
 msgid_plural "Removed %1 inconsistent thumbnails from the database.\n"
-msgstr[0] "Veritabanından 1 tutarsız küçük görsel kaldırıldı.\n"
-msgstr[1] "Veritabanından %1 tutarsız küçük görsel kaldırıldı.\n"
+msgstr[0] "Veri tabanından 1 tutarsız küçük görsel kaldırıldı.\n"
+msgstr[1] "Veri tabanından %1 tutarsız küçük görsel kaldırıldı.\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:20
 #, kde-format
@@ -3198,16 +3198,16 @@ msgid ""
 "command that was attempted to be executed was:<br/>%1</p><p>The error "
 "message obtained was:<br/>%2</p>"
 msgstr ""
-"<p>Exif arama veritabanına erişirken bir hata oluştu. Hatanın nedeni, büyük "
-"olasılıkla bozuk bir veritabanı dosyası olabilir.</p><p>Bu sorunu çözmek "
-"için “Bakım → Exif Arama Veritabanını Yeniden Oluştur” seçeneğini kullanın.</"
-"p><hr/><p>Hata ayıklama için: Çalıştırılmak istenen komut şuydu:<br/>%1</"
+"<p>Exif arama veri tabanına erişirken bir hata oluştu. Hatanın nedeni, büyük "
+"olasılıkla bozuk bir veri tabanı dosyası olabilir.</p><p>Bu sorunu çözmek "
+"için “Bakım → Exif Arama Veri Tabanını Yeniden Oluştur” seçeneğini kullanın."
+"</p><hr/><p>Hata ayıklama için: Çalıştırılmak istenen komut şuydu:<br/>%1</"
 "p><p>Alınan hata iletisi ise şuydu:<br/>%2</p>"
 
 #: lib/kpaexif/Database.cpp:188
 #, kde-format
 msgid "Error in Exif database"
-msgstr "Exif veritabanında hata"
+msgstr "Exif veri tabanında hata"
 
 #: lib/kpaexif/Database.cpp:209
 #, kde-format
@@ -3216,8 +3216,8 @@ msgid ""
 "this problem run Maintenance->Recreate Exif Search database.</p><hr/><p>The "
 "error message obtained was:<br/>%1</p>"
 msgstr ""
-"<p>Exif veritabanı açılırken bir hata oluştu.</p> <p>Bu sorunu çözmek için "
-"“Bakım → Exif Arama Veritabanını Yeniden Oluştur” seçeneğini kullanın.</"
+"<p>Exif veri tabanı açılırken bir hata oluştu.</p> <p>Bu sorunu çözmek için "
+"“Bakım → Exif Arama Veri Tabanını Yeniden Oluştur” seçeneğini kullanın.</"
 "p><hr/><p>Alınan hata iletisi:<br/>%1</p>"
 
 #: lib/kpaexif/Database.cpp:259
@@ -3226,8 +3226,8 @@ msgid ""
 "<p>The Exif search database is corrupted and has no data.</p> <p>To fix this "
 "problem run Maintenance->Recreate Exif Search database.</p>"
 msgstr ""
-"<p>Exif arama veritabanı hasar görmüş ve veri içermiyor.</p> <p>Bu sorunu "
-"çözmek için “Bakım → Exif Arama Veritabanını Yeniden Oluştur” seçeneğini "
+"<p>Exif arama veri tabanı hasar görmüş ve veri içermiyor.</p> <p>Bu sorunu "
+"çözmek için “Bakım → Exif Arama Veri Tabanını Yeniden Oluştur” seçeneğini "
 "kullanın.</p>"
 
 #: main.cpp:85
@@ -3478,10 +3478,10 @@ msgid_plural ""
 "Selected %1 items will be removed from the database.<br/>What do you want to "
 "do with the files on disk?"
 msgstr[0] ""
-"Seçilen öge veritabanından silinecektir.<br/>Bu dosyayla diskte ne yapmak "
+"Seçilen öge veri tabanından silinecektir.<br/>Bu dosyayla diskte ne yapmak "
 "istiyorsunuz?"
 msgstr[1] ""
-"Seçilen %1 öge veritabanından silinecektir.<br/>Bu dosyalarla diskte ne "
+"Seçilen %1 öge veri tabanından silinecektir.<br/>Bu dosyalarla diskte ne "
 "yapmak istiyorsunuz?"
 
 #: MainWindow/DeleteDialog.cpp:71
@@ -3502,8 +3502,8 @@ msgstr[1] "%1 dosyayı diskten sil"
 #, kde-format
 msgid "Only remove the item from database"
 msgid_plural "Only remove %1 items from database"
-msgstr[0] "Yalnızca ögeyi veritabanından kaldır"
-msgstr[1] "Yalnızca %1 ögeyi veritabanından kaldır"
+msgstr[0] "Yalnızca ögeyi veri tabanından kaldır"
+msgstr[1] "Yalnızca %1 ögeyi veri tabanından kaldır"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:46
 #, kde-format
@@ -3529,7 +3529,7 @@ msgid ""
 "<br/>The tag and description from the deleted images will be transferred to "
 "the kept image</p>"
 msgstr ""
-"<p>Aşağıdaki veritabanınızdaki tüm yinelenen görsellerin listesidir.<br/"
+"<p>Aşağıdaki veri tabanınızdaki tüm yinelenen görsellerin listesidir.<br/"
 ">Hangisini birleştirmek istediğinizi ve hangi yinelenenlerin kalacağını "
 "seçin.<br/>Silinen görsellerdeki künye ve açıklama kısımları tutulan görsele "
 "aktarılır</p>"
@@ -3547,7 +3547,7 @@ msgstr "&Diskten sil"
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:56
 #, kde-format
 msgid "&Block from database"
-msgstr "Veritabanından &engelle"
+msgstr "Veri tabanından &engelle"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:78
 #, kde-format
@@ -3678,7 +3678,7 @@ msgid ""
 "is only available if the Qt SQLite driver is installed. On Debian-based "
 "distributions this package is usually called libqt6sql6-sqlite.</p>"
 msgstr ""
-"<h2><a name=\"database\">SQLite veritabanı desteği</a></h2><p>K Fotoğraf "
+"<h2><a name=\"database\">SQLite veri tabanı desteği</a></h2><p>K Fotoğraf "
 "Albümü, belirli sayıda Exif künyesini kullanarak arama yapmanıza olanak "
 "tanır.</p><p>Bu özellik yalnızca Qt SQLite sürücüsü kuruluysa "
 "kullanılabilir. Debian tabanlı dağıtımlarda bu paket genellikle libqt6sql6-"
@@ -3727,7 +3727,7 @@ msgstr "Konum künyelenmiş görseller için harita görünümü."
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "SQLite database support"
-msgstr "SQLite veritabanı desteği"
+msgstr "SQLite veri tabanı desteği"
 
 #: MainWindow/FeatureDialog.cpp:144
 #, kde-format
@@ -3833,13 +3833,13 @@ msgid ""
 "Use <databaseFile> instead of the default. Deprecated - use '--db "
 "<databaseFile>' instead."
 msgstr ""
-"Öntanımlı yerine <veritabanıDosyası> kullanın. Eski; yerine “--db "
-"<veritabanıDosyası>” kullanın."
+"Öntanımlı yerine <veri-tabanı-dosyası> kullanın. Eski; yerine “--db <veri-"
+"tabanı-dosyası>” kullanın."
 
 #: MainWindow/Options.cpp:27 MainWindow/Options.cpp:37
 #, kde-format
 msgid "databaseFile"
-msgstr "veritabanıDosyası"
+msgstr "veri-tabanı-dosyası"
 
 #: MainWindow/Options.cpp:31
 #, kde-format
@@ -3854,7 +3854,7 @@ msgstr "kphotoalbumrc"
 #: MainWindow/Options.cpp:36
 #, kde-format
 msgid "Use <databaseFile> instead of the default."
-msgstr "Öntanımlı yerine <veritabanıDosyası> kullanın."
+msgstr "Öntanımlı yerine <veri-tabanı-dosyası> kullanın."
 
 #: MainWindow/Options.cpp:39
 #, kde-format
@@ -3890,7 +3890,8 @@ msgstr "arayüz_adresi"
 #: MainWindow/Options.cpp:58
 #, kde-format
 msgid "Save the database and immediately quit after showing the main window."
-msgstr "Ana pencereyi gösterdikten sonra veritabanını kaydedin ve hemen çıkın."
+msgstr ""
+"Ana pencereyi gösterdikten sonra veri tabanını kaydedin ve hemen çıkın."
 
 #: MainWindow/Options.cpp:59
 #, kde-format
@@ -4079,16 +4080,16 @@ msgstr ""
 "görsellerinizi ve videolarınızı arşivlemek ve künyelemek için güçlü bir "
 "araçtır. Değerli dosyalarınızı değiştirmez veya düzenlemez, yalnızca "
 "videolarınızı ve görsellerinizi daha kolay bulmanız ve yönetmeniz için "
-"dizinler.</p><p>Veritabanımı Oluştur düğmesine basıp K Fotoğraf Albümü’ne "
+"dizinler.</p><p>Veri tabanımı Oluştur düğmesine basıp K Fotoğraf Albümü’ne "
 "görsellerinizin nerede olduğunu göstererek başlayabilirsiniz. Halihazırda K "
-"Fotoğraf Albümü veritabanınız varsa ve yeniden başlamak istiyorsanız da bu "
+"Fotoğraf Albümü veri tabanınız varsa ve yeniden başlamak istiyorsanız da bu "
 "düğmeye basın.</p><p>Eğer hazır yüklü görsel kümeleri ile denemek isterseniz "
 "Tanıtımı Yükle butonuna basın.</p>"
 
 #: MainWindow/WelcomeDialog.cpp:61
 #, kde-format
 msgid "Create My Own Database..."
-msgstr "Veritabanımı Oluştur…"
+msgstr "Veri Tabanımı Oluştur…"
 
 #: MainWindow/WelcomeDialog.cpp:64
 #, kde-format
@@ -4113,13 +4114,13 @@ msgid ""
 "folder somewhere, point KPhotoAlbum to that folder to start using it again.</"
 "p>"
 msgstr ""
-"<h1>K Fotoğraf Albümü veritabanı oluşturma</h1><p>K Fotoğraf Albümü’ne, "
+"<h1>K Fotoğraf Albümü veri tabanı oluşturma</h1><p>K Fotoğraf Albümü’ne, "
 "görsel ve videolarınızı bulabilmesi için nerede olduğunu göstermeniz "
 "gerekiyor. Hepsinin bir klasör altında olması gerekir, örneğin /home/user/"
 "Görseller. Bu klasörde istediğiniz kadar alt klasörünüz olabilir, K Fotoğraf "
 "Albümü hepsini bulacaktır.</p><p>K Fotoğraf Albümü hiçbir görselinizi "
 "düzenlemeyecektir, bütün görsellerinizin olduğu klasöre işaret edebilirsiniz."
-"</p><p>Eğer halihazırda veritabanınız veya görseller klasörünüz varsa o "
+"</p><p>Eğer halihazırda veri tabanınız veya görseller klasörünüz varsa o "
 "klasörü göstererek yeniden kullanmaya başlayabilirsiniz.</p>"
 
 #: MainWindow/WelcomeDialog.cpp:116
@@ -4180,8 +4181,8 @@ msgid ""
 "might want to keep it around with the changes you made through this session."
 "</p>"
 msgstr ""
-"<p><b>Geçici Tanıtım Veritabanını Sil</b></p><p>Umarım K Fotoğraf Albümü "
-"tanıtımından hoşlandınız. Tanıtım veritabanı <tt>/tmp</tt> klasöründe "
+"<p><b>Geçici Tanıtım Veri Tabanını Sil</b></p><p>Umarım K Fotoğraf Albümü "
+"tanıtımından hoşlandınız. Tanıtım veri tabanı <tt>/tmp</tt> klasöründe "
 "oluşturulmuştu, şimdi silinsin mi? Silmezseniz diskinizde boşuna yer "
 "kaplayacaktır; ancak tanıtımı ileride yeniden çalıştırmak isterseniz "
 "saklamalısınız.</p>"
@@ -4190,7 +4191,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
-msgstr "Tanıtım Veritabanını Sil"
+msgstr "Tanıtım Veri Tabanını Sil"
 
 #: MainWindow/Window.cpp:340
 #, kde-format
@@ -4464,7 +4465,7 @@ msgstr "Görseller ve Videolar için Yeniden Tara"
 #: MainWindow/Window.cpp:1017
 #, kde-format
 msgid "Recreate Exif Search Database"
-msgstr "Exif Arama Veritabanını Yeniden Oluştur"
+msgstr "Exif Arama Veri Tabanını Yeniden Oluştur"
 
 #: MainWindow/Window.cpp:1020
 #, kde-format
@@ -4558,13 +4559,13 @@ msgstr "Otomatik kaydediliyor…. Bitti"
 #: MainWindow/Window.cpp:1207
 #, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
-msgstr "<p>Bu veritabanı dosyasını oluşturmak istiyor musunuz?<br />%1</p>"
+msgstr "<p>Bu veri tabanı dosyasını oluşturmak istiyor musunuz?<br />%1</p>"
 
 #: MainWindow/Window.cpp:1210
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
-msgstr "Veritabanı Oluştur"
+msgstr "Veri Tabanı Oluştur"
 
 #: MainWindow/Window.cpp:1254
 #, kde-format
@@ -4575,7 +4576,7 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 "<p>Künyelenmemiş görseller için bir künye yapılandırdınız; ancak künyenin "
-"kendisi veya kategorisi veritabanında yok.</p><p>Lütfen, <interface>Ayarlar "
+"kendisi veya kategorisi veri tabanında yok.</p><p>Lütfen, <interface>Ayarlar "
 "→ K Fotoğraf Albümü Uygulamasını Yapılandır… → Kategoriler</interface> "
 "altında künyelenmemiş künye ayarını gözden geçirin</p>"
 
@@ -4668,7 +4669,7 @@ msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
-"Dosyaları burada listeleyerek K Fotoğraf Albümü’nün veritabanından bir "
+"Dosyaları burada listeleyerek K Fotoğraf Albümü’nün veri tabanından bir "
 "dosyalar kümesi açabilirsiniz."
 
 #: MainWindow/Window.cpp:1630
@@ -4950,14 +4951,14 @@ msgid ""
 "saved,<br/>the names of categories can't be changed and new ones can't be "
 "added.</font>"
 msgstr ""
-"<font color='red'>Veritabanında kaydedilmemiş değişiklikler var. Bunlar "
+"<font color='red'>Veri tabanında kaydedilmemiş değişiklikler var. Bunlar "
 "kaydedilmediği sürece,<br/>kategori adları değiştirilemez ve yenileri "
 "eklenemez.</font>"
 
 #: Settings/CategoryPage.cpp:166
 #, kde-format
 msgid "Save the DB now"
-msgstr "Veritabanını şimdi kaydet"
+msgstr "Veri tabanını şimdi kaydet"
 
 #: Settings/CategoryPage.cpp:206
 #, kde-format
@@ -5047,7 +5048,7 @@ msgstr "<i>Düzenlemek için bir kategori seçin</i>"
 #: Settings/DatabaseBackendPage.cpp:23
 #, kde-format
 msgid "Choose speed over readability for the XML database file"
-msgstr "XML veritabanı dosyası için okunabilirlik yerine hızı seç"
+msgstr "XML veri tabanı dosyası için okunabilirlik yerine hızı seç"
 
 #: Settings/DatabaseBackendPage.cpp:27
 #, kde-format
@@ -5086,13 +5087,13 @@ msgid ""
 "images, and in that case it is useful to ask KPhotoAlbum to zip the backup "
 "files to preserve disk space.</p>"
 msgstr ""
-"<p>K Fotoğraf Albümü, kopyaları tutarak XML veritabanı dosyasını "
-"yedekleyebilir (örneğin, index.xml adlı bir veritabanı dosyası için "
+"<p>K Fotoğraf Albümü, kopyaları tutarak XML veri tabanı dosyasını "
+"yedekleyebilir (örneğin, index.xml adlı bir veri tabanı dosyası için "
 "yedeklere index.xml~0001~, indexml~0002~ vb.) ve tutmak için yedekleme "
 "dosyalarının sayısını belirtmek için artırma kutusunu kullanabilirsiniz. K "
 "Fotoğraf Albümü, en eski yedekleme dosyasını en büyük yedekleme dosyası "
-"sayısına ulaştığında silecektir.</p><p>Çok sayıda görseliniz varsa XML "
-"veritabanı dosyası önemli ölçüde büyüyebilir ve bu durumda K Fotoğraf "
+"sayısına ulaştığında silecektir.</p><p>Çok sayıda görseliniz varsa XML veri "
+"tabanı dosyası önemli ölçüde büyüyebilir ve bu durumda K Fotoğraf "
 "Albümü’nden disk alanını korumak için yedekleme dosyalarını sıkıştırmasını "
 "istemek yararlıdır.</p>"
 
@@ -5104,10 +5105,10 @@ msgid ""
 "time to approximately half, by checking this check box. The disadvantage is "
 "that the XML database file is less readable by human eyes.</p>"
 msgstr ""
-"<p>K Fotoğraf Albümü, <i>veritabanı</i> olarak tek bir XML dosyası "
+"<p>K Fotoğraf Albümü, <i>veri tabanı</i> olarak tek bir XML dosyası "
 "kullanıyor. Çok sayıda görsel ile birlikte bu dosyayı okumak uzun bir zaman "
 "alabilir. Bu onay kutusunu etkinleştirerek bu zamanı ortalama yarısına kadar "
-"düşürebilirsiniz. Bunun götürüsü, XML veritabanı dosyasının gözlerinizle "
+"düşürebilirsiniz. Bunun götürüsü, XML veri tabanı dosyasının gözlerinizle "
 "okunabilirliğinin kaybı olacaktır.</p>"
 
 #: Settings/ExifPage.cpp:37
@@ -5191,7 +5192,7 @@ msgid ""
 "extension!</p>"
 msgstr ""
 "<p>K Fotoğraf Albümü, normalde yeni görsel ve videoları dosya uzantılarına "
-"göre arar. Eğer bu özellik ayarlanmışsa veritabanında veya engelli "
+"göre arar. Eğer bu özellik ayarlanmışsa veri tabanında veya engelli "
 "listesinde olmayan <em>tüm</em> dosyaların uzantısına bakılmaksızın Mime "
 "tiplerine bakılır. Bu yöntem, uzantı yöntemine göre önemli bir miktarda daha "
 "uzun sürer!</p>"
@@ -5419,8 +5420,8 @@ msgid ""
 "media, choose the slowest media type used.</p><p>Use Manual Settings to "
 "configure details of how the loading is performed.</p>"
 msgstr ""
-"<p>Görsel veritabanınızın üzerinde bulunduğu depolama türüne göre görsel "
-"yüklemeyi en iyi başarım için ayarla. Görsel veritabanınız, birden çok "
+"<p>Görsel veri tabanınızın üzerinde bulunduğu depolama türüne göre görsel "
+"yüklemeyi en iyi başarım için ayarla. Görsel veri tabanınız, birden çok "
 "ortamda bulunuyorsa en yavaş ortam türünü seçin.</p><p>Yüklemenin nice "
 "gerçekleştirildiğinin ayrıntılarını yapılandırmak için el ile ayarları "
 "kullanın.</p>"
@@ -5686,7 +5687,7 @@ msgstr "Exif/IPTC Bilgisi"
 #: Settings/SettingsDialog.cpp:54
 #, kde-format
 msgid "Database Backend"
-msgstr "Veritabanı Arka Ucu"
+msgstr "Veri Tabanı Arka Ucu"
 
 #: Settings/SettingsDialog.cpp:74
 #, kde-format
@@ -5966,7 +5967,7 @@ msgid ""
 "of the thumbnail database.</p>"
 msgstr ""
 "<p>Küçük görsel boyutu. Küçük görsel boyutunu buradan değiştirmek küçük "
-"görsel veritabanını yeniden oluşturulmasını tetikler.</p>"
+"görsel veri tabanını yeniden oluşturulmasını tetikler.</p>"
 
 #: Settings/ThumbnailsPage.cpp:108
 #, kde-format
@@ -5980,14 +5981,14 @@ msgid ""
 "immediately build thumbnails for them and you won't have a delay later while "
 "browsing.</p>"
 msgstr ""
-"<p>Bu ayarlandıysa küçük görseller istek üzerine oluşturulur. Görsel "
-"veritabanınızı gezdikçe, yalnızca gerekli olan küçük görseller oluşturulur. "
-"Bu, eğer küçük görsel boyutunu değiştirdiyseniz K Fotoğraf Albümü’nün çok "
-"fazla görseliniz olmasına rağmen hala cevap vermesini sağlayacaktır.</"
-"p><p>Eğer bu ayarlı değilse KPhotoAlbum her zaman bütün görseller için küçük "
-"görseller oluşturmaya çalışacaktır. Bu da yeni görsel bulunduğu anda K "
-"Fotoğraf Albümü onlar için hemen küçük görsel oluşturacak ve göz atarken bir "
-"gecikme yaşamayacaksınız demektir.</p>"
+"<p>Bu ayarlandıysa küçük görseller istek üzerine oluşturulur. Görsel veri "
+"tabanınızı gezdikçe, yalnızca gerekli olan küçük görseller oluşturulur. Bu, "
+"eğer küçük görsel boyutunu değiştirdiyseniz K Fotoğraf Albümü’nün çok fazla "
+"görseliniz olmasına rağmen hala cevap vermesini sağlayacaktır.</p><p>Eğer bu "
+"ayarlı değilse KPhotoAlbum her zaman bütün görseller için küçük görseller "
+"oluşturmaya çalışacaktır. Bu da yeni görsel bulunduğu anda K Fotoğraf Albümü "
+"onlar için hemen küçük görsel oluşturacak ve göz atarken bir gecikme "
+"yaşamayacaksınız demektir.</p>"
 
 #: Settings/ThumbnailsPage.cpp:117
 #, kde-format
@@ -6073,9 +6074,9 @@ msgid ""
 "error about this tag being not present on the next start.</p>"
 msgstr ""
 "<p>Yeni künye “%1”, “%2” kategorisine eklendi ve künyelenmemiş görseller "
-"için şimdi kullanılacak.</p><p>Lütfen şimdi kaydedin, çünkü bu künye "
-"veritabanında saklanacak. Aksi takdirde, bu kaybolacak ve bir sonraki "
-"başlatmada bu künyenin bulunmaması ile ilgili bir hata alacaksınız.</p>"
+"için şimdi kullanılacak.</p><p>Lütfen şimdi kaydedin, çünkü bu künye veri "
+"tabanında saklanacak. Aksi takdirde, bu kaybolacak ve bir sonraki başlatmada "
+"bu künyenin bulunmaması ile ilgili bir hata alacaksınız.</p>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:26
 #, kde-format
@@ -6370,8 +6371,8 @@ msgid ""
 "<p>Could not locate the demo database in any of the following standard "
 "locations:</p><p>%1</p>"
 msgstr ""
-"<p>Tanıtım veritabanı, aşağıdaki standart konumların hiçbirinde bulunamadı:</"
-"p><p>%1</p>"
+"<p>Tanıtım veri tabanı, aşağıdaki standart konumların hiçbirinde bulunamadı:"
+"</p><p>%1</p>"
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format
@@ -7271,81 +7272,3 @@ msgstr "Görsel Boyutunu Göster"
 #, kde-format
 msgid "Show Rating"
 msgstr "Derecelendirmeyi Göster"
-
-#~ msgid ""
-#~ "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
-#~ "features KPhotoAlbum has, and their status:</p>%1"
-#~ msgstr ""
-#~ "<h1>Genel Görünüm</h1><p>Aşağıda, K Fotoğraf Albümü uygulamasının derleme "
-#~ "zamanı ve çalışma zamanı özelliklerini ve bu özelliklerin durumunu "
-#~ "görebilirsiniz:</p>%1"
-
-#~ msgid ""
-#~ "<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
-#~ "yourself, then please review the sections below to learn what to install "
-#~ "to get the feature in question. If on the other hand you installed "
-#~ "KPhotoAlbum from a binary package, please tell whoever made the package "
-#~ "about this defect, eventually including the information from the section "
-#~ "below.</p><p>In case you are missing a feature and you did not compile "
-#~ "KPhotoAlbum yourself, please do consider doing so. It really is not that "
-#~ "hard. If you need help compiling KPhotoAlbum, feel free to ask on the <a "
-#~ "href=\"https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum"
-#~ "\">KPhotoAlbum mailing list</a></p><p>The steps to compile KPhotoAlbum "
-#~ "can be seen on <a href=\"https://community.kde.org/KPhotoAlbum/"
-#~ "build_instructions\">the KPhotoAlbum home page</a>. If you have never "
-#~ "compiled a KDE application, then please ensure that you have the "
-#~ "developer packages installed, in most distributions they go under names "
-#~ "like kdelibs<i>-devel</i></p>"
-#~ msgstr ""
-#~ "<h1>Bir özelliğim eksikse ne yapabilirim?</h1><p>Eğer K Fotoğraf "
-#~ "Albümü’nu kendiniz derlediyseniz o halde lütfen sorudaki özelliği edinmek "
-#~ "için neyi kuracağınızı öğrenmek için aşağıdaki bölümlere göz atınız. Eğer "
-#~ "diğer taraftan K Fotoğraf Albümü’nu bir ikilik paketten kurduysanız "
-#~ "lütfen bu eksikliği kim yaptıysa aşağıdaki bölümde yazan bilgilerle "
-#~ "birlikte ona bu eksikliği söyleyin.</p><p>Bir özelliğiniz eksik ve K "
-#~ "Fotoğraf Albümü’nu kendiniz derlemediğiniz durumda, lütfen kendiniz "
-#~ "derlemeyi gözden geçirin. O kadar da zor değil. Eğer K Fotoğraf Albümü’nu "
-#~ "derleme konusunda yardıma gereksiniminiz varsa lütfen <a href=\"http://"
-#~ "mail.kdab.net/mailman/listinfo/kphotoalbum\">K Fotoğraf Albümü posta "
-#~ "listesi</a>ne sormaktan çekinmeyin.</p><p>K Fotoğraf Albümü’nu derlemek "
-#~ "için gereken adımlar <a href=\"http://www.kphotoalbum.org/download-source."
-#~ "htm\">K Fotoğraf Albümü ana sayfasında</a> bulunabilir. Eğer daha önce "
-#~ "bir KDE uygulaması derlemediyseniz o halde lütfen geliştirici "
-#~ "paketlerinizin kurulu olduğundan emin olun. Çoğu dağıtımda kdelibs<i>-"
-#~ "devel</i> benzeri bir ad alırlar.</p>"
-
-#~ msgid ""
-#~ "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on "
-#~ "phonon or VLC for displaying videos</p>"
-#~ msgstr ""
-#~ "<h1><a name=\"video\">Video desteği</a></h1><p>K Fotoğraf Albümü, "
-#~ "videoları görüntülemek için VLC veya Phonon desteğine gereksinim duyar.</"
-#~ "p>"
-
-#~ msgid ""
-#~ "<h1><a name=\"videoPreview\">Video thumbnail support</a></"
-#~ "h1><p>KPhotoAlbum can use <tt>ffmpeg</tt> to extract thumbnails from "
-#~ "videos. These thumbnails are used to preview videos in the thumbnail "
-#~ "viewer.</p>"
-#~ msgstr ""
-#~ "<h1><a name=\"videoPreview\">Video küçük görsel desteği</a></h1><p>K "
-#~ "Fotoğraf Albümü, videolardan küçük görselleri çıkarmak için <tt>ffmpeg</"
-#~ "tt> kullanabilir. Bu küçük görseller, küçük görsel görüntüleyicisinde "
-#~ "videoları önizlemek için kullanılır.</p>"
-
-#~ msgid ""
-#~ "<h1><a name=\"videoInfo\">Video metadata support</a></h1><p>KPhotoAlbum "
-#~ "can use <tt>ffprobe</tt> to extract length information from videos.</"
-#~ "p><p>Correct length information is necessary for correct rendering of "
-#~ "video thumbnails.</p>"
-#~ msgstr ""
-#~ "<h1><a name=\"videoInfo\">Video üst veri desteği</a></h1><p>K Fotoğraf "
-#~ "Albümü, videolardan uzunluk bilgisini çıkarmak için <tt>ffprobe</tt> "
-#~ "kullanabilir.</p><p>Doğru uzunluk bilgisi, video küçük görselinin doğru "
-#~ "sunulması için gereklidir.</p>"
-
-#~ msgid "Plug-ins available"
-#~ msgstr "Kullanılabilir eklentiler"
-
-#~ msgid "SQLite database support (used for Exif searches)"
-#~ msgstr "Sqlite veritabanı desteği (Exif aramaları için kullanılır)"

@@ -13,10 +13,9 @@
 // SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
 // SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2012-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2019 Robert Krawitz <rlk@alum.mit.edu>
-// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2014-2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -589,14 +588,32 @@ void SettingsData::restoreWindowGeometry(WindowId id, QWindow *window)
 
 void SettingsData::saveWindowState(WindowId id, const QByteArray &state)
 {
-    auto stateConfig = KSharedConfig::openStateConfig()->group(s_windowIdKeys.value(id));
+    const auto idGroup = QStringLiteral("%1 %2").arg(s_windowIdKeys.value(id), m_imageDirectory);
+    auto stateConfig = KSharedConfig::openStateConfig()->group(idGroup);
     stateConfig.writeEntry(QStringLiteral("State"), state.toBase64());
 }
 
 QByteArray SettingsData::windowState(WindowId id)
 {
-    auto stateConfig = KSharedConfig::openStateConfig()->group(s_windowIdKeys.value(id));
+    auto idGroup = QStringLiteral("%1 %2").arg(s_windowIdKeys.value(id), m_imageDirectory);
+    auto stateConfig = KSharedConfig::openStateConfig()->group(idGroup);
     auto data = stateConfig.readEntry(QStringLiteral("State"), QString());
+
+    if (data.isEmpty()) {
+        // Check for a non-db-specific state (used up to v6.1.0)
+        idGroup = s_windowIdKeys.value(id);
+        stateConfig = KSharedConfig::openStateConfig()->group(idGroup);
+        data = stateConfig.readEntry(QStringLiteral("State"), QString());
+
+        // If we found it, store a db-specific state and return it
+        if (! data.isEmpty()) {
+            qCWarning(BaseLog) << "Migrating window state to db-specific";
+            const auto state = QByteArray::fromBase64(data.toUtf8());
+            saveWindowState(id, state);
+            return state;
+        }
+    }
+
     return QByteArray::fromBase64(data.toUtf8());
 }
 

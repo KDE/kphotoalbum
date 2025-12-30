@@ -586,34 +586,38 @@ void SettingsData::restoreWindowGeometry(WindowId id, QWindow *window)
     KWindowConfig::restoreWindowSize(window, stateConfig);
 }
 
-void SettingsData::saveWindowState(WindowId id, const QByteArray &state)
+QString SettingsData::windowIdGroup(WindowId id, SettingsScope scope) const
 {
-    const auto idGroup = QStringLiteral("%1 %2").arg(s_windowIdKeys.value(id), m_imageDirectory);
-    auto stateConfig = KSharedConfig::openStateConfig()->group(idGroup);
+    switch (scope) {
+    case SettingsScope::GlobalScope:
+        return s_windowIdKeys.value(id);
+    case SettingsScope::DatabaseScope:
+        return QStringLiteral("%1 %2").arg(s_windowIdKeys.value(id), m_imageDirectory);
+    }
+
+    // We can't reach here
+    return QString();
+}
+
+void SettingsData::saveWindowState(WindowId id, SettingsScope scope, const QByteArray &state)
+{
+    auto stateConfig = KSharedConfig::openStateConfig()->group(windowIdGroup(id, scope));
     stateConfig.writeEntry(QStringLiteral("State"), state.toBase64());
 }
 
 QByteArray SettingsData::windowState(WindowId id)
 {
-    auto idGroup = QStringLiteral("%1 %2").arg(s_windowIdKeys.value(id), m_imageDirectory);
-    auto stateConfig = KSharedConfig::openStateConfig()->group(idGroup);
+    // First check if we have a state in database scope
+    auto stateConfig = KSharedConfig::openStateConfig()->group(windowIdGroup(id, SettingsScope::DatabaseScope));
     auto data = stateConfig.readEntry(QStringLiteral("State"), QString());
 
+    // If no state is found, check if we have a global scope state
     if (data.isEmpty()) {
-        // Check for a non-db-specific state (used up to v6.1.0)
-        idGroup = s_windowIdKeys.value(id);
-        stateConfig = KSharedConfig::openStateConfig()->group(idGroup);
+        stateConfig = KSharedConfig::openStateConfig()->group(windowIdGroup(id, SettingsScope::GlobalScope));
         data = stateConfig.readEntry(QStringLiteral("State"), QString());
-
-        // If we found it, store a db-specific state and return it
-        if (! data.isEmpty()) {
-            qCWarning(BaseLog) << "Migrating window state to db-specific";
-            const auto state = QByteArray::fromBase64(data.toUtf8());
-            saveWindowState(id, state);
-            return state;
-        }
     }
 
+    // Return what we got
     return QByteArray::fromBase64(data.toUtf8());
 }
 

@@ -10,8 +10,8 @@
 // SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
 // SPDX-FileCopyrightText: 2014 David Edmundson <kde@davidedmundson.co.uk>
-// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2017-2020 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2014-2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -112,7 +112,7 @@ protected Q_SLOTS:
     void continueLater();
     void slotClearSearchForm();
     void slotOptions();
-    void slotSaveWindowSetup();
+    void slotSaveWindowSetup(Settings::SettingsScope scope);
     void slotDeleteOption(DB::Category *, const QString &);
     void slotRenameOption(DB::Category *, const QString &, const QString &);
     void reject() override;

@@ -8,7 +8,7 @@
 // SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2019 Robert Krawitz <rlk@alum.mit.edu>
-// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2014-2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -72,6 +72,11 @@ enum LoadOptimizationPreset { LoadOptimizationHardDisk,
                               LoadOptimizationSlowNVME,
                               LoadOptimizationFastNVME,
                               LoadOptimizationManual };
+
+enum SettingsScope {
+    GlobalScope,
+    DatabaseScope
+};
 
 enum WindowId {
     AnnotationDialog
@@ -253,7 +258,7 @@ public:
 
     void saveWindowGeometry(WindowId id, const QWindow *window);
     void restoreWindowGeometry(WindowId id, QWindow *window);
-    void saveWindowState(WindowId id, const QByteArray &state);
+    void saveWindowState(WindowId id, SettingsScope scope, const QByteArray &state);
     QByteArray windowState(WindowId id);
 
     double getThumbnailAspectRatio() const;
@@ -289,6 +294,7 @@ Q_SIGNALS:
 private:
     SettingsData(const QString &imageDirectory, DB::UIDelegate &delegate);
     DB::UIDelegate &uiDelegate() const;
+    QString windowIdGroup(WindowId id, SettingsScope scope) const;
 
     bool m_trustTimeStamps;
     bool m_hasAskedAboutTimeStamps;

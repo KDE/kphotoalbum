@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-20 00:40+0000\n"
-"PO-Revision-Date: 2025-12-14 06:27+0100\n"
+"PO-Revision-Date: 2025-12-29 06:27+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -2181,6 +2181,9 @@ msgid ""
 "images. Each generated collection will be contained in this folder in "
 "separate subfolders.</p>"
 msgstr ""
+"<p>საბაზისო საქაღალდე მითითებული არ გაქვთ. ეს ყველაზე ზემო საქაღალდეა თქვენი "
+"გამოსახულებებისთვის. თითოეული გენერირებული კოლექცია ამ საქაღალდეში, ცალ-"
+"ცალკე ქვესაქაღალდეებში მოთავსდება.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:403
 #, kde-format
@@ -2194,6 +2197,9 @@ msgid ""
 "actual images. The folder will be a subfolder of the base folder specified "
 "above.</p>"
 msgstr ""
+"<p>გამოტანის საქაღალდე მითითებული არ გაქვთ. ეს საქაღალდეა, რომელიც ნამდვილ "
+"გამოსახულებებს შეიცავს. საქაღალდე ზემოთ მითითებული საბაზისო საქაღალდის "
+"ქვესაქაღალდე იქნება.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:412
 #, kde-format
@@ -2206,6 +2212,8 @@ msgid ""
 "<p>Error while reading information about %1. This is most likely because the "
 "folder does not exist.</p><p>The error message was: %2</p>"
 msgstr ""
+"<p>შეცდომა %1-ის შესახებ ინფორმაციის კითხვისას. ყველაზე ხშირად ეს ხდება "
+"მაშინ, როცა საქაღალდე არ არსებობს.</p><p>შეცდომის შეტყობინება: %2</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:429
 #, kde-format
@@ -3073,6 +3081,9 @@ msgid ""
 "this problem run Maintenance->Recreate Exif Search database.</p><hr/><p>The "
 "error message obtained was:<br/>%1</p>"
 msgstr ""
+"<p>შეცდომა Exif-ის ძებნის მონაცემთა ბაზის ხაზსნისას.</p> <p>პრობლემის "
+"გასასწორებლად გამოიყენეტ რემონტი->Exif-ის ძებნის მონაცემა ბაზის თავიდან "
+"შექმნა.</p><hr/><p>მიღებული შეცდომაა:<br/>%1</p>"
 
 #: lib/kpaexif/Database.cpp:259
 #, kde-format
@@ -3080,6 +3091,8 @@ msgid ""
 "<p>The Exif search database is corrupted and has no data.</p> <p>To fix this "
 "problem run Maintenance->Recreate Exif Search database.</p>"
 msgstr ""
+"<p>Exif-ის ძებნის მონაცემთა ბაზა დაზიანებულია და შიგნით მონაცემები არაა.</p> "
+"<p>გასასწორებლად გაუშვით რემონტი->Exif-ის ძებნის ბაზის თავიდან შექმნა.</p>"
 
 #: main.cpp:85
 #, kde-format
@@ -3183,6 +3196,9 @@ msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
+"პაჩი გამოსახულებების დასალაგებლად მინიატურის ხედში.\n"
+"დროის ინფორმაციის წაკითხვა Exif გამოსახულებებიდან არსებული "
+"გამოსახულებებისთვის"
 
 #: main.cpp:147
 #, kde-format
@@ -3482,6 +3498,9 @@ msgid ""
 "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
 "images with GPS information on a map.</p>"
 msgstr ""
+"<h2><a name=\"geomap\">რუკის ხედი გეოლოკაციის ჭდის მქონე "
+"გამოსახულებებეისთვის</a></h2><p>თუ KPhotoAlbum აგებული იყო Marble-ის "
+"მხარდაჭერით, KPhotoAlbum-ს შეუძლია, GPS-ის ინფორმაცია რუკაზე გაჩვენოთ.</p>"
 
 #: MainWindow/FeatureDialog.cpp:88
 #, kde-format
@@ -3973,6 +3992,8 @@ msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
 "them from their stacks and create a completely new one?"
 msgstr ""
+"ზოგიერთი მონიშნული გამოსახულება ჯგუფს უკვე ეკუთვნის. გნებავთ, მათი წაშლა "
+"ჯგუფებიდან და ახლის შექმნა?"
 
 #: MainWindow/Window.cpp:402
 #, kde-format
@@ -4369,6 +4390,8 @@ msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
 "show-again check box?</p>"
 msgstr ""
+"<p>მართლა ჩავრთო ყველა შეტყობინების ველი, სადაც ადრე დასვით თოლია 'აღარ "
+"მაჩვენო'?</p>"
 
 #: MainWindow/Window.cpp:1531
 #, kde-format
@@ -4451,6 +4474,9 @@ msgid ""
 "not be able to display video thumbnails and video lengths. Please install "
 "the ffmpeg package</p>"
 msgstr ""
+"<p>სისტემაში ffmpeg აღმოჩენილი არაა.</p><p>მის გარეშე KPhotoAlbum-ს არ "
+"ექნება საშუალება, გაჩვენოთ ვიდეოს მინიატურები და ხანგრძლივობები. დააყენეთ "
+"პაკეტი ffmpeg.</p>"
 
 #: MainWindow/Window.cpp:1885
 #, kde-format
@@ -4563,6 +4589,8 @@ msgid ""
 "Unable to listen for remote Android connections. This is likely because you "
 "have another KPhotoAlbum application running."
 msgstr ""
+"დაშორებული Android მოწყობილობების მოსმენა შეუძლებელია. ამის მიზეზი ყველაზე "
+"ხშირად არის KPhotoAlbum-ის კიდევ ერთი გაშვებული ასლი."
 
 #: RemoteControl/Server.cpp:67
 #, kde-format
@@ -4576,6 +4604,10 @@ msgid ""
 "Desktop protocol version: %1\n"
 "Remote Control protocol version: %2"
 msgstr ""
+"ვერსიის კონფლიქტი დაშორებულ კლიენტსა და კომპიუტერზე გაშვებულ KPhotoAlbum-ს "
+"შორის.\n"
+"კომპიუტერის ვარიანტის პროტოკოლის ვერსია: %1\n"
+"დაშორებული კონტროლის პროტოკოლის ვერსია: %2"
 
 #: Settings/BirthdayPage.cpp:59
 #, kde-format
@@ -4594,6 +4626,8 @@ msgid ""
 "Set the date of birth for items (say people) here, and then see their age "
 "when viewing the images."
 msgstr ""
+"დააყენეთ დაბადების დღე ელემენტებისთვის (ვთქვთ, ხალხისთვის) აქ და იხილეთ მათი "
+"ასაკი სურათების დათვალიერებისას."
 
 #: Settings/BirthdayPage.cpp:157
 #, kde-format
@@ -4686,6 +4720,9 @@ msgid ""
 "saved,<br/>the names of categories can't be changed and new ones can't be "
 "added.</font>"
 msgstr ""
+"<font color='red'>მონაცემთა ბაზაში არსებობს შეუნახავი ცვლილებები. სანამ მათ "
+"არ სეინახავთ,<br/>კატეგორიის სახელები არ შეიცვლება და ახლები არ დაემატება.</"
+"font>"
 
 #: Settings/CategoryPage.cpp:166
 #, kde-format
@@ -4709,6 +4746,9 @@ msgid ""
 "special category name which is reserved and can't be used for a normal "
 "category.</p>"
 msgstr ""
+"<p>კატეგორიის სახელის გადარქმევა შეუძლებელია \"%1\"-დან \"%2\"-ზე:</p><p>"
+"\"%2\" სპეციალური კატეგორიის სახელია, რომელიც დაცულია და ნორმალური "
+"კატეგორიისთვის ვერ გამოიყენებთ.</p>"
 
 #: Settings/CategoryPage.cpp:267 Settings/CategoryPage.cpp:278
 #, kde-format
@@ -4721,6 +4761,8 @@ msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>A category with "
 "this name already exists.</p>"
 msgstr ""
+"<p>კატეგორიის სახელის გადარქმევის შეცდომა \"%1\"-დან \"%2\"-ზე:</"
+"p><p>კატეგორია ამ სახელით უკვე არსებობს.</p>"
 
 #: Settings/CategoryPage.cpp:292
 #, kde-format
@@ -4729,6 +4771,8 @@ msgid ""
 "pending rename action on the category \"%2\". Please save this change first."
 "</p>"
 msgstr ""
+"<p>ვერ შევცვალე კატეგორიის სახელი \"%1\"-დან \"%2\"-ზე:</p><p>კატეგორიაში "
+"\"%2\" რიგშია სახელის გადარქმევის ქმედება. ჯერ შეინახეთ ეს ცვლილება.</p>"
 
 #: Settings/CategoryPage.cpp:296
 #, kde-format
@@ -4741,6 +4785,8 @@ msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
 "linked against this category will be discarded!</p>"
 msgstr ""
+"<p>მართლა გნებავთ \"%1\" არაპოზიციონირებადი გახდეს?</p><p>ყველა არე, რომელიც "
+"ამ კატეგორიაზეა მიბმული, წაიშლება!</p>"
 
 #: Settings/CategoryPage.cpp:335
 #, kde-format
@@ -4989,6 +5035,8 @@ msgid ""
 "<p>The tagging is moved from the original file to the new file. This way "
 "only the latest version of an image is tagged.</p>"
 msgstr ""
+"<p>ჭდეები ორიგინალი ფაილიდან ახალ ფაილში იქნება გადატანილი. ამ გზით ჭდეები, "
+"მხოლოდ, უკანასკნელ ვერსიას ექნება.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:143
 #, kde-format
@@ -5118,6 +5166,9 @@ msgid ""
 "thumbnails.  Normally this should be set to 1; the exception might be if you "
 "have very fast storage.</p>"
 msgstr ""
+"<p>ნაკადების რაოდენობა გამოსახულებების წინასწარ ჩასატვირთად მინიატურების "
+"აგებამდე.  ნორმალურად, ეს ერთის ტოლი უნდა იყოს. გამონაკლისი, მხოლოდ, მაშინ "
+"დაუშვით, თუ გაქვთ ძალიან სწრაფი საცავი.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:244
 #, kde-format
@@ -5245,6 +5296,9 @@ msgid ""
 "<p>JPEG images may contain a description. Check this checkbox to specify if "
 "you want to use this as a default description for your images.</p>"
 msgstr ""
+"<p>JPEG გამოსახულებები, შეიძლება, აღწერას შეიცავდეს. დასვით ეს თოლია, რომ "
+"მიუთითოთ, რომ გნებავთ, ის თქვენი გამოსახულებებისთვის ნაგულისხმევ აღწერად "
+"გამოიყენოთ.</p>"
 
 #: Settings/GeneralPage.cpp:159
 #, kde-format
@@ -5407,6 +5461,9 @@ msgid ""
 "will be moved to the super category of \"%1\" (\"%2\").<nl/> All other "
 "memberships of the sub-categories will stay intact.</para>"
 msgstr ""
+"<para>მართლა გნებავთ, წაშალოთ ჯგუფი \"%1\"?</para><para>ამ გუფის "
+"ქვეკატეგორიები გადატანილი იქნებ სუპერკატეგორიაში სახელით \"%1\" (\"%2\").<nl/"
+"> ქვეკატეგორიების ყველა სხვა წევრობა უცვლელი დარჩება.</para>"
 
 #: Settings/TagGroupsPage.cpp:516
 #, kde-kuit-format
@@ -5457,6 +5514,8 @@ msgid ""
 "will remove any information about it from any image containing the item.</"
 "para>"
 msgstr ""
+"<para>მართლა გნებავთ, წაშალოთ \"%1\"?</para><para>ელემენტის წაშლა ასევე "
+"წაშლის ყველაფერს ყველა გამოსახულებიდან, რომელიც ელემენტს შეიცავდა.</para>"
 
 #: Settings/TagGroupsPage.cpp:768
 #, kde-format
@@ -5641,6 +5700,9 @@ msgid ""
 "automatically, so that they can be easily found. It will be removed as soon "
 "as the image has been annotated."
 msgstr ""
+"თუ აქ ჭდეს მონიშნავთ, ის ავტომატურად დაემატება ახალ (ჭდის გარეშე) "
+"გამოსახულებებს, ასე რომ მათ იოლად იპოვით. ის წაიშლება მაშინვე, როგორც კი "
+"გამოსახულებას ანოტაციას დაამატებთ."
 
 #: Settings/UntaggedGroupBox.cpp:45
 #, kde-format
@@ -5925,6 +5987,8 @@ msgid ""
 "<p>Could not locate the demo database in any of the following standard "
 "locations:</p><p>%1</p>"
 msgstr ""
+"<p>სადემონსტრაციო მონაცემთა ბაზის აღმოცენა შეუძლებელია შემდეგ სტანდარტულ "
+"მდებარეობებზე:</p><p>%1</p>"
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format

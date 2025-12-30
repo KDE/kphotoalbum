@@ -919,10 +919,18 @@ void AnnotationDialog::Dialog::loadInfo(const DB::ImageSearchInfo &info)
 
 void AnnotationDialog::Dialog::slotOptions()
 {
+    // FIXME: Until now, the menu was newly created on each click, causing a memory leak.
+    // By using a member variable, the leak is fixed. However, we probably should implement this
+    // whole code in a better/contemporary way.
+    if (m_optionsMenu == nullptr) {
+        m_optionsMenu = new QMenu(this);
+    } else {
+        m_optionsMenu->clear();
+    }
+
     // create menu entries for dock windows
-    QMenu *menu = new QMenu(this);
     QMenu *dockMenu = m_dockWindow->createPopupMenu();
-    menu->addMenu(dockMenu)
+    m_optionsMenu->addMenu(dockMenu)
         ->setText(i18n("Configure Window Layout..."));
     QAction *saveCurrent = dockMenu->addAction(i18n("Save current layout globally"));
     QAction *saveCurrentPerDb = dockMenu->addAction(i18n("Save current layout for this DB"));
@@ -930,8 +938,8 @@ void AnnotationDialog::Dialog::slotOptions()
     QAction *reset = dockMenu->addAction(i18n("Reset layout"));
 
     // create SortType entries
-    menu->addSeparator();
-    QActionGroup *sortTypes = new QActionGroup(menu);
+    m_optionsMenu->addSeparator();
+    QActionGroup *sortTypes = new QActionGroup(m_optionsMenu);
     QAction *alphaTreeSort = new QAction(
         smallIcon(QString::fromLatin1("view-list-tree")),
         i18n("Sort Alphabetically (Tree)"),
@@ -950,14 +958,14 @@ void AnnotationDialog::Dialog::slotOptions()
     alphaTreeSort->setChecked(Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree);
     alphaFlatSort->setChecked(Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaFlat);
     dateSort->setChecked(Settings::SettingsData::instance()->viewSortType() == Settings::SortLastUse);
-    menu->addActions(sortTypes->actions());
+    m_optionsMenu->addActions(sortTypes->actions());
     connect(dateSort, &QAction::triggered, m_optionList.at(0), &ListSelect::slotSortDate);
     connect(alphaTreeSort, &QAction::triggered, m_optionList.at(0), &ListSelect::slotSortAlphaTree);
     connect(alphaFlatSort, &QAction::triggered, m_optionList.at(0), &ListSelect::slotSortAlphaFlat);
 
     // create MatchType entries
-    menu->addSeparator();
-    QActionGroup *matchTypes = new QActionGroup(menu);
+    m_optionsMenu->addSeparator();
+    QActionGroup *matchTypes = new QActionGroup(m_optionsMenu);
     QAction *matchFromBeginning = new QAction(i18n("Match Tags from the First Character"), matchTypes);
     QAction *matchFromWordStart = new QAction(i18n("Match Tags from Word Boundaries"), matchTypes);
     QAction *matchAnywhere = new QAction(i18n("Match Tags Anywhere"), matchTypes);
@@ -970,24 +978,24 @@ void AnnotationDialog::Dialog::slotOptions()
     matchFromWordStart->setChecked(Settings::SettingsData::instance()->matchType() == AnnotationDialog::MatchFromWordStart);
     matchAnywhere->setChecked(Settings::SettingsData::instance()->matchType() == AnnotationDialog::MatchAnywhere);
     // add MatchType actions to menu:
-    menu->addActions(matchTypes->actions());
+    m_optionsMenu->addActions(matchTypes->actions());
 
     // create toggle-show-selected entry
     if (m_setup != SearchMode) {
-        menu->addSeparator();
+        m_optionsMenu->addSeparator();
         QAction *showSelectedOnly = new QAction(
             smallIcon(QString::fromLatin1("view-filter")),
             i18n("Show Only Selected Ctrl+S"),
-            menu);
+            m_optionsMenu);
         showSelectedOnly->setCheckable(true);
         showSelectedOnly->setChecked(ShowSelectionOnlyManager::instance().selectionIsLimited());
-        menu->addAction(showSelectedOnly);
+        m_optionsMenu->addAction(showSelectedOnly);
 
         connect(showSelectedOnly, &QAction::triggered, &ShowSelectionOnlyManager::instance(), &ShowSelectionOnlyManager::toggle);
     }
 
     // execute menu and handle response
-    QAction *res = menu->exec(QCursor::pos());
+    QAction *res = m_optionsMenu->exec(QCursor::pos());
     if (res == saveCurrent) {
         slotSaveWindowSetup(Settings::GlobalScope);
     } else if (res == saveCurrentPerDb) {

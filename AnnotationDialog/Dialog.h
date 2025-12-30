@@ -49,6 +49,7 @@ class QRadioButton;
 class QSplitter;
 class QStackedWidget;
 class QTimeEdit;
+class QMenu;
 
 namespace Viewer
 {
@@ -242,6 +243,8 @@ private:
 
     bool m_positionableCategories;
     bool m_areasChanged;
+
+    QMenu *m_optionsMenu = nullptr;
 
 #ifdef HAVE_MARBLE
     QDockWidget *m_mapDock;

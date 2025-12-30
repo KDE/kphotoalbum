@@ -1,11 +1,12 @@
 // SPDX-FileCopyrightText: 2012-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "ToolTip.h"
-
 #include "DescriptionUtil.h"
+#include "Logging.h"
 
 #include <DB/ImageDB.h>
 #include <ImageManager/AsyncLoader.h>
@@ -60,7 +61,12 @@ void ToolTip::pixmapLoaded(ImageManager::ImageRequest *request, const QImage &im
 
     delete m_tmpFileForThumbnailView;
     m_tmpFileForThumbnailView = new QTemporaryFile(this);
-    m_tmpFileForThumbnailView->open();
+
+    const auto success = m_tmpFileForThumbnailView->open();
+    if (!success) {
+        qCWarning(UtilitiesLog) << "ToolTip::pixmapLoaded: Failed to open a temporary file!";
+        return;
+    }
 
     image.save(m_tmpFileForThumbnailView, "PNG");
     if (fileName == m_currentFileName) {

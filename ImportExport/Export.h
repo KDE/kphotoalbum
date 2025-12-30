@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2025 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -77,7 +78,11 @@ class ExportConfig : public QDialog
     Q_OBJECT
 
 public:
-    ExportConfig();
+    /**
+     * @param numberOfFiles is the number of media files to export
+     * @param totalSizeInBytes is the combined size of the media files
+     */
+    ExportConfig(qsizetype numberOfFiles, quint64 totalSizeInBytes);
     QCheckBox *mp_compress;
     QCheckBox *mp_generateThumbnails;
     QCheckBox *mp_enforeMaxSize;

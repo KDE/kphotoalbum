@@ -13,6 +13,7 @@
 // SPDX-FileCopyrightText: 2016 - 2019 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2018 Yuri Chornoivan <yurchor@ukr.net>
+// SPDX-FileCopyrightText: 2025 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -28,6 +29,7 @@
 #include <kpabase/FileNameList.h>
 #include <kpabase/FileNameUtil.h>
 #include <kpabase/FileUtil.h>
+#include <kpabase/Logging.h>
 
 #include <KConfigGroup>
 #include <KHelpClient>
@@ -60,7 +62,18 @@ bool isRAW(const DB::FileName &fileName)
 
 void Export::imageExport(const DB::FileNameList &list)
 {
-    ExportConfig config;
+    quint64 totalSize = 0;
+    for (const auto &fileName : list) {
+        const auto fileInfo = QFileInfo(fileName.absolute());
+        const auto size = fileInfo.size();
+        if (size == 0) {
+            qCWarning(ImageManagerLog) << "Can't determine size for"
+                                       << fileName.relative();
+        }
+        totalSize += size;
+    }
+
+    ExportConfig config(list.size(), totalSize);
     if (config.exec() == QDialog::Rejected)
         return;
 
@@ -87,9 +100,9 @@ void Export::imageExport(const DB::FileNameList &list)
 }
 
 // PENDING(blackie) add warning if images are to be copied into a non empty directory.
-ExportConfig::ExportConfig()
+ExportConfig::ExportConfig(qsizetype numberOfFiles, quint64 totalSizeInBytes)
 {
-    setWindowTitle(i18nc("@title:window", "Export Configuration / Copy Images"));
+    setWindowTitle(i18nc("@title:window", "Export Metadata / Copy Files"));
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel | QDialogButtonBox::Help);
     QWidget *mainWidget = new QWidget(this);
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -102,7 +115,7 @@ ExportConfig::ExportConfig()
     QVBoxLayout *lay1 = new QVBoxLayout(top);
 
     // Include images
-    QGroupBox *grp = new QGroupBox(i18n("How to Handle Images"));
+    QGroupBox *grp = new QGroupBox(i18n("How to export %1 files", numberOfFiles));
     lay1->addWidget(grp);
 
     QVBoxLayout *boxLay = new QVBoxLayout(grp);
@@ -118,6 +131,21 @@ ExportConfig::ExportConfig()
     boxLay->addWidget(m_auto);
     boxLay->addWidget(m_link);
     boxLay->addWidget(m_symlink);
+
+    // KZip silently creates an broken zip file if the zip file size exceeds
+    // 4GB.  This limit prevents the user from exporting a broken zip file.
+    // We can't predict the zip file size without creating it so keep the limit
+    // lower than 4GB.
+    const quint64 MAX_INLINE_BYTES = 4ULL * 1024 * 1024 * 1024 - // 4 GB
+                                     100 * 1024 * 1024;          // 100 MB
+
+    qCWarning(ImageManagerLog) << "totalSizeInBytes=" << totalSizeInBytes
+                               << "MAX_INLINE_BYTES=" << MAX_INLINE_BYTES;
+
+    if (totalSizeInBytes > MAX_INLINE_BYTES) {
+        m_include->setEnabled(false);
+        m_include->setToolTip(i18n("The exported files are too large to fit in the .kim file."));
+    }
 
     // Compress
     mp_compress = new QCheckBox(i18n("Compress export file"), top);

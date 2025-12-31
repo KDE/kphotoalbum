@@ -57,6 +57,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix display of EXIF date/time data (#511546)
  - Fix several warnings in the console output (#505015)
  - Use embedded 'creation_time' data in video files instead of file creation time (#472520)
+ - Allow saving the Annotation Dialog's layout either globally (as a template for all databases) or per-database (#513933)
 
 ### Removed
 

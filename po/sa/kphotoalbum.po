@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-20 00:40+0000\n"
+"POT-Creation-Date: 2025-12-31 00:41+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -2407,68 +2407,75 @@ msgstr "किं भवान् स्वस्य सर्वाणि ल�
 msgid "Building thumbnails"
 msgstr "लघुचित्रस्य निर्माणम्"
 
-#: ImportExport/Export.cpp:74
+#: ImportExport/Export.cpp:87
 #, kde-format
 msgid "Save an export file"
 msgstr "निर्यातसञ्चिकां रक्षन्तु"
 
-#: ImportExport/Export.cpp:76 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:89 ImportExport/Import.cpp:30
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "KPhotoAlbum आयात सञ्चिकाः"
 
-#: ImportExport/Export.cpp:92
-#, kde-format
-msgctxt "@title:window"
-msgid "Export Configuration / Copy Images"
-msgstr "विन्यास निर्यातयन्तु / चित्राणि प्रतिलिपयन्तु"
-
 #: ImportExport/Export.cpp:105
-#, kde-format
-msgid "How to Handle Images"
-msgstr "चित्राणि कथं संचालितव्यानि"
+#, fuzzy, kde-format
+#| msgid "Read Exif Info from Files..."
+msgctxt "@title:window"
+msgid "Export Metadata / Copy Files"
+msgstr "Files तः Exif Info पठन्तु..."
 
-#: ImportExport/Export.cpp:109
+#: ImportExport/Export.cpp:118
+#, fuzzy, kde-format
+#| msgid "How to Use the Export File"
+msgid "How to export %1 files"
+msgstr "निर्यातसञ्चिकायाः उपयोगः कथं भवति"
+
+#: ImportExport/Export.cpp:122
 #, kde-format
 msgid "Include in .kim file"
 msgstr ".kim सञ्चिकायां समावेशयन्तु"
 
-#: ImportExport/Export.cpp:110
+#: ImportExport/Export.cpp:123
 #, kde-format
 msgid "Do not copy files, only generate .kim file"
 msgstr "सञ्चिकाः प्रतिलिपिं न कुर्वन्तु, केवलं .kim सञ्चिकां जनयन्तु"
 
-#: ImportExport/Export.cpp:111
+#: ImportExport/Export.cpp:124
 #, kde-format
 msgid "Automatically copy next to .kim file"
 msgstr ".kim सञ्चिकायाः पार्श्वे स्वयमेव प्रतिलिपिं कुर्वन्तु"
 
-#: ImportExport/Export.cpp:112
+#: ImportExport/Export.cpp:125
 #, kde-format
 msgid "Hard link next to .kim file"
 msgstr ".kim सञ्चिकायाः पार्श्वे हार्डलिङ्क्"
 
-#: ImportExport/Export.cpp:113
+#: ImportExport/Export.cpp:126
 #, kde-format
 msgid "Symbolic link next to .kim file"
 msgstr ".kim सञ्चिकायाः पार्श्वे प्रतीकात्मकं लिङ्क्"
 
-#: ImportExport/Export.cpp:123
+#: ImportExport/Export.cpp:147
+#, kde-format
+msgid "The exported files are too large to fit in the .kim file."
+msgstr ""
+
+#: ImportExport/Export.cpp:151
 #, kde-format
 msgid "Compress export file"
 msgstr "निर्यातसञ्चिकां संपीडयन्तु"
 
-#: ImportExport/Export.cpp:127
+#: ImportExport/Export.cpp:155
 #, kde-format
 msgid "Generate thumbnails"
 msgstr "लघुचित्रं जनयन्तु"
 
-#: ImportExport/Export.cpp:135
+#: ImportExport/Export.cpp:163
 #, kde-format
 msgid "Limit maximum image dimensions to: "
 msgstr "अधिकतमं चित्रपरिमाणं यावत् सीमितं कुर्वन्तु: "
 
-#: ImportExport/Export.cpp:147
+#: ImportExport/Export.cpp:175
 #, kde-format
 msgid ""
 "<p>If your images are stored in a non-compressed file format then you may "
@@ -2482,12 +2489,12 @@ msgstr ""
 "यदि भवतः चित्राणि jpg, png अथवा gif इत्यत्र संगृहीताः सन्ति तर्हि एतत् न परीक्ष्यताम्; "
 "परन्तु यदि भवतः चित्राणि tiff मध्ये संगृहीताः सन्ति तर्हि एतत् पश्यन्तु ।</p>"
 
-#: ImportExport/Export.cpp:153
+#: ImportExport/Export.cpp:181
 #, kde-format
 msgid "<p>Generate thumbnail images</p>"
 msgstr "<p>लघुचित्रप्रतिमानि जनयन्तु</p>"
 
-#: ImportExport/Export.cpp:156
+#: ImportExport/Export.cpp:184
 #, kde-format
 msgid ""
 "<p>With this option you may limit the maximum dimensions (width and height) "
@@ -2500,7 +2507,7 @@ msgstr ""
 "चित्राणि बृहत्तरपरिमाणयुक्तानि द्रष्टुम् इच्छति तर्हि अवश्यमेव गुणवत्ता अपि दुर्गता भविष्यति ।"
 "</p>"
 
-#: ImportExport/Export.cpp:163
+#: ImportExport/Export.cpp:191
 #, kde-format
 msgid ""
 "<p>When exporting images, bear in mind that there are two things the person "
@@ -2525,37 +2532,37 @@ msgstr ""
 "सन्दर्भे इदं श्रेष्ठतया कार्यं करोति, चित्राणि .kim सञ्चिकां च पृथक् कर्तुं, तान् परस्परं पार्श्वे "
 "स्थापयित्वा, येन उपयोक्ता इच्छति चित्राणि प्राप्तुं शक्नोति ।</p>"
 
-#: ImportExport/Export.cpp:242
+#: ImportExport/Export.cpp:270
 #, kde-format
 msgid "Error creating zip file"
 msgstr "जिप् सञ्चिकां निर्मातुं त्रुटिः"
 
-#: ImportExport/Export.cpp:256
+#: ImportExport/Export.cpp:284
 #, kde-format
 msgid "&Cancel"
 msgstr "&निरसयतु"
 
-#: ImportExport/Export.cpp:275
+#: ImportExport/Export.cpp:303
 #, kde-format
 msgid "Creating index file"
 msgstr "अनुक्रमणिकासञ्चिकायाः निर्माणम्"
 
-#: ImportExport/Export.cpp:287
+#: ImportExport/Export.cpp:315
 #, kde-format
 msgid "Creating thumbnails"
 msgstr "लघुचित्रं रचयन्"
 
-#: ImportExport/Export.cpp:310
+#: ImportExport/Export.cpp:338
 #, kde-format
 msgid "Copying image files"
 msgstr "चित्रसञ्चिकानां प्रतिलिपिः"
 
-#: ImportExport/Export.cpp:375
+#: ImportExport/Export.cpp:403
 #, kde-format
 msgid "Error writing file %1"
 msgstr "%1 सञ्चिकालेखने त्रुटिः"
 
-#: ImportExport/Export.cpp:403
+#: ImportExport/Export.cpp:431
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2577,7 +2584,7 @@ msgstr ""
 "KPhotoAlbum सञ्चिका अस्ति यदा लिङ्क् क्लिक् करोति, अन्यथा जालसर्वरः केवलं konqueror "
 "इत्यस्मै वदिष्यति यत् एषा साधारणपाठसञ्चिका अस्ति</p>"
 
-#: ImportExport/Export.cpp:412
+#: ImportExport/Export.cpp:440
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "निर्यातसञ्चिकायाः उपयोगः कथं भवति"
@@ -7210,6 +7217,13 @@ msgstr "चित्रस्य आकारं दर्शयतु"
 #, kde-format
 msgid "Show Rating"
 msgstr "रेटिंग् दर्शयतु"
+
+#~ msgctxt "@title:window"
+#~ msgid "Export Configuration / Copy Images"
+#~ msgstr "विन्यास निर्यातयन्तु / चित्राणि प्रतिलिपयन्तु"
+
+#~ msgid "How to Handle Images"
+#~ msgstr "चित्राणि कथं संचालितव्यानि"
 
 #~ msgid ""
 #~ "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "

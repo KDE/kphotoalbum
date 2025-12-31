@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-20 00:40+0000\n"
+"POT-Creation-Date: 2025-12-31 00:41+0000\n"
 "PO-Revision-Date: 2025-12-14 14:40+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -2437,68 +2437,75 @@ msgstr "Wilt u al uw miniaturen opnieuw bouwen?"
 msgid "Building thumbnails"
 msgstr "Miniaturen aanmaken"
 
-#: ImportExport/Export.cpp:74
+#: ImportExport/Export.cpp:87
 #, kde-format
 msgid "Save an export file"
 msgstr "Een exportbestand opslaan"
 
-#: ImportExport/Export.cpp:76 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:89 ImportExport/Import.cpp:30
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "KPhotoAlbum importbestanden"
 
-#: ImportExport/Export.cpp:92
-#, kde-format
-msgctxt "@title:window"
-msgid "Export Configuration / Copy Images"
-msgstr "Exportconfiguratie/Afbeeldingen kopiëren"
-
 #: ImportExport/Export.cpp:105
-#, kde-format
-msgid "How to Handle Images"
-msgstr "Hoe afbeeldingen te behandelen"
+#, fuzzy, kde-format
+#| msgid "Read Metadata from Files..."
+msgctxt "@title:window"
+msgid "Export Metadata / Copy Files"
+msgstr "Metagegevens uit bestanden lezen..."
 
-#: ImportExport/Export.cpp:109
+#: ImportExport/Export.cpp:118
+#, fuzzy, kde-format
+#| msgid "How to Use the Export File"
+msgid "How to export %1 files"
+msgstr "Hoe het exportbestand te gebruiken"
+
+#: ImportExport/Export.cpp:122
 #, kde-format
 msgid "Include in .kim file"
 msgstr "Invoegen in het .kim-bestand"
 
-#: ImportExport/Export.cpp:110
+#: ImportExport/Export.cpp:123
 #, kde-format
 msgid "Do not copy files, only generate .kim file"
 msgstr "Kopieer geen bestanden, genereer alleen .kim-bestanden"
 
-#: ImportExport/Export.cpp:111
+#: ImportExport/Export.cpp:124
 #, kde-format
 msgid "Automatically copy next to .kim file"
 msgstr "Automatisch naast het .kim-bestand kopiëren"
 
-#: ImportExport/Export.cpp:112
+#: ImportExport/Export.cpp:125
 #, kde-format
 msgid "Hard link next to .kim file"
 msgstr "Harde koppeling naast het .kim-bestand"
 
-#: ImportExport/Export.cpp:113
+#: ImportExport/Export.cpp:126
 #, kde-format
 msgid "Symbolic link next to .kim file"
 msgstr "Symbolische koppeling naast het .kim-bestand"
 
-#: ImportExport/Export.cpp:123
+#: ImportExport/Export.cpp:147
+#, kde-format
+msgid "The exported files are too large to fit in the .kim file."
+msgstr ""
+
+#: ImportExport/Export.cpp:151
 #, kde-format
 msgid "Compress export file"
 msgstr "Exportbestand comprimeren"
 
-#: ImportExport/Export.cpp:127
+#: ImportExport/Export.cpp:155
 #, kde-format
 msgid "Generate thumbnails"
 msgstr "Miniaturen aanmaken"
 
-#: ImportExport/Export.cpp:135
+#: ImportExport/Export.cpp:163
 #, kde-format
 msgid "Limit maximum image dimensions to: "
 msgstr "Maximum afmetingen van afbeeldingen beperken tot: "
 
-#: ImportExport/Export.cpp:147
+#: ImportExport/Export.cpp:175
 #, kde-format
 msgid ""
 "<p>If your images are stored in a non-compressed file format then you may "
@@ -2514,12 +2521,12 @@ msgstr ""
 "jpg, png of gif, maar selecteer deze optie wel als uw afbeeldingen zijn "
 "opgeslagen als tiff.</p>"
 
-#: ImportExport/Export.cpp:153
+#: ImportExport/Export.cpp:181
 #, kde-format
 msgid "<p>Generate thumbnail images</p>"
 msgstr "<p>Miniatuurafbeeldingen aanmaken</p>"
 
-#: ImportExport/Export.cpp:156
+#: ImportExport/Export.cpp:184
 #, kde-format
 msgid ""
 "<p>With this option you may limit the maximum dimensions (width and height) "
@@ -2532,7 +2539,7 @@ msgstr ""
 "kwaliteit verminderen als iemand de afbeeldingen naderhand weer groter wil "
 "maken.</p>"
 
-#: ImportExport/Export.cpp:163
+#: ImportExport/Export.cpp:191
 #, kde-format
 msgid ""
 "<p>When exporting images, bear in mind that there are two things the person "
@@ -2558,37 +2565,37 @@ msgstr ""
 "In dat geval is het beter om de afbeeldingen naast de .kim-bestanden te "
 "plaatsen, zodat men niet alle afbeeldingen hoeft te downloaden.</p>"
 
-#: ImportExport/Export.cpp:242
+#: ImportExport/Export.cpp:270
 #, kde-format
 msgid "Error creating zip file"
 msgstr "Fout bij het aanmaken van het zip-bestand"
 
-#: ImportExport/Export.cpp:256
+#: ImportExport/Export.cpp:284
 #, kde-format
 msgid "&Cancel"
 msgstr "&Annuleren"
 
-#: ImportExport/Export.cpp:275
+#: ImportExport/Export.cpp:303
 #, kde-format
 msgid "Creating index file"
 msgstr "index-bestand wordt aangemaakt"
 
-#: ImportExport/Export.cpp:287
+#: ImportExport/Export.cpp:315
 #, kde-format
 msgid "Creating thumbnails"
 msgstr "Miniaturen worden aangemaakt"
 
-#: ImportExport/Export.cpp:310
+#: ImportExport/Export.cpp:338
 #, kde-format
 msgid "Copying image files"
 msgstr "Afbeeldingsbestanden worden gekopieerd"
 
-#: ImportExport/Export.cpp:375
+#: ImportExport/Export.cpp:403
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Fout bij het opslaan van bestand %1"
 
-#: ImportExport/Export.cpp:403
+#: ImportExport/Export.cpp:431
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2612,7 +2619,7 @@ msgstr ""
 "uw webserver Konqueror vertelt dat dit een KPhotoAlbum-bestand is. Anders "
 "vertelt de webserver dat het een platte-tekst-bestand is.</p>"
 
-#: ImportExport/Export.cpp:412
+#: ImportExport/Export.cpp:440
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Hoe het exportbestand te gebruiken"
@@ -7350,6 +7357,13 @@ msgstr "Afbeeldingsgrootte tonen"
 #, kde-format
 msgid "Show Rating"
 msgstr "Waardering tonen"
+
+#~ msgctxt "@title:window"
+#~ msgid "Export Configuration / Copy Images"
+#~ msgstr "Exportconfiguratie/Afbeeldingen kopiëren"
+
+#~ msgid "How to Handle Images"
+#~ msgstr "Hoe afbeeldingen te behandelen"
 
 #~ msgid ""
 #~ "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "

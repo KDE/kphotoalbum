@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-20 00:40+0000\n"
+"POT-Creation-Date: 2025-12-31 00:41+0000\n"
 "PO-Revision-Date: 2025-12-16 21:17+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -2346,68 +2346,75 @@ msgstr "您確定要重新建立所有縮圖嗎？"
 msgid "Building thumbnails"
 msgstr "建立縮圖中"
 
-#: ImportExport/Export.cpp:74
+#: ImportExport/Export.cpp:87
 #, kde-format
 msgid "Save an export file"
 msgstr "儲存 .kim 匯出檔"
 
-#: ImportExport/Export.cpp:76 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:89 ImportExport/Import.cpp:30
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "KPhotoAlbum 匯入檔"
 
-#: ImportExport/Export.cpp:92
-#, kde-format
-msgctxt "@title:window"
-msgid "Export Configuration / Copy Images"
-msgstr "匯出設定 / 複製影像"
-
 #: ImportExport/Export.cpp:105
-#, kde-format
-msgid "How to Handle Images"
-msgstr "如何處理影像"
+#, fuzzy, kde-format
+#| msgid "Read Metadata from Files..."
+msgctxt "@title:window"
+msgid "Export Metadata / Copy Files"
+msgstr "從檔案中讀取中繼資料..."
 
-#: ImportExport/Export.cpp:109
+#: ImportExport/Export.cpp:118
+#, fuzzy, kde-format
+#| msgid "How to Use the Export File"
+msgid "How to export %1 files"
+msgstr "如何使用匯出檔"
+
+#: ImportExport/Export.cpp:122
 #, kde-format
 msgid "Include in .kim file"
 msgstr "引入 .kim 檔"
 
-#: ImportExport/Export.cpp:110
+#: ImportExport/Export.cpp:123
 #, kde-format
 msgid "Do not copy files, only generate .kim file"
 msgstr "不複製檔案，只產生 .kim 檔"
 
-#: ImportExport/Export.cpp:111
+#: ImportExport/Export.cpp:124
 #, kde-format
 msgid "Automatically copy next to .kim file"
 msgstr "在 .kim 檔之後自動複製"
 
-#: ImportExport/Export.cpp:112
+#: ImportExport/Export.cpp:125
 #, kde-format
 msgid "Hard link next to .kim file"
 msgstr "在 .kim 檔之後建立硬式連結"
 
-#: ImportExport/Export.cpp:113
+#: ImportExport/Export.cpp:126
 #, kde-format
 msgid "Symbolic link next to .kim file"
 msgstr "在 .kim 檔之後建立符號連結"
 
-#: ImportExport/Export.cpp:123
+#: ImportExport/Export.cpp:147
+#, kde-format
+msgid "The exported files are too large to fit in the .kim file."
+msgstr ""
+
+#: ImportExport/Export.cpp:151
 #, kde-format
 msgid "Compress export file"
 msgstr "壓縮匯出檔"
 
-#: ImportExport/Export.cpp:127
+#: ImportExport/Export.cpp:155
 #, kde-format
 msgid "Generate thumbnails"
 msgstr "產生縮圖"
 
-#: ImportExport/Export.cpp:135
+#: ImportExport/Export.cpp:163
 #, kde-format
 msgid "Limit maximum image dimensions to: "
 msgstr "限制最大影像尺寸："
 
-#: ImportExport/Export.cpp:147
+#: ImportExport/Export.cpp:175
 #, kde-format
 msgid ""
 "<p>If your images are stored in a non-compressed file format then you may "
@@ -2420,12 +2427,12 @@ msgstr ""
 "出時花久一點時間。</p> <p>也就是說，若您要將影像存成 jpeg，png 或 gif 檔，則"
 "請不要勾選此項。tiff 檔則可以。</p>"
 
-#: ImportExport/Export.cpp:153
+#: ImportExport/Export.cpp:181
 #, kde-format
 msgid "<p>Generate thumbnail images</p>"
 msgstr "<p>產生縮圖</p>"
 
-#: ImportExport/Export.cpp:156
+#: ImportExport/Export.cpp:184
 #, kde-format
 msgid ""
 "<p>With this option you may limit the maximum dimensions (width and height) "
@@ -2436,7 +2443,7 @@ msgstr ""
 "<p>此選項能讓您限制影像的最大尺寸（寬與高）。這會讓匯出檔案小一點，但是就... "
 "看不到那麼大的影像。</p>"
 
-#: ImportExport/Export.cpp:163
+#: ImportExport/Export.cpp:191
 #, kde-format
 msgid ""
 "<p>When exporting images, bear in mind that there are two things the person "
@@ -2458,37 +2465,37 @@ msgstr ""
 "有不少人去看，但會下載的人就少了。此時當然將影像與 .kim 檔分開是比較好的選"
 "擇，因為影像一個一個放，使用者可以決定他要的是哪張。</p>"
 
-#: ImportExport/Export.cpp:242
+#: ImportExport/Export.cpp:270
 #, kde-format
 msgid "Error creating zip file"
 msgstr "建立 zip 檔時發生錯誤"
 
-#: ImportExport/Export.cpp:256
+#: ImportExport/Export.cpp:284
 #, kde-format
 msgid "&Cancel"
 msgstr "取消(&C)"
 
-#: ImportExport/Export.cpp:275
+#: ImportExport/Export.cpp:303
 #, kde-format
 msgid "Creating index file"
 msgstr "正在建立索引檔"
 
-#: ImportExport/Export.cpp:287
+#: ImportExport/Export.cpp:315
 #, kde-format
 msgid "Creating thumbnails"
 msgstr "正在建立縮圖"
 
-#: ImportExport/Export.cpp:310
+#: ImportExport/Export.cpp:338
 #, kde-format
 msgid "Copying image files"
 msgstr "正在複製影像檔"
 
-#: ImportExport/Export.cpp:375
+#: ImportExport/Export.cpp:403
 #, kde-format
 msgid "Error writing file %1"
 msgstr "寫入檔案 %1 時發生錯誤"
 
-#: ImportExport/Export.cpp:403
+#: ImportExport/Export.cpp:431
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2509,7 +2516,7 @@ msgstr ""
 "訴 konqueror 點擊的連結是一個 KPhotoAlbum 檔案。否則它只會告訴 konqueror 該檔"
 "案是一個普通的純文字檔。</p>"
 
-#: ImportExport/Export.cpp:412
+#: ImportExport/Export.cpp:440
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "如何使用匯出檔"
@@ -7037,6 +7044,13 @@ msgstr "顯示影像大小"
 #, kde-format
 msgid "Show Rating"
 msgstr "顯示評分"
+
+#~ msgctxt "@title:window"
+#~ msgid "Export Configuration / Copy Images"
+#~ msgstr "匯出設定 / 複製影像"
+
+#~ msgid "How to Handle Images"
+#~ msgstr "如何處理影像"
 
 #~ msgid ""
 #~ "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-20 00:40+0000\n"
+"POT-Creation-Date: 2025-12-31 00:41+0000\n"
 "PO-Revision-Date: 2025-12-28 15:34+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -2426,68 +2426,75 @@ msgstr "Искате ли да отново да създадете всички
 msgid "Building thumbnails"
 msgstr "Изграждане на миниатюри"
 
-#: ImportExport/Export.cpp:74
+#: ImportExport/Export.cpp:87
 #, kde-format
 msgid "Save an export file"
 msgstr "Запазване на файл за експортиране"
 
-#: ImportExport/Export.cpp:76 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:89 ImportExport/Import.cpp:30
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "Файлове за импортиране на KPhotoAlbum"
 
-#: ImportExport/Export.cpp:92
-#, kde-format
-msgctxt "@title:window"
-msgid "Export Configuration / Copy Images"
-msgstr "Експортиране на настройките / копиране на изображения"
-
 #: ImportExport/Export.cpp:105
-#, kde-format
-msgid "How to Handle Images"
-msgstr "Как да боравим с изображения"
+#, fuzzy, kde-format
+#| msgid "Read Metadata from Files..."
+msgctxt "@title:window"
+msgid "Export Metadata / Copy Files"
+msgstr "Зареждане на метаданните от файлове..."
 
-#: ImportExport/Export.cpp:109
+#: ImportExport/Export.cpp:118
+#, fuzzy, kde-format
+#| msgid "How to Use the Export File"
+msgid "How to export %1 files"
+msgstr "Как да използвате експортния файл"
+
+#: ImportExport/Export.cpp:122
 #, kde-format
 msgid "Include in .kim file"
 msgstr "Включване във файла .kim"
 
-#: ImportExport/Export.cpp:110
+#: ImportExport/Export.cpp:123
 #, kde-format
 msgid "Do not copy files, only generate .kim file"
 msgstr "Да не се копират файлове, да се генерира сам .kim файл"
 
-#: ImportExport/Export.cpp:111
+#: ImportExport/Export.cpp:124
 #, kde-format
 msgid "Automatically copy next to .kim file"
 msgstr "Автоматично копиране до .kim файл"
 
-#: ImportExport/Export.cpp:112
+#: ImportExport/Export.cpp:125
 #, kde-format
 msgid "Hard link next to .kim file"
 msgstr "Твърда връзка до .kim файл"
 
-#: ImportExport/Export.cpp:113
+#: ImportExport/Export.cpp:126
 #, kde-format
 msgid "Symbolic link next to .kim file"
 msgstr "Символична връзка до .kim файл"
 
-#: ImportExport/Export.cpp:123
+#: ImportExport/Export.cpp:147
+#, kde-format
+msgid "The exported files are too large to fit in the .kim file."
+msgstr ""
+
+#: ImportExport/Export.cpp:151
 #, kde-format
 msgid "Compress export file"
 msgstr "Компресиране на експортен файл"
 
-#: ImportExport/Export.cpp:127
+#: ImportExport/Export.cpp:155
 #, kde-format
 msgid "Generate thumbnails"
 msgstr "Генериране на миниатюри"
 
-#: ImportExport/Export.cpp:135
+#: ImportExport/Export.cpp:163
 #, kde-format
 msgid "Limit maximum image dimensions to: "
 msgstr "Ограничаване на максималните размери на изображението до:"
 
-#: ImportExport/Export.cpp:147
+#: ImportExport/Export.cpp:175
 #, kde-format
 msgid ""
 "<p>If your images are stored in a non-compressed file format then you may "
@@ -2503,12 +2510,12 @@ msgstr ""
 "gif; но отметнете това, ако изображенията ви се съхраняват във формат tiff.</"
 "p>"
 
-#: ImportExport/Export.cpp:153
+#: ImportExport/Export.cpp:181
 #, kde-format
 msgid "<p>Generate thumbnail images</p>"
 msgstr "<p>Генериране на миниатюри</p>"
 
-#: ImportExport/Export.cpp:156
+#: ImportExport/Export.cpp:184
 #, kde-format
 msgid ""
 "<p>With this option you may limit the maximum dimensions (width and height) "
@@ -2521,7 +2528,7 @@ msgstr ""
 "по-малък, но разбира се, ще влоши и качеството, ако някой иска да види "
 "експортираните изображения с по-големи размери.</p>"
 
-#: ImportExport/Export.cpp:163
+#: ImportExport/Export.cpp:191
 #, kde-format
 msgid ""
 "<p>When exporting images, bear in mind that there are two things the person "
@@ -2548,37 +2555,37 @@ msgstr ""
 "изображенията и .kim файла, като ги поставите едно до друго, така че "
 "потребителят да може да получи достъп до желаните изображения.</p>"
 
-#: ImportExport/Export.cpp:242
+#: ImportExport/Export.cpp:270
 #, kde-format
 msgid "Error creating zip file"
 msgstr "Грешка при създаването на zip файл"
 
-#: ImportExport/Export.cpp:256
+#: ImportExport/Export.cpp:284
 #, kde-format
 msgid "&Cancel"
 msgstr "От&каз"
 
-#: ImportExport/Export.cpp:275
+#: ImportExport/Export.cpp:303
 #, kde-format
 msgid "Creating index file"
 msgstr "Създаване на индексен файл"
 
-#: ImportExport/Export.cpp:287
+#: ImportExport/Export.cpp:315
 #, kde-format
 msgid "Creating thumbnails"
 msgstr "Създаване на умалени изображения"
 
-#: ImportExport/Export.cpp:310
+#: ImportExport/Export.cpp:338
 #, kde-format
 msgid "Copying image files"
 msgstr "Копиране на файлове с изображения"
 
-#: ImportExport/Export.cpp:375
+#: ImportExport/Export.cpp:403
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Грешка при запис на файл %1"
 
-#: ImportExport/Export.cpp:403
+#: ImportExport/Export.cpp:431
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2603,7 +2610,7 @@ msgstr ""
 "противен случай уеб сървърът просто ще каже на konqueror, че това е "
 "обикновен текстов файл.</p>"
 
-#: ImportExport/Export.cpp:412
+#: ImportExport/Export.cpp:440
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Как да използвате експортния файл"
@@ -7340,3 +7347,10 @@ msgstr "Показване размер на изображението"
 #, kde-format
 msgid "Show Rating"
 msgstr "Показване на оценките"
+
+#~ msgctxt "@title:window"
+#~ msgid "Export Configuration / Copy Images"
+#~ msgstr "Експортиране на настройките / копиране на изображения"
+
+#~ msgid "How to Handle Images"
+#~ msgstr "Как да боравим с изображения"

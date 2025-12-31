@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-20 00:40+0000\n"
+"POT-Creation-Date: 2025-12-31 00:41+0000\n"
 "PO-Revision-Date: 2025-11-11 18:42+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -2422,68 +2422,75 @@ msgstr "Vai vēlaties pārbūvēt visus sīktēlus?"
 msgid "Building thumbnails"
 msgstr "Būvē sīktēlus"
 
-#: ImportExport/Export.cpp:74
+#: ImportExport/Export.cpp:87
 #, kde-format
 msgid "Save an export file"
 msgstr "Saglabāt eksporta datni"
 
-#: ImportExport/Export.cpp:76 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:89 ImportExport/Import.cpp:30
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "„KPhotoAlbum“ importa datnes"
 
-#: ImportExport/Export.cpp:92
-#, kde-format
-msgctxt "@title:window"
-msgid "Export Configuration / Copy Images"
-msgstr "Eksporta konfigurācija / kopēt attēlus"
-
 #: ImportExport/Export.cpp:105
-#, kde-format
-msgid "How to Handle Images"
-msgstr "Kā apstrādāt attēlus"
+#, fuzzy, kde-format
+#| msgid "Read Exif Info from Files..."
+msgctxt "@title:window"
+msgid "Export Metadata / Copy Files"
+msgstr "Nolasīt „Exif“ informāciju no datnēm..."
 
-#: ImportExport/Export.cpp:109
+#: ImportExport/Export.cpp:118
+#, fuzzy, kde-format
+#| msgid "How to Use the Export File"
+msgid "How to export %1 files"
+msgstr "Kā izmantot eksportēšanas datni"
+
+#: ImportExport/Export.cpp:122
 #, kde-format
 msgid "Include in .kim file"
 msgstr "Iekļaut .kim datnē"
 
-#: ImportExport/Export.cpp:110
+#: ImportExport/Export.cpp:123
 #, kde-format
 msgid "Do not copy files, only generate .kim file"
 msgstr "Nekopēt datnes, ģenerēt tikai „.kim“ datni"
 
-#: ImportExport/Export.cpp:111
+#: ImportExport/Export.cpp:124
 #, kde-format
 msgid "Automatically copy next to .kim file"
 msgstr "Automātiski kopēt pie „.kim“ datnes"
 
-#: ImportExport/Export.cpp:112
+#: ImportExport/Export.cpp:125
 #, kde-format
 msgid "Hard link next to .kim file"
 msgstr "Cietā saite pie „.kim“ datnes"
 
-#: ImportExport/Export.cpp:113
+#: ImportExport/Export.cpp:126
 #, kde-format
 msgid "Symbolic link next to .kim file"
 msgstr "Simboliskā saite pie „.kim“ datnes"
 
-#: ImportExport/Export.cpp:123
+#: ImportExport/Export.cpp:147
+#, kde-format
+msgid "The exported files are too large to fit in the .kim file."
+msgstr ""
+
+#: ImportExport/Export.cpp:151
 #, kde-format
 msgid "Compress export file"
 msgstr "Saspiesta eksportēšanas datne"
 
-#: ImportExport/Export.cpp:127
+#: ImportExport/Export.cpp:155
 #, kde-format
 msgid "Generate thumbnails"
 msgstr "Ģenerēt sīktēlus"
 
-#: ImportExport/Export.cpp:135
+#: ImportExport/Export.cpp:163
 #, kde-format
 msgid "Limit maximum image dimensions to: "
 msgstr "Ierobežot maksimālo attēlu lielumu līdz: "
 
-#: ImportExport/Export.cpp:147
+#: ImportExport/Export.cpp:175
 #, kde-format
 msgid ""
 "<p>If your images are stored in a non-compressed file format then you may "
@@ -2497,12 +2504,12 @@ msgstr ""
 "</p><p>Citiem vārdiem sakot — neatzīmējiet šo, ja attēlus gabājat „jpg“, "
 "„png“ vai „gif“, bet atzīmējiet, ja attēlus glabājat „tiff“ formātā.</p>"
 
-#: ImportExport/Export.cpp:153
+#: ImportExport/Export.cpp:181
 #, kde-format
 msgid "<p>Generate thumbnail images</p>"
 msgstr "<p>Ģenerēt sīktēlus</p>"
 
-#: ImportExport/Export.cpp:156
+#: ImportExport/Export.cpp:184
 #, kde-format
 msgid ""
 "<p>With this option you may limit the maximum dimensions (width and height) "
@@ -2514,7 +2521,7 @@ msgstr ""
 "Tas var samazināt rezultātā iegūto datņu izmērus, bet tāpat arī samazinās "
 "attēlu kvalitāti, ja kāds vēlēsies tos apskatīt pilnā izmērā.</p>"
 
-#: ImportExport/Export.cpp:163
+#: ImportExport/Export.cpp:191
 #, kde-format
 msgid ""
 "<p>When exporting images, bear in mind that there are two things the person "
@@ -2539,37 +2546,37 @@ msgstr ""
 "gadījumā labāka izvēla ir atdalīt „.kim“ datni, to novietojot blakus "
 "attēlam, lai lietotājs var piekļūst uzreiz tikai attiecīgajam attēlam.</p>"
 
-#: ImportExport/Export.cpp:242
+#: ImportExport/Export.cpp:270
 #, kde-format
 msgid "Error creating zip file"
 msgstr "Kļūda, veidojot ZIP datni"
 
-#: ImportExport/Export.cpp:256
+#: ImportExport/Export.cpp:284
 #, kde-format
 msgid "&Cancel"
 msgstr "&Atcelt"
 
-#: ImportExport/Export.cpp:275
+#: ImportExport/Export.cpp:303
 #, kde-format
 msgid "Creating index file"
 msgstr "Veido indeks datni"
 
-#: ImportExport/Export.cpp:287
+#: ImportExport/Export.cpp:315
 #, kde-format
 msgid "Creating thumbnails"
 msgstr "Veido sīktēlus"
 
-#: ImportExport/Export.cpp:310
+#: ImportExport/Export.cpp:338
 #, kde-format
 msgid "Copying image files"
 msgstr "Kopē attēlu datnes"
 
-#: ImportExport/Export.cpp:375
+#: ImportExport/Export.cpp:403
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Kļūda, rakstot datni „%1“"
 
-#: ImportExport/Export.cpp:403
+#: ImportExport/Export.cpp:431
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2593,7 +2600,7 @@ msgstr ""
 "„KPhotoAlbum“ datne. Pretējā gadījumā tīmekļa serveris „Konqueror“ "
 "programmai norādīs, ka tā ir neformatēta teksta datne.</p>"
 
-#: ImportExport/Export.cpp:412
+#: ImportExport/Export.cpp:440
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Kā izmantot eksportēšanas datni"
@@ -7298,3 +7305,10 @@ msgstr "Rādīt attēla izmēru"
 #, kde-format
 msgid "Show Rating"
 msgstr "Rādīt reitingu"
+
+#~ msgctxt "@title:window"
+#~ msgid "Export Configuration / Copy Images"
+#~ msgstr "Eksporta konfigurācija / kopēt attēlus"
+
+#~ msgid "How to Handle Images"
+#~ msgstr "Kā apstrādāt attēlus"

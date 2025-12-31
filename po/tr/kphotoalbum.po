@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-20 00:40+0000\n"
+"POT-Creation-Date: 2025-12-31 00:41+0000\n"
 "PO-Revision-Date: 2025-12-19 11:37+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -2416,68 +2416,75 @@ msgstr "Tüm küçük görselleri yeniden yapmak istiyor musunuz?"
 msgid "Building thumbnails"
 msgstr "Küçük görseller yapılıyor"
 
-#: ImportExport/Export.cpp:74
+#: ImportExport/Export.cpp:87
 #, kde-format
 msgid "Save an export file"
 msgstr "Bir dışa aktarma dosyası kaydet"
 
-#: ImportExport/Export.cpp:76 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:89 ImportExport/Import.cpp:30
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "K Fotoğraf Albümü içe aktarma dosyaları"
 
-#: ImportExport/Export.cpp:92
-#, kde-format
-msgctxt "@title:window"
-msgid "Export Configuration / Copy Images"
-msgstr "Yapılandırmayı Dışa Aktar / Görselleri Kopyala"
-
 #: ImportExport/Export.cpp:105
-#, kde-format
-msgid "How to Handle Images"
-msgstr "Görsellerin Nice İşleneceği"
+#, fuzzy, kde-format
+#| msgid "Read Metadata from Files..."
+msgctxt "@title:window"
+msgid "Export Metadata / Copy Files"
+msgstr "Dosyalardan Üst Veri Oku…"
 
-#: ImportExport/Export.cpp:109
+#: ImportExport/Export.cpp:118
+#, fuzzy, kde-format
+#| msgid "How to Use the Export File"
+msgid "How to export %1 files"
+msgstr "Dışa Aktarma Dosyası Nice Kullanılır"
+
+#: ImportExport/Export.cpp:122
 #, kde-format
 msgid "Include in .kim file"
 msgstr ".kim dosyasında içer"
 
-#: ImportExport/Export.cpp:110
+#: ImportExport/Export.cpp:123
 #, kde-format
 msgid "Do not copy files, only generate .kim file"
 msgstr "Dosyaları kopyalama, yalnızca .kim dosyalarını oluştur"
 
-#: ImportExport/Export.cpp:111
+#: ImportExport/Export.cpp:124
 #, kde-format
 msgid "Automatically copy next to .kim file"
 msgstr ".kim dosyasının yanına otomatik kopyala"
 
-#: ImportExport/Export.cpp:112
+#: ImportExport/Export.cpp:125
 #, kde-format
 msgid "Hard link next to .kim file"
 msgstr ".kim dosyasının yanına bağlantı koy"
 
-#: ImportExport/Export.cpp:113
+#: ImportExport/Export.cpp:126
 #, kde-format
 msgid "Symbolic link next to .kim file"
 msgstr ".kim dosyasının yanına sembolik bağlantı koy"
 
-#: ImportExport/Export.cpp:123
+#: ImportExport/Export.cpp:147
+#, kde-format
+msgid "The exported files are too large to fit in the .kim file."
+msgstr ""
+
+#: ImportExport/Export.cpp:151
 #, kde-format
 msgid "Compress export file"
 msgstr "Dışa aktarma dosyasını sıkıştır"
 
-#: ImportExport/Export.cpp:127
+#: ImportExport/Export.cpp:155
 #, kde-format
 msgid "Generate thumbnails"
 msgstr "Küçük görseller oluştur"
 
-#: ImportExport/Export.cpp:135
+#: ImportExport/Export.cpp:163
 #, kde-format
 msgid "Limit maximum image dimensions to: "
 msgstr "En büyük görsel boyutunu şuna sınırlandır: "
 
-#: ImportExport/Export.cpp:147
+#: ImportExport/Export.cpp:175
 #, kde-format
 msgid ""
 "<p>If your images are stored in a non-compressed file format then you may "
@@ -2492,12 +2499,12 @@ msgstr ""
 "veya gif olarak saklanmışsa bunu işaretlemeyin; fakat görselleriniz tiff "
 "olarak saklanmışsa işaretleyin.</p>"
 
-#: ImportExport/Export.cpp:153
+#: ImportExport/Export.cpp:181
 #, kde-format
 msgid "<p>Generate thumbnail images</p>"
 msgstr "<p>Küçük görseller oluştur</p>"
 
-#: ImportExport/Export.cpp:156
+#: ImportExport/Export.cpp:184
 #, kde-format
 msgid ""
 "<p>With this option you may limit the maximum dimensions (width and height) "
@@ -2510,7 +2517,7 @@ msgstr ""
 "ancak dosyayı büyük boyutlarda görmek isteyenler için elbette kalite "
 "düşecektir.</p>"
 
-#: ImportExport/Export.cpp:163
+#: ImportExport/Export.cpp:191
 #, kde-format
 msgid ""
 "<p>When exporting images, bear in mind that there are two things the person "
@@ -2536,37 +2543,37 @@ msgstr ""
 "durumda herkesin bütün görselleri indirmek zorunda kalmamaları için "
 "görselleri .kim dosyasının yanına koymalısınız.</p>"
 
-#: ImportExport/Export.cpp:242
+#: ImportExport/Export.cpp:270
 #, kde-format
 msgid "Error creating zip file"
 msgstr "Zip dosyası oluşturulurken hata"
 
-#: ImportExport/Export.cpp:256
+#: ImportExport/Export.cpp:284
 #, kde-format
 msgid "&Cancel"
 msgstr "İ&ptal"
 
-#: ImportExport/Export.cpp:275
+#: ImportExport/Export.cpp:303
 #, kde-format
 msgid "Creating index file"
 msgstr "İndeks dosyası oluşturuluyor"
 
-#: ImportExport/Export.cpp:287
+#: ImportExport/Export.cpp:315
 #, kde-format
 msgid "Creating thumbnails"
 msgstr "Küçük görseller oluşturuluyor"
 
-#: ImportExport/Export.cpp:310
+#: ImportExport/Export.cpp:338
 #, kde-format
 msgid "Copying image files"
 msgstr "Görsel dosyaları kopyalanıyor"
 
-#: ImportExport/Export.cpp:375
+#: ImportExport/Export.cpp:403
 #, kde-format
 msgid "Error writing file %1"
 msgstr "%1 dosyası yazılırken hata"
 
-#: ImportExport/Export.cpp:403
+#: ImportExport/Export.cpp:431
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2591,7 +2598,7 @@ msgstr ""
 "bildirmesini sağlayacaktır, aksi durumlarda bunun yalnızca bir düz metin "
 "dosyası olduğunu bildirecektir.</p>"
 
-#: ImportExport/Export.cpp:412
+#: ImportExport/Export.cpp:440
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Dışa Aktarma Dosyası Nice Kullanılır"
@@ -7272,3 +7279,10 @@ msgstr "Görsel Boyutunu Göster"
 #, kde-format
 msgid "Show Rating"
 msgstr "Derecelendirmeyi Göster"
+
+#~ msgctxt "@title:window"
+#~ msgid "Export Configuration / Copy Images"
+#~ msgstr "Yapılandırmayı Dışa Aktar / Görselleri Kopyala"
+
+#~ msgid "How to Handle Images"
+#~ msgstr "Görsellerin Nice İşleneceği"

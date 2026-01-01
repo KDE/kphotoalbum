@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-31 00:41+0000\n"
-"PO-Revision-Date: 2025-12-29 06:27+0100\n"
+"PO-Revision-Date: 2025-12-31 03:43+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -2351,17 +2351,15 @@ msgid "KPhotoAlbum import files"
 msgstr "KPhotoAlbum-ის შემოსატანი ფაილები"
 
 #: ImportExport/Export.cpp:105
-#, fuzzy, kde-format
-#| msgid "Read Metadata from Files..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
-msgstr "მეტამონაცემების წაკითხვა ფაილებიდან..."
+msgstr "მეტამონაცემების გატანა / ფაილების კოპირება"
 
 #: ImportExport/Export.cpp:118
-#, fuzzy, kde-format
-#| msgid "How to Use the Export File"
+#, kde-format
 msgid "How to export %1 files"
-msgstr "როგორ გამოვიყენოთ გატანილი ფაილი"
+msgstr "როგორ გაიტანოთ %1 ფაილი"
 
 #: ImportExport/Export.cpp:122
 #, kde-format
@@ -2391,7 +2389,7 @@ msgstr "სიმბოლური ბმული .kim ფაილის შ�
 #: ImportExport/Export.cpp:147
 #, kde-format
 msgid "The exported files are too large to fit in the .kim file."
-msgstr ""
+msgstr "გატანილი ფაილები მეტისმეტად დიდია .kim ფაილში ჩასატევად."
 
 #: ImportExport/Export.cpp:151
 #, kde-format

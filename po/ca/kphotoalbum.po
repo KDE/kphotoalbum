@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-31 00:41+0000\n"
-"PO-Revision-Date: 2025-12-14 12:27+0100\n"
+"PO-Revision-Date: 2025-12-31 08:54+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 25.04.0\n"
+"X-Generator: Lokalize 25.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2454,17 +2454,15 @@ msgid "KPhotoAlbum import files"
 msgstr "Fitxers d'importació del KPhotoAlbum"
 
 #: ImportExport/Export.cpp:105
-#, fuzzy, kde-format
-#| msgid "Read Metadata from Files..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
-msgstr "Llegeix les metadades des dels fitxers..."
+msgstr "Exporta metadades / Copia fitxers"
 
 #: ImportExport/Export.cpp:118
-#, fuzzy, kde-format
-#| msgid "How to Use the Export File"
+#, kde-format
 msgid "How to export %1 files"
-msgstr "Com usar el fitxer d'exportació"
+msgstr "Com exportar %1 fitxers"
 
 #: ImportExport/Export.cpp:122
 #, kde-format
@@ -2494,7 +2492,7 @@ msgstr "Enllaç simbòlic al costat del fitxer .kim"
 #: ImportExport/Export.cpp:147
 #, kde-format
 msgid "The exported files are too large to fit in the .kim file."
-msgstr ""
+msgstr "Els fitxers exportats són massa grans per cabre en el fitxer «.kim»."
 
 #: ImportExport/Export.cpp:151
 #, kde-format

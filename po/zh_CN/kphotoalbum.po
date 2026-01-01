@@ -2253,18 +2253,15 @@ msgid "KPhotoAlbum import files"
 msgstr ""
 
 #: ImportExport/Export.cpp:105
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Export Configuration / Copy Images"
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
-msgstr "导出配置 / 复制图像"
+msgstr ""
 
 #: ImportExport/Export.cpp:118
-#, fuzzy, kde-format
-#| msgid "How to Use the Export File"
+#, kde-format
 msgid "How to export %1 files"
-msgstr "如何使用导出文件"
+msgstr ""
 
 #: ImportExport/Export.cpp:122
 #, kde-format
@@ -6677,6 +6674,3 @@ msgstr "显示图像大小"
 #, kde-format
 msgid "Show Rating"
 msgstr ""
-
-#~ msgid "How to Handle Images"
-#~ msgstr "处理图像的方式"

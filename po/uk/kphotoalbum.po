@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-31 00:41+0000\n"
-"PO-Revision-Date: 2025-12-14 17:14+0200\n"
+"PO-Revision-Date: 2025-12-31 08:32+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2476,17 +2476,15 @@ msgid "KPhotoAlbum import files"
 msgstr "файли імпортування KPhotoAlbum"
 
 #: ImportExport/Export.cpp:105
-#, fuzzy, kde-format
-#| msgid "Read Metadata from Files..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
-msgstr "Прочитати метадані з файлів…"
+msgstr "Експортування метаданих / Копіювання файлів"
 
 #: ImportExport/Export.cpp:118
-#, fuzzy, kde-format
-#| msgid "How to Use the Export File"
+#, kde-format
 msgid "How to export %1 files"
-msgstr "Спосіб використання експортованого файла"
+msgstr "Як експортувати файли %1"
 
 #: ImportExport/Export.cpp:122
 #, kde-format
@@ -2516,7 +2514,7 @@ msgstr "Символічне посилання на теку файла .kim"
 #: ImportExport/Export.cpp:147
 #, kde-format
 msgid "The exported files are too large to fit in the .kim file."
-msgstr ""
+msgstr "Експортовані файли є надто великими, вони не вміщаються до файла .kim."
 
 #: ImportExport/Export.cpp:151
 #, kde-format

@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-31 00:41+0000\n"
-"PO-Revision-Date: 2025-12-19 11:37+0300\n"
+"PO-Revision-Date: 2025-12-31 12:26+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.11.80\n"
+"X-Generator: Lokalize 25.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2427,17 +2427,15 @@ msgid "KPhotoAlbum import files"
 msgstr "K Fotoğraf Albümü içe aktarma dosyaları"
 
 #: ImportExport/Export.cpp:105
-#, fuzzy, kde-format
-#| msgid "Read Metadata from Files..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
-msgstr "Dosyalardan Üst Veri Oku…"
+msgstr "Veri Tabanı Dışa Aktar / Dosyalar Kopyala"
 
 #: ImportExport/Export.cpp:118
-#, fuzzy, kde-format
-#| msgid "How to Use the Export File"
+#, kde-format
 msgid "How to export %1 files"
-msgstr "Dışa Aktarma Dosyası Nice Kullanılır"
+msgstr "%1 dosya nasıl içe aktarılmalı"
 
 #: ImportExport/Export.cpp:122
 #, kde-format
@@ -2467,7 +2465,7 @@ msgstr ".kim dosyasının yanına sembolik bağlantı koy"
 #: ImportExport/Export.cpp:147
 #, kde-format
 msgid "The exported files are too large to fit in the .kim file."
-msgstr ""
+msgstr "Dışa aktarılan dosyalar, .kim dosyasına sığabilmeleri için pek büyük."
 
 #: ImportExport/Export.cpp:151
 #, kde-format

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-31 00:41+0000\n"
-"PO-Revision-Date: 2025-12-14 08:18+0100\n"
+"PO-Revision-Date: 2025-12-31 06:56+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -2453,17 +2453,15 @@ msgid "KPhotoAlbum import files"
 msgstr "Uvozne datoteke KPhotoAlbum"
 
 #: ImportExport/Export.cpp:105
-#, fuzzy, kde-format
-#| msgid "Read Metadata from Files..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
-msgstr "Preberi metapodatke iz datotek..."
+msgstr "Izvozi metapodatke / Kopiraj datoteke"
 
 #: ImportExport/Export.cpp:118
-#, fuzzy, kde-format
-#| msgid "How to Use the Export File"
+#, kde-format
 msgid "How to export %1 files"
-msgstr "Kako uporabiti izvozno datoteko"
+msgstr "Kako izvoziti %1 datoteke"
 
 #: ImportExport/Export.cpp:122
 #, kde-format
@@ -2493,7 +2491,7 @@ msgstr "Simbolična povezava ob datoteki .kim"
 #: ImportExport/Export.cpp:147
 #, kde-format
 msgid "The exported files are too large to fit in the .kim file."
-msgstr ""
+msgstr "Izvožene datoteke so prevelike za datoteko .kim."
 
 #: ImportExport/Export.cpp:151
 #, kde-format

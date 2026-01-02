@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-31 00:41+0000\n"
-"PO-Revision-Date: 2025-12-31 03:43+0100\n"
+"PO-Revision-Date: 2026-01-01 06:54+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -863,6 +863,13 @@ msgid ""
 "is executing a foreground job (like extracting a thumbnail for a video file, "
 "which is currently shown in the thumbnail viewer)</li></ul></p>"
 msgstr ""
+"<p>აქტიური დავალებები: %1<br/>დავალებები რიგში: %2<hr/><br/>ფერის კოდები:"
+"<ul><li><b>მოციმციმე მწვანე</b>: აქტიური ფონური დავალებები</"
+"li><li><b>ნაცრისფერი</b>: აქტიური დავალებების გარეშე</li><li><b>მკაფიო "
+"ყვითელი</b>: დავალებების რიგი შეჩერებულია</li><li><b>მოციმციმე ყვითელი</b>: "
+"დავალებების რიგი შეჩერებულია ფონური დავალებებისთვის, მაგრამ ასრულებს წინა "
+"პლანზე მყოფ დავალებებს (როგორიცაა ვიდეოს მინიატურის ჩვენება, რომელიც ამჟამად "
+"ნაჩვენებია მინიატურების ხედში)</li></ul></p>"
 
 #: Browser/AbstractCategoryModel.cpp:42 Exif/SearchDialog.cpp:387
 #: lib/kpaexif/SearchInfo.cpp:191
@@ -975,6 +982,12 @@ msgid ""
 "b></li><li>Now choose the <b>Categories</b> icon</li><li>Now configure "
 "section <b>Untagged Images</b></li></ul></p>"
 msgstr ""
+"<p>თქვენ ჯერ არ მოგირგიათ, რომელი ჭდე იქნება გამოყენებული ჭდის გარეშე "
+"არსებული გამოსახულებებეისთვის.</p><p>ამის გასაკეთებლად მიჰყევით შემდეგ "
+"ნაბიჯებს:<ul><li>მენიუს ზოლში აირჩიეთ <b>მორგება</b></li><li>იქიდან აირჩიეთ "
+"<b>KPhotoAlbum-ის მორგება</b></li><li>ახლა მონიშნეთ <b>კატეგორიების</b> "
+"ხატულა</li><li>ახლა მოირგეთ სექცია <b>ჭდისგარეშე გამოსახულებები</b></li></"
+"ul></p>"
 
 #: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1785
 #, kde-format
@@ -1021,7 +1034,22 @@ msgid_plural ""
 "it really your intention to make \"%3\" a tag group and add %2 as members?</"
 "p>"
 msgstr[0] ""
+"<p>თქვენ ამ წამს ერთი ელემენტი მეორეზე გადაათრიეთ. ეს სამიზნე ელემენტს "
+"ჭდეების ჯგუფად გადააქცევს და გადათრეულ ელემენტს ამ ჯგუფის წევრად გახდის. "
+"ჭდის ჯგუფები, შეიძლება, ისეთი ფაქტების აღსანიშნად გამოიყენოთ, როგორიცაა 'ლას "
+"ვეგასი აშშ-შია'. ამ მაგალითში, თუ ლას ვეგასს აშშ-ზე გადაათრევთ, როცა ააწყობთ "
+"ჭდის ჯგუფებს, შეგიძლიათ, მაგალითად, იხილოთ ყველა გამოსახულება აშშ-დან "
+"ბრაუზერში იმ ელემენტის მონიშვნით.</p><p>იყო თქვენი მიზანი, შეგექმნათ \"%3\" "
+"ჭდეების ჯგუფი და დაგემატებინათ \"%2\" წევრის სახით?</p>"
 msgstr[1] ""
+"<p>თქვენ ამ წამს ერთი ელემენტი მეორეზე გადაათრიეთ. ეს სამიზნე ელემენტს "
+"ჭდეების ჯგუფად გადააქცევს და გადათრეულ ელემენტს ამ ჯგუფის წევრად გახდის. "
+"ჭდის ჯგუფები, შეიძლება, ისეთი ფაქტების აღსანიშნად გამოიყენოთ, როგორიცაა 'ლას "
+"ვეგასი და ნიუ იორკი აშშ-შია'. ამ მაგალითში, თუ ლას ვეგასს და ნიუ იორკს აშშ-"
+"ზე გადაათრევთ, როცა ააწყობთ ჭდის ჯგუფებს, შეგიძლიათ, მაგალითად, იხილოთ ყველა "
+"გამოსახულება აშშ-დან ბრაუზერში იმ ელემენტის მონიშვნით.</p><p>იყო თქვენი "
+"მიზანი, შეგექმნათ \"%3\" ჭდეების ჯგუფი და დაგემატებინათ \"%2\" წევრების "
+"სახით?</p>"
 
 #: CategoryListView/CheckDropItem.cpp:157
 #, kde-format
@@ -1071,6 +1099,13 @@ msgid ""
 "selection: Click/drag below the timeline.</item><item>Jump to a date by "
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
+"<title>თარიღის პანელი</title><para><list><item>გადაახვიეთ ისრიანი ღილაკებით, "
+"თაგუნას ბორბლით, ან თაგუნას შუა ღილაკით.</item><item>გამოიყენეთ ღილაკები "
+"Home და End თავში, ან ბოლოში გადასახვევად.</item><item>გაადიდეთ +/- "
+"ღილაკებით, ან Ctrl + თაგუნას ბორბლით.</item><item>შეზღუდეთ ხედი სასურველი "
+"თარიღის შუალედზე: დააწკაპუნეთ/გადაათრიეთ ქვემოთ დროის ხაზზე.</"
+"item><item>გადადით კონკრეტულ თარიღზე დიაგრამის პანელზე დაწკაპუნებით.</item></"
+"list></para>"
 
 #: DateBar/DateBarWidget.cpp:743
 #, kde-format
@@ -2324,6 +2359,12 @@ msgid ""
 "(You might need to wait till the video extraction led in your status bar has "
 "stopped blinking, to see all affected videos.)"
 msgstr ""
+"ზოგიერთი ფაილიდან მინიატურების ამოღება შეუძლებელია. ან ფაილი დაზიანებულია, "
+"ან ვიდეო მეტისმეტად მოკლეა. მოხერხებულობისთვის, ამ ვიდეოებზე დაყენებულია "
+"ტოკენი '%1'.\n"
+"\n"
+"(ყველა ამნაირი ვიდეოს დასანახად შეიძლება, საჭირო იყოს, დაელოდოთ ვიდეოების "
+"ამოღების ნათურის ციმციმის შეწყვეტას თქვენი სტატუსის პანელზე.)"
 
 #: ImageManager/ThumbnailBuilder.cpp:103
 #, kde-format
@@ -3058,6 +3099,12 @@ msgid ""
 "is scanned in. So the question is, should KPhotoAlbum trust the time stamp "
 "on your images?"
 msgstr ""
+"გამოსახულებების დროის ინფორმაციის კითხვისას მათი Exif ინფორმაცია "
+"გამოიყენება. მაგრამ Exif შეიძლება, არ იყოს მხარდაჭერილი KPhotoAlbum-ის "
+"თქვენი ვერსიის მიერ, ან, შეიძლება, ფაილში არასწორი ინფორმაცია იყოს. მარქაფი "
+"გეგმის სახით, შეგიძლიათ, KPhotoAlbum-ის გამოსახულების დროის შტამპის წაკითხვა "
+"აიძულოს, რაც, შეიძლება, არ იყოს სწორი, თუ გამოსახულება დასკანერებულია. ასე "
+"რომ, კითხვაა, უნდა ენდოს KPhotoAlbum გამოსახულებების დროის შტამპს?"
 
 #: lib/kpabase/SettingsData.cpp:254
 #, kde-format
@@ -3394,6 +3441,10 @@ msgid ""
 "<br/>The tag and description from the deleted images will be transferred to "
 "the kept image</p>"
 msgstr ""
+"<p>ქვემოთ ყველა გამოსახულების სიაა, რომლებიც თქვენს მონაცემთა ბაზაში "
+"მეორდება.<br/>აირჩიეთ, რომლის შერწყმა გსურთ და რომლის დუბლიკატის "
+"შენარჩუნებაც უნდა მოხდეს.<br/>წაშლილი გამოსახულების ჭდე და აღწერა "
+"შენარჩუნებულ გამოსახულებაზე გადავა.</p>"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:54
 #, kde-format
@@ -3514,6 +3565,10 @@ msgid ""
 "depend on another package or program being available during runtime. I.e. "
 "you can enable these features by installing the right package.</p>"
 msgstr ""
+"<h1>გაშვების დროის ფუნქციები</h1><p>გაშვების დროის ფუნქციები არასავალდებულო "
+"ფუნქციებია, რომლებიც დამოკიდებულია სხვა პაკეტის, ან პროგრამის "
+"ხელმისაწვდომობაზეა დამოკიდებული მუშაობის დროს. ანუ, შეგიძლიათ ეს ფუნქციები "
+"სწორი პაკეტების დაყენებით ჩართოთ.</p>"
 
 #: MainWindow/FeatureDialog.cpp:94
 #, kde-format
@@ -3523,6 +3578,11 @@ msgid ""
 "is only available if the Qt SQLite driver is installed. On Debian-based "
 "distributions this package is usually called libqt6sql6-sqlite.</p>"
 msgstr ""
+"<h2><a name=\"database\">SQLite მონაცემთა ბაზის მხარდაჭერა</a></"
+"h2><p>KPhotoAlbum საშუალებას გაძლევთ, გარკვეული რაოდენობის Exif ჭდეების "
+"მიხედვით ეძებოთ.</p><p>ეს ფუნქცია, მხოლოდ, მაშინაა ხელმისაწვდომი, თუ "
+"დაყენებულია Qt-ის დრაივერი SQLite. Debian-ზე დაფუძნებულ დისტრიბუტივებში ამ "
+"პაკეტს, ჩვეულებრივ, libqt6sql6-sqlite ჰქვია.</p>"
 
 #: MainWindow/FeatureDialog.cpp:102
 #, kde-format
@@ -3947,6 +4007,10 @@ msgid ""
 "p><p>For details on how to solve this problem, please choose <b>Help</b>|"
 "<b>KPhotoAlbum Feature Status</b> from the menus.</p>"
 msgstr ""
+"<p>როგორც ჩანს, KPhotoAlbum რა იყო აგებული ყველა მისი ფუნქციის მხარდაჭერით. "
+"შემდეგი სია მიუთითებს, რისი მხარდაჭერა აკლია:<ul>%1</ul></"
+"p><p>დეტალებისთვის, როგორ გადაწყვიტოთ ეს პრობლემა, მენიუდან აირჩიეთ "
+"<b>დახმარება</b>|<b>KPhotoAlbum-ის ფუნქციების სტატუსი</b>.</p>"
 
 #: MainWindow/WelcomeDialog.cpp:192 MainWindow/WelcomeDialog.cpp:195
 #, kde-format

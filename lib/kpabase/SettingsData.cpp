@@ -13,10 +13,9 @@
 // SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
 // SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2012-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2019 Robert Krawitz <rlk@alum.mit.edu>
-// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2014-2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -587,16 +586,38 @@ void SettingsData::restoreWindowGeometry(WindowId id, QWindow *window)
     KWindowConfig::restoreWindowSize(window, stateConfig);
 }
 
-void SettingsData::saveWindowState(WindowId id, const QByteArray &state)
+QString SettingsData::windowIdGroup(WindowId id, SettingsScope scope) const
 {
-    auto stateConfig = KSharedConfig::openStateConfig()->group(s_windowIdKeys.value(id));
+    switch (scope) {
+    case SettingsScope::GlobalScope:
+        return s_windowIdKeys.value(id);
+    case SettingsScope::DatabaseScope:
+        return QStringLiteral("%1 %2").arg(s_windowIdKeys.value(id), m_imageDirectory);
+    }
+
+    // We can't reach here
+    return QString();
+}
+
+void SettingsData::saveWindowState(WindowId id, SettingsScope scope, const QByteArray &state)
+{
+    auto stateConfig = KSharedConfig::openStateConfig()->group(windowIdGroup(id, scope));
     stateConfig.writeEntry(QStringLiteral("State"), state.toBase64());
 }
 
 QByteArray SettingsData::windowState(WindowId id)
 {
-    auto stateConfig = KSharedConfig::openStateConfig()->group(s_windowIdKeys.value(id));
+    // First check if we have a state in database scope
+    auto stateConfig = KSharedConfig::openStateConfig()->group(windowIdGroup(id, SettingsScope::DatabaseScope));
     auto data = stateConfig.readEntry(QStringLiteral("State"), QString());
+
+    // If no state is found, check if we have a global scope state
+    if (data.isEmpty()) {
+        stateConfig = KSharedConfig::openStateConfig()->group(windowIdGroup(id, SettingsScope::GlobalScope));
+        data = stateConfig.readEntry(QStringLiteral("State"), QString());
+    }
+
+    // Return what we got
     return QByteArray::fromBase64(data.toUtf8());
 }
 

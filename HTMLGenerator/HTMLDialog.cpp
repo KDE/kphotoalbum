@@ -509,11 +509,9 @@ void HTMLDialog::populateThemesCombo()
     for (QStringList::Iterator it = dirs.begin(); it != dirs.end(); ++it) {
         QDir dir(*it);
         qCDebug(HTMLGeneratorLog) << "Searching themes in:" << dir;
-        QStringList themes = dir.entryList(QDir::Dirs | QDir::Readable);
+        QStringList themes = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot | QDir::Readable);
         for (QStringList::Iterator it = themes.begin(); it != themes.end(); ++it) {
             qCDebug(HTMLGeneratorLog) << " *" << *it;
-            if (*it == QString::fromLatin1(".") || *it == QString::fromLatin1(".."))
-                continue;
             QString themePath = QString::fromLatin1("%1/%2/").arg(dir.path(), *it);
 
             KConfig themeconfig(QString::fromLatin1("%1/kphotoalbum.theme").arg(themePath), KConfig::SimpleConfig);

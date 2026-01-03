@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-31 00:41+0000\n"
+"POT-Creation-Date: 2026-01-03 00:41+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -104,12 +104,12 @@ msgstr ""
 msgid "Revert This Item"
 msgstr "ត្រឡប់​ធាតុ​នេះ​ទៅ​ដើម​"
 
-#: AnnotationDialog/Dialog.cpp:231 AnnotationDialog/Dialog.cpp:1359
+#: AnnotationDialog/Dialog.cpp:231 AnnotationDialog/Dialog.cpp:1373
 #, kde-format
 msgid "Clear Form"
 msgstr "សម្អាត​សំណុំ​បែបបទ​"
 
-#: AnnotationDialog/Dialog.cpp:234 AnnotationDialog/Dialog.cpp:1362
+#: AnnotationDialog/Dialog.cpp:234 AnnotationDialog/Dialog.cpp:1376
 #, kde-format
 msgid "Options..."
 msgstr "ជម្រើស​..."
@@ -281,73 +281,78 @@ msgctxt "@title:window"
 msgid "Annotations"
 msgstr "ចំណារ​ពន្យល់​"
 
-#: AnnotationDialog/Dialog.cpp:926
+#: AnnotationDialog/Dialog.cpp:934
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:927
+#: AnnotationDialog/Dialog.cpp:935
 #, kde-format
-msgid "Save Current Window Setup"
-msgstr "រក្សា​ទុក​ការ​រៀប​ចំ​បង្អួច​បច្ចុប្បន្ន​"
+msgid "Save current layout globally"
+msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:928
+#: AnnotationDialog/Dialog.cpp:936
+#, kde-format
+msgid "Save current layout for this DB"
+msgstr ""
+
+#: AnnotationDialog/Dialog.cpp:938
 #, kde-format
 msgid "Reset layout"
 msgstr "កំណត់​ប្លង់​ឡើង​វិញ​"
 
-#: AnnotationDialog/Dialog.cpp:935 AnnotationDialog/Dialog.cpp:1314
+#: AnnotationDialog/Dialog.cpp:945 AnnotationDialog/Dialog.cpp:1328
 #: AnnotationDialog/ListSelect.cpp:110
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "តម្រៀប​តាម​លំដាប់​អក្សរ​ក្រម (មែក​ធាង)"
 
-#: AnnotationDialog/Dialog.cpp:939 AnnotationDialog/Dialog.cpp:1318
+#: AnnotationDialog/Dialog.cpp:949 AnnotationDialog/Dialog.cpp:1332
 #: AnnotationDialog/ListSelect.cpp:116
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "តម្រៀប​តាម​លំដាប់​អក្សរ​ក្រម (ស្មើ)"
 
-#: AnnotationDialog/Dialog.cpp:943
+#: AnnotationDialog/Dialog.cpp:953
 #, fuzzy, kde-format
 #| msgid "Sort by date"
 msgid "Sort by Date"
 msgstr "តម្រៀប​តាម​កាលបរិច្ឆេទ​"
 
-#: AnnotationDialog/Dialog.cpp:959
+#: AnnotationDialog/Dialog.cpp:969
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:960
+#: AnnotationDialog/Dialog.cpp:970
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:961
+#: AnnotationDialog/Dialog.cpp:971
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:978
+#: AnnotationDialog/Dialog.cpp:988
 #, fuzzy, kde-format
 #| msgid "Show only selected Ctrl+S"
 msgid "Show Only Selected Ctrl+S"
 msgstr "បង្ហាញ​តែ​បញ្ជា​ (Ctrl)+S ដែល​បាន​ជ្រើស​ប៉ុណ្ណោះ"
 
-#: AnnotationDialog/Dialog.cpp:1016 Map/MapView.cpp:360
+#: AnnotationDialog/Dialog.cpp:1030 Map/MapView.cpp:360
 #, fuzzy, kde-format
 #| msgid "Settings"
 msgid "Settings saved!"
 msgstr "ការ​កំណត់"
 
-#: AnnotationDialog/Dialog.cpp:1016
+#: AnnotationDialog/Dialog.cpp:1030
 #, fuzzy, kde-format
 #| msgid "Save Current Window Setup"
 msgid "Save current window setup"
 msgstr "រក្សា​ទុក​ការ​រៀប​ចំ​បង្អួច​បច្ចុប្បន្ន​"
 
-#: AnnotationDialog/Dialog.cpp:1081
+#: AnnotationDialog/Dialog.cpp:1095
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Some changes are made to annotations. Do you really want to cancel all "
@@ -359,14 +364,14 @@ msgstr ""
 "<p>ការ​ផ្លាស់​ប្តូរ​ខ្លះ​ត្រូវ​បាន​ធ្វើ​​ចំពោះ​ចំណារ​ពន្យល់ ។ តើ​អ្នក​ពិត​ជា​ចង់​បោះបង់​ការ​ផ្លាស់​ប្តូរ​បច្ចុប្បន្ន​ទាំង​"
 "អស់សម្រាប់​ឯកសារ​ដែល​ប៉ះ​ពាល់​នីមួយ​ៗ​ឬ ?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1082
+#: AnnotationDialog/Dialog.cpp:1096
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "រក្សា​ទុក​ការ​ផ្លាស់ប្ដូរ ?​"
 
-#: AnnotationDialog/Dialog.cpp:1181
+#: AnnotationDialog/Dialog.cpp:1195
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -382,7 +387,7 @@ msgstr ""
 "ព័ត៌មាន​អំពី​រូបភាព​ផង​ដែរ  អ្នក​អាច​ស្វែងរក​ព័ត៌មាន​ជំនួយ​បន្ថែម​ទាក់​ទង​នឹង​ការ​ប្រើ​ប្រាស់​របស់​វា​ដោយ​អាន​អំពី "
 "<a href=\"help:/kphotoalbum/chp-typingIn.html\">ដោយ​វាយ​បញ្ចូល​</a>។</p>"
 
-#: AnnotationDialog/Dialog.cpp:1189
+#: AnnotationDialog/Dialog.cpp:1203
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -395,52 +400,52 @@ msgstr ""
 "អ្នក​ត្រូវ​តែ​ចំណាយ​ពេល​ ៥ នាទី ដើម្បី​អាន​ <a href=\"help:/kphotoalbum/chp-typingIn.html"
 "\">ឯកសារ​សម្រាប់​ប្រអប់​នេះ​សិន</a></p>"
 
-#: AnnotationDialog/Dialog.cpp:1321
+#: AnnotationDialog/Dialog.cpp:1335
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "តម្រៀប​​តាម​អ្វី​ដែល​បាន​ប្រើ​ថ្មី​ៗ"
 
-#: AnnotationDialog/Dialog.cpp:1324
+#: AnnotationDialog/Dialog.cpp:1338
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "បិទ​/បើក​ការ​តម្រៀប"
 
-#: AnnotationDialog/Dialog.cpp:1329
+#: AnnotationDialog/Dialog.cpp:1343
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "បិទ/​បើក​តែ​ការ​បង្ហាញ​ធាតុ​ដែល​បាន​ជ្រើស​ប៉ុណ្ណោះ"
 
-#: AnnotationDialog/Dialog.cpp:1333
+#: AnnotationDialog/Dialog.cpp:1347
 #, kde-format
 msgid "Annotate Next"
 msgstr "ចារ​ពន្យល់​បន្ទាប់​"
 
-#: AnnotationDialog/Dialog.cpp:1337
+#: AnnotationDialog/Dialog.cpp:1351
 #, kde-format
 msgid "Annotate Previous"
 msgstr "ចារ​ពន្យល់​មុន"
 
-#: AnnotationDialog/Dialog.cpp:1341
+#: AnnotationDialog/Dialog.cpp:1355
 #, kde-format
 msgid "OK dialog"
 msgstr "ប្រអប់ យល់​ព្រម​"
 
-#: AnnotationDialog/Dialog.cpp:1345
+#: AnnotationDialog/Dialog.cpp:1359
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "ចម្លង​ស្លាក​ពី​រូបភាព​មុន​"
 
-#: AnnotationDialog/Dialog.cpp:1349 MainWindow/Window.cpp:844
+#: AnnotationDialog/Dialog.cpp:1363 MainWindow/Window.cpp:844
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "បង្វិល​បញ្ច្រាស​ទ្រនិច​នាឡិកា"
 
-#: AnnotationDialog/Dialog.cpp:1352 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1366 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "បង្វិល​តាម​ទ្រនិច​នាឡិកា"
 
-#: AnnotationDialog/Dialog.cpp:1355
+#: AnnotationDialog/Dialog.cpp:1369
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "បិទ/បើក​ការ​មើល​អេក្រង់​ពេញ​ជា​មុន"
@@ -1648,13 +1653,13 @@ msgid "Places"
 msgstr "ទីកន្លែង"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:434
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:433
 #, kde-format
 msgid "Events"
 msgstr "ព្រឹត្តិការណ៍"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:444
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:443
 #, fuzzy, kde-format
 #| msgid "Untagged Images"
 msgid "untagged"
@@ -3267,7 +3272,7 @@ msgstr "កម្មវិធី​ជំនួយ​"
 msgid "Main Toolbar"
 msgstr "របារ​ឧបករណ៍​មេ"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:246
 #, fuzzy, kde-format
 #| msgid ""
 #| "When reading time information of images, their EXIF info is used. Exif "
@@ -3290,7 +3295,7 @@ msgstr ""
 "ទោះ​បី​យ៉ាង​ណា​ វា​អាច​នឹង​មិន​ត្រឹម​ត្រូវ​ នៅ​ក្នុង​ករណី​ដែល​រូបភាព​ត្រូវ​បាន​វិភាគ​រក​ ។ ដូច្នេះ​សំណួរ​ក៏​អញ្ចឹង​ដែរ "
 "តើ  KPhotoAlbum គួរ​តែ​ទុក​ចិត្ត​លើ​ត្រា​ពេល​វេលា​ដែល​នៅ​លើ​រូបភាព​របស់​អ្នក​ដែរ​ឬទេ​ ?"
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:253
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "ទុក​ចិត្ត​លើ​ត្រា​ពេល​វេលា​ឬ​អត់ ?​"
@@ -7483,6 +7488,9 @@ msgstr "បង្ហាញ​ទំហំ​រូបភាព"
 #, kde-format
 msgid "Show Rating"
 msgstr "បង្ហាញ​ការ​វាយតម្លៃ"
+
+#~ msgid "Save Current Window Setup"
+#~ msgstr "រក្សា​ទុក​ការ​រៀប​ចំ​បង្អួច​បច្ចុប្បន្ន​"
 
 #, fuzzy
 #~| msgid "Export Configuration / Copy Images"

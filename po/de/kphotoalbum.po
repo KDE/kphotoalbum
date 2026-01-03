@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-31 00:41+0000\n"
+"POT-Creation-Date: 2026-01-03 00:41+0000\n"
 "PO-Revision-Date: 2023-08-14 21:58+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -102,12 +102,12 @@ msgstr ""
 msgid "Revert This Item"
 msgstr "Diesen Eintrag zurücksetzen"
 
-#: AnnotationDialog/Dialog.cpp:231 AnnotationDialog/Dialog.cpp:1359
+#: AnnotationDialog/Dialog.cpp:231 AnnotationDialog/Dialog.cpp:1373
 #, kde-format
 msgid "Clear Form"
 msgstr "Formular zurücksetzen"
 
-#: AnnotationDialog/Dialog.cpp:234 AnnotationDialog/Dialog.cpp:1362
+#: AnnotationDialog/Dialog.cpp:234 AnnotationDialog/Dialog.cpp:1376
 #, kde-format
 msgid "Options..."
 msgstr "Optionen ..."
@@ -286,70 +286,76 @@ msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Anmerkungen"
 
-#: AnnotationDialog/Dialog.cpp:926
+#: AnnotationDialog/Dialog.cpp:934
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "Fensterlayout einrichten ..."
 
-#: AnnotationDialog/Dialog.cpp:927
+#: AnnotationDialog/Dialog.cpp:935
 #, kde-format
-msgid "Save Current Window Setup"
-msgstr "Aktuelle Fenstereinstellung speichern"
+msgid "Save current layout globally"
+msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:928
+#: AnnotationDialog/Dialog.cpp:936
+#, fuzzy, kde-format
+#| msgid "Save the current map settings"
+msgid "Save current layout for this DB"
+msgstr "Aktuelle Karteneinstellungen speichern"
+
+#: AnnotationDialog/Dialog.cpp:938
 #, kde-format
 msgid "Reset layout"
 msgstr "Layout zurücksetzen"
 
-#: AnnotationDialog/Dialog.cpp:935 AnnotationDialog/Dialog.cpp:1314
+#: AnnotationDialog/Dialog.cpp:945 AnnotationDialog/Dialog.cpp:1328
 #: AnnotationDialog/ListSelect.cpp:110
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Alphabetisch sortieren (Baum)"
 
-#: AnnotationDialog/Dialog.cpp:939 AnnotationDialog/Dialog.cpp:1318
+#: AnnotationDialog/Dialog.cpp:949 AnnotationDialog/Dialog.cpp:1332
 #: AnnotationDialog/ListSelect.cpp:116
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Alphabetisch sortieren (Flach)"
 
-#: AnnotationDialog/Dialog.cpp:943
+#: AnnotationDialog/Dialog.cpp:953
 #, kde-format
 msgid "Sort by Date"
 msgstr "Nach Datum sortieren"
 
-#: AnnotationDialog/Dialog.cpp:959
+#: AnnotationDialog/Dialog.cpp:969
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr "Stichwortübereinstimmung ab dem ersten Zeichen"
 
-#: AnnotationDialog/Dialog.cpp:960
+#: AnnotationDialog/Dialog.cpp:970
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr "Stichwortübereinstimmung ab Wortgrenze"
 
-#: AnnotationDialog/Dialog.cpp:961
+#: AnnotationDialog/Dialog.cpp:971
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr "Stichwortübereinstimmung beliebig"
 
-#: AnnotationDialog/Dialog.cpp:978
+#: AnnotationDialog/Dialog.cpp:988
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "Nur Ausgewählte anzeigen Strg+S"
 
-#: AnnotationDialog/Dialog.cpp:1016 Map/MapView.cpp:360
+#: AnnotationDialog/Dialog.cpp:1030 Map/MapView.cpp:360
 #, kde-format
 msgid "Settings saved!"
 msgstr "Einstellungen gespeichert"
 
-#: AnnotationDialog/Dialog.cpp:1016
+#: AnnotationDialog/Dialog.cpp:1030
 #, fuzzy, kde-format
 #| msgid "Save Current Window Setup"
 msgid "Save current window setup"
 msgstr "Aktuelle Fenstereinstellung speichern"
 
-#: AnnotationDialog/Dialog.cpp:1081
+#: AnnotationDialog/Dialog.cpp:1095
 #, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
@@ -358,13 +364,13 @@ msgstr ""
 "<p>Einige Kategorien wurden geändert. Möchten Sie wirklich für jedes "
 "betroffene Bild die letzten Änderungen verwerfen?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1082
+#: AnnotationDialog/Dialog.cpp:1096
 #, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Änderungen verwerfen?"
 
-#: AnnotationDialog/Dialog.cpp:1181
+#: AnnotationDialog/Dialog.cpp:1195
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -382,7 +388,7 @@ msgstr ""
 "Sie im Abschnitt <a href=\"help:/kphotoalbum/chp-typingIn.html\">Eingeben</"
 "a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1189
+#: AnnotationDialog/Dialog.cpp:1203
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -396,52 +402,52 @@ msgstr ""
 "nehmen, um die <a href=\"help:/kphotoalbum/chp-typingIn.html\">Dokumentation "
 "zu diesem Dialog</a> zu lesen.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1321
+#: AnnotationDialog/Dialog.cpp:1335
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Nach letzter Nutzung sortieren"
 
-#: AnnotationDialog/Dialog.cpp:1324
+#: AnnotationDialog/Dialog.cpp:1338
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Sortierung umschalten"
 
-#: AnnotationDialog/Dialog.cpp:1329
+#: AnnotationDialog/Dialog.cpp:1343
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Anzeige nur ausgewählter Einträge umschalten"
 
-#: AnnotationDialog/Dialog.cpp:1333
+#: AnnotationDialog/Dialog.cpp:1347
 #, kde-format
 msgid "Annotate Next"
 msgstr "Nächstes kategorisieren"
 
-#: AnnotationDialog/Dialog.cpp:1337
+#: AnnotationDialog/Dialog.cpp:1351
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Vorheriges kategorisieren"
 
-#: AnnotationDialog/Dialog.cpp:1341
+#: AnnotationDialog/Dialog.cpp:1355
 #, kde-format
 msgid "OK dialog"
 msgstr "OK-Dialog"
 
-#: AnnotationDialog/Dialog.cpp:1345
+#: AnnotationDialog/Dialog.cpp:1359
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Stichwörter vom vorherigen Bild kopieren"
 
-#: AnnotationDialog/Dialog.cpp:1349 MainWindow/Window.cpp:844
+#: AnnotationDialog/Dialog.cpp:1363 MainWindow/Window.cpp:844
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Gegen den Uhrzeigersinn drehen"
 
-#: AnnotationDialog/Dialog.cpp:1352 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1366 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Im Uhrzeigersinn drehen"
 
-#: AnnotationDialog/Dialog.cpp:1355
+#: AnnotationDialog/Dialog.cpp:1369
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Vollbildvorschau umschalten"
@@ -1655,13 +1661,13 @@ msgid "Places"
 msgstr "Orte"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:434
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:433
 #, kde-format
 msgid "Events"
 msgstr "Ereignisse"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:444
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:443
 #, kde-format
 msgid "untagged"
 msgstr "Ohne Stichwort"
@@ -3244,7 +3250,7 @@ msgstr "Module"
 msgid "Main Toolbar"
 msgstr "Haupt-Werkzeugleiste"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:246
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3262,7 +3268,7 @@ msgstr ""
 "eingescannt worden ist. Die Frage ist also: kann KPhotoAlbum den "
 "Zeitstempeln Ihrer Bilder vertrauen?"
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:253
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Zeitstempel vertrauenswürdig?"
@@ -7519,6 +7525,9 @@ msgstr "Bildgröße anzeigen"
 #, kde-format
 msgid "Show Rating"
 msgstr "Bewertung anzeigen"
+
+#~ msgid "Save Current Window Setup"
+#~ msgstr "Aktuelle Fenstereinstellung speichern"
 
 #~ msgctxt "@title:window"
 #~ msgid "Export Configuration / Copy Images"

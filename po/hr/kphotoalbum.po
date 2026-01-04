@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:41+0000\n"
+"POT-Creation-Date: 2026-01-04 00:42+0000\n"
 "PO-Revision-Date: 2011-03-11 10:03+0100\n"
 "Last-Translator: Marko Dimjasevic <marko@dimjasevic.net>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -2153,22 +2153,22 @@ msgid "Folder Exists"
 msgstr ""
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
-#: HTMLGenerator/HTMLDialog.cpp:532 MainWindow/SplashScreen.cpp:52
+#: HTMLGenerator/HTMLDialog.cpp:530 MainWindow/SplashScreen.cpp:52
 #, kde-format
 msgid "%1"
 msgstr ""
 
-#: HTMLGenerator/HTMLDialog.cpp:543
+#: HTMLGenerator/HTMLDialog.cpp:541
 #, kde-format
 msgid "Could not find any themes - this is very likely an installation error"
 msgstr ""
 
-#: HTMLGenerator/HTMLDialog.cpp:550
+#: HTMLGenerator/HTMLDialog.cpp:548
 #, kde-format
 msgid "More than one theme is set as default, using theme %1"
 msgstr ""
 
-#: HTMLGenerator/HTMLDialog.cpp:557
+#: HTMLGenerator/HTMLDialog.cpp:555
 #, kde-format
 msgctxt ""
 "This is to show the author of the theme. E.g. copyright character (&#169;) "
@@ -2177,19 +2177,19 @@ msgctxt ""
 msgid "by "
 msgstr ""
 
-#: HTMLGenerator/HTMLDialog.cpp:559
+#: HTMLGenerator/HTMLDialog.cpp:557
 #, kde-format
 msgid ""
 "\n"
 " "
 msgstr ""
 
-#: HTMLGenerator/HTMLDialog.cpp:574
+#: HTMLGenerator/HTMLDialog.cpp:572
 #, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
 msgstr ""
 
-#: HTMLGenerator/HTMLDialog.cpp:578
+#: HTMLGenerator/HTMLDialog.cpp:576
 #, kde-format
 msgid "<p>The output folder already exists.</p>"
 msgstr ""

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:41+0000\n"
-"PO-Revision-Date: 2026-01-01 06:54+0100\n"
+"POT-Creation-Date: 2026-01-04 00:42+0000\n"
+"PO-Revision-Date: 2026-01-03 02:45+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -287,13 +287,12 @@ msgstr "ფანჯრის განლაგების მოძებნ�
 #: AnnotationDialog/Dialog.cpp:935
 #, kde-format
 msgid "Save current layout globally"
-msgstr ""
+msgstr "მიმდინარე განლაგების შენახვა გლობალურად"
 
 #: AnnotationDialog/Dialog.cpp:936
-#, fuzzy, kde-format
-#| msgid "Save the current map settings"
+#, kde-format
 msgid "Save current layout for this DB"
-msgstr "მიმდინარე რუკის პარამეტრების შენახვა"
+msgstr "მიმდინარე განლაგების შენახვა ამ DB-ისთვის"
 
 #: AnnotationDialog/Dialog.cpp:938
 #, kde-format
@@ -2277,22 +2276,22 @@ msgid "Folder Exists"
 msgstr "საქაღალდე არსებობს"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
-#: HTMLGenerator/HTMLDialog.cpp:532 MainWindow/SplashScreen.cpp:52
+#: HTMLGenerator/HTMLDialog.cpp:530 MainWindow/SplashScreen.cpp:52
 #, kde-format
 msgid "%1"
 msgstr "%1"
 
-#: HTMLGenerator/HTMLDialog.cpp:543
+#: HTMLGenerator/HTMLDialog.cpp:541
 #, kde-format
 msgid "Could not find any themes - this is very likely an installation error"
 msgstr "თემები აღმოჩენილი არაა - ეს, სავარაუდოდ, დაყენების შეცდომაა"
 
-#: HTMLGenerator/HTMLDialog.cpp:550
+#: HTMLGenerator/HTMLDialog.cpp:548
 #, kde-format
 msgid "More than one theme is set as default, using theme %1"
 msgstr "ერთზე მეტი თემა დაყენებულია როგორც ნაგულისხმევი. გამოიყენება თემა %1"
 
-#: HTMLGenerator/HTMLDialog.cpp:557
+#: HTMLGenerator/HTMLDialog.cpp:555
 #, kde-format
 msgctxt ""
 "This is to show the author of the theme. E.g. copyright character (&#169;) "
@@ -2301,7 +2300,7 @@ msgctxt ""
 msgid "by "
 msgstr "ავტორი "
 
-#: HTMLGenerator/HTMLDialog.cpp:559
+#: HTMLGenerator/HTMLDialog.cpp:557
 #, kde-format
 msgid ""
 "\n"
@@ -2310,12 +2309,12 @@ msgstr ""
 "\n"
 " "
 
-#: HTMLGenerator/HTMLDialog.cpp:574
+#: HTMLGenerator/HTMLDialog.cpp:572
 #, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
 msgstr "<p>გალერეის საქაღალდე არ შეიძლება, ცარიელი იყოს.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:578
+#: HTMLGenerator/HTMLDialog.cpp:576
 #, kde-format
 msgid "<p>The output folder already exists.</p>"
 msgstr "<p>გამოტანი საქაღალდე უკვე არსებობს.</p>"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:41+0000\n"
+"POT-Creation-Date: 2026-01-04 00:42+0000\n"
 "PO-Revision-Date: 2025-12-31 16:02+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -2331,24 +2331,24 @@ msgid "Folder Exists"
 msgstr "Map bestaat"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
-#: HTMLGenerator/HTMLDialog.cpp:532 MainWindow/SplashScreen.cpp:52
+#: HTMLGenerator/HTMLDialog.cpp:530 MainWindow/SplashScreen.cpp:52
 #, kde-format
 msgid "%1"
 msgstr "%1"
 
-#: HTMLGenerator/HTMLDialog.cpp:543
+#: HTMLGenerator/HTMLDialog.cpp:541
 #, kde-format
 msgid "Could not find any themes - this is very likely an installation error"
 msgstr ""
 "Er zijn geen thema's gevonden. Mogelijk zit er een fout in de installatie"
 
-#: HTMLGenerator/HTMLDialog.cpp:550
+#: HTMLGenerator/HTMLDialog.cpp:548
 #, kde-format
 msgid "More than one theme is set as default, using theme %1"
 msgstr ""
 "Meer dan één thema is ingesteld als standaard, thema %1 zal worden gebruikt"
 
-#: HTMLGenerator/HTMLDialog.cpp:557
+#: HTMLGenerator/HTMLDialog.cpp:555
 #, kde-format
 msgctxt ""
 "This is to show the author of the theme. E.g. copyright character (&#169;) "
@@ -2357,7 +2357,7 @@ msgctxt ""
 msgid "by "
 msgstr "door "
 
-#: HTMLGenerator/HTMLDialog.cpp:559
+#: HTMLGenerator/HTMLDialog.cpp:557
 #, kde-format
 msgid ""
 "\n"
@@ -2366,12 +2366,12 @@ msgstr ""
 "\n"
 " "
 
-#: HTMLGenerator/HTMLDialog.cpp:574
+#: HTMLGenerator/HTMLDialog.cpp:572
 #, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
 msgstr "<p>Map van galerij kan niet leeg zijn.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:578
+#: HTMLGenerator/HTMLDialog.cpp:576
 #, kde-format
 msgid "<p>The output folder already exists.</p>"
 msgstr "<p>De uitvoermap bestaat al.</p>"

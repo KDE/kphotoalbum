@@ -1,17 +1,17 @@
 # Translation of kphotoalbum.po to Catalan (Valencian)
-# Copyright (C) 2007-2025 This_file_is_part_of_KDE
+# Copyright (C) 2007-2026 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
 # SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022, 2023 Antoni Bella Pérez <antonibella5@yahoo.com>
 # SPDX-FileCopyrightText: 2009 Manuel Tortosa Moreno <manutortosa@gmail.com>
-# SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Josep M. Ferrer <txemaq@gmail.com>
+# SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:41+0000\n"
-"PO-Revision-Date: 2025-12-31 08:54+0100\n"
+"POT-Creation-Date: 2026-01-04 00:42+0000\n"
+"PO-Revision-Date: 2026-01-03 08:22+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -293,13 +293,12 @@ msgstr "Configura la disposició de la finestra…"
 #: AnnotationDialog/Dialog.cpp:935
 #, kde-format
 msgid "Save current layout globally"
-msgstr ""
+msgstr "Guarda globalment la disposició actual"
 
 #: AnnotationDialog/Dialog.cpp:936
-#, fuzzy, kde-format
-#| msgid "Save the current map settings"
+#, kde-format
 msgid "Save current layout for this DB"
-msgstr "Guarda la configuració actual del mapa"
+msgstr "Guarda la disposició actual per a esta BD"
 
 #: AnnotationDialog/Dialog.cpp:938
 #, kde-format
@@ -2339,24 +2338,24 @@ msgid "Folder Exists"
 msgstr "La carpeta existix"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
-#: HTMLGenerator/HTMLDialog.cpp:532 MainWindow/SplashScreen.cpp:52
+#: HTMLGenerator/HTMLDialog.cpp:530 MainWindow/SplashScreen.cpp:52
 #, kde-format
 msgid "%1"
 msgstr "%1"
 
-#: HTMLGenerator/HTMLDialog.cpp:543
+#: HTMLGenerator/HTMLDialog.cpp:541
 #, kde-format
 msgid "Could not find any themes - this is very likely an installation error"
 msgstr "No s'ha trobat cap tema -segurament hi ha un error d'instal·lació-"
 
-#: HTMLGenerator/HTMLDialog.cpp:550
+#: HTMLGenerator/HTMLDialog.cpp:548
 #, kde-format
 msgid "More than one theme is set as default, using theme %1"
 msgstr ""
 "S'ha establit de manera predeterminada més d'un tema. S'està emprant el tema "
 "%1"
 
-#: HTMLGenerator/HTMLDialog.cpp:557
+#: HTMLGenerator/HTMLDialog.cpp:555
 #, kde-format
 msgctxt ""
 "This is to show the author of the theme. E.g. copyright character (&#169;) "
@@ -2365,7 +2364,7 @@ msgctxt ""
 msgid "by "
 msgstr "per "
 
-#: HTMLGenerator/HTMLDialog.cpp:559
+#: HTMLGenerator/HTMLDialog.cpp:557
 #, kde-format
 msgid ""
 "\n"
@@ -2374,12 +2373,12 @@ msgstr ""
 "\n"
 " "
 
-#: HTMLGenerator/HTMLDialog.cpp:574
+#: HTMLGenerator/HTMLDialog.cpp:572
 #, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
 msgstr "<p>La carpeta de la galeria no pot estar buida.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:578
+#: HTMLGenerator/HTMLDialog.cpp:576
 #, kde-format
 msgid "<p>The output folder already exists.</p>"
 msgstr "<p>La carpeta d'eixida ja existix.</p>"
@@ -7367,6 +7366,3 @@ msgstr "Mostra la mida de la imatge"
 #, kde-format
 msgid "Show Rating"
 msgstr "Mostra la valoració"
-
-#~ msgid "Save Current Window Setup"
-#~ msgstr "Guarda la configuració actual de les finestres"

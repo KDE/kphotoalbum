@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:41+0000\n"
+"POT-Creation-Date: 2026-01-04 00:42+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -2303,22 +2303,22 @@ msgid "Folder Exists"
 msgstr "समुच्चय विद्यते"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
-#: HTMLGenerator/HTMLDialog.cpp:532 MainWindow/SplashScreen.cpp:52
+#: HTMLGenerator/HTMLDialog.cpp:530 MainWindow/SplashScreen.cpp:52
 #, kde-format
 msgid "%1"
 msgstr "%1"
 
-#: HTMLGenerator/HTMLDialog.cpp:543
+#: HTMLGenerator/HTMLDialog.cpp:541
 #, kde-format
 msgid "Could not find any themes - this is very likely an installation error"
 msgstr "किमपि विषयवस्तुं न प्राप्नोत् - एषः संस्थापनदोषः इति अतीव सम्भाव्यते"
 
-#: HTMLGenerator/HTMLDialog.cpp:550
+#: HTMLGenerator/HTMLDialog.cpp:548
 #, kde-format
 msgid "More than one theme is set as default, using theme %1"
 msgstr "एकादशाधिकं विषयवस्तु पूर्वनिर्धारितरूपेण सेट् भवति, विषयवस्तु %1 इत्यस्य उपयोगेन"
 
-#: HTMLGenerator/HTMLDialog.cpp:557
+#: HTMLGenerator/HTMLDialog.cpp:555
 #, kde-format
 msgctxt ""
 "This is to show the author of the theme. E.g. copyright character (&#169;) "
@@ -2327,7 +2327,7 @@ msgctxt ""
 msgid "by "
 msgstr "इत्यनेन "
 
-#: HTMLGenerator/HTMLDialog.cpp:559
+#: HTMLGenerator/HTMLDialog.cpp:557
 #, kde-format
 msgid ""
 "\n"
@@ -2336,12 +2336,12 @@ msgstr ""
 "\n"
 " "
 
-#: HTMLGenerator/HTMLDialog.cpp:574
+#: HTMLGenerator/HTMLDialog.cpp:572
 #, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
 msgstr "<p>गैलरीपुटं रिक्तं न भवितुम् अर्हति ।</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:578
+#: HTMLGenerator/HTMLDialog.cpp:576
 #, kde-format
 msgid "<p>The output folder already exists.</p>"
 msgstr "<p>आउटपुट् समुच्चय पूर्वमेव विद्यते ।</p>"

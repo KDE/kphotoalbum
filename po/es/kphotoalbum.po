@@ -1,8 +1,8 @@
 # Spanish translations for kphotoalbum.po package.
-# Copyright (C) 2009-2025 This file is copyright:
+# Copyright (C) 2009-2026 This file is copyright:
 # This file is distributed under the same license as the kphotoalbum package.
 #
-# SPDX-FileCopyrightText: 2009, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2009, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Eloy Cuadra <ecuadra@eloihr.net>
 # SPDX-FileCopyrightText: 2009 Cristina Yenyxe Gonzalez Garcia <the.blue.valkyrie@gmail.com>
 # SPDX-FileCopyrightText: 2009 Adrián Martínez <sfxgt3@gmail.com>
 # SPDX-FileCopyrightText: 2010, 2011 Pablo Pita Leira <pablo.pita@gmail.com>
@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:41+0000\n"
-"PO-Revision-Date: 2025-12-31 18:17+0100\n"
+"POT-Creation-Date: 2026-01-04 00:42+0000\n"
+"PO-Revision-Date: 2026-01-03 16:48+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -296,18 +296,17 @@ msgstr "Configurar la distribución de la ventana…"
 #: AnnotationDialog/Dialog.cpp:935
 #, kde-format
 msgid "Save current layout globally"
-msgstr ""
+msgstr "Guardar la distribución actual globalmente"
 
 #: AnnotationDialog/Dialog.cpp:936
-#, fuzzy, kde-format
-#| msgid "Save the current map settings"
+#, kde-format
 msgid "Save current layout for this DB"
-msgstr "Guardar las preferencias de mapas actuales"
+msgstr "Guardar la distribución actual para esta base de datos"
 
 #: AnnotationDialog/Dialog.cpp:938
 #, kde-format
 msgid "Reset layout"
-msgstr "Reiniciar disposición"
+msgstr "Reiniciar distribución"
 
 #: AnnotationDialog/Dialog.cpp:945 AnnotationDialog/Dialog.cpp:1328
 #: AnnotationDialog/ListSelect.cpp:110
@@ -2188,7 +2187,7 @@ msgstr "Qué incluir"
 #: HTMLGenerator/HTMLDialog.cpp:177 HTMLGenerator/HTMLDialog.cpp:178
 #, kde-format
 msgid "Layout"
-msgstr "Disposición"
+msgstr "Distribución"
 
 #: HTMLGenerator/HTMLDialog.cpp:187 Settings/CategoryPage.cpp:130
 #, kde-format
@@ -2333,24 +2332,24 @@ msgid "Folder Exists"
 msgstr "La carpeta existe"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
-#: HTMLGenerator/HTMLDialog.cpp:532 MainWindow/SplashScreen.cpp:52
+#: HTMLGenerator/HTMLDialog.cpp:530 MainWindow/SplashScreen.cpp:52
 #, kde-format
 msgid "%1"
 msgstr "%1"
 
-#: HTMLGenerator/HTMLDialog.cpp:543
+#: HTMLGenerator/HTMLDialog.cpp:541
 #, kde-format
 msgid "Could not find any themes - this is very likely an installation error"
 msgstr ""
 "No se encontró ningún tema - probablemente se deba a un fallo en la "
 "instalación"
 
-#: HTMLGenerator/HTMLDialog.cpp:550
+#: HTMLGenerator/HTMLDialog.cpp:548
 #, kde-format
 msgid "More than one theme is set as default, using theme %1"
 msgstr "Hay más de un tema establecido por defecto, usando tema %1"
 
-#: HTMLGenerator/HTMLDialog.cpp:557
+#: HTMLGenerator/HTMLDialog.cpp:555
 #, kde-format
 msgctxt ""
 "This is to show the author of the theme. E.g. copyright character (&#169;) "
@@ -2359,7 +2358,7 @@ msgctxt ""
 msgid "by "
 msgstr "por "
 
-#: HTMLGenerator/HTMLDialog.cpp:559
+#: HTMLGenerator/HTMLDialog.cpp:557
 #, kde-format
 msgid ""
 "\n"
@@ -2368,12 +2367,12 @@ msgstr ""
 "\n"
 " "
 
-#: HTMLGenerator/HTMLDialog.cpp:574
+#: HTMLGenerator/HTMLDialog.cpp:572
 #, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
 msgstr "<p>La carpeta de la galería no puede estar vacía.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:578
+#: HTMLGenerator/HTMLDialog.cpp:576
 #, kde-format
 msgid "<p>The output folder already exists.</p>"
 msgstr "<p>La carpeta de salida ya existe.</p>"
@@ -7347,6 +7346,3 @@ msgstr "Mostrar tamaño de imagen"
 #, kde-format
 msgid "Show Rating"
 msgstr "Mostrar puntuación"
-
-#~ msgid "Save Current Window Setup"
-#~ msgstr "Guardar configuración actual de la ventana"

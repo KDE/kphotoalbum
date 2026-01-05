@@ -6893,9 +6893,3 @@ msgstr "Vis bildestørrelse"
 #, kde-format
 msgid "Show Rating"
 msgstr "Vis karakter"
-
-#~ msgid "Save Current Window Setup"
-#~ msgstr "Lagre gjeldende vindusoppsett"
-
-#~ msgid "How to Handle Images"
-#~ msgstr "Hvordan bilder skal håndteres"

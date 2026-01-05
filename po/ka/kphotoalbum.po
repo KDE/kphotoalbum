@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-04 00:42+0000\n"
-"PO-Revision-Date: 2026-01-03 02:45+0100\n"
+"PO-Revision-Date: 2026-01-04 05:45+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -2461,6 +2461,11 @@ msgid ""
 "stored in jpg, png or gif; but do check this if your images are stored in "
 "tiff.</p>"
 msgstr ""
+"<p>თუ თქვენი გამოსახულებები არაშეკუმშულ ფაილის ფორმატშია დამახსოვრებული, "
+"მაშინ შეგიძლიათ, ჩართოთ ეს. სხვა შემთხვევაში ეს შემოტანა/გატანის ოპერაციისას "
+"უბრალოდ უფრო მეტ დროს დახარჯავს.</p><p>სხვა სიტყვებით, ნუ ჩართავთ ამას, თუ "
+"თქვენი გამოსახულებები png, jpg, ან gif ფორმატშია, მაგრამ ჩართეთ, თუ ფორმატი "
+"tiff-ია.</p>"
 
 #: ImportExport/Export.cpp:181
 #, kde-format
@@ -2475,6 +2480,10 @@ msgid ""
 "will of course also make the quality worse if someone wants to see the "
 "exported images with larger dimensions.</p>"
 msgstr ""
+"<p>ამ პარამეტრით შეგიძლიათ, თქვენი გამოსახულებების მაქსიმალური განზომილებები "
+"(სიმაღლე და სიგანე) შეზღუდოთ. თუ ამას იზამთ, შედეგად მიღებული გატანილი "
+"ფაილები უფრო პატარა იქნება, მაგრამ, რა თქმა უნდა, ხარისხიც გაუარესდება, თუ "
+"ვინმე ამ გატანილ გამოსახულებებს გაადიდებს.</p>"
 
 #: ImportExport/Export.cpp:191
 #, kde-format
@@ -3125,6 +3134,11 @@ msgid ""
 "command that was attempted to be executed was:<br/>%1</p><p>The error "
 "message obtained was:<br/>%2</p>"
 msgstr ""
+"<p>შეცდომა Exif-ის მონაცემთა ბაზასთან წვდომისას. შეცდომას, როგორც წესი, "
+"მონაცემთა ბაზის გაფუჭებული ფაილი იწვევს.</p><p>პრობლემის გასასწორებლად "
+"გაუშვით რემონტი->Exif-ის მონაცემთა ბაზის თავიდან შექმნა.</p><hr/"
+"><p>გამართვისთვის: ბრძანება, რომელიც გაეშვა, იყო:<br/>%1</p><p>მიღებული "
+"შეცდომა იყო:<br/>%2</p>"
 
 #: lib/kpaexif/Database.cpp:188
 #, kde-format
@@ -3187,6 +3201,8 @@ msgid ""
 "Patch with folder info made available through the browser.\n"
 "Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
+"პაჩი საქაღალდის ინფორმაციით ახლა ბრაუზერიდანაა ხელმისაწვდომი.\n"
+"პაჩი ძებნის გვერდზე \"ან/და\" ძებნის თოლიას დასამატებლად."
 
 #: main.cpp:121
 #, kde-format
@@ -3540,6 +3556,15 @@ msgid ""
 "from the package manager or an app store, you can file a bug report with the "
 "supplier of the package.</>"
 msgstr ""
+"<h1>აგების დროის თვისებები</h1><p>აგების დროის ფუნქციონალი არასავალდებულო "
+"ფუნციებია, რომელიც შეგიძლიათ, KPhotoAlbum-ის აგების დროს ჩართოთ.</p><p>თუ "
+"KPhotoAlbum თვითონ ააგეთ, გადაამოწმეთ <a href=\"https://community.kde.org/"
+"KPhotoAlbum/build_instructions\">აგების ინსტრუქციები</a>, თუ რამე გამოგრჩათ. "
+"თუ KPhotoAlbum-ის კომპილაციისას რამე გამოგრჩათ, დახმარების პოვნა <a href="
+"\"https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum\">KPhotoAlbum-ის "
+"დაგზავნის სიაზე</a> შეგიძლიათ.</p><p>თუ KPhotoAlbum პაკეტების მმართველიდან, "
+"ან აპების მაღაზიიდან დააყენეთ, მისწერეთ შეცდომის შესახებ პაკეტის მომწოდებელს."
+"</>"
 
 #: MainWindow/FeatureDialog.cpp:79
 #, kde-format
@@ -4431,6 +4456,10 @@ msgid ""
 "untagged tag setting under <interface>Settings|Configure KPhotoAlbum...|"
 "Categories</interface></p>"
 msgstr ""
+"<p>თქვენ დააყენეთ ჭდე ჭდის გარეშე სურათებისთვის, მაგრამ თვითონ ჭდე, ან მისი "
+"კატეგორია მონაცემთა ბაზაში არ არსებობს.</p><p>გადახედეთ თქვენს ჭდეს ჭდის "
+"გარეშე სურათებისთვის მენიუში <interface>მორგება|KPhotoAlbum-ის მორგება...|"
+"კატეგორიები</interface></p>"
 
 #: MainWindow/Window.cpp:1380 Settings/SettingsDialog.cpp:46
 #, kde-format
@@ -4483,6 +4512,12 @@ msgid ""
 "continue execution, but it is not entirely unlikely that it will crash later "
 "on due to the missing make install.</p>"
 msgstr ""
+"<p>KPhotoAlbum-მა შიდა შეცდომა აღმოაჩინა (აკლია დამატების მენიუ ფუნქციაში "
+"MainWindow::Window::setupPluginMenu). ეს ნიშნავს, რომ make install-ის "
+"გაშვება დაგავიწყდათ. თუ KPhotoAlbum თქვენ დააკომპილეთ, გაუშვიათ make "
+"install. თუ არა, მოგვწერეთ ეს შეცდომის სახით.</p><p>KPhotoAlbum გააგრძელებს "
+"მუშაობას, მაგრამ დიდი შანსია, რომ მოგვიანებით ავარიულად დასრულდეს იმის გამო, "
+"რომ არ გაგიშვიათ ბრძანება make install.</p>"
 
 #: MainWindow/Window.cpp:1545
 #, kde-format
@@ -4994,6 +5029,10 @@ msgid ""
 "KPhotoAlbum to ignore these two folder names in any folder when searching "
 "for new images.</p>"
 msgstr ""
+"<p>მიუთითეთ მძიმით გამოყოფილი საქაღალდეების სია გამოსატოვებლად.</p><p>მაგ: "
+"თუ მიუთითებთ \"<tt>.thumbs,.thumbnails</tt>\", KPhotoAlbum გამოტოვებს ამ ორ "
+"საქაღალდეს ყველა საქაღალდეში, როცა ის ახალი სურათების ძებნით იქნება "
+"დაკავებული.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:61
 #, kde-format
@@ -5003,6 +5042,10 @@ msgid ""
 "manually tell KPhotoAlbum to search for new images using <b>Maintenance-"
 ">Rescan for new images</b></p>"
 msgstr ""
+"<p>KPhotoAlbum-ს შეუძლია, გაშვებისას ახალი სურათები და ვიდეოები მოძებნოს. "
+"მაგრამ, ამას შეიძლება, საკმაო დრო დასჭირდეს, ასე რომ შეიძლება ახალი "
+"გამოსახულებების ძებნის ხელით გაშვება სჯობდეს. ამისთვის გადადით მენიუში და "
+"აირჩიეთ <b>რემონტი->ახალი გამოსახულებების სკანირება</b></p>"
 
 #: Settings/FileVersionDetectionPage.cpp:66
 #, kde-format
@@ -5013,6 +5056,10 @@ msgid ""
 "their extension. This will take significantly longer than finding files by "
 "extension!</p>"
 msgstr ""
+"<p>KPhotoAlbum ახალ ვიდეოებს და სურათებს მათი ფაილის გაფართოების მიხედვით "
+"ეძებს. თუ ეს პარამეტრი ჩართულია, <em>ყველა</em> ფაილისთვის, რომელიც არც "
+"ბაზაშია და არც ბლოკლისტში, შემოწმდება mime ტიპი, გაფართოების მიუხედავად. "
+"ამას გაფართოებით ძებნასთან შედარებით ძალიან დიდი დრო დასჭირდება!</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:72
 #, kde-format

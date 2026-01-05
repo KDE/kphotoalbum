@@ -1,19 +1,19 @@
 # Translation of kphotoalbum.po to Euskara/Basque (eu).
 # Copyright (C) 2004, 2005, 2006, 2008 Free Software Foundation, Inc.
-# Copyright (C) 2009-2025 This file is copyright:
+# Copyright (C) 2009-2026 This file is copyright:
 # This file is distributed under the same license as the kphotoalbum package.
-# SPDX-FileCopyrightText: 2024, 2025 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2024, 2025, 2026 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
 #
 # Translators:
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2010.
 # Ander Elortondo <ander.elor@gmail.com>, 2020.
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Iñigo Salvador Azurmendi <xalba@ni.eus>.
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025, 2026 Iñigo Salvador Azurmendi <xalba@ni.eus>.
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-04 00:42+0000\n"
-"PO-Revision-Date: 2025-12-14 18:55+0100\n"
+"PO-Revision-Date: 2026-01-04 12:37+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.08.3\n"
+"X-Generator: Lokalize 25.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -293,13 +293,12 @@ msgstr "Konfiguratu leihoaren antolamendua..."
 #: AnnotationDialog/Dialog.cpp:935
 #, kde-format
 msgid "Save current layout globally"
-msgstr ""
+msgstr "Gorde uneko antolaera globalki"
 
 #: AnnotationDialog/Dialog.cpp:936
-#, fuzzy, kde-format
-#| msgid "Save the current map settings"
+#, kde-format
 msgid "Save current layout for this DB"
-msgstr "Gorde uneko mapa ezarpenak"
+msgstr "Gorde uneko antolaera DB honetarako"
 
 #: AnnotationDialog/Dialog.cpp:938
 #, kde-format
@@ -2442,17 +2441,15 @@ msgid "KPhotoAlbum import files"
 msgstr "KPhotoAlbum inportazio fitxategiak"
 
 #: ImportExport/Export.cpp:105
-#, fuzzy, kde-format
-#| msgid "Read Metadata from Files..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
-msgstr "Irakurri metadatuak fitxategietatik..."
+msgstr "Esportatu metadatuak / Kopiatu fitxategiak"
 
 #: ImportExport/Export.cpp:118
-#, fuzzy, kde-format
-#| msgid "How to Use the Export File"
+#, kde-format
 msgid "How to export %1 files"
-msgstr "Nola erabili esportatzeko fitxategia"
+msgstr "%1 fitxategi nola esportatu"
 
 #: ImportExport/Export.cpp:122
 #, kde-format
@@ -2482,7 +2479,7 @@ msgstr "Esteka sinbolikoa .kim fitxategiaren alboan"
 #: ImportExport/Export.cpp:147
 #, kde-format
 msgid "The exported files are too large to fit in the .kim file."
-msgstr ""
+msgstr "Esportatutako fitxategiak .kim fitxategian sartzeko handiegiak dira."
 
 #: ImportExport/Export.cpp:151
 #, kde-format

@@ -1,7 +1,7 @@
 # translation of kphotoalbum.po to Italian
 # Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014.
-# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Valter Mura <valtermura@gmail.com>
+# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Valter Mura <valtermura@gmail.com>
 # SPDX-FileCopyrightText: 2025 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-04 00:42+0000\n"
-"PO-Revision-Date: 2025-12-16 17:45+0100\n"
+"PO-Revision-Date: 2026-01-04 01:49+0100\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.08.3\n"
+"X-Generator: Lokalize 25.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -290,13 +290,12 @@ msgstr "Configura la disposizione della finestra..."
 #: AnnotationDialog/Dialog.cpp:935
 #, kde-format
 msgid "Save current layout globally"
-msgstr ""
+msgstr "Salva l'attuale disposizione globalmente"
 
 #: AnnotationDialog/Dialog.cpp:936
-#, fuzzy, kde-format
-#| msgid "Save the current map settings"
+#, kde-format
 msgid "Save current layout for this DB"
-msgstr "Salva le impostazioni attuali della mappa"
+msgstr "Salva l'attuale disposizione per questa banca dati"
 
 #: AnnotationDialog/Dialog.cpp:938
 #, kde-format
@@ -2447,17 +2446,15 @@ msgid "KPhotoAlbum import files"
 msgstr "File di importazione di KPhotoAlbum"
 
 #: ImportExport/Export.cpp:105
-#, fuzzy, kde-format
-#| msgid "Write Metadata to Files..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
-msgstr "Scrivi dati aggiuntivi sui file..."
+msgstr "Esporta metadati / Copia file"
 
 #: ImportExport/Export.cpp:118
-#, fuzzy, kde-format
-#| msgid "How to Use the Export File"
+#, kde-format
 msgid "How to export %1 files"
-msgstr "Come usare il file esportato"
+msgstr "Come esportare %1 file"
 
 #: ImportExport/Export.cpp:122
 #, kde-format
@@ -2488,6 +2485,7 @@ msgstr "Collega simbolicamente di fianco al file .kim"
 #, kde-format
 msgid "The exported files are too large to fit in the .kim file."
 msgstr ""
+"I file esportati sono troppo grandi per essere contenuti nel file .kim."
 
 #: ImportExport/Export.cpp:151
 #, kde-format

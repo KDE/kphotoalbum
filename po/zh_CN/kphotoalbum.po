@@ -6679,6 +6679,3 @@ msgstr "显示图像大小"
 #, kde-format
 msgid "Show Rating"
 msgstr ""
-
-#~ msgid "Save Current Window Setup"
-#~ msgstr "保存当前窗口设置"

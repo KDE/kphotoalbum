@@ -24,9 +24,9 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-04 00:42+0000\n"
-"PO-Revision-Date: 2026-01-01 20:11+0100\n"
+"PO-Revision-Date: 2026-01-05 09:13+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
-"Language-Team: French <kde-francophone@kde.org>\n"
+"Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -310,13 +310,12 @@ msgstr "Configurer l'agencement de la fenêtre..."
 #: AnnotationDialog/Dialog.cpp:935
 #, kde-format
 msgid "Save current layout globally"
-msgstr ""
+msgstr "Enregistrer la disposition courante en totalité"
 
 #: AnnotationDialog/Dialog.cpp:936
-#, fuzzy, kde-format
-#| msgid "Save the current map settings"
+#, kde-format
 msgid "Save current layout for this DB"
-msgstr "Enregistrer la configuration actuelle de la carte"
+msgstr "Enregistrer la disposition courante pour cette base de données"
 
 #: AnnotationDialog/Dialog.cpp:938
 #, kde-format

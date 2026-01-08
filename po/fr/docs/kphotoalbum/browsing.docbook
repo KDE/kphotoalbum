@@ -10,25 +10,14 @@ SPDX-License-Identifier: GFDL-1.2-only
   <title
 >Navigation</title>
   <para
->Une fois que vous avez annoté vos images et vos vidéos, &kphotoalbum; vous permet de naviguer dans vos images, voir <xref linkend="fig-browser-with-images"/>. Si vous comparez cela à <xref linkend="fig-empty-browser-window"/>, vous verrez qu'il y a maintenant des éléments présents dans chacune des catégories <literal
+>Une fois que vous avez annoté vos images et vos vidéos, &kphotoalbum; vous permet de naviguer parmi vos images. Si vous comparez cela à <xref linkend="fig-empty-browser-window"/>, vous verrez qu'il y a maintenant des images présentes dans chacune des catégories <literal
 >Personnes</literal
 >, <literal
 >Lieux</literal
 > et <literal
->Mots clés</literal
+>Mots clé</literal
 >.</para>
-  
-  <figure id="fig-browser-with-images">
-    <title
->Navigation quand les images et les vidéos ont été annotées</title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="browser-with-images.png"
-          format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </figure>
-  
+
   <para
 >Dans la fenêtre de navigation, vous pouvez voir les catégories dans lesquelles vous avez rentré des informations au moment où vous avez annoté vos images et vos vidéos. De plus, il y a des éléments pour des recherches utilisant les informations EXIF des images, pour la navigation dans le système de dossiers de votre disque dur et bien sûr d'affichage des vignettes présentes. Passons à la description de chaque élément, l'un après l'autre. </para
 > 
@@ -54,13 +43,16 @@ SPDX-License-Identifier: GFDL-1.2-only
 ><para
 > Vous devez noter que l'élément <literal
 >Animaux</literal
-> a une icône spéciale. Pour plus de détails, voir <xref linkend="sec-specifying-categories"/>. </para
+> possède une icône spéciale. Pour plus de détails, veuillez consulter la page <xref linkend="sec-specifying-categories"/>. </para
 ></footnote
->La sélection d'une personne vous fera revenir à l'état de départ de la navigation comme nous le voyons dans <xref linkend="fig-browser-with-images"/>, à ce moment, cependant, nous sommes <emphasis
+>La sélection d'une personne vous fera revenir à l'état de départ de la navigation. Cependant, à cet instant, nous sommes <emphasis
 >dans le périmètre</emphasis
-> de la personne que nous avons choisie. Cela signifie que nous ne montrons que les informations sur les photos et les vidéos associées à cette personne. Voir ci-dessous <xref linkend="fig-browser-for-jesper"/>, qui présente notre résultat après avoir choisi <literal
+> de la personne sélectionnée. Cela signifie que nous ne montrons que les informations sur les photos et les vidéos où cette personne est présente. Veuillez consulter la page ci-dessous <xref linkend="fig-browser-for-jesper"/>, qui présente notre résultat après avoir choisi <literal
 >Jesper</literal
-> comme Personne avec une indication de ce filtre au bas de la fenêtre. Vous pouvez comparer <xref linkend="fig-browser-with-images"/> avec <xref linkend="fig-browser-for-jesper"/>, où vous pouvez constater que le nombre d'images et de vidéos disponibles est passé de 25 à 12 et que le total d'éléments des différentes catégories a aussi changé.</para>
+> comme « Personne » avec une indication de ce filtre au bas de la fenêtre. Sur le bord inférieur droit de  la page <xref linkend="fig-browser-for-jesper"/>, vous pourrez constater que le nombre d'images et de vidéos disponibles est passé de 25 à 13 , alors que le nombre total d'images est resté inchangé.</para>
+
+  <para
+>Veuillez noter que s'il n'y a que quelques images à sa portée, &kphotoalbum; ira directement à l'afficheur de vignettes (Veuillez consulter la page<xref linkend="chp-thumbnail-view"/>). Vous pouvez configurer ce comportement dans la configuration de l'afficheur de vignettes (Veuillez consulter la page<xref linkend="opt-thumbnails"/>). </para>
   
   <figure id="fig-browser-for-jesper">
     <title
@@ -111,14 +103,14 @@ SPDX-License-Identifier: GFDL-1.2-only
   </figure>
 
 <para
->Pour afficher les photos en même temps que leurs noms, choisir le bouton outil à l'extrême droite de la barre d'outils, qui fera apparaître une boîte de dialogue où vous pourrez choisir quelle vue vous voulez utiliser pour une catégorie donnée. Les vues de notification doivent être configurées pour chaque catégorie - de cette façon, vous pouvez par exemple utiliser la vue par icône pour les personnes, mais une vue par liste pour les mots clés (dans le cas où vous ne pourriez y arriver avec de bonnes photos pour vos mots clés).</para
+>Pour afficher les photos en même temps que leurs noms, choisir le bouton outil à l'extrême droite de la barre d'outils, qui fera apparaitre une boite de dialogue où vous pourrez choisir quelle vue vous voulez utiliser pour une catégorie donnée. Les vues de notification doivent être configurées pour chaque catégorie - de cette façon, vous pouvez par exemple utiliser la vue par icône pour les personnes, mais une vue par liste pour les mots clés (dans le cas où vous ne pourriez y arriver avec de bonnes photos pour vos mots clés).</para
 >  
 
 
 <para
 >Cependant, votre travail est de lui dire quelles images utiliser pour chaque personne. Pour le faire, vous devez ouvrir la fenêtre d'affichage (voir <xref linkend="chp-viewer"/>) et choisir dans le menu contextuel <guimenuitem
 >Afficher l'éditeur de catégorie</guimenuitem
->. Cela fera apparaître l'éditeur de catégorie qui peut être vu dans <xref linkend="fig-categoryEditor"/>. Dans l'éditeur de catégorie, vous sélectionnez l'image pour une personne donnée. L'afficheur vous permet de faire un zoom sur une partie de l'image et comme cela, rogner la partie qui doit être affichée.</para>
+>. Cela fera apparaitre l'éditeur de catégorie qui peut être vu dans <xref linkend="fig-categoryEditor"/>. Dans l'éditeur de catégorie, vous sélectionnez l'image pour une personne donnée. L'afficheur vous permet de faire un zoom sur une partie de l'image et comme cela, rogner la partie qui doit être affichée.</para>
 
 
   <figure id="fig-categoryEditor">
@@ -162,7 +154,7 @@ SPDX-License-Identifier: GFDL-1.2-only
     </figure>
     
     <para
->Si vous tapez un chaîne de caractères dans le champ Label ou Description, alors, ce texte sera recherché en utilisant une sous-chaîne. De la même façon, vous pouvez aussi spécifier une date pour une recherche, soit une partie de date, comme 1971 ou une date complète. Vous pouvez aussi spécifier une plage de dates telle que 1971-1980.</para>
+>Si vous tapez un chaine de caractères dans le champ Label ou Description, alors, ce texte sera recherché en utilisant une sous-chaine. De la même façon, vous pouvez aussi spécifier une date pour une recherche, soit une partie de date, comme 1971 ou une date complète. Vous pouvez aussi spécifier une plage de dates telle que 1971-1980.</para>
     
     <para
 >L'élément « Options » permet des requêtes très précises sous forme d'expressions comme vous pouvez en voir un exemple à l'adresse <xref linkend="fig-search"/>. Ici, nous cherchons des images avec <literal

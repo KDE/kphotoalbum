@@ -46,14 +46,14 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></menuchoice
 >. Maintenant, vous pouvez annoter les photos sélectionnées les unes après les autres. Si vous choisissez à la place <guimenuitem
 >Annoter plusieurs photos en même temps</guimenuitem
->, vous annotez tous les éléments sélectionnés de la même façon qu'une unique photo. Entre d'autres termes, cette option vous permettra d'annoter en masse vos photos, par exemple, en disant que toutes ces photos ont été prises à Paris. Ces deux options sont aussi disponibles dans le menu contextuel accessible par un clic droit de souris dans la vignette de la photo ou par un raccourci clavier. Un exemple de ce mode de fonctionnement est donné dans <xref linkend="fig-edit-properies-menu"/>.</para>
+>, vous annotez tous les images sélectionnées de la même façon qu'avec une unique photo. Entre d'autres termes, cette option vous permettra d'annoter en masse vos photos, par exemple, en indiquant que toutes ces photos ont été prises à Paris. Ces deux options sont aussi disponibles dans le menu contextuel, accessible par un clic droit de souris dans l'aperçu de vignette de la photo ou par utilisation d'un raccourci clavier. Un exemple de ce mode de fonctionnement est donné dans <xref linkend="fig-edit-properies-menu"/>.</para>
 
-    <figure id="fig-edit-properies-menu">
+    <figure id="fig-edit-properties-menu">
       <title
 >Menu contextuel pour éditer les propriétés</title>
       <mediaobject>
         <imageobject>
-          <imagedata fileref="edit-properies-menu.png"
+          <imagedata fileref="edit-properties-menu.png"
             format="PNG"/>
         </imageobject>
       </mediaobject>
@@ -95,16 +95,16 @@ SPDX-License-Identifier: GFDL-1.2-only
       <title
 >Catégories</title>
       <para
->Dans <xref linkend="fig-image-config-window"/>, il y a trois boîtes avec liste de choix, combinées avec des lignes d'édition pour spécifier les personnes, les endroits et les mots clés. Ces composants graphiques sont une part importante de &kphotoalbum;, puisque vous allez les utiliser encore et encore quand vous insérerez des informations à propos de vos photos.</para>
+>Dans <xref linkend="fig-image-config-window"/>, il y a trois boites avec liste de choix, combinées avec des lignes d'édition pour spécifier les personnes, les endroits et les mots clés. Ces composants graphiques sont une part importante de &kphotoalbum;, puisque vous allez les utiliser encore et encore quand vous insérerez des informations à propos de vos photos.</para>
 
       <para
->Vous pouvez spécifier une propriété à partir de la boîte de dialogue avec une liste, simplement en la sélectionnant (Sélectionner <literal
+>Vous pouvez spécifier une propriété à partir de la boite de dialogue avec une liste, simplement en la sélectionnant (Sélectionner <literal
 >Donna</literal
-> pour spécifier que Donna est sur une photo donnée). Alternativement, vous pouvez saisir son nom dans la ligne d'édition. Quand vous commencez à saisir un nom dans la ligne d'édition, &kphotoalbum; va parcourir la boîte de dialogue avec une liste et va rechercher le premier élément correspondant à ce que vous avez saisi précédemment et va le compléter. Ainsi, la saisie de <literal
+> pour spécifier que Donna est sur une photo donnée). Alternativement, vous pouvez saisir son nom dans la ligne d'édition. Quand vous commencez à saisir un nom dans la ligne d'édition, &kphotoalbum; va parcourir la boite de dialogue avec une liste et va rechercher le premier élément correspondant à ce que vous avez saisi précédemment et va le compléter. Ainsi, la saisie de <literal
 >Do</literal
 > peut être suffisant pour retrouver <literal
 >Donna</literal
->. Une fois que vous avez trouvé l'élément que vous recherchiez, veuillez simplement appuyer sur la touche &Enter; pour sélectionner l'élément dans de la boîte de dialogue avec une liste. L'élément sera maintenant déplacé vers le haut de la vue, pour que vous puissiez le retrouver plus facilement la prochaine fois que vous aurez besoin.</para>
+>. Une fois que vous avez trouvé l'élément que vous recherchiez, veuillez simplement appuyer sur la touche &Enter; pour sélectionner l'élément dans de la boite de dialogue avec une liste. L'élément sera maintenant déplacé vers le haut de la vue, pour que vous puissiez le retrouver plus facilement la prochaine fois que vous aurez besoin.</para>
 
       <para
 >La mise en tête des éléments que vous avez sélectionnés facilite le traitement de masse. Par exemple, avec une fête de famille, vous aurez peut être 50 photos, toutes avec les 5 à 10 mêmes personnes. En saisissant des informations pour ces 50 photos, vous aurez les mêmes 5 à 10 mêmes personnes en haut de la liste de choix, dès la première fois où vous les avez insérées.</para>
@@ -163,7 +163,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 
 <figure id="fig-membergroup-config">
 <title
->Catégories affichées en ordre alphabétique dans la boîte de dialogue d'annotation</title>
+>Catégories affichées en ordre alphabétique dans la boite de dialogue d'annotation</title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="member-group-setting.png" format="PNG"/>
@@ -180,9 +180,9 @@ SPDX-License-Identifier: GFDL-1.2-only
 
   <sect1 id="sect-changing-layout-of-the-property-window">
     <title
->Changer le format de la boîte de dialogue d'annotation</title>
+>Changer le format de la boite de dialogue d'annotation</title>
     <para
->Il est possible de déplacer les éléments de la boîte de dialogue d'annotation, simplement à partir de la barre en haut des cadres en les déplaçant - vous pouvez même fabriquer votre cadre dans la fenêtre de plus haut niveau.</para>
+>Il est possible de déplacer les éléments de la boite de dialogue d'annotation, simplement à partir de la barre en haut des cadres en les déplaçant - vous pouvez même fabriquer votre cadre dans la fenêtre de plus haut niveau.</para>
 
     <para
 >Une fois que vous avez trouvé une disposition qui correspond au format de votre écran, à votre utilisation de &kphotoalbum;, appuyer simplement sur le bouton <guibutton
@@ -215,7 +215,7 @@ SPDX-License-Identifier: GFDL-1.2-only
     <para
 >Pendant quelques décennies, nous avons étiqueté nos images comme décrit ci-dessus. Mais, à l'été 2023, il a commencé à être possible de les étiqueter tout en les affichant. Cette fonctionnalité ne prend pas en charge toutes les fonctionnalités décrites ci-dessus, mais elle offre un flux de travail beaucoup plus rapide pour l'étiquetage des images.</para>
     <para
->Les fonctionnalités manquantes lors de l'annotation d'images à partir de l'afficheur, pour lesquelles vous devez accéder à cette boîte de dialogue, sont les suivantes :</para>
+>Les fonctionnalités manquantes lors de l'annotation d'images à partir de l'afficheur, pour lesquelles vous devez accéder à cette boite de dialogue, sont les suivantes :</para>
     <itemizedlist>
     <listitem
 ><para

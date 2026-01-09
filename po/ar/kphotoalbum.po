@@ -1,5 +1,5 @@
 # translation of kphotoalbum.po to
-# SPDX-FileCopyrightText: 2022, 2024, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2022, 2024, 2025, 2026 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 # محمد سعد  Mohamed SAAD <metehyi@free.fr>, 2006.
 # Youssef Chahibi <chahibi@gmail.com>, 2007.
 # Safa Alfulaij <safaalfulaij@hotmail.con>, 2013.
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-04 00:42+0000\n"
-"PO-Revision-Date: 2025-12-18 10:07+0400\n"
+"PO-Revision-Date: 2026-01-08 11:53+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -286,13 +286,12 @@ msgstr "اضبط تخطيط النافذة..."
 #: AnnotationDialog/Dialog.cpp:935
 #, kde-format
 msgid "Save current layout globally"
-msgstr ""
+msgstr "احفظ التخطيط الحالي للجميع"
 
 #: AnnotationDialog/Dialog.cpp:936
-#, fuzzy, kde-format
-#| msgid "Save the current map settings"
+#, kde-format
 msgid "Save current layout for this DB"
-msgstr "احفظ إعدادات الخريطة الحالية"
+msgstr "حفظ التخطيط الحالي لهذا قاعدة البيانات"
 
 #: AnnotationDialog/Dialog.cpp:938
 #, kde-format
@@ -2466,17 +2465,15 @@ msgid "KPhotoAlbum import files"
 msgstr "ملفات استيراد دفتر الصور"
 
 #: ImportExport/Export.cpp:105
-#, fuzzy, kde-format
-#| msgid "Read Metadata from Files..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
-msgstr "اقرأ البيانات الوصفية من الملفات…"
+msgstr "صدّر البيانات الوصفية / انسخ الملفات"
 
 #: ImportExport/Export.cpp:118
-#, fuzzy, kde-format
-#| msgid "How to Use the Export File"
+#, kde-format
 msgid "How to export %1 files"
-msgstr "كيفية استعمال ملف التصدير"
+msgstr "كيفية تصدير ملفات %1"
 
 #: ImportExport/Export.cpp:122
 #, kde-format
@@ -2506,7 +2503,7 @@ msgstr "رابط رمزي بجانب ملف .kim"
 #: ImportExport/Export.cpp:147
 #, kde-format
 msgid "The exported files are too large to fit in the .kim file."
-msgstr ""
+msgstr "الملفات المصدرة كبيرة جدًا بحيث لا تتسع في ملف .kim."
 
 #: ImportExport/Export.cpp:151
 #, kde-format

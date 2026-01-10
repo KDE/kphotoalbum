@@ -46,7 +46,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></menuchoice
 >. Maintenant, vous pouvez annoter les photos sélectionnées les unes après les autres. Si vous choisissez à la place <guimenuitem
 >Annoter plusieurs photos en même temps</guimenuitem
->, vous annotez tous les images sélectionnées de la même façon qu'avec une unique photo. Entre d'autres termes, cette option vous permettra d'annoter en masse vos photos, par exemple, en indiquant que toutes ces photos ont été prises à Paris. Ces deux options sont aussi disponibles dans le menu contextuel, accessible par un clic droit de souris dans l'aperçu de vignette de la photo ou par utilisation d'un raccourci clavier. Un exemple de ce mode de fonctionnement est donné dans <xref linkend="fig-edit-properies-menu"/>.</para>
+>, vous annotez tous les images sélectionnées de la même façon qu'avec une unique photo. Entre d'autres termes, cette option vous permettra d'annoter en masse vos photos, par exemple, en indiquant que toutes ces photos ont été prises à Paris. Ces deux options sont aussi disponibles dans le menu contextuel, accessible par un clic droit de souris dans l'aperçu de vignette de la photo ou par utilisation d'un raccourci clavier. Un exemple de ce mode de fonctionnement est donné dans <xref linkend="fig-edit-properties-menu"/>.</para>
 
     <figure id="fig-edit-properties-menu">
       <title

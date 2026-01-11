@@ -4,30 +4,31 @@
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012, 2013.
 # SPDX-FileCopyrightText: 2021, 2023, 2024 Vit Pelcak <vit@pelcak.org>
 #
+# SPDX-FileCopyrightText: 2026 Jan Papez (honyczek)
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-04 00:42+0000\n"
-"PO-Revision-Date: 2024-11-14 14:10+0100\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
-"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2026-01-10 09:14+0100\n"
+"Last-Translator: Jan Papez (honyczek) <honyczek@centrum.cz>\n"
+"Language-Team: Czech <kde-i18n-cs@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 25.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Vít Pelčák, Zdeněk Pech"
+msgstr "Jan Papež, Vít Pelčák, Zdeněk Pech"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "vit@pelcak.org, dom.toretto@seznam.cz"
+msgstr "honyczek@centrum.cz, vit@pelcak.org, dom.toretto@seznam.cz"
 
 #: AnnotationDialog/AreaTagSelectDialog.cpp:87
 #, kde-format
@@ -61,6 +62,8 @@ msgid ""
 "(You have differing descriptions on individual images.  Enter text to append "
 "to or replace the descriptions.)"
 msgstr ""
+"(Máte rozdílné popisy u jednotlivých obrázků. Zadejte text, který chcete k "
+"popisům připojit nebo jej zcela nahradit.)"
 
 #: AnnotationDialog/Dialog.cpp:135
 #, kde-format
@@ -89,6 +92,8 @@ msgid ""
 "The map widget allows you to view the location of images if GPS coordinates "
 "are found in the Exif information."
 msgstr ""
+"Mapový widget umožňuje zobrazit polohu obrázků, pokud jsou v "
+"Exif informacích nalezeny GPS souřadnice."
 
 #: AnnotationDialog/Dialog.cpp:225
 #, kde-format
@@ -221,7 +226,7 @@ msgstr "Přidat"
 #: AnnotationDialog/Dialog.cpp:440
 #, kde-format
 msgid "Append new text to each description"
-msgstr ""
+msgstr "Připojit nový text ke každému popisku"
 
 #: AnnotationDialog/Dialog.cpp:441
 #, kde-format
@@ -231,7 +236,7 @@ msgstr "Nahradit"
 #: AnnotationDialog/Dialog.cpp:442
 #, kde-format
 msgid "Replace each description with the new text"
-msgstr ""
+msgstr "Nahradit popisek novým textem"
 
 #: AnnotationDialog/Dialog.cpp:451
 #, kde-format
@@ -274,12 +279,12 @@ msgstr "Nastavit rozvržení okna..."
 #: AnnotationDialog/Dialog.cpp:935
 #, kde-format
 msgid "Save current layout globally"
-msgstr ""
+msgstr "Uložit současné rozvržení globálně"
 
 #: AnnotationDialog/Dialog.cpp:936
 #, kde-format
 msgid "Save current layout for this DB"
-msgstr ""
+msgstr "Uložit současné rozvržení pro tuto databázi"
 
 #: AnnotationDialog/Dialog.cpp:938
 #, kde-format
@@ -764,10 +769,9 @@ msgid "Extract Video Thumbnail"
 msgstr "Vytvořit náhled videa"
 
 #: BackgroundJobs/ReadVideoMetaDataJob.cpp:38
-#, fuzzy, kde-format
-#| msgid "File metadata"
+#, kde-format
 msgid "Read Video Metadata"
-msgstr "Metadata souboru"
+msgstr "Přečíst metadata videa"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
@@ -1351,7 +1355,7 @@ msgstr ""
 #: DB/XML/FileReader.cpp:63
 #, kde-format
 msgid "XML database file version mismatch"
-msgstr ""
+msgstr "Odlišné verze databázového XML souboru"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
@@ -2312,21 +2316,15 @@ msgid "KPhotoAlbum import files"
 msgstr "Importní soubory KPhotoAlbum"
 
 #: ImportExport/Export.cpp:105
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use data from\n"
-#| "Import File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
-msgstr ""
-"Použít data z\n"
-" importního souboru"
+msgstr "Zapsat metadata / kopírovat soubory"
 
 #: ImportExport/Export.cpp:118
-#, fuzzy, kde-format
-#| msgid "How to Use the Export File"
+#, kde-format
 msgid "How to export %1 files"
-msgstr "Jak používat exportní soubor"
+msgstr "Jak exportovat %1 soubory"
 
 #: ImportExport/Export.cpp:122
 #, kde-format
@@ -2357,6 +2355,7 @@ msgstr "Symbolický odkaz vedle .kim souboru"
 #, kde-format
 msgid "The exported files are too large to fit in the .kim file."
 msgstr ""
+"Exportované soubory jsou příliš velké na to, aby se vešly do .kim souboru."
 
 #: ImportExport/Export.cpp:151
 #, kde-format
@@ -2767,7 +2766,7 @@ msgstr ""
 #: kpa-thumbnailtool/main.cpp:48
 #, kde-format
 msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
-msgstr ""
+msgstr "Autorská práva (C) 2020-2025 Vývojářský tým KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:98
 #, kde-format
@@ -3103,7 +3102,7 @@ msgstr "KDE Photo Album"
 #: main.cpp:89
 #, kde-format
 msgid "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
-msgstr ""
+msgstr "Autorská práva (C) 2003-2025 Vývojářský tým KPhotoAlbum"
 
 #: main.cpp:112
 #, kde-format
@@ -3128,6 +3127,9 @@ msgid ""
 "Patch with folder info made available through the browser.\n"
 "Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
+"Záplata s informacemi o složce je dostupné pomocí prohlížeče.\n"
+"Záplata pro přidání zaškrtávacího políčka ve vyhledávání „a/nebo“ na stránce "
+"vyhledávání."
 
 #: main.cpp:121
 #, kde-format
@@ -3170,6 +3172,8 @@ msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
 msgstr ""
+"Bezpočet záplat mnoha chyb,\n"
+"opravy pro několik nových funkcí"
 
 #: main.cpp:138
 #, kde-format
@@ -3192,6 +3196,8 @@ msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
+"Záplata pro řazení obrázků v náhledovém pohledu,\n"
+"načítání časových údajů z informací Exif existujících obrázků"
 
 #: main.cpp:147
 #, kde-format
@@ -3224,6 +3230,8 @@ msgid ""
 "Patch which speeds up loading of thumbnails,\n"
 "preview in image property dialog."
 msgstr ""
+"Záplata pro urychlení načítání náhledů,\n"
+"náhled v dialogovém okně vlastností obrázku."
 
 #: MainWindow/AutoStackImages.cpp:46
 #, kde-format
@@ -3512,6 +3520,11 @@ msgid ""
 "is only available if the Qt SQLite driver is installed. On Debian-based "
 "distributions this package is usually called libqt6sql6-sqlite.</p>"
 msgstr ""
+"<h2><a name=\"database\">Podpora databáze SQLite</a></h2><p>KPhotoAlbum vám "
+"umožňuje vyhledávat podle určitých značek Exif.</p><p>Tato funkce je "
+"dostupná pouze tehdy, když je nainstalován ovladač Qt SQLite. V distribucích "
+"založených na Debianu je tento balíček obvykle pojmenován jako libqt6sql6-"
+"sqlite.</p>"
 
 #: MainWindow/FeatureDialog.cpp:102
 #, kde-format
@@ -3532,31 +3545,31 @@ msgstr ""
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Purpose plugin support"
-msgstr ""
+msgstr "Podpora zásuvného modulu Purpose"
 
 #: MainWindow/FeatureDialog.cpp:138
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Map view for geotagged images."
-msgstr ""
+msgstr "Zobrazení mapy u obrázků s GEO značkami."
 
 #: MainWindow/FeatureDialog.cpp:141
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "SQLite database support"
-msgstr ""
+msgstr "Podpora databáze SQLite"
 
 #: MainWindow/FeatureDialog.cpp:144
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
-msgstr ""
+msgstr "Podpora náhledů videa"
 
 #: MainWindow/FeatureDialog.cpp:147
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video metadata support"
-msgstr ""
+msgstr "Podpora metadat videa"
 
 #: MainWindow/FeatureDialog.cpp:154
 #, kde-format
@@ -3659,12 +3672,12 @@ msgstr "databaseFile"
 #: MainWindow/Options.cpp:31
 #, kde-format
 msgid "Application rc file."
-msgstr ""
+msgstr "rc soubor aplikace."
 
 #: MainWindow/Options.cpp:32
 #, kde-format
 msgid "kphotoalbumrc"
-msgstr ""
+msgstr "kphotoalbumrc"
 
 #: MainWindow/Options.cpp:36
 #, kde-format
@@ -3704,7 +3717,7 @@ msgstr "interface_address"
 #: MainWindow/Options.cpp:58
 #, kde-format
 msgid "Save the database and immediately quit after showing the main window."
-msgstr ""
+msgstr "Uložit databázi a okamžitě ukončit po zobrazení hlavního okna."
 
 #: MainWindow/Options.cpp:59
 #, kde-format
@@ -4256,14 +4269,9 @@ msgid "Recreate Exif Search Database"
 msgstr "Znovu vytvořit vyhledávací databázi Exif"
 
 #: MainWindow/Window.cpp:1020
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use data from\n"
-#| "Import File"
+#, kde-format
 msgid "Read Metadata from Files..."
-msgstr ""
-"Použít data z\n"
-" importního souboru"
+msgstr "Načíst metadata ze souborů..."
 
 #: MainWindow/Window.cpp:1023
 #, kde-format
@@ -4354,7 +4362,7 @@ msgstr "Automatické uložení... Hotovo"
 #: MainWindow/Window.cpp:1207
 #, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
-msgstr ""
+msgstr "<p>Opravdu si přejete vytvořit tento databázový soubor? <br />%1</p>"
 
 #: MainWindow/Window.cpp:1210
 #, kde-format
@@ -4800,12 +4808,12 @@ msgstr ""
 #: Settings/DatabaseBackendPage.cpp:23
 #, kde-format
 msgid "Choose speed over readability for the XML database file"
-msgstr ""
+msgstr "Upřednostnit rychlost před čitelností pro databázový XML soubor"
 
 #: Settings/DatabaseBackendPage.cpp:27
 #, kde-format
 msgid "Compress backup files"
-msgstr ""
+msgstr "Komprimovat záložní soubor"
 
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
@@ -5756,12 +5764,10 @@ msgid ""
 msgstr ""
 
 #: Settings/VideoPlayerSelectorDialog.cpp:152
-#, fuzzy, kde-format
-#| msgctxt "A friendly name for the video backend"
-#| msgid "QtAV video backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
-msgstr "Podpůrná vrstva videa QtAV"
+msgstr "Podpůrná video vrstva QtMultimedia"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:155
 #, kde-format
@@ -5987,6 +5993,8 @@ msgid ""
 "<p>Could not locate the demo database in any of the following standard "
 "locations:</p><p>%1</p>"
 msgstr ""
+"<p>Nelze najít ukázkovou databázi v žádném z následujících standardních "
+"umístění:</p><p>%1</p>"
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format

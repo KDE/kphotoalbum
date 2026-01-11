@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-04 00:42+0000\n"
-"PO-Revision-Date: 2026-01-04 05:45+0100\n"
+"PO-Revision-Date: 2026-01-10 13:34+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1456,6 +1456,12 @@ msgid ""
 "p><p>In some cases, you may get two additional empty categories, \"Folder\" "
 "and \"Media Type\". You can delete those.</p>"
 msgstr ""
+"<p><b>KPhotoAlbum-ის ეს ვერსია \"სტანდარტულ\" კატეგორიებს აღარ თარგმნის.</"
+"b></p><p>ეს ნიშნავს იმას, რომ თუ იყენებთ ინგლისურისგან განსხვავებულ ენას, "
+"ზოგიერთი თქვენი კატეგორია მაინც ინგლისურად გამოჩნდება.</p><p>თქვენ "
+"შეგიძლიათ, ხელით გადაარქვათ სახელი კატეგორიებს და შეინახოთ ის მონაცემთა "
+"ბაზაში.</p><p>ზოგ შემთხვევაში მიიღებთ ორ დამატებით ცარიელ კატეგორიას \"Folder"
+"\" და \"Media Type\". ისინი შეგიძლიათ, წაშალოთ.</p>"
 
 #: DB/XML/FileReader.cpp:275
 #, kde-format
@@ -1484,6 +1490,16 @@ msgid ""
 "their dates set, you can execute <b>Maintenance->Sort All by Date & Time</b> "
 "to sort them in the database. </p>"
 msgstr ""
+"<p>თქვენი სურათები/ვიდეოები დალაგებული არაა, რაც ნიშნავს, რომ თარიღის ზოლის "
+"გამოყენებით ნავიგაცია იმუშავებს, მხოლოდ, არაოპტიმალურად.</p><p><b>რემონტის</"
+"b> მენიუში შეგიძლიათ, იპოვოთ <b>სურათების ჩვენება არასრული თარიღებით</b>, "
+"რომელიც შეგიძლიათ, გამოიყენოთ სურათების მოსაძებნად, რომლებსაც აკლია თარიღის "
+"ინფორმაცია.</p><p>ამის შემდეგ, შეგიძლიათ, მონიშნოთ სურათები, რომლებიც გაქვთ "
+"მიზეზი, გჯეროდეთ, რომ აქვთ სწორი თარიღი Exif მონაცემებში, ან ფაილში და "
+"გაუშვათ <b>რემონტი->Exif ინფორმაციის წაკითხვა</b> ინფორმაციის ხელახლა "
+"წასაკითხად.</p><p>და ბოლოს, მას შემდეგ, რაც ყველა სურათს აქვს დაყენებული "
+"თარიღები, შეგიძლიათ გაუშვათ <b>რემონტი->ყველას დალაგება თარიღით და დროით</"
+"b> , რათა დაალაგოთ ისინი მონაცემთა ბაზაში. </p>"
 
 #: DB/XML/FileReader.cpp:455
 #, kde-format
@@ -3628,6 +3644,18 @@ msgid ""
 "p><p>This feature is only available if ffprobe is installed. Usually, "
 "ffprobe is also part of the FFmpeg package.</p>"
 msgstr ""
+"<h2><a name=\"video\">ვიდეოს მხარდაჭერა</a></h2><p>KPhotoAlbum ვიდეოების "
+"საჩვენებლად phonon-ს, ან VLC-ს იყენებს</p><h2><a name=\"videoPreview"
+"\">ვიდეოს მინიატურების მხარდაჭერა</a></h2><p>KPhotoAlbum-ს შეუძლია, "
+"გამოიყენოს <tt>ffmpeg</tt> ვიდეოდან მინიატურების ამოსაღებად. ეს მინიატურები "
+"გამოიყენება ვიდეოების გადასახედად მინიატურების დამთვალიერებელში.</p><p>ეს "
+"ფუნქცია, მხოლოდ, მაშინაა ხელმისაწვდომი, როცა FFmpeg დაყენებულია.</p><h2><a "
+"name=\"videoInfo\">ვიდეო მეტამონაცემების მხარდაჭერა</a></h2><p>KPhotoAlbum-ს "
+"შეუძლია, გამოიყენოს <tt>ffprobe</tt> ვიდეოებიდან მათი ხანგრძლივობის "
+"ამოსაღებად. სწორი ხანგრძლივობის ინფორმაცია აუცილებელია ვიდეოს მინიატურების "
+"სწორი რენდერისტვის.</p><p>ეს ფუნქცია, მხოლოდ, მაშინაა ხელმისაწვდომი, თუ "
+"დაყენებულია ffprobe. Usually, ჩვეულებრივ, ffprobe FFmpeg-ის პაკეტის ნაწილს "
+"წარმოადგენს.</p>"
 
 #: MainWindow/FeatureDialog.cpp:135
 #, kde-format
@@ -3835,6 +3863,12 @@ msgid ""
 "files you selected would be copied to the /tmp folder</p><p>You can also use "
 "%each to have a command be run once per file.</p>"
 msgstr ""
+"<p>შეიყვანეთ ბრძანება, რომელიც გნებავთ, თქვენი გამოსახულების ფაილებზე "
+"გაუშვათ. KPhotoAlbum გაუშვებს თქვენს ბრძანებას და შეცვლის '%all' ცვლადს "
+"თქვენი ფაილების სიით. მაგალითად, თუ შეიყვანთ:</p><ul><li>cp %all /tmp</li></"
+"ul><p>თქვენი ფაილები დაკოპირდება საქაღალდეში /tmp</p><p>ასევე შეგიძლიათ, "
+"გამოიყენოთ ცვლადი %each , თუ გნებავთ, ბრძანება ერთხელ გაუშვათ თითოეული "
+"ფაილისთვის.</p>"
 
 #: MainWindow/RunDialog.cpp:75
 #, no-c-format, kde-format
@@ -4681,6 +4715,13 @@ msgid ""
 "android device's address.\n"
 "The android client can be downloaded from google play."
 msgstr ""
+"ეს ხატულა მიუთითებს, მიერთებულია, თუ არა KPhotoAlbum Android-ის "
+"მოწყობილობასთან.\n"
+"დააწკაპუნეთ ღილაკზე კლიენტების მოლოდინის გადასართავად ლოკალური ქსელიდან.\n"
+"თუ ლოკალური ქსელი არ იძლევა საშუალებას, გააგზავნოთ მრავალმხრივი პაკეტები "
+"Android-ის კლიენტსა და KPhotoAlbum-ს შორის, მაშინ მარჯვენა წკაპი ხატულაზე და "
+"მიუთითეთ Android მოწყობილობის მისამართი.\n"
+"Android-ის კლიენტი Google Play-დან შეგიძლიათ, გადმოწეროთ."
 
 #: RemoteControl/ConnectionIndicator.cpp:90
 #, kde-format
@@ -4974,6 +5015,10 @@ msgid ""
 "time to approximately half, by checking this check box. The disadvantage is "
 "that the XML database file is less readable by human eyes.</p>"
 msgstr ""
+"<p>KPhotoAlbum <i>მონაცემთა ბაზად</i> ერთ XML ფაილს იყენებს. თუ "
+"გამოსახულებები ბევრია, მის წაკითხვას დიდი დრო დასჭირდება. ეს დრო შეგიძლიათ, "
+"დაახლოებით გაანახევროთ, თუ ამ თოლიას დასვამთ. ამის უარყოფითი მხარე ისაა, რომ "
+"XML მონაცემთა ბაზა ნაკლებად კითხვადია ადამიანის თვალის მიერ.</p>"
 
 #: Settings/ExifPage.cpp:37
 #, kde-format
@@ -5410,6 +5455,10 @@ msgid ""
 "uncheck this check box.</p><p>Note: Your digital camera may not write this "
 "information into the images at all.</p>"
 msgstr ""
+"<p>JPEG გამოსახულებები, შეიძლება, ბრუნვის შესახებ ინფორმაციას შეიცავდნენ. თუ "
+"გაქვთ მიზეზი, არ გამოიყენოთ ეს ინფორმაცია, რომ მიიღოთ ნაგულისხმევი სებუნება "
+"თქვენი გამოსახულებებისთვის, მოხსენით ეს თოლია.</p><p>შენიშვნა: თქვენი "
+"ციფრული კამერა შეიძლება, საერთოდ არ წერს ამ ინფორმაციას.</p>"
 
 #: Settings/GeneralPage.cpp:154
 #, kde-format
@@ -5436,6 +5485,12 @@ msgid ""
 "automatically on start up. Alternatively, you can click the connection icon "
 "in the status bar to start listening."
 msgstr ""
+"<p>KPhotoAlbum-ს შეუძლია, თქვენი გამოსახულებები Android-ის მოწყობილობებზე "
+"გაჩვენოთ. ის ავტომატურად დაწყვილდება Android-ის აპთან. მაგრამ ეს ითხოვს, რომ "
+"KPhotoAlbum თქვენს კომპიუტერზე მრავალმხრივ გადაცემულ (multicast) "
+"შეტყობინებებს უსმენდეს. თუ ამ თოლიას დასვამთ, KPhotoAlbum ამას ავტომატურად, "
+"გაშვებისას იზამს. ან ამისთვის შეგიძლიათ, სტატუსის ზოლში კავშირის ხატულასზე "
+"დააწკაპუნოთ."
 
 #: Settings/GeneralPage.cpp:170
 #, kde-format
@@ -5445,6 +5500,10 @@ msgid ""
 "want to ignore in the input field, one per line. Be sure to add the exact "
 "comment, including all whitespace.</p>"
 msgstr ""
+"<p>ზოგიერთი გამერა ზოგად კომენტარებს თითოეულ გამოსახულებაში ინახავს. ამ "
+"კომენტარების გამოტოვება ავტომატურად ხდება.</p><p>შეიყვანეთ კომენტარი, "
+"რომელიც გნებავთ, გამოტოვოთ შეყვანის ველში. შეიყვანეთ ერთი თითო ხაზზე. "
+"დარწმუნდით, რომ კომენტარი ზუსტად დაამატეთ, თეთრი ჰარეების ჩათვლით.</p>"
 
 #: Settings/SettingsDialog.cpp:47
 #, kde-format
@@ -6080,6 +6139,12 @@ msgid ""
 "have valid timestamps, you should use <b>Maintenance -&gt; Sort All By Date "
 "and Time</b> or <b>View -&gt; Sort Selected By Date and Time</b>.</p>"
 msgstr ""
+"<p><b>მართლა მოხდეს მინიატურების გადალაგება?</b></p><p>გამოსახულებების "
+"გადათრევით მინიატურების დამთვალიერებელში შეგიძლიათ, გადაალაგოთ ისინი. ეს "
+"ფუნქცია ძალიან სასარგებლოა, თუ თქვენ არ იცით გამოსახულებების ზუსტი თარიღი. "
+"მეორე მხრივ, თუ გამოსახულებებს სწორი დროის შტამპი აქვთ, უნდა გამოიყენოთ "
+"<b>რემონტი -&gt; ყველას დალაგება დროითა და თარიღით</b> ან <b>ხედი -&gt; "
+"მონიშნულის დალაგება დროითა და თარიღით</b>.</p>"
 
 #: ThumbnailView/ThumbnailDND.cpp:100
 #, kde-format

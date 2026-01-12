@@ -52,7 +52,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="bg">Програма за управление на изображения на KDE</summary>
   <summary xml:lang="ca">Programari de gestió d'imatges del KDE</summary>
   <summary xml:lang="ca-valencia">Programari de gestió d'imatges de KDE</summary>
-  <summary xml:lang="cs">Software a správu obrázků pro KDE</summary>
+  <summary xml:lang="cs">Software na správu obrázků pro KDE</summary>
   <summary xml:lang="de">KDE-Bildverwaltungssoftware</summary>
   <summary xml:lang="en-GB">KDE image management software</summary>
   <summary xml:lang="eo">Bildmastruma programo de KDE</summary>
@@ -88,7 +88,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="bg">KPhotoAlbum е приложение за маркиране и управление на колекция от снимки и с възможност за търсене.</p>
     <p xml:lang="ca">El KPhotoAlbum és una aplicació per a etiquetar i gestionar una col·lecció de fotografies i fer-les fàcils de trobar.</p>
     <p xml:lang="ca-valencia">KPhotoAlbum és una aplicació per a etiquetar i gestionar una col·lecció de fotografies i fer-les fàcils de trobar.</p>
-    <p xml:lang="cs">KPhotoAlbum je aplikace pro značkování a správu sbírky fotografií pro jejich vyhledávání.</p>
+    <p xml:lang="cs">KPhotoAlbum je aplikace pro značkování a správu sbírky fotografií a pro jejich vyhledávání.</p>
     <p xml:lang="de">KPhotoAlbum ist eine Anwendung zum Verschlagworten, Verwalten und Durchsuchen Ihrer Fotosammlung.</p>
     <p xml:lang="en-GB">KPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.</p>
     <p xml:lang="eo">KPhotoAlbum estas aplikaĵo por etikedi kaj administri fotokolekton kaj igi ĝin serĉebla.</p>
@@ -127,7 +127,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="bg">Основният прозорец в KPhotoAlbum</caption>
       <caption xml:lang="ca">La pantalla principal del KPhotoAlbum</caption>
       <caption xml:lang="ca-valencia">La pantalla principal de KPhotoAlbum</caption>
-      <caption xml:lang="cs">Hlavní obrazovka pro KPhotoAlbum</caption>
+      <caption xml:lang="cs">Hlavní obrazovka KPhotoAlbum</caption>
       <caption xml:lang="de">Das Hauptfenster von KPhotoAlbum</caption>
       <caption xml:lang="en-GB">The main screen in KPhotoAlbum</caption>
       <caption xml:lang="eo">La ĉefa ekrano de KPhotoAlbum</caption>

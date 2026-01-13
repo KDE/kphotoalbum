@@ -49,7 +49,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >dans le périmètre</emphasis
 > de la personne sélectionnée. Cela signifie que nous ne montrons que les informations sur les photos et les vidéos où cette personne est présente. Veuillez consulter la page ci-dessous <xref linkend="fig-browser-for-jesper"/>, qui présente notre résultat après avoir choisi <literal
 >Jesper</literal
-> comme « Personne » avec une indication de ce filtre au bas de la fenêtre. Sur le bord inférieur droit de  la page <xref linkend="fig-browser-for-jesper"/>, vous pourrez constater que le nombre d'images et de vidéos disponibles est passé de 25 à 13 , alors que le nombre total d'images est resté inchangé.</para>
+> comme « Personne » avec une indication de ce filtre au bas de la fenêtre. Sur le bord inférieur droit de la page <xref linkend="fig-browser-for-jesper"/>, vous pourrez constater que le nombre d'images et de vidéos disponibles est passé de 25 à 13 , alors que le nombre total d'images est resté inchangé.</para>
 
   <para
 >Veuillez noter que s'il n'y a que quelques images à sa portée, &kphotoalbum; ira directement à l'afficheur de vignettes (Veuillez consulter la page<xref linkend="chp-thumbnail-view"/>). Vous pouvez configurer ce comportement dans la configuration de l'afficheur de vignettes (Veuillez consulter la page<xref linkend="opt-thumbnails"/>). </para>

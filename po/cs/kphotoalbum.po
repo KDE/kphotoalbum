@@ -6896,13 +6896,3 @@ msgstr "Zobrazit velikosti obrázků"
 #, kde-format
 msgid "Show Rating"
 msgstr "Zobrazit hodnocení"
-
-#~ msgid "Save Current Window Setup"
-#~ msgstr "Uložit současné nastavení okna"
-
-#~ msgctxt "@title:window"
-#~ msgid "Export Configuration / Copy Images"
-#~ msgstr "Exportovat nastavení / kopírovat obrázky"
-
-#~ msgid "How to Handle Images"
-#~ msgstr "Jak pracovat s obrázky"

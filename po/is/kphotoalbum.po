@@ -2,15 +2,15 @@
 # Copyright (C) 2009 This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Sveinn í Felli <sveinki@nett.is>, 2009, 2010, 2011, 2015, 2016, 2018, 2019.
+# SPDX-FileCopyrightText: 2009, 2010, 2011, 2015, 2016, 2018, 2019, 2026 Sveinn í Felli <sveinki@nett.is>
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-04 00:42+0000\n"
-"PO-Revision-Date: 2019-11-07 12:43+0000\n"
+"PO-Revision-Date: 2026-01-16 18:18+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
-"Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
+"Language-Team: Icelandic\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgstr ""
 "\n"
 "\n"
 "\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -191,12 +191,12 @@ msgstr "=="
 #: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid ">="
-msgstr ""
+msgstr ">="
 
 #: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "<="
-msgstr ""
+msgstr "<="
 
 #: AnnotationDialog/Dialog.cpp:406
 #, kde-format
@@ -221,7 +221,7 @@ msgstr "Leita einungis að RAW-skrám"
 #: AnnotationDialog/Dialog.cpp:439
 #, kde-format
 msgid "Append"
-msgstr ""
+msgstr "Bæta við"
 
 #: AnnotationDialog/Dialog.cpp:440
 #, kde-format
@@ -229,10 +229,9 @@ msgid "Append new text to each description"
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:441
-#, fuzzy, kde-format
-#| msgid "Places"
+#, kde-format
 msgid "Replace"
-msgstr "Staðir"
+msgstr "Skipta út"
 
 #: AnnotationDialog/Dialog.cpp:442
 #, kde-format
@@ -283,10 +282,9 @@ msgid "Save current layout globally"
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:936
-#, fuzzy, kde-format
-#| msgid "Save the current map settings"
+#, kde-format
 msgid "Save current layout for this DB"
-msgstr "Vista núverandi kortastillingar"
+msgstr "Vista núverandi framsetningu þessa gagnagrunns"
 
 #: AnnotationDialog/Dialog.cpp:938
 #, kde-format
@@ -331,14 +329,12 @@ msgid "Show Only Selected Ctrl+S"
 msgstr "Birta einungis valið Ctrl+S"
 
 #: AnnotationDialog/Dialog.cpp:1030 Map/MapView.cpp:360
-#, fuzzy, kde-format
-#| msgid "Settings saved"
+#, kde-format
 msgid "Settings saved!"
-msgstr "Stillingar vistaðar"
+msgstr "Stillingar vistaðar!"
 
 #: AnnotationDialog/Dialog.cpp:1030
-#, fuzzy, kde-format
-#| msgid "Save Current Window Setup"
+#, kde-format
 msgid "Save current window setup"
 msgstr "Vista núverandi gluggaframsetningu"
 
@@ -350,11 +346,10 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:1096
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "Vista breytingar?"
+msgstr "Henda breytingum?"
 
 #: AnnotationDialog/Dialog.cpp:1195
 #, kde-format
@@ -394,12 +389,12 @@ msgstr ""
 #: AnnotationDialog/Dialog.cpp:1347
 #, kde-format
 msgid "Annotate Next"
-msgstr "Gera athugasemd við næstu"
+msgstr "Glósa næstu"
 
 #: AnnotationDialog/Dialog.cpp:1351
 #, kde-format
 msgid "Annotate Previous"
-msgstr "Gera athugasemd við fyrri"
+msgstr "Glósa fyrri"
 
 #: AnnotationDialog/Dialog.cpp:1355
 #, kde-format
@@ -424,7 +419,7 @@ msgstr "Snúa réttsælis"
 #: AnnotationDialog/Dialog.cpp:1369
 #, kde-format
 msgid "Toggle fullscreen preview"
-msgstr "Víxla heilskjásham"
+msgstr "Víxla forskoðun í skjáfylli af/á"
 
 #: AnnotationDialog/ImagePreview.cpp:514
 #, kde-format
@@ -445,16 +440,14 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:51
-#, fuzzy, kde-format
-#| msgid "Annotate previous image"
+#, kde-format
 msgid "Annotate previous image (Page Up)"
-msgstr "Glósa fyrri mynd"
+msgstr "Glósa við fyrri mynd (Page Up)"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:57
-#, fuzzy, kde-format
-#| msgid "Annotate next image"
+#, kde-format
 msgid "Annotate next image (Page Down)"
-msgstr "Glósa næstu mynd"
+msgstr "Glósa við næstu mynd (Page Down)"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:82
 #, kde-format
@@ -491,46 +484,40 @@ msgid "Areas on an image can only be shown in single-image annotation mode."
 msgstr ""
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:355
-#, fuzzy, kde-format
-#| msgid "Toggle fullscreen preview"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
-msgstr "Víxla heilskjásham"
+msgstr "Víxla forskoðun í skjáfylli af/á"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:356
-#, fuzzy, kde-format
-#| msgid "Rotate counterclockwise"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
 msgstr "Snúa rangsælis"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:357
-#, fuzzy, kde-format
-#| msgid "Rotate clockwise"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
 msgstr "Snúa réttsælis"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:358
-#, fuzzy, kde-format
-#| msgid "Copy tags from previously tagged image"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
-msgstr "Afrita merki frá síðast merktu mynd"
+msgstr "Afrita merki frá áður merktri mynd"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:359
-#, fuzzy, kde-format
-#| msgid "Delete image"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete image"
 msgstr "Eyða mynd"
 
 #: AnnotationDialog/ListSelect.cpp:72
-#, fuzzy, kde-format
-#| msgid "Enter a date..."
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
-msgstr "Settu inn dagsetningu..."
+msgstr "Settu inn merki ..."
 
 #: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:342
 #, kde-format
@@ -594,7 +581,7 @@ msgstr "Hópar merkja"
 #: AnnotationDialog/ListSelect.cpp:397
 #, kde-format
 msgid "Add this tag to a new tag group..."
-msgstr ""
+msgstr "Bæta þessu merki við nýjan merkjahóp..."
 
 #: AnnotationDialog/ListSelect.cpp:400
 #, kde-format
@@ -639,11 +626,10 @@ msgid "Really Delete %1?"
 msgstr "Viltu í alvörunni eyða %1?"
 
 #: AnnotationDialog/ListSelect.cpp:463
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
-msgstr "Endurnefna hlut"
+msgstr "Endurnefna atriði"
 
 #: AnnotationDialog/ListSelect.cpp:463
 #, kde-format
@@ -658,16 +644,13 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:473
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename \"%1\""
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Endurnefna \"%1\""
+msgstr "Endurnefna %1?"
 
 #: AnnotationDialog/ListSelect.cpp:477
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Endurnefna"
@@ -770,10 +753,9 @@ msgid "Extract Video Thumbnail"
 msgstr "Bý til smámynd myndskeiðs"
 
 #: BackgroundJobs/ReadVideoMetaDataJob.cpp:38
-#, fuzzy, kde-format
-#| msgid "Read Video Length"
+#, kde-format
 msgid "Read Video Metadata"
-msgstr "Lesa lengd myndskeiðs"
+msgstr "Lesa lýsigögn myndskeiða"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
@@ -1007,21 +989,20 @@ msgid "Move Items"
 msgstr "Færa atriði"
 
 #: DateBar/DateBarWidget.cpp:65
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
-msgstr "Dagsetning: "
+msgstr "Dagsetningastika"
 
 #: DateBar/DateBarWidget.cpp:74
 #, kde-format
 msgid "Scroll right"
-msgstr ""
+msgstr "Skruna til hægri"
 
 #: DateBar/DateBarWidget.cpp:83
 #, kde-format
 msgid "Scroll left"
-msgstr ""
+msgstr "Skruna til vinstri"
 
 #: DateBar/DateBarWidget.cpp:92
 #, kde-format
@@ -1143,16 +1124,14 @@ msgid "10 Seconds"
 msgstr "10 Sekúndur"
 
 #: DB/Category.cpp:326
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1'."
+#, kde-format
 msgid "Unable to create folder '%1'."
-msgstr "Get ekki búið til möppu '%1'."
+msgstr "Get ekki búið til möppuna '%1'."
 
 #: DB/Category.cpp:326
-#, fuzzy, kde-format
-#| msgid "Unable to Create Directory"
+#, kde-format
 msgid "Unable to Create Folder"
-msgstr "Gat ekki búið til möppu"
+msgstr "Get ekki búið til möppu"
 
 #: DB/Category.cpp:335
 #, kde-format
@@ -1280,7 +1259,7 @@ msgstr ""
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: DB/NewImageFinder.cpp:488
 #, kde-format
@@ -1363,7 +1342,7 @@ msgstr "Mappa"
 #: DB/XML/FileReader.cpp:113 DB/XML/FileReader.cpp:125
 #, kde-format
 msgid "Tokens"
-msgstr "Tákn"
+msgstr "Teikn"
 
 #: DB/XML/FileReader.cpp:201
 #, kde-format
@@ -1463,19 +1442,19 @@ msgstr ""
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
-msgstr ""
+msgstr "<li>%1:<br/>"
 
 #: DB/XML/FileReader.cpp:498
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
-msgstr ""
+msgstr "%1<br/>"
 
 #: DB/XML/FileReader.cpp:501
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
-msgstr ""
+msgstr "</li>"
 
 #: DB/XML/FileReader.cpp:506
 #, kde-format
@@ -1486,10 +1465,9 @@ msgid ""
 msgstr ""
 
 #: DB/XML/FileReader.cpp:510
-#, fuzzy, kde-format
-#| msgid "Database driver:"
+#, kde-format
 msgid "Database repair required"
-msgstr "Gagnagrunnsrekill:"
+msgstr "Gagnagrunnsviðgerð er nauðsynleg"
 
 #: DB/XML/FileReader.cpp:533
 #, kde-format
@@ -1654,12 +1632,10 @@ msgid "Error while reading database file"
 msgstr "Villa við lestur á gagnagrunnsskrá"
 
 #: Exif/InfoDialog.cpp:35
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Exif Information"
+#, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
-msgstr "Upplýsingar"
+msgstr "EXIF-upplýsingar og lýsigögn skráar"
 
 #: Exif/InfoDialog.cpp:75
 #, kde-format
@@ -1674,26 +1650,24 @@ msgid "IPTC character set:"
 msgstr "Stafatafla IPTC:"
 
 #: Exif/InfoDialog.cpp:98
-#, fuzzy, kde-format
-#| msgid "Exif Info"
+#, kde-format
 msgid "Exif info"
-msgstr "EXIF upplýsingar"
+msgstr "EXIF-upplýsingar"
 
 #: Exif/InfoDialog.cpp:99
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgid "File metadata"
-msgstr "Stuðningur við lýsigögn myndskeiða"
+msgstr "Lýsigögn skrár"
 
 #: Exif/MetaDataDisplay.cpp:37
 #, kde-format
 msgid "Absolute path:"
-msgstr ""
+msgstr "Algild slóð:"
 
 #: Exif/MetaDataDisplay.cpp:42
 #, kde-format
 msgid "MIME type:"
-msgstr ""
+msgstr "MIME-tegund:"
 
 #: Exif/MetaDataDisplay.cpp:46 Settings/ViewerSizeConfig.cpp:26
 #, kde-format
@@ -1703,17 +1677,17 @@ msgstr "Stærð:"
 #: Exif/MetaDataDisplay.cpp:50
 #, kde-format
 msgid "Created:"
-msgstr ""
+msgstr "Búið til:"
 
 #: Exif/MetaDataDisplay.cpp:54
 #, kde-format
 msgid "Changed:"
-msgstr ""
+msgstr "Breytt:"
 
 #: Exif/MetaDataDisplay.cpp:58
 #, kde-format
 msgid "Owner:"
-msgstr ""
+msgstr "Eigandi:"
 
 #: Exif/MetaDataDisplay.cpp:62
 #, kde-format
@@ -1721,53 +1695,46 @@ msgid "Group:"
 msgstr "Hópur:"
 
 #: Exif/MetaDataDisplay.cpp:66
-#, fuzzy, kde-format
-#| msgid "Version: %1"
+#, kde-format
 msgid "Permissions:"
-msgstr "Útgáfa: %1"
+msgstr "Heimildir:"
 
 #: Exif/MetaDataDisplay.cpp:100
 #, kde-format
 msgid "Open folder with a file manager"
-msgstr ""
+msgstr "Opna möppu með skráastjóra"
 
 #: Exif/MetaDataDisplay.cpp:107
-#, fuzzy, kde-format
-#| msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
-#| msgid "%1 (%2)"
+#, kde-format
 msgctxt ""
 "File size composed of a pre-formatted (already localized) human-readable "
 "file size (%1) and the number of bytes (%2)"
 msgid "%1 (%2 B)"
-msgstr "%1 (%2)"
+msgstr "%1 (%2 B)"
 
 #: Exif/MetaDataDisplay.cpp:122 Exif/MetaDataDisplay.cpp:128
 #: Exif/MetaDataDisplay.cpp:134
-#, fuzzy, kde-format
-#| msgid "or"
+#, kde-format
 msgctxt "File permission shortcut for \"reading allowed\""
 msgid "r"
-msgstr "eða"
+msgstr "r"
 
 #: Exif/MetaDataDisplay.cpp:124 Exif/MetaDataDisplay.cpp:130
 #: Exif/MetaDataDisplay.cpp:136
 #, kde-format
 msgctxt "File permission shortcut for \"writing allowed\""
 msgid "w"
-msgstr ""
+msgstr "w"
 
 #: Exif/MetaDataDisplay.cpp:126 Exif/MetaDataDisplay.cpp:132
 #: Exif/MetaDataDisplay.cpp:138
-#, fuzzy, kde-format
-#| msgid "x"
+#, kde-format
 msgctxt "File permission shortcut for \"executing allowed\""
 msgid "x"
 msgstr "x"
 
 #: Exif/MetaDataDisplay.cpp:157
-#, fuzzy, kde-format
-#| msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
-#| msgid "%1 (%2)"
+#, kde-format
 msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and its octal representation (e.g. \"0644\")"
@@ -1837,10 +1804,9 @@ msgid "Settings"
 msgstr "Stillingar"
 
 #: Exif/SearchDialog.cpp:56
-#, fuzzy, kde-format
-#| msgid "Aperture Value"
+#, kde-format
 msgid "Aperture (F Number)"
-msgstr "Gildi ljósops"
+msgstr "Ljósop (f-tala)"
 
 #: Exif/SearchDialog.cpp:66
 #, kde-format
@@ -2109,20 +2075,17 @@ msgid "Destination"
 msgstr "Áfangastaður"
 
 #: HTMLGenerator/HTMLDialog.cpp:297
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgid "Base folder:"
 msgstr "Grunnmappa:"
 
 #: HTMLGenerator/HTMLDialog.cpp:314
-#, fuzzy, kde-format
-#| msgid "Gallery directory:"
+#, kde-format
 msgid "Gallery folder:"
 msgstr "Myndasafnsmappa:"
 
 #: HTMLGenerator/HTMLDialog.cpp:321
-#, fuzzy, kde-format
-#| msgid "Output directory:"
+#, kde-format
 msgid "Output folder:"
 msgstr "Úttaksmappa:"
 
@@ -2150,17 +2113,12 @@ msgid "You must select at least one resolution."
 msgstr "Þú verður að velja a.m.k. eina upplausn."
 
 #: HTMLGenerator/HTMLDialog.cpp:386
-#, fuzzy, kde-format
-#| msgid "Select base directory..."
+#, kde-format
 msgid "Select base folder..."
 msgstr "Veldu grunnmöppu..."
 
 #: HTMLGenerator/HTMLDialog.cpp:399
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>You did not specify a base directory. This is the topmost directory "
-#| "for your images. Under this directory you will find each generated "
-#| "collection in separate directories.</p>"
+#, kde-format
 msgid ""
 "<p>You did not specify a base folder. This is the topmost folder for your "
 "images. Each generated collection will be contained in this folder in "
@@ -2171,29 +2129,23 @@ msgstr ""
 "</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:403
-#, fuzzy, kde-format
-#| msgid "No Base Directory Specified"
+#, kde-format
 msgid "No Base Folder Specified"
 msgstr "Engin grunnmappa skilgreind"
 
 #: HTMLGenerator/HTMLDialog.cpp:409
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>You did not specify an output directory. This is a directory "
-#| "containing the actual images. The directory will be in the base directory "
-#| "specified above.</p>"
+#, kde-format
 msgid ""
 "<p>You did not specify an output folder. This is a folder containing the "
 "actual images. The folder will be a subfolder of the base folder specified "
 "above.</p>"
 msgstr ""
-"<p>Þú tiltókst enga úttaksmöppu. Það er mappan sem mun innihalda endanlegu "
-"myndirnar. Sú mappa mun vera inni í grunnmöppunni sem þú tiltókst hér að "
-"ofan.</p>"
+"<p>Þú skilgreindir enga úttaksmöppu. Það er mappan sem mun innihalda "
+"endanlegu myndirnar. Sú mappa mun vera inni í grunnmöppunni sem þú tiltókst "
+"hér að ofan.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:412
-#, fuzzy, kde-format
-#| msgid "No Output Directory Specified"
+#, kde-format
 msgid "No Output Folder Specified"
 msgstr "Engin úttaksmappa skilgreind"
 
@@ -2210,30 +2162,24 @@ msgstr ""
 "sú mappa er ekki til.</p><p>Villuskilaboðin voru: %2</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:429
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>%1 does not exist, is not a directory or cannot be written to.</p>"
+#, kde-format
 msgid "<p>%1 does not exist, is not a folder or cannot be written to.</p>"
 msgstr "<p>%1 er ekki til, er ekki mappa eða er ekki skrifanleg.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:439
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Output directory %1 already exists. Usually, this means you should "
-#| "specify a new directory.</p><p>Should %2 be deleted first?</p>"
+#, kde-format
 msgid ""
 "<p>Output folder %1 already exists. Usually, this means you should specify a "
 "new folder.</p><p>Should %2 be deleted first?</p>"
 msgstr ""
-"<p>OÚttaksmappan %1 er þegar til. Venjulega ættirðu hér að skilgreina nýja "
+"<p>Úttaksmappan %1 er þegar til. Venjulega ættirðu hér að skilgreina nýja "
 "möppu.</p><p>Á fyrst að eyða %2 ?</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:443
-#, fuzzy, kde-format
-#| msgid "Folder"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
-msgstr "Mappa"
+msgstr "Mappan er þegar til"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:530 MainWindow/SplashScreen.cpp:52
@@ -2276,11 +2222,9 @@ msgid "<p>Gallery folder cannot be empty.</p>"
 msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:576
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "<p>The group \"%1\" already exists.</p>"
+#, kde-format
 msgid "<p>The output folder already exists.</p>"
-msgstr "<p>Hópurinn \"%1 er þegar til.</p>"
+msgstr "<p>Úttaksmappan er þegar til.</p>"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:93
 #, kde-format
@@ -2588,30 +2532,27 @@ msgid "Match Categories"
 msgstr "Finna hliðstæða flokka"
 
 #: ImportExport/ImportDialog.cpp:300
-#, fuzzy, kde-format
-#| msgid "Directory %1 does not exist. Should it be created?"
+#, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
-msgstr "Mappan %1 der ekki til. Ætti að búa hana til?"
+msgstr "Mappan %1 er ekki til. Ætti að búa hana til?"
 
 #: ImportExport/ImportDialog.cpp:301 MainWindow/WelcomeDialog.cpp:157
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "Grunnmappa:"
+msgstr "Búa til möppu?"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1213
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr ""
+msgstr "Útbúa"
 
 #: ImportExport/ImportDialog.cpp:311
-#, fuzzy, kde-format
-#| msgid "Error creating zip file %1"
+#, kde-format
 msgid "Error creating folder %1"
-msgstr "Gat ekki búið til zip skrá '%1'"
+msgstr "Villa við að búa til möppuna %1"
 
 #: ImportExport/ImportDialog.cpp:390
 #, kde-format
@@ -2640,15 +2581,13 @@ msgid "Cannot copy from any of the following locations:"
 msgstr ""
 
 #: ImportExport/ImportHandler.cpp:239
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr "Afrita myndskrár"
+msgstr "Afritun mistókst"
 
 #: ImportExport/ImportHandler.cpp:245
-#, fuzzy, kde-format
-#| msgid "Continue without Asking"
+#, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "Halda áfram án þess að spyrja"
@@ -2656,12 +2595,12 @@ msgstr "Halda áfram án þess að spyrja"
 #: ImportExport/ImportMatcher.cpp:37
 #, kde-format
 msgid "Key in file"
-msgstr ""
+msgstr "Lykill í skrá"
 
 #: ImportExport/ImportMatcher.cpp:44
 #, kde-format
 msgid "Key in your database"
-msgstr ""
+msgstr "Lykill í gagnagrunninum"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
@@ -2774,10 +2713,9 @@ msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2019 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
-msgstr "Höfundarréttur (C) 2003-2019 KPhotoAlbum þróunarteymið"
+msgstr "Höfundarréttur (C) 2020-2025 KPhotoAlbum þróunarteymið"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:98
 #, kde-format
@@ -2891,7 +2829,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Be less verbose."
-msgstr ""
+msgstr "Vera gagnorðari."
 
 #: kpa-thumbnailtool/main.cpp:97
 #, kde-format
@@ -2900,18 +2838,16 @@ msgid "Missing argument!\n"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:102
-#, fuzzy, kde-format
-#| msgid "%1 exists, but is not a directory"
+#, kde-format
 msgctxt "@info:shell"
 msgid "%1 is not a folder!\n"
-msgstr "%1 er til, en er ekki mappa"
+msgstr "%1 er ekki mappa!\n"
 
 #: kpa-thumbnailtool/main.cpp:116
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1'."
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail cache folder: %1\n"
-msgstr "Get ekki búið til möppu '%1'."
+msgstr "Biðminnismappa smámynda: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:117
 #, fuzzy, kde-format
@@ -2942,11 +2878,10 @@ msgid ""
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:123
-#, fuzzy, kde-format
-#| msgid "Number of columns:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Number of thumbnails: %1\n"
-msgstr "Fjöldi dálka:"
+msgstr "Fjöldi smámynda: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:129
 #, fuzzy, kde-format
@@ -2970,11 +2905,10 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:20
-#, fuzzy, kde-format
-#| msgid "Could not open file '%1'."
+#, kde-format
 msgctxt "@info:shell"
 msgid "Could not open file `thumbnailindex`!\n"
-msgstr "Gat ekki opnað skrá '%1'."
+msgstr "Gat ekki opnað skrána `thumbnailindex`!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:21
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:27
@@ -2989,14 +2923,13 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not open temporary file for writing!\n"
-msgstr ""
+msgstr "Mistókst að opna bráðabirgðaskrá til að skrifa í.\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:35
-#, fuzzy, kde-format
-#| msgid "Could not open file '%1'."
+#, kde-format
 msgctxt "@info:shell"
 msgid "Could not back up file `thumbnailindex`!\n"
-msgstr "Gat ekki opnað skrá '%1'."
+msgstr "Gat ekki tekið öryggisafrit af skránni `thumbnailindex`!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:40
 #, fuzzy, kde-format
@@ -3009,7 +2942,7 @@ msgstr "Gat ekki opnað skrá '%1'."
 #, kde-format
 msgctxt "@info:shell"
 msgid "Error message was: %1\n"
-msgstr ""
+msgstr "Villumeldingin var: %1\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:55
 #, fuzzy, kde-format
@@ -3046,7 +2979,7 @@ msgstr "Viðbætur"
 #: kphotoalbumui.rc:102
 #, kde-format
 msgid "Main Toolbar"
-msgstr "Aðaltækjaslá"
+msgstr "Aðalverkfærastika"
 
 #: lib/kpabase/SettingsData.cpp:246
 #, kde-format
@@ -3097,7 +3030,7 @@ msgstr ""
 #: main.cpp:85
 #, kde-format
 msgid "KPhotoAlbum"
-msgstr "KMyndaAlbúm"
+msgstr "KPhotoAlbum"
 
 #: main.cpp:87
 #, kde-format
@@ -3105,10 +3038,9 @@ msgid "KDE Photo Album"
 msgstr "KDE Myndaalbúm"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2019 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
-msgstr "Höfundarréttur (C) 2003-2019 KPhotoAlbum þróunarteymið"
+msgstr "Höfundarréttur (C) 2003-2025 KPhotoAlbum þróunarteymið"
 
 #: main.cpp:112
 #, kde-format
@@ -3135,7 +3067,7 @@ msgstr ""
 #: main.cpp:121
 #, kde-format
 msgid "Matthias Füssel"
-msgstr ""
+msgstr "Matthias Füssel"
 
 #: main.cpp:122
 #, kde-format
@@ -3256,14 +3188,10 @@ msgid "Stack images created within the following time-frame:"
 msgstr ""
 
 #: MainWindow/AutoStackImages.cpp:87
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "The whole sentence should read: *Stack images that are shot within x "
-#| "seconds of each other*. (This being the text after x.)"
-#| msgid "seconds"
+#, kde-format
 msgctxt "Unit suffix on a QSpinBox; note the space at the beginning."
 msgid " seconds"
-msgstr "sekúndur"
+msgstr " sekúndur"
 
 #: MainWindow/AutoStackImages.cpp:90
 #, kde-format
@@ -3297,24 +3225,20 @@ msgid "Make Category Image"
 msgstr "Setja sem mynd flokks"
 
 #: MainWindow/CopyLinkEngine.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Copy images to..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "Afrita myndir í..."
-msgstr[1] "Afrita myndir í..."
+msgstr[0] "Afrita mynd í ..."
+msgstr[1] "Afrita myndir í ..."
 
 #: MainWindow/CopyLinkEngine.cpp:42
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Link images to..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] "Tengja myndir við..."
-msgstr[1] "Tengja myndir við..."
+msgstr[0] "Tengja mynd við ..."
+msgstr[1] "Tengja myndir við ..."
 
 #: MainWindow/DeleteDialog.cpp:24
 #, kde-format
@@ -3367,10 +3291,9 @@ msgid "Merge these images"
 msgstr "Sameina þessar myndir"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:57
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select image to keep:"
-msgstr "Velja úttak:"
+msgstr "Veldu mynd sem á að halda:"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:72
 #, kde-format
@@ -3400,7 +3323,7 @@ msgstr "Eyða af &diski"
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:56
 #, kde-format
 msgid "&Block from database"
-msgstr ""
+msgstr "Úti&loka úr gagnagrunni"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:78
 #, kde-format
@@ -3435,7 +3358,7 @@ msgstr "Öll valin atriði"
 #: MainWindow/ExternalPopup.cpp:63
 #, kde-format
 msgid "Copy and Open"
-msgstr "Afrita og Opna"
+msgstr "Afrita og opna"
 
 #: MainWindow/ExternalPopup.cpp:87
 #, kde-format
@@ -3532,29 +3455,25 @@ msgid "Purpose plugin support"
 msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:138
-#, fuzzy, kde-format
-#| msgid "Map view for geotagged images."
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Map view for geotagged images."
 msgstr "Kortasýn fyrir hnattstaðsettar myndir"
 
 #: MainWindow/FeatureDialog.cpp:141
-#, fuzzy, kde-format
-#| msgid "SQL Database Support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "SQLite database support"
-msgstr "SQL gagnagrunnsstuðningur"
+msgstr "SQLite gagnagrunnsstuðningur"
 
 #: MainWindow/FeatureDialog.cpp:144
-#, fuzzy, kde-format
-#| msgid "Video thumbnail support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
 msgstr "Stuðningur við smámyndir myndskeiða"
 
 #: MainWindow/FeatureDialog.cpp:147
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video metadata support"
 msgstr "Stuðningur við lýsigögn myndskeiða"
@@ -3659,10 +3578,9 @@ msgid "Application rc file."
 msgstr ""
 
 #: MainWindow/Options.cpp:32
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "kphotoalbumrc"
-msgstr "KMyndaAlbúm"
+msgstr "kphotoalbumrc"
 
 #: MainWindow/Options.cpp:36
 #, kde-format
@@ -3687,7 +3605,7 @@ msgstr "skrá.kim"
 #: MainWindow/Options.cpp:50
 #, kde-format
 msgid "Listen for network connections."
-msgstr ""
+msgstr "Leita að nettengingum."
 
 #: MainWindow/Options.cpp:54
 #, kde-format
@@ -3743,20 +3661,16 @@ msgid "%each"
 msgstr "%hver"
 
 #: MainWindow/SearchBar.cpp:20
-#, fuzzy, kde-format
-#| msgctxt "@title:window title of the 'find images' window"
-#| msgid "Search"
+#, kde-format
 msgctxt "Name/title of the search bar toolbar widget"
 msgid "Search Bar"
-msgstr "Leita"
+msgstr "Leitarstika"
 
 #: MainWindow/SearchBar.cpp:25
-#, fuzzy, kde-format
-#| msgctxt "@title:window title of the 'find images' window"
-#| msgid "Search"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Search ..."
-msgstr "Leita"
+msgstr "Leita ..."
 
 #: MainWindow/StatisticsDialog.cpp:35
 #, kde-format
@@ -3903,26 +3817,22 @@ msgid ""
 msgstr ""
 
 #: MainWindow/WelcomeDialog.cpp:116
-#, fuzzy, kde-format
-#| msgid "Image/Video root directory: "
+#, kde-format
 msgid "Image/Video root folder: "
 msgstr "Grunnmappa fyrir myndir/myndskeið: "
 
 #: MainWindow/WelcomeDialog.cpp:156
-#, fuzzy, kde-format
-#| msgid "Directory does not exist, create it?"
+#, kde-format
 msgid "Folder does not exist, create it?"
 msgstr "Mappan er ekki til, búa hana til?"
 
 #: MainWindow/WelcomeDialog.cpp:166
-#, fuzzy, kde-format
-#| msgid "Could not create file '%1'."
+#, kde-format
 msgid "Could not create folder %1"
-msgstr "Get ekki búið til skrána '%1'."
+msgstr "Gat ekki búið til möppuna: %1"
 
 #: MainWindow/WelcomeDialog.cpp:171
-#, fuzzy, kde-format
-#| msgid "%1 exists, but is not a directory"
+#, kde-format
 msgid "%1 exists, but is not a folder"
 msgstr "%1 er til, en er ekki mappa"
 
@@ -3966,11 +3876,10 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:324
-#, fuzzy, kde-format
-#| msgid "Delete image"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
-msgstr "Eyða mynd"
+msgstr "Eyða sýnisgagnagrunni"
 
 #: MainWindow/Window.cpp:340
 #, kde-format
@@ -3978,8 +3887,7 @@ msgid "Do you want to save the changes?"
 msgstr "Viltu vista breytingarnar?"
 
 #: MainWindow/Window.cpp:341
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
 msgstr "Vista breytingar?"
@@ -4040,10 +3948,9 @@ msgid "Limit View to Selection"
 msgstr "Takmarka sýn við valið"
 
 #: MainWindow/Window.cpp:762
-#, fuzzy, kde-format
-#| msgid "No item is selected."
+#, kde-format
 msgid "No images are selected!"
-msgstr "Engin gögn valin."
+msgstr "Engar myndir eru valdar!"
 
 #: MainWindow/Window.cpp:775
 #, kde-format
@@ -4069,7 +3976,7 @@ msgstr "Eyða völdu"
 #: MainWindow/Window.cpp:819
 #, kde-format
 msgid "Remove Tokens..."
-msgstr ""
+msgstr "Fjarlægja teikn..."
 
 #: MainWindow/Window.cpp:822
 #, kde-format
@@ -4094,7 +4001,7 @@ msgstr ""
 #: MainWindow/Window.cpp:837
 #, kde-format
 msgid "Remove Images from Stack"
-msgstr ""
+msgstr "Fjarlægja myndir úr stafla"
 
 #: MainWindow/Window.cpp:840
 #, kde-format
@@ -4199,24 +4106,22 @@ msgstr ""
 #: MainWindow/Window.cpp:963
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
-msgstr ""
+msgstr "Birta ábendingar í smámyndaglugga"
 
 #: MainWindow/Window.cpp:968
-#, fuzzy, kde-format
-#| msgid "Display labels in thumbnail view"
+#, kde-format
 msgid "Show Labels in Thumbnails Window"
-msgstr "Birta skýringar í smámyndasýn"
+msgstr "Birta skýringar í smámyndaglugga"
 
 #: MainWindow/Window.cpp:978
-#, fuzzy, kde-format
-#| msgid "Display categories in thumbnail view"
+#, kde-format
 msgid "Show Categories in Thumbnails Window"
-msgstr "Birta flokka í smámyndasýn"
+msgstr "Birta flokka í smámyndaglugga"
 
 #: MainWindow/Window.cpp:995
 #, kde-format
 msgid "Choose Color Scheme"
-msgstr ""
+msgstr "Veldu litastef"
 
 #: MainWindow/Window.cpp:1002
 #, kde-format
@@ -4234,10 +4139,9 @@ msgid "Merge duplicates"
 msgstr "Sameina tvítök"
 
 #: MainWindow/Window.cpp:1010 MainWindow/Window.cpp:1065
-#, fuzzy, kde-format
-#| msgid "Recreate Selected Thumbnails"
+#, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
-msgstr "Endurgera valdar smámyndir"
+msgstr "Endurgera valdar smámyndir og gátsummur"
 
 #: MainWindow/Window.cpp:1014
 #, kde-format
@@ -4250,10 +4154,9 @@ msgid "Recreate Exif Search Database"
 msgstr "Uppfæra EXIF leitargagnagrunn"
 
 #: MainWindow/Window.cpp:1020
-#, fuzzy, kde-format
-#| msgid "Read Exif Info from Files..."
+#, kde-format
 msgid "Read Metadata from Files..."
-msgstr "Lesa EXIF-upplýsingar úr skrám..."
+msgstr "Lesa lýsigögn úr skrám..."
 
 #: MainWindow/Window.cpp:1023
 #, kde-format
@@ -4301,10 +4204,9 @@ msgid "Show Demo Videos"
 msgstr "Sýna dæmi um myndskeið"
 
 #: MainWindow/Window.cpp:1062 Viewer/ViewerWidget.cpp:198
-#, fuzzy, kde-format
-#| msgid "Show Exif Info"
+#, kde-format
 msgid "Show Exif Info and file metadata"
-msgstr "Sýna EXIF upplýsingar"
+msgstr "Sýna EXIF-upplýsingar og lýsigögn skráa"
 
 #: MainWindow/Window.cpp:1068
 #, kde-format
@@ -4317,22 +4219,18 @@ msgid "Use previous video thumbnail"
 msgstr "Nota smámynd myndskeiðs"
 
 #: MainWindow/Window.cpp:1076 MainWindow/Window.cpp:1309
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Copy images to..."
+#, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "Afrita myndir í..."
-msgstr[1] "Afrita myndir í..."
+msgstr[0] "Afrita mynd í ..."
+msgstr[1] "Afrita myndir í ..."
 
 #: MainWindow/Window.cpp:1080 MainWindow/Window.cpp:1313
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Link images to..."
+#, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] "Tengja myndir við..."
-msgstr[1] "Tengja myndir við..."
+msgstr[0] "Tengja mynd við ..."
+msgstr[1] "Tengja myndir við ..."
 
 #: MainWindow/Window.cpp:1104
 #, kde-format
@@ -4355,7 +4253,7 @@ msgstr "Viltu vista breytingarnar?"
 #| msgid "Loading Database"
 msgctxt "@title"
 msgid "Create database"
-msgstr "Hleð inn gagnagrunni"
+msgstr "Búa til gagnagrunn"
 
 #: MainWindow/Window.cpp:1254
 #, kde-format
@@ -4377,16 +4275,15 @@ msgid "Viewer"
 msgstr "Skoðari"
 
 #: MainWindow/Window.cpp:1382
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr "Dagsetning: "
+msgstr "Dagsetningastika"
 
 #: MainWindow/Window.cpp:1385
 #, kde-format
 msgid "Annotation Dialog"
-msgstr ""
+msgstr "Glósugluggi"
 
 #: MainWindow/Window.cpp:1386 Settings/SettingsDialog.cpp:48
 #, kde-format
@@ -4425,12 +4322,12 @@ msgstr "Innri villa"
 #: MainWindow/Window.cpp:1556
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
-msgstr ""
+msgstr "Tókst að deila mynd(um). Afrita staðsetningu mynda á klippispjaldið..."
 
 #: MainWindow/Window.cpp:1559
 #, kde-format
 msgid "Successfully shared image(s)."
-msgstr ""
+msgstr "Tókst að deila mynd(um)."
 
 #: MainWindow/Window.cpp:1564
 #, kde-format
@@ -4484,8 +4381,7 @@ msgid "Video thumbnails are not available"
 msgstr "Smámyndir myndskeiða eru ekki tiltæk"
 
 #: Map/GeoCluster.cpp:133
-#, fuzzy, kde-format
-#| msgid "%1"
+#, kde-format
 msgctxt "The number of images in an area of the map"
 msgid "%1"
 msgstr "%1"
@@ -4501,10 +4397,9 @@ msgid "Go to last map position"
 msgstr "Fara á síðustu staðsetningu á korti"
 
 #: Map/MapView.cpp:182
-#, fuzzy, kde-format
-#| msgid "Show Thumbnails"
+#, kde-format
 msgid "Show thumbnails"
-msgstr "Sýna smámyndir"
+msgstr "Birta smámyndir"
 
 #: Map/MapView.cpp:191
 #, kde-format
@@ -4607,12 +4502,10 @@ msgid ""
 msgstr ""
 
 #: Settings/BirthdayPage.cpp:59
-#, fuzzy, kde-format
-#| msgctxt "The label gives a textual description of the active filter"
-#| msgid "Filter: %1"
+#, kde-format
 msgctxt "@label:textedit"
 msgid "Filter ... (%1)"
-msgstr "Sía: %1"
+msgstr "Sía ... (%1)"
 
 #: Settings/BirthdayPage.cpp:93
 #, kde-format
@@ -4775,7 +4668,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
-msgstr ""
+msgstr "Staðfestu aðgerð"
 
 #: Settings/CategoryPage.cpp:372
 #, kde-format
@@ -4790,7 +4683,7 @@ msgstr "<p>Virkilega eyða flokknum '%1'?</p>"
 #: Settings/CategoryPage.cpp:408
 #, kde-format
 msgid "Confirm Action"
-msgstr ""
+msgstr "Staðfestu aðgerð"
 
 #: Settings/CategoryPage.cpp:521
 #, kde-format
@@ -4798,16 +4691,14 @@ msgid "<i>Choose a category to edit it</i>"
 msgstr ""
 
 #: Settings/DatabaseBackendPage.cpp:23
-#, fuzzy, kde-format
-#| msgid "Choose speed over readability for index.xml file"
+#, kde-format
 msgid "Choose speed over readability for the XML database file"
-msgstr "Velja hraða fram yfir lesanleika fyrir index.xml skrána"
+msgstr "Velja hraða fram yfir lesanleika fyrir XML-gagnagrunnsskrána"
 
 #: Settings/DatabaseBackendPage.cpp:27
-#, fuzzy, kde-format
-#| msgid "Compress backup file"
+#, kde-format
 msgid "Compress backup files"
-msgstr "Þjappa öryggisafritsskrá"
+msgstr "Þjappa öryggisafritsskrár"
 
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
@@ -4869,7 +4760,7 @@ msgstr "Stafatafla fyrir lýsigögn mynda:"
 #: Settings/FileVersionDetectionPage.cpp:31
 #, kde-format
 msgid "New File Searches"
-msgstr ""
+msgstr "Nýjar skráaleitir"
 
 #: Settings/FileVersionDetectionPage.cpp:36
 #, kde-format
@@ -5068,36 +4959,34 @@ msgid "Type of media on which your images are stored."
 msgstr ""
 
 #: Settings/FileVersionDetectionPage.cpp:189
-#, fuzzy, kde-format
-#| msgid "Hard"
+#, kde-format
 msgid "Hard Disk"
-msgstr "Skörp"
+msgstr "Harður diskur"
 
 #: Settings/FileVersionDetectionPage.cpp:190
 #, kde-format
 msgid "Network"
-msgstr ""
+msgstr "Netkerfi"
 
 #: Settings/FileVersionDetectionPage.cpp:191
 #, kde-format
 msgid "SATA SSD"
-msgstr ""
+msgstr "SATA SSD"
 
 #: Settings/FileVersionDetectionPage.cpp:192
 #, kde-format
 msgid "Slow PCIe/NVMe"
-msgstr ""
+msgstr "Hægvirkt PCIe/NVMe"
 
 #: Settings/FileVersionDetectionPage.cpp:193
 #, kde-format
 msgid "Fast PCIe/NVMe"
-msgstr ""
+msgstr "Hraðvirkt PCIe/NVMe"
 
 #: Settings/FileVersionDetectionPage.cpp:194
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "Manual Settings"
-msgstr "Stillingar"
+msgstr "Handvirkar stillingar"
 
 #: Settings/FileVersionDetectionPage.cpp:197
 #, kde-format
@@ -5711,7 +5600,7 @@ msgstr ""
 #: Settings/VideoPlayerSelectorDialog.cpp:64
 #, kde-format
 msgid " (NOT AVAILABLE)"
-msgstr ""
+msgstr " (EKKI TILTÆKT)"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:93
 #, kde-format
@@ -5724,44 +5613,39 @@ msgid ""
 msgstr ""
 
 #: Settings/VideoPlayerSelectorDialog.cpp:152
-#, fuzzy, kde-format
-#| msgid "Database Backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
-msgstr "Gagnagrunnsbakendi"
+msgstr "QtMultimedia myndskeiðabakendi"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:155
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
-msgstr ""
+msgstr "Óstilltu bakendi myndskeiða"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:157
-#, fuzzy, kde-format
-#| msgid "Database Backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
-msgstr "Gagnagrunnsbakendi"
+msgstr "Phonon myndskeiðabakendi"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:159
-#, fuzzy, kde-format
-#| msgid "Database Backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
-msgstr "Gagnagrunnsbakendi"
+msgstr "QtAV myndskeiðabakendi"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:161
-#, fuzzy, kde-format
-#| msgid "Database Backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
-msgstr "Gagnagrunnsbakendi"
+msgstr "VLC myndskeiðabakendi"
 
 #: Settings/ViewerPage.cpp:25
-#, fuzzy, kde-format
-#| msgid "Not defined"
+#, kde-format
 msgid "Not Configured"
-msgstr "Ekki skilgreint"
+msgstr "Ekki stillt"
 
 #: Settings/ViewerPage.cpp:44
 #, kde-format
@@ -5849,15 +5733,14 @@ msgid ""
 msgstr ""
 
 #: Settings/ViewerPage.cpp:101
-#, fuzzy, kde-format
-#| msgid "Database Backend"
+#, kde-format
 msgid "Video Backend:"
-msgstr "Gagnagrunnsbakendi"
+msgstr "Myndskeiðabakendi:"
 
 #: Settings/ViewerSizeConfig.cpp:19
 #, kde-format
 msgid "Launch in full screen"
-msgstr ""
+msgstr "Ræsa í skjáfylli"
 
 #: ThumbnailView/Delegate.cpp:258
 #, kde-format
@@ -5868,18 +5751,17 @@ msgid "video"
 msgstr "myndskeið"
 
 #: ThumbnailView/FilterWidget.cpp:17
-#, fuzzy, kde-format
-#| msgid "Show filter toolbar"
+#, kde-format
 msgctxt "Name/title of the filter toolbar widget"
 msgid "Filter Toolbar"
-msgstr "Sýna síustiku"
+msgstr "Síustika"
 
 #: ThumbnailView/FilterWidget.cpp:23
 #, kde-format
 msgctxt ""
 "The action enables/disables filtering of images in the thumbnail view."
 msgid "Toggle filter"
-msgstr ""
+msgstr "Víxla síu af/á"
 
 #: ThumbnailView/FilterWidget.cpp:25
 #, kde-kuit-format
@@ -5923,8 +5805,7 @@ msgstr ""
 "&gt; Raða völdu eftir dagsetningu og tíma</b>.</p>"
 
 #: ThumbnailView/ThumbnailDND.cpp:100
-#, fuzzy, kde-format
-#| msgid "Reorder Thumbnails"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
 msgstr "Endurraða smámyndum"
@@ -6008,69 +5889,53 @@ msgid "<b>Description: </b> "
 msgstr "<b>Lýsing: </b> "
 
 #: Utilities/Timespan.cpp:81
-#, fuzzy, kde-format
-#| msgid " (&lt; %1)"
+#, kde-format
 msgctxt "Like \"up to 6 years\" old"
 msgid " (up to %1)"
-msgstr " (&lt; %1)"
+msgstr " (allt að %1)"
 
 #: Utilities/Timespan.cpp:91
-#, fuzzy, kde-format
-#| msgid " (%1)"
+#, kde-format
 msgctxt "Like \"6 years\" old"
 msgid " (%1)"
 msgstr " (%1)"
 
 #: Utilities/Timespan.cpp:94
-#, fuzzy, kde-format
-#| msgctxt "E.g. ' (1-2 years)'"
-#| msgid " (%1-%2)"
+#, kde-format
 msgctxt "Like \"6 years to 7 years\" old"
 msgid " (%1 to %2)"
-msgstr " (%1-%2)"
+msgstr " (%1 til %2)"
 
 #: Utilities/Timespan.cpp:103
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 day old'"
-#| msgid "1 day"
-#| msgid_plural "%1 days"
+#, kde-format
 msgctxt "Like \"The baby is '8 days' old\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] "1 dagur"
+msgstr[0] "%1 dagur"
 msgstr[1] "%1 dagar"
 
 #: Utilities/Timespan.cpp:108
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"The baby is '4 months' old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 mánuður"
+msgstr[0] "%1 mánuður"
 msgstr[1] "%1 mánuðir"
 
 #: Utilities/Timespan.cpp:113
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 year old'"
-#| msgid "1 year"
-#| msgid_plural "%1 years"
+#, kde-format
 msgctxt "Like \"The person is '28 years' old\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] "1 ár"
+msgstr[0] "%1 ár"
 msgstr[1] "%1 ár"
 
 #: Utilities/Timespan.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"The baby is \"4 months\" old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 mánuður"
+msgstr[0] "%1 mánuður"
 msgstr[1] "%1 mánuðir"
 
 #: Utilities/Timespan.cpp:121
@@ -6079,44 +5944,36 @@ msgctxt ""
 "This combines an age of a person in years (%1) with the additional months "
 "(%2), like \"The person is '1 year and 3 months' old\""
 msgid "%1, %2"
-msgstr ""
+msgstr "%1, %2"
 
 #: Utilities/Timespan.cpp:151
-#, fuzzy, kde-format
-#| msgid "today"
+#, kde-format
 msgid " (today)"
-msgstr "í dag"
+msgstr " (í dag)"
 
 #: Utilities/Timespan.cpp:154
-#, fuzzy, kde-format
-#| msgid "yesterday"
+#, kde-format
 msgid " (yesterday)"
-msgstr "í gær"
+msgstr " (í gær)"
 
 #: Utilities/Timespan.cpp:158
-#, fuzzy, kde-format
-#| msgid " (%1)"
+#, kde-format
 msgctxt "Like \"6 years ago\""
 msgid " (%1 ago)"
-msgstr " (%1)"
+msgstr " (%1 síðan)"
 
 #: Utilities/Timespan.cpp:162
-#, fuzzy, kde-format
-#| msgctxt "E.g. ' (1-2 years)'"
-#| msgid " (%1-%2)"
+#, kde-format
 msgctxt "Like \"6 to 7 years ago\""
 msgid " (%1 to %2 ago)"
-msgstr " (%1-%2)"
+msgstr " (%1 til %2 síðan)"
 
 #: Utilities/Timespan.cpp:177
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 day old'"
-#| msgid "1 day"
-#| msgid_plural "%1 days"
+#, kde-format
 msgctxt "Like \"This happened '6 days' ago\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] "1 dagur"
+msgstr[0] "%1 dagur"
 msgstr[1] "%1 dagar"
 
 #: Utilities/Timespan.cpp:184
@@ -6124,66 +5981,56 @@ msgstr[1] "%1 dagar"
 msgctxt "Like \"This happened '3 weeks' ago\""
 msgid "%1 week"
 msgid_plural "%1 weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 vika"
+msgstr[1] "%1 vikur"
 
 #: Utilities/Timespan.cpp:189
 #, kde-format
 msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
 msgid "ca. %1 week"
 msgid_plural "ca. %1 weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "u.þ.b. %1 vika"
+msgstr[1] "u.þ.b. %1 vikur"
 
 #: Utilities/Timespan.cpp:197 Utilities/Timespan.cpp:236
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"This happened '2 months' ago\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 mánuður"
+msgstr[0] "%1 mánuður"
 msgstr[1] "%1 mánuðir"
 
 #: Utilities/Timespan.cpp:202 Utilities/Timespan.cpp:207
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"This happened 'ca. 2 months' ago\""
 msgid "ca. %1 month"
 msgid_plural "ca. %1 months"
-msgstr[0] "1 mánuður"
-msgstr[1] "%1 mánuðir"
+msgstr[0] "u.þ.b. %1 mánuður"
+msgstr[1] "u.þ.b. %1 mánuðir"
 
 #: Utilities/Timespan.cpp:212 Utilities/Timespan.cpp:231
 #: Utilities/Timespan.cpp:234
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 year old'"
-#| msgid "1 year"
-#| msgid_plural "%1 years"
+#, kde-format
 msgctxt "Like \"This happened '2 years' ago\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] "1 ár"
+msgstr[0] "%1 ár"
 msgstr[1] "%1 ár"
 
 #: Utilities/Timespan.cpp:240
-#, fuzzy, kde-format
-#| msgid "\"%1\" and \"%2\""
+#, kde-format
 msgctxt ""
 "This combines a number of years and months to a timespan, like \"This "
 "happened 3 years and 1 month\" ago, where the first parameter is the "
 "formatted years string and the second one is the formatted months string"
 msgid "%1 and %2"
-msgstr "\"%1\" og \"%2\""
+msgstr "%1 og %2"
 
 #: Viewer/AnnotationHandler.cpp:69
 #, kde-format
 msgctxt "@title"
 msgid "Assign Macro"
-msgstr ""
+msgstr "Úthluta fjölva"
 
 #: Viewer/AnnotationHandler.cpp:69
 #, fuzzy, kde-format
@@ -6192,16 +6039,14 @@ msgid "Select item for macro key <b>%1</b>"
 msgstr "Stillingar fyrir flokkinn <b>%1</b>"
 
 #: Viewer/AnnotationHandler.cpp:126
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgid "Tag Item"
-msgstr "Endurnefna hlut"
+msgstr "Atriði merkis"
 
 #: Viewer/AnnotationHandler.cpp:126
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select tag for image"
-msgstr "Velja úttak:"
+msgstr "Veldu merki fyrir mynd"
 
 #: Viewer/CategoryImageConfig.cpp:41
 #, kde-format
@@ -6268,18 +6113,17 @@ msgstr ""
 #: Viewer/SelectCategoryAndValue.cpp:136
 #, kde-format
 msgid "Add New"
-msgstr ""
+msgstr "Bæta við nýju"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
 #, kde-format
 msgid "Key"
-msgstr ""
+msgstr "Lykill"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
-#, fuzzy, kde-format
-#| msgid "Tag:"
+#, kde-format
 msgid "Tag"
-msgstr "Merki:"
+msgstr "Merki"
 
 #: Viewer/SelectCategoryAndValue.cpp:220
 #, kde-format
@@ -6289,30 +6133,25 @@ msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
+#, kde-format
 msgid "Dialog"
-msgstr "'Í lagi' glugginn"
+msgstr "Samskiptagluggi"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
+#, kde-format
 msgid "TextLabel"
-msgstr "Fyrirsögn"
+msgstr "TextaMerking"
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgid "Add new Tag"
-msgstr "Bæta við merki"
+msgstr "Bæta við nýju merki"
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
+#, kde-format
 msgid "Title"
 msgstr "Titill"
 
@@ -6329,20 +6168,16 @@ msgid "Set as First Image in Stack"
 msgstr "Setja sem fyrstu mynd í stafla"
 
 #: Viewer/ViewerWidget.cpp:204
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Copy images to..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
-msgstr "Afrita myndir í..."
+msgstr "Afrita mynd í ..."
 
 #: Viewer/ViewerWidget.cpp:210
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Link images to..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
-msgstr "Tengja myndir við..."
+msgstr "Tengja mynd við ..."
 
 #: Viewer/ViewerWidget.cpp:218
 #, kde-format
@@ -6536,17 +6371,14 @@ msgid "Pause"
 msgstr "Bíða"
 
 #: Viewer/ViewerWidget.cpp:630
-#, fuzzy, kde-format
-#| msgid "Unlock"
+#, kde-format
 msgid "locked"
-msgstr "Aflæsa"
+msgstr "læst"
 
 #: Viewer/ViewerWidget.cpp:632
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "annotating"
-msgstr "Glósur"
+msgstr "glósa"
 
 #: Viewer/ViewerWidget.cpp:634
 #, kde-format
@@ -6559,12 +6391,10 @@ msgid "Change display mode to %1"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:915
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run Slideshow"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr "Keyra skyggnusýningu"
+msgstr "Lýk skyggnusýningu"
 
 #: Viewer/ViewerWidget.cpp:918
 #, kde-format
@@ -6584,21 +6414,19 @@ msgstr ""
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
-msgstr ""
+msgstr "%1&nbsp;s"
 
 #: Viewer/ViewerWidget.cpp:1235
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr "Lýsing á þema"
+msgstr "Breyta lýsingu á mynd"
 
 #: Viewer/ViewerWidget.cpp:1235
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr "Lýsing á þema"
+msgstr "Lýsing á mynd"
 
 #: Viewer/ViewerWidget.cpp:1250
 #, kde-format
@@ -6743,29 +6571,24 @@ msgid ""
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1479
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Annotate..."
+#, kde-format
 msgid "Annotate"
-msgstr "Glósa..."
+msgstr "Glósa"
 
 #: Viewer/ViewerWidget.cpp:1498
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
-msgstr ""
+msgstr "Hjálp"
 
 #: Viewer/ViewerWidget.cpp:1500
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
-msgstr "Glósur"
+msgstr "Glósugluggi"
 
 #: Viewer/ViewerWidget.cpp:1501
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Bæta við merki"
@@ -6774,83 +6597,77 @@ msgstr "Bæta við merki"
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
-msgstr ""
+msgstr "CTRL+a"
 
 #: Viewer/ViewerWidget.cpp:1504
-#, fuzzy, kde-format
-#| msgid "Copy tags from previous image"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
-msgstr "Afrita merki frá fyrri mynd"
+msgstr "Afrita gögn frá fyrri mynd"
 
 #: Viewer/ViewerWidget.cpp:1505
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
-msgstr ""
+msgstr "CTRL+c"
 
 #: Viewer/ViewerWidget.cpp:1508
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr "Lýsing"
+msgstr "Breyta lýsingu"
 
 #: Viewer/ViewerWidget.cpp:1509
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
-msgstr ""
+msgstr "CTRL+d"
 
 #: Viewer/ViewerWidget.cpp:1512
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "Annotation Mode"
-msgstr "Glósur"
+msgstr "Glósuhamur"
 
 #: Viewer/ViewerWidget.cpp:1514
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
-msgstr ""
+msgstr "Læst"
 
 #: Viewer/ViewerWidget.cpp:1515
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
-msgstr ""
+msgstr "CTRL+l"
 
 #: Viewer/ViewerWidget.cpp:1519
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
-msgstr ""
+msgstr "Úthluta merkjum"
 
 #: Viewer/ViewerWidget.cpp:1520
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
-msgstr ""
+msgstr "F2"
 
 #: Viewer/ViewerWidget.cpp:1523
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr "Tákn"
+msgstr "Úthluta teiknum"
 
 #: Viewer/ViewerWidget.cpp:1524
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
-msgstr ""
+msgstr "CTRL+t"
 
 #: Viewer/ViewerWidget.cpp:1687
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Token %1"
-msgstr "Tákn"
+msgstr "Teikn %1"
 
 #: Viewer/VisibleOptionsMenu.cpp:24
 #, kde-format

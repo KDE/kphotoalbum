@@ -2,6 +2,7 @@
 // SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2016-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2020 Nicolas Fella <nicolas.fella@gmx.de>
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -32,6 +33,11 @@ HandleVideoThumbnailRequestJob::HandleVideoThumbnailRequestJob(ImageManager::Ima
     , m_thumbnailCache(thumbnailCache)
     , m_videoThumbnailCache(videoThumbnailCache)
 {
+}
+
+HandleVideoThumbnailRequestJob::~HandleVideoThumbnailRequestJob()
+{
+    delete m_request;
 }
 
 QString HandleVideoThumbnailRequestJob::title() const

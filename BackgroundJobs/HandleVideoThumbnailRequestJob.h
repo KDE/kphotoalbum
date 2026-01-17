@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2012-2013 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -30,7 +31,9 @@ class HandleVideoThumbnailRequestJob : public BackgroundTaskManager::JobInterfac
 {
     Q_OBJECT
 public:
+    // Note: this class assumes ownership of the supplied ImageRequest.
     explicit HandleVideoThumbnailRequestJob(ImageManager::ImageRequest *request, BackgroundTaskManager::Priority priority, ImageManager::ThumbnailCache *thumbnailCache, ImageManager::VideoThumbnailCache *videoThumbnailCache);
+    ~HandleVideoThumbnailRequestJob();
     QString title() const override;
     QString details() const override;
 

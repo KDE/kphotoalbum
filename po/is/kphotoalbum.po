@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-04 00:42+0000\n"
-"PO-Revision-Date: 2026-01-16 18:18+0000\n"
+"PO-Revision-Date: 2026-01-17 08:22+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -166,12 +166,12 @@ msgstr ""
 #: AnnotationDialog/Dialog.cpp:371
 #, kde-format
 msgid "Minimum megapixels:"
-msgstr ""
+msgstr "Lágmark megapixla:"
 
 #: AnnotationDialog/Dialog.cpp:381
 #, kde-format
 msgid "Maximum megapixels:"
-msgstr ""
+msgstr "Hámark megapixla:"
 
 #: AnnotationDialog/Dialog.cpp:394
 #, kde-format
@@ -181,7 +181,7 @@ msgstr "Einkunn:"
 #: AnnotationDialog/Dialog.cpp:402
 #, kde-format
 msgid "Rating search mode:"
-msgstr ""
+msgstr "Leitarhamur einkunna:"
 
 #: AnnotationDialog/Dialog.cpp:406
 #, kde-format
@@ -226,7 +226,7 @@ msgstr "Bæta við"
 #: AnnotationDialog/Dialog.cpp:440
 #, kde-format
 msgid "Append new text to each description"
-msgstr ""
+msgstr "Bæta nýjum texta aftan við hverja lýsingu"
 
 #: AnnotationDialog/Dialog.cpp:441
 #, kde-format
@@ -236,7 +236,7 @@ msgstr "Skipta út"
 #: AnnotationDialog/Dialog.cpp:442
 #, kde-format
 msgid "Replace each description with the new text"
-msgstr ""
+msgstr "Skipta hverri lýsingu út fyrir nýja textann"
 
 #: AnnotationDialog/Dialog.cpp:451
 #, kde-format
@@ -1253,7 +1253,7 @@ msgstr "Myndskeið"
 #: DB/ImageDB.cpp:1024
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
-msgstr ""
+msgstr "KPhotoAlbum - handvirk viðgerð nauðsynleg (%1)"
 
 #: DB/ImageDB.cpp:1025
 #, kde-format
@@ -1326,10 +1326,9 @@ msgid ""
 msgstr ""
 
 #: DB/XML/FileReader.cpp:63
-#, fuzzy, kde-format
-#| msgid "Database conversion is ready."
+#, kde-format
 msgid "XML database file version mismatch"
-msgstr "Umbreytingu gagnagrunns lokið."
+msgstr "Misræmi í útgáfu XML-gagnagrunnsskráa"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
@@ -2298,17 +2297,15 @@ msgid "KPhotoAlbum import files"
 msgstr "KMyndaAlbúm innflutningsskrár"
 
 #: ImportExport/Export.cpp:105
-#, fuzzy, kde-format
-#| msgid "Read Exif Info from Files..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
-msgstr "Lesa EXIF-upplýsingar úr skrám..."
+msgstr "Flytja út lýsigögn / Afrita skrár"
 
 #: ImportExport/Export.cpp:118
-#, fuzzy, kde-format
-#| msgid "Save an export file"
+#, kde-format
 msgid "How to export %1 files"
-msgstr "Vista útflutningsskrá"
+msgstr "Hvernig á að flytja út %1 skrár"
 
 #: ImportExport/Export.cpp:122
 #, kde-format
@@ -2884,11 +2881,10 @@ msgid "Number of thumbnails: %1\n"
 msgstr "Fjöldi smámynda: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:129
-#, fuzzy, kde-format
-#| msgid "No duplicates found"
+#, kde-format
 msgctxt "@info:shell"
 msgid "No inconsistencies found.\n"
-msgstr "Engin tvítök fundust"
+msgstr "Ekkert misræmi fannst.\n"
 
 #: kpa-thumbnailtool/main.cpp:133
 #, kde-format
@@ -4056,7 +4052,7 @@ msgstr ""
 #: MainWindow/Window.cpp:907
 #, kde-format
 msgid "Jump to Context"
-msgstr ""
+msgstr "Hoppa í samhengi"
 
 #: MainWindow/Window.cpp:915
 #, kde-format
@@ -4243,14 +4239,12 @@ msgid "Auto saving.... Done"
 msgstr "Sjálfvirk vistun... Lokið"
 
 #: MainWindow/Window.cpp:1207
-#, fuzzy, kde-format
-#| msgid "Do you want to save the changes?"
+#, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
-msgstr "Viltu vista breytingarnar?"
+msgstr "<p>Viltu útbúa þessa gagnagrunnsskrá?<br />%1</p>"
 
 #: MainWindow/Window.cpp:1210
-#, fuzzy, kde-format
-#| msgid "Loading Database"
+#, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "Búa til gagnagrunn"
@@ -5574,7 +5568,7 @@ msgstr ""
 #: Settings/VideoPlayerSelectorDialog.cpp:26
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
-msgstr ""
+msgstr "<h1>Veldu myndskeiðaspilara</h1>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:29
 #, kde-format
@@ -5766,7 +5760,7 @@ msgstr "Víxla síu af/á"
 #: ThumbnailView/FilterWidget.cpp:25
 #, kde-kuit-format
 msgid "Press <shortcut>Escape</shortcut> to clear filter."
-msgstr ""
+msgstr "Ýttu á <shortcut>Escape</shortcut> til að hreinsa síuna."
 
 #: ThumbnailView/FilterWidget.cpp:32
 #, kde-format
@@ -5821,10 +5815,9 @@ msgid "Unable to copy '%1' to '%2'."
 msgstr "Gat ekki afritað '%1' í '%2'."
 
 #: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:88
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1' needed for demo."
+#, kde-format
 msgid "Unable to create folder '%1' needed for demo."
-msgstr "Get ekki búið til möppuna '%1' sem þarf fyrir sýnidæmið."
+msgstr "Tekst ekki að búa til möppuna '%1' sem þarf fyrir sýnidæmið."
 
 #: Utilities/DemoUtil.cpp:58
 #, kde-format
@@ -6033,10 +6026,9 @@ msgid "Assign Macro"
 msgstr "Úthluta fjölva"
 
 #: Viewer/AnnotationHandler.cpp:69
-#, fuzzy, kde-format
-#| msgid "Settings for category <b>%1</b>"
+#, kde-format
 msgid "Select item for macro key <b>%1</b>"
-msgstr "Stillingar fyrir flokkinn <b>%1</b>"
+msgstr "Veldu atriði fyrir fjölvalykilinn <b>%1</b>"
 
 #: Viewer/AnnotationHandler.cpp:126
 #, kde-format
@@ -6388,7 +6380,7 @@ msgstr ""
 #: Viewer/ViewerWidget.cpp:639
 #, kde-format
 msgid "Change display mode to %1"
-msgstr ""
+msgstr "Breyta birtingarham yfir í %1"
 
 #: Viewer/ViewerWidget.cpp:915
 #, kde-format

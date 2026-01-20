@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-04 00:42+0000\n"
+"POT-Creation-Date: 2026-01-20 00:40+0000\n"
 "PO-Revision-Date: 2026-01-04 11:54+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -805,7 +805,7 @@ msgstr "Пов’язати з"
 msgid "Extracting Thumbnail"
 msgstr "Видобування мініатюр"
 
-#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:39
+#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:45
 #, kde-format
 msgid "Extract Video Thumbnail"
 msgstr "Видобування мініатюр відео"

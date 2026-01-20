@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-04 00:42+0000\n"
+"POT-Creation-Date: 2026-01-20 00:40+0000\n"
 "PO-Revision-Date: 2019-07-31 16:10+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -743,7 +743,7 @@ msgstr "Knyt til"
 msgid "Extracting Thumbnail"
 msgstr ""
 
-#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:39
+#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:45
 #, kde-format
 msgid "Extract Video Thumbnail"
 msgstr ""

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-04 00:42+0000\n"
+"POT-Creation-Date: 2026-01-20 00:40+0000\n"
 "PO-Revision-Date: 2026-01-03 06:32-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -807,7 +807,7 @@ msgstr "Associar com"
 msgid "Extracting Thumbnail"
 msgstr "Extraindo miniaturas"
 
-#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:39
+#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:45
 #, kde-format
 msgid "Extract Video Thumbnail"
 msgstr "Extrair a miniatura do vídeo"

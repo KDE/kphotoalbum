@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-04 00:42+0000\n"
+"POT-Creation-Date: 2026-01-20 00:40+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -799,7 +799,7 @@ msgstr ""
 msgid "Extracting Thumbnail"
 msgstr "កំពុង​​បង្កើត​រូបភាព​តូចៗ"
 
-#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:39
+#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:45
 #, fuzzy, kde-format
 #| msgid "Create Video Thumbnails"
 msgid "Extract Video Thumbnail"

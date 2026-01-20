@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-04 00:42+0000\n"
+"POT-Creation-Date: 2026-01-20 00:40+0000\n"
 "PO-Revision-Date: 2007-09-11 22:44+0200\n"
 "Last-Translator: Northern Sami translation team <i18n-sme@lister.ping.uio."
 "no>\n"
@@ -742,7 +742,7 @@ msgstr ""
 msgid "Extracting Thumbnail"
 msgstr ""
 
-#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:39
+#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:45
 #, kde-format
 msgid "Extract Video Thumbnail"
 msgstr ""

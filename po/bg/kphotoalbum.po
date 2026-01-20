@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-04 00:42+0000\n"
-"PO-Revision-Date: 2026-01-01 19:54+0100\n"
+"POT-Creation-Date: 2026-01-20 00:40+0000\n"
+"PO-Revision-Date: 2026-01-19 22:30+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -289,13 +289,12 @@ msgstr "Конфигуриране на оформлението на прозо
 #: AnnotationDialog/Dialog.cpp:935
 #, kde-format
 msgid "Save current layout globally"
-msgstr ""
+msgstr "Запазване на текущото оформление глобално"
 
 #: AnnotationDialog/Dialog.cpp:936
-#, fuzzy, kde-format
-#| msgid "Save the current map settings"
+#, kde-format
 msgid "Save current layout for this DB"
-msgstr "Запазване на текущите настройки на картата"
+msgstr "Запазване на текущите настройки за тази БД"
 
 #: AnnotationDialog/Dialog.cpp:938
 #, kde-format
@@ -801,7 +800,7 @@ msgstr "Свързване с"
 msgid "Extracting Thumbnail"
 msgstr "Извличане на миниатюри"
 
-#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:39
+#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:45
 #, kde-format
 msgid "Extract Video Thumbnail"
 msgstr "Извличане на видеоминиатюри"

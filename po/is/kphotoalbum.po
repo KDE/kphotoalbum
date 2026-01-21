@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-20 00:40+0000\n"
-"PO-Revision-Date: 2026-01-17 08:22+0000\n"
+"PO-Revision-Date: 2026-01-20 11:59+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -1253,7 +1253,7 @@ msgstr "Myndskeið"
 #: DB/ImageDB.cpp:1024
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
-msgstr "KPhotoAlbum - handvirk viðgerð nauðsynleg (%1)"
+msgstr "KMyndaAlbúm - handvirk viðgerð nauðsynleg (%1)"
 
 #: DB/ImageDB.cpp:1025
 #, kde-format
@@ -2149,10 +2149,7 @@ msgid "No Output Folder Specified"
 msgstr "Engin úttaksmappa skilgreind"
 
 #: HTMLGenerator/HTMLDialog.cpp:420
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Error while reading information about %1. This is most likely because "
-#| "the directory does not exist.</p><p>The error message was: %2</p>"
+#, kde-format
 msgid ""
 "<p>Error while reading information about %1. This is most likely because the "
 "folder does not exist.</p><p>The error message was: %2</p>"
@@ -2699,10 +2696,9 @@ msgid "Conflicting commandline options: %1 and %2!\n"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:44
-#, fuzzy, kde-format
-#| msgid "Run KPhotoAlbum Demo"
+#, kde-format
 msgid "KPhotoAlbum Thumbnail Tool"
-msgstr "Keyra KMyndaAlbúm sýnishorn"
+msgstr "Smámyndaverkfæri KMyndaAlbúms"
 
 #: kpa-thumbnailtool/main.cpp:46
 #, kde-format
@@ -2832,7 +2828,7 @@ msgstr "Vera gagnorðari."
 #, kde-format
 msgctxt "@info:shell"
 msgid "Missing argument!\n"
-msgstr ""
+msgstr "Vantar viðfang!\n"
 
 #: kpa-thumbnailtool/main.cpp:102
 #, kde-format
@@ -2847,11 +2843,10 @@ msgid "Thumbnail cache folder: %1\n"
 msgstr "Biðminnismappa smámynda: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:117
-#, fuzzy, kde-format
-#| msgid "Thumbnail image size:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index file version: %1\n"
-msgstr "Stærð smámyndar:"
+msgstr "Útgáfa atriðaskrár smámynda: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:118
 #, kde-format
@@ -2860,11 +2855,10 @@ msgid "Maximum supported thumbnailindex file version: %1\n"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:119
-#, fuzzy, kde-format
-#| msgid "Thumbnail image size:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail storage dimensions: %1 pixels\n"
-msgstr "Stærð smámyndar:"
+msgstr "Geymdar stærðir smámynda: %1 mynddílar\n"
 
 #: kpa-thumbnailtool/main.cpp:121
 #, kde-format
@@ -2928,11 +2922,12 @@ msgid "Could not back up file `thumbnailindex`!\n"
 msgstr "Gat ekki tekið öryggisafrit af skránni `thumbnailindex`!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:40
-#, fuzzy, kde-format
-#| msgid "Could not open file '%1'."
+#, kde-format
 msgctxt "@info:shell"
 msgid "Could not copy temporary thumbnail index file to final location!\n"
-msgstr "Gat ekki opnað skrá '%1'."
+msgstr ""
+"Mistókst að afrita bráðabirgðaskrá atriðaskráningar smámynda á endanlegan "
+"stað!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:41
 #, kde-format
@@ -2941,11 +2936,10 @@ msgid "Error message was: %1\n"
 msgstr "Villumeldingin var: %1\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:55
-#, fuzzy, kde-format
-#| msgid "Thumbnail image size:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
-msgstr "Stærð smámyndar:"
+msgstr "Atriðaskrá smámynda er ekki skrá af útgáfu 5.\n"
 
 #. i18n: ectx: Menu (view)
 #: kphotoalbumui.rc:38
@@ -3026,7 +3020,7 @@ msgstr ""
 #: main.cpp:85
 #, kde-format
 msgid "KPhotoAlbum"
-msgstr "KPhotoAlbum"
+msgstr "KMyndaAlbúm"
 
 #: main.cpp:87
 #, kde-format
@@ -3175,7 +3169,7 @@ msgstr ""
 #: MainWindow/AutoStackImages.cpp:68
 #, kde-format
 msgid "Original to top"
-msgstr ""
+msgstr "Upprunalega efst"
 
 #: MainWindow/AutoStackImages.cpp:79
 #, kde-format
@@ -4027,12 +4021,12 @@ msgstr "Keyra slembna skyggnusýningu"
 #: MainWindow/Window.cpp:878
 #, kde-format
 msgid "Collapse all stacks"
-msgstr ""
+msgstr "Fella saman alla stafla"
 
 #: MainWindow/Window.cpp:884
 #, kde-format
 msgid "Expand all stacks"
-msgstr ""
+msgstr "Fletta út öllum stöflum"
 
 #: MainWindow/Window.cpp:889
 #, kde-format
@@ -4047,7 +4041,7 @@ msgstr "Sýna &nýjustu fyrst"
 #: MainWindow/Window.cpp:899
 #, kde-format
 msgid "Sort Selected by Date && Time"
-msgstr ""
+msgstr "Raða völdu eftir dagsetningu og tíma"
 
 #: MainWindow/Window.cpp:907
 #, kde-format
@@ -4402,20 +4396,18 @@ msgid "Group adjacent thumbnails into clickable clusters"
 msgstr ""
 
 #: Map/MapView.cpp:203
-#, fuzzy, kde-format
-#| msgid "Decrease thumbnail storage size"
+#, kde-format
 msgctxt ""
 "@action Decrease size of the markers (i.e. thumbnails) drawn on the map"
 msgid "Decrease marker size"
-msgstr "Minnka geymslustærð smámyndar"
+msgstr "Minnka stærð merkjara"
 
 #: Map/MapView.cpp:210
-#, fuzzy, kde-format
-#| msgid "Increase thumbnail storage size"
+#, kde-format
 msgctxt ""
 "@action Increase size of the markers (i.e. thumbnails) drawn on the map"
 msgid "Increase marker size"
-msgstr "Auka geymslustærð smámyndar"
+msgstr "Auka stærð merkjara"
 
 #: Map/MapView.cpp:360
 #, kde-format
@@ -4606,7 +4598,7 @@ msgstr ""
 #: Settings/CategoryPage.cpp:166
 #, kde-format
 msgid "Save the DB now"
-msgstr ""
+msgstr "Vista gagnagrunninn núna"
 
 #: Settings/CategoryPage.cpp:206
 #, kde-format
@@ -5113,7 +5105,7 @@ msgstr "Birta litatíðnirit"
 #: Settings/GeneralPage.cpp:99
 #, kde-format
 msgid "Use linear scale for histogram"
-msgstr ""
+msgstr "Nota línulegan kvarða fyrir litatíðnirit"
 
 #: Settings/GeneralPage.cpp:103
 #, kde-format
@@ -5441,7 +5433,7 @@ msgstr "Pláss umhverfis reiti:"
 #: Settings/ThumbnailsPage.cpp:69
 #, kde-format
 msgid "Display grid around thumbnails"
-msgstr ""
+msgstr "Birta rúður í kringum smámyndir"
 
 #: Settings/ThumbnailsPage.cpp:74
 #, kde-format

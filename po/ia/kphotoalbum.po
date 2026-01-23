@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-20 00:40+0000\n"
-"PO-Revision-Date: 2026-01-20 16:29+0100\n"
+"PO-Revision-Date: 2026-01-22 12:23+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -55,16 +55,13 @@ msgid "Description"
 msgstr "Description"
 
 #: AnnotationDialog/Dialog.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "(You have differing descriptions on individual images, setting text here "
-#| "will override them all)"
+#, kde-format
 msgid ""
 "(You have differing descriptions on individual images.  Enter text to append "
 "to or replace the descriptions.)"
 msgstr ""
-"(Tu ha descriiptiones differente sur images individual, scriber texto hic "
-"superscribera omnes )"
+"(Tu ha descriptiones differente sur images individual, Inserta texto per  "
+"adjunger o reimplaciar le descriptiones )"
 
 #: AnnotationDialog/Dialog.cpp:135
 #, kde-format
@@ -228,12 +225,12 @@ msgstr "Cerca solmente images RAW "
 #: AnnotationDialog/Dialog.cpp:439
 #, kde-format
 msgid "Append"
-msgstr ""
+msgstr "Adjunge"
 
 #: AnnotationDialog/Dialog.cpp:440
 #, kde-format
 msgid "Append new text to each description"
-msgstr ""
+msgstr "Adjunge nove texto a cata description"
 
 #: AnnotationDialog/Dialog.cpp:441
 #, kde-format
@@ -243,7 +240,7 @@ msgstr "Reimplacia"
 #: AnnotationDialog/Dialog.cpp:442
 #, kde-format
 msgid "Replace each description with the new text"
-msgstr ""
+msgstr "Reimplacia cata description con le nove texto"
 
 #: AnnotationDialog/Dialog.cpp:451
 #, kde-format
@@ -774,10 +771,9 @@ msgid "Extract Video Thumbnail"
 msgstr "Extrahe Miniatura de Video"
 
 #: BackgroundJobs/ReadVideoMetaDataJob.cpp:38
-#, fuzzy, kde-format
-#| msgid "Read Video Length"
+#, kde-format
 msgid "Read Video Metadata"
-msgstr "Lege longitude de video"
+msgstr "Lege Metadatos de video"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
@@ -2290,17 +2286,15 @@ msgid "KPhotoAlbum import files"
 msgstr "Files de importar de KPhotoAlbum"
 
 #: ImportExport/Export.cpp:105
-#, fuzzy, kde-format
-#| msgid "Read Exif Info from Files..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
-msgstr "Lege Info de Exif ab files..."
+msgstr "Exporta Metadatos / Copia Files"
 
 #: ImportExport/Export.cpp:118
-#, fuzzy, kde-format
-#| msgid "How to Use the Export File"
+#, kde-format
 msgid "How to export %1 files"
-msgstr "Como usar le File de Exportar"
+msgstr "Como exportar %1 files"
 
 #: ImportExport/Export.cpp:122
 #, kde-format
@@ -2704,10 +2698,9 @@ msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2025 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2020-2024 Le Equipa de disveloppamento de KPhotoAlbum"
+msgstr "Copyright (C) 2020-2025 Le Equipa de disveloppamento de  KPhotoAlbum "
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:98
 #, kde-format
@@ -3025,10 +3018,9 @@ msgid "KDE Photo Album"
 msgstr ""
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2025 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2024 Le Equipa de disveloppamento de KPhotoAlbum"
+msgstr "Copyright (C) 2003-2025 Le Equipa de disveloppamento de KPhotoAlbum"
 
 #: main.cpp:112
 #, kde-format
@@ -3909,7 +3901,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1331 MainWindow/Window.cpp:1429
 #, kde-format
 msgid "No Selection"
-msgstr ""
+msgstr "Necun Selection"
 
 #: MainWindow/Window.cpp:538
 #, kde-format
@@ -4138,10 +4130,9 @@ msgid "Recreate Exif Search Database"
 msgstr ""
 
 #: MainWindow/Window.cpp:1020
-#, fuzzy, kde-format
-#| msgid "Read Exif Info from Files..."
+#, kde-format
 msgid "Read Metadata from Files..."
-msgstr "Lege Info de Exif ab files..."
+msgstr "Lege Metadatos ab files..."
 
 #: MainWindow/Window.cpp:1023
 #, kde-format

@@ -1145,7 +1145,7 @@ void Viewer::ViewerWidget::keyPressEvent(QKeyEvent *event)
     using Settings::ViewerTagMode;
     const bool readOnly = m_type != UsageType::FullFeaturedViewer;
     if (readOnly) {
-        event->ignore();
+        QStackedWidget::keyPressEvent(event);
         return;
     }
 
@@ -1156,17 +1156,27 @@ void Viewer::ViewerWidget::keyPressEvent(QKeyEvent *event)
         currentInfo()->setRating(rating * 2);
         m_transientDisplay->displayRating(rating * 2, 500ms, TransientDisplay::NoFadeOut);
         dirty = true;
-    } else if (m_tagMode == ViewerTagMode::Locked) {
-        return;
-    } else if (m_tagMode == ViewerTagMode::Tokenizing) {
-        if (event->key() < Qt::Key_A || event->key() > Qt::Key_Z)
-            return;
-
-        auto category = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory)->name();
-        toggleTag(category, event->text());
     } else {
-        TemporarilyDisableCursorHandling dummy(this);
-        dirty = m_annotationHandler->handle(event);
+        switch (m_tagMode) {
+        case Settings::ViewerTagMode::Locked:
+            QStackedWidget::keyPressEvent(event);
+            return;
+        case Settings::ViewerTagMode::Annotating: {
+            TemporarilyDisableCursorHandling dummy(this);
+            dirty = m_annotationHandler->handle(event);
+            break;
+        }
+        case Settings::ViewerTagMode::Tokenizing:
+            if (event->key() < Qt::Key_A || event->key() > Qt::Key_Z || event->modifiers() != 0) {
+                QStackedWidget::keyPressEvent(event);
+                return;
+            }
+
+            auto category = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory)->name();
+            toggleTag(category, event->text());
+            dirty = true;
+            break;
+        }
     }
 
     updateInfoBox();

@@ -1673,11 +1673,11 @@ void Viewer::ViewerWidget::toggleTag(const QString &category, const QString &val
     if (category == DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory)->name())
         tag = value.toUpper();
 
-    const bool tagIsSet = !currentInfo()->hasCategoryInfo(category, tag);
-    if (tagIsSet)
-        currentInfo()->addCategoryInfo(category, tag);
-    else
+    const bool tagWasSet = currentInfo()->hasCategoryInfo(category, tag);
+    if (tagWasSet)
         currentInfo()->removeCategoryInfo(category, tag);
+    else
+        currentInfo()->addCategoryInfo(category, tag);
 
     // Assume we've now annotated this image - this is to avoid removing the untagged item all the time.
     currentInfo()->removeCategoryInfo(Settings::SettingsData::instance()->untaggedCategory(), Settings::SettingsData::instance()->untaggedTag());
@@ -1685,7 +1685,7 @@ void Viewer::ViewerWidget::toggleTag(const QString &category, const QString &val
 
     if (category == DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory)->name())
         tag = i18n("Token %1", tag);
-    m_transientDisplay->display(tagIsSet ? tag : QLatin1String("<s>%1</s>").arg(tag), 500ms, TransientDisplay::NoFadeOut);
+    m_transientDisplay->display(!tagWasSet ? tag : QLatin1String("<s>%1</s>").arg(tag), 500ms, TransientDisplay::NoFadeOut);
 }
 
 void Viewer::ViewerWidget::copyTagsFromPreviousImage()

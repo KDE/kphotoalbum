@@ -6,18 +6,18 @@
 // SPDX-FileCopyrightText: 2006-2010 Tuomas Suutari <tuomas@nepnep.net>
 // SPDX-FileCopyrightText: 2007 Shawn Willden <shawn-kimdaba@willden.org>
 // SPDX-FileCopyrightText: 2007 Thiago Macieira <thiago@kde.org>
-// SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2007, 2008 Laurent Montel <montel@kde.org>
 // SPDX-FileCopyrightText: 2007-2010 Jan Kundrát <jkt@flaska.net>
 // SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
 // SPDX-FileCopyrightText: 2008 Luboš Luňák <l.lunak@kde.org>
 // SPDX-FileCopyrightText: 2009, 2022 Yuri Chornoivan <yurchor@ukr.net>
 // SPDX-FileCopyrightText: 2009-2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
-// SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2013-2024, 2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2015-2020 Robert Krawitz <rlk@alum.mit.edu>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2022 Friedrich W. H. Kossebau <kossebau@kde.org>
-// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -119,6 +119,7 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type)
     , m_type(type)
     , m_copyLinkEngine(nullptr)
     , m_annotationHandler(new AnnotationHandler(this))
+    , m_tagMode(Settings::SettingsData::instance()->viewerTagMode())
 {
     if (type == UsageType::FullFeaturedViewer) {
         setWindowFlags(Qt::Window);
@@ -167,6 +168,8 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type)
             this, &Viewer::ViewerWidget::toggleTag);
     connect(m_annotationHandler, &AnnotationHandler::requestHelp,
             this, &Viewer::ViewerWidget::showAnnotationHelp);
+
+    connect(Settings::SettingsData::instance(), &Settings::SettingsData::viewerTagModeChanged, this, &ViewerWidget::setTagMode);
 }
 
 void Viewer::ViewerWidget::setupContextMenu()
@@ -617,20 +620,21 @@ void Viewer::ViewerWidget::removeOrDeleteCurrent(RemoveAction action)
         showNextN(0);
 }
 
-void Viewer::ViewerWidget::setTagMode(TagMode tagMode)
+void Viewer::ViewerWidget::setTagMode(Settings::ViewerTagMode tagMode)
 {
+    using Settings::ViewerTagMode;
     m_tagMode = tagMode;
-    m_addTagAction->setEnabled(tagMode == TagMode::Annotating);
-    m_copyAction->setEnabled(tagMode == TagMode::Annotating);
-    m_addDescriptionAction->setEnabled(tagMode == TagMode::Annotating);
+    m_addTagAction->setEnabled(tagMode == ViewerTagMode::Annotating);
+    m_copyAction->setEnabled(tagMode == ViewerTagMode::Annotating);
+    m_addDescriptionAction->setEnabled(tagMode == ViewerTagMode::Annotating);
 
     const auto tagModeText = [&] {
         switch (tagMode) {
-        case TagMode::Locked:
+        case ViewerTagMode::Locked:
             return i18n("locked");
-        case TagMode::Annotating:
+        case ViewerTagMode::Annotating:
             return i18n("annotating");
-        case TagMode::Tokenizing:
+        case ViewerTagMode::Tokenizing:
             return i18n("tokenizing");
         }
         return QString();
@@ -1135,6 +1139,7 @@ KActionCollection *Viewer::ViewerWidget::actions()
 
 void Viewer::ViewerWidget::keyPressEvent(QKeyEvent *event)
 {
+    using Settings::ViewerTagMode;
     const bool readOnly = m_type != UsageType::FullFeaturedViewer;
     if (readOnly) {
         event->ignore();
@@ -1148,9 +1153,9 @@ void Viewer::ViewerWidget::keyPressEvent(QKeyEvent *event)
         currentInfo()->setRating(rating * 2);
         m_transientDisplay->displayRating(rating * 2, 500ms, TransientDisplay::NoFadeOut);
         dirty = true;
-    } else if (m_tagMode == TagMode::Locked) {
+    } else if (m_tagMode == ViewerTagMode::Locked) {
         return;
-    } else if (m_tagMode == TagMode::Tokenizing) {
+    } else if (m_tagMode == ViewerTagMode::Tokenizing) {
         if (event->key() < Qt::Key_A || event->key() > Qt::Key_Z)
             return;
 
@@ -1487,7 +1492,7 @@ void Viewer::ViewerWidget::createAnnotationMenu()
     };
 
     auto toggleGroup = new QActionGroup(this);
-    auto addTagAction = [&](const char *name, const QString &title, TagMode mode, auto shortCut) {
+    auto addTagAction = [&](const char *name, const QString &title, Settings::ViewerTagMode mode, auto shortCut) {
         auto action = addAction(
             name, title, [this, mode] { setTagMode(mode); }, shortCut);
         action->setCheckable(true);
@@ -1499,28 +1504,28 @@ void Viewer::ViewerWidget::createAnnotationMenu()
 
     addAction("viewer-edit-image-properties", i18nc("@action:inmenu", "Annotation Dialog"), &ViewerWidget::editImage, QKeySequence(Qt::CTRL | Qt::Key_1));
     m_addTagAction = addAction("viewer-add-tag", i18nc("@action:inmenu", "Add tag"), &ViewerWidget::addTag, i18nc("short cut for add tag", "CTRL+a"));
-    m_addTagAction->setEnabled(false);
+    m_addTagAction->setEnabled(m_tagMode == Settings::ViewerTagMode::Annotating);
 
     m_copyAction = addAction("viewer-copy-tag-from-previous-image", i18nc("@action:inmenu", "Copy Data from Previous Image"), &ViewerWidget::copyTagsFromPreviousImage,
                              i18nc("Shortcut for copy annotations from previous image", "CTRL+c"));
-    m_copyAction->setEnabled(false);
+    m_copyAction->setEnabled(m_tagMode == Settings::ViewerTagMode::Annotating);
 
     m_addDescriptionAction = addAction("viewer-edit-description", i18nc("@action:inmenu", "Edit Description"), &ViewerWidget::editDescription,
                                        i18nc("Shortcut for add description to image", "CTRL+d"));
-    m_addDescriptionAction->setEnabled(false);
+    m_addDescriptionAction->setEnabled(m_tagMode == Settings::ViewerTagMode::Annotating);
 
     menu->addSection(i18n("Annotation Mode"));
     auto action = addTagAction(
-        "viewer-tagmode-locked", i18nc("@action:inmenu", "Locked"), TagMode::Locked,
+        "viewer-tagmode-locked", i18nc("@action:inmenu", "Locked"), Settings::ViewerTagMode::Locked,
         i18nc("Shortcut for turning of annotations in the viewer", "CTRL+l"));
     action->setChecked(true);
 
     addTagAction(
-        "viewer-tagmode-annotating", i18nc("@action:inmenu", "Assign Tags"), TagMode::Annotating,
+        "viewer-tagmode-annotating", i18nc("@action:inmenu", "Assign Tags"), Settings::ViewerTagMode::Annotating,
         i18nc("Shortcut for turning annotations mode to annotating", "F2"));
 
     addTagAction(
-        "viewer-tagmode-tokenizing", i18nc("@action:inmenu", "Assign Tokens"), TagMode::Tokenizing,
+        "viewer-tagmode-tokenizing", i18nc("@action:inmenu", "Assign Tokens"), Settings::ViewerTagMode::Tokenizing,
         i18nc("Shortcut for turning annotations mode to tokenizing", "CTRL+t"));
 
     const bool showFullFeatures = m_type == UsageType::FullFeaturedViewer;

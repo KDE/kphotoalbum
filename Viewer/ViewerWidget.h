@@ -1,3 +1,7 @@
+/*
+ * SPDX-FileCopyrightText: 2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+ */
+
 // SPDX-FileCopyrightText: 2003-2023 The KPhotoAlbum Development Team
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
@@ -10,6 +14,7 @@
 #include <MainWindow/CopyLinkEngine.h>
 #include <kpabase/CrashSentinel.h>
 #include <kpabase/FileNameList.h>
+#include <kpabase/SettingsData.h>
 
 #include <QImage>
 #include <QMap>
@@ -152,10 +157,6 @@ private:
                         OnlyRemoveFromViewer };
     void removeOrDeleteCurrent(RemoveAction);
 
-    enum class TagMode { Locked,
-                         Annotating,
-                         Tokenizing };
-    void setTagMode(TagMode tagMode);
     void updateContextMenuState(bool isVideo);
 
 protected Q_SLOTS:
@@ -212,6 +213,7 @@ protected Q_SLOTS:
     void triggerCopyLinkAction(MainWindow::CopyLinkEngine::Action action);
     void toggleTag(const QString &category, const QString &value);
     void copyTagsFromPreviousImage();
+    void setTagMode(Settings::ViewerTagMode tagMode);
 
 private:
     static ViewerWidget *s_latest;
@@ -284,7 +286,7 @@ private:
     CursorVisibilityHandler *m_cursorHandlerForVideoDisplay;
     AnnotationHandler *m_annotationHandler;
 
-    TagMode m_tagMode = TagMode::Locked;
+    Settings::ViewerTagMode m_tagMode;
     QAction *m_addTagAction;
     QAction *m_copyAction;
     QAction *m_addDescriptionAction;

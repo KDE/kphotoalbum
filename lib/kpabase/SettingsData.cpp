@@ -1,21 +1,21 @@
+// SPDX-FileCopyrightText: 2003 Lukáš Tinkl <lukas@kde.org>
 // SPDX-FileCopyrightText: 2003-2005 Stephan Binner <binner@kde.org>
 // SPDX-FileCopyrightText: 2003-2007 Dirk Mueller <mueller@kde.org>
 // SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
-// SPDX-FileCopyrightText: 2003 Lukáš Tinkl <lukas@kde.org>
 // SPDX-FileCopyrightText: 2006-2008 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007 Rafael Fernández López <ereslibre@kde.org>
 // SPDX-FileCopyrightText: 2007-2009 Laurent Montel <montel@kde.org>
 // SPDX-FileCopyrightText: 2007-2010 Jan Kundrát <jkt@flaska.net>
-// SPDX-FileCopyrightText: 2007 Rafael Fernández López <ereslibre@kde.org>
 // SPDX-FileCopyrightText: 2008 David Faure <faure@kde.org>
 // SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
 // SPDX-FileCopyrightText: 2009-2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2010 Pino Toscano <pino@kde.org>
 // SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
 // SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
-// SPDX-FileCopyrightText: 2012-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2012-2024, 2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2025 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2019 Robert Krawitz <rlk@alum.mit.edu>
-// SPDX-FileCopyrightText: 2014-2025 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -32,7 +32,6 @@
 #include <QStringList>
 #include <QStringLiteral>
 #include <QThread>
-#include <type_traits>
 
 // enable _L1 string literal operator
 using namespace Qt::Literals::StringLiterals;
@@ -411,6 +410,22 @@ setValueFunc_(setVideoBackend, VideoBackend, "Viewer"_L1, "videoBackend", static
         value = VideoBackend::NotConfigured;
     }
     return value;
+}
+// clang-format off
+// property_enum(viewerTagMode, setViewerTagMode, ViewerTagMode, Viewer, ViewerTagMode::Locked)
+// getValueFunc(ViewerTagMode, viewerTagMode, "Viewer"_L1, static_cast<int>(ViewerTagMode::Locked))
+// clang-format on
+ViewerTagMode SettingsData::viewerTagMode() const
+{
+    const auto mode = static_cast<ViewerTagMode>(cfgValue("Viewer"_L1, "viewerTagMode"_L1, static_cast<int>(ViewerTagMode::Locked)));
+    return mode;
+}
+void SettingsData::setViewerTagMode(ViewerTagMode mode)
+{
+    if (mode != viewerTagMode()) {
+        setValue("Viewer"_L1, "viewerTagMode", static_cast<int>(mode));
+        Q_EMIT viewerTagModeChanged(mode);
+    }
 }
 
 bool SettingsData::smoothScale() const

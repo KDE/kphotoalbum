@@ -1,3 +1,7 @@
+/*
+ * SPDX-FileCopyrightText: 2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+ */
+
 // SPDX-FileCopyrightText: 2003-2021 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2005-2007 Dirk Mueller <mueller@kde.org>
 // SPDX-FileCopyrightText: 2006-2008 Tuomas Suutari <tuomas@nepnep.net>
@@ -89,6 +93,14 @@ enum class VideoBackend { NotConfigured = 0b0000,
                           QtMultimedia = 0b1000 };
 Q_DECLARE_FLAGS(VideoBackends, VideoBackend)
 Q_FLAG_NS(VideoBackend)
+
+/**
+ * @brief The ViewerTagMode enum controls the tagging behaviour of the ViewerWidget.
+ */
+enum class ViewerTagMode { Locked = 0, ///< @brief Locked means that annotations are disabled.
+                           Annotating = 1, ///< @brief Tokenizing mans that keys can be used to add/remove user-assigned tags.
+                           Tokenizing = 2 ///< @brief Annotating means that the keys a-z can be used to add/remove tokens.
+};
 
 class SettingsData : public QObject
 {
@@ -196,6 +208,7 @@ public:
     property_copy(infoBoxPosition, setInfoBoxPosition, Position);
     property_copy(viewerStandardSize, setViewerStandardSize, StandardViewSize);
     property_copy(videoBackend, setVideoBackend, VideoBackend);
+    property_copy(viewerTagMode, setViewerTagMode, ViewerTagMode);
 
     ////////////////////
     //// Categories ////
@@ -282,6 +295,7 @@ Q_SIGNALS:
     void colorSchemeChanged();
     void displayLabelsChanged(bool);
     void displayCategoriesChanged(bool);
+    void viewerTagModeChanged(Settings::ViewerTagMode);
     /**
      * @brief untaggedTagChanged is emitted when untaggedCategory() or untaggedTag() changes.
      * Note that code in KPhotoAlbum currently calls setUntaggedCategory(const QString&) and setUntaggedTag(const QString&),

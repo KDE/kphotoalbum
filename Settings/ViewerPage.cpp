@@ -108,6 +108,13 @@ Settings::ViewerPage::ViewerPage(QWidget *parent)
         m_videoBackend = dialog.backend();
         m_videoBackendButton->setText(videoBackendTextFromEnum(m_videoBackend));
     });
+
+    QLabel *tagModeLabel = new QLabel(i18n("Default Annotation Mode"));
+    m_defaultAnnotationMode = new KComboBox(this);
+    m_defaultAnnotationMode->addItems(QStringList() << i18n("Locked") << i18n("Assign tags") << i18n("Assign tokens"));
+    tagModeLabel->setBuddy(m_defaultAnnotationMode);
+    glay->addWidget(tagModeLabel, ++row, 0);
+    glay->addWidget(m_defaultAnnotationMode, row, 1);
 }
 
 void Settings::ViewerPage::loadSettings(Settings::SettingsData *opt)
@@ -122,6 +129,7 @@ void Settings::ViewerPage::loadSettings(Settings::SettingsData *opt)
     m_viewerStandardSize->setCurrentIndex(opt->viewerStandardSize());
     m_videoBackend = opt->videoBackend();
     m_videoBackendButton->setText(videoBackendTextFromEnum(m_videoBackend));
+    m_defaultAnnotationMode->setCurrentIndex(static_cast<int>(opt->viewerTagMode()));
 }
 
 void Settings::ViewerPage::saveSettings(Settings::SettingsData *opt)
@@ -135,5 +143,6 @@ void Settings::ViewerPage::saveSettings(Settings::SettingsData *opt)
     opt->setSlideShowSize(m_slideShowSetup->size());
     opt->setLaunchSlideShowFullScreen(m_slideShowSetup->launchFullScreen());
     opt->setVideoBackend(m_videoBackend);
+    opt->setViewerTagMode(static_cast<Settings::ViewerTagMode>(m_defaultAnnotationMode->currentIndex()));
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

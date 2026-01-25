@@ -33,6 +33,7 @@ private:
     KComboBox *m_viewerStandardSize;
     QPushButton *m_videoBackendButton;
     Settings::VideoBackend m_videoBackend = Settings::VideoBackend::NotConfigured;
+    KComboBox *m_defaultAnnotationMode;
 };
 
 }

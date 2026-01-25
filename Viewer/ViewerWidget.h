@@ -290,6 +290,9 @@ private:
     QAction *m_addTagAction;
     QAction *m_copyAction;
     QAction *m_addDescriptionAction;
+    QAction *m_tagModeLockedAction;
+    QAction *m_tagModeAnnotatingAction;
+    QAction *m_tagModeTokenizingAction;
 };
 
 }

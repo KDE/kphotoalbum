@@ -627,6 +627,9 @@ void Viewer::ViewerWidget::setTagMode(Settings::ViewerTagMode tagMode)
     m_addTagAction->setEnabled(tagMode == ViewerTagMode::Annotating);
     m_copyAction->setEnabled(tagMode == ViewerTagMode::Annotating);
     m_addDescriptionAction->setEnabled(tagMode == ViewerTagMode::Annotating);
+    m_tagModeLockedAction->setChecked(m_tagMode == Settings::ViewerTagMode::Locked);
+    m_tagModeAnnotatingAction->setChecked(m_tagMode == Settings::ViewerTagMode::Annotating);
+    m_tagModeTokenizingAction->setChecked(m_tagMode == Settings::ViewerTagMode::Tokenizing);
 
     const auto tagModeText = [&] {
         switch (tagMode) {
@@ -1515,18 +1518,20 @@ void Viewer::ViewerWidget::createAnnotationMenu()
     m_addDescriptionAction->setEnabled(m_tagMode == Settings::ViewerTagMode::Annotating);
 
     menu->addSection(i18n("Annotation Mode"));
-    auto action = addTagAction(
+    m_tagModeLockedAction = addTagAction(
         "viewer-tagmode-locked", i18nc("@action:inmenu", "Locked"), Settings::ViewerTagMode::Locked,
         i18nc("Shortcut for turning of annotations in the viewer", "CTRL+l"));
-    action->setChecked(true);
+    m_tagModeLockedAction->setChecked(m_tagMode == Settings::ViewerTagMode::Locked);
 
-    addTagAction(
+    m_tagModeAnnotatingAction = addTagAction(
         "viewer-tagmode-annotating", i18nc("@action:inmenu", "Assign Tags"), Settings::ViewerTagMode::Annotating,
         i18nc("Shortcut for turning annotations mode to annotating", "F2"));
+    m_tagModeAnnotatingAction->setChecked(m_tagMode == Settings::ViewerTagMode::Annotating);
 
-    addTagAction(
+    m_tagModeTokenizingAction = addTagAction(
         "viewer-tagmode-tokenizing", i18nc("@action:inmenu", "Assign Tokens"), Settings::ViewerTagMode::Tokenizing,
         i18nc("Shortcut for turning annotations mode to tokenizing", "CTRL+t"));
+    m_tagModeTokenizingAction->setChecked(m_tagMode == Settings::ViewerTagMode::Tokenizing);
 
     const bool showFullFeatures = m_type == UsageType::FullFeaturedViewer;
     // hide entries of hidden menus so that they can't be triggered via shortcut:

@@ -14,6 +14,7 @@ class TestImageDate : public QObject
     Q_OBJECT
 
 private Q_SLOTS:
+    void initTestCase();
     void testDefaultConstructor();
     void testFileReadConstructor();
     void testFastDateTimeConstructorWithInvalidDates();

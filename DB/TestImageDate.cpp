@@ -2,19 +2,28 @@
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
+#include <KLocalizedString>
+
 #include "TestImageDate.h"
 
 #include "ImageDate.h"
+
+void KPATest::TestImageDate::initTestCase()
+{
+    KLocalizedString::setApplicationDomain("kphotoalbum");
+}
 
 void KPATest::TestImageDate::testParseDateString()
 {
     QVERIFY(!DB::parseDateString(QString(), true).isNull()); // TODO: should be null?
     QVERIFY(!DB::parseDateString(QString(), false).isNull()); // TODO: should be null?
 
-    QCOMPARE(DB::parseDateString(QString::fromLatin1("Dec"), true), QDate(QDate::currentDate().year(), 12, 1));
-    QCOMPARE(DB::parseDateString(QString::fromLatin1("Dec"), false), QDate(QDate::currentDate().year(), 12, 31));
-    QCOMPARE(DB::parseDateString(QString::fromLatin1("December"), true), QDate(QDate::currentDate().year(), 12, 1));
-    QCOMPARE(DB::parseDateString(QString::fromLatin1("December"), false), QDate(QDate::currentDate().year(), 12, 31));
+    const auto currentYear = QDate::currentDate().year();
+
+    QCOMPARE(DB::parseDateString(QString::fromLatin1("Dec"), true), QDate(currentYear, 12, 1));
+    QCOMPARE(DB::parseDateString(QString::fromLatin1("Dec"), false), QDate(currentYear, 12, 31));
+    QCOMPARE(DB::parseDateString(QString::fromLatin1("December"), true), QDate(currentYear, 12, 1));
+    QCOMPARE(DB::parseDateString(QString::fromLatin1("December"), false), QDate(currentYear, 12, 31));
     QCOMPARE(DB::parseDateString(QString::fromLatin1("2021"), true), QDate(2021, 1, 1));
     QCOMPARE(DB::parseDateString(QString::fromLatin1("2021"), false), QDate(2021, 12, 31));
     QCOMPARE(DB::parseDateString(QString::fromLatin1("3. Feb. 82"), true), QDate(1982, 2, 3));
@@ -52,13 +61,13 @@ void KPATest::TestImageDate::testParseDateString()
     // Partial dates.
     QCOMPARE(DB::parseDateString(QString::fromLatin1("03-2020"), true), QDate(2020, 1, 1)); // TODO: bug
     QCOMPARE(DB::parseDateString(QString::fromLatin1("03-2020"), false), QDate(2020, 12, 31)); // TODO: bug
-    QCOMPARE(DB::parseDateString(QString::fromLatin1("27-10-"), true), QDate(2020, 10, 27));
-    QCOMPARE(DB::parseDateString(QString::fromLatin1("27-10-"), false), QDate(2020, 10, 27));
-    QCOMPARE(DB::parseDateString(QString::fromLatin1("27-10"), true), QDate(2020, 10, 27));
-    QCOMPARE(DB::parseDateString(QString::fromLatin1("27-10"), false), QDate(2020, 10, 27));
-    QCOMPARE(DB::parseDateString(QString::fromLatin1("27-"), true), QDate(2020, 1, 1)); // TODO: bug
-    QCOMPARE(DB::parseDateString(QString::fromLatin1("5"), true), QDate(2020, 1, 1)); // TODO: bug
-    QCOMPARE(DB::parseDateString(QString::fromLatin1("42"), true), QDate(2020, 1, 1)); // TODO: bug
+    QCOMPARE(DB::parseDateString(QString::fromLatin1("27-10-"), true), QDate(currentYear, 10, 27));
+    QCOMPARE(DB::parseDateString(QString::fromLatin1("27-10-"), false), QDate(currentYear, 10, 27));
+    QCOMPARE(DB::parseDateString(QString::fromLatin1("27-10"), true), QDate(currentYear, 10, 27));
+    QCOMPARE(DB::parseDateString(QString::fromLatin1("27-10"), false), QDate(currentYear, 10, 27));
+    QCOMPARE(DB::parseDateString(QString::fromLatin1("27-"), true), QDate(currentYear, 1, 1)); // TODO: bug
+    QCOMPARE(DB::parseDateString(QString::fromLatin1("5"), true), QDate(currentYear, 1, 1)); // TODO: bug
+    QCOMPARE(DB::parseDateString(QString::fromLatin1("42"), true), QDate(currentYear, 1, 1)); // TODO: bug
 
     // Time is not supported.
     QVERIFY(!DB::parseDateString(QString::fromLatin1("13-03-2020 01:02:03"), true).isValid());

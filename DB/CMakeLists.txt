@@ -1,3 +1,4 @@
+# SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 #
 # SPDX-License-Identifier: BSD-3-Clause
 

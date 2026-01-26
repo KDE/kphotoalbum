@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-20 00:40+0000\n"
+"POT-Creation-Date: 2026-01-26 00:41+0000\n"
 "PO-Revision-Date: 2015-02-26 23:46+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -1685,13 +1685,13 @@ msgid "Places"
 msgstr "Mjesta"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:433
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:448
 #, kde-format
 msgid "Events"
 msgstr "Događaji"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:443
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:458
 #, fuzzy, kde-format
 #| msgid "Untagged Images"
 msgid "untagged"
@@ -3348,7 +3348,7 @@ msgstr "Dodaci"
 msgid "Main Toolbar"
 msgstr "Glavna alatna traka"
 
-#: lib/kpabase/SettingsData.cpp:246
+#: lib/kpabase/SettingsData.cpp:245
 #, fuzzy, kde-format
 #| msgid ""
 #| "When reading time information of images, their EXIF info is used. Exif "
@@ -3372,7 +3372,7 @@ msgstr ""
 "validno u slučaju da se slika skenira. Dakle, pitanje je treba li "
 "KPhotoAlbum  vjerovati vremenskim markicama na vašim slikama?"
 
-#: lib/kpabase/SettingsData.cpp:253
+#: lib/kpabase/SettingsData.cpp:252
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Vjeruj vremenskim markicama?"
@@ -4785,7 +4785,7 @@ msgstr "Status osobina KPhotoAlbuma"
 msgid "Show Demo Videos"
 msgstr "Prikaži demo videe"
 
-#: MainWindow/Window.cpp:1062 Viewer/ViewerWidget.cpp:198
+#: MainWindow/Window.cpp:1062 Viewer/ViewerWidget.cpp:201
 #, fuzzy, kde-format
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
@@ -6549,6 +6549,30 @@ msgstr ""
 msgid "Video Backend:"
 msgstr "Pozadina baze podataka"
 
+#: Settings/ViewerPage.cpp:112
+#, fuzzy, kde-format
+#| msgid "Annotations"
+msgid "Default Annotation Mode"
+msgstr "Zabilješke"
+
+#: Settings/ViewerPage.cpp:114
+#, fuzzy, kde-format
+#| msgid "Unlock"
+msgid "Locked"
+msgstr "Otključaj"
+
+#: Settings/ViewerPage.cpp:114
+#, fuzzy, kde-format
+#| msgid "Tokens"
+msgid "Assign tags"
+msgstr "Žeton"
+
+#: Settings/ViewerPage.cpp:114
+#, fuzzy, kde-format
+#| msgid "Tokens"
+msgid "Assign tokens"
+msgstr "Žeton"
+
 #: Settings/ViewerSizeConfig.cpp:19
 #, kde-format
 msgid "Launch in full screen"
@@ -7032,13 +7056,13 @@ msgstr "Naslov"
 msgid "Existing Assignments"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:192
+#: Viewer/ViewerWidget.cpp:195
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
 msgstr "Postavi kao prvu sliku skladišta"
 
-#: Viewer/ViewerWidget.cpp:204
+#: Viewer/ViewerWidget.cpp:207
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Copy images to..."
@@ -7046,7 +7070,7 @@ msgctxt "@action:inmenu"
 msgid "Copy image to ..."
 msgstr "Kopiraj slike na..."
 
-#: Viewer/ViewerWidget.cpp:210
+#: Viewer/ViewerWidget.cpp:213
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Copy images to..."
@@ -7054,180 +7078,180 @@ msgctxt "@action:inmenu"
 msgid "Link image to ..."
 msgstr "Kopiraj slike na..."
 
-#: Viewer/ViewerWidget.cpp:218
+#: Viewer/ViewerWidget.cpp:221
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Zatvori"
 
-#: Viewer/ViewerWidget.cpp:280
+#: Viewer/ViewerWidget.cpp:283
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "Okreni"
 
-#: Viewer/ViewerWidget.cpp:291
+#: Viewer/ViewerWidget.cpp:294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
 msgstr "Okreni u smijeru kazaljke na satu"
 
-#: Viewer/ViewerWidget.cpp:292
+#: Viewer/ViewerWidget.cpp:295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
 msgstr "Prebaci preko"
 
-#: Viewer/ViewerWidget.cpp:293
+#: Viewer/ViewerWidget.cpp:296
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
 msgstr "Okreni u  suprotno od kazaljke na satu"
 
-#: Viewer/ViewerWidget.cpp:304
+#: Viewer/ViewerWidget.cpp:307
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "Prekoči"
 
-#: Viewer/ViewerWidget.cpp:307
+#: Viewer/ViewerWidget.cpp:310
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "Prvi"
 
-#: Viewer/ViewerWidget.cpp:314
+#: Viewer/ViewerWidget.cpp:317
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "Posljednji"
 
-#: Viewer/ViewerWidget.cpp:321
+#: Viewer/ViewerWidget.cpp:324
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
 msgstr "Prikaži sljedeći"
 
-#: Viewer/ViewerWidget.cpp:327
+#: Viewer/ViewerWidget.cpp:330
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "Preskoči 10 naprijed"
 
-#: Viewer/ViewerWidget.cpp:333
+#: Viewer/ViewerWidget.cpp:336
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "Preskoči 100 naprijed"
 
-#: Viewer/ViewerWidget.cpp:339
+#: Viewer/ViewerWidget.cpp:342
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "Preskoči 1000 naprijed"
 
-#: Viewer/ViewerWidget.cpp:345
+#: Viewer/ViewerWidget.cpp:348
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "Prikaži prethodno"
 
-#: Viewer/ViewerWidget.cpp:351
+#: Viewer/ViewerWidget.cpp:354
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "Preskoči 10 nazad"
 
-#: Viewer/ViewerWidget.cpp:357
+#: Viewer/ViewerWidget.cpp:360
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "Preskoči 100 nazad"
 
-#: Viewer/ViewerWidget.cpp:363
+#: Viewer/ViewerWidget.cpp:366
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "Preskoči 1000 nazad"
 
-#: Viewer/ViewerWidget.cpp:369
+#: Viewer/ViewerWidget.cpp:372
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "Obriši sliku"
 
-#: Viewer/ViewerWidget.cpp:374
+#: Viewer/ViewerWidget.cpp:377
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
 msgstr "Ukloni sliku sa liste prikaza"
 
-#: Viewer/ViewerWidget.cpp:389
+#: Viewer/ViewerWidget.cpp:392
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "Uvećaj"
 
-#: Viewer/ViewerWidget.cpp:393
+#: Viewer/ViewerWidget.cpp:396
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "Uveličaj"
 
-#: Viewer/ViewerWidget.cpp:399
+#: Viewer/ViewerWidget.cpp:402
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "Umanji"
 
-#: Viewer/ViewerWidget.cpp:405
+#: Viewer/ViewerWidget.cpp:408
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "Puni pogled"
 
-#: Viewer/ViewerWidget.cpp:411
+#: Viewer/ViewerWidget.cpp:414
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
 msgstr "Piksel po piksel pogled"
 
-#: Viewer/ViewerWidget.cpp:417
+#: Viewer/ViewerWidget.cpp:420
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "Preko cijelog ekrana"
 
-#: Viewer/ViewerWidget.cpp:428
+#: Viewer/ViewerWidget.cpp:431
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Slike u nizu"
 
-#: Viewer/ViewerWidget.cpp:431 Viewer/ViewerWidget.cpp:912
+#: Viewer/ViewerWidget.cpp:434 Viewer/ViewerWidget.cpp:919
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "Pokreni slike u nizu"
 
-#: Viewer/ViewerWidget.cpp:436
+#: Viewer/ViewerWidget.cpp:439
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
 msgstr "Pokreni brže"
 
-#: Viewer/ViewerWidget.cpp:441
+#: Viewer/ViewerWidget.cpp:444
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
 msgstr "Pokreni sporije"
 
-#: Viewer/ViewerWidget.cpp:479
+#: Viewer/ViewerWidget.cpp:482
 #, kde-format
 msgid "File not available"
 msgstr "Datoteka nije dostupna"
 
-#: Viewer/ViewerWidget.cpp:522
+#: Viewer/ViewerWidget.cpp:525
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "%1 is a prefix like 'Associate with', %2 is the tag name and %3 is the "
@@ -7237,41 +7261,41 @@ msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
 msgstr "%1 %2 (%3)"
 
-#: Viewer/ViewerWidget.cpp:558
+#: Viewer/ViewerWidget.cpp:561
 #, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
 msgstr "Reproduciraj"
 
-#: Viewer/ViewerWidget.cpp:560
+#: Viewer/ViewerWidget.cpp:563
 #, kde-format
 msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "Pauziraj"
 
-#: Viewer/ViewerWidget.cpp:630
+#: Viewer/ViewerWidget.cpp:637
 #, fuzzy, kde-format
 #| msgid "Unlock"
 msgid "locked"
 msgstr "Otključaj"
 
-#: Viewer/ViewerWidget.cpp:632
+#: Viewer/ViewerWidget.cpp:639
 #, fuzzy, kde-format
 #| msgid "Annotations"
 msgid "annotating"
 msgstr "Zabilješke"
 
-#: Viewer/ViewerWidget.cpp:634
+#: Viewer/ViewerWidget.cpp:641
 #, kde-format
 msgid "tokenizing"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:639
+#: Viewer/ViewerWidget.cpp:646
 #, kde-format
 msgid "Change display mode to %1"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:915
+#: Viewer/ViewerWidget.cpp:922
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Run Slideshow"
@@ -7279,13 +7303,13 @@ msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
 msgstr "Pokreni slike u nizu"
 
-#: Viewer/ViewerWidget.cpp:918
+#: Viewer/ViewerWidget.cpp:925
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "Zaustavi slajdove"
 
-#: Viewer/ViewerWidget.cpp:923
+#: Viewer/ViewerWidget.cpp:930
 #, fuzzy, kde-format
 #| msgctxt "OSD for slideshow"
 #| msgid ""
@@ -7300,147 +7324,147 @@ msgstr ""
 "<p><center><font size=\"+4\">Pokreni prezentaciju<br/>Ctrl++ ubrzava "
 "prezentaciju<br/>Ctrl + - usporava prezentaciju</font></center></p>"
 
-#: Viewer/ViewerWidget.cpp:973
+#: Viewer/ViewerWidget.cpp:980
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1235
+#: Viewer/ViewerWidget.cpp:1253
 #, fuzzy, kde-format
 #| msgid "Theme Description"
 msgctxt "@title"
 msgid "Edit Image Description"
 msgstr "Opis teme"
 
-#: Viewer/ViewerWidget.cpp:1235
+#: Viewer/ViewerWidget.cpp:1253
 #, fuzzy, kde-format
 #| msgid "Theme Description"
 msgctxt "@label:textbox"
 msgid "Image Description"
 msgstr "Opis teme"
 
-#: Viewer/ViewerWidget.cpp:1250
+#: Viewer/ViewerWidget.cpp:1268
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Skoči"
 
-#: Viewer/ViewerWidget.cpp:1272
+#: Viewer/ViewerWidget.cpp:1290
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "10 minuta unazad"
 
-#: Viewer/ViewerWidget.cpp:1273
+#: Viewer/ViewerWidget.cpp:1291
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "1 minuta unazad"
 
-#: Viewer/ViewerWidget.cpp:1274
+#: Viewer/ViewerWidget.cpp:1292
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "10 sekundi unazad"
 
-#: Viewer/ViewerWidget.cpp:1275
+#: Viewer/ViewerWidget.cpp:1293
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "1 sekundi unazad"
 
-#: Viewer/ViewerWidget.cpp:1276
+#: Viewer/ViewerWidget.cpp:1294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "100 milisekundi unazad"
 
-#: Viewer/ViewerWidget.cpp:1277
+#: Viewer/ViewerWidget.cpp:1295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "100 milisekundi unaprijed"
 
-#: Viewer/ViewerWidget.cpp:1278
+#: Viewer/ViewerWidget.cpp:1296
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "1 sekunda unaprijed"
 
-#: Viewer/ViewerWidget.cpp:1279
+#: Viewer/ViewerWidget.cpp:1297
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "10 sekundi unaprijed"
 
-#: Viewer/ViewerWidget.cpp:1280
+#: Viewer/ViewerWidget.cpp:1298
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "1 minuta unaprijed"
 
-#: Viewer/ViewerWidget.cpp:1281
+#: Viewer/ViewerWidget.cpp:1299
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "10 minuta unaprijed"
 
-#: Viewer/ViewerWidget.cpp:1289
+#: Viewer/ViewerWidget.cpp:1307
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Zaustavi"
 
-#: Viewer/ViewerWidget.cpp:1301
+#: Viewer/ViewerWidget.cpp:1319
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "Koristi trenutni okvir u minijaturnom pogledu"
 
-#: Viewer/ViewerWidget.cpp:1308
+#: Viewer/ViewerWidget.cpp:1326
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Ponovo pokreni"
 
-#: Viewer/ViewerWidget.cpp:1324
+#: Viewer/ViewerWidget.cpp:1342
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Filteri"
 
-#: Viewer/ViewerWidget.cpp:1327
+#: Viewer/ViewerWidget.cpp:1345
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Ukloni sve filtere"
 
-#: Viewer/ViewerWidget.cpp:1331
+#: Viewer/ViewerWidget.cpp:1349
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Potvrdi filter sivog skaliranja"
 
-#: Viewer/ViewerWidget.cpp:1336
+#: Viewer/ViewerWidget.cpp:1354
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Potvrdi filter istezanja kontrasta"
 
-#: Viewer/ViewerWidget.cpp:1341
+#: Viewer/ViewerWidget.cpp:1359
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "Potvrdi filter ujednačenosti histograma"
 
-#: Viewer/ViewerWidget.cpp:1346
+#: Viewer/ViewerWidget.cpp:1364
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "Usvoji filter jednobojne slike"
 
-#: Viewer/ViewerWidget.cpp:1402
+#: Viewer/ViewerWidget.cpp:1420
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -7448,123 +7472,123 @@ msgid ""
 "p><p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1406
+#: Viewer/ViewerWidget.cpp:1424
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
 "will be used instead: <tt>%2</tt></p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1419
+#: Viewer/ViewerWidget.cpp:1437
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
 "crashed at some point.</p><p>Crash detection is now turned off.</p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1479
+#: Viewer/ViewerWidget.cpp:1497
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Annotate..."
 msgid "Annotate"
 msgstr "Označi..."
 
-#: Viewer/ViewerWidget.cpp:1498
+#: Viewer/ViewerWidget.cpp:1516
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1500
+#: Viewer/ViewerWidget.cpp:1518
 #, fuzzy, kde-format
 #| msgid "Annotation Dialog"
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Dijalog napomene"
 
-#: Viewer/ViewerWidget.cpp:1501
+#: Viewer/ViewerWidget.cpp:1519
 #, fuzzy, kde-format
 #| msgid "Add a tag"
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Dodaj oznaku"
 
-#: Viewer/ViewerWidget.cpp:1501
+#: Viewer/ViewerWidget.cpp:1519
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1504
+#: Viewer/ViewerWidget.cpp:1522
 #, fuzzy, kde-format
 #| msgid "Copy tags from previous image"
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "Kopiraj oznake sa prethodne slike"
 
-#: Viewer/ViewerWidget.cpp:1505
+#: Viewer/ViewerWidget.cpp:1523
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1508
+#: Viewer/ViewerWidget.cpp:1526
 #, fuzzy, kde-format
 #| msgid "Description"
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Opis"
 
-#: Viewer/ViewerWidget.cpp:1509
+#: Viewer/ViewerWidget.cpp:1527
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1512
+#: Viewer/ViewerWidget.cpp:1530
 #, fuzzy, kde-format
 #| msgid "Annotations"
 msgid "Annotation Mode"
 msgstr "Zabilješke"
 
-#: Viewer/ViewerWidget.cpp:1514
+#: Viewer/ViewerWidget.cpp:1532
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1515
+#: Viewer/ViewerWidget.cpp:1533
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1537
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1520
+#: Viewer/ViewerWidget.cpp:1538
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1523
+#: Viewer/ViewerWidget.cpp:1542
 #, fuzzy, kde-format
 #| msgid "Tokens"
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Žeton"
 
-#: Viewer/ViewerWidget.cpp:1524
+#: Viewer/ViewerWidget.cpp:1543
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1687
+#: Viewer/ViewerWidget.cpp:1707
 #, fuzzy, kde-format
 #| msgid "Tokens"
 msgid "Token %1"

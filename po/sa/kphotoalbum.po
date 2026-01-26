@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-20 00:40+0000\n"
+"POT-Creation-Date: 2026-01-26 00:41+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1613,13 +1613,13 @@ msgid "Places"
 msgstr "स्थानाः"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:433
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:448
 #, kde-format
 msgid "Events"
 msgstr "घटनाः"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:443
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "untagged"
 msgstr "अनटैग्ड्"
@@ -3152,7 +3152,7 @@ msgstr "प्लगिन्स्"
 msgid "Main Toolbar"
 msgstr "मुख्य साधनपट्टी"
 
-#: lib/kpabase/SettingsData.cpp:246
+#: lib/kpabase/SettingsData.cpp:245
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3168,7 +3168,7 @@ msgstr ""
 "सन्दर्भे एतत् वैधं न भवितुम् अर्हति अतः प्रश्नः अस्ति यत्, KPhotoAlbum इत्यनेन भवतः चित्रेषु "
 "समयमुद्रिकायां विश्वासः कर्तव्यः वा?"
 
-#: lib/kpabase/SettingsData.cpp:253
+#: lib/kpabase/SettingsData.cpp:252
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "समयमुद्रिकासु विश्वासः?"
@@ -4480,7 +4480,7 @@ msgstr "KPhotoAlbum विशेषता स्थिति"
 msgid "Show Demo Videos"
 msgstr "डेमो विडियो दर्शयतु"
 
-#: MainWindow/Window.cpp:1062 Viewer/ViewerWidget.cpp:198
+#: MainWindow/Window.cpp:1062 Viewer/ViewerWidget.cpp:201
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Exif Info तथा सञ्चिका मेटाडाटा दर्शयन्तु"
@@ -6227,6 +6227,33 @@ msgstr ""
 msgid "Video Backend:"
 msgstr "विडियो पृष्ठभागः :"
 
+#: Settings/ViewerPage.cpp:112
+#, fuzzy, kde-format
+#| msgid "Annotation Mode"
+msgid "Default Annotation Mode"
+msgstr "एनोटेशन मोड"
+
+#: Settings/ViewerPage.cpp:114
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Locked"
+msgid "Locked"
+msgstr "तालाबद्धः"
+
+#: Settings/ViewerPage.cpp:114
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Assign Tags"
+msgid "Assign tags"
+msgstr "टैग्स नियुक्त करें"
+
+#: Settings/ViewerPage.cpp:114
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Assign Tokens"
+msgid "Assign tokens"
+msgstr "टोकन नियुक्तं कुर्वन्तु"
+
 #: Settings/ViewerSizeConfig.cpp:19
 #, kde-format
 msgid "Launch in full screen"
@@ -6652,248 +6679,248 @@ msgstr "शीर्षक"
 msgid "Existing Assignments"
 msgstr "विद्यमान असाइनमेण्ट्"
 
-#: Viewer/ViewerWidget.cpp:192
+#: Viewer/ViewerWidget.cpp:195
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
 msgstr "Stack मध्ये First Image इति सेट् कुर्वन्तु"
 
-#: Viewer/ViewerWidget.cpp:204
+#: Viewer/ViewerWidget.cpp:207
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
 msgstr "चित्रं प्रतिलिख्य ..."
 
-#: Viewer/ViewerWidget.cpp:210
+#: Viewer/ViewerWidget.cpp:213
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
 msgstr "चित्रं लिङ्क् कुर्वन्तु ..."
 
-#: Viewer/ViewerWidget.cpp:218
+#: Viewer/ViewerWidget.cpp:221
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "पिधानं करोतु"
 
-#: Viewer/ViewerWidget.cpp:280
+#: Viewer/ViewerWidget.cpp:283
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "परिभ्रमतु"
 
-#: Viewer/ViewerWidget.cpp:291
+#: Viewer/ViewerWidget.cpp:294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
 msgstr "घण्टायाः दिशि परिभ्रमन्तु"
 
-#: Viewer/ViewerWidget.cpp:292
+#: Viewer/ViewerWidget.cpp:295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
 msgstr "Flip Over इति"
 
-#: Viewer/ViewerWidget.cpp:293
+#: Viewer/ViewerWidget.cpp:296
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
 msgstr "घड़ीयाः विपरीतदिशायां परिभ्रमन्तु"
 
-#: Viewer/ViewerWidget.cpp:304
+#: Viewer/ViewerWidget.cpp:307
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "क्षिपते"
 
-#: Viewer/ViewerWidget.cpp:307
+#: Viewer/ViewerWidget.cpp:310
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "प्रथमः"
 
-#: Viewer/ViewerWidget.cpp:314
+#: Viewer/ViewerWidget.cpp:317
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "अन्तिमः"
 
-#: Viewer/ViewerWidget.cpp:321
+#: Viewer/ViewerWidget.cpp:324
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
 msgstr "अग्रिमम् दर्शयतु"
 
-#: Viewer/ViewerWidget.cpp:327
+#: Viewer/ViewerWidget.cpp:330
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "Skip 10 अग्रे"
 
-#: Viewer/ViewerWidget.cpp:333
+#: Viewer/ViewerWidget.cpp:336
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "100 अग्रे त्यजन्तु"
 
-#: Viewer/ViewerWidget.cpp:339
+#: Viewer/ViewerWidget.cpp:342
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "1000 अग्रे त्यजन्तु"
 
-#: Viewer/ViewerWidget.cpp:345
+#: Viewer/ViewerWidget.cpp:348
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "पूर्वं दर्शयतु"
 
-#: Viewer/ViewerWidget.cpp:351
+#: Viewer/ViewerWidget.cpp:354
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "Skip 10 पश्चात्तापः"
 
-#: Viewer/ViewerWidget.cpp:357
+#: Viewer/ViewerWidget.cpp:360
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "Skip 100 पश्चात्ताप"
 
-#: Viewer/ViewerWidget.cpp:363
+#: Viewer/ViewerWidget.cpp:366
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "Skip 1000 पश्चात्ताप"
 
-#: Viewer/ViewerWidget.cpp:369
+#: Viewer/ViewerWidget.cpp:372
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "चित्रं विलोपयन्तु"
 
-#: Viewer/ViewerWidget.cpp:374
+#: Viewer/ViewerWidget.cpp:377
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
 msgstr "प्रदर्शनसूचिकातः चित्रं निष्कासयन्तु"
 
-#: Viewer/ViewerWidget.cpp:389
+#: Viewer/ViewerWidget.cpp:392
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "जूम"
 
-#: Viewer/ViewerWidget.cpp:393
+#: Viewer/ViewerWidget.cpp:396
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "Zoom In इति"
 
-#: Viewer/ViewerWidget.cpp:399
+#: Viewer/ViewerWidget.cpp:402
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "Zoom Out इति"
 
-#: Viewer/ViewerWidget.cpp:405
+#: Viewer/ViewerWidget.cpp:408
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "सम्पूर्ण दृश्य"
 
-#: Viewer/ViewerWidget.cpp:411
+#: Viewer/ViewerWidget.cpp:414
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
 msgstr "Pixel View कृते Pixel"
 
-#: Viewer/ViewerWidget.cpp:417
+#: Viewer/ViewerWidget.cpp:420
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "पूर्ण स्क्रीन टॉगल करें"
 
-#: Viewer/ViewerWidget.cpp:428
+#: Viewer/ViewerWidget.cpp:431
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "स्लाइड शो"
 
-#: Viewer/ViewerWidget.cpp:431 Viewer/ViewerWidget.cpp:912
+#: Viewer/ViewerWidget.cpp:434 Viewer/ViewerWidget.cpp:919
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "स्लाइड शो चालयन्तु"
 
-#: Viewer/ViewerWidget.cpp:436
+#: Viewer/ViewerWidget.cpp:439
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
 msgstr "द्रुततरं धावतु"
 
-#: Viewer/ViewerWidget.cpp:441
+#: Viewer/ViewerWidget.cpp:444
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
 msgstr "मन्दतरं धावतु"
 
-#: Viewer/ViewerWidget.cpp:479
+#: Viewer/ViewerWidget.cpp:482
 #, kde-format
 msgid "File not available"
 msgstr "सञ्चिका उपलब्धा नास्ति"
 
-#: Viewer/ViewerWidget.cpp:522
+#: Viewer/ViewerWidget.cpp:525
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
 msgstr "%1 %2"
 
-#: Viewer/ViewerWidget.cpp:558
+#: Viewer/ViewerWidget.cpp:561
 #, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
 msgstr "क्रीडतु"
 
-#: Viewer/ViewerWidget.cpp:560
+#: Viewer/ViewerWidget.cpp:563
 #, kde-format
 msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "विराम"
 
-#: Viewer/ViewerWidget.cpp:630
+#: Viewer/ViewerWidget.cpp:637
 #, kde-format
 msgid "locked"
 msgstr "तालाबद्धः"
 
-#: Viewer/ViewerWidget.cpp:632
+#: Viewer/ViewerWidget.cpp:639
 #, kde-format
 msgid "annotating"
 msgstr "टिप्पणीकरणम्"
 
-#: Viewer/ViewerWidget.cpp:634
+#: Viewer/ViewerWidget.cpp:641
 #, kde-format
 msgid "tokenizing"
 msgstr "टोकनीकरणम्"
 
-#: Viewer/ViewerWidget.cpp:639
+#: Viewer/ViewerWidget.cpp:646
 #, kde-format
 msgid "Change display mode to %1"
 msgstr "प्रदर्शनविधिं %1 इति परिवर्तयन्तु"
 
-#: Viewer/ViewerWidget.cpp:915
+#: Viewer/ViewerWidget.cpp:922
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
 msgstr "स्लाइड शो समाप्तम्"
 
-#: Viewer/ViewerWidget.cpp:918
+#: Viewer/ViewerWidget.cpp:925
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "स्लाइड शो स्थगयन्तु"
 
-#: Viewer/ViewerWidget.cpp:923
+#: Viewer/ViewerWidget.cpp:930
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
@@ -6903,145 +6930,145 @@ msgstr ""
 "स्लाइड शो आरभ्यते<br/> %1 स्लाइड्-प्रदर्शनं द्रुततरं करोति<br/> %2 स्लाइड्-प्रदर्शनं मन्दतरं "
 "करोति"
 
-#: Viewer/ViewerWidget.cpp:973
+#: Viewer/ViewerWidget.cpp:980
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
 msgstr "%1&nbsp;s"
 
-#: Viewer/ViewerWidget.cpp:1235
+#: Viewer/ViewerWidget.cpp:1253
 #, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
 msgstr "चित्रविवरणं सम्पादयतु"
 
-#: Viewer/ViewerWidget.cpp:1235
+#: Viewer/ViewerWidget.cpp:1253
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
 msgstr "चित्रविवरणम्"
 
-#: Viewer/ViewerWidget.cpp:1250
+#: Viewer/ViewerWidget.cpp:1268
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "अन्विष्यति"
 
-#: Viewer/ViewerWidget.cpp:1272
+#: Viewer/ViewerWidget.cpp:1290
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "१० मिनिट् पश्चात्"
 
-#: Viewer/ViewerWidget.cpp:1273
+#: Viewer/ViewerWidget.cpp:1291
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "१ मिनिट् पश्चात्"
 
-#: Viewer/ViewerWidget.cpp:1274
+#: Viewer/ViewerWidget.cpp:1292
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "१० सेकण्ड् पश्चात्"
 
-#: Viewer/ViewerWidget.cpp:1275
+#: Viewer/ViewerWidget.cpp:1293
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "१ सेकण्ड् पश्चात्"
 
-#: Viewer/ViewerWidget.cpp:1276
+#: Viewer/ViewerWidget.cpp:1294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "१०० मिलीसेकेण्ड् पश्चात्"
 
-#: Viewer/ViewerWidget.cpp:1277
+#: Viewer/ViewerWidget.cpp:1295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "१०० मिलीसेकेण्ड् अग्रे"
 
-#: Viewer/ViewerWidget.cpp:1278
+#: Viewer/ViewerWidget.cpp:1296
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "१ सेकण्ड् अग्रे"
 
-#: Viewer/ViewerWidget.cpp:1279
+#: Viewer/ViewerWidget.cpp:1297
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "१० सेकेण्ड् अग्रे"
 
-#: Viewer/ViewerWidget.cpp:1280
+#: Viewer/ViewerWidget.cpp:1298
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "१ मिनिट् अग्रे"
 
-#: Viewer/ViewerWidget.cpp:1281
+#: Viewer/ViewerWidget.cpp:1299
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "१० मिनिट् अग्रे"
 
-#: Viewer/ViewerWidget.cpp:1289
+#: Viewer/ViewerWidget.cpp:1307
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "विरमतु"
 
-#: Viewer/ViewerWidget.cpp:1301
+#: Viewer/ViewerWidget.cpp:1319
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "लघुचित्रदृश्ये वर्तमानस्य फ्रेमस्य उपयोगं कुर्वन्तु"
 
-#: Viewer/ViewerWidget.cpp:1308
+#: Viewer/ViewerWidget.cpp:1326
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "पुनः आरभत"
 
-#: Viewer/ViewerWidget.cpp:1324
+#: Viewer/ViewerWidget.cpp:1342
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "फ़िल्टर"
 
-#: Viewer/ViewerWidget.cpp:1327
+#: Viewer/ViewerWidget.cpp:1345
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "सर्वाणि फ़िल्टर्स् निष्कासयन्तु"
 
-#: Viewer/ViewerWidget.cpp:1331
+#: Viewer/ViewerWidget.cpp:1349
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Grayscale Filter इत्येतत् प्रयोजयन्तु"
 
-#: Viewer/ViewerWidget.cpp:1336
+#: Viewer/ViewerWidget.cpp:1354
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Contrast Stretching Filter इत्येतत् प्रयोजयन्तु"
 
-#: Viewer/ViewerWidget.cpp:1341
+#: Viewer/ViewerWidget.cpp:1359
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "हिस्टोग्राम समीकरण फ़िल्टरं प्रयोजयन्तु"
 
-#: Viewer/ViewerWidget.cpp:1346
+#: Viewer/ViewerWidget.cpp:1364
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "एकवर्णीय फ़िल्टरं प्रयोजयन्तु"
 
-#: Viewer/ViewerWidget.cpp:1402
+#: Viewer/ViewerWidget.cpp:1420
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -7052,7 +7079,7 @@ msgstr ""
 "मञ्चेषु केषुचित् विडियो प्लेयर् मध्ये एषा सामान्या समस्या अस्ति ।</p><p> KPhotoAlbum इत्यस्य "
 "भिन्नपृष्ठभागस्य प्रयासं कर्तुं <i>Continue</i> नुदन्तु...</p>"
 
-#: Viewer/ViewerWidget.cpp:1406
+#: Viewer/ViewerWidget.cpp:1424
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
@@ -7061,7 +7088,7 @@ msgstr ""
 "<p>विडियो पृष्ठभागः यः बाधितः आसीत्: <tt>%1</tt></p><p> तस्य स्थाने उपयुज्यमानः "
 "विडियो पृष्ठभागः: <tt>%2</tt></p>"
 
-#: Viewer/ViewerWidget.cpp:1419
+#: Viewer/ViewerWidget.cpp:1437
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
@@ -7070,101 +7097,101 @@ msgstr ""
 "<p>KPhotoAlbum इत्यनेन सर्वाणि उपलब्धानि विडियो बैकएण्ड्-प्रयोगाः कृताः, परन्तु प्रत्येकं "
 "कस्मिन्चित् समये दुर्घटनाम् अभवत् ।</p><p> इदानीं दुर्घटनानिरीक्षणं निष्क्रियम् अस्ति ।</p>"
 
-#: Viewer/ViewerWidget.cpp:1479
+#: Viewer/ViewerWidget.cpp:1497
 #, kde-format
 msgid "Annotate"
 msgstr "टिप्पणीं कुरुत"
 
-#: Viewer/ViewerWidget.cpp:1498
+#: Viewer/ViewerWidget.cpp:1516
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "साहाय्यम्‌"
 
-#: Viewer/ViewerWidget.cpp:1500
+#: Viewer/ViewerWidget.cpp:1518
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "एनोटेशन संवाद"
 
-#: Viewer/ViewerWidget.cpp:1501
+#: Viewer/ViewerWidget.cpp:1519
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "टैगं योजयन्तु"
 
-#: Viewer/ViewerWidget.cpp:1501
+#: Viewer/ViewerWidget.cpp:1519
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "सीटीआरएल+क"
 
-#: Viewer/ViewerWidget.cpp:1504
+#: Viewer/ViewerWidget.cpp:1522
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "पूर्वचित्रात् आँकडानां प्रतिलिपिं कुर्वन्तु"
 
-#: Viewer/ViewerWidget.cpp:1505
+#: Viewer/ViewerWidget.cpp:1523
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "सीटीआरएल+ग"
 
-#: Viewer/ViewerWidget.cpp:1508
+#: Viewer/ViewerWidget.cpp:1526
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "विवरणं सम्पादयतु"
 
-#: Viewer/ViewerWidget.cpp:1509
+#: Viewer/ViewerWidget.cpp:1527
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "सीटीआरएल+घ"
 
-#: Viewer/ViewerWidget.cpp:1512
+#: Viewer/ViewerWidget.cpp:1530
 #, kde-format
 msgid "Annotation Mode"
 msgstr "एनोटेशन मोड"
 
-#: Viewer/ViewerWidget.cpp:1514
+#: Viewer/ViewerWidget.cpp:1532
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "तालाबद्धः"
 
-#: Viewer/ViewerWidget.cpp:1515
+#: Viewer/ViewerWidget.cpp:1533
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "सीटीआरएल+ल"
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1537
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "टैग्स नियुक्त करें"
 
-#: Viewer/ViewerWidget.cpp:1520
+#: Viewer/ViewerWidget.cpp:1538
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1523
+#: Viewer/ViewerWidget.cpp:1542
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "टोकन नियुक्तं कुर्वन्तु"
 
-#: Viewer/ViewerWidget.cpp:1524
+#: Viewer/ViewerWidget.cpp:1543
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "सीटीआरएल+ट"
 
-#: Viewer/ViewerWidget.cpp:1687
+#: Viewer/ViewerWidget.cpp:1707
 #, kde-format
 msgid "Token %1"
 msgstr "टोकन %1"

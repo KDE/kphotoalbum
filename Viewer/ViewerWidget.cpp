@@ -634,16 +634,16 @@ void Viewer::ViewerWidget::setTagMode(Settings::ViewerTagMode tagMode)
     const auto tagModeText = [&] {
         switch (tagMode) {
         case ViewerTagMode::Locked:
-            return i18n("locked");
+            return i18n("Tags and tokens locked");
         case ViewerTagMode::Annotating:
-            return i18n("annotating");
+            return i18n("Assigning tags");
         case ViewerTagMode::Tokenizing:
-            return i18n("tokenizing");
+            return i18n("Assigning tokens");
         }
         return QString();
     }();
 
-    m_transientDisplay->display(i18n("Change display mode to %1", tagModeText));
+    m_transientDisplay->display(i18n("Annotation mode: %1", tagModeText));
 }
 
 void Viewer::ViewerWidget::updateContextMenuState(bool isVideo)
@@ -1160,6 +1160,9 @@ void Viewer::ViewerWidget::keyPressEvent(QKeyEvent *event)
         switch (m_tagMode) {
         case Settings::ViewerTagMode::Locked:
             QStackedWidget::keyPressEvent(event);
+            if (!(event->key() < Qt::Key_A || event->key() > Qt::Key_Z || event->modifiers() != 0)) {
+                m_transientDisplay->display(i18n("Tags and tokens locked"));
+            }
             return;
         case Settings::ViewerTagMode::Annotating: {
             TemporarilyDisableCursorHandling dummy(this);

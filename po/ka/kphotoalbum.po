@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-26 00:41+0000\n"
-"PO-Revision-Date: 2026-01-12 08:43+0100\n"
+"POT-Creation-Date: 2026-01-27 00:42+0000\n"
+"PO-Revision-Date: 2026-01-26 06:17+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -4057,7 +4057,7 @@ msgstr "მინიატურის მორგება..."
 #, kde-format
 msgctxt "@title:window"
 msgid "Remove Tokens"
-msgstr "კოდების წაშლა"
+msgstr "ტოკენების წაშლა"
 
 #: MainWindow/TokenEditor.cpp:42
 #, kde-format
@@ -4299,7 +4299,7 @@ msgstr "მონიშნულის წაშლა"
 #: MainWindow/Window.cpp:819
 #, kde-format
 msgid "Remove Tokens..."
-msgstr "კოდების წაშლა.."
+msgstr "ტოკენების წაშლა.."
 
 #: MainWindow/Window.cpp:822
 #, kde-format
@@ -6304,31 +6304,24 @@ msgid "Video Backend:"
 msgstr "ვიდეო უკანაბოლო:"
 
 #: Settings/ViewerPage.cpp:112
-#, fuzzy, kde-format
-#| msgid "Annotation Mode"
+#, kde-format
 msgid "Default Annotation Mode"
-msgstr "ანოტაციის რეჟიმი"
+msgstr "ნაგულისხმევი ანოტაციის რეჟიმი"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Locked"
+#, kde-format
 msgid "Locked"
 msgstr "დაბლოკილია"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tags"
+#, kde-format
 msgid "Assign tags"
 msgstr "ჭდეების მინიჭება"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tokens"
+#, kde-format
 msgid "Assign tokens"
-msgstr "კოდების მინიჭება"
+msgstr "ტოკენების მინიჭება"
 
 #: Settings/ViewerSizeConfig.cpp:19
 #, kde-format
@@ -6965,25 +6958,28 @@ msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "შეჩერება"
 
-#: Viewer/ViewerWidget.cpp:637
+#: Viewer/ViewerWidget.cpp:637 Viewer/ViewerWidget.cpp:1164
 #, kde-format
-msgid "locked"
-msgstr "დაბლოკილია"
+msgid "Tags and tokens locked"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:639
-#, kde-format
-msgid "annotating"
-msgstr "ანოტაციები"
+#, fuzzy, kde-format
+#| msgid "Assign tags"
+msgid "Assigning tags"
+msgstr "ჭდეების მინიჭება"
 
 #: Viewer/ViewerWidget.cpp:641
-#, kde-format
-msgid "tokenizing"
-msgstr "tokenizing"
+#, fuzzy, kde-format
+#| msgid "Assign tokens"
+msgid "Assigning tokens"
+msgstr "ტოკენების მინიჭება"
 
 #: Viewer/ViewerWidget.cpp:646
-#, kde-format
-msgid "Change display mode to %1"
-msgstr "ეკრანის რეჟიმის შეცვლა %1-ზე"
+#, fuzzy, kde-format
+#| msgid "Annotation Mode"
+msgid "Annotation mode: %1"
+msgstr "ანოტაციის რეჟიმი"
 
 #: Viewer/ViewerWidget.cpp:922
 #, kde-format
@@ -7012,139 +7008,139 @@ msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
 msgstr "%1&nbsp;წმ"
 
-#: Viewer/ViewerWidget.cpp:1253
+#: Viewer/ViewerWidget.cpp:1256
 #, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
 msgstr "გამოსახულების აღწერის ჩასწორება"
 
-#: Viewer/ViewerWidget.cpp:1253
+#: Viewer/ViewerWidget.cpp:1256
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
 msgstr "გამოსახულების აღწერა"
 
-#: Viewer/ViewerWidget.cpp:1268
+#: Viewer/ViewerWidget.cpp:1271
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "გადახვევა"
 
-#: Viewer/ViewerWidget.cpp:1290
+#: Viewer/ViewerWidget.cpp:1293
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "10 წუთით უკან"
 
-#: Viewer/ViewerWidget.cpp:1291
+#: Viewer/ViewerWidget.cpp:1294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "1 წუთით უკან"
 
-#: Viewer/ViewerWidget.cpp:1292
+#: Viewer/ViewerWidget.cpp:1295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "10 წამით უკან"
 
-#: Viewer/ViewerWidget.cpp:1293
+#: Viewer/ViewerWidget.cpp:1296
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "1 წამით უკან"
 
-#: Viewer/ViewerWidget.cpp:1294
+#: Viewer/ViewerWidget.cpp:1297
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "100 მილიწამით უკან"
 
-#: Viewer/ViewerWidget.cpp:1295
+#: Viewer/ViewerWidget.cpp:1298
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "100 მილიწამით წინ"
 
-#: Viewer/ViewerWidget.cpp:1296
+#: Viewer/ViewerWidget.cpp:1299
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "1 წამით წინ"
 
-#: Viewer/ViewerWidget.cpp:1297
+#: Viewer/ViewerWidget.cpp:1300
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "10 წამით წინ"
 
-#: Viewer/ViewerWidget.cpp:1298
+#: Viewer/ViewerWidget.cpp:1301
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "1 წუთით წინ"
 
-#: Viewer/ViewerWidget.cpp:1299
+#: Viewer/ViewerWidget.cpp:1302
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "10 წუთით წინ"
 
-#: Viewer/ViewerWidget.cpp:1307
+#: Viewer/ViewerWidget.cpp:1310
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "შეჩერება"
 
-#: Viewer/ViewerWidget.cpp:1319
+#: Viewer/ViewerWidget.cpp:1322
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "მიმდინარე კადრის გამოყენება მინიატურის ხედში"
 
-#: Viewer/ViewerWidget.cpp:1326
+#: Viewer/ViewerWidget.cpp:1329
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "რესტარტი"
 
-#: Viewer/ViewerWidget.cpp:1342
+#: Viewer/ViewerWidget.cpp:1345
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "ფილტრები"
 
-#: Viewer/ViewerWidget.cpp:1345
+#: Viewer/ViewerWidget.cpp:1348
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "ყველა ფილტრის წაშლა"
 
-#: Viewer/ViewerWidget.cpp:1349
+#: Viewer/ViewerWidget.cpp:1352
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "ნაცრისფერი ფილტრის გადატარება"
 
-#: Viewer/ViewerWidget.cpp:1354
+#: Viewer/ViewerWidget.cpp:1357
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "კონტრასტის გაჭიმვირს ფილტრის გადატარება"
 
-#: Viewer/ViewerWidget.cpp:1359
+#: Viewer/ViewerWidget.cpp:1362
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "ჰისტოგრამის გათანაბრების ფილტრის გადატარება"
 
-#: Viewer/ViewerWidget.cpp:1364
+#: Viewer/ViewerWidget.cpp:1367
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "მონოქრომული ფილტრის გადატარება"
 
-#: Viewer/ViewerWidget.cpp:1420
+#: Viewer/ViewerWidget.cpp:1423
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -7155,7 +7151,7 @@ msgstr ""
 "პლატფორმაზე, ეს არის საერთო პრობლემა ზოგიერთ ვიდეოდაკვრელთან.</p><p>დააჭირეთ "
 "<i>გაგრძელებას</i>, რომ KPhotoAlbum–მა სხვა უკანაბოლო სცადოს..</p>"
 
-#: Viewer/ViewerWidget.cpp:1424
+#: Viewer/ViewerWidget.cpp:1427
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
@@ -7164,7 +7160,7 @@ msgstr ""
 "<p>ვიდეოს უკანაბოლო, რომელიც შეწყდა: <tt> %1</tt></p><p>მის ნაცვლად "
 "გამოყენებული ვიდეოს უკანაბოლო: <tt>%2</tt></p>"
 
-#: Viewer/ViewerWidget.cpp:1437
+#: Viewer/ViewerWidget.cpp:1440
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
@@ -7174,104 +7170,104 @@ msgstr ""
 "რაღაც მომენტში ავარიულად დასრულდა.</p><p>ავარიის გამოვლენა ახლა გამორთულია.</"
 "p>"
 
-#: Viewer/ViewerWidget.cpp:1497
+#: Viewer/ViewerWidget.cpp:1500
 #, kde-format
 msgid "Annotate"
 msgstr "ანოტაცია"
 
-#: Viewer/ViewerWidget.cpp:1516
+#: Viewer/ViewerWidget.cpp:1519
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "დახმარება"
 
-#: Viewer/ViewerWidget.cpp:1518
+#: Viewer/ViewerWidget.cpp:1521
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "ანოტაციის ფანჯარა"
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1522
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "ჭდის დამატება"
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1522
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "CTRL+a"
 
-#: Viewer/ViewerWidget.cpp:1522
+#: Viewer/ViewerWidget.cpp:1525
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "მონაცემების კოპირება წინა გამოსახულებიდან"
 
-#: Viewer/ViewerWidget.cpp:1523
+#: Viewer/ViewerWidget.cpp:1526
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "CTRL+c"
 
-#: Viewer/ViewerWidget.cpp:1526
+#: Viewer/ViewerWidget.cpp:1529
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "აღწერის ჩასწორება"
 
-#: Viewer/ViewerWidget.cpp:1527
+#: Viewer/ViewerWidget.cpp:1530
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "CTRL+d"
 
-#: Viewer/ViewerWidget.cpp:1530
+#: Viewer/ViewerWidget.cpp:1533
 #, kde-format
 msgid "Annotation Mode"
 msgstr "ანოტაციის რეჟიმი"
 
-#: Viewer/ViewerWidget.cpp:1532
+#: Viewer/ViewerWidget.cpp:1535
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "დაბლოკილია"
 
-#: Viewer/ViewerWidget.cpp:1533
+#: Viewer/ViewerWidget.cpp:1536
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "CTRL+l"
 
-#: Viewer/ViewerWidget.cpp:1537
+#: Viewer/ViewerWidget.cpp:1540
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "ჭდეების მინიჭება"
 
-#: Viewer/ViewerWidget.cpp:1538
+#: Viewer/ViewerWidget.cpp:1541
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1542
+#: Viewer/ViewerWidget.cpp:1545
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr "კოდების მინიჭება"
+msgstr "ტოკენების მინიჭება"
 
-#: Viewer/ViewerWidget.cpp:1543
+#: Viewer/ViewerWidget.cpp:1546
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "CTRL+t"
 
-#: Viewer/ViewerWidget.cpp:1707
+#: Viewer/ViewerWidget.cpp:1710
 #, kde-format
 msgid "Token %1"
-msgstr "კოდი %1"
+msgstr "ტოკენი %1"
 
 #: Viewer/VisibleOptionsMenu.cpp:24
 #, kde-format
@@ -7327,6 +7323,18 @@ msgstr "გამოსახულების ზომის ჩვენე�
 #, kde-format
 msgid "Show Rating"
 msgstr "რეიტინგის ჩვენება"
+
+#~ msgid "locked"
+#~ msgstr "დაბლოკილია"
+
+#~ msgid "annotating"
+#~ msgstr "ანოტაციები"
+
+#~ msgid "tokenizing"
+#~ msgstr "tokenizing"
+
+#~ msgid "Change display mode to %1"
+#~ msgstr "ეკრანის რეჟიმის შეცვლა %1-ზე"
 
 #~ msgid "Save Current Window Setup"
 #~ msgstr "ფანჯრის მიმდინარე განლაგების შენახვა"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-26 00:41+0000\n"
+"POT-Creation-Date: 2026-01-27 00:42+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -7124,27 +7124,28 @@ msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "ផ្អាក​"
 
-#: Viewer/ViewerWidget.cpp:637
-#, fuzzy, kde-format
-#| msgid "Unlock"
-msgid "locked"
-msgstr "ដោះសោ​"
+#: Viewer/ViewerWidget.cpp:637 Viewer/ViewerWidget.cpp:1164
+#, kde-format
+msgid "Tags and tokens locked"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:639
 #, fuzzy, kde-format
-#| msgid "Annotations"
-msgid "annotating"
-msgstr "ចំណារ​ពន្យល់​"
+#| msgid "Tokens"
+msgid "Assigning tags"
+msgstr "ថូខឺន"
 
 #: Viewer/ViewerWidget.cpp:641
-#, kde-format
-msgid "tokenizing"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Tokens"
+msgid "Assigning tokens"
+msgstr "ថូខឺន"
 
 #: Viewer/ViewerWidget.cpp:646
-#, kde-format
-msgid "Change display mode to %1"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Annotations"
+msgid "Annotation mode: %1"
+msgstr "ចំណារ​ពន្យល់​"
 
 #: Viewer/ViewerWidget.cpp:922
 #, fuzzy, kde-format
@@ -7175,161 +7176,161 @@ msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1253
+#: Viewer/ViewerWidget.cpp:1256
 #, fuzzy, kde-format
 #| msgid "Theme Description"
 msgctxt "@title"
 msgid "Edit Image Description"
 msgstr "សេចក្ដី​ពិពណ៌នា​រូបរាង"
 
-#: Viewer/ViewerWidget.cpp:1253
+#: Viewer/ViewerWidget.cpp:1256
 #, fuzzy, kde-format
 #| msgid "Theme Description"
 msgctxt "@label:textbox"
 msgid "Image Description"
 msgstr "សេចក្ដី​ពិពណ៌នា​រូបរាង"
 
-#: Viewer/ViewerWidget.cpp:1268
+#: Viewer/ViewerWidget.cpp:1271
 #, fuzzy, kde-format
 #| msgid "Seek"
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "ស្វែង​រក​"
 
-#: Viewer/ViewerWidget.cpp:1290
+#: Viewer/ViewerWidget.cpp:1293
 #, fuzzy, kde-format
 #| msgid "10 minutes backward"
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "ត្រឡប់​ក្រោយ ១០ នាទី​"
 
-#: Viewer/ViewerWidget.cpp:1291
+#: Viewer/ViewerWidget.cpp:1294
 #, fuzzy, kde-format
 #| msgid "1 minute backward"
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "ត្រឡប់​ក្រោយ ១ នាទី​"
 
-#: Viewer/ViewerWidget.cpp:1292
+#: Viewer/ViewerWidget.cpp:1295
 #, fuzzy, kde-format
 #| msgid "10 seconds backward"
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "ត្រឡប់​ក្រោយ ១០ វិនាទី​"
 
-#: Viewer/ViewerWidget.cpp:1293
+#: Viewer/ViewerWidget.cpp:1296
 #, fuzzy, kde-format
 #| msgid "1 seconds backward"
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "១ វិនាទី​ត្រឡប់​ក្រោយ​"
 
-#: Viewer/ViewerWidget.cpp:1294
+#: Viewer/ViewerWidget.cpp:1297
 #, fuzzy, kde-format
 #| msgid "100 milliseconds backward"
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "ត្រឡប់​ក្រោយ ១០០ មីល្លី​វិនាទី​"
 
-#: Viewer/ViewerWidget.cpp:1295
+#: Viewer/ViewerWidget.cpp:1298
 #, fuzzy, kde-format
 #| msgid "100 milliseconds forward"
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "ទៅ​មុខ ១០០ មីល្លី​វិនាទី​"
 
-#: Viewer/ViewerWidget.cpp:1296
+#: Viewer/ViewerWidget.cpp:1299
 #, fuzzy, kde-format
 #| msgid "1 seconds forward"
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "ទៅមុខ ១ វិនាទី​"
 
-#: Viewer/ViewerWidget.cpp:1297
+#: Viewer/ViewerWidget.cpp:1300
 #, fuzzy, kde-format
 #| msgid "10 seconds forward"
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "ទៅមុខ ១០ វិនាទី​"
 
-#: Viewer/ViewerWidget.cpp:1298
+#: Viewer/ViewerWidget.cpp:1301
 #, fuzzy, kde-format
 #| msgid "1 minute forward"
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "ទៅមុខ ១ នាទី​"
 
-#: Viewer/ViewerWidget.cpp:1299
+#: Viewer/ViewerWidget.cpp:1302
 #, fuzzy, kde-format
 #| msgid "10 minutes forward"
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "ទៅមុខ ១០ នាទី​"
 
-#: Viewer/ViewerWidget.cpp:1307
+#: Viewer/ViewerWidget.cpp:1310
 #, fuzzy, kde-format
 #| msgid "Stop"
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "បញ្ឈប់​"
 
-#: Viewer/ViewerWidget.cpp:1319
+#: Viewer/ViewerWidget.cpp:1322
 #, fuzzy, kde-format
 #| msgid "Display categories in thumbnail view"
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "បង្ហាញ​ប្រភេទ​ក្នុង​ទិដ្ឋភាព​រូបភាព​តូច "
 
-#: Viewer/ViewerWidget.cpp:1326
+#: Viewer/ViewerWidget.cpp:1329
 #, fuzzy, kde-format
 #| msgid "Restart"
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "ចាប់ផ្ដើម​ឡើង​វិញ​"
 
-#: Viewer/ViewerWidget.cpp:1342
+#: Viewer/ViewerWidget.cpp:1345
 #, fuzzy, kde-format
 #| msgid "Filters"
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "តម្រង​"
 
-#: Viewer/ViewerWidget.cpp:1345
+#: Viewer/ViewerWidget.cpp:1348
 #, fuzzy, kde-format
 #| msgid "Remove All Filters"
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "យក​តម្រង​ទាំង​អស់​ចេញ​"
 
-#: Viewer/ViewerWidget.cpp:1349
+#: Viewer/ViewerWidget.cpp:1352
 #, fuzzy, kde-format
 #| msgid "Apply Grayscale Filter"
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "អនុវត្ត​តម្រង​មាត្រដ្ឋាន​ប្រផេះ​"
 
-#: Viewer/ViewerWidget.cpp:1354
+#: Viewer/ViewerWidget.cpp:1357
 #, fuzzy, kde-format
 #| msgid "Apply Contrast Stretching Filter"
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "អនុវត្ត​តម្រង​ទាញ​​កម្រិត​ពណ៌"
 
-#: Viewer/ViewerWidget.cpp:1359
+#: Viewer/ViewerWidget.cpp:1362
 #, fuzzy, kde-format
 #| msgid "Apply Histogram Equalization Filter"
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "អនុវត្ត​តម្រង​​ដែល​ធ្វើ​ឲ្យអ៊ីស្តូក្រាម​ស្មើ​គ្នា​"
 
-#: Viewer/ViewerWidget.cpp:1364
+#: Viewer/ViewerWidget.cpp:1367
 #, fuzzy, kde-format
 #| msgid "Apply Monochrome Filter"
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "អនុវត្ត​តម្រង​ពណ៌​តែ​មួយ​"
 
-#: Viewer/ViewerWidget.cpp:1420
+#: Viewer/ViewerWidget.cpp:1423
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -7337,121 +7338,121 @@ msgid ""
 "p><p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1424
+#: Viewer/ViewerWidget.cpp:1427
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
 "will be used instead: <tt>%2</tt></p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1437
+#: Viewer/ViewerWidget.cpp:1440
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
 "crashed at some point.</p><p>Crash detection is now turned off.</p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1497
+#: Viewer/ViewerWidget.cpp:1500
 #, fuzzy, kde-format
 #| msgid "Annotate..."
 msgid "Annotate"
 msgstr "ចារ​ពន្យល់​... "
 
-#: Viewer/ViewerWidget.cpp:1516
+#: Viewer/ViewerWidget.cpp:1519
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1518
+#: Viewer/ViewerWidget.cpp:1521
 #, fuzzy, kde-format
 #| msgid "Annotation Dialog"
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "ប្រអប់​ចំណារ​ពន្យល់​"
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1522
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1522
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1522
+#: Viewer/ViewerWidget.cpp:1525
 #, fuzzy, kde-format
 #| msgid "Copy tags from previous image"
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "ចម្លង​ស្លាក​ពី​រូបភាព​មុន​"
 
-#: Viewer/ViewerWidget.cpp:1523
+#: Viewer/ViewerWidget.cpp:1526
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1526
+#: Viewer/ViewerWidget.cpp:1529
 #, fuzzy, kde-format
 #| msgid "Description"
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "សេចក្ដី​ពិពណ៌នា​"
 
-#: Viewer/ViewerWidget.cpp:1527
+#: Viewer/ViewerWidget.cpp:1530
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1530
+#: Viewer/ViewerWidget.cpp:1533
 #, fuzzy, kde-format
 #| msgid "Annotations"
 msgid "Annotation Mode"
 msgstr "ចំណារ​ពន្យល់​"
 
-#: Viewer/ViewerWidget.cpp:1532
+#: Viewer/ViewerWidget.cpp:1535
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1533
+#: Viewer/ViewerWidget.cpp:1536
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1537
+#: Viewer/ViewerWidget.cpp:1540
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1538
+#: Viewer/ViewerWidget.cpp:1541
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1542
+#: Viewer/ViewerWidget.cpp:1545
 #, fuzzy, kde-format
 #| msgid "Tokens"
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "ថូខឺន"
 
-#: Viewer/ViewerWidget.cpp:1543
+#: Viewer/ViewerWidget.cpp:1546
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1707
+#: Viewer/ViewerWidget.cpp:1710
 #, fuzzy, kde-format
 #| msgid "Tokens"
 msgid "Token %1"
@@ -7512,6 +7513,16 @@ msgstr "បង្ហាញ​ទំហំ​រូបភាព"
 #, kde-format
 msgid "Show Rating"
 msgstr "បង្ហាញ​ការ​វាយតម្លៃ"
+
+#, fuzzy
+#~| msgid "Unlock"
+#~ msgid "locked"
+#~ msgstr "ដោះសោ​"
+
+#, fuzzy
+#~| msgid "Annotations"
+#~ msgid "annotating"
+#~ msgstr "ចំណារ​ពន្យល់​"
 
 #~ msgid "Save Current Window Setup"
 #~ msgstr "រក្សា​ទុក​ការ​រៀប​ចំ​បង្អួច​បច្ចុប្បន្ន​"

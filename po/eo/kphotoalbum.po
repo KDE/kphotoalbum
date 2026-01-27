@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-26 00:41+0000\n"
+"POT-Creation-Date: 2026-01-27 00:42+0000\n"
 "PO-Revision-Date: 2025-03-23 07:29+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -6932,25 +6932,30 @@ msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "Paŭzi"
 
-#: Viewer/ViewerWidget.cpp:637
+#: Viewer/ViewerWidget.cpp:637 Viewer/ViewerWidget.cpp:1164
 #, kde-format
-msgid "locked"
-msgstr "ŝlosita"
+msgid "Tags and tokens locked"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:639
-#, kde-format
-msgid "annotating"
-msgstr "prinotante"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Assign Tags"
+msgid "Assigning tags"
+msgstr "Asigni Etikedojn"
 
 #: Viewer/ViewerWidget.cpp:641
-#, kde-format
-msgid "tokenizing"
-msgstr "dispartigante"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Assign Tokens"
+msgid "Assigning tokens"
+msgstr "Atribui Ĵetonojn"
 
 #: Viewer/ViewerWidget.cpp:646
-#, kde-format
-msgid "Change display mode to %1"
-msgstr "Ŝanĝi bildigan reĝimon al %1"
+#, fuzzy, kde-format
+#| msgid "Annotation Mode"
+msgid "Annotation mode: %1"
+msgstr "Prinota Reĝimo"
 
 #: Viewer/ViewerWidget.cpp:922
 #, kde-format
@@ -6980,139 +6985,139 @@ msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
 msgstr "%1&nbsp;s"
 
-#: Viewer/ViewerWidget.cpp:1253
+#: Viewer/ViewerWidget.cpp:1256
 #, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
 msgstr "Redakti Bildpriskribon"
 
-#: Viewer/ViewerWidget.cpp:1253
+#: Viewer/ViewerWidget.cpp:1256
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
 msgstr "Bildpriskribo"
 
-#: Viewer/ViewerWidget.cpp:1268
+#: Viewer/ViewerWidget.cpp:1271
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Serĉi"
 
-#: Viewer/ViewerWidget.cpp:1290
+#: Viewer/ViewerWidget.cpp:1293
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "10 minutojn malantaŭen"
 
-#: Viewer/ViewerWidget.cpp:1291
+#: Viewer/ViewerWidget.cpp:1294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "1 minuton malantaŭen"
 
-#: Viewer/ViewerWidget.cpp:1292
+#: Viewer/ViewerWidget.cpp:1295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "10 sekundojn malantaŭen"
 
-#: Viewer/ViewerWidget.cpp:1293
+#: Viewer/ViewerWidget.cpp:1296
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "1 sekundoj malantaŭen"
 
-#: Viewer/ViewerWidget.cpp:1294
+#: Viewer/ViewerWidget.cpp:1297
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "100 milisekundoj malantaŭen"
 
-#: Viewer/ViewerWidget.cpp:1295
+#: Viewer/ViewerWidget.cpp:1298
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "100 milisekundojn antaŭen"
 
-#: Viewer/ViewerWidget.cpp:1296
+#: Viewer/ViewerWidget.cpp:1299
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "1 sekundon antaŭen"
 
-#: Viewer/ViewerWidget.cpp:1297
+#: Viewer/ViewerWidget.cpp:1300
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "10 sekundojn antaŭen"
 
-#: Viewer/ViewerWidget.cpp:1298
+#: Viewer/ViewerWidget.cpp:1301
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "1 minuton antaŭen"
 
-#: Viewer/ViewerWidget.cpp:1299
+#: Viewer/ViewerWidget.cpp:1302
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "10 minutojn antaŭen"
 
-#: Viewer/ViewerWidget.cpp:1307
+#: Viewer/ViewerWidget.cpp:1310
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Halti"
 
-#: Viewer/ViewerWidget.cpp:1319
+#: Viewer/ViewerWidget.cpp:1322
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "Uzi aktualan kadron en bildeto-vido"
 
-#: Viewer/ViewerWidget.cpp:1326
+#: Viewer/ViewerWidget.cpp:1329
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Relanĉu"
 
-#: Viewer/ViewerWidget.cpp:1342
+#: Viewer/ViewerWidget.cpp:1345
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Filtriloj"
 
-#: Viewer/ViewerWidget.cpp:1345
+#: Viewer/ViewerWidget.cpp:1348
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Forigi Ĉiujn Filtrilojn"
 
-#: Viewer/ViewerWidget.cpp:1349
+#: Viewer/ViewerWidget.cpp:1352
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Apliki Grizskalan Filtrilon"
 
-#: Viewer/ViewerWidget.cpp:1354
+#: Viewer/ViewerWidget.cpp:1357
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Apliki Kontrastan Streĉan Filtrilon"
 
-#: Viewer/ViewerWidget.cpp:1359
+#: Viewer/ViewerWidget.cpp:1362
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "Apliki Histograman Egaligan Filtrilon"
 
-#: Viewer/ViewerWidget.cpp:1364
+#: Viewer/ViewerWidget.cpp:1367
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "Apliki Monokromatan Filtrilon"
 
-#: Viewer/ViewerWidget.cpp:1420
+#: Viewer/ViewerWidget.cpp:1423
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -7123,7 +7128,7 @@ msgstr ""
 "ĉi tio estas ofta problemo kun iuj videoludiloj.</p><p>Premu <i>Daŭrigi</i> "
 "por lasi KPhotoAlbum provi alian backend...</p>"
 
-#: Viewer/ViewerWidget.cpp:1424
+#: Viewer/ViewerWidget.cpp:1427
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
@@ -7132,7 +7137,7 @@ msgstr ""
 "<p>Vidbendo, kiu estis interrompita: <tt>%1</tt></p><p>Video-backend kiu "
 "estos uzata anstataŭe: <tt>%2</tt></p>"
 
-#: Viewer/ViewerWidget.cpp:1437
+#: Viewer/ViewerWidget.cpp:1440
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
@@ -7141,101 +7146,101 @@ msgstr ""
 "<p>KPhotoAlbum provis ĉiujn disponeblajn video-backends, sed ĉiu paneis iam."
 "</p><p>Detekto de paneoj nun estas malŝaltita.</p>"
 
-#: Viewer/ViewerWidget.cpp:1497
+#: Viewer/ViewerWidget.cpp:1500
 #, kde-format
 msgid "Annotate"
 msgstr "Prinoti"
 
-#: Viewer/ViewerWidget.cpp:1516
+#: Viewer/ViewerWidget.cpp:1519
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "Helpo"
 
-#: Viewer/ViewerWidget.cpp:1518
+#: Viewer/ViewerWidget.cpp:1521
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Prinota Dialogo"
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1522
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Aldoni etikedon"
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1522
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "CTRL+a"
 
-#: Viewer/ViewerWidget.cpp:1522
+#: Viewer/ViewerWidget.cpp:1525
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "Kopii Datumojn el Antaŭa Bildo"
 
-#: Viewer/ViewerWidget.cpp:1523
+#: Viewer/ViewerWidget.cpp:1526
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "CTRL+c"
 
-#: Viewer/ViewerWidget.cpp:1526
+#: Viewer/ViewerWidget.cpp:1529
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Redakti Priskribon"
 
-#: Viewer/ViewerWidget.cpp:1527
+#: Viewer/ViewerWidget.cpp:1530
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "CTRL+d"
 
-#: Viewer/ViewerWidget.cpp:1530
+#: Viewer/ViewerWidget.cpp:1533
 #, kde-format
 msgid "Annotation Mode"
 msgstr "Prinota Reĝimo"
 
-#: Viewer/ViewerWidget.cpp:1532
+#: Viewer/ViewerWidget.cpp:1535
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "Ŝlosita"
 
-#: Viewer/ViewerWidget.cpp:1533
+#: Viewer/ViewerWidget.cpp:1536
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "CTRL+l"
 
-#: Viewer/ViewerWidget.cpp:1537
+#: Viewer/ViewerWidget.cpp:1540
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "Asigni Etikedojn"
 
-#: Viewer/ViewerWidget.cpp:1538
+#: Viewer/ViewerWidget.cpp:1541
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1542
+#: Viewer/ViewerWidget.cpp:1545
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Atribui Ĵetonojn"
 
-#: Viewer/ViewerWidget.cpp:1543
+#: Viewer/ViewerWidget.cpp:1546
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "CTRL+t"
 
-#: Viewer/ViewerWidget.cpp:1707
+#: Viewer/ViewerWidget.cpp:1710
 #, kde-format
 msgid "Token %1"
 msgstr "Ĵetono %1"
@@ -7294,6 +7299,18 @@ msgstr "Montri Bildan Grandecon"
 #, kde-format
 msgid "Show Rating"
 msgstr "Montri Takson"
+
+#~ msgid "locked"
+#~ msgstr "ŝlosita"
+
+#~ msgid "annotating"
+#~ msgstr "prinotante"
+
+#~ msgid "tokenizing"
+#~ msgstr "dispartigante"
+
+#~ msgid "Change display mode to %1"
+#~ msgstr "Ŝanĝi bildigan reĝimon al %1"
 
 #~ msgid "Save Current Window Setup"
 #~ msgstr "Konservi Agordon de Aktuala Fenestro"

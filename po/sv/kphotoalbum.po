@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-26 00:41+0000\n"
+"POT-Creation-Date: 2026-01-27 00:42+0000\n"
 "PO-Revision-Date: 2025-10-10 21:30+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -6951,25 +6951,30 @@ msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "Paus"
 
-#: Viewer/ViewerWidget.cpp:637
+#: Viewer/ViewerWidget.cpp:637 Viewer/ViewerWidget.cpp:1164
 #, kde-format
-msgid "locked"
-msgstr "låst"
+msgid "Tags and tokens locked"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:639
-#, kde-format
-msgid "annotating"
-msgstr "beskriver"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Assign Tags"
+msgid "Assigning tags"
+msgstr "Tilldela etiketter"
 
 #: Viewer/ViewerWidget.cpp:641
-#, kde-format
-msgid "tokenizing"
-msgstr "värdetilldelning"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Assign Tokens"
+msgid "Assigning tokens"
+msgstr "Tilldela värden"
 
 #: Viewer/ViewerWidget.cpp:646
-#, kde-format
-msgid "Change display mode to %1"
-msgstr "Ändra visningsläge till %1"
+#, fuzzy, kde-format
+#| msgid "Annotation Mode"
+msgid "Annotation mode: %1"
+msgstr "Beskrivningsmetod"
 
 #: Viewer/ViewerWidget.cpp:922
 #, kde-format
@@ -6999,139 +7004,139 @@ msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
 msgstr "%1&nbsp;s"
 
-#: Viewer/ViewerWidget.cpp:1253
+#: Viewer/ViewerWidget.cpp:1256
 #, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
 msgstr "Redigera bildbeskrivning"
 
-#: Viewer/ViewerWidget.cpp:1253
+#: Viewer/ViewerWidget.cpp:1256
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
 msgstr "Bildbeskrivning"
 
-#: Viewer/ViewerWidget.cpp:1268
+#: Viewer/ViewerWidget.cpp:1271
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Sök"
 
-#: Viewer/ViewerWidget.cpp:1290
+#: Viewer/ViewerWidget.cpp:1293
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "10 minuter bakåt"
 
-#: Viewer/ViewerWidget.cpp:1291
+#: Viewer/ViewerWidget.cpp:1294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "1 minut bakåt"
 
-#: Viewer/ViewerWidget.cpp:1292
+#: Viewer/ViewerWidget.cpp:1295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "10 sekunder bakåt"
 
-#: Viewer/ViewerWidget.cpp:1293
+#: Viewer/ViewerWidget.cpp:1296
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "1 sekund bakåt"
 
-#: Viewer/ViewerWidget.cpp:1294
+#: Viewer/ViewerWidget.cpp:1297
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "100 millisekunder bakåt"
 
-#: Viewer/ViewerWidget.cpp:1295
+#: Viewer/ViewerWidget.cpp:1298
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "100 millisekunder framåt"
 
-#: Viewer/ViewerWidget.cpp:1296
+#: Viewer/ViewerWidget.cpp:1299
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "1 sekund framåt"
 
-#: Viewer/ViewerWidget.cpp:1297
+#: Viewer/ViewerWidget.cpp:1300
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "10 sekunder framåt"
 
-#: Viewer/ViewerWidget.cpp:1298
+#: Viewer/ViewerWidget.cpp:1301
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "1 minut framåt"
 
-#: Viewer/ViewerWidget.cpp:1299
+#: Viewer/ViewerWidget.cpp:1302
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "10 minuter framåt"
 
-#: Viewer/ViewerWidget.cpp:1307
+#: Viewer/ViewerWidget.cpp:1310
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Stopp"
 
-#: Viewer/ViewerWidget.cpp:1319
+#: Viewer/ViewerWidget.cpp:1322
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "Visa aktuell ram i miniatyrbildsvy"
 
-#: Viewer/ViewerWidget.cpp:1326
+#: Viewer/ViewerWidget.cpp:1329
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Starta om"
 
-#: Viewer/ViewerWidget.cpp:1342
+#: Viewer/ViewerWidget.cpp:1345
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Filter"
 
-#: Viewer/ViewerWidget.cpp:1345
+#: Viewer/ViewerWidget.cpp:1348
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Ta bort alla filter"
 
-#: Viewer/ViewerWidget.cpp:1349
+#: Viewer/ViewerWidget.cpp:1352
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Använd gråskalefilter"
 
-#: Viewer/ViewerWidget.cpp:1354
+#: Viewer/ViewerWidget.cpp:1357
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Använd kontrastutökningsfilter"
 
-#: Viewer/ViewerWidget.cpp:1359
+#: Viewer/ViewerWidget.cpp:1362
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "Använd histogramutjämningsfilter"
 
-#: Viewer/ViewerWidget.cpp:1364
+#: Viewer/ViewerWidget.cpp:1367
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "Använd svartvitfilter"
 
-#: Viewer/ViewerWidget.cpp:1420
+#: Viewer/ViewerWidget.cpp:1423
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -7143,7 +7148,7 @@ msgstr ""
 "p><p>Klicka på <i>Fortsätt</i> för att låta Kfotoalbum prova ett annat "
 "gränssnitt...</p>"
 
-#: Viewer/ViewerWidget.cpp:1424
+#: Viewer/ViewerWidget.cpp:1427
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
@@ -7152,7 +7157,7 @@ msgstr ""
 "<p>Videogränssnitt som avbröts: <tt>%1</tt></p><p>Videogränssnitt som "
 "används istället: <tt>%2</tt></p>"
 
-#: Viewer/ViewerWidget.cpp:1437
+#: Viewer/ViewerWidget.cpp:1440
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
@@ -7161,101 +7166,101 @@ msgstr ""
 "<p>Kfotoalbum har provat alla tillgängliga videogränssnitt, men alla "
 "kraschade vid något tillfälle.</p><p>Kraschdetektering är nu avstängd.</p>"
 
-#: Viewer/ViewerWidget.cpp:1497
+#: Viewer/ViewerWidget.cpp:1500
 #, kde-format
 msgid "Annotate"
 msgstr "Beskriv"
 
-#: Viewer/ViewerWidget.cpp:1516
+#: Viewer/ViewerWidget.cpp:1519
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "Hjälp"
 
-#: Viewer/ViewerWidget.cpp:1518
+#: Viewer/ViewerWidget.cpp:1521
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Beskrivningsdialogruta"
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1522
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Lägg till etikett"
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1522
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "CTRL+A"
 
-#: Viewer/ViewerWidget.cpp:1522
+#: Viewer/ViewerWidget.cpp:1525
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "Kopiera data från föregående bild"
 
-#: Viewer/ViewerWidget.cpp:1523
+#: Viewer/ViewerWidget.cpp:1526
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "CTRL+C"
 
-#: Viewer/ViewerWidget.cpp:1526
+#: Viewer/ViewerWidget.cpp:1529
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Redigera beskrivning"
 
-#: Viewer/ViewerWidget.cpp:1527
+#: Viewer/ViewerWidget.cpp:1530
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "CTRL+D"
 
-#: Viewer/ViewerWidget.cpp:1530
+#: Viewer/ViewerWidget.cpp:1533
 #, kde-format
 msgid "Annotation Mode"
 msgstr "Beskrivningsmetod"
 
-#: Viewer/ViewerWidget.cpp:1532
+#: Viewer/ViewerWidget.cpp:1535
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "Låst"
 
-#: Viewer/ViewerWidget.cpp:1533
+#: Viewer/ViewerWidget.cpp:1536
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "CTRL+L"
 
-#: Viewer/ViewerWidget.cpp:1537
+#: Viewer/ViewerWidget.cpp:1540
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "Tilldela etiketter"
 
-#: Viewer/ViewerWidget.cpp:1538
+#: Viewer/ViewerWidget.cpp:1541
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1542
+#: Viewer/ViewerWidget.cpp:1545
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Tilldela värden"
 
-#: Viewer/ViewerWidget.cpp:1543
+#: Viewer/ViewerWidget.cpp:1546
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "CTRL+T"
 
-#: Viewer/ViewerWidget.cpp:1707
+#: Viewer/ViewerWidget.cpp:1710
 #, kde-format
 msgid "Token %1"
 msgstr "Värde %1"
@@ -7314,6 +7319,18 @@ msgstr "Visa bildstorlek"
 #, kde-format
 msgid "Show Rating"
 msgstr "Visa betyg"
+
+#~ msgid "locked"
+#~ msgstr "låst"
+
+#~ msgid "annotating"
+#~ msgstr "beskriver"
+
+#~ msgid "tokenizing"
+#~ msgstr "värdetilldelning"
+
+#~ msgid "Change display mode to %1"
+#~ msgstr "Ändra visningsläge till %1"
 
 #~ msgid "Save Current Window Setup"
 #~ msgstr "Spara aktuell fönsterinställning"

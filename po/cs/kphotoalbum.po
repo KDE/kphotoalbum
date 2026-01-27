@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-26 00:41+0000\n"
+"POT-Creation-Date: 2026-01-27 00:42+0000\n"
 "PO-Revision-Date: 2026-01-10 09:14+0100\n"
 "Last-Translator: Jan Papez (honyczek) <honyczek@centrum.cz>\n"
 "Language-Team: Czech <kde-i18n-cs@kde.org>\n"
@@ -5905,9 +5905,7 @@ msgid "Default Annotation Mode"
 msgstr "Režim poznámek"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Locked"
+#, kde-format
 msgid "Locked"
 msgstr "Uzamčeno"
 
@@ -6569,25 +6567,30 @@ msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: Viewer/ViewerWidget.cpp:637
+#: Viewer/ViewerWidget.cpp:637 Viewer/ViewerWidget.cpp:1164
 #, kde-format
-msgid "locked"
-msgstr "uzamčeno"
+msgid "Tags and tokens locked"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:639
-#, kde-format
-msgid "annotating"
-msgstr ""
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Assign Tags"
+msgid "Assigning tags"
+msgstr "Přiřadit značky"
 
 #: Viewer/ViewerWidget.cpp:641
-#, kde-format
-msgid "tokenizing"
-msgstr ""
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Assign Tokens"
+msgid "Assigning tokens"
+msgstr "Přiřadit tokeny"
 
 #: Viewer/ViewerWidget.cpp:646
-#, kde-format
-msgid "Change display mode to %1"
-msgstr "Změnit režim zobrazení na %1?"
+#, fuzzy, kde-format
+#| msgid "Annotation Mode"
+msgid "Annotation mode: %1"
+msgstr "Režim poznámek"
 
 #: Viewer/ViewerWidget.cpp:922
 #, kde-format
@@ -6616,139 +6619,139 @@ msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
 msgstr "%1&nbsp;s"
 
-#: Viewer/ViewerWidget.cpp:1253
+#: Viewer/ViewerWidget.cpp:1256
 #, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
 msgstr "Upravit popisek obrázku"
 
-#: Viewer/ViewerWidget.cpp:1253
+#: Viewer/ViewerWidget.cpp:1256
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
 msgstr "Popis obrázku"
 
-#: Viewer/ViewerWidget.cpp:1268
+#: Viewer/ViewerWidget.cpp:1271
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Vyhledat"
 
-#: Viewer/ViewerWidget.cpp:1290
+#: Viewer/ViewerWidget.cpp:1293
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "o 10 minut zpět"
 
-#: Viewer/ViewerWidget.cpp:1291
+#: Viewer/ViewerWidget.cpp:1294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "o 1 minutu zpět"
 
-#: Viewer/ViewerWidget.cpp:1292
+#: Viewer/ViewerWidget.cpp:1295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "o 10 sekund zpět"
 
-#: Viewer/ViewerWidget.cpp:1293
+#: Viewer/ViewerWidget.cpp:1296
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "o 1 sekundu zpět"
 
-#: Viewer/ViewerWidget.cpp:1294
+#: Viewer/ViewerWidget.cpp:1297
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "o 100 milisekund zpět"
 
-#: Viewer/ViewerWidget.cpp:1295
+#: Viewer/ViewerWidget.cpp:1298
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "o 100 milisekund vpřed"
 
-#: Viewer/ViewerWidget.cpp:1296
+#: Viewer/ViewerWidget.cpp:1299
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "o 1 sekundu vpřed"
 
-#: Viewer/ViewerWidget.cpp:1297
+#: Viewer/ViewerWidget.cpp:1300
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "o 10 sekund vpřed"
 
-#: Viewer/ViewerWidget.cpp:1298
+#: Viewer/ViewerWidget.cpp:1301
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "o 1 minutu vpřed"
 
-#: Viewer/ViewerWidget.cpp:1299
+#: Viewer/ViewerWidget.cpp:1302
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "o 10 minut vpřed"
 
-#: Viewer/ViewerWidget.cpp:1307
+#: Viewer/ViewerWidget.cpp:1310
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Zastavit"
 
-#: Viewer/ViewerWidget.cpp:1319
+#: Viewer/ViewerWidget.cpp:1322
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "Použít současný rámec v pohledu s náhledy"
 
-#: Viewer/ViewerWidget.cpp:1326
+#: Viewer/ViewerWidget.cpp:1329
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Restartovat"
 
-#: Viewer/ViewerWidget.cpp:1342
+#: Viewer/ViewerWidget.cpp:1345
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Filtry"
 
-#: Viewer/ViewerWidget.cpp:1345
+#: Viewer/ViewerWidget.cpp:1348
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Odstranit všechny filtry"
 
-#: Viewer/ViewerWidget.cpp:1349
+#: Viewer/ViewerWidget.cpp:1352
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Použít filtr odstínů šedi"
 
-#: Viewer/ViewerWidget.cpp:1354
+#: Viewer/ViewerWidget.cpp:1357
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Použít filtr pro zvýraznění kontrastu"
 
-#: Viewer/ViewerWidget.cpp:1359
+#: Viewer/ViewerWidget.cpp:1362
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "Použít filtr kompenzace histogramu"
 
-#: Viewer/ViewerWidget.cpp:1364
+#: Viewer/ViewerWidget.cpp:1367
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "Použít monochromatický filtr"
 
-#: Viewer/ViewerWidget.cpp:1420
+#: Viewer/ViewerWidget.cpp:1423
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -6756,115 +6759,115 @@ msgid ""
 "p><p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1424
+#: Viewer/ViewerWidget.cpp:1427
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
 "will be used instead: <tt>%2</tt></p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1437
+#: Viewer/ViewerWidget.cpp:1440
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
 "crashed at some point.</p><p>Crash detection is now turned off.</p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1497
+#: Viewer/ViewerWidget.cpp:1500
 #, kde-format
 msgid "Annotate"
 msgstr "Poznamenat"
 
-#: Viewer/ViewerWidget.cpp:1516
+#: Viewer/ViewerWidget.cpp:1519
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "Nápověda"
 
-#: Viewer/ViewerWidget.cpp:1518
+#: Viewer/ViewerWidget.cpp:1521
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Dialog poznámek"
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1522
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Přidat značku"
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1522
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "CTRL+a"
 
-#: Viewer/ViewerWidget.cpp:1522
+#: Viewer/ViewerWidget.cpp:1525
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "Zkopírovat data z předchozího obrázku"
 
-#: Viewer/ViewerWidget.cpp:1523
+#: Viewer/ViewerWidget.cpp:1526
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "CTRL+c"
 
-#: Viewer/ViewerWidget.cpp:1526
+#: Viewer/ViewerWidget.cpp:1529
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Upravit popis"
 
-#: Viewer/ViewerWidget.cpp:1527
+#: Viewer/ViewerWidget.cpp:1530
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "CTRL+d"
 
-#: Viewer/ViewerWidget.cpp:1530
+#: Viewer/ViewerWidget.cpp:1533
 #, kde-format
 msgid "Annotation Mode"
 msgstr "Režim poznámek"
 
-#: Viewer/ViewerWidget.cpp:1532
+#: Viewer/ViewerWidget.cpp:1535
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "Uzamčeno"
 
-#: Viewer/ViewerWidget.cpp:1533
+#: Viewer/ViewerWidget.cpp:1536
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "CTRL+l"
 
-#: Viewer/ViewerWidget.cpp:1537
+#: Viewer/ViewerWidget.cpp:1540
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "Přiřadit značky"
 
-#: Viewer/ViewerWidget.cpp:1538
+#: Viewer/ViewerWidget.cpp:1541
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1542
+#: Viewer/ViewerWidget.cpp:1545
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Přiřadit tokeny"
 
-#: Viewer/ViewerWidget.cpp:1543
+#: Viewer/ViewerWidget.cpp:1546
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "CTRL+t"
 
-#: Viewer/ViewerWidget.cpp:1707
+#: Viewer/ViewerWidget.cpp:1710
 #, kde-format
 msgid "Token %1"
 msgstr "Token %1"
@@ -6923,3 +6926,9 @@ msgstr "Zobrazit velikosti obrázků"
 #, kde-format
 msgid "Show Rating"
 msgstr "Zobrazit hodnocení"
+
+#~ msgid "locked"
+#~ msgstr "uzamčeno"
+
+#~ msgid "Change display mode to %1"
+#~ msgstr "Změnit režim zobrazení na %1?"

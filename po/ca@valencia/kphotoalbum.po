@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-27 00:42+0000\n"
-"PO-Revision-Date: 2026-01-26 10:41+0100\n"
+"PO-Revision-Date: 2026-01-27 09:16+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 25.12.1\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -7025,25 +7025,22 @@ msgstr "Pausa"
 #: Viewer/ViewerWidget.cpp:637 Viewer/ViewerWidget.cpp:1164
 #, kde-format
 msgid "Tags and tokens locked"
-msgstr ""
+msgstr "Etiquetes i símbols bloquejats"
 
 #: Viewer/ViewerWidget.cpp:639
-#, fuzzy, kde-format
-#| msgid "Assign tags"
+#, kde-format
 msgid "Assigning tags"
-msgstr "Assigna etiquetes"
+msgstr "Assignació d'etiquetes"
 
 #: Viewer/ViewerWidget.cpp:641
-#, fuzzy, kde-format
-#| msgid "Assign tokens"
+#, kde-format
 msgid "Assigning tokens"
-msgstr "Assigna símbols"
+msgstr "Assignació de símbols"
 
 #: Viewer/ViewerWidget.cpp:646
-#, fuzzy, kde-format
-#| msgid "Annotation Mode"
+#, kde-format
 msgid "Annotation mode: %1"
-msgstr "Mode d'anotació"
+msgstr "Mode d'anotació: %1"
 
 #: Viewer/ViewerWidget.cpp:922
 #, kde-format
@@ -7389,15 +7386,3 @@ msgstr "Mostra la mida de la imatge"
 #, kde-format
 msgid "Show Rating"
 msgstr "Mostra la valoració"
-
-#~ msgid "locked"
-#~ msgstr "bloquejat"
-
-#~ msgid "annotating"
-#~ msgstr "anotació"
-
-#~ msgid "tokenizing"
-#~ msgstr "creació de símbols"
-
-#~ msgid "Change display mode to %1"
-#~ msgstr "Canvia el mode de visualització a %1"

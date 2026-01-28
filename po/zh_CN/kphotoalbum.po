@@ -5713,10 +5713,9 @@ msgid "Video Backend:"
 msgstr ""
 
 #: Settings/ViewerPage.cpp:112
-#, fuzzy, kde-format
-#| msgid "Annotation Dialog"
+#, kde-format
 msgid "Default Annotation Mode"
-msgstr "注释对话框"
+msgstr ""
 
 #: Settings/ViewerPage.cpp:114
 #, kde-format
@@ -6363,11 +6362,9 @@ msgid "Assigning tokens"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:646
-#, fuzzy, kde-format
-#| msgctxt "@title:window image %1 of %2 images"
-#| msgid "Annotations (%1/%2)"
+#, kde-format
 msgid "Annotation mode: %1"
-msgstr "注释(%1/%2)"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:922
 #, kde-format

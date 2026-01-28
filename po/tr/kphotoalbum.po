@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-27 00:42+0000\n"
-"PO-Revision-Date: 2026-01-26 17:16+0300\n"
+"PO-Revision-Date: 2026-01-27 12:19+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -6943,25 +6943,22 @@ msgstr "Duraklat"
 #: Viewer/ViewerWidget.cpp:637 Viewer/ViewerWidget.cpp:1164
 #, kde-format
 msgid "Tags and tokens locked"
-msgstr ""
+msgstr "Kilitlenen künyeler ve jetonlar"
 
 #: Viewer/ViewerWidget.cpp:639
-#, fuzzy, kde-format
-#| msgid "Assign tags"
+#, kde-format
 msgid "Assigning tags"
-msgstr "Künyeler ata"
+msgstr "Künyeler atanıyor"
 
 #: Viewer/ViewerWidget.cpp:641
-#, fuzzy, kde-format
-#| msgid "Assign tokens"
+#, kde-format
 msgid "Assigning tokens"
-msgstr "Jetonlar ata"
+msgstr "Jetonlar atanıyor"
 
 #: Viewer/ViewerWidget.cpp:646
-#, fuzzy, kde-format
-#| msgid "Annotation Mode"
+#, kde-format
 msgid "Annotation mode: %1"
-msgstr "Bilgi Notu Kipi"
+msgstr "Bilgi notu kipi: %1"
 
 #: Viewer/ViewerWidget.cpp:922
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-27 00:42+0000\n"
-"PO-Revision-Date: 2026-01-26 06:17+0100\n"
+"PO-Revision-Date: 2026-01-27 05:19+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -6961,25 +6961,22 @@ msgstr "შეჩერება"
 #: Viewer/ViewerWidget.cpp:637 Viewer/ViewerWidget.cpp:1164
 #, kde-format
 msgid "Tags and tokens locked"
-msgstr ""
+msgstr "ჭდეები და ტოკენები დაბლოკილია"
 
 #: Viewer/ViewerWidget.cpp:639
-#, fuzzy, kde-format
-#| msgid "Assign tags"
+#, kde-format
 msgid "Assigning tags"
 msgstr "ჭდეების მინიჭება"
 
 #: Viewer/ViewerWidget.cpp:641
-#, fuzzy, kde-format
-#| msgid "Assign tokens"
+#, kde-format
 msgid "Assigning tokens"
 msgstr "ტოკენების მინიჭება"
 
 #: Viewer/ViewerWidget.cpp:646
-#, fuzzy, kde-format
-#| msgid "Annotation Mode"
+#, kde-format
 msgid "Annotation mode: %1"
-msgstr "ანოტაციის რეჟიმი"
+msgstr "ანოტაციის რეჟიმი: %1"
 
 #: Viewer/ViewerWidget.cpp:922
 #, kde-format

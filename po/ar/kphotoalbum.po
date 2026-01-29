@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-27 00:42+0000\n"
-"PO-Revision-Date: 2026-01-08 11:53+0400\n"
+"PO-Revision-Date: 2026-01-28 20:50+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -6300,31 +6300,24 @@ msgid "Video Backend:"
 msgstr "الوحدة الخلفية للفيديو:"
 
 #: Settings/ViewerPage.cpp:112
-#, fuzzy, kde-format
-#| msgid "Annotation Mode"
+#, kde-format
 msgid "Default Annotation Mode"
-msgstr "وضع الشرح"
+msgstr "وضع الشرح المبدئي"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Locked"
+#, kde-format
 msgid "Locked"
-msgstr "مقفل"
+msgstr "مُقفل"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tags"
+#, kde-format
 msgid "Assign tags"
-msgstr "عيّن الوسوم"
+msgstr "عيّن وسوم"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tokens"
+#, kde-format
 msgid "Assign tokens"
-msgstr "عيّن الرموز"
+msgstr "عيّن رموز"
 
 #: Settings/ViewerSizeConfig.cpp:19
 #, kde-format
@@ -7007,27 +7000,22 @@ msgstr "ألبث"
 #: Viewer/ViewerWidget.cpp:637 Viewer/ViewerWidget.cpp:1164
 #, kde-format
 msgid "Tags and tokens locked"
-msgstr ""
+msgstr "الوسوم والرموز مُقفلة"
 
 #: Viewer/ViewerWidget.cpp:639
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tags"
+#, kde-format
 msgid "Assigning tags"
-msgstr "عيّن الوسوم"
+msgstr "يسند وسوم"
 
 #: Viewer/ViewerWidget.cpp:641
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tokens"
+#, kde-format
 msgid "Assigning tokens"
-msgstr "عيّن الرموز"
+msgstr "يسند رموز"
 
 #: Viewer/ViewerWidget.cpp:646
-#, fuzzy, kde-format
-#| msgid "Annotation Mode"
+#, kde-format
 msgid "Annotation mode: %1"
-msgstr "وضع الشرح"
+msgstr "وضع الشرح: %1"
 
 #: Viewer/ViewerWidget.cpp:922
 #, kde-format

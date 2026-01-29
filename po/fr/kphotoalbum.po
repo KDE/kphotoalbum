@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-27 00:42+0000\n"
-"PO-Revision-Date: 2026-01-10 21:27+0100\n"
+"PO-Revision-Date: 2026-01-27 18:43+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -6432,29 +6432,22 @@ msgid "Video Backend:"
 msgstr "Moteur pour la vidéo :"
 
 #: Settings/ViewerPage.cpp:112
-#, fuzzy, kde-format
-#| msgid "Annotation Mode"
+#, kde-format
 msgid "Default Annotation Mode"
-msgstr "Mode d'annotation"
+msgstr "Mode d'annotation par défaut"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Locked"
+#, kde-format
 msgid "Locked"
 msgstr "Verrouillé"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tags"
+#, kde-format
 msgid "Assign tags"
 msgstr "Associer des étiquettes"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tokens"
+#, kde-format
 msgid "Assign tokens"
 msgstr "Associer des jetons"
 
@@ -7096,27 +7089,22 @@ msgstr "Pause"
 #: Viewer/ViewerWidget.cpp:637 Viewer/ViewerWidget.cpp:1164
 #, kde-format
 msgid "Tags and tokens locked"
-msgstr ""
+msgstr "Étiquettes et jetons verrouillés"
 
 #: Viewer/ViewerWidget.cpp:639
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tags"
+#, kde-format
 msgid "Assigning tags"
-msgstr "Associer des étiquettes"
+msgstr "Association d'étiquettes en cours"
 
 #: Viewer/ViewerWidget.cpp:641
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tokens"
+#, kde-format
 msgid "Assigning tokens"
-msgstr "Associer des jetons"
+msgstr "Association de jetons en cours"
 
 #: Viewer/ViewerWidget.cpp:646
-#, fuzzy, kde-format
-#| msgid "Annotation Mode"
+#, kde-format
 msgid "Annotation mode: %1"
-msgstr "Mode d'annotation"
+msgstr "Mode d'annotation : %1"
 
 #: Viewer/ViewerWidget.cpp:922
 #, kde-format

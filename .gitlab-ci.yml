@@ -13,7 +13,6 @@ include:
         - /gitlab-templates/flatpak.yml
         # - /gitlab-templates/craft-appimage-qt6.yml
         - /gitlab-templates/snap-snapcraft-lxd.yml
-        - /gitlab-templates/documentation.yml
 
 ## jzarl: Until KF6 lands in Debian stable, disable CI there
 .template: &debian

@@ -692,6 +692,7 @@ add_subdirectory(icons)
 add_subdirectory(demo)
 add_subdirectory(themes)
 add_subdirectory(scripts)
+add_subdirectory(Utilities)
 
 add_subdirectory(doc)
 

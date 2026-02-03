@@ -74,9 +74,6 @@ class DescriptionEdit;
 class ShortCutManager;
 class ResizableFrame;
 
-/**
- * This class implements both the annotation dialog and the search dialog.
- */
 class Dialog : public QDialog
 {
     Q_OBJECT
@@ -84,10 +81,6 @@ public:
     explicit Dialog(QWidget *parent);
     ~Dialog() override;
     int configure(DB::ImageInfoList list, bool oneAtATime);
-
-    /**
-     * Configures the dialog for search mode.
-     */
     DB::ImageSearchInfo search(DB::ImageSearchInfo *search = nullptr);
     KActionCollection *actions();
     QPair<QString, QString> lastSelectedPositionableTag() const;
@@ -179,16 +172,7 @@ protected:
     void setUpCategoryListBoxForMultiImageSelection(ListSelect *, const DB::ImageInfoList &images);
     std::tuple<Utilities::StringSet, Utilities::StringSet, Utilities::StringSet> selectionForMultiSelect(const ListSelect *, const DB::ImageInfoList &images);
     void saveAndClose();
-
-    /**
-     * Shows or hides widgets which are used only in either annotation mode or
-     * search mode.
-     *
-     * @param show if true, the dialog is in search mode; otherwise it is in
-     *  annotation mode
-     */
     void ShowHideSearch(bool show);
-
 #ifdef HAVE_MARBLE
     void clearMapData();
 #endif

@@ -37,10 +37,6 @@ ImageManager::ImageRequest::ImageRequest(RequestType type)
     Q_ASSERT(type == RequestType::ExitRequest);
 }
 
-ImageManager::ImageRequest::~ImageRequest()
-{
-}
-
 bool ImageManager::ImageRequest::isExitRequest() const
 {
     return m_type == RequestType::ExitRequest;

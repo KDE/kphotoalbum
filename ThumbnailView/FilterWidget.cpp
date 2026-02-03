@@ -6,8 +6,6 @@
 
 #include "FilterWidget.h"
 
-#include <kpabase/Logging.h>
-
 #include <KActionCollection>
 #include <KLocalizedString>
 #include <KRatingWidget>
@@ -61,9 +59,7 @@ void ThumbnailView::FilterWidget::setFilter(const DB::ImageSearchInfo &filter)
         resetLabelText();
     } else {
         m_toggleFilter->setChecked(true);
-        const auto s = filter.toString();
-        qCDebug(DBCategoryMatcherLog) << "Filter:" << s;
-        m_label->setText(i18nc("The label gives a textual description of the active filter", "Filter: %1", s));
+        m_label->setText(i18nc("The label gives a textual description of the active filter", "Filter: %1", filter.toString()));
     }
     blockSignals(false);
 }

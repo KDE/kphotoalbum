@@ -867,12 +867,12 @@ ImageInfoPtr ImageDB::createImageInfo(const FileName &fileName, DB::ReaderPtr re
 
     QString label;
     if (reader->hasAttribute(_label_))
-        label = reader->attribute(_label_).trimmed();
+        label = reader->attribute(_label_);
     else
         label = QFileInfo(fileName.relative()).completeBaseName();
     QString description;
     if (reader->hasAttribute(_description_))
-        description = reader->attribute(_description_).trimmed();
+        description = reader->attribute(_description_);
 
     DB::ImageDate date;
     if (reader->hasAttribute(_startDate_)) {

@@ -23,7 +23,7 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-cmake_minimum_required(VERSION 3.28.0)
+cmake_minimum_required(VERSION 3.30.0)
 project(kphotoalbum LANGUAGES CXX VERSION 6.1.0)
 
 # set minimum versions here:
@@ -686,14 +686,12 @@ if(Marble_FOUND)
 endif()
 
 add_subdirectory(DB)
-#add_subdirectory(DB/search)
 add_subdirectory(lib)
 add_subdirectory(images)
 add_subdirectory(icons)
 add_subdirectory(demo)
 add_subdirectory(themes)
 add_subdirectory(scripts)
-add_subdirectory(Utilities)
 
 add_subdirectory(doc)
 

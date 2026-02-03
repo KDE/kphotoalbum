@@ -105,8 +105,6 @@ void BackgroundJobs::ReadVideoMetaDataJob::unableToDetermineCreationTime()
 void BackgroundJobs::ReadVideoMetaDataJob::checkCompleted()
 {
     if (m_creationTimeCompleted && m_lengthCompleted) {
-        qCDebug(ImageManagerLog) << "ReadVideoMetaDataJob completed for"
-                                 << m_fileName.relative();
         Q_EMIT completed();
     }
 }

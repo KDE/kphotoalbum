@@ -261,6 +261,7 @@ MainWindow::Window::~Window()
 {
     DB::ImageDB::deleteInstance();
     delete m_thumbnailCache;
+    delete m_thumbnailView;
     delete m_videoThumbnailCache;
 }
 
@@ -518,8 +519,10 @@ void MainWindow::Window::slotSearch()
 {
     createAnnotationDialog();
     DB::ImageSearchInfo searchInfo = m_annotationDialog->search();
-    if (!searchInfo.isNull())
+    if (!searchInfo.isNull()) {
+        qCDebug(DBCategoryMatcherLog) << "Filter:" << searchInfo.toString();
         m_browser->addSearch(searchInfo);
+    }
 }
 
 void MainWindow::Window::createAnnotationDialog()

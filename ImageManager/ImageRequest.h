@@ -32,7 +32,7 @@ public:
         ExitRequest
     };
     ImageRequest(const DB::FileName &fileName, const QSize &size, int angle, ImageClientInterface *client);
-    virtual ~ImageRequest() { }
+    virtual ~ImageRequest();
     /**
      * @brief Create a special request.
      * This constructor can be used to create an ExitRequest.

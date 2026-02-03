@@ -351,8 +351,11 @@ void Export::copyImages(const DB::FileNameList &list)
                 m_zip->addLocalFile(file, QStringLiteral("Images/") + zippedName);
             else if (m_location == AutoCopy)
                 Utilities::copyOrOverwrite(file, m_destdir + QLatin1String("/") + zippedName);
-            else if (m_location == Link)
-                Utilities::makeHardLink(file, m_destdir + QLatin1String("/") + zippedName);
+            else if (m_location == Link) {
+                if (!Utilities::makeHardLink(file, m_destdir + QLatin1String("/") + zippedName)) {
+                    qCWarning(ImageManagerLog) << "Can't hard link" << zippedName;
+                }
+            }
             else if (m_location == Symlink)
                 Utilities::makeSymbolicLink(file, m_destdir + QLatin1String("/") + zippedName);
 

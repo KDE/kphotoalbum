@@ -24,7 +24,7 @@ bool ImportExport::KimFileReader::open(const QString &fileName)
     m_fileName = fileName;
     m_zip = new KZip(fileName);
     if (!m_zip->open(QIODevice::ReadOnly)) {
-        KMessageBox::error(nullptr, i18n("Unable to open '%1' for reading.", fileName), i18n("Error Importing Data"));
+        KMessageBox::error(nullptr, /*i18n("Unable to open '%1' for reading.\n"*/ m_zip->errorString()/*, fileName*/), i18n("Error Importing Data");
         delete m_zip;
         m_zip = nullptr;
         return false;

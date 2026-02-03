@@ -705,6 +705,8 @@ void AnnotationDialog::Dialog::ShowHideSearch(bool show)
     slotSetFuzzyDate(m_isFuzzyDate->isChecked());
     m_ratingSearchMode->setVisible(show);
     m_ratingSearchLabel->setVisible(show);
+    m_appendButton->setVisible(!show);
+    m_replaceButton->setVisible(!show);
 }
 
 #ifdef HAVE_MARBLE

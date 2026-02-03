@@ -54,6 +54,7 @@ private:
 
     ImageRequest *next();
 
+    // Informs this class that the application is shutting down.
     void requestExit();
 
     static AsyncLoader *s_instance;

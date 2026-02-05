@@ -10,6 +10,7 @@
 
 void KPATest::TestImageDate::initTestCase()
 {
+    QLocale::setDefault(QLocale::c());
     KLocalizedString::setApplicationDomain("kphotoalbum");
 }
 
@@ -126,8 +127,7 @@ void KPATest::TestImageDate::testFileReadConstructor()
     QCOMPARE(DB::ImageDate(2020, 12, 25, -1, 12, 25, 4, 12, 34), DB::ImageDate(QDateTime(QDate(2020, 12, 25), QTime(4, 12, 34))));
 
     QCOMPARE(DB::ImageDate(2020, 12, 25, 2020, 12, 25, 4, 12, 34), DB::ImageDate(QDateTime(QDate(2020, 12, 25), QTime(4, 12, 34))));
-    QCOMPARE(DB::ImageDate(2020, 1, 31, 2020, 12, 31, 4, 12, 34), DB::ImageDate(QDateTime(QDate(2020, 1, 31), QTime(4, 12, 34)),
-                                                                                QDateTime(QDate(2020, 12, 31), QTime(23, 59, 59))));
+    QCOMPARE(DB::ImageDate(2020, 1, 31, 2020, 12, 31, 4, 12, 34), DB::ImageDate(QDateTime(QDate(2020, 1, 31), QTime(4, 12, 34)), QDateTime(QDate(2020, 12, 31), QTime(23, 59, 59))));
 
     QCOMPARE(DB::ImageDate(2020, -1, -1, -1, -1, -1, -1, -1, -1), DB::ImageDate(QDate(2020, 1, 1), QDate(2020, 12, 31)));
 
@@ -136,10 +136,8 @@ void KPATest::TestImageDate::testFileReadConstructor()
     QCOMPARE(DB::ImageDate(2020, 3, 7, 2021, -1, -1, -1, -1, -1), DB::ImageDate(QDate(2020, 3, 7), QDate(2021, 12, 31)));
     QCOMPARE(DB::ImageDate(2020, 3, 7, 2021, 2, -1, -1, -1, -1), DB::ImageDate(QDate(2020, 3, 7), QDate(2021, 2, 28)));
     QCOMPARE(DB::ImageDate(2020, 3, 7, 2021, 2, 14, -1, -1, -1), DB::ImageDate(QDate(2020, 3, 7), QDate(2021, 2, 14)));
-    QCOMPARE(DB::ImageDate(2020, 3, 7, 2021, 2, 14, 5, -1, -1), DB::ImageDate(QDateTime(QDate(2020, 3, 7), QTime(5, 0, 0)),
-                                                                              QDateTime(QDate(2021, 2, 14), QTime(23, 59, 59))));
-    QCOMPARE(DB::ImageDate(2020, 3, 7, 2021, 2, 14, 15, 30, -1), DB::ImageDate(QDateTime(QDate(2020, 3, 7), QTime(15, 30, 0)),
-                                                                              QDateTime(QDate(2021, 2, 14), QTime(23, 59, 59))));
+    QCOMPARE(DB::ImageDate(2020, 3, 7, 2021, 2, 14, 5, -1, -1), DB::ImageDate(QDateTime(QDate(2020, 3, 7), QTime(5, 0, 0)), QDateTime(QDate(2021, 2, 14), QTime(23, 59, 59))));
+    QCOMPARE(DB::ImageDate(2020, 3, 7, 2021, 2, 14, 15, 30, -1), DB::ImageDate(QDateTime(QDate(2020, 3, 7), QTime(15, 30, 0)), QDateTime(QDate(2021, 2, 14), QTime(23, 59, 59))));
 }
 
 void KPATest::TestImageDate::testFastDateTimeConstructorWithInvalidDates()

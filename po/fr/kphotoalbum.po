@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-27 00:42+0000\n"
-"PO-Revision-Date: 2026-01-27 18:43+0100\n"
+"PO-Revision-Date: 2026-02-03 18:48+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -5709,7 +5709,7 @@ msgstr "Taille des colonnes de l'histogramme de la barre de dates :"
 #: Settings/GeneralPage.cpp:124
 #, kde-format
 msgid "Show splash screen"
-msgstr "Afficher l'écran de démarrage"
+msgstr "Afficher l'écran d'ouverture de session"
 
 #: Settings/GeneralPage.cpp:128
 #, kde-format

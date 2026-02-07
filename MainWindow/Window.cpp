@@ -1,6 +1,7 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2024-2025 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2003 - 2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 - 2025 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -510,6 +511,13 @@ void MainWindow::Window::configImages(const DB::ImageInfoList &list, bool oneAtA
     createAnnotationDialog();
     if (m_annotationDialog->configure(list, oneAtATime) == QDialog::Rejected)
         return;
+
+    // If the annotation dialog was opened from the viewer, update the
+    // info box to reflect any annotation changes.
+    auto *viewer = Viewer::ViewerWidget::latest();
+    if (viewer) {
+        viewer->updateInfoBox();
+    }
 
     reloadThumbnails(ThumbnailView::MaintainSelection);
 }

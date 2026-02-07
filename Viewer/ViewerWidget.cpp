@@ -98,13 +98,6 @@
 
 using namespace std::chrono_literals;
 
-Viewer::ViewerWidget *Viewer::ViewerWidget::s_latest = nullptr;
-
-Viewer::ViewerWidget *Viewer::ViewerWidget::latest()
-{
-    return s_latest;
-}
-
 // Notice the parent is zero to allow other windows to come on top of it.
 Viewer::ViewerWidget::ViewerWidget(UsageType type)
     : QStackedWidget(nullptr)
@@ -124,7 +117,6 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type)
     if (type == UsageType::FullFeaturedViewer) {
         setWindowFlags(Qt::Window);
         setAttribute(Qt::WA_DeleteOnClose);
-        s_latest = this;
     }
 
     m_display = m_imageDisplay = new ImageDisplay(this);
@@ -900,9 +892,6 @@ void Viewer::ViewerWidget::updateInfoBox()
 Viewer::ViewerWidget::~ViewerWidget()
 {
     inhibitScreenSaver(false);
-
-    if (s_latest == this)
-        s_latest = nullptr;
 }
 
 void Viewer::ViewerWidget::toggleFullScreen()

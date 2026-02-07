@@ -1,17 +1,18 @@
-// SPDX-FileCopyrightText: 2003-2013 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2003 - 2013 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2005 - 2007 Dirk Mueller <mueller@kde.org>
 // SPDX-FileCopyrightText: 2005 Stephan Binner <binner@kde.org>
-// SPDX-FileCopyrightText: 2005-2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2007 - 2008 Jan Kundrát <jkt@flaska.net>
 // SPDX-FileCopyrightText: 2007 Laurent Montel <montel@kde.org>
 // SPDX-FileCopyrightText: 2007 Tuomas Suutari <tuomas@nepnep.net>
-// SPDX-FileCopyrightText: 2007-2008 Jan Kundrát <jkt@flaska.net>
 // SPDX-FileCopyrightText: 2009 Hassan Ibraheem <hasan.ibraheem@gmail.com>
-// SPDX-FileCopyrightText: 2011-2012 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2011 - 2012 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2012 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2012 Andreas Neustifter <andreas.neustifter@gmail.com>
-// SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
+// SPDX-FileCopyrightText: 2014 - 2025 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2014 David Edmundson <kde@davidedmundson.co.uk>
-// SPDX-FileCopyrightText: 2017-2020 Robert Krawitz <rlk@alum.mit.edu>
-// SPDX-FileCopyrightText: 2014-2025 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2017 - 2020 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -74,14 +75,39 @@ class DescriptionEdit;
 class ShortCutManager;
 class ResizableFrame;
 
+/**
+ * This class implements both the annotation dialog and the search dialog.
+ */
 class Dialog : public QDialog
 {
     Q_OBJECT
 public:
     explicit Dialog(QWidget *parent);
     ~Dialog() override;
+
+    /**
+     * Configures the dialog for annotation mode.
+     *
+     * @param list describes the images to annotate
+     * @param oneAtATime if true, annotate each file individually.
+     * Otherwise, annotate all files at once.
+     *
+     * @return QDialog::Accepted or QDialog::Rejected
+     */
     int configure(DB::ImageInfoList list, bool oneAtATime);
+
+    /**
+     * Configures the dialog for search mode.  Populates the search dialog
+     * widgets with m_oldSearch if it is not null.  Updates m_oldSearch if the
+     * search dialog is accepted.
+     *
+     * @param search if not null, this replaces m_oldSearch
+     *
+     * @return m_oldSearch if the search was executed, or an empty object if
+     * the search was cancelled.
+     */
     DB::ImageSearchInfo search(DB::ImageSearchInfo *search = nullptr);
+
     KActionCollection *actions();
     QPair<QString, QString> lastSelectedPositionableTag() const;
     QList<QPair<QString, QString>> positionableTagCandidates() const;
@@ -172,7 +198,16 @@ protected:
     void setUpCategoryListBoxForMultiImageSelection(ListSelect *, const DB::ImageInfoList &images);
     std::tuple<Utilities::StringSet, Utilities::StringSet, Utilities::StringSet> selectionForMultiSelect(const ListSelect *, const DB::ImageInfoList &images);
     void saveAndClose();
+
+    /**
+     * Shows or hides widgets which are used only in either annotation mode or
+     * search mode.
+     *
+     * @param show if true, the dialog is in search mode; otherwise it is in
+     * annotation mode
+     */
     void ShowHideSearch(bool show);
+
 #ifdef HAVE_MARBLE
     void clearMapData();
 #endif

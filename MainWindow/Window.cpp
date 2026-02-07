@@ -367,8 +367,7 @@ bool MainWindow::Window::queryClose()
 
     // If we have a viewer, also close it. It has no parent so that other
     // windows can get on top of it, so this has to be done manually.
-    auto *viewer = Viewer::ViewerWidget::latest();
-    if (viewer) {
+    for (auto viewer : std::as_const(m_viewers)) {
         viewer->close();
     }
 
@@ -514,8 +513,7 @@ void MainWindow::Window::configImages(const DB::ImageInfoList &list, bool oneAtA
 
     // If the annotation dialog was opened from the viewer, update the
     // info box to reflect any annotation changes.
-    auto *viewer = Viewer::ViewerWidget::latest();
-    if (viewer) {
+    for (auto viewer : std::as_const(m_viewers)) {
         viewer->updateInfoBox();
     }
 
@@ -706,12 +704,15 @@ void MainWindow::Window::launchViewer(const DB::FileNameList &inputMediaList, bo
 
     using Viewer::ViewerWidget;
     ViewerWidget *viewer;
-    if (reuse && ViewerWidget::latest()) {
-        viewer = ViewerWidget::latest();
+    if (reuse && !m_viewers.empty()) {
+        viewer = m_viewers.last();
         viewer->raise();
         viewer->activateWindow();
     } else {
         viewer = new ViewerWidget(ViewerWidget::UsageType::FullFeaturedViewer);
+        m_viewers << viewer;
+        // prevent dangling pointers in the list
+        connect(viewer, &QObject::destroyed, this, [this](QObject *viewer) { m_viewers.removeAll(qobject_cast<ViewerWidget *>(viewer)); });
         viewer->setCopyLinkEngine(m_copyLinkEngine);
     }
 

@@ -107,7 +107,7 @@ void DuplicateMerger::selectNone()
 
 void DuplicateMerger::go()
 {
-    Utilities::DeleteMethod method = Utilities::BlockFromDatabase;
+    Utilities::DeleteMethod method = Utilities::RemoveFromDatabase;
 
     if (m_trash->isChecked()) {
         method = Utilities::MoveToTrash;

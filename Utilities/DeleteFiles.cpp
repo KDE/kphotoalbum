@@ -41,8 +41,9 @@ bool DeleteFiles::deleteFilesPrivate(const DB::FileNameList &files, DeleteMethod
 {
     Utilities::ShowBusyCursor dummy;
 
-    DB::FileNameList filenamesToRemove;
-    QList<QUrl> filesToDelete;
+    DB::FileNameList filenamesToBlock; // will be removed and blocked
+    DB::FileNameList filenamesToRemove; // will be removed but not blocked
+    QList<QUrl> filesToDelete; // will be deleted/trashed
 
     for (const DB::FileName &fileName : files) {
 
@@ -51,7 +52,7 @@ bool DeleteFiles::deleteFilesPrivate(const DB::FileNameList &files, DeleteMethod
                 filesToDelete.append(QUrl::fromLocalFile(fileName.absolute()));
                 filenamesToRemove.append(fileName);
             } else {
-                filenamesToRemove.append(fileName);
+                filenamesToBlock.append(fileName);
             }
         } else
             filenamesToRemove.append(fileName);
@@ -69,14 +70,12 @@ bool DeleteFiles::deleteFilesPrivate(const DB::FileNameList &files, DeleteMethod
     }
 
     if (!filenamesToRemove.isEmpty()) {
-        if (method == MoveToTrash || method == DeleteFromDisk)
-            DB::ImageDB::instance()->deleteList(filenamesToRemove);
-        else
-            DB::ImageDB::instance()->addToBlockList(filenamesToRemove);
-        MainWindow::DirtyIndicator::markDirty();
-        return true;
-    } else
-        return false;
+        DB::ImageDB::instance()->deleteList(filenamesToRemove);
+    }
+    if (!filenamesToBlock.isEmpty()) {
+        DB::ImageDB::instance()->addToBlockList(filenamesToBlock);
+    }
+    return !(filenamesToBlock.isEmpty() && filenamesToRemove.isEmpty());
 }
 
 } // namespace Utilities

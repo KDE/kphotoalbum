@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-27 00:42+0000\n"
+"POT-Creation-Date: 2026-02-08 00:41+0000\n"
 "PO-Revision-Date: 2025-11-11 18:42+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -48,13 +48,13 @@ msgstr "šodien"
 msgid "yesterday"
 msgstr "vakar"
 
-#: AnnotationDialog/DescriptionEdit.cpp:15 AnnotationDialog/Dialog.cpp:143
+#: AnnotationDialog/DescriptionEdit.cpp:15 AnnotationDialog/Dialog.cpp:144
 #: HTMLGenerator/HTMLDialog.cpp:144 ImportExport/MD5CheckPage.cpp:66
 #, kde-format
 msgid "Description"
 msgstr "Apraksts"
 
-#: AnnotationDialog/Dialog.cpp:110
+#: AnnotationDialog/Dialog.cpp:111
 #, kde-format
 msgid ""
 "(You have differing descriptions on individual images.  Enter text to append "
@@ -63,27 +63,27 @@ msgstr ""
 "(Katram attēlam ir atsevišķs apraksts. Ierakstiet tekstu, ko pievienot "
 "aprakstiem vai ar kuru aprakstus aizvietot.)"
 
-#: AnnotationDialog/Dialog.cpp:135
+#: AnnotationDialog/Dialog.cpp:136
 #, kde-format
 msgid "Label and Dates"
 msgstr "Etiķetes un datumi"
 
-#: AnnotationDialog/Dialog.cpp:140
+#: AnnotationDialog/Dialog.cpp:141
 #, kde-format
 msgid "Image Preview"
 msgstr "Attēla priekšskatījums"
 
-#: AnnotationDialog/Dialog.cpp:164 DB/ImageDB.cpp:396
+#: AnnotationDialog/Dialog.cpp:165 DB/ImageDB.cpp:396
 #, kde-format
 msgid "Cancel"
 msgstr "Atcelt"
 
-#: AnnotationDialog/Dialog.cpp:169 AnnotationDialog/Dialog.cpp:171
+#: AnnotationDialog/Dialog.cpp:170 AnnotationDialog/Dialog.cpp:172
 #, kde-format
 msgid "Map"
 msgstr "Karte"
 
-#: AnnotationDialog/Dialog.cpp:177
+#: AnnotationDialog/Dialog.cpp:178
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -93,63 +93,63 @@ msgstr ""
 "Kartes logdaļa ļauj apskatīt attēlu uzņemšanas vietas, ja tā „Exif“ "
 "informācija satur GPS koordinātas."
 
-#: AnnotationDialog/Dialog.cpp:225
+#: AnnotationDialog/Dialog.cpp:226
 #, kde-format
 msgid "Revert This Item"
 msgstr "Atjaunot šo vienumu"
 
-#: AnnotationDialog/Dialog.cpp:231 AnnotationDialog/Dialog.cpp:1373
+#: AnnotationDialog/Dialog.cpp:232 AnnotationDialog/Dialog.cpp:1376
 #, kde-format
 msgid "Clear Form"
 msgstr "Notīrīt veidni"
 
-#: AnnotationDialog/Dialog.cpp:234 AnnotationDialog/Dialog.cpp:1376
+#: AnnotationDialog/Dialog.cpp:235 AnnotationDialog/Dialog.cpp:1379
 #, kde-format
 msgid "Options..."
 msgstr "Opcijas..."
 
-#: AnnotationDialog/Dialog.cpp:239
+#: AnnotationDialog/Dialog.cpp:240
 #, kde-format
 msgid "&Done"
 msgstr "&Pabeigt"
 
-#: AnnotationDialog/Dialog.cpp:242
+#: AnnotationDialog/Dialog.cpp:243
 #, kde-format
 msgid "Continue &Later"
 msgstr "&Turpināt vēlāk"
 
-#: AnnotationDialog/Dialog.cpp:250 AnnotationDialog/Dialog.cpp:870
+#: AnnotationDialog/Dialog.cpp:251 AnnotationDialog/Dialog.cpp:873
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
 msgstr "&Meklēt"
 
-#: AnnotationDialog/Dialog.cpp:319
+#: AnnotationDialog/Dialog.cpp:320
 #, kde-format
 msgid "Label: "
 msgstr "Etiķete: "
 
-#: AnnotationDialog/Dialog.cpp:323 ImportExport/MD5CheckPage.cpp:65
+#: AnnotationDialog/Dialog.cpp:324 ImportExport/MD5CheckPage.cpp:65
 #, kde-format
 msgid "Label"
 msgstr "Etiķete"
 
-#: AnnotationDialog/Dialog.cpp:332
+#: AnnotationDialog/Dialog.cpp:333
 #, kde-format
 msgid "Date: "
 msgstr "Datums: "
 
-#: AnnotationDialog/Dialog.cpp:348
+#: AnnotationDialog/Dialog.cpp:349
 #, kde-format
 msgid "Time: "
 msgstr "Laiks: "
 
-#: AnnotationDialog/Dialog.cpp:354
+#: AnnotationDialog/Dialog.cpp:355
 #, kde-format
 msgid "Use Fuzzy Date"
 msgstr "Izmanto aptuvenu datumu"
 
-#: AnnotationDialog/Dialog.cpp:356
+#: AnnotationDialog/Dialog.cpp:357
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -167,82 +167,82 @@ msgstr ""
 "fotogrāfijas avots ir analoga kamera), ieslēdziet iespēju "
 "<interface>Izmantot aptuvenu datumu</interface>.</para>"
 
-#: AnnotationDialog/Dialog.cpp:371
+#: AnnotationDialog/Dialog.cpp:372
 #, kde-format
 msgid "Minimum megapixels:"
 msgstr "Minimālie megapikseļi:"
 
-#: AnnotationDialog/Dialog.cpp:381
+#: AnnotationDialog/Dialog.cpp:382
 #, kde-format
 msgid "Maximum megapixels:"
 msgstr "Maksimālie megapikseļi:"
 
-#: AnnotationDialog/Dialog.cpp:394
+#: AnnotationDialog/Dialog.cpp:395
 #, kde-format
 msgid "Rating:"
 msgstr "Vērtējums:"
 
-#: AnnotationDialog/Dialog.cpp:402
+#: AnnotationDialog/Dialog.cpp:403
 #, kde-format
 msgid "Rating search mode:"
 msgstr "Reitinga meklēšanas režīms:"
 
-#: AnnotationDialog/Dialog.cpp:406
+#: AnnotationDialog/Dialog.cpp:407
 #, kde-format
 msgid "=="
 msgstr "=="
 
-#: AnnotationDialog/Dialog.cpp:406
+#: AnnotationDialog/Dialog.cpp:407
 #, kde-format
 msgid ">="
 msgstr ">="
 
-#: AnnotationDialog/Dialog.cpp:406
+#: AnnotationDialog/Dialog.cpp:407
 #, kde-format
 msgid "<="
 msgstr "<="
 
-#: AnnotationDialog/Dialog.cpp:406
+#: AnnotationDialog/Dialog.cpp:407
 #, kde-format
 msgid "!="
 msgstr "!="
 
-#: AnnotationDialog/Dialog.cpp:414
+#: AnnotationDialog/Dialog.cpp:415
 #, kde-format
 msgid "File Name Pattern: "
 msgstr "Datnes nosaukuma paraugs: "
 
-#: AnnotationDialog/Dialog.cpp:417
+#: AnnotationDialog/Dialog.cpp:418
 #, kde-format
 msgid "File Name Pattern"
 msgstr "Datnes nosaukuma paraugs"
 
-#: AnnotationDialog/Dialog.cpp:422
+#: AnnotationDialog/Dialog.cpp:423
 #, kde-format
 msgid "Search only for RAW files"
 msgstr "Meklēt tikai RAW datnes"
 
-#: AnnotationDialog/Dialog.cpp:439
+#: AnnotationDialog/Dialog.cpp:440
 #, kde-format
 msgid "Append"
 msgstr "Pievienot"
 
-#: AnnotationDialog/Dialog.cpp:440
+#: AnnotationDialog/Dialog.cpp:441
 #, kde-format
 msgid "Append new text to each description"
 msgstr "Pievienot tekstu katram aprakstam"
 
-#: AnnotationDialog/Dialog.cpp:441
+#: AnnotationDialog/Dialog.cpp:442
 #, kde-format
 msgid "Replace"
 msgstr "Aizvietot"
 
-#: AnnotationDialog/Dialog.cpp:442
+#: AnnotationDialog/Dialog.cpp:443
 #, kde-format
 msgid "Replace each description with the new text"
 msgstr "Aizvietot katru aprakstu ar jauno tekstu"
 
-#: AnnotationDialog/Dialog.cpp:451
+#: AnnotationDialog/Dialog.cpp:452
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -257,98 +257,98 @@ msgstr ""
 "sadaļā, apraksts, kas ir iegults „Exif“ informācijā tiek importēts šajā "
 "laukā, ja tas ir pieejams.</para>"
 
-#: AnnotationDialog/Dialog.cpp:634
+#: AnnotationDialog/Dialog.cpp:635
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "Anotācijas (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:875
+#: AnnotationDialog/Dialog.cpp:878
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Meklēt"
 
-#: AnnotationDialog/Dialog.cpp:878
+#: AnnotationDialog/Dialog.cpp:881
 #, kde-format
 msgid "Done"
 msgstr "Pabeigt"
 
-#: AnnotationDialog/Dialog.cpp:885
+#: AnnotationDialog/Dialog.cpp:888
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Anotācijas"
 
-#: AnnotationDialog/Dialog.cpp:934
+#: AnnotationDialog/Dialog.cpp:937
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "Konfigurēt logu izkārtojumu..."
 
-#: AnnotationDialog/Dialog.cpp:935
+#: AnnotationDialog/Dialog.cpp:938
 #, kde-format
 msgid "Save current layout globally"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:936
+#: AnnotationDialog/Dialog.cpp:939
 #, fuzzy, kde-format
 #| msgid "Save the current map settings"
 msgid "Save current layout for this DB"
 msgstr "Saglabāt pašreizējos kartes iestatījumus"
 
-#: AnnotationDialog/Dialog.cpp:938
+#: AnnotationDialog/Dialog.cpp:941
 #, kde-format
 msgid "Reset layout"
 msgstr "Atiestatīt izkārtojumu"
 
-#: AnnotationDialog/Dialog.cpp:945 AnnotationDialog/Dialog.cpp:1328
+#: AnnotationDialog/Dialog.cpp:948 AnnotationDialog/Dialog.cpp:1331
 #: AnnotationDialog/ListSelect.cpp:110
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Kārtot alfabētiski (koks)"
 
-#: AnnotationDialog/Dialog.cpp:949 AnnotationDialog/Dialog.cpp:1332
+#: AnnotationDialog/Dialog.cpp:952 AnnotationDialog/Dialog.cpp:1335
 #: AnnotationDialog/ListSelect.cpp:116
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Kārtot alfabētiski (plakans)"
 
-#: AnnotationDialog/Dialog.cpp:953
+#: AnnotationDialog/Dialog.cpp:956
 #, kde-format
 msgid "Sort by Date"
 msgstr "Kārtot pēc datuma"
 
-#: AnnotationDialog/Dialog.cpp:969
+#: AnnotationDialog/Dialog.cpp:972
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr "Meklēt birku atbilsmi no pirmās rakstzīmes"
 
-#: AnnotationDialog/Dialog.cpp:970
+#: AnnotationDialog/Dialog.cpp:973
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr "Meklēt birkas no vārdu robežām"
 
-#: AnnotationDialog/Dialog.cpp:971
+#: AnnotationDialog/Dialog.cpp:974
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr "Meklēt birkas visur"
 
-#: AnnotationDialog/Dialog.cpp:988
+#: AnnotationDialog/Dialog.cpp:991
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "Rādīt tikai atlasīto „Ctrl+S“"
 
-#: AnnotationDialog/Dialog.cpp:1030 Map/MapView.cpp:360
+#: AnnotationDialog/Dialog.cpp:1033 Map/MapView.cpp:360
 #, kde-format
 msgid "Settings saved!"
 msgstr "Iestatījumi ir saglabāti!"
 
-#: AnnotationDialog/Dialog.cpp:1030
+#: AnnotationDialog/Dialog.cpp:1033
 #, kde-format
 msgid "Save current window setup"
 msgstr "Saglabāt pašreizējo loga iestatījumu"
 
-#: AnnotationDialog/Dialog.cpp:1095
+#: AnnotationDialog/Dialog.cpp:1098
 #, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
@@ -357,13 +357,13 @@ msgstr ""
 "<p>Anotācijās ir izdarītas izmaiņas. Vai tiešām vēlaties izmest nesen "
 "veiktās izmaiņas katrai izmainītajai datnei?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1096
+#: AnnotationDialog/Dialog.cpp:1099
 #, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Vai noraidīt izmaiņas?"
 
-#: AnnotationDialog/Dialog.cpp:1195
+#: AnnotationDialog/Dialog.cpp:1198
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -380,7 +380,7 @@ msgstr ""
 "lietošanu varat uzzināt, lasot par <a href=\"help:/kphotoalbum/chp-typingIn."
 "html\">ierakstīšana</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1203
+#: AnnotationDialog/Dialog.cpp:1206
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -393,52 +393,52 @@ msgstr ""
 "minūtes, lai izlasītu <a href=\"help:/kphotoalbum/chp-typingIn.html\">šī "
 "lodziņa dokumentāciju.</a></p>"
 
-#: AnnotationDialog/Dialog.cpp:1335
+#: AnnotationDialog/Dialog.cpp:1338
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Kārtot pēc pēdējā lietotā"
 
-#: AnnotationDialog/Dialog.cpp:1338
+#: AnnotationDialog/Dialog.cpp:1341
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Pārslēgt kārtošanu"
 
-#: AnnotationDialog/Dialog.cpp:1343
+#: AnnotationDialog/Dialog.cpp:1346
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Pārslēgt tikai atlasīto vienumu rādīšanu"
 
-#: AnnotationDialog/Dialog.cpp:1347
+#: AnnotationDialog/Dialog.cpp:1350
 #, kde-format
 msgid "Annotate Next"
 msgstr "Anotēt nākamo"
 
-#: AnnotationDialog/Dialog.cpp:1351
+#: AnnotationDialog/Dialog.cpp:1354
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Anotēt iepriekšējo"
 
-#: AnnotationDialog/Dialog.cpp:1355
+#: AnnotationDialog/Dialog.cpp:1358
 #, kde-format
 msgid "OK dialog"
 msgstr "„Labi“ lodziņš"
 
-#: AnnotationDialog/Dialog.cpp:1359
+#: AnnotationDialog/Dialog.cpp:1362
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Kopēt birkas no iepriekšējā attēla"
 
-#: AnnotationDialog/Dialog.cpp:1363 MainWindow/Window.cpp:844
+#: AnnotationDialog/Dialog.cpp:1366 MainWindow/Window.cpp:853
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Pagriezt pretēji pulksteņrādītājam"
 
-#: AnnotationDialog/Dialog.cpp:1366 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1369 MainWindow/Window.cpp:857
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Pagriezt pulksteņrādītāja virzienā"
 
-#: AnnotationDialog/Dialog.cpp:1369
+#: AnnotationDialog/Dialog.cpp:1372
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Pārslēgt pilnekrāna priekšskatījumu"
@@ -980,7 +980,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "meklēt"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1778
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1787
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -995,7 +995,7 @@ msgstr ""
 "„KPhotoAlbum“</b></li><li>Tagad izvēlieties <b>Kategorijas</b> ikonu</"
 "li><li>Tagad konfigurējiet sadaļu <b>Attēli bez birkas</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1785
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1794
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Iespēja vēl nav konfigurēta"
@@ -2730,7 +2730,7 @@ msgid "Create folder?"
 msgstr "Vai izveidot mapi?"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1213
+#: MainWindow/Window.cpp:1222
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -4178,12 +4178,12 @@ msgstr "Iespēju pārbaude"
 msgid "Congratulations: all dynamic features have been enabled."
 msgstr "Lieliski: visas dinamiskās iespējas ir ieslēgtas."
 
-#: MainWindow/Window.cpp:276
+#: MainWindow/Window.cpp:277
 #, kde-format
 msgid "Searching for New Files"
 msgstr "Meklēt jaunas datnes"
 
-#: MainWindow/Window.cpp:319
+#: MainWindow/Window.cpp:320
 #, kde-format
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
@@ -4199,18 +4199,18 @@ msgstr ""
 "aizņems vietu diskā. Tomēr, ja vēlaties atgriezties un turpināt "
 "demonstrāciju, varat vēlēties paturēt šajā sesijā veiktās izmaiņas.</p>"
 
-#: MainWindow/Window.cpp:324
+#: MainWindow/Window.cpp:325
 #, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "Dzēst demonstrācijas datubāzi"
 
-#: MainWindow/Window.cpp:340
+#: MainWindow/Window.cpp:341
 #, kde-format
 msgid "Do you want to save the changes?"
 msgstr "Vai vēlaties saglabāt izmaiņas?"
 
-#: MainWindow/Window.cpp:341
+#: MainWindow/Window.cpp:342
 #, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
@@ -4241,311 +4241,311 @@ msgstr "Nezināma kļūda, grēdu izveidot neizdevās."
 msgid "Stacking Error"
 msgstr "Grēdošanas kļūda"
 
-#: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1331 MainWindow/Window.cpp:1428
+#: MainWindow/Window.cpp:492 MainWindow/Window.cpp:624
+#: MainWindow/Window.cpp:1340 MainWindow/Window.cpp:1437
 #, kde-format
 msgid "No item is selected."
 msgstr "Neviens vienums nav atlasīts."
 
-#: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1331 MainWindow/Window.cpp:1429
+#: MainWindow/Window.cpp:492 MainWindow/Window.cpp:624
+#: MainWindow/Window.cpp:1340 MainWindow/Window.cpp:1438
 #, kde-format
 msgid "No Selection"
 msgstr "Nav atlases"
 
-#: MainWindow/Window.cpp:538
+#: MainWindow/Window.cpp:544
 #, kde-format
 msgid "Saving..."
 msgstr "Saglabā..."
 
-#: MainWindow/Window.cpp:543
+#: MainWindow/Window.cpp:549
 #, kde-format
 msgid "Saving... Done"
 msgstr "Saglabā... Pabeigts"
 
-#: MainWindow/Window.cpp:691
+#: MainWindow/Window.cpp:697
 #, kde-format
 msgid "There are no images to be shown."
 msgstr "Nav attēlu, ko parādīt."
 
-#: MainWindow/Window.cpp:761 MainWindow/Window.cpp:902
+#: MainWindow/Window.cpp:770 MainWindow/Window.cpp:911
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "Ierobežot skatu uz atlasi"
 
-#: MainWindow/Window.cpp:762
+#: MainWindow/Window.cpp:771
 #, kde-format
 msgid "No images are selected!"
 msgstr "Nav atlasīts neviens attēls!"
 
-#: MainWindow/Window.cpp:775
+#: MainWindow/Window.cpp:784
 #, kde-format
 msgid "Generate HTML..."
 msgstr "Ģenerēt HTML..."
 
-#: MainWindow/Window.cpp:779
+#: MainWindow/Window.cpp:788
 #, kde-format
 msgid "Import..."
 msgstr "Importēt..."
 
-#: MainWindow/Window.cpp:782
+#: MainWindow/Window.cpp:791
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "Eksportēt/kopēt attēlus..."
 
-#: MainWindow/Window.cpp:811
+#: MainWindow/Window.cpp:820
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Dzēst atlasīto"
 
-#: MainWindow/Window.cpp:819
+#: MainWindow/Window.cpp:828
 #, kde-format
 msgid "Remove Tokens..."
 msgstr "Noņemt marķierus..."
 
-#: MainWindow/Window.cpp:822
+#: MainWindow/Window.cpp:831
 #, kde-format
 msgid "Open List of Files..."
 msgstr "Atvērt datņu sarakstu..."
 
-#: MainWindow/Window.cpp:825
+#: MainWindow/Window.cpp:834
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Anotēt atsevišķus vienumus"
 
-#: MainWindow/Window.cpp:829
+#: MainWindow/Window.cpp:838
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "Anotēt uzreiz vairākus vienumus"
 
-#: MainWindow/Window.cpp:833
+#: MainWindow/Window.cpp:842
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "Apvienot attēlus grēdā"
 
-#: MainWindow/Window.cpp:837
+#: MainWindow/Window.cpp:846
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "Izņemt attēlus no grēdas"
 
-#: MainWindow/Window.cpp:840
+#: MainWindow/Window.cpp:849
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "Iestatīt kā pirmo attēlu grēdā"
 
-#: MainWindow/Window.cpp:853
+#: MainWindow/Window.cpp:862
 #, kde-format
 msgid "View"
 msgstr "Skatīt"
 
-#: MainWindow/Window.cpp:858
+#: MainWindow/Window.cpp:867
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Skatīt (jaunā logā)"
 
-#: MainWindow/Window.cpp:863
+#: MainWindow/Window.cpp:872
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Palaist slīdrādi"
 
-#: MainWindow/Window.cpp:870
+#: MainWindow/Window.cpp:879
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Palaist slīdrādi nejaušā secībā"
 
-#: MainWindow/Window.cpp:878
+#: MainWindow/Window.cpp:887
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "Sakļaut visas grēdas"
 
-#: MainWindow/Window.cpp:884
+#: MainWindow/Window.cpp:893
 #, kde-format
 msgid "Expand all stacks"
 msgstr "Izvērst visas grēdas"
 
-#: MainWindow/Window.cpp:889
+#: MainWindow/Window.cpp:898
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "Rādīt &vecākos vispirms"
 
-#: MainWindow/Window.cpp:894
+#: MainWindow/Window.cpp:903
 #, kde-format
 msgid "Show &Newest First"
 msgstr "Rādīt &jaunākos vispirms"
 
-#: MainWindow/Window.cpp:899
+#: MainWindow/Window.cpp:908
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Kārtot atlasītos pēc datuma un laika"
 
-#: MainWindow/Window.cpp:907
+#: MainWindow/Window.cpp:916
 #, kde-format
 msgid "Jump to Context"
 msgstr "Iet uz kontekstu"
 
-#: MainWindow/Window.cpp:915
+#: MainWindow/Window.cpp:924
 #, kde-format
 msgid "Lock Images"
 msgstr "Slēgt attēlus"
 
-#: MainWindow/Window.cpp:919
+#: MainWindow/Window.cpp:928
 #, kde-format
 msgid "Unlock"
 msgstr "Atslēgt"
 
-#: MainWindow/Window.cpp:922
+#: MainWindow/Window.cpp:931
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Slēgt visus pārējos vienumus"
 
-#: MainWindow/Window.cpp:925
+#: MainWindow/Window.cpp:934
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Slēgt pašreizējo vienumu kopumu"
 
-#: MainWindow/Window.cpp:928
+#: MainWindow/Window.cpp:937
 #, kde-format
 msgid "Configure Current View"
 msgstr "Konfigurēt pašreizējo skatu"
 
-#: MainWindow/Window.cpp:936
+#: MainWindow/Window.cpp:945
 #, kde-format
 msgid "Tree"
 msgstr "Koks"
 
-#: MainWindow/Window.cpp:941
+#: MainWindow/Window.cpp:950
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "Koks ar lietotāja ikonām"
 
-#: MainWindow/Window.cpp:946
+#: MainWindow/Window.cpp:955
 #, kde-format
 msgid "Icons"
 msgstr "Ikonas"
 
-#: MainWindow/Window.cpp:953
+#: MainWindow/Window.cpp:962
 #, kde-format
 msgid "Use natural sort order"
 msgstr "Lietot dabīgu kārtošanas secību"
 
-#: MainWindow/Window.cpp:963
+#: MainWindow/Window.cpp:972
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Sīktēlu logā rādīt paskaidres"
 
-#: MainWindow/Window.cpp:968
+#: MainWindow/Window.cpp:977
 #, kde-format
 msgid "Show Labels in Thumbnails Window"
 msgstr "Sīktēlu logā rādīt etiķetes"
 
-#: MainWindow/Window.cpp:978
+#: MainWindow/Window.cpp:987
 #, kde-format
 msgid "Show Categories in Thumbnails Window"
 msgstr "Sīktēlu logā rādīt kategorijas"
 
-#: MainWindow/Window.cpp:995
+#: MainWindow/Window.cpp:1004
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr "Izvēlēties krāsu shēmu"
 
-#: MainWindow/Window.cpp:1002
+#: MainWindow/Window.cpp:1011
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Parādīt attēlus un video, kas neatrodas uz diska"
 
-#: MainWindow/Window.cpp:1005
+#: MainWindow/Window.cpp:1014
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Parādīt attēlus un video ar nepilnīgiem datumiem..."
 
-#: MainWindow/Window.cpp:1008
+#: MainWindow/Window.cpp:1017
 #, kde-format
 msgid "Merge duplicates"
 msgstr "Apvienot dublējošās datnes"
 
-#: MainWindow/Window.cpp:1010 MainWindow/Window.cpp:1065
+#: MainWindow/Window.cpp:1019 MainWindow/Window.cpp:1074
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Pārlādēt atlasītos sīktēlus un kontrolsummas"
 
-#: MainWindow/Window.cpp:1014
+#: MainWindow/Window.cpp:1023
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Pārskenēt attēlus un video"
 
-#: MainWindow/Window.cpp:1017
+#: MainWindow/Window.cpp:1026
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "No jauna izveidot „Exif“ meklēšanas datubāzi"
 
-#: MainWindow/Window.cpp:1020
+#: MainWindow/Window.cpp:1029
 #, fuzzy, kde-format
 #| msgid "Read Exif Info from Files..."
 msgid "Read Metadata from Files..."
 msgstr "Nolasīt „Exif“ informāciju no datnēm..."
 
-#: MainWindow/Window.cpp:1023
+#: MainWindow/Window.cpp:1032
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "Kārtot visu pēc datuma un laika"
 
-#: MainWindow/Window.cpp:1027
+#: MainWindow/Window.cpp:1036
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Automātiski grēdot atlasītos attēlus..."
 
-#: MainWindow/Window.cpp:1030
+#: MainWindow/Window.cpp:1039
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Veidot sīktēlus"
 
-#: MainWindow/Window.cpp:1033
+#: MainWindow/Window.cpp:1042
 #, kde-format
 msgid "Statistics..."
 msgstr "Statistika..."
 
-#: MainWindow/Window.cpp:1037
+#: MainWindow/Window.cpp:1046
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "Atzīmēt kā bez birkas"
 
-#: MainWindow/Window.cpp:1047
+#: MainWindow/Window.cpp:1056
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Ieslēgt visus ziņojumus"
 
-#: MainWindow/Window.cpp:1051
+#: MainWindow/Window.cpp:1060
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "Palaist „KPhotoAlbum“ demonstrāciju"
 
-#: MainWindow/Window.cpp:1055
+#: MainWindow/Window.cpp:1064
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "„KPhotoAlbum“ iespēju statuss"
 
-#: MainWindow/Window.cpp:1058
+#: MainWindow/Window.cpp:1067
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Rādīt demonstrācijas video"
 
-#: MainWindow/Window.cpp:1062 Viewer/ViewerWidget.cpp:201
+#: MainWindow/Window.cpp:1071 Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Rādīt „Exif“ informāciju un datnes metadatus"
 
-#: MainWindow/Window.cpp:1068
+#: MainWindow/Window.cpp:1077
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Lietot nākamo video sīktēlu"
 
-#: MainWindow/Window.cpp:1072
+#: MainWindow/Window.cpp:1081
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Lietot iepriekšējo video sīktēlu"
 
-#: MainWindow/Window.cpp:1076 MainWindow/Window.cpp:1309
+#: MainWindow/Window.cpp:1085 MainWindow/Window.cpp:1318
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
@@ -4553,7 +4553,7 @@ msgstr[0] "Kopēt attēlu(-us) uz..."
 msgstr[1] "Kopēt attēlu(-us) uz..."
 msgstr[2] "Kopēt attēlu(-us) uz..."
 
-#: MainWindow/Window.cpp:1080 MainWindow/Window.cpp:1313
+#: MainWindow/Window.cpp:1089 MainWindow/Window.cpp:1322
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
@@ -4561,28 +4561,28 @@ msgstr[0] "Saitēt attēlu(-us) uz..."
 msgstr[1] "Saitēt attēlu(-us) uz..."
 msgstr[2] "Saitēt attēlu(-us) uz..."
 
-#: MainWindow/Window.cpp:1104
+#: MainWindow/Window.cpp:1113
 #, kde-format
 msgid "Auto saving...."
 msgstr "Notiek automātiskā saglabāšana..."
 
-#: MainWindow/Window.cpp:1107
+#: MainWindow/Window.cpp:1116
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Automātiskā saglabāšana... pabeigta"
 
-#: MainWindow/Window.cpp:1207
+#: MainWindow/Window.cpp:1216
 #, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
 msgstr "<p>Vai vēlaties izveidot šo datubāzes datni?<br />%1</p>"
 
-#: MainWindow/Window.cpp:1210
+#: MainWindow/Window.cpp:1219
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "Izveidot datubāzi"
 
-#: MainWindow/Window.cpp:1254
+#: MainWindow/Window.cpp:1263
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4595,33 +4595,33 @@ msgstr ""
 "iestatījumu izvēlnē <interface>Iestatījumi|Konfigurēt „KPhotoAlbum“...|"
 "Kategorijas</interface></p>"
 
-#: MainWindow/Window.cpp:1380 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1389 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Pamata"
 
-#: MainWindow/Window.cpp:1381 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1390 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Skatītājs"
 
-#: MainWindow/Window.cpp:1382
+#: MainWindow/Window.cpp:1391
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Datumu josla"
 
-#: MainWindow/Window.cpp:1385
+#: MainWindow/Window.cpp:1394
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Anotācijas lodziņš"
 
-#: MainWindow/Window.cpp:1386 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1395 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Sīktēlu skats"
 
-#: MainWindow/Window.cpp:1529
+#: MainWindow/Window.cpp:1538
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4630,13 +4630,13 @@ msgstr ""
 "<p>Vai tiešām ieslēgt visus ziņojumu lauciņus vietās, kur norādījāt, lai "
 "programma tos vairāk nerāda?</p>"
 
-#: MainWindow/Window.cpp:1531
+#: MainWindow/Window.cpp:1540
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "Atiestatīt slēptos lodziņus"
 
-#: MainWindow/Window.cpp:1545
+#: MainWindow/Window.cpp:1554
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4652,32 +4652,32 @@ msgstr ""
 "Ja ne, ziņojiet par šo kļūdu.</p><p>„KPhotoAlbum“ turpinās darboties, bet ir "
 "ļoti iespējams, ka tas kādā brīdī avarēs, jo tam trūkst „make install“.</p>"
 
-#: MainWindow/Window.cpp:1545
+#: MainWindow/Window.cpp:1554
 #, kde-format
 msgid "Internal Error"
 msgstr "Iekšēja kļūda"
 
-#: MainWindow/Window.cpp:1556
+#: MainWindow/Window.cpp:1565
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "Veiksmīgi kopīgots attēls(-i). Kopē atrašanās vietu starpliktuvē..."
 
-#: MainWindow/Window.cpp:1559
+#: MainWindow/Window.cpp:1568
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Veiksmīgi kopīgots attēls(-i)."
 
-#: MainWindow/Window.cpp:1564
+#: MainWindow/Window.cpp:1573
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Attēlu kopīgošana neizdevās ar ziņojumu: %1"
 
-#: MainWindow/Window.cpp:1615
+#: MainWindow/Window.cpp:1624
 #, kde-format
 msgid "Open List of Files"
 msgstr "Atvērt datņu sarakstu"
 
-#: MainWindow/Window.cpp:1616
+#: MainWindow/Window.cpp:1625
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4686,28 +4686,28 @@ msgstr ""
 "Varat „KPhotoAlbum“ programmā atvērt uzreiz vairākas datnes, tās uzskaitot "
 "te."
 
-#: MainWindow/Window.cpp:1630
+#: MainWindow/Window.cpp:1639
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Nav atrasti attēlu, kas atbilstu ievadei."
 
-#: MainWindow/Window.cpp:1630
+#: MainWindow/Window.cpp:1639
 #, kde-format
 msgid "No Matches"
 msgstr "Nav atbilstību"
 
-#: MainWindow/Window.cpp:1802
+#: MainWindow/Window.cpp:1811
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "No jauna nolasa „Exif“ informāciju no visiem attēliem"
 
-#: MainWindow/Window.cpp:1829
+#: MainWindow/Window.cpp:1838
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Sīktēlu skats: %1 piks. (glabāšanas izmērs: %2 piks.)"
 
-#: MainWindow/Window.cpp:1882
+#: MainWindow/Window.cpp:1891
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4718,7 +4718,7 @@ msgstr ""
 "parādīt video sīktēlus un noteikt video garumu. Ieinstalējiet „ffmpeg“ "
 "pakotni</p>"
 
-#: MainWindow/Window.cpp:1885
+#: MainWindow/Window.cpp:1894
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Video sīktēli nav pieejami"
@@ -6767,253 +6767,253 @@ msgstr "Nosaukums"
 msgid "Existing Assignments"
 msgstr "Pastāvošie piešķīrumi"
 
-#: Viewer/ViewerWidget.cpp:195
+#: Viewer/ViewerWidget.cpp:187
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
 msgstr "Iestatīt kā pirmo attēlu grēdā"
 
-#: Viewer/ViewerWidget.cpp:207
+#: Viewer/ViewerWidget.cpp:199
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
 msgstr "Kopēt attēlu uz..."
 
-#: Viewer/ViewerWidget.cpp:213
+#: Viewer/ViewerWidget.cpp:205
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
 msgstr "Saitēt attēlu uz..."
 
-#: Viewer/ViewerWidget.cpp:221
+#: Viewer/ViewerWidget.cpp:213
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Aizvērt"
 
-#: Viewer/ViewerWidget.cpp:283
+#: Viewer/ViewerWidget.cpp:275
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "Pagriezt"
 
-#: Viewer/ViewerWidget.cpp:294
+#: Viewer/ViewerWidget.cpp:286
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
 msgstr "Pagriezt pulksteņrādītāja virzienā"
 
-#: Viewer/ViewerWidget.cpp:295
+#: Viewer/ViewerWidget.cpp:287
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
 msgstr "Apmest"
 
-#: Viewer/ViewerWidget.cpp:296
+#: Viewer/ViewerWidget.cpp:288
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
 msgstr "Pagriezt pretēji pulksteņrādītājam"
 
-#: Viewer/ViewerWidget.cpp:307
+#: Viewer/ViewerWidget.cpp:299
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "Izlaist"
 
-#: Viewer/ViewerWidget.cpp:310
+#: Viewer/ViewerWidget.cpp:302
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "Pirmā"
 
-#: Viewer/ViewerWidget.cpp:317
+#: Viewer/ViewerWidget.cpp:309
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "Pēdējā"
 
-#: Viewer/ViewerWidget.cpp:324
+#: Viewer/ViewerWidget.cpp:316
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
 msgstr "Rādīt nākamo"
 
-#: Viewer/ViewerWidget.cpp:330
+#: Viewer/ViewerWidget.cpp:322
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "Iet 10 uz priekšu"
 
-#: Viewer/ViewerWidget.cpp:336
+#: Viewer/ViewerWidget.cpp:328
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "Iet 100 uz priekšu"
 
-#: Viewer/ViewerWidget.cpp:342
+#: Viewer/ViewerWidget.cpp:334
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "Iet 1000 uz priekšu"
 
-#: Viewer/ViewerWidget.cpp:348
+#: Viewer/ViewerWidget.cpp:340
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "Rādīt iepriekšējo"
 
-#: Viewer/ViewerWidget.cpp:354
+#: Viewer/ViewerWidget.cpp:346
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "Izlaist 10 atpakaļ"
 
-#: Viewer/ViewerWidget.cpp:360
+#: Viewer/ViewerWidget.cpp:352
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "Izlaist 100 atpakaļ"
 
-#: Viewer/ViewerWidget.cpp:366
+#: Viewer/ViewerWidget.cpp:358
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "Izlaist 1000 atpakaļ"
 
-#: Viewer/ViewerWidget.cpp:372
+#: Viewer/ViewerWidget.cpp:364
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "Dzēst attēlu"
 
-#: Viewer/ViewerWidget.cpp:377
+#: Viewer/ViewerWidget.cpp:369
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
 msgstr "Noņemt attēlu no parādāmā saraksta"
 
-#: Viewer/ViewerWidget.cpp:392
+#: Viewer/ViewerWidget.cpp:384
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "Tuvināšana"
 
-#: Viewer/ViewerWidget.cpp:396
+#: Viewer/ViewerWidget.cpp:388
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "Tuvināt"
 
-#: Viewer/ViewerWidget.cpp:402
+#: Viewer/ViewerWidget.cpp:394
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "Tālināt"
 
-#: Viewer/ViewerWidget.cpp:408
+#: Viewer/ViewerWidget.cpp:400
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "Pilns skats"
 
-#: Viewer/ViewerWidget.cpp:414
+#: Viewer/ViewerWidget.cpp:406
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
 msgstr "Pikselis pret pikseli skats"
 
-#: Viewer/ViewerWidget.cpp:420
+#: Viewer/ViewerWidget.cpp:412
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "Pārslēgt pilnekrānu"
 
-#: Viewer/ViewerWidget.cpp:431
+#: Viewer/ViewerWidget.cpp:423
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Slīdrāde"
 
-#: Viewer/ViewerWidget.cpp:434 Viewer/ViewerWidget.cpp:919
+#: Viewer/ViewerWidget.cpp:426 Viewer/ViewerWidget.cpp:908
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "Palaist slīdrādi"
 
-#: Viewer/ViewerWidget.cpp:439
+#: Viewer/ViewerWidget.cpp:431
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
 msgstr "Paātrināt"
 
-#: Viewer/ViewerWidget.cpp:444
+#: Viewer/ViewerWidget.cpp:436
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
 msgstr "Palēnināt"
 
-#: Viewer/ViewerWidget.cpp:482
+#: Viewer/ViewerWidget.cpp:474
 #, kde-format
 msgid "File not available"
 msgstr "Datne nav pieejama"
 
-#: Viewer/ViewerWidget.cpp:525
+#: Viewer/ViewerWidget.cpp:517
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
 msgstr "%1 %2"
 
-#: Viewer/ViewerWidget.cpp:561
+#: Viewer/ViewerWidget.cpp:553
 #, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
 msgstr "Atskaņot"
 
-#: Viewer/ViewerWidget.cpp:563
+#: Viewer/ViewerWidget.cpp:555
 #, kde-format
 msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "Pauzēt"
 
-#: Viewer/ViewerWidget.cpp:637 Viewer/ViewerWidget.cpp:1164
+#: Viewer/ViewerWidget.cpp:629 Viewer/ViewerWidget.cpp:1153
 #, kde-format
 msgid "Tags and tokens locked"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:639
+#: Viewer/ViewerWidget.cpp:631
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Assign Tags"
 msgid "Assigning tags"
 msgstr "Piešķirt birkas"
 
-#: Viewer/ViewerWidget.cpp:641
+#: Viewer/ViewerWidget.cpp:633
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Assign Tokens"
 msgid "Assigning tokens"
 msgstr "Piešķirt žetonus"
 
-#: Viewer/ViewerWidget.cpp:646
+#: Viewer/ViewerWidget.cpp:638
 #, fuzzy, kde-format
 #| msgid "Annotation Mode"
 msgid "Annotation mode: %1"
 msgstr "Anotēšanas režīms"
 
-#: Viewer/ViewerWidget.cpp:922
+#: Viewer/ViewerWidget.cpp:911
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
 msgstr "Pabeidz slīdrādi"
 
-#: Viewer/ViewerWidget.cpp:925
+#: Viewer/ViewerWidget.cpp:914
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "Apturēt slīdrādi"
 
-#: Viewer/ViewerWidget.cpp:930
+#: Viewer/ViewerWidget.cpp:919
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
@@ -7021,145 +7021,145 @@ msgid ""
 "slideshow slower"
 msgstr "Sāk slīdrādi<br/>„%1“ slīdrādi paātrina<br/>„%2“ palēnina slīdrādi"
 
-#: Viewer/ViewerWidget.cpp:980
+#: Viewer/ViewerWidget.cpp:969
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
 msgstr "%1&nbsp;sek."
 
-#: Viewer/ViewerWidget.cpp:1256
+#: Viewer/ViewerWidget.cpp:1245
 #, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
 msgstr "Rediģēt attēla aprakstu"
 
-#: Viewer/ViewerWidget.cpp:1256
+#: Viewer/ViewerWidget.cpp:1245
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
 msgstr "Attēla apraksts"
 
-#: Viewer/ViewerWidget.cpp:1271
+#: Viewer/ViewerWidget.cpp:1260
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Pārlēkt"
 
-#: Viewer/ViewerWidget.cpp:1293
+#: Viewer/ViewerWidget.cpp:1282
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "10 minūšu atpakaļ"
 
-#: Viewer/ViewerWidget.cpp:1294
+#: Viewer/ViewerWidget.cpp:1283
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "1 minūti atpakaļ"
 
-#: Viewer/ViewerWidget.cpp:1295
+#: Viewer/ViewerWidget.cpp:1284
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "10 sekunžu atpakaļ"
 
-#: Viewer/ViewerWidget.cpp:1296
+#: Viewer/ViewerWidget.cpp:1285
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "1 sekundi atpakaļ"
 
-#: Viewer/ViewerWidget.cpp:1297
+#: Viewer/ViewerWidget.cpp:1286
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "100 milisekunžu atpakaļ"
 
-#: Viewer/ViewerWidget.cpp:1298
+#: Viewer/ViewerWidget.cpp:1287
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "100 milisekunžu uz priekšu"
 
-#: Viewer/ViewerWidget.cpp:1299
+#: Viewer/ViewerWidget.cpp:1288
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "1 sekundi uz priekšu"
 
-#: Viewer/ViewerWidget.cpp:1300
+#: Viewer/ViewerWidget.cpp:1289
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "10 sekunžu uz priekšu"
 
-#: Viewer/ViewerWidget.cpp:1301
+#: Viewer/ViewerWidget.cpp:1290
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "1 minūti uz priekšu"
 
-#: Viewer/ViewerWidget.cpp:1302
+#: Viewer/ViewerWidget.cpp:1291
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "10 minūšu uz priekšu"
 
-#: Viewer/ViewerWidget.cpp:1310
+#: Viewer/ViewerWidget.cpp:1299
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Apturēt"
 
-#: Viewer/ViewerWidget.cpp:1322
+#: Viewer/ViewerWidget.cpp:1311
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "Izmantot pašreizējo kadru sīktēla skatam"
 
-#: Viewer/ViewerWidget.cpp:1329
+#: Viewer/ViewerWidget.cpp:1318
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Pārstartēt"
 
-#: Viewer/ViewerWidget.cpp:1345
+#: Viewer/ViewerWidget.cpp:1334
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Filtri"
 
-#: Viewer/ViewerWidget.cpp:1348
+#: Viewer/ViewerWidget.cpp:1337
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Noņemt visus filtrus"
 
-#: Viewer/ViewerWidget.cpp:1352
+#: Viewer/ViewerWidget.cpp:1341
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Pielietot pelēktoņu filtru"
 
-#: Viewer/ViewerWidget.cpp:1357
+#: Viewer/ViewerWidget.cpp:1346
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Pielietot kontrasta izstiepšanas filtru"
 
-#: Viewer/ViewerWidget.cpp:1362
+#: Viewer/ViewerWidget.cpp:1351
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "Pielietot histogrammas izlīdzināšanas filtru"
 
-#: Viewer/ViewerWidget.cpp:1367
+#: Viewer/ViewerWidget.cpp:1356
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "Pielietot vienas krāsas filtru"
 
-#: Viewer/ViewerWidget.cpp:1423
+#: Viewer/ViewerWidget.cpp:1412
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -7171,7 +7171,7 @@ msgstr ""
 "<i>Turpināt</i>, lai ļautu „KPhotoAlbum“ izmēģināt citu aizmugursistēmu...</"
 "p>"
 
-#: Viewer/ViewerWidget.cpp:1427
+#: Viewer/ViewerWidget.cpp:1416
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
@@ -7180,7 +7180,7 @@ msgstr ""
 "<p>Apturētā video aizmugursistēma: <tt>%1</tt></p><p>Turpmāk izmantotā video "
 "aizmugursistēma: <tt>%2</tt></p>"
 
-#: Viewer/ViewerWidget.cpp:1440
+#: Viewer/ViewerWidget.cpp:1429
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
@@ -7190,101 +7190,101 @@ msgstr ""
 "visas kādā brīdī ir avarējušas.</p><p>Avāriju konstatēšana tagad tiks "
 "izslēgta.</p>"
 
-#: Viewer/ViewerWidget.cpp:1500
+#: Viewer/ViewerWidget.cpp:1489
 #, kde-format
 msgid "Annotate"
 msgstr "Anotēt"
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1508
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "Palīdzība"
 
-#: Viewer/ViewerWidget.cpp:1521
+#: Viewer/ViewerWidget.cpp:1510
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Anotācijas lodziņš"
 
-#: Viewer/ViewerWidget.cpp:1522
+#: Viewer/ViewerWidget.cpp:1511
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Pievienot birku"
 
-#: Viewer/ViewerWidget.cpp:1522
+#: Viewer/ViewerWidget.cpp:1511
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "CTRL+a"
 
-#: Viewer/ViewerWidget.cpp:1525
+#: Viewer/ViewerWidget.cpp:1514
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "Kopēt datnes no iepriekšējā attēla"
 
-#: Viewer/ViewerWidget.cpp:1526
+#: Viewer/ViewerWidget.cpp:1515
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "CTRL+c"
 
-#: Viewer/ViewerWidget.cpp:1529
+#: Viewer/ViewerWidget.cpp:1518
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Rediģēt aprakstu"
 
-#: Viewer/ViewerWidget.cpp:1530
+#: Viewer/ViewerWidget.cpp:1519
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "CTRL+d"
 
-#: Viewer/ViewerWidget.cpp:1533
+#: Viewer/ViewerWidget.cpp:1522
 #, kde-format
 msgid "Annotation Mode"
 msgstr "Anotēšanas režīms"
 
-#: Viewer/ViewerWidget.cpp:1535
+#: Viewer/ViewerWidget.cpp:1524
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "Slēgts"
 
-#: Viewer/ViewerWidget.cpp:1536
+#: Viewer/ViewerWidget.cpp:1525
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "CTRL+l"
 
-#: Viewer/ViewerWidget.cpp:1540
+#: Viewer/ViewerWidget.cpp:1529
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "Piešķirt birkas"
 
-#: Viewer/ViewerWidget.cpp:1541
+#: Viewer/ViewerWidget.cpp:1530
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1545
+#: Viewer/ViewerWidget.cpp:1534
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Piešķirt žetonus"
 
-#: Viewer/ViewerWidget.cpp:1546
+#: Viewer/ViewerWidget.cpp:1535
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "CTRL+t"
 
-#: Viewer/ViewerWidget.cpp:1710
+#: Viewer/ViewerWidget.cpp:1699
 #, kde-format
 msgid "Token %1"
 msgstr "Žetons „%1“"

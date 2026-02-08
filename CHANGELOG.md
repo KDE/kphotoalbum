@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: 2022-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+SPDX-FileCopyrightText: 2022-2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 SPDX-FileCopyrightText: 2022-2025 Tobias Leupold <tl@stonemx.de>
 
 SPDX-License-Identifier: CC-BY-SA-4.0
@@ -59,6 +59,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix several warnings in the console output (#505015)
  - Use embedded 'creation_time' data in video files instead of file creation time (#472520)
  - Allow saving the Annotation Dialog's layout either globally (as a template for all databases) or per-database (#513933)
+ - Prevent unnecessary entries in the block list (#512207)
 
 ### Removed
 

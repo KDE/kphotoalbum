@@ -70,6 +70,7 @@ public:
 
     ViewerWidget(UsageType type = UsageType::FullFeaturedViewer);
     ~ViewerWidget() override;
+    static ViewerWidget *latest();
     void load(const DB::FileNameList &list, int index = 0);
     void infoBoxMove();
     bool showingFullScreen() const;
@@ -215,6 +216,7 @@ protected Q_SLOTS:
     void setTagMode(Settings::ViewerTagMode tagMode);
 
 private:
+    static ViewerWidget *s_latest;
     friend class VideoShooter;
     friend class TemporarilyDisableCursorHandling;
 

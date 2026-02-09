@@ -8,7 +8,7 @@
 // SPDX-FileCopyrightText: 2010 - 2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
 // SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
-// SPDX-FileCopyrightText: 2012 - 2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2012 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
 // SPDX-FileCopyrightText: 2014 - 2017 Robert Krawitz <rlk@alum.mit.edu>
 // SPDX-FileCopyrightText: 2015 - 2022 Tobias Leupold <tl@stonemx.de>
@@ -43,11 +43,6 @@ class KTipDialog;
 class KToggleAction;
 
 #ifdef HAVE_MARBLE
-
-namespace Viewer
-{
-class ViewerWidget;
-}
 namespace Map
 {
 class MapView;
@@ -302,8 +297,6 @@ private:
 #endif
     ThumbnailView::FilterWidget *m_filterWidget;
     CopyLinkEngine *m_copyLinkEngine;
-
-    QList<Viewer::ViewerWidget *> m_viewers; ///< A list of all currently open full featured ViewerWidgets
 };
 
 }

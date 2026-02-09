@@ -1476,7 +1476,6 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSent
         qCCritical(ViewerLog) << "No viable video backend!";
     }
 
-    static_assert(LIBVLC_FOUND || Phonon4Qt6_FOUND, "A video backend must be provided. The build system should bail out if none is available.");
     Q_UNREACHABLE();
     return nullptr;
 }

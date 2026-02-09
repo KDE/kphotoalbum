@@ -37,6 +37,7 @@ void KPATest::TestTimespan::testAge()
     QCOMPARE(Timespan::age(birthDate, DB::ImageDate(birthDate.addYears(3).addMonths(1))), QString::fromLatin1(" (3)"));
     // Image fuzzy date after birth date:
     QCOMPARE(Timespan::age(birthDate, DB::ImageDate(birthDate.addYears(3), birthDate.addYears(4))), QString::fromLatin1(" (3 to 4)"));
+    QCOMPARE(Timespan::age(birthDate, DB::ImageDate(birthDate.addYears(3).addMonths(1), birthDate.addYears(3).addMonths(2))), QString::fromLatin1(" (3)"));
 }
 
 void KPATest::TestTimespan::testAgo()

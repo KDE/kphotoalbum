@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2024 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -83,15 +84,13 @@ QString Timespan::age(const QDate &birthDate, const DB::ImageDate &imageDate)
     }
 
     // The photo was taken after the person's birth
-    const auto minAge = dateDifference(birthDate, dateStart);
-    const auto maxAge = dateDifference(birthDate, dateEnd);
+    const auto minAge = formatAge(dateDifference(birthDate, dateStart));
+    const auto maxAge = formatAge(dateDifference(birthDate, dateEnd));
 
     if (minAge == maxAge) {
-        return i18nc("Like \"6 years\" old",
-                     " (%1)", formatAge(minAge));
+        return i18nc("Like \"6 years\" old", " (%1)", minAge);
     } else {
-        return i18nc("Like \"6 years to 7 years\" old",
-                     " (%1 to %2)", formatAge(minAge), formatAge(maxAge));
+        return i18nc("Like \"6 years to 7 years\" old", " (%1 to %2)", minAge, maxAge);
     }
 }
 

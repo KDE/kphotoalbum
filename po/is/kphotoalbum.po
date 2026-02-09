@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-08 00:41+0000\n"
-"PO-Revision-Date: 2026-01-25 08:44+0000\n"
+"PO-Revision-Date: 2026-02-08 14:41+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -5683,7 +5683,7 @@ msgstr "Raunstærð myndar"
 #: Settings/ViewerPage.cpp:77
 #, kde-format
 msgid "Natural Image Size If Possible"
-msgstr ""
+msgstr "Raunstærð myndar ef mögulegt"
 
 #: Settings/ViewerPage.cpp:82
 #, kde-format
@@ -5726,29 +5726,22 @@ msgid "Video Backend:"
 msgstr "Myndskeiðabakendi:"
 
 #: Settings/ViewerPage.cpp:112
-#, fuzzy, kde-format
-#| msgid "Annotation Mode"
+#, kde-format
 msgid "Default Annotation Mode"
-msgstr "Glósuhamur"
+msgstr "Sjálfgefinn glósuhamur"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Locked"
+#, kde-format
 msgid "Locked"
 msgstr "Læst"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tags"
+#, kde-format
 msgid "Assign tags"
 msgstr "Úthluta merkjum"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tokens"
+#, kde-format
 msgid "Assign tokens"
 msgstr "Úthluta teiknum"
 
@@ -6142,7 +6135,7 @@ msgstr "Merki"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear assignment"
-msgstr ""
+msgstr "Hreinsa úthlutun"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
@@ -6172,7 +6165,7 @@ msgstr "Titill"
 #: Viewer/SelectCategoryAndValue.ui:120
 #, kde-format
 msgid "Existing Assignments"
-msgstr ""
+msgstr "Fyrirliggjandi úthlutanir"
 
 #: Viewer/ViewerWidget.cpp:187
 #, kde-format
@@ -6386,27 +6379,22 @@ msgstr "Bíða"
 #: Viewer/ViewerWidget.cpp:629 Viewer/ViewerWidget.cpp:1153
 #, kde-format
 msgid "Tags and tokens locked"
-msgstr ""
+msgstr "Merki og teikn læst"
 
 #: Viewer/ViewerWidget.cpp:631
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tags"
+#, kde-format
 msgid "Assigning tags"
 msgstr "Úthluta merkjum"
 
 #: Viewer/ViewerWidget.cpp:633
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tokens"
+#, kde-format
 msgid "Assigning tokens"
 msgstr "Úthluta teiknum"
 
 #: Viewer/ViewerWidget.cpp:638
-#, fuzzy, kde-format
-#| msgid "Annotation Mode"
+#, kde-format
 msgid "Annotation mode: %1"
-msgstr "Glósuhamur"
+msgstr "Glósuhamur: %1"
 
 #: Viewer/ViewerWidget.cpp:911
 #, kde-format

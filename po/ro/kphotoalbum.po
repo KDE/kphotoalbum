@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-08 00:41+0000\n"
+"POT-Creation-Date: 2026-02-10 00:42+0000\n"
 "PO-Revision-Date: 2022-02-15 21:10+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -40,12 +40,12 @@ msgstr ""
 msgid "tomorrow"
 msgstr "mâine"
 
-#: AnnotationDialog/DateEdit.cpp:70 Utilities/Timespan.cpp:169
+#: AnnotationDialog/DateEdit.cpp:70 Utilities/Timespan.cpp:168
 #, kde-format
 msgid "today"
 msgstr "astăzi"
 
-#: AnnotationDialog/DateEdit.cpp:71 Utilities/Timespan.cpp:172
+#: AnnotationDialog/DateEdit.cpp:71 Utilities/Timespan.cpp:171
 #, kde-format
 msgid "yesterday"
 msgstr "ieri"
@@ -6038,7 +6038,7 @@ msgstr "<b>Etichetă: </b> "
 msgid "<b>Description: </b> "
 msgstr "<b>Descriere: </b> "
 
-#: Utilities/Timespan.cpp:81
+#: Utilities/Timespan.cpp:82
 #, kde-format
 msgctxt "Like \"up to 6 years\" old"
 msgid " (up to %1)"
@@ -6050,13 +6050,13 @@ msgctxt "Like \"6 years\" old"
 msgid " (%1)"
 msgstr ""
 
-#: Utilities/Timespan.cpp:94
+#: Utilities/Timespan.cpp:93
 #, kde-format
 msgctxt "Like \"6 years to 7 years\" old"
 msgid " (%1 to %2)"
 msgstr ""
 
-#: Utilities/Timespan.cpp:103
+#: Utilities/Timespan.cpp:102
 #, kde-format
 msgctxt "Like \"The baby is '8 days' old\""
 msgid "%1 day"
@@ -6065,7 +6065,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: Utilities/Timespan.cpp:108
+#: Utilities/Timespan.cpp:107
 #, fuzzy, kde-format
 #| msgid "1 Month"
 msgctxt "Like \"The baby is '4 months' old\""
@@ -6075,7 +6075,7 @@ msgstr[0] "1 lună"
 msgstr[1] "1 lună"
 msgstr[2] "1 lună"
 
-#: Utilities/Timespan.cpp:113
+#: Utilities/Timespan.cpp:112
 #, kde-format
 msgctxt "Like \"The person is '28 years' old\""
 msgid "%1 year"
@@ -6084,7 +6084,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: Utilities/Timespan.cpp:118
+#: Utilities/Timespan.cpp:117
 #, fuzzy, kde-format
 #| msgid "1 Month"
 msgctxt "Like \"The baby is \"4 months\" old\""
@@ -6094,7 +6094,7 @@ msgstr[0] "1 lună"
 msgstr[1] "1 lună"
 msgstr[2] "1 lună"
 
-#: Utilities/Timespan.cpp:121
+#: Utilities/Timespan.cpp:120
 #, kde-format
 msgctxt ""
 "This combines an age of a person in years (%1) with the additional months "
@@ -6102,31 +6102,31 @@ msgctxt ""
 msgid "%1, %2"
 msgstr ""
 
-#: Utilities/Timespan.cpp:151
+#: Utilities/Timespan.cpp:150
 #, fuzzy, kde-format
 #| msgid "today"
 msgid " (today)"
 msgstr "astăzi"
 
-#: Utilities/Timespan.cpp:154
+#: Utilities/Timespan.cpp:153
 #, fuzzy, kde-format
 #| msgid "yesterday"
 msgid " (yesterday)"
 msgstr "ieri"
 
-#: Utilities/Timespan.cpp:158
+#: Utilities/Timespan.cpp:157
 #, kde-format
 msgctxt "Like \"6 years ago\""
 msgid " (%1 ago)"
 msgstr ""
 
-#: Utilities/Timespan.cpp:162
+#: Utilities/Timespan.cpp:161
 #, kde-format
 msgctxt "Like \"6 to 7 years ago\""
 msgid " (%1 to %2 ago)"
 msgstr ""
 
-#: Utilities/Timespan.cpp:177
+#: Utilities/Timespan.cpp:176
 #, kde-format
 msgctxt "Like \"This happened '6 days' ago\""
 msgid "%1 day"
@@ -6135,7 +6135,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: Utilities/Timespan.cpp:184
+#: Utilities/Timespan.cpp:183
 #, kde-format
 msgctxt "Like \"This happened '3 weeks' ago\""
 msgid "%1 week"
@@ -6144,7 +6144,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: Utilities/Timespan.cpp:189
+#: Utilities/Timespan.cpp:188
 #, kde-format
 msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
 msgid "ca. %1 week"
@@ -6153,7 +6153,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: Utilities/Timespan.cpp:197 Utilities/Timespan.cpp:236
+#: Utilities/Timespan.cpp:196 Utilities/Timespan.cpp:235
 #, fuzzy, kde-format
 #| msgid "1 Month"
 msgctxt "Like \"This happened '2 months' ago\""
@@ -6163,7 +6163,7 @@ msgstr[0] "1 lună"
 msgstr[1] "1 lună"
 msgstr[2] "1 lună"
 
-#: Utilities/Timespan.cpp:202 Utilities/Timespan.cpp:207
+#: Utilities/Timespan.cpp:201 Utilities/Timespan.cpp:206
 #, fuzzy, kde-format
 #| msgid "1 Month"
 msgctxt "Like \"This happened 'ca. 2 months' ago\""
@@ -6173,8 +6173,8 @@ msgstr[0] "1 lună"
 msgstr[1] "1 lună"
 msgstr[2] "1 lună"
 
-#: Utilities/Timespan.cpp:212 Utilities/Timespan.cpp:231
-#: Utilities/Timespan.cpp:234
+#: Utilities/Timespan.cpp:211 Utilities/Timespan.cpp:230
+#: Utilities/Timespan.cpp:233
 #, kde-format
 msgctxt "Like \"This happened '2 years' ago\""
 msgid "%1 year"
@@ -6183,7 +6183,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: Utilities/Timespan.cpp:240
+#: Utilities/Timespan.cpp:239
 #, kde-format
 msgctxt ""
 "This combines a number of years and months to a timespan, like \"This "
@@ -6795,106 +6795,106 @@ msgid ""
 "crashed at some point.</p><p>Crash detection is now turned off.</p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1489
+#: Viewer/ViewerWidget.cpp:1488
 #, fuzzy, kde-format
 #| msgid "Rename..."
 msgid "Annotate"
 msgstr "Redenumire..."
 
-#: Viewer/ViewerWidget.cpp:1508
+#: Viewer/ViewerWidget.cpp:1507
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1510
+#: Viewer/ViewerWidget.cpp:1509
 #, fuzzy, kde-format
 #| msgid "Orientation"
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Orientare"
 
-#: Viewer/ViewerWidget.cpp:1511
+#: Viewer/ViewerWidget.cpp:1510
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1511
+#: Viewer/ViewerWidget.cpp:1510
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1514
+#: Viewer/ViewerWidget.cpp:1513
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1515
+#: Viewer/ViewerWidget.cpp:1514
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1518
+#: Viewer/ViewerWidget.cpp:1517
 #, fuzzy, kde-format
 #| msgid "Description"
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Descriere"
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1518
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1522
+#: Viewer/ViewerWidget.cpp:1521
 #, fuzzy, kde-format
 #| msgid "Orientation"
 msgid "Annotation Mode"
 msgstr "Orientare"
 
-#: Viewer/ViewerWidget.cpp:1524
+#: Viewer/ViewerWidget.cpp:1523
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1525
+#: Viewer/ViewerWidget.cpp:1524
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1529
+#: Viewer/ViewerWidget.cpp:1528
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1530
+#: Viewer/ViewerWidget.cpp:1529
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1534
+#: Viewer/ViewerWidget.cpp:1533
 #, fuzzy, kde-format
 #| msgid "Tokens"
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Marcaj"
 
-#: Viewer/ViewerWidget.cpp:1535
+#: Viewer/ViewerWidget.cpp:1534
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1699
+#: Viewer/ViewerWidget.cpp:1698
 #, fuzzy, kde-format
 #| msgid "Tokens"
 msgid "Token %1"

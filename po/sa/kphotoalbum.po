@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-08 00:41+0000\n"
+"POT-Creation-Date: 2026-02-10 00:42+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -39,12 +39,12 @@ msgstr "अन्यस्य क्षेत्रस्य कृते टै
 msgid "tomorrow"
 msgstr "श्वः"
 
-#: AnnotationDialog/DateEdit.cpp:70 Utilities/Timespan.cpp:169
+#: AnnotationDialog/DateEdit.cpp:70 Utilities/Timespan.cpp:168
 #, kde-format
 msgid "today"
 msgstr "अद्य"
 
-#: AnnotationDialog/DateEdit.cpp:71 Utilities/Timespan.cpp:172
+#: AnnotationDialog/DateEdit.cpp:71 Utilities/Timespan.cpp:171
 #, kde-format
 msgid "yesterday"
 msgstr "ह्यः"
@@ -6407,7 +6407,7 @@ msgstr "<b>नामपत्र:</b> "
 msgid "<b>Description: </b> "
 msgstr "<b>वर्णनम्‌:</b> "
 
-#: Utilities/Timespan.cpp:81
+#: Utilities/Timespan.cpp:82
 #, kde-format
 msgctxt "Like \"up to 6 years\" old"
 msgid " (up to %1)"
@@ -6419,13 +6419,13 @@ msgctxt "Like \"6 years\" old"
 msgid " (%1)"
 msgstr " (%1)"
 
-#: Utilities/Timespan.cpp:94
+#: Utilities/Timespan.cpp:93
 #, kde-format
 msgctxt "Like \"6 years to 7 years\" old"
 msgid " (%1 to %2)"
 msgstr " (%1 तः %2 पर्यन्तम्)"
 
-#: Utilities/Timespan.cpp:103
+#: Utilities/Timespan.cpp:102
 #, kde-format
 msgctxt "Like \"The baby is '8 days' old\""
 msgid "%1 day"
@@ -6433,7 +6433,7 @@ msgid_plural "%1 days"
 msgstr[0] "%1 दिवसः"
 msgstr[1] "%1 दिवसाः"
 
-#: Utilities/Timespan.cpp:108
+#: Utilities/Timespan.cpp:107
 #, kde-format
 msgctxt "Like \"The baby is '4 months' old\""
 msgid "%1 month"
@@ -6441,7 +6441,7 @@ msgid_plural "%1 months"
 msgstr[0] "%1 मासः"
 msgstr[1] "%1 मासाः"
 
-#: Utilities/Timespan.cpp:113
+#: Utilities/Timespan.cpp:112
 #, kde-format
 msgctxt "Like \"The person is '28 years' old\""
 msgid "%1 year"
@@ -6449,7 +6449,7 @@ msgid_plural "%1 years"
 msgstr[0] "%1 वर्ष"
 msgstr[1] "%1 वर्षाणि"
 
-#: Utilities/Timespan.cpp:118
+#: Utilities/Timespan.cpp:117
 #, kde-format
 msgctxt "Like \"The baby is \"4 months\" old\""
 msgid "%1 month"
@@ -6457,7 +6457,7 @@ msgid_plural "%1 months"
 msgstr[0] "%1 मासः"
 msgstr[1] "%1 मासाः"
 
-#: Utilities/Timespan.cpp:121
+#: Utilities/Timespan.cpp:120
 #, kde-format
 msgctxt ""
 "This combines an age of a person in years (%1) with the additional months "
@@ -6465,29 +6465,29 @@ msgctxt ""
 msgid "%1, %2"
 msgstr "%1, %2"
 
-#: Utilities/Timespan.cpp:151
+#: Utilities/Timespan.cpp:150
 #, kde-format
 msgid " (today)"
 msgstr " (अद्य)"
 
-#: Utilities/Timespan.cpp:154
+#: Utilities/Timespan.cpp:153
 #, kde-format
 msgid " (yesterday)"
 msgstr " (ह्यः)"
 
-#: Utilities/Timespan.cpp:158
+#: Utilities/Timespan.cpp:157
 #, kde-format
 msgctxt "Like \"6 years ago\""
 msgid " (%1 ago)"
 msgstr " (%1 पूर्वम्)"
 
-#: Utilities/Timespan.cpp:162
+#: Utilities/Timespan.cpp:161
 #, kde-format
 msgctxt "Like \"6 to 7 years ago\""
 msgid " (%1 to %2 ago)"
 msgstr " (%1 तः %2 पर्यन्तं पूर्वम्)"
 
-#: Utilities/Timespan.cpp:177
+#: Utilities/Timespan.cpp:176
 #, kde-format
 msgctxt "Like \"This happened '6 days' ago\""
 msgid "%1 day"
@@ -6495,7 +6495,7 @@ msgid_plural "%1 days"
 msgstr[0] "%1 दिवसः"
 msgstr[1] "%1 दिवसाः"
 
-#: Utilities/Timespan.cpp:184
+#: Utilities/Timespan.cpp:183
 #, kde-format
 msgctxt "Like \"This happened '3 weeks' ago\""
 msgid "%1 week"
@@ -6503,7 +6503,7 @@ msgid_plural "%1 weeks"
 msgstr[0] "%1 सप्ताहः"
 msgstr[1] "%1 सप्ताहाः"
 
-#: Utilities/Timespan.cpp:189
+#: Utilities/Timespan.cpp:188
 #, kde-format
 msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
 msgid "ca. %1 week"
@@ -6511,7 +6511,7 @@ msgid_plural "ca. %1 weeks"
 msgstr[0] "तत्‌। %1 सप्ताहः"
 msgstr[1] "ca. %1 सप्ताहाः"
 
-#: Utilities/Timespan.cpp:197 Utilities/Timespan.cpp:236
+#: Utilities/Timespan.cpp:196 Utilities/Timespan.cpp:235
 #, kde-format
 msgctxt "Like \"This happened '2 months' ago\""
 msgid "%1 month"
@@ -6519,7 +6519,7 @@ msgid_plural "%1 months"
 msgstr[0] "%1 मासः"
 msgstr[1] "%1 मासाः"
 
-#: Utilities/Timespan.cpp:202 Utilities/Timespan.cpp:207
+#: Utilities/Timespan.cpp:201 Utilities/Timespan.cpp:206
 #, kde-format
 msgctxt "Like \"This happened 'ca. 2 months' ago\""
 msgid "ca. %1 month"
@@ -6527,8 +6527,8 @@ msgid_plural "ca. %1 months"
 msgstr[0] "ca. %1 मासः"
 msgstr[1] "ca. %1 मासाः"
 
-#: Utilities/Timespan.cpp:212 Utilities/Timespan.cpp:231
-#: Utilities/Timespan.cpp:234
+#: Utilities/Timespan.cpp:211 Utilities/Timespan.cpp:230
+#: Utilities/Timespan.cpp:233
 #, kde-format
 msgctxt "Like \"This happened '2 years' ago\""
 msgid "%1 year"
@@ -6536,7 +6536,7 @@ msgid_plural "%1 years"
 msgstr[0] "%1 वर्ष"
 msgstr[1] "%1 वर्षाणि"
 
-#: Utilities/Timespan.cpp:240
+#: Utilities/Timespan.cpp:239
 #, kde-format
 msgctxt ""
 "This combines a number of years and months to a timespan, like \"This "
@@ -7102,101 +7102,101 @@ msgstr ""
 "<p>KPhotoAlbum इत्यनेन सर्वाणि उपलब्धानि विडियो बैकएण्ड्-प्रयोगाः कृताः, परन्तु प्रत्येकं "
 "कस्मिन्चित् समये दुर्घटनाम् अभवत् ।</p><p> इदानीं दुर्घटनानिरीक्षणं निष्क्रियम् अस्ति ।</p>"
 
-#: Viewer/ViewerWidget.cpp:1489
+#: Viewer/ViewerWidget.cpp:1488
 #, kde-format
 msgid "Annotate"
 msgstr "टिप्पणीं कुरुत"
 
-#: Viewer/ViewerWidget.cpp:1508
+#: Viewer/ViewerWidget.cpp:1507
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "साहाय्यम्‌"
 
-#: Viewer/ViewerWidget.cpp:1510
+#: Viewer/ViewerWidget.cpp:1509
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "एनोटेशन संवाद"
 
-#: Viewer/ViewerWidget.cpp:1511
+#: Viewer/ViewerWidget.cpp:1510
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "टैगं योजयन्तु"
 
-#: Viewer/ViewerWidget.cpp:1511
+#: Viewer/ViewerWidget.cpp:1510
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "सीटीआरएल+क"
 
-#: Viewer/ViewerWidget.cpp:1514
+#: Viewer/ViewerWidget.cpp:1513
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "पूर्वचित्रात् आँकडानां प्रतिलिपिं कुर्वन्तु"
 
-#: Viewer/ViewerWidget.cpp:1515
+#: Viewer/ViewerWidget.cpp:1514
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "सीटीआरएल+ग"
 
-#: Viewer/ViewerWidget.cpp:1518
+#: Viewer/ViewerWidget.cpp:1517
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "विवरणं सम्पादयतु"
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1518
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "सीटीआरएल+घ"
 
-#: Viewer/ViewerWidget.cpp:1522
+#: Viewer/ViewerWidget.cpp:1521
 #, kde-format
 msgid "Annotation Mode"
 msgstr "एनोटेशन मोड"
 
-#: Viewer/ViewerWidget.cpp:1524
+#: Viewer/ViewerWidget.cpp:1523
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "तालाबद्धः"
 
-#: Viewer/ViewerWidget.cpp:1525
+#: Viewer/ViewerWidget.cpp:1524
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "सीटीआरएल+ल"
 
-#: Viewer/ViewerWidget.cpp:1529
+#: Viewer/ViewerWidget.cpp:1528
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "टैग्स नियुक्त करें"
 
-#: Viewer/ViewerWidget.cpp:1530
+#: Viewer/ViewerWidget.cpp:1529
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1534
+#: Viewer/ViewerWidget.cpp:1533
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "टोकन नियुक्तं कुर्वन्तु"
 
-#: Viewer/ViewerWidget.cpp:1535
+#: Viewer/ViewerWidget.cpp:1534
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "सीटीआरएल+ट"
 
-#: Viewer/ViewerWidget.cpp:1699
+#: Viewer/ViewerWidget.cpp:1698
 #, kde-format
 msgid "Token %1"
 msgstr "टोकन %1"

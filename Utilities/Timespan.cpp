@@ -141,8 +141,8 @@ QString Timespan::ago(const DB::ImageDate &imageDate)
         return QString();
     }
 
-    const auto minAgo = dateDifference(dateStart, today);
-    const auto maxAgo = dateDifference(dateEnd, today);
+    const auto minAgo = dateDifference(dateEnd, today);
+    const auto maxAgo = dateDifference(dateStart, today);
 
     if (minAgo == maxAgo) {
         if (minAgo.allDays == 0) {

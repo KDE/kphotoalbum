@@ -50,7 +50,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Deprecated
 
 ### Fixed
- - Allow large images up to an in-memory size of 2GB (#219112)
+ - Allow large images up to an in-memory size of 2GB (#500200)
  - Make "Clear form" button in search dialog actually clear all form fields.
  - Allow setting keyboard shortcuts for "Clear Form" and "Options..." items in Annotation/Search dialog (#306044)
  - Fix detection of KDcraw during build time

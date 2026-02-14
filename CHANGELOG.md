@@ -60,6 +60,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Use embedded 'creation_time' data in video files instead of file creation time (#472520)
  - Allow saving the Annotation Dialog's layout either globally (as a template for all databases) or per-database (#513933)
  - Prevent unnecessary entries in the block list (#512207)
+ - Prevent creation of .kim files over 4GB (mitigates bug #512199)
 
 ### Removed
 

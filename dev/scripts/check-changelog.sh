@@ -108,12 +108,12 @@ check_issue_plausibility()
         while read -r issue
         do
             local hash
-            if hash="$(sed -n "/^$issue / s/[^ ]* //p" "$icfile" | head -n1)"
+            if hash="$(sed -n "/^$issue / s/[^ ]* //p" "$icfile" | head -n1)" &&  [[ -n "$hash" ]]
             then
                 echo "[OK] $issue - commit $hash"
                 (( num_ok++ ))
             else
-                echo "[CHECK] $issue - Check bug report https://bugs.kde.org/$issue"
+                echo "[CHECK] $issue - No commit found. Check bug report https://bugs.kde.org/$issue"
                 (( num_check++ ))
             fi
         done

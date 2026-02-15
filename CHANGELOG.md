@@ -37,7 +37,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
 ### Added
  - Display number of images on collapsed stacks (#223213)
- - Add commandline option "--rescan" as a synonym for "--search". In the future, "--search" may become deprecated at some point.
+ - Add commandline option "--find-new-files" as a synonym for "--search". In the future, "--search" may become deprecated at some point.
  - Add support for QtMultimedia video backend
  - Make default annotation mode in viewer configurable (#474317)
 

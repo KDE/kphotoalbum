@@ -76,6 +76,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="pl">Oprogramowanie do zarządzania obrazami w KDE</summary>
   <summary xml:lang="pt">Aplicação de gestão de imagens do KDE</summary>
   <summary xml:lang="pt-BR">Software de gerenciamento de imagens do KDE</summary>
+  <summary xml:lang="ru">Программа для управления изображениями KDE</summary>
   <summary xml:lang="sa">KDE इमेज प्रबन्धन सॉफ्टवेयर</summary>
   <summary xml:lang="sk">KDE softvér na manipuláciu s obrázkami</summary>
   <summary xml:lang="sl">Programska oprema za upravljanje slik v namizju KDE</summary>
@@ -113,6 +114,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="pl">KPhotoAlbum jest programem do znaczenia i zarządzania zbiorami zdjęć.</p>
     <p xml:lang="pt">O KPhotoAlbum é uma aplicação para marcar e gerir uma colecção de fotografias, tornando-a fácil de pesquisar.</p>
     <p xml:lang="pt-BR">KPhotoAlbum é um aplicativo para etiquetar e gerenciar uma coleção de fotos e torná-la pesquisável.</p>
+    <p xml:lang="ru">KPhotoAlbum — приложение для присвоения меток фотографиям, управления коллекцией и организации поиска.</p>
     <p xml:lang="sa">KPhotoAlbum इति फोटोसङ्ग्रहस्य टैगिंग् प्रबन्धनार्थं च अन्वेषणीयं कर्तुं च अनुप्रयोगः अस्ति ।</p>
     <p xml:lang="sk">KPhotoAlbum je aplikácia na označovanie a správu kolekcie fotografií a jej prehľadávanie.</p>
     <p xml:lang="sl">KPhotoAlbum je aplikacija za označevanje in upravljanje zbirke fotografij in omogoča iskanje.</p>
@@ -153,6 +155,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="pl">Ekran główny w KPhotoAlbum</caption>
       <caption xml:lang="pt">O ecrã principal no KPhotoAlbum</caption>
       <caption xml:lang="pt-BR">A tela principal do KPhotoAlbum</caption>
+      <caption xml:lang="ru">Главный экран KPhotoAlbum</caption>
       <caption xml:lang="sa">KPhotoAlbum इत्यस्मिन् मुख्यपर्दे</caption>
       <caption xml:lang="sk">Hlavná obrazovka v KPhotoAlbum</caption>
       <caption xml:lang="sl">Glavni zaslon v KPhotoAlbumu</caption>

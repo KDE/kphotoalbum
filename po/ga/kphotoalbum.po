@@ -76,10 +76,9 @@ msgid "Cancel"
 msgstr "Cealaigh"
 
 #: AnnotationDialog/Dialog.cpp:170 AnnotationDialog/Dialog.cpp:172
-#, fuzzy, kde-format
-#| msgid "apr"
+#, kde-format
 msgid "Map"
-msgstr "aib"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:178
 #, kde-format
@@ -115,11 +114,10 @@ msgid "Continue &Later"
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:251 AnnotationDialog/Dialog.cpp:873
-#, fuzzy, kde-format
-#| msgid "&Search"
+#, kde-format
 msgctxt "@action:button"
 msgid "&Search"
-msgstr "&Cuardaigh"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:320
 #, kde-format
@@ -224,10 +222,9 @@ msgid "Append new text to each description"
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:442
-#, fuzzy, kde-format
-#| msgid "Replacements"
+#, kde-format
 msgid "Replace"
-msgstr "Ionadaithe"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:443
 #, kde-format
@@ -245,18 +242,16 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:635
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum Annotations (%1/%2)"
+#, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
-msgstr "Anótálacha KPhotoAlbum (%1/%2)"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:878
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
-msgstr "Cuardaigh"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:881
 #, kde-format
@@ -264,11 +259,10 @@ msgid "Done"
 msgstr "Críochnaithe"
 
 #: AnnotationDialog/Dialog.cpp:888
-#, fuzzy, kde-format
-#| msgid "Annotations"
+#, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
-msgstr "Anótálacha"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:937
 #, kde-format
@@ -303,10 +297,9 @@ msgid "Sort Alphabetically (Flat)"
 msgstr "Sórtáil go haibítreach (Cothrom)"
 
 #: AnnotationDialog/Dialog.cpp:956
-#, fuzzy, kde-format
-#| msgid "Show Date"
+#, kde-format
 msgid "Sort by Date"
-msgstr "Taispeáin an Dáta"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:972
 #, kde-format
@@ -329,16 +322,14 @@ msgid "Show Only Selected Ctrl+S"
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:1033 Map/MapView.cpp:360
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "Settings saved!"
-msgstr "Socruithe"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:1033
-#, fuzzy, kde-format
-#| msgid "Save Current Window Setup"
+#, kde-format
 msgid "Save current window setup"
-msgstr "Sábháil an Socrú Reatha Fuinneoige"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:1098
 #, kde-format
@@ -348,11 +339,10 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:1099
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "Sábháil Athruithe?"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:1198
 #, kde-format
@@ -443,10 +433,9 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:51
-#, fuzzy, kde-format
-#| msgid "Annotate Previous"
+#, kde-format
 msgid "Annotate previous image (Page Up)"
-msgstr "Anótáil an ceann roimhe seo"
+msgstr ""
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:57
 #, kde-format
@@ -488,46 +477,40 @@ msgid "Areas on an image can only be shown in single-image annotation mode."
 msgstr ""
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:355
-#, fuzzy, kde-format
-#| msgid "Toggle fullscreen preview"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
-msgstr "Scoránaigh an mód lánscáileáin"
+msgstr ""
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:356
-#, fuzzy, kde-format
-#| msgid "Rotated counterclockwise"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
-msgstr "Rothlaithe ar tuathal"
+msgstr ""
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:357
-#, fuzzy, kde-format
-#| msgid "Rotate clockwise"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
-msgstr "Rothlaigh ar deiseal"
+msgstr ""
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:358
-#, fuzzy, kde-format
-#| msgid "Copy tags from previous image"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
-msgstr "Cóipeáil clibeanna ón íomhá roimhe seo"
+msgstr ""
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:359
-#, fuzzy, kde-format
-#| msgid "Delete image"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete image"
-msgstr "Scrios íomhá"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:72
-#, fuzzy, kde-format
-#| msgid "Annotate..."
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
-msgstr "Anótáil..."
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:342
 #, kde-format
@@ -564,10 +547,9 @@ msgid "No Item Selected"
 msgstr "Níl Aon Mhír Roghnaithe"
 
 #: AnnotationDialog/ListSelect.cpp:363
-#, fuzzy, kde-format
-#| msgid "<b>Sorting</b>"
+#, kde-format
 msgid "<b>%1</b>"
-msgstr "<b>Sórtáil</b>"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:369 Settings/CategoryPage.cpp:74
 #, kde-format
@@ -580,16 +562,14 @@ msgid "Rename..."
 msgstr "Athainmnigh..."
 
 #: AnnotationDialog/ListSelect.cpp:372
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgid "<b>Tag Groups</b>"
-msgstr "Grúpa Nua"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:380
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgid "Tag groups"
-msgstr "Grúpa Nua"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:397
 #, kde-format
@@ -602,10 +582,9 @@ msgid "Make this tag a tag group and add a tag..."
 msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:406
-#, fuzzy, kde-format
-#| msgid "Really delete group %1?"
+#, kde-format
 msgid "Remove from tag group %1"
-msgstr "Scrios grúpa %1 i ndáiríre?"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:409
 #, kde-format
@@ -640,11 +619,10 @@ msgid "Really Delete %1?"
 msgstr "Scrios %1 i nDáiríre?"
 
 #: AnnotationDialog/ListSelect.cpp:463
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
-msgstr "Athainmnigh Mír"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:463
 #, kde-format
@@ -659,24 +637,21 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:473
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Athainmnigh..."
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:477
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
-msgstr "Athainmnigh..."
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:508
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgid "New tag group"
-msgstr "Grúpa Nua"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:509
 #, kde-format
@@ -694,20 +669,18 @@ msgid "Name for the tag to be added to this tag group:"
 msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:776
-#, fuzzy, kde-format
-#| msgid "%1 (by %2)"
+#, kde-format
 msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
 "'People (1-2)'"
 msgid "%1 (%2-%3)"
-msgstr "%1 (le %2)"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:789
-#, fuzzy, kde-format
-#| msgid "%1 (by %2)"
+#, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
-msgstr "%1 (le %2)"
+msgstr ""
 
 #: AnnotationDialog/ResizableFrame.cpp:56
 #, kde-format
@@ -716,20 +689,18 @@ msgid "Remove area"
 msgstr ""
 
 #: AnnotationDialog/ResizableFrame.cpp:312
-#, fuzzy, kde-format
-#| msgid "%1 to %2  %3"
+#, kde-format
 msgctxt ""
 "%1 is a prefix like 'Associate with', %2 is the tag name and %3 is the tag's "
 "category"
 msgid "%1 %2 (%3)"
-msgstr "%1 go %2  %3"
+msgstr ""
 
 #: AnnotationDialog/ResizableFrame.cpp:316
-#, fuzzy, kde-format
-#| msgid "%1 (by %2)"
+#, kde-format
 msgctxt "%1 is the tag name and %2 is the tag's category"
 msgid "%1 (%2)"
-msgstr "%1 (le %2)"
+msgstr ""
 
 #: AnnotationDialog/ResizableFrame.cpp:357
 #, kde-format
@@ -775,10 +746,9 @@ msgid "Extract Video Thumbnail"
 msgstr ""
 
 #: BackgroundJobs/ReadVideoMetaDataJob.cpp:38
-#, fuzzy, kde-format
-#| msgid "Video support"
+#, kde-format
 msgid "Read Video Metadata"
-msgstr "Tacaíocht físe"
+msgstr ""
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
@@ -796,25 +766,22 @@ msgid "Not Started"
 msgstr "Gan Tosú"
 
 #: BackgroundTaskManager/JobModel.cpp:93
-#, fuzzy, kde-format
-#| msgid "ID"
+#, kde-format
 msgctxt "@title:column Background job id"
 msgid "ID"
-msgstr "Aitheantas"
+msgstr ""
 
 #: BackgroundTaskManager/JobModel.cpp:95
-#, fuzzy, kde-format
-#| msgid "Title"
+#, kde-format
 msgctxt "@title:column Background job title"
 msgid "Title"
-msgstr "Teideal"
+msgstr ""
 
 #: BackgroundTaskManager/JobModel.cpp:97
-#, fuzzy, kde-format
-#| msgid "Details"
+#, kde-format
 msgctxt "@title:column Additional information on background job"
 msgid "Details"
-msgstr "Mionsonraí"
+msgstr ""
 
 #: BackgroundTaskManager/JobModel.cpp:99
 #, kde-format
@@ -823,11 +790,10 @@ msgid "Elapsed"
 msgstr ""
 
 #: BackgroundTaskManager/JobViewer.cpp:21
-#, fuzzy, kde-format
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:window"
 msgid "Background Job Viewer"
-msgstr "Dath an Chúlra"
+msgstr ""
 
 #: BackgroundTaskManager/JobViewer.cpp:30
 #: BackgroundTaskManager/JobViewer.cpp:65
@@ -853,44 +819,32 @@ msgstr ""
 
 #: Browser/AbstractCategoryModel.cpp:42 Exif/SearchDialog.cpp:387
 #: lib/kpaexif/SearchInfo.cpp:191
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "As in No persons, no locations etc."
 msgid "None"
-msgstr "Neamhní"
+msgstr ""
 
 #: Browser/AbstractCategoryModel.cpp:44
-#, fuzzy, kde-format
-#| msgid "No other"
+#, kde-format
 msgctxt "As in no other persons, or no other locations. "
 msgid "No other"
-msgstr "Níl ar bith eile"
+msgstr ""
 
 #: Browser/AbstractCategoryModel.cpp:94
-#, fuzzy, kde-format
-#| msgid "1 image"
-#| msgid_plural "%1 images"
+#, kde-format
 msgctxt "@item:intable number of images with a specific tag."
 msgid "1 image"
 msgid_plural "%1 images"
-msgstr[0] "1 íomhá"
-msgstr[1] "%1 íomhá"
-msgstr[2] "%1 íomhá"
-msgstr[3] "%1 n-íomhá"
-msgstr[4] "%1 íomhá"
+msgstr[0] ""
+msgstr[1] ""
 
 #: Browser/AbstractCategoryModel.cpp:96
-#, fuzzy, kde-format
-#| msgid "1 video"
-#| msgid_plural "%1 videos"
+#, kde-format
 msgctxt "@item:intable number of videos with a specific tag."
 msgid "1 video"
 msgid_plural "%1 videos"
-msgstr[0] "%1 fhíseán"
-msgstr[1] "%1 fhíseán"
-msgstr[2] "%1 fhíseán"
-msgstr[3] "%1 bhfíseán"
-msgstr[4] "%1 físeán"
+msgstr[0] ""
+msgstr[1] ""
 
 #: Browser/AbstractCategoryModel.cpp:166
 #, kde-format
@@ -903,29 +857,25 @@ msgid "Videos"
 msgstr "Físeáin"
 
 #: Browser/AbstractCategoryModel.cpp:170
-#, fuzzy, kde-format
-#| msgid "Show Date"
+#, kde-format
 msgid "Start Date"
-msgstr "Taispeáin an Dáta"
+msgstr ""
 
 #: Browser/AbstractCategoryModel.cpp:172
-#, fuzzy, kde-format
-#| msgid "Date"
+#, kde-format
 msgid "End Date"
-msgstr "Dáta"
+msgstr ""
 
 #: Browser/Breadcrumb.cpp:27
-#, fuzzy, kde-format
-#| msgid "All"
+#, kde-format
 msgctxt "As in 'all pictures'."
 msgid "All"
-msgstr "Uile"
+msgstr ""
 
 #: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:145
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgid "Geo Position"
-msgstr "Cur Síos"
+msgstr ""
 
 #: Browser/OverviewPage.cpp:157
 #, kde-format
@@ -933,11 +883,10 @@ msgid "Exif Info"
 msgstr "Faisnéis Exif"
 
 #: Browser/OverviewPage.cpp:169
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgctxt "@action Search button in the browser view."
 msgid "Search"
-msgstr "Cuardaigh"
+msgstr ""
 
 #: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:22
 #, kde-format
@@ -960,17 +909,15 @@ msgid "Empty Search Result"
 msgstr "Gan Torthaí"
 
 #: Browser/OverviewPage.cpp:277
-#, fuzzy, kde-format
-#| msgid "EXIF Search"
+#, kde-format
 msgid "Exif Search"
-msgstr "Cuardach EXIF"
+msgstr ""
 
 #: Browser/OverviewPage.cpp:297
-#, fuzzy, kde-format
-#| msgid "search"
+#, kde-format
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
-msgstr "cuardaigh"
+msgstr ""
 
 #: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1787
 #, kde-format
@@ -1028,9 +975,6 @@ msgid_plural ""
 "p>"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: CategoryListView/CheckDropItem.cpp:157
 #, kde-format
@@ -1038,11 +982,10 @@ msgid "Move Items"
 msgstr "Bog Míreanna"
 
 #: DateBar/DateBarWidget.cpp:65
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
-msgstr "Dáta: "
+msgstr ""
 
 #: DateBar/DateBarWidget.cpp:74
 #, kde-format
@@ -1055,23 +998,20 @@ msgid "Scroll left"
 msgstr ""
 
 #: DateBar/DateBarWidget.cpp:92
-#, fuzzy, kde-format
-#| msgid "Zoom In"
+#, kde-format
 msgid "Zoom in"
-msgstr "Súmáil Isteach"
+msgstr ""
 
 #: DateBar/DateBarWidget.cpp:103
-#, fuzzy, kde-format
-#| msgid "Zoom Out"
+#, kde-format
 msgid "Zoom out"
-msgstr "Súmáil Amach"
+msgstr ""
 
 #: DateBar/DateBarWidget.cpp:115
-#, fuzzy, kde-format
-#| msgid "Delete Selected"
+#, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
-msgstr "Scrios Íomhánna Roghnaithe"
+msgstr ""
 
 #: DateBar/DateBarWidget.cpp:128
 #, kde-kuit-format
@@ -1102,9 +1042,6 @@ msgid "1 exact"
 msgid_plural "%1 exact"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: DateBar/DateBarWidget.cpp:875
 #, kde-format
@@ -1115,9 +1052,6 @@ msgid " + 1 range"
 msgid_plural " + %1 ranges"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: DateBar/DateBarWidget.cpp:876
 #, kde-format
@@ -1126,30 +1060,21 @@ msgid " = 1 total"
 msgid_plural " = %1 total"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: DateBar/DateBarWidget.cpp:878
-#, fuzzy, kde-format
-#| msgid "%1 image/video"
-#| msgid_plural "%1 images/videos"
+#, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
 msgid_plural "%1 images/videos"
-msgstr[0] "%1 íomhá/físeán"
-msgstr[1] "%1 íomhá/físeán"
-msgstr[2] "%1 íomhá/físeán"
-msgstr[3] "%1 n-íomhá/bhfíseán"
-msgstr[4] "%1 íomhá/físeán"
+msgstr[0] ""
+msgstr[1] ""
 
 #: DateBar/DateBarWidget.cpp:880
-#, fuzzy, kde-format
-#| msgid "%1 | %2"
+#, kde-format
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."
 msgid "%1 | %2"
-msgstr "%1 | %2"
+msgstr ""
 
 #: DateBar/ViewHandler.cpp:106
 #, kde-format
@@ -1182,28 +1107,24 @@ msgid "10 Minutes"
 msgstr "10 Nóiméad"
 
 #: DateBar/ViewHandler.cpp:312
-#, fuzzy, kde-format
-#| msgid "10 Minutes"
+#, kde-format
 msgid "1 Minute"
-msgstr "10 Nóiméad"
+msgstr ""
 
 #: DateBar/ViewHandler.cpp:347
-#, fuzzy, kde-format
-#| msgid "1 second"
+#, kde-format
 msgid "10 Seconds"
-msgstr "1 soicind"
+msgstr ""
 
 #: DB/Category.cpp:326
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1'."
+#, kde-format
 msgid "Unable to create folder '%1'."
-msgstr "Ní féidir comhadlann '%1' a chruthú."
+msgstr ""
 
 #: DB/Category.cpp:326
-#, fuzzy, kde-format
-#| msgid "Unable to Create Directory"
+#, kde-format
 msgid "Unable to Create Folder"
-msgstr "Ní féidir Comhadlann a Chruthú"
+msgstr ""
 
 #: DB/Category.cpp:335
 #, kde-format
@@ -1216,88 +1137,76 @@ msgid "Error Saving Image"
 msgstr "Earráid agus Íomhá á Sábháil"
 
 #: DB/ImageDate.cpp:34
-#, fuzzy, kde-format
-#| msgid "jan"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "jan"
-msgstr "ean"
+msgstr ""
 
 #: DB/ImageDate.cpp:34
-#, fuzzy, kde-format
-#| msgid "feb"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "feb"
-msgstr "fea"
+msgstr ""
 
 #: DB/ImageDate.cpp:35
-#, fuzzy, kde-format
-#| msgid "mar"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "mar"
-msgstr "már"
+msgstr ""
 
 #: DB/ImageDate.cpp:35
-#, fuzzy, kde-format
-#| msgid "apr"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "apr"
-msgstr "aib"
+msgstr ""
 
 #: DB/ImageDate.cpp:36
-#, fuzzy, kde-format
-#| msgid "may"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "may"
-msgstr "bea"
+msgstr ""
 
 #: DB/ImageDate.cpp:36
-#, fuzzy, kde-format
-#| msgid "jun"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "jun"
-msgstr "mei"
+msgstr ""
 
 #: DB/ImageDate.cpp:37
-#, fuzzy, kde-format
-#| msgid "jul"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "jul"
-msgstr "iúi"
+msgstr ""
 
 #: DB/ImageDate.cpp:37
-#, fuzzy, kde-format
-#| msgid "aug"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "aug"
-msgstr "lún"
+msgstr ""
 
 #: DB/ImageDate.cpp:38
-#, fuzzy, kde-format
-#| msgid "sep"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "sep"
-msgstr "mfó"
+msgstr ""
 
 #: DB/ImageDate.cpp:38
-#, fuzzy, kde-format
-#| msgid "oct"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "oct"
-msgstr "dfó"
+msgstr ""
 
 #: DB/ImageDate.cpp:39
-#, fuzzy, kde-format
-#| msgid "nov"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "nov"
-msgstr "sam"
+msgstr ""
 
 #: DB/ImageDate.cpp:39
-#, fuzzy, kde-format
-#| msgid "dec"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "dec"
-msgstr "nol"
+msgstr ""
 
 #: DB/ImageDB.cpp:65
 #, kde-format
@@ -1325,16 +1234,14 @@ msgid "Media Type"
 msgstr "Cineál an Mheáin"
 
 #: DB/ImageDB.cpp:559 DB/ImageDB.cpp:865 DB/XML/FileReader.cpp:141
-#, fuzzy, kde-format
-#| msgid "Image"
+#, kde-format
 msgid "Image"
-msgstr "Íomhá"
+msgstr ""
 
 #: DB/ImageDB.cpp:559 DB/ImageDB.cpp:866 DB/XML/FileReader.cpp:142
-#, fuzzy, kde-format
-#| msgid "Video"
+#, kde-format
 msgid "Video"
-msgstr "Físeán"
+msgstr ""
 
 #: DB/ImageDB.cpp:1024
 #, kde-format
@@ -1361,9 +1268,6 @@ msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: DB/NewImageFinder.cpp:704
 #, kde-format
@@ -1436,10 +1340,9 @@ msgid ""
 msgstr ""
 
 #: DB/XML/FileReader.cpp:207 DB/XML/FileReader.cpp:312
-#, fuzzy, kde-format
-#| msgid "Converting database"
+#, kde-format
 msgid "Error in database file"
-msgstr "Bunachar sonraí á thiontú"
+msgstr ""
 
 #: DB/XML/FileReader.cpp:267
 #, kde-format
@@ -1456,10 +1359,9 @@ msgid ""
 msgstr ""
 
 #: DB/XML/FileReader.cpp:275
-#, fuzzy, kde-format
-#| msgid "Invalid driver."
+#, kde-format
 msgid "Changed standard category names"
-msgstr "Tiománaí neamhbhailí."
+msgstr ""
 
 #: DB/XML/FileReader.cpp:307
 #, kde-format
@@ -1539,10 +1441,9 @@ msgid ""
 msgstr ""
 
 #: DB/XML/FileReader.cpp:510
-#, fuzzy, kde-format
-#| msgid "Database driver:"
+#, kde-format
 msgid "Database repair required"
-msgstr "Tiománaí bunachair sonraí:"
+msgstr ""
 
 #: DB/XML/FileReader.cpp:533
 #, kde-format
@@ -1581,10 +1482,9 @@ msgstr "Imeachtaí"
 
 #. i18n("untagged"))
 #: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:458
-#, fuzzy, kde-format
-#| msgid "Untagged Images"
+#, kde-format
 msgid "untagged"
-msgstr "Íomhánna Gan Clibeanna"
+msgstr ""
 
 #: DB/XML/FileReader.cpp:561 Utilities/DemoUtil.cpp:34
 #: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
@@ -1626,10 +1526,9 @@ msgid ""
 msgstr ""
 
 #: DB/XML/FileWriter.cpp:82 DB/XML/FileWriter.cpp:118 DB/XML/FileWriter.cpp:127
-#, fuzzy, kde-format
-#| msgid "Error when saving image '%1'."
+#, kde-format
 msgid "Error while saving..."
-msgstr "Tharla earráid agus íomhá '%1' á sábháil."
+msgstr ""
 
 #: DB/XML/FileWriter.cpp:115
 #, kde-format
@@ -1651,10 +1550,9 @@ msgid "Error creating zip file %1"
 msgstr "Earráid agus comhad zip %1 á chruthú"
 
 #: DB/XML/NumberedBackup.cpp:43 DB/XML/NumberedBackup.cpp:48
-#, fuzzy, kde-format
-#| msgid "Error playing media"
+#, kde-format
 msgid "Error Making Numbered Backup"
-msgstr "Earráid agus meáin á seinm"
+msgstr ""
 
 #: DB/XML/NumberedBackup.cpp:48
 #, kde-format
@@ -1662,10 +1560,9 @@ msgid "Error writing file %1 to zip file %2"
 msgstr "Earráid agus comhad %1 á scríobh i gcomhad zip %2"
 
 #: DB/XML/XmlReader.cpp:43
-#, fuzzy, kde-format
-#| msgid "Error creating zip file"
+#, kde-format
 msgid "Error reading next element"
-msgstr "Earráid agus comhad zip á chruthú"
+msgstr ""
 
 #: DB/XML/XmlReader.cpp:46
 #, kde-format
@@ -1705,17 +1602,15 @@ msgid "<p>Database path: <filename>%1</filename></p>"
 msgstr ""
 
 #: DB/XML/XmlReader.cpp:94
-#, fuzzy, kde-format
-#| msgid "Converting database"
+#, kde-format
 msgid "Error while reading database file"
-msgstr "Bunachar sonraí á thiontú"
+msgstr ""
 
 #: Exif/InfoDialog.cpp:35
-#, fuzzy, kde-format
-#| msgid "EXIF Information"
+#, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
-msgstr "Eolas faoi EXIF"
+msgstr ""
 
 #: Exif/InfoDialog.cpp:75
 #, kde-format
@@ -1730,16 +1625,14 @@ msgid "IPTC character set:"
 msgstr ""
 
 #: Exif/InfoDialog.cpp:98
-#, fuzzy, kde-format
-#| msgid "Exif Info"
+#, kde-format
 msgid "Exif info"
-msgstr "Faisnéis Exif"
+msgstr ""
 
 #: Exif/InfoDialog.cpp:99
-#, fuzzy, kde-format
-#| msgid "Video support"
+#, kde-format
 msgid "File metadata"
-msgstr "Tacaíocht físe"
+msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:37
 #, kde-format
@@ -1777,10 +1670,9 @@ msgid "Group:"
 msgstr "Grúpa:"
 
 #: Exif/MetaDataDisplay.cpp:66
-#, fuzzy, kde-format
-#| msgid "Version: %1"
+#, kde-format
 msgid "Permissions:"
-msgstr "Leagan: %1"
+msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:100
 #, kde-format
@@ -1788,21 +1680,19 @@ msgid "Open folder with a file manager"
 msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:107
-#, fuzzy, kde-format
-#| msgid "%1 (by %2)"
+#, kde-format
 msgctxt ""
 "File size composed of a pre-formatted (already localized) human-readable "
 "file size (%1) and the number of bytes (%2)"
 msgid "%1 (%2 B)"
-msgstr "%1 (le %2)"
+msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:122 Exif/MetaDataDisplay.cpp:128
 #: Exif/MetaDataDisplay.cpp:134
-#, fuzzy, kde-format
-#| msgid "or"
+#, kde-format
 msgctxt "File permission shortcut for \"reading allowed\""
 msgid "r"
-msgstr "nó"
+msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:124 Exif/MetaDataDisplay.cpp:130
 #: Exif/MetaDataDisplay.cpp:136
@@ -1813,33 +1703,29 @@ msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:126 Exif/MetaDataDisplay.cpp:132
 #: Exif/MetaDataDisplay.cpp:138
-#, fuzzy, kde-format
-#| msgid "x"
+#, kde-format
 msgctxt "File permission shortcut for \"executing allowed\""
 msgid "x"
-msgstr "x"
+msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:157
-#, fuzzy, kde-format
-#| msgid "%1 (by %2)"
+#, kde-format
 msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and its octal representation (e.g. \"0644\")"
 msgid "%1 (%2)"
-msgstr "%1 (le %2)"
+msgstr ""
 
 #: Exif/ReReadDialog.cpp:28
-#, fuzzy, kde-format
-#| msgid "Read EXIF info from files"
+#, kde-format
 msgctxt "@title:window"
 msgid "Read Exif Info from Files"
-msgstr "Léigh faisnéis EXIF ó chomhaid"
+msgstr ""
 
 #: Exif/ReReadDialog.cpp:35
-#, fuzzy, kde-format
-#| msgid "Updating Database"
+#, kde-format
 msgid "Update Exif search database"
-msgstr "Bunachar Sonraí á Nuashonrú"
+msgstr ""
 
 #: Exif/ReReadDialog.cpp:41
 #, kde-format
@@ -1847,22 +1733,19 @@ msgid "Update image date"
 msgstr "Nuashonraigh dáta na híomhá"
 
 #: Exif/ReReadDialog.cpp:44
-#, fuzzy, kde-format
-#| msgid "Use modification date if EXIF not found"
+#, kde-format
 msgid "Use modification date if Exif not found"
-msgstr "Úsáid an dáta mionathraithe mura n-aimsítear EXIF"
+msgstr ""
 
 #: Exif/ReReadDialog.cpp:47
-#, fuzzy, kde-format
-#| msgid "Update image orientation from EXIF information"
+#, kde-format
 msgid "Update image orientation from Exif information"
-msgstr "Nuashonraigh treoshíomh na híomhá ó eolas EXIF"
+msgstr ""
 
 #: Exif/ReReadDialog.cpp:50
-#, fuzzy, kde-format
-#| msgid "Update image description from EXIF information"
+#, kde-format
 msgid "Update image description from Exif information"
-msgstr "Nuashonraigh cur síos na híomhá ó eolas EXIF"
+msgstr ""
 
 #: Exif/ReReadDialog.cpp:53
 #, kde-format
@@ -1882,11 +1765,10 @@ msgid "Override image dates"
 msgstr "Sáraigh dáta na n-íomhánna"
 
 #: Exif/SearchDialog.cpp:31
-#, fuzzy, kde-format
-#| msgid "EXIF Search"
+#, kde-format
 msgctxt "@title:window"
 msgid "Exif Search"
-msgstr "Cuardach EXIF"
+msgstr ""
 
 #: Exif/SearchDialog.cpp:35
 #, kde-format
@@ -1894,10 +1776,9 @@ msgid "Settings"
 msgstr "Socruithe"
 
 #: Exif/SearchDialog.cpp:56
-#, fuzzy, kde-format
-#| msgid "Aperture Value"
+#, kde-format
 msgid "Aperture (F Number)"
-msgstr "Luach Cró"
+msgstr ""
 
 #: Exif/SearchDialog.cpp:66
 #, kde-format
@@ -1905,11 +1786,10 @@ msgid "Focal Length"
 msgstr "Fad Fócasach"
 
 #: Exif/SearchDialog.cpp:74
-#, fuzzy, kde-format
-#| msgid "to"
+#, kde-format
 msgctxt "As in 'A range from x to y'"
 msgid "to"
-msgstr "go"
+msgstr ""
 
 #: Exif/SearchDialog.cpp:83
 #, kde-format
@@ -2066,11 +1946,10 @@ msgid "Date"
 msgstr "Dáta"
 
 #: HTMLGenerator/HTMLDialog.cpp:53
-#, fuzzy, kde-format
-#| msgid "HTML Export"
+#, kde-format
 msgctxt "@title:window"
 msgid "HTML Export"
-msgstr "Easpórtáil HTML"
+msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:79 HTMLGenerator/HTMLDialog.cpp:80
 #, kde-format
@@ -2168,22 +2047,19 @@ msgid "Destination"
 msgstr "Sprioc"
 
 #: HTMLGenerator/HTMLDialog.cpp:297
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgid "Base folder:"
-msgstr "Bunchomhadlann:"
+msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:314
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgid "Gallery folder:"
-msgstr "Bunchomhadlann:"
+msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:321
-#, fuzzy, kde-format
-#| msgid "Output directory:"
+#, kde-format
 msgid "Output folder:"
-msgstr "Comhadlann aschurtha:"
+msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:332
 #, kde-format
@@ -2209,10 +2085,9 @@ msgid "You must select at least one resolution."
 msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:386
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgid "Select base folder..."
-msgstr "Bunchomhadlann:"
+msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:399
 #, kde-format
@@ -2223,10 +2098,9 @@ msgid ""
 msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:403
-#, fuzzy, kde-format
-#| msgid "No Base Directory Specified"
+#, kde-format
 msgid "No Base Folder Specified"
-msgstr "Níor sonraíodh fréamhchomhadlann"
+msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:409
 #, kde-format
@@ -2237,10 +2111,9 @@ msgid ""
 msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:412
-#, fuzzy, kde-format
-#| msgid "No Output Directory Specified"
+#, kde-format
 msgid "No Output Folder Specified"
-msgstr "Níor sonraíodh comhadlann aschurtha"
+msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:420
 #, kde-format
@@ -2262,11 +2135,10 @@ msgid ""
 msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:443
-#, fuzzy, kde-format
-#| msgid "Folder"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
-msgstr "Fillteán"
+msgstr ""
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:530 MainWindow/SplashScreen.cpp:52
@@ -2372,29 +2244,25 @@ msgid "Building thumbnails"
 msgstr "Mionsamhlacha á dtógáil"
 
 #: ImportExport/Export.cpp:87
-#, fuzzy, kde-format
-#| msgid "Create .kim export file"
+#, kde-format
 msgid "Save an export file"
-msgstr "Cruthaigh comhad easpórtála .kim"
+msgstr ""
 
 #: ImportExport/Export.cpp:89 ImportExport/Import.cpp:30
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum database files (*.db)"
+#, kde-format
 msgid "KPhotoAlbum import files"
-msgstr "Comhaid bhunachair sonraí KPhotoAlbum (*.db)"
+msgstr ""
 
 #: ImportExport/Export.cpp:105
-#, fuzzy, kde-format
-#| msgid "Read EXIF Info From Files..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
-msgstr "Léigh Faisnéis EXIF ó Chomhaid..."
+msgstr ""
 
 #: ImportExport/Export.cpp:118
-#, fuzzy, kde-format
-#| msgid "Create .kim export file"
+#, kde-format
 msgid "How to export %1 files"
-msgstr "Cruthaigh comhad easpórtála .kim"
+msgstr ""
 
 #: ImportExport/Export.cpp:122
 #, kde-format
@@ -2531,10 +2399,9 @@ msgid "How to Use the Export File"
 msgstr ""
 
 #: ImportExport/Import.cpp:28
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum database files (*.db)"
+#, kde-format
 msgid "KPhotoAlbum Export Files"
-msgstr "Comhaid bhunachair sonraí KPhotoAlbum (*.db)"
+msgstr ""
 
 #: ImportExport/Import.cpp:60
 #, kde-format
@@ -2573,11 +2440,10 @@ msgid ""
 msgstr ""
 
 #: ImportExport/ImportDialog.cpp:140
-#, fuzzy, kde-format
-#| msgid "Introduction"
+#, kde-format
 msgctxt "@title:tab introduction page"
 msgid "Introduction"
-msgstr "Tús Eolais ar Iompórtáil"
+msgstr ""
 
 #: ImportExport/ImportDialog.cpp:156 MainWindow/TokenEditor.cpp:60
 #, kde-format
@@ -2605,10 +2471,9 @@ msgid "Destination of Images"
 msgstr "Comhadlann Sprice na nÍomhánna"
 
 #: ImportExport/ImportDialog.cpp:225
-#, fuzzy, kde-format
-#| msgid "The directory must be a subdirectory of %1"
+#, kde-format
 msgid "The folder must be a subfolder of %1"
-msgstr "Ní foláir an chomhadlann a bheith ina fochomhadlann de %1"
+msgstr ""
 
 #: ImportExport/ImportDialog.cpp:228
 #, kde-format
@@ -2621,17 +2486,15 @@ msgid "Match Categories"
 msgstr "Comhoiriúnaigh Catagóirí"
 
 #: ImportExport/ImportDialog.cpp:300
-#, fuzzy, kde-format
-#| msgid "Directory %1 does not exist. Should it be created?"
+#, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
-msgstr "Níl comhadlann %1 ann. An bhfuil fonn ort é a chruthú?"
+msgstr ""
 
 #: ImportExport/ImportDialog.cpp:301 MainWindow/WelcomeDialog.cpp:157
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "Bunchomhadlann:"
+msgstr ""
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1222
@@ -2641,10 +2504,9 @@ msgid "Create"
 msgstr ""
 
 #: ImportExport/ImportDialog.cpp:311
-#, fuzzy, kde-format
-#| msgid "Error creating zip file %1"
+#, kde-format
 msgid "Error creating folder %1"
-msgstr "Earráid agus comhad zip %1 á chruthú"
+msgstr ""
 
 #: ImportExport/ImportDialog.cpp:390
 #, kde-format
@@ -2652,11 +2514,10 @@ msgid "How to resolve clashes"
 msgstr ""
 
 #: ImportExport/ImportHandler.cpp:97 ImportExport/ImportHandler.cpp:159
-#, fuzzy, kde-format
-#| msgid "Copying Images"
+#, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
-msgstr "Íomhánna á Cóipeáil"
+msgstr ""
 
 #: ImportExport/ImportHandler.cpp:174
 #, kde-format
@@ -2674,18 +2535,16 @@ msgid "Cannot copy from any of the following locations:"
 msgstr ""
 
 #: ImportExport/ImportHandler.cpp:239
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr "Comhaid íomhá á gcóipeáil"
+msgstr ""
 
 #: ImportExport/ImportHandler.cpp:245
-#, fuzzy, kde-format
-#| msgid "Continue without Asking"
+#, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
-msgstr "Lean ar aghaidh gan fiafraí"
+msgstr ""
 
 #: ImportExport/ImportMatcher.cpp:37
 #, kde-format
@@ -2708,15 +2567,11 @@ msgid "Error Importing Data"
 msgstr "Earráid agus Sonraí á nIompórtáil"
 
 #: ImportExport/KimFileReader.cpp:35
-#, fuzzy, kde-format
-#| msgid ""
-#| "Error reading index.xml file from %1; it is likely that the file is "
-#| "broken."
+#, kde-format
 msgid ""
 "Error reading folder contents of file %1; it is likely that the file is "
 "broken."
 msgstr ""
-"Earráid agus index.xml á léamh ó %1; is dócha go bhfuil an comhad briste."
 
 #: ImportExport/KimFileReader.cpp:48
 #, kde-format
@@ -2766,9 +2621,6 @@ msgid_plural ""
 "Database, how should that be resolved?"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: ImportExport/MD5CheckPage.cpp:55
 #, kde-format
@@ -2805,10 +2657,9 @@ msgid "Conflicting commandline options: %1 and %2!\n"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:44
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum quick start"
+#, kde-format
 msgid "KPhotoAlbum Thumbnail Tool"
-msgstr "Tosú Tapa KPhotoAlbum"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:46
 #, kde-format
@@ -2826,22 +2677,19 @@ msgid "Johannes Zarl-Zierl"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:98
-#, fuzzy, kde-format
-#| msgid "Development"
+#, kde-format
 msgid "Development, Maintainer"
-msgstr "Forbairt"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:99
-#, fuzzy, kde-format
-#| msgid "Robert L Krawitz"
+#, kde-format
 msgid "Robert Krawitz"
-msgstr "Robert L Krawitz"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:99
-#, fuzzy, kde-format
-#| msgid "Development"
+#, kde-format
 msgid "Development, Optimization"
-msgstr "Forbairt"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:58 main.cpp:100
 #, kde-format
@@ -2894,11 +2742,10 @@ msgid "Henner Zeller"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:70
-#, fuzzy, kde-format
-#| msgid "The directory must be a subdirectory of %1"
+#, kde-format
 msgctxt "@info:shell"
 msgid "The folder containing the .thumbnail folder."
-msgstr "Ní foláir an chomhadlann a bheith ina fochomhadlann de %1"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:71
 #, kde-format
@@ -2945,25 +2792,22 @@ msgid "Missing argument!\n"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:102
-#, fuzzy, kde-format
-#| msgid "%1 exists, but is not a directory"
+#, kde-format
 msgctxt "@info:shell"
 msgid "%1 is not a folder!\n"
-msgstr "Tá %1 ann cheana, ach ní comhadlann é"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:116
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1'."
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail cache folder: %1\n"
-msgstr "Ní féidir comhadlann '%1' a chruthú."
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:117
-#, fuzzy, kde-format
-#| msgid "Thumbnail image size:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index file version: %1\n"
-msgstr "Méid na mionsamhlacha:"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:118
 #, kde-format
@@ -2972,11 +2816,10 @@ msgid "Maximum supported thumbnailindex file version: %1\n"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:119
-#, fuzzy, kde-format
-#| msgid "Thumbnail image size:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail storage dimensions: %1 pixels\n"
-msgstr "Méid na mionsamhlacha:"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:121
 #, kde-format
@@ -2987,11 +2830,10 @@ msgid ""
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:123
-#, fuzzy, kde-format
-#| msgid "Number of columns:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Number of thumbnails: %1\n"
-msgstr "Líon na gcolún:"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:129
 #, kde-format
@@ -3012,16 +2854,12 @@ msgid "Removed 1 inconsistent thumbnail from the database.\n"
 msgid_plural "Removed %1 inconsistent thumbnails from the database.\n"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:20
-#, fuzzy, kde-format
-#| msgid "Could not open file %1."
+#, kde-format
 msgctxt "@info:shell"
 msgid "Could not open file `thumbnailindex`!\n"
-msgstr "Níorbh fhéidir comhad %1 a oscailt."
+msgstr ""
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:21
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:27
@@ -3033,25 +2871,22 @@ msgid "Thumbnail index was not changed.\n"
 msgstr ""
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:26
-#, fuzzy, kde-format
-#| msgid "Could not open file %1."
+#, kde-format
 msgctxt "@info:shell"
 msgid "Could not open temporary file for writing!\n"
-msgstr "Níorbh fhéidir comhad %1 a oscailt."
+msgstr ""
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:35
-#, fuzzy, kde-format
-#| msgid "Could not open file %1."
+#, kde-format
 msgctxt "@info:shell"
 msgid "Could not back up file `thumbnailindex`!\n"
-msgstr "Níorbh fhéidir comhad %1 a oscailt."
+msgstr ""
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:40
-#, fuzzy, kde-format
-#| msgid "Could not open file %1."
+#, kde-format
 msgctxt "@info:shell"
 msgid "Could not copy temporary thumbnail index file to final location!\n"
-msgstr "Níorbh fhéidir comhad %1 a oscailt."
+msgstr ""
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:41
 #, kde-format
@@ -3060,11 +2895,10 @@ msgid "Error message was: %1\n"
 msgstr ""
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:55
-#, fuzzy, kde-format
-#| msgid "Thumbnail image size:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
-msgstr "Méid na mionsamhlacha:"
+msgstr ""
 
 #. i18n: ectx: Menu (view)
 #: kphotoalbumui.rc:38
@@ -3123,10 +2957,9 @@ msgid ""
 msgstr ""
 
 #: lib/kpaexif/Database.cpp:188
-#, fuzzy, kde-format
-#| msgid "Converting database"
+#, kde-format
 msgid "Error in Exif database"
-msgstr "Bunachar sonraí á thiontú"
+msgstr ""
 
 #: lib/kpaexif/Database.cpp:209
 #, kde-format
@@ -3304,14 +3137,10 @@ msgid "Stack images created within the following time-frame:"
 msgstr ""
 
 #: MainWindow/AutoStackImages.cpp:87
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "The whole sentence should read: *Stack images that are shot within x "
-#| "seconds of each other*. (This being the text after x.)"
-#| msgid "seconds"
+#, kde-format
 msgctxt "Unit suffix on a QSpinBox; note the space at the beginning."
 msgid " seconds"
-msgstr "soicind"
+msgstr ""
 
 #: MainWindow/AutoStackImages.cpp:90
 #, kde-format
@@ -3345,35 +3174,26 @@ msgid "Make Category Image"
 msgstr ""
 
 #: MainWindow/CopyLinkEngine.cpp:39
-#, fuzzy, kde-format
-#| msgid "Export/Copy Images..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "Easpórtáil/Cóipeáil Íomhánna..."
-msgstr[1] "Easpórtáil/Cóipeáil Íomhánna..."
-msgstr[2] "Easpórtáil/Cóipeáil Íomhánna..."
-msgstr[3] "Easpórtáil/Cóipeáil Íomhánna..."
-msgstr[4] "Easpórtáil/Cóipeáil Íomhánna..."
+msgstr[0] ""
+msgstr[1] ""
 
 #: MainWindow/CopyLinkEngine.cpp:42
-#, fuzzy, kde-format
-#| msgid "Export/Copy Images..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] "Easpórtáil/Cóipeáil Íomhánna..."
-msgstr[1] "Easpórtáil/Cóipeáil Íomhánna..."
-msgstr[2] "Easpórtáil/Cóipeáil Íomhánna..."
-msgstr[3] "Easpórtáil/Cóipeáil Íomhánna..."
-msgstr[4] "Easpórtáil/Cóipeáil Íomhánna..."
+msgstr[0] ""
+msgstr[1] ""
 
 #: MainWindow/DeleteDialog.cpp:24
-#, fuzzy, kde-format
-#| msgid "Move Items"
+#, kde-format
 msgctxt "@title:window"
 msgid "Removing Items"
-msgstr "Bog Míreanna"
+msgstr ""
 
 #: MainWindow/DeleteDialog.cpp:64
 #, kde-format
@@ -3381,9 +3201,6 @@ msgid "Removing 1 item"
 msgid_plural "Removing %1 items"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: MainWindow/DeleteDialog.cpp:65
 #, kde-format
@@ -3395,9 +3212,6 @@ msgid_plural ""
 "do with the files on disk?"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: MainWindow/DeleteDialog.cpp:71
 #, kde-format
@@ -3405,9 +3219,6 @@ msgid "Move file to Trash"
 msgid_plural "Move %1 files to Trash"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: MainWindow/DeleteDialog.cpp:72
 #, kde-format
@@ -3435,10 +3246,9 @@ msgid "Merge these images"
 msgstr "Cumaisc na híomhánna seo"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:57
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select image to keep:"
-msgstr "Roghnaigh sprioc:"
+msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:72
 #, kde-format
@@ -3606,43 +3416,34 @@ msgid "Map view for geotagged images."
 msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:141
-#, fuzzy, kde-format
-#| msgid "SQL database support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "SQLite database support"
-msgstr "Tacaíocht bunachair sonraí SQL"
+msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:144
-#, fuzzy, kde-format
-#| msgid "Video support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
-msgstr "Tacaíocht físe"
+msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:147
-#, fuzzy, kde-format
-#| msgid "Video support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video metadata support"
-msgstr "Tacaíocht físe"
+msgstr ""
 
-# apparently not used in MySurvey, looked in code Dec 07.
-# for FeatureDialog, these appear with a list of features like
-# Plug-ns available, Blah supported, etc. - so Tá/Níl good enough - 
-# since questions are only implicit and can be imagied as "An bhfuil.. ann"
 #: MainWindow/FeatureDialog.cpp:154
-#, fuzzy, kde-format
-#| msgid "Yes"
+#, kde-format
 msgctxt "Feature available"
 msgid "Yes"
-msgstr "Tá"
+msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:155
-#, fuzzy, kde-format
-#| msgid "No"
+#, kde-format
 msgctxt "Feature not available"
 msgid "No"
-msgstr "Níl"
+msgstr ""
 
 #: MainWindow/ImageCounter.cpp:20
 #, kde-format
@@ -3655,10 +3456,9 @@ msgstr[3] "%1 mionsamhail á dtaispeáint"
 msgstr[4] "%1 mionsamhail á dtaispeáint"
 
 #: MainWindow/ImageCounter.cpp:26
-#, fuzzy, kde-format
-#| msgid "%1 of %2 selected"
+#, kde-format
 msgid "(%1 selected)"
-msgstr "%1 as %2 roghnaithe"
+msgstr ""
 
 #: MainWindow/ImageCounter.cpp:33
 #, kde-format
@@ -3671,16 +3471,12 @@ msgid "1 match"
 msgid_plural "%1 matches"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: MainWindow/InvalidDateFinder.cpp:33
-#, fuzzy, kde-format
-#| msgid "Search for new images and videos on startup"
+#, kde-format
 msgctxt "@title:window"
 msgid "Search for Images and Videos with Missing Dates"
-msgstr "Déan cuardach ar íomhánna agus ar fhíseáin nua ag am tosaithe"
+msgstr ""
 
 #: MainWindow/InvalidDateFinder.cpp:40
 #, kde-format
@@ -3706,11 +3502,10 @@ msgid ""
 msgstr ""
 
 #: MainWindow/InvalidDateFinder.cpp:70
-#, fuzzy, kde-format
-#| msgid "Image Info"
+#, kde-format
 msgctxt "@title:window"
 msgid "Image Info"
-msgstr "Eolas Faoin Íomhá"
+msgstr ""
 
 #: MainWindow/InvalidDateFinder.cpp:74
 #, kde-format
@@ -3718,11 +3513,10 @@ msgid "<h1>Here you may see the date changes for the displayed items.</h1>"
 msgstr ""
 
 #: MainWindow/InvalidDateFinder.cpp:88
-#, fuzzy, kde-format
-#| msgid "Reading File Properties"
+#, kde-format
 msgctxt "@title:window"
 msgid "Reading File Properties"
-msgstr "Airíonna Comhaid á Léamh"
+msgstr ""
 
 #: MainWindow/Options.cpp:26
 #, kde-format
@@ -3732,10 +3526,9 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Options.cpp:27 MainWindow/Options.cpp:37
-#, fuzzy, kde-format
-#| msgid "Database file:"
+#, kde-format
 msgid "databaseFile"
-msgstr "Comhad bunachair sonraí:"
+msgstr ""
 
 #: MainWindow/Options.cpp:31
 #, kde-format
@@ -3743,10 +3536,9 @@ msgid "Application rc file."
 msgstr ""
 
 #: MainWindow/Options.cpp:32
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "kphotoalbumrc"
-msgstr "KPhotoAlbum"
+msgstr ""
 
 #: MainWindow/Options.cpp:36
 #, kde-format
@@ -3759,10 +3551,9 @@ msgid "Starts KPhotoAlbum with a prebuilt set of demo images."
 msgstr ""
 
 #: MainWindow/Options.cpp:42
-#, fuzzy, kde-format
-#| msgid "Import file"
+#, kde-format
 msgid "Import file."
-msgstr "Iompórtáil comhad"
+msgstr ""
 
 #: MainWindow/Options.cpp:43
 #, kde-format
@@ -3790,10 +3581,9 @@ msgid "Save the database and immediately quit after showing the main window."
 msgstr ""
 
 #: MainWindow/Options.cpp:59
-#, fuzzy, kde-format
-#| msgid "Search for new images and videos on startup"
+#, kde-format
 msgid "Search for new images on startup."
-msgstr "Déan cuardach ar íomhánna agus ar fhíseáin nua ag am tosaithe"
+msgstr ""
 
 #: MainWindow/RunDialog.cpp:32
 #, no-c-format, kde-format
@@ -3813,36 +3603,32 @@ msgid ""
 msgstr ""
 
 #: MainWindow/RunDialog.cpp:75
-#, fuzzy, no-c-format, kde-format
-#| msgid "%all"
+#, no-c-format, kde-format
 msgctxt ""
 "As in 'Execute a command and replace any occurrence of %all with the "
 "filenames of all selected files'"
 msgid "%all"
-msgstr "%all"
+msgstr ""
 
 #: MainWindow/RunDialog.cpp:77
-#, fuzzy, no-c-format, kde-format
-#| msgid "%each"
+#, no-c-format, kde-format
 msgctxt ""
 "As in 'Execute a command for each selected file in turn and replace any "
 "occurrence of %each with the filename "
 msgid "%each"
-msgstr "%each"
+msgstr ""
 
 #: MainWindow/SearchBar.cpp:20
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgctxt "Name/title of the search bar toolbar widget"
 msgid "Search Bar"
-msgstr "Cuardaigh"
+msgstr ""
 
 #: MainWindow/SearchBar.cpp:25
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Search ..."
-msgstr "Cuardaigh"
+msgstr ""
 
 #: MainWindow/StatisticsDialog.cpp:35
 #, kde-format
@@ -3909,18 +3695,16 @@ msgid "Tag:"
 msgstr "Clib:"
 
 #: MainWindow/StatisticsDialog.cpp:127
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@item:inlistbox meaning 'no category'"
 msgid "None"
-msgstr "Neamhní"
+msgstr ""
 
 #: MainWindow/StatisticsDialog.cpp:167
-#, fuzzy, kde-format
-#| msgid "All"
+#, kde-format
 msgctxt "As in 'all images'"
 msgid "All"
-msgstr "Uile"
+msgstr ""
 
 #: MainWindow/StatisticsDialog.cpp:213
 #, kde-format
@@ -3928,17 +3712,15 @@ msgid "Total"
 msgstr "Iomlán"
 
 #: MainWindow/StatusBar.cpp:104
-#, fuzzy, kde-format
-#| msgid "Thumbnail size:"
+#, kde-format
 msgid "Thumbnail settings..."
-msgstr "Méid na mionsamhlacha:"
+msgstr ""
 
 #: MainWindow/TokenEditor.cpp:36
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgctxt "@title:window"
 msgid "Remove Tokens"
-msgstr "Comharthaí"
+msgstr ""
 
 #: MainWindow/TokenEditor.cpp:42
 #, kde-format
@@ -3993,28 +3775,24 @@ msgid ""
 msgstr ""
 
 #: MainWindow/WelcomeDialog.cpp:116
-#, fuzzy, kde-format
-#| msgid "Image/Video root directory: "
+#, kde-format
 msgid "Image/Video root folder: "
-msgstr "Fréamhchomhadlann íomhá/fhíseáin: "
+msgstr ""
 
 #: MainWindow/WelcomeDialog.cpp:156
-#, fuzzy, kde-format
-#| msgid "Directory does not exist, create it?"
+#, kde-format
 msgid "Folder does not exist, create it?"
-msgstr "Níl an chomhadlann ann, an bhfuil fonn ort é a chruthú?"
+msgstr ""
 
 #: MainWindow/WelcomeDialog.cpp:166
-#, fuzzy, kde-format
-#| msgid "Could not create file '%1'."
+#, kde-format
 msgid "Could not create folder %1"
-msgstr "Níorbh fhéidir comhad '%1' a chruthú."
+msgstr ""
 
 #: MainWindow/WelcomeDialog.cpp:171
-#, fuzzy, kde-format
-#| msgid "%1 exists, but is not a directory"
+#, kde-format
 msgid "%1 exists, but is not a folder"
-msgstr "Tá %1 ann cheana, ach ní comhadlann é"
+msgstr ""
 
 #: MainWindow/WelcomeDialog.cpp:187
 #, kde-format
@@ -4052,11 +3830,10 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:325
-#, fuzzy, kde-format
-#| msgid "Delete Demo Database"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
-msgstr "Scrios Bunachar Sonraí Taispeána"
+msgstr ""
 
 #: MainWindow/Window.cpp:341
 #, kde-format
@@ -4064,11 +3841,10 @@ msgid "Do you want to save the changes?"
 msgstr "An bhfuil fonn ort do chuid athruithe a shábháil?"
 
 #: MainWindow/Window.cpp:342
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
-msgstr "Sábháil Athruithe?"
+msgstr ""
 
 #: MainWindow/Window.cpp:399
 #, kde-format
@@ -4121,16 +3897,14 @@ msgid "There are no images to be shown."
 msgstr ""
 
 #: MainWindow/Window.cpp:770 MainWindow/Window.cpp:911
-#, fuzzy, kde-format
-#| msgid "No Selection"
+#, kde-format
 msgid "Limit View to Selection"
-msgstr "Gan Roghnúchán"
+msgstr ""
 
 #: MainWindow/Window.cpp:771
-#, fuzzy, kde-format
-#| msgid "No Item Selected"
+#, kde-format
 msgid "No images are selected!"
-msgstr "Níl Aon Mhír Roghnaithe"
+msgstr ""
 
 #: MainWindow/Window.cpp:784
 #, kde-format
@@ -4148,11 +3922,10 @@ msgid "Export/Copy Images..."
 msgstr "Easpórtáil/Cóipeáil Íomhánna..."
 
 #: MainWindow/Window.cpp:820
-#, fuzzy, kde-format
-#| msgid "Delete Selected"
+#, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
-msgstr "Scrios Íomhánna Roghnaithe"
+msgstr ""
 
 #: MainWindow/Window.cpp:828
 #, kde-format
@@ -4290,16 +4063,14 @@ msgid "Show Tooltips in Thumbnails Window"
 msgstr ""
 
 #: MainWindow/Window.cpp:977
-#, fuzzy, kde-format
-#| msgid "Display labels in thumbnail view"
+#, kde-format
 msgid "Show Labels in Thumbnails Window"
-msgstr "Taispeáin lipéid san amharc mionsamhlacha"
+msgstr ""
 
 #: MainWindow/Window.cpp:987
-#, fuzzy, kde-format
-#| msgid "Display categories in thumbnail view"
+#, kde-format
 msgid "Show Categories in Thumbnails Window"
-msgstr "Taispeáin catagóirí san amharc mionsamhlacha"
+msgstr ""
 
 #: MainWindow/Window.cpp:1004
 #, kde-format
@@ -4322,10 +4093,9 @@ msgid "Merge duplicates"
 msgstr ""
 
 #: MainWindow/Window.cpp:1019 MainWindow/Window.cpp:1074
-#, fuzzy, kde-format
-#| msgid "Recreate Selected Thumbnails"
+#, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
-msgstr "Athchruthaigh na Mionsamhlacha Roghnaithe"
+msgstr ""
 
 #: MainWindow/Window.cpp:1023
 #, kde-format
@@ -4338,10 +4108,9 @@ msgid "Recreate Exif Search Database"
 msgstr ""
 
 #: MainWindow/Window.cpp:1029
-#, fuzzy, kde-format
-#| msgid "Read EXIF Info From Files..."
+#, kde-format
 msgid "Read Metadata from Files..."
-msgstr "Léigh Faisnéis EXIF ó Chomhaid..."
+msgstr ""
 
 #: MainWindow/Window.cpp:1032
 #, kde-format
@@ -4359,10 +4128,9 @@ msgid "Build Thumbnails"
 msgstr "Déan Mionsamhlacha"
 
 #: MainWindow/Window.cpp:1042
-#, fuzzy, kde-format
-#| msgid "Statistics"
+#, kde-format
 msgid "Statistics..."
-msgstr "Staitisticí"
+msgstr ""
 
 #: MainWindow/Window.cpp:1046
 #, kde-format
@@ -4390,10 +4158,9 @@ msgid "Show Demo Videos"
 msgstr ""
 
 #: MainWindow/Window.cpp:1071 Viewer/ViewerWidget.cpp:193
-#, fuzzy, kde-format
-#| msgid "Show Exif Info"
+#, kde-format
 msgid "Show Exif Info and file metadata"
-msgstr "Taispeáin Faisnéis Exif"
+msgstr ""
 
 #: MainWindow/Window.cpp:1077
 #, kde-format
@@ -4406,26 +4173,18 @@ msgid "Use previous video thumbnail"
 msgstr ""
 
 #: MainWindow/Window.cpp:1085 MainWindow/Window.cpp:1318
-#, fuzzy, kde-format
-#| msgid "Export/Copy Images..."
+#, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "Easpórtáil/Cóipeáil Íomhánna..."
-msgstr[1] "Easpórtáil/Cóipeáil Íomhánna..."
-msgstr[2] "Easpórtáil/Cóipeáil Íomhánna..."
-msgstr[3] "Easpórtáil/Cóipeáil Íomhánna..."
-msgstr[4] "Easpórtáil/Cóipeáil Íomhánna..."
+msgstr[0] ""
+msgstr[1] ""
 
 #: MainWindow/Window.cpp:1089 MainWindow/Window.cpp:1322
-#, fuzzy, kde-format
-#| msgid "Export/Copy Images..."
+#, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] "Easpórtáil/Cóipeáil Íomhánna..."
-msgstr[1] "Easpórtáil/Cóipeáil Íomhánna..."
-msgstr[2] "Easpórtáil/Cóipeáil Íomhánna..."
-msgstr[3] "Easpórtáil/Cóipeáil Íomhánna..."
-msgstr[4] "Easpórtáil/Cóipeáil Íomhánna..."
+msgstr[0] ""
+msgstr[1] ""
 
 #: MainWindow/Window.cpp:1113
 #, kde-format
@@ -4438,21 +4197,15 @@ msgid "Auto saving.... Done"
 msgstr "Uathshábháil... Críochnaithe"
 
 #: MainWindow/Window.cpp:1216
-#, fuzzy, kde-format
-#| msgid "Do you want to save the changes?"
+#, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
-msgstr "An bhfuil fonn ort do chuid athruithe a shábháil?"
+msgstr ""
 
 #: MainWindow/Window.cpp:1219
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use data from\n"
-#| "Database"
+#, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr ""
-"Úsáid sonraí ó\n"
-"Bhunachar Sonraí"
 
 #: MainWindow/Window.cpp:1263
 #, kde-format
@@ -4474,11 +4227,10 @@ msgid "Viewer"
 msgstr "Amharcán"
 
 #: MainWindow/Window.cpp:1391
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr "Dáta: "
+msgstr ""
 
 #: MainWindow/Window.cpp:1394
 #, kde-format
@@ -4557,17 +4309,15 @@ msgid "No Matches"
 msgstr ""
 
 #: MainWindow/Window.cpp:1811
-#, fuzzy, kde-format
-#| msgid "Rereading EXIF information from all images"
+#, kde-format
 msgid "Rereading Exif information from all images"
-msgstr "Faisnéis EXIF á léamh arís ó gach íomhá"
+msgstr ""
 
 #: MainWindow/Window.cpp:1838
-#, fuzzy, no-c-format, kde-format
-#| msgid "Thumbnail image size:"
+#, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
-msgstr "Méid na mionsamhlacha:"
+msgstr ""
 
 #: MainWindow/Window.cpp:1891
 #, kde-format
@@ -4578,17 +4328,15 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:1894
-#, fuzzy, kde-format
-#| msgid "File not available"
+#, kde-format
 msgid "Video thumbnails are not available"
-msgstr "Níl an comhad ar fáil"
+msgstr ""
 
 #: Map/GeoCluster.cpp:133
-#, fuzzy, kde-format
-#| msgid "%1"
+#, kde-format
 msgctxt "The number of images in an area of the map"
 msgid "%1"
-msgstr "%1"
+msgstr ""
 
 #: Map/MapView.cpp:168
 #, kde-format
@@ -4601,10 +4349,9 @@ msgid "Go to last map position"
 msgstr ""
 
 #: Map/MapView.cpp:182
-#, fuzzy, kde-format
-#| msgid "Show Thumbnails"
+#, kde-format
 msgid "Show thumbnails"
-msgstr "Taispeáin Mionsamhlacha"
+msgstr ""
 
 #: Map/MapView.cpp:191
 #, kde-format
@@ -4613,20 +4360,18 @@ msgid "Group adjacent thumbnails into clickable clusters"
 msgstr ""
 
 #: Map/MapView.cpp:203
-#, fuzzy, kde-format
-#| msgid "Thumbnail image size:"
+#, kde-format
 msgctxt ""
 "@action Decrease size of the markers (i.e. thumbnails) drawn on the map"
 msgid "Decrease marker size"
-msgstr "Méid na mionsamhlacha:"
+msgstr ""
 
 #: Map/MapView.cpp:210
-#, fuzzy, kde-format
-#| msgid "Thumbnail image size:"
+#, kde-format
 msgctxt ""
 "@action Increase size of the markers (i.e. thumbnails) drawn on the map"
 msgid "Increase marker size"
-msgstr "Méid na mionsamhlacha:"
+msgstr ""
 
 #: Map/MapView.cpp:360
 #, kde-format
@@ -4634,10 +4379,9 @@ msgid "Map view"
 msgstr ""
 
 #: Map/MapView.cpp:387
-#, fuzzy, kde-format
-#| msgid "Loading information from images"
+#, kde-format
 msgid "<i>Loading coordinates from the images ...</i>"
-msgstr "Faisnéis á luchtú ó íomhánna"
+msgstr ""
 
 #: Map/MapView.cpp:403
 #, kde-format
@@ -4661,10 +4405,9 @@ msgid "<i>None of the selected images contain geographic coordinates.</i>"
 msgstr ""
 
 #: Plugins/PurposeMenu.cpp:37
-#, fuzzy, kde-format
-#| msgid "Sharpness"
+#, kde-format
 msgid "Share"
-msgstr "Géire"
+msgstr ""
 
 #: RemoteControl/ConnectionIndicator.cpp:30
 #, kde-format
@@ -4679,10 +4422,9 @@ msgid ""
 msgstr ""
 
 #: RemoteControl/ConnectionIndicator.cpp:90
-#, fuzzy, kde-format
-#| msgid "Server address:"
+#, kde-format
 msgid "Android device address: "
-msgstr "Seoladh an fhreastalaí:"
+msgstr ""
 
 #: RemoteControl/Server.cpp:32
 #, kde-format
@@ -4697,10 +4439,9 @@ msgid ""
 msgstr ""
 
 #: RemoteControl/Server.cpp:67
-#, fuzzy, kde-format
-#| msgid "Invalid driver."
+#, kde-format
 msgid "Invalid Version"
-msgstr "Tiománaí neamhbhailí."
+msgstr ""
 
 #: RemoteControl/Server.cpp:68
 #, kde-format
@@ -4711,11 +4452,10 @@ msgid ""
 msgstr ""
 
 #: Settings/BirthdayPage.cpp:59
-#, fuzzy, kde-format
-#| msgid "Filters"
+#, kde-format
 msgctxt "@label:textedit"
 msgid "Filter ... (%1)"
-msgstr "Scagairí"
+msgstr ""
 
 #: Settings/BirthdayPage.cpp:93
 #, kde-format
@@ -4745,10 +4485,9 @@ msgid "Birthday of %1:"
 msgstr ""
 
 #: Settings/BirthdayPage.cpp:233
-#, fuzzy, kde-format
-#| msgid "Annotate..."
+#, kde-format
 msgid "Enter a date..."
-msgstr "Anótáil..."
+msgstr ""
 
 #: Settings/BirthdayPage.cpp:297
 #, kde-format
@@ -4756,10 +4495,9 @@ msgid "<i>Select an item on the left to edit the birthday</i>"
 msgstr ""
 
 #: Settings/CategoryPage.cpp:49
-#, fuzzy, kde-format
-#| msgid "Categories"
+#, kde-format
 msgid "Category Settings"
-msgstr "Catagóirí"
+msgstr ""
 
 #: Settings/CategoryPage.cpp:70
 #, kde-format
@@ -4767,10 +4505,9 @@ msgid "New"
 msgstr "Nua"
 
 #: Settings/CategoryPage.cpp:78
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgid "Rename"
-msgstr "Athainmnigh..."
+msgstr ""
 
 #: Settings/CategoryPage.cpp:111
 #, kde-format
@@ -4828,10 +4565,9 @@ msgid "Save the DB now"
 msgstr ""
 
 #: Settings/CategoryPage.cpp:206
-#, fuzzy, kde-format
-#| msgid "<b>Sub Categories</b>"
+#, kde-format
 msgid "Settings for category <b>%1</b>"
-msgstr "<b>Fochatagóirí</b>"
+msgstr ""
 
 #: Settings/CategoryPage.cpp:209
 #, kde-format
@@ -4847,10 +4583,9 @@ msgid ""
 msgstr ""
 
 #: Settings/CategoryPage.cpp:267 Settings/CategoryPage.cpp:278
-#, fuzzy, kde-format
-#| msgid "Invalid driver."
+#, kde-format
 msgid "Invalid category name"
-msgstr "Tiománaí neamhbhailí."
+msgstr ""
 
 #: Settings/CategoryPage.cpp:275
 #, kde-format
@@ -4886,16 +4621,14 @@ msgid "Confirm Action"
 msgstr ""
 
 #: Settings/CategoryPage.cpp:372
-#, fuzzy, kde-format
-#| msgid "New Category..."
+#, kde-format
 msgid "New category"
-msgstr "Catagóir Nua..."
+msgstr ""
 
 #: Settings/CategoryPage.cpp:404
-#, fuzzy, kde-format
-#| msgid "<p>Really delete category '%1'?</p>"
+#, kde-format
 msgid "<p>Really delete category \"%1\"?</p>"
-msgstr "<p>Scrios catagóir '%1' i ndáiríre?</p>"
+msgstr ""
 
 #: Settings/CategoryPage.cpp:408
 #, kde-format
@@ -4913,10 +4646,9 @@ msgid "Choose speed over readability for the XML database file"
 msgstr ""
 
 #: Settings/DatabaseBackendPage.cpp:27
-#, fuzzy, kde-format
-#| msgid "Compress backup file"
+#, kde-format
 msgid "Compress backup files"
-msgstr "Comhbhrúigh an comhad cúltaca"
+msgstr ""
 
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
@@ -5177,10 +4909,9 @@ msgid "Type of media on which your images are stored."
 msgstr ""
 
 #: Settings/FileVersionDetectionPage.cpp:189
-#, fuzzy, kde-format
-#| msgid "Hard"
+#, kde-format
 msgid "Hard Disk"
-msgstr "Crua"
+msgstr ""
 
 #: Settings/FileVersionDetectionPage.cpp:190
 #, kde-format
@@ -5203,10 +4934,9 @@ msgid "Fast PCIe/NVMe"
 msgstr ""
 
 #: Settings/FileVersionDetectionPage.cpp:194
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "Manual Settings"
-msgstr "Socruithe"
+msgstr ""
 
 #: Settings/FileVersionDetectionPage.cpp:197
 #, kde-format
@@ -5284,37 +5014,32 @@ msgid "Trust image dates:"
 msgstr ""
 
 #: Settings/GeneralPage.cpp:39
-#, fuzzy, kde-format
-#| msgid "Always"
+#, kde-format
 msgctxt "As in 'always trust image dates'"
 msgid "Always"
-msgstr "I gcónaí"
+msgstr ""
 
 #: Settings/GeneralPage.cpp:40
-#, fuzzy, kde-format
-#| msgid "Ask"
+#, kde-format
 msgctxt "As in 'ask whether to trust image dates'"
 msgid "Ask"
-msgstr "Fiafraigh díom"
+msgstr ""
 
 #: Settings/GeneralPage.cpp:41
-#, fuzzy, kde-format
-#| msgid "Never"
+#, kde-format
 msgctxt "As in 'never trust image dates'"
 msgid "Never"
-msgstr "Riamh"
+msgstr ""
 
 #: Settings/GeneralPage.cpp:48
-#, fuzzy, kde-format
-#| msgid "Update image orientation from EXIF information"
+#, kde-format
 msgid "Use Exif orientation information"
-msgstr "Nuashonraigh treoshíomh na híomhá ó eolas EXIF"
+msgstr ""
 
 #: Settings/GeneralPage.cpp:53
-#, fuzzy, kde-format
-#| msgid "Use EXIF description"
+#, kde-format
 msgid "Use Exif description"
-msgstr "Úsáid Cur Síos EXIF"
+msgstr ""
 
 #: Settings/GeneralPage.cpp:57
 #, kde-format
@@ -5337,10 +5062,9 @@ msgid "Histogram"
 msgstr "Histeagram"
 
 #: Settings/GeneralPage.cpp:94
-#, fuzzy, kde-format
-#| msgid "Histogram"
+#, kde-format
 msgid "Show histogram"
-msgstr "Histeagram"
+msgstr ""
 
 #: Settings/GeneralPage.cpp:99
 #, kde-format
@@ -5358,10 +5082,9 @@ msgid "Show splash screen"
 msgstr "Taispeáin an splancscáileán"
 
 #: Settings/GeneralPage.cpp:128
-#, fuzzy, kde-format
-#| msgid "Search for new images and videos on startup"
+#, kde-format
 msgid "Listen for Android devices on startup"
-msgstr "Déan cuardach ar íomhánna agus ar fhíseáin nua ag am tosaithe"
+msgstr ""
 
 #: Settings/GeneralPage.cpp:137
 #, kde-format
@@ -5433,36 +5156,31 @@ msgid "Birthdays"
 msgstr ""
 
 #: Settings/SettingsDialog.cpp:51
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgid "Tag Groups"
-msgstr "Grúpa Nua"
+msgstr ""
 
 #: Settings/SettingsDialog.cpp:53
-#, fuzzy, kde-format
-#| msgid "EXIF Information"
+#, kde-format
 msgid "Exif/IPTC Information"
-msgstr "Eolas faoi EXIF"
+msgstr ""
 
 #: Settings/SettingsDialog.cpp:54
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgid "Database Backend"
-msgstr "Inneall bunachair sonraí"
+msgstr ""
 
 #: Settings/SettingsDialog.cpp:74
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgctxt "@title:window"
 msgid "Settings"
-msgstr "Socruithe"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:37
-#, fuzzy, kde-format
-#| msgid "Categories"
+#, kde-format
 msgctxt "@label"
 msgid "Categories and groups:"
-msgstr "Catagóirí"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:46
 #, kde-format
@@ -5485,18 +5203,16 @@ msgid "Add group ..."
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:229
-#, fuzzy, kde-format
-#| msgid "Really delete group %1?"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename group \"%1\""
-msgstr "Scrios grúpa %1 i ndáiríre?"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:231
-#, fuzzy, kde-format
-#| msgid "Delete Group"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete group \"%1\""
-msgstr "Scrios Grúpa"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:310
 #, kde-format
@@ -5505,18 +5221,16 @@ msgid "Tags in group \"%1\" of category \"%2\""
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:341
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgctxt "@title:window"
 msgid "New Group"
-msgstr "Grúpa Nua"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:342
-#, fuzzy, kde-format
-#| msgid "Group name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Group name:"
-msgstr "Ainm grúpa:"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:357
 #, kde-format
@@ -5531,18 +5245,16 @@ msgid "Cannot add group"
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:435 Settings/TagGroupsPage.cpp:454
-#, fuzzy, kde-format
-#| msgid "Delete Group"
+#, kde-format
 msgctxt "@title:window"
 msgid "Rename Group"
-msgstr "Scrios Grúpa"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:436
-#, fuzzy, kde-format
-#| msgid "Group name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "New group name:"
-msgstr "Ainm grúpa:"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:449
 #, kde-kuit-format
@@ -5562,18 +5274,16 @@ msgid ""
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:516
-#, fuzzy, kde-kuit-format
-#| msgid "<p>Really delete category '%1'?</p>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "<para>Really delete group \"%1\"?</para>"
-msgstr "<p>Scrios catagóir '%1' i ndáiríre?</p>"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:521
-#, fuzzy, kde-format
-#| msgid "Delete Group"
+#, kde-format
 msgctxt "@title:window"
 msgid "Delete Group"
-msgstr "Scrios Grúpa"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:522 Settings/TagGroupsPage.cpp:769
 #, kde-format
@@ -5581,32 +5291,28 @@ msgid "&Delete"
 msgstr "&Scrios"
 
 #: Settings/TagGroupsPage.cpp:700
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename \"%1\""
-msgstr "Athainmnigh..."
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:702
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete \"%1\""
-msgstr "Scrios"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:713
-#, fuzzy, kde-format
-#| msgid "New Sub Category Name:"
+#, kde-format
 msgctxt "@title:window"
 msgid "New Tag Name"
-msgstr "Ainm na Fochatagóire Nuaí:"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:714
-#, fuzzy, kde-format
-#| msgid "Database name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Tag name:"
-msgstr "Ainm an bhunachair sonraí:"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:764
 #, kde-kuit-format
@@ -5618,11 +5324,10 @@ msgid ""
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:768
-#, fuzzy, kde-format
-#| msgid "Really Delete %1?"
+#, kde-format
 msgctxt "@title:window"
 msgid "Really delete %1?"
-msgstr "Scrios %1 i nDáiríre?"
+msgstr ""
 
 #: Settings/ThumbnailsPage.cpp:28
 #, kde-format
@@ -5640,16 +5345,14 @@ msgid "Thumbnail image size:"
 msgstr "Méid na mionsamhlacha:"
 
 #: Settings/ThumbnailsPage.cpp:47
-#, fuzzy, kde-format
-#| msgid "Build Thumbnails"
+#, kde-format
 msgid "Build thumbnails on demand"
-msgstr "Déan Mionsamhlacha"
+msgstr ""
 
 #: Settings/ThumbnailsPage.cpp:52
-#, fuzzy, kde-format
-#| msgid "Thumbnail screen cache:"
+#, kde-format
 msgid "Thumbnail table cells aspect ratio:"
-msgstr "Taisce mionsamhlacha:"
+msgstr ""
 
 #: Settings/ThumbnailsPage.cpp:54
 #, kde-format
@@ -5805,10 +5508,9 @@ msgid "None Selected"
 msgstr ""
 
 #: Settings/UntaggedGroupBox.cpp:117
-#, fuzzy, kde-format
-#| msgid "New Sub Category Name:"
+#, kde-format
 msgid "New tag added"
-msgstr "Ainm na Fochatagóire Nuaí:"
+msgstr ""
 
 #: Settings/UntaggedGroupBox.cpp:118
 #, kde-format
@@ -5861,11 +5563,10 @@ msgid ""
 msgstr ""
 
 #: Settings/VideoPlayerSelectorDialog.cpp:152
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
-msgstr "Inneall bunachair sonraí"
+msgstr ""
 
 #: Settings/VideoPlayerSelectorDialog.cpp:155
 #, kde-format
@@ -5874,31 +5575,27 @@ msgid "Unconfigured video backend"
 msgstr ""
 
 #: Settings/VideoPlayerSelectorDialog.cpp:157
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
-msgstr "Inneall bunachair sonraí"
+msgstr ""
 
 #: Settings/VideoPlayerSelectorDialog.cpp:159
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
-msgstr "Inneall bunachair sonraí"
+msgstr ""
 
 #: Settings/VideoPlayerSelectorDialog.cpp:161
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
-msgstr "Inneall bunachair sonraí"
+msgstr ""
 
 #: Settings/ViewerPage.cpp:25
-#, fuzzy, kde-format
-#| msgid "Not defined"
+#, kde-format
 msgid "Not Configured"
-msgstr "Gan sainmhíniú"
+msgstr ""
 
 #: Settings/ViewerPage.cpp:44
 #, kde-format
@@ -5986,34 +5683,29 @@ msgid ""
 msgstr ""
 
 #: Settings/ViewerPage.cpp:101
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgid "Video Backend:"
-msgstr "Inneall bunachair sonraí"
+msgstr ""
 
 #: Settings/ViewerPage.cpp:112
-#, fuzzy, kde-format
-#| msgid "Annotations"
+#, kde-format
 msgid "Default Annotation Mode"
-msgstr "Anótálacha"
+msgstr ""
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgid "Unlock"
+#, kde-format
 msgid "Locked"
-msgstr "Díghlasáil"
+msgstr ""
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Assign tags"
-msgstr "Comharthaí"
+msgstr ""
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Assign tokens"
-msgstr "Comharthaí"
+msgstr ""
 
 #: Settings/ViewerSizeConfig.cpp:19
 #, kde-format
@@ -6021,21 +5713,18 @@ msgid "Launch in full screen"
 msgstr "Tosaigh sa lánscáileán"
 
 #: ThumbnailView/Delegate.cpp:258
-#, fuzzy, kde-format
-#| msgid "1 video"
-#| msgid_plural "%1 videos"
+#, kde-format
 msgctxt ""
 "No video length could be determined, so we just display 'video' instead of "
 "the video length."
 msgid "video"
-msgstr "%1 fhíseán"
+msgstr ""
 
 #: ThumbnailView/FilterWidget.cpp:17
-#, fuzzy, kde-format
-#| msgid "Show File List"
+#, kde-format
 msgctxt "Name/title of the filter toolbar widget"
 msgid "Filter Toolbar"
-msgstr "Taispeáin Liosta na gComhad"
+msgstr ""
 
 #: ThumbnailView/FilterWidget.cpp:23
 #, kde-format
@@ -6055,16 +5744,12 @@ msgid "Filter view by rating: %1 star"
 msgid_plural "Filter view by rating: %1 stars"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: ThumbnailView/FilterWidget.cpp:62
-#, fuzzy, kde-format
-#| msgid "Filters"
+#, kde-format
 msgctxt "The label gives a textual description of the active filter"
 msgid "Filter: %1"
-msgstr "Scagairí"
+msgstr ""
 
 #: ThumbnailView/FilterWidget.cpp:85
 #, kde-kuit-format
@@ -6084,11 +5769,10 @@ msgid ""
 msgstr ""
 
 #: ThumbnailView/ThumbnailDND.cpp:100
-#, fuzzy, kde-format
-#| msgid "Sort Thumbnails?"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
-msgstr "Sórtáil Mionsamhlacha?"
+msgstr ""
 
 #: Utilities/DeleteFiles.cpp:37
 #, kde-format
@@ -6101,10 +5785,9 @@ msgid "Unable to copy '%1' to '%2'."
 msgstr "Ní féidir '%1' a chóipeáil go '%2'."
 
 #: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:88
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1' needed for demo."
+#, kde-format
 msgid "Unable to create folder '%1' needed for demo."
-msgstr "Níorbh fhéidir comhadlann '%1', de dhíth ar an taispeántas, a chruthú."
+msgstr ""
 
 #: Utilities/DemoUtil.cpp:58
 #, kde-format
@@ -6193,21 +5876,14 @@ msgid "%1 day"
 msgid_plural "%1 days"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: Utilities/Timespan.cpp:107
-#, fuzzy, kde-format
-#| msgid "1 Month"
+#, kde-format
 msgctxt "Like \"The baby is '4 months' old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "Mí amháin"
-msgstr[1] "Mí amháin"
-msgstr[2] "Mí amháin"
-msgstr[3] "Mí amháin"
-msgstr[4] "Mí amháin"
+msgstr[0] ""
+msgstr[1] ""
 
 #: Utilities/Timespan.cpp:112
 #, kde-format
@@ -6216,21 +5892,14 @@ msgid "%1 year"
 msgid_plural "%1 years"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: Utilities/Timespan.cpp:117
-#, fuzzy, kde-format
-#| msgid "1 Month"
+#, kde-format
 msgctxt "Like \"The baby is \"4 months\" old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "Mí amháin"
-msgstr[1] "Mí amháin"
-msgstr[2] "Mí amháin"
-msgstr[3] "Mí amháin"
-msgstr[4] "Mí amháin"
+msgstr[0] ""
+msgstr[1] ""
 
 #: Utilities/Timespan.cpp:120
 #, kde-format
@@ -6241,16 +5910,14 @@ msgid "%1, %2"
 msgstr ""
 
 #: Utilities/Timespan.cpp:150
-#, fuzzy, kde-format
-#| msgid "today"
+#, kde-format
 msgid " (today)"
-msgstr "inniu"
+msgstr ""
 
 #: Utilities/Timespan.cpp:153
-#, fuzzy, kde-format
-#| msgid "yesterday"
+#, kde-format
 msgid " (yesterday)"
-msgstr "inné"
+msgstr ""
 
 #: Utilities/Timespan.cpp:157
 #, kde-format
@@ -6271,9 +5938,6 @@ msgid "%1 day"
 msgid_plural "%1 days"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: Utilities/Timespan.cpp:183
 #, kde-format
@@ -6282,9 +5946,6 @@ msgid "%1 week"
 msgid_plural "%1 weeks"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: Utilities/Timespan.cpp:188
 #, kde-format
@@ -6293,33 +5954,22 @@ msgid "ca. %1 week"
 msgid_plural "ca. %1 weeks"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: Utilities/Timespan.cpp:196 Utilities/Timespan.cpp:235
-#, fuzzy, kde-format
-#| msgid "1 Month"
+#, kde-format
 msgctxt "Like \"This happened '2 months' ago\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "Mí amháin"
-msgstr[1] "Mí amháin"
-msgstr[2] "Mí amháin"
-msgstr[3] "Mí amháin"
-msgstr[4] "Mí amháin"
+msgstr[0] ""
+msgstr[1] ""
 
 #: Utilities/Timespan.cpp:201 Utilities/Timespan.cpp:206
-#, fuzzy, kde-format
-#| msgid "1 Month"
+#, kde-format
 msgctxt "Like \"This happened 'ca. 2 months' ago\""
 msgid "ca. %1 month"
 msgid_plural "ca. %1 months"
-msgstr[0] "Mí amháin"
-msgstr[1] "Mí amháin"
-msgstr[2] "Mí amháin"
-msgstr[3] "Mí amháin"
-msgstr[4] "Mí amháin"
+msgstr[0] ""
+msgstr[1] ""
 
 #: Utilities/Timespan.cpp:211 Utilities/Timespan.cpp:230
 #: Utilities/Timespan.cpp:233
@@ -6329,9 +5979,6 @@ msgid "%1 year"
 msgid_plural "%1 years"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: Utilities/Timespan.cpp:239
 #, kde-format
@@ -6349,64 +5996,55 @@ msgid "Assign Macro"
 msgstr ""
 
 #: Viewer/AnnotationHandler.cpp:69
-#, fuzzy, kde-format
-#| msgid "<b>Sub Categories</b>"
+#, kde-format
 msgid "Select item for macro key <b>%1</b>"
-msgstr "<b>Fochatagóirí</b>"
+msgstr ""
 
 #: Viewer/AnnotationHandler.cpp:126
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgid "Tag Item"
-msgstr "Athainmnigh Mír"
+msgstr ""
 
 #: Viewer/AnnotationHandler.cpp:126
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select tag for image"
-msgstr "Roghnaigh sprioc:"
+msgstr ""
 
 #: Viewer/CategoryImageConfig.cpp:41
-#, fuzzy, kde-format
-#| msgid "Configure Category Image"
+#, kde-format
 msgctxt "@title:window"
 msgid "Configure Category Image"
-msgstr "Cumraigh Íomhá na Catagóire"
+msgstr ""
 
 #: Viewer/CategoryImageConfig.cpp:50
-#, fuzzy, kde-format
-#| msgid "Category:"
+#, kde-format
 msgctxt "@label:listbox As in 'select the tag category'"
 msgid "Category:"
-msgstr "Catagóir:"
+msgstr ""
 
 #: Viewer/CategoryImageConfig.cpp:57
-#, fuzzy, kde-format
-#| msgid "Tag:"
+#, kde-format
 msgctxt "@label:listbox As in 'select a tag'"
 msgid "Tag:"
-msgstr "Clib:"
+msgstr ""
 
 #: Viewer/CategoryImageConfig.cpp:66
-#, fuzzy, kde-format
-#| msgid "Current image:"
+#, kde-format
 msgctxt "@label The current category image"
 msgid "Current image:"
-msgstr "Íomhá reatha:"
+msgstr ""
 
 #: Viewer/CategoryImageConfig.cpp:74
-#, fuzzy, kde-format
-#| msgid "New image:"
+#, kde-format
 msgctxt "@label Preview of the new category imape"
 msgid "New image:"
-msgstr "Íomhá nua:"
+msgstr ""
 
 #: Viewer/CategoryImageConfig.cpp:83
-#, fuzzy, kde-format
-#| msgid "Set"
+#, kde-format
 msgctxt "@action:button As in 'Set the category image'"
 msgid "Set"
-msgstr "Socraigh"
+msgstr ""
 
 #: Viewer/ImageDisplay.cpp:306 Viewer/ImageDisplay.cpp:330
 #: Viewer/ImageDisplay.cpp:391
@@ -6445,10 +6083,9 @@ msgid "Key"
 msgstr ""
 
 #: Viewer/SelectCategoryAndValue.cpp:189
-#, fuzzy, kde-format
-#| msgid "Tag:"
+#, kde-format
 msgid "Tag"
-msgstr "Clib:"
+msgstr ""
 
 #: Viewer/SelectCategoryAndValue.cpp:220
 #, kde-format
@@ -6458,17 +6095,15 @@ msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
+#, kde-format
 msgid "Dialog"
-msgstr "Dialóg OK"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
+#, kde-format
 msgid "TextLabel"
-msgstr "Lipéad"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
@@ -6478,10 +6113,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgid "Title"
+#, kde-format
 msgid "Title"
-msgstr "Teideal"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: Viewer/SelectCategoryAndValue.ui:120
@@ -6496,39 +6130,34 @@ msgid "Set as First Image in Stack"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:199
-#, fuzzy, kde-format
-#| msgid "Export/Copy Images..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
-msgstr "Easpórtáil/Cóipeáil Íomhánna..."
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:205
-#, fuzzy, kde-format
-#| msgid "Export/Copy Images..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
-msgstr "Easpórtáil/Cóipeáil Íomhánna..."
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:213
-#, fuzzy, kde-format
-#| msgid "Close"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
-msgstr "Dún"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:275
-#, fuzzy, kde-format
-#| msgid "Rotate"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
-msgstr "Rothlaigh"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Rotate clockwise"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
-msgstr "Rothlaigh ar deiseal"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:287
 #, kde-format
@@ -6537,39 +6166,34 @@ msgid "Flip Over"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:288
-#, fuzzy, kde-format
-#| msgid "Rotated counterclockwise"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
-msgstr "Rothlaithe ar tuathal"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:299
-#, fuzzy, kde-format
-#| msgid "Skip"
+#, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
-msgstr "Ná bac leis"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:302
-#, fuzzy, kde-format
-#| msgid "First"
+#, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
-msgstr "An Chéad"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:309
-#, fuzzy, kde-format
-#| msgid "Last"
+#, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
-msgstr "Deireadh"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:316
-#, fuzzy, kde-format
-#| msgid "Show Next"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
-msgstr "An Chéad Cheann Eile"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:322
 #, kde-format
@@ -6590,11 +6214,10 @@ msgid "Skip 1000 Forward"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:340
-#, fuzzy, kde-format
-#| msgid "Show Previous"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
-msgstr "An Ceann Roimhe Seo"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:346
 #, kde-format
@@ -6615,11 +6238,10 @@ msgid "Skip 1000 Backward"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:364
-#, fuzzy, kde-format
-#| msgid "Delete Image"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
-msgstr "Scrios Íomhá"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:369
 #, kde-format
@@ -6628,32 +6250,28 @@ msgid "Remove Image from Display List"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:384
-#, fuzzy, kde-format
-#| msgid "Zoom"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
-msgstr "Súmáil"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:388
-#, fuzzy, kde-format
-#| msgid "Zoom In"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
-msgstr "Súmáil Isteach"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:394
-#, fuzzy, kde-format
-#| msgid "Zoom Out"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
-msgstr "Súmáil Amach"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:400
-#, fuzzy, kde-format
-#| msgid "Full View"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
-msgstr "Amharc Iomlán"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:406
 #, kde-format
@@ -6662,39 +6280,34 @@ msgid "Pixel for Pixel View"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:412
-#, fuzzy, kde-format
-#| msgid "Toggle Full Screen"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
-msgstr "Scoránaigh an Mód Lánscáileáin"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:423
-#, fuzzy, kde-format
-#| msgid "Slideshow"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
-msgstr "Taispeántas Sleamhnán"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:426 Viewer/ViewerWidget.cpp:908
-#, fuzzy, kde-format
-#| msgid "Run Slideshow"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
-msgstr "Rith Taispeántas Sleamhnán"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:431
-#, fuzzy, kde-format
-#| msgid "Run Faster"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
-msgstr "Níos Tapa"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:436
-#, fuzzy, kde-format
-#| msgid "Run Slower"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
-msgstr "Níos Moille"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:474
 #, kde-format
@@ -6702,25 +6315,22 @@ msgid "File not available"
 msgstr "Níl an comhad ar fáil"
 
 #: Viewer/ViewerWidget.cpp:517
-#, fuzzy, kde-format
-#| msgid "%1 to %2  %3"
+#, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
-msgstr "%1 go %2  %3"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:553
-#, fuzzy, kde-format
-#| msgid "Play"
+#, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
-msgstr "Seinn"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:555
-#, fuzzy, kde-format
-#| msgid "Pause"
+#, kde-format
 msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
-msgstr "Sos"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:629 Viewer/ViewerWidget.cpp:1153
 #, kde-format
@@ -6728,47 +6338,39 @@ msgid "Tags and tokens locked"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:631
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Assigning tags"
-msgstr "Comharthaí"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:633
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Assigning tokens"
-msgstr "Comharthaí"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:638
-#, fuzzy, kde-format
-#| msgid "Annotations"
+#, kde-format
 msgid "Annotation mode: %1"
-msgstr "Anótálacha"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:911
-#, fuzzy, kde-format
-#| msgid "Run Slideshow"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr "Rith Taispeántas Sleamhnán"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:914
-#, fuzzy, kde-format
-#| msgid "Stop Slideshow"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
-msgstr "Stad an Taispeántas Sleamhnán"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:919
-#, fuzzy, kde-format
-#| msgid "<p><center><font size=\"+4\">Starting Slideshow</font></center></p>"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
 "Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
 "slideshow slower"
 msgstr ""
-"<p><center><font size=\"+4\">Taispeántas Sleamhnán á Thosú</font></center></"
-"p>"
 
 #: Viewer/ViewerWidget.cpp:969
 #, kde-format
@@ -6777,123 +6379,106 @@ msgid "%1&nbsp;s"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1245
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr "Cur Síos"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1245
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr "Cur Síos"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1260
-#, fuzzy, kde-format
-#| msgid "Seek"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
-msgstr "Cuardach"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1282
-#, fuzzy, kde-format
-#| msgid "10 minutes backward"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
-msgstr "10 nóiméad siar"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1283
-#, fuzzy, kde-format
-#| msgid "1 minute backward"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
-msgstr "1 nóiméad siar"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1284
-#, fuzzy, kde-format
-#| msgid "10 seconds backward"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
-msgstr "10 soicind siar"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1285
-#, fuzzy, kde-format
-#| msgid "1 seconds backward"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
-msgstr "1 soicind siar"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1286
-#, fuzzy, kde-format
-#| msgid "100 milliseconds backward"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
-msgstr "100 milleasoicind siar"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1287
-#, fuzzy, kde-format
-#| msgid "100 milliseconds forward"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
-msgstr "100 milleasoicind ar aghaidh"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1288
-#, fuzzy, kde-format
-#| msgid "1 seconds forward"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
-msgstr "1 soicind ar aghaidh"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1289
-#, fuzzy, kde-format
-#| msgid "10 seconds forward"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
-msgstr "10 soicind ar aghaidh"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1290
-#, fuzzy, kde-format
-#| msgid "1 minute forward"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
-msgstr "1 nóiméad ar aghaidh"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1291
-#, fuzzy, kde-format
-#| msgid "10 minutes forward"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
-msgstr "10 nóiméad ar aghaidh"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1299
-#, fuzzy, kde-format
-#| msgid "Stop"
+#, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
-msgstr "Stad"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1311
-#, fuzzy, kde-format
-#| msgid "Display categories in thumbnail view"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
-msgstr "Taispeáin catagóirí san amharc mionsamhlacha"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1318
-#, fuzzy, kde-format
-#| msgid "Restart"
+#, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
-msgstr "Atosaigh"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1334
-#, fuzzy, kde-format
-#| msgid "Filters"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
-msgstr "Scagairí"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1337
 #, kde-format
@@ -6948,10 +6533,9 @@ msgid ""
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1488
-#, fuzzy, kde-format
-#| msgid "Annotate..."
+#, kde-format
 msgid "Annotate"
-msgstr "Anótáil..."
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1507
 #, kde-format
@@ -6960,11 +6544,10 @@ msgid "Help"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1509
-#, fuzzy, kde-format
-#| msgid "Annotation Dialog"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
-msgstr "Dialóg Anótála"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1510
 #, kde-format
@@ -6979,11 +6562,10 @@ msgid "CTRL+a"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1513
-#, fuzzy, kde-format
-#| msgid "Copy tags from previous image"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
-msgstr "Cóipeáil clibeanna ón íomhá roimhe seo"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1514
 #, kde-format
@@ -6992,11 +6574,10 @@ msgid "CTRL+c"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1517
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr "Cur Síos"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1518
 #, kde-format
@@ -7005,10 +6586,9 @@ msgid "CTRL+d"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1521
-#, fuzzy, kde-format
-#| msgid "Annotations"
+#, kde-format
 msgid "Annotation Mode"
-msgstr "Anótálacha"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1523
 #, kde-format
@@ -7035,11 +6615,10 @@ msgid "F2"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1533
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr "Comharthaí"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1534
 #, kde-format
@@ -7048,10 +6627,9 @@ msgid "CTRL+t"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1698
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Token %1"
-msgstr "Comharthaí"
+msgstr ""
 
 #: Viewer/VisibleOptionsMenu.cpp:24
 #, kde-format
@@ -7094,10 +6672,9 @@ msgid "Show Filename"
 msgstr "Taispeáin Ainm an Chomhaid"
 
 #: Viewer/VisibleOptionsMenu.cpp:64
-#, fuzzy, kde-format
-#| msgid "Show Exif Info"
+#, kde-format
 msgid "Show Exif"
-msgstr "Taispeáin Faisnéis Exif"
+msgstr ""
 
 #: Viewer/VisibleOptionsMenu.cpp:69
 #, kde-format
@@ -7108,902 +6685,3 @@ msgstr "Taispeáin Méid na hÍomhá"
 #, kde-format
 msgid "Show Rating"
 msgstr "Taispeáin Rátáil"
-
-#, fuzzy
-#~| msgid "Unlock"
-#~ msgid "locked"
-#~ msgstr "Díghlasáil"
-
-#, fuzzy
-#~| msgid "Annotations"
-#~ msgid "annotating"
-#~ msgstr "Anótálacha"
-
-#~ msgid "Save Current Window Setup"
-#~ msgstr "Sábháil an Socrú Reatha Fuinneoige"
-
-# "Cumraíocht Easpórtála" is possible
-#, fuzzy
-#~| msgid "Export Configuration / Copy Images"
-#~ msgctxt "@title:window"
-#~ msgid "Export Configuration / Copy Images"
-#~ msgstr "Easpórtáil Cumraíocht / Cóipeáil Íomhánna"
-
-# These next features have "Yes/No" next to them
-#~ msgid "Plug-ins available"
-#~ msgstr "Breiseáin ar fáil"
-
-#, fuzzy
-#~| msgid "Sqlite database support (used for EXIF searches)"
-#~ msgid "SQLite database support (used for Exif searches)"
-#~ msgstr "Tacaíocht bunachair sonraí Sqlite (i gcomhair cuardach EXIF)"
-
-#, fuzzy
-#~| msgid "Converting database"
-#~ msgid "Invalid database file"
-#~ msgstr "Bunachar sonraí á thiontú"
-
-#~ msgid "Loading Database"
-#~ msgstr "Bunachar Sonraí á Luchtú"
-
-#~ msgid "Loading Main Window"
-#~ msgstr "Príomhfhuinneog á Luchtú"
-
-#, fuzzy
-#~| msgid "%1 (by %2)"
-#~ msgctxt ""
-#~ "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--"
-#~ "\", %1) and it's octal representation (e.g. \"0644\")"
-#~ msgid "%1 (%2)"
-#~ msgstr "%1 (le %2)"
-
-#, fuzzy
-#~| msgid "1 Month"
-#~ msgctxt "As in 'This happened 1 month ago'"
-#~ msgid "1 month ago"
-#~ msgid_plural "%1 months ago"
-#~ msgstr[0] "Mí amháin"
-#~ msgstr[1] "Mí amháin"
-#~ msgstr[2] "Mí amháin"
-#~ msgstr[3] "Mí amháin"
-#~ msgstr[4] "Mí amháin"
-
-#, fuzzy
-#~| msgid "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
-#~ msgctxt "OSD for slideshow, num of seconds per image"
-#~ msgid "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
-#~ msgstr "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
-
-#, fuzzy
-#~| msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
-#~ msgctxt "OSD for slideshow"
-#~ msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
-#~ msgstr ""
-#~ "<p><center><font size=\"+4\">Taispeántas Sleamhnán á Chríochnú</font></"
-#~ "center></p>"
-
-#, fuzzy
-#~| msgid "<b>Sub Categories</b>"
-#~ msgctxt "Basically 'enter a category name'"
-#~ msgid "<b>Setting Category: </b>"
-#~ msgstr "<b>Fochatagóirí</b>"
-
-#, fuzzy
-#~| msgid "<b>Description: </b> "
-#~ msgctxt "Basically 'enter a tag name'"
-#~ msgid "<b>Assigning: </b>"
-#~ msgstr "<b>Cur Síos: </b> "
-
-#~ msgid "Recalculate Checksum"
-#~ msgstr "Atháirigh an tsuim sheiceála"
-
-#~ msgid "Really Rename %1?"
-#~ msgstr "Athainmnigh %1 i nDáiríre?"
-
-#~ msgid "Directory Exists"
-#~ msgstr "Tá an chomhadlann ann cheana"
-
-#~ msgid "Error creating directory %1"
-#~ msgstr "Earráid agus comhadlann %1 á cruthú"
-
-#~ msgid "Could not create directory %1"
-#~ msgstr "Níorbh fhéidir comhadlann %1 a chruthú"
-
-#~ msgid ""
-#~ "<p>When generating HTML you must specify a base directory for\n"
-#~ "the images. Here you can specify any protocol supported by KDE, like ftp "
-#~ "or\n"
-#~ "fish.</p>\n"
-#~ "<p>Examples:\n"
-#~ "<ul>\n"
-#~ "  <li> ftp://someserver/my-upload-area/images (upload using FTP)\n"
-#~ "  <li> fish://someserver/home/foo/images (upload using ssh)\n"
-#~ "  <li> smb://someserver/c/images (upload to a Windows share)\n"
-#~ "</ul>\n"
-#~ "</p>\n"
-#~ msgstr ""
-#~ "<p>Agus HTML á ghiniúint, caithfidh tú bunchomhadlann a roghnú le "
-#~ "haghaidh\n"
-#~ "na n-íomhánna seo. Anseo is féidir aon phrótacal a dtacaíonn KDE leis a\n"
-#~ "roghnú, cosúil le ftp nó fish.</p>\n"
-#~ "<p>Mar Shampla:\n"
-#~ "<ul>\n"
-#~ "  <li> ftp://freastalaí/áit-uasluchtaithe/íomhánna (uasluchtaigh trí "
-#~ "FTP)\n"
-#~ "  <li> fish://freastalaí/baile/foo/íomhánna (uasluchtaigh trí ssh)\n"
-#~ "  <li> smb://freastalaí/c/íomhánna (uasluchtaigh go comhroinn Windows)\n"
-#~ "</ul>\n"
-#~ "</p>\n"
-
-#, fuzzy
-#~| msgid "Show EXIF Viewer"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Show Exif Viewer"
-#~ msgstr "Taispeáin Amharcán EXIF"
-
-#, fuzzy
-#~| msgid "Export/Copy Images..."
-#~ msgid "Copy image(s) to..."
-#~ msgstr "Easpórtáil/Cóipeáil Íomhánna..."
-
-#, fuzzy
-#~| msgid "Export/Copy Images..."
-#~ msgid "Copy currently selected image to..."
-#~ msgstr "Easpórtáil/Cóipeáil Íomhánna..."
-
-#, fuzzy
-#~| msgid "Export/Copy Images..."
-#~ msgid "Copy all selected images to..."
-#~ msgstr "Easpórtáil/Cóipeáil Íomhánna..."
-
-#, fuzzy
-#~| msgid "Export/Copy Images..."
-#~ msgid "Link currently selected image to..."
-#~ msgstr "Easpórtáil/Cóipeáil Íomhánna..."
-
-#, fuzzy
-#~| msgid "Export/Copy Images..."
-#~ msgid "Link image(s) to..."
-#~ msgstr "Easpórtáil/Cóipeáil Íomhánna..."
-
-#, fuzzy
-#~| msgid "Export/Copy Images..."
-#~ msgid "Link all selected images to..."
-#~ msgstr "Easpórtáil/Cóipeáil Íomhánna..."
-
-#, fuzzy
-#~| msgid "Export/Copy Images..."
-#~ msgctxt "@title:window"
-#~ msgid "Copy Image to..."
-#~ msgstr "Easpórtáil/Cóipeáil Íomhánna..."
-
-#, fuzzy
-#~| msgid "Export/Copy Images..."
-#~ msgctxt "@title:window"
-#~ msgid "Link Image to..."
-#~ msgstr "Easpórtáil/Cóipeáil Íomhánna..."
-
-#, fuzzy
-#~| msgid "Export/Copy Images..."
-#~ msgctxt "@action:inmenu"
-#~ msgid "Copy Image to..."
-#~ msgstr "Easpórtáil/Cóipeáil Íomhánna..."
-
-#, fuzzy
-#~| msgid "EXIF Search"
-#~ msgid "Exif label search: "
-#~ msgstr "Cuardach EXIF"
-
-#, fuzzy
-#~| msgid "Search:"
-#~ msgctxt "@label:textbox label on the search bar"
-#~ msgid "Search:"
-#~ msgstr "Cuardaigh:"
-
-#, fuzzy
-#~| msgid "Recreate Selected Thumbnails"
-#~ msgid "Really resize the thumbnails?"
-#~ msgstr "Athchruthaigh na Mionsamhlacha Roghnaithe"
-
-#~ msgid "Loading Plug-ins"
-#~ msgstr "Breiseáin á Luchtú"
-
-#, fuzzy
-#~| msgid "Plugins"
-#~ msgctxt ""
-#~ "Add 'Plugin' prefix so that KIPI plugins are obvious in KShortcutsDialog…"
-#~ msgid "Plugin: %1"
-#~ msgstr "Breiseáin"
-
-#, fuzzy
-#~| msgid "None"
-#~ msgctxt "The 'name' of an unnamed image collection."
-#~ msgid "None"
-#~ msgstr "Neamhní"
-
-#, fuzzy
-#~| msgid " (Selection)"
-#~ msgctxt "As in 'an unknown set of images, created from the selection'."
-#~ msgid "Unknown (Selection)"
-#~ msgstr " (Roghnúchán)"
-
-#, fuzzy
-#~| msgid " (Selection)"
-#~ msgctxt "As in 'A selection of [a generated context description]'"
-#~ msgid " (Selection)"
-#~ msgstr " (Roghnúchán)"
-
-#, fuzzy
-#~| msgid "Unknown"
-#~ msgctxt "A set of images with no description."
-#~ msgid "Unknown"
-#~ msgstr "Anaithnid"
-
-#, fuzzy
-#~| msgid "Image/Video root directory: "
-#~ msgctxt "'Name' of the image directory"
-#~ msgid "Image/Video root directory"
-#~ msgstr "Fréamhchomhadlann íomhá/fhíseáin: "
-
-#~ msgid "Change Password..."
-#~ msgstr "Athraigh Focal Faire..."
-
-#, fuzzy
-#~| msgid "Show splash screen"
-#~ msgid "Show search bar"
-#~ msgstr "Taispeáin an splancscáileán"
-
-#~ msgid "Password Protection"
-#~ msgstr "Cosaint Focail Faire"
-
-#~ msgid "Type in Password to Unlock"
-#~ msgstr "Iontráil an Focal Faire chun Díghlasáil"
-
-#~ msgid "Invalid password."
-#~ msgstr "Focal faire neamhbhailí."
-
-#~ msgid "Type in Old Password"
-#~ msgstr "Iontráil an Seanfhocal Faire"
-
-#~ msgid "Type in New Password"
-#~ msgstr "Iontráil an Focal Faire Nua"
-
-#, fuzzy
-#~| msgid "Background Color"
-#~ msgid "Background color:"
-#~ msgstr "Dath an Chúlra"
-
-#, fuzzy
-#~| msgid "Description"
-#~ msgid "Geo position"
-#~ msgstr "Cur Síos"
-
-#~ msgid "F Number"
-#~ msgstr "F-Uimhir"
-
-#, fuzzy
-#~| msgid "Toggle fullscreen preview"
-#~ msgid "Toggle full-screen preview (CTRL+Space)"
-#~ msgstr "Scoránaigh an mód lánscáileáin"
-
-#~ msgid "Export"
-#~ msgstr "Easpórtáil"
-
-#~ msgid "Import"
-#~ msgstr "Iompórtáil"
-
-#~ msgid "Batch Plugins"
-#~ msgstr "Breiseáin Bhaiscphróiseála"
-
-#~ msgid "Tools"
-#~ msgstr "Uirlisí"
-
-#~ msgid "Robert L Krawitz"
-#~ msgstr "Robert L Krawitz"
-
-#, fuzzy
-#~| msgid "Set as Wallpaper"
-#~ msgctxt "@title:inmenu"
-#~ msgid "Set as Wallpaper"
-#~ msgstr "Socraigh mar Chúlbhrat"
-
-#, fuzzy
-#~| msgid "Centered"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Centered"
-#~ msgstr "Láraithe"
-
-#, fuzzy
-#~| msgid "Tiled"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Tiled"
-#~ msgstr "Tílithe"
-
-#, fuzzy
-#~| msgid "Center Tiled"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Center Tiled"
-#~ msgstr "Láraithe Tílithe"
-
-#, fuzzy
-#~| msgid "Centered Maxpect"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Centered Maxpect"
-#~ msgstr "Cóimheas Uasta Treoíochta: Láraithe"
-
-#, fuzzy
-#~| msgid "Tiled Maxpect"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Tiled Maxpect"
-#~ msgstr "Cóimheas Uasta Treoíochta: Tílithe"
-
-#, fuzzy
-#~| msgid "Scaled"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Scaled"
-#~ msgstr "Scálaithe"
-
-#, fuzzy
-#~| msgid "Centered Auto Fit"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Centered Auto Fit"
-#~ msgstr "Oiriúnú Uathoibríoch Láraithe"
-
-#~ msgid "Reading file properties"
-#~ msgstr "Airíonna comhaid á léamh"
-
-#, fuzzy
-#~| msgid "Thumbnail Size: "
-#~ msgid "Thumbnail Size:"
-#~ msgstr "Méid na Mionsamhlacha: "
-
-#~ msgid "Show EXIF"
-#~ msgstr "Taispeáin EXIF"
-
-#, fuzzy
-#~| msgid "%1 (by %2)"
-#~ msgctxt ""
-#~ "Identifying a person; e.g. 'Is this <Person A> (<Category People>)'"
-#~ msgid "Is this %1 (%2)?"
-#~ msgstr "%1 (le %2)"
-
-#, fuzzy
-#~| msgid "No Selection"
-#~ msgid "Face detection"
-#~ msgstr "Gan Roghnúchán"
-
-#, fuzzy
-#~| msgid "Database backend"
-#~ msgid "Database entry"
-#~ msgstr "Inneall bunachair sonraí"
-
-#, fuzzy
-#~| msgid "Do you want to save the changes?"
-#~ msgid "Do you really want to delete the selected tags?"
-#~ msgstr "An bhfuil fonn ort do chuid athruithe a shábháil?"
-
-#~ msgid "EXIF info supported"
-#~ msgstr "Tacaítear le faisnéis EXIF"
-
-#~ msgid "Close"
-#~ msgstr "Dún"
-
-#~ msgid "OK"
-#~ msgstr "OK"
-
-#, fuzzy
-#~| msgid "Include in .kim file"
-#~ msgid ".kim files"
-#~ msgstr "Cuir i gcomhad .kim"
-
-#~ msgid "Base URL:"
-#~ msgstr "URL bunaidh:"
-
-#~ msgid "Config file"
-#~ msgstr "Comhad cumraíochta"
-
-#, fuzzy
-#~| msgid "Search for new images and videos on startup"
-#~ msgid "Don't start listening for android devices on startup."
-#~ msgstr "Déan cuardach ar íomhánna agus ar fhíseáin nua ag am tosaithe"
-
-#~ msgid "Unable to open '%1' for writing."
-#~ msgstr "Ní féidir '%1' a oscailt le haghaidh scríofa."
-
-#~ msgid "<p>Unable to find file %1</p>"
-#~ msgstr "<p>Ní féidir comhad %1 a aimsiú</p>"
-
-#, fuzzy
-#~| msgid "Database backend"
-#~ msgid "Database Update skipped"
-#~ msgstr "Inneall bunachair sonraí"
-
-#~ msgid "Keywords"
-#~ msgstr "Lorgfhocail"
-
-#~ msgid "Error in file %1: unexpected element: '%2'"
-#~ msgstr "Earráid i gcomhad %1: eilimint gan choinne: '%2'"
-
-#~ msgid "Unable to find 'Options' tag in configuration file %1."
-#~ msgstr "Ní féidir an chlib 'Config' a aimsiú sa chomhad cumraíochta %1."
-
-#~ msgid "Unable to find 'Images' tag in configuration file %1."
-#~ msgstr "Níorbh fhéidir clib 'Images' a aimsiú i gcomhad cumraíochta %1."
-
-#, fuzzy
-#~| msgid ""
-#~| "Use data from\n"
-#~| "Database"
-#~ msgid "Face database training"
-#~ msgstr ""
-#~ "Úsáid sonraí ó\n"
-#~ "Bhunachar Sonraí"
-
-#, fuzzy
-#~| msgid "Database backend"
-#~ msgid "Database Update"
-#~ msgstr "Inneall bunachair sonraí"
-
-#, fuzzy
-#~| msgid "Configure Current View"
-#~ msgid "Configure Birth Dates"
-#~ msgstr "Cumraigh an tAmharc Reatha"
-
-#, fuzzy
-#~| msgid "Current Item"
-#~ msgid "Current Category"
-#~ msgstr "Mír reatha"
-
-#~ msgid "<b>Sub Categories</b>"
-#~ msgstr "<b>Fochatagóirí</b>"
-
-#~ msgid "Super Categories"
-#~ msgstr "Forchatagóirí"
-
-#~ msgid "New Category..."
-#~ msgstr "Catagóir Nua..."
-
-#~ msgid "Create Subcategory..."
-#~ msgstr "Cruthaigh Fochatagóir..."
-
-#~ msgid "New Super Category"
-#~ msgstr "Forchatagóir Nua"
-
-#~ msgid "New Super Category Name:"
-#~ msgstr "Ainm na Forchatagóire Nuaí:"
-
-#~ msgid "New Sub Category"
-#~ msgstr "Fochatagóir Nua"
-
-#~ msgid "New Sub Category Name:"
-#~ msgstr "Ainm na Fochatagóire Nuaí:"
-
-#~ msgid "Subcategories"
-#~ msgstr "Fochatagóirí"
-
-#~ msgid "Super Categories:"
-#~ msgstr "Forchatagóirí:"
-
-#~ msgid "Items of Category:"
-#~ msgstr "Míreanna sa Chatagóir:"
-
-#~ msgid "Add Super Category..."
-#~ msgstr "Cuir Forchatagóir Leis..."
-
-#~ msgid "Rename Super Category..."
-#~ msgstr "Athainmnigh Forchatagóir..."
-
-#~ msgid "Delete Super Category"
-#~ msgstr "Scrios Forchatagóir"
-
-#~ msgid "Label:"
-#~ msgstr "Lipéad:"
-
-#, fuzzy
-#~| msgid "line %1 column %2 in file %3: %4"
-#~ msgid ""
-#~ "On line %1, column %2:\n"
-#~ "%3"
-#~ msgstr "líne %1 colún %2 i gcomhad %3: %4"
-
-#~ msgid "Version %1"
-#~ msgstr "Leagan %1"
-
-#, fuzzy
-#~| msgid "<No Search>"
-#~ msgid "&lt;No Search&gt;"
-#~ msgstr "<Gan Chuardach>"
-
-#~ msgid "Error in file %1 on line %2 col %3: %4"
-#~ msgstr "Earráid sa chomhad %1 ag líne %2 col %3: %4"
-
-#~ msgid "Unknown element while reading %1, expected image."
-#~ msgstr "Eilimint anaithnid agus %1 á léamh, bhíothas ag súil le híomhá."
-
-#~ msgid "unknown"
-#~ msgstr "anaithnid"
-
-#~ msgid "none"
-#~ msgstr "neamhní"
-
-#~ msgid "Member:"
-#~ msgstr "Ball:"
-
-#~ msgctxt "Short for Mega Pixels"
-#~ msgid "MP"
-#~ msgstr "MP"
-
-#~ msgid ""
-#~ "This will make an attempt at saving in a format understandable by KimDaBa "
-#~ "2.1"
-#~ msgstr ""
-#~ "Déanann sé seo iarracht ar shábháil i bhformáid a thuigeann KimDaBa 2.1"
-
-#~ msgid "Manual"
-#~ msgstr "De Láimh"
-
-#~ msgid "Normal program"
-#~ msgstr "Gnáthchlár"
-
-#~ msgid "Aperture priority"
-#~ msgstr "Tosaíocht an chró"
-
-#~ msgid "Shutter priority"
-#~ msgstr "Tosaíocht an chomhla"
-
-#~ msgid "Creative program (biased toward depth of field)"
-#~ msgstr "Clár cruthaitheach (claonta chun doimhneacht réimse)"
-
-#~ msgid "Action program (biased toward fast shutter speed)"
-#~ msgstr "Clár gníomhaíochta (claonta chun comhla níos tapa)"
-
-#~ msgid "Portrait mode (for closeup photos with the background out of focus)"
-#~ msgstr "Mód portráide (le haghaidh gar-amharc le cúlra as fócas)"
-
-#~ msgid "Not rotated"
-#~ msgstr "Gan rothlú"
-
-#~ msgid "Rotated clockwise"
-#~ msgstr "Rothlaithe ar deiseal"
-
-#~ msgid "Rotated 180 degrees"
-#~ msgstr "Rothlaithe 180 Céim"
-
-#~ msgid "Average"
-#~ msgstr "Meán"
-
-#~ msgid "Spot"
-#~ msgstr "Spota"
-
-#~ msgid "MultiSpot"
-#~ msgstr "Ilspota"
-
-#~ msgid "Pattern"
-#~ msgstr "Patrún"
-
-#~ msgid "Partial"
-#~ msgstr "Neamhiomlán"
-
-#~ msgid "Other"
-#~ msgstr "Eile"
-
-#~ msgid "Normal"
-#~ msgstr "Gnách"
-
-#~ msgid "Soft"
-#~ msgstr "Bog"
-
-#~ msgid "Low"
-#~ msgstr "Íseal"
-
-#~ msgid "High"
-#~ msgstr "Ard"
-
-#~ msgid "Please wait."
-#~ msgstr "Fan go fóill."
-
-#~ msgid "Database schema is incompatible."
-#~ msgstr "Scéimre bunachar sonraí neamh-chomhoiriúnach."
-
-#~ msgid "Database driver not found: %1"
-#~ msgstr "Tiománaí bunachair sonraí gan aimsiú: %1"
-
-#~ msgid "Server port:"
-#~ msgstr "Port an fhreastalaí:"
-
-#~ msgid "Default"
-#~ msgstr "Réamhshocrú"
-
-#~ msgid "Username:"
-#~ msgstr "Ainm úsáideora:"
-
-#~ msgid "Password:"
-#~ msgstr "Focal Faire:"
-
-#~ msgid "SQL Database Settings"
-#~ msgstr "Socruithe Bhunachair Sonraí SQL"
-
-#~ msgid "Database engine to use"
-#~ msgstr "Inneall bunachair sonraí le húsáid"
-
-#~ msgid "Could not open file '%1'."
-#~ msgstr "Níorbh fhéidir comhad '%1' a oscailt."
-
-#~ msgid "Enter file names"
-#~ msgstr "Iontráil ainmneacha comhaid"
-
-#~ msgid "Generating thumbnails"
-#~ msgstr "Mionsamhlacha á gcruthú"
-
-#~ msgid "png"
-#~ msgstr "png"
-
-#~ msgid "jpg"
-#~ msgstr "jpg"
-
-#~ msgid "%1 MB"
-#~ msgstr "%1 MB"
-
-#~ msgid ""
-#~ "<p><b><center><font size=\"+3\">Delete Images/Videos from database<br/>%1 "
-#~ "selected</font></center></b></p>"
-#~ msgstr ""
-#~ "<p><b><center><font size=\"+3\">Scrios Íomhánna/Físeáin ón bhunachar "
-#~ "sonraí<br/>%1 roghnaithe</font></center></b></p>"
-
-#~ msgid "**NONE**"
-#~ msgstr "**NEAMHNÍ**"
-
-#~ msgid "Read File Info"
-#~ msgstr "Léigh Eolas Faoin Chomhad"
-
-#~ msgid ""
-#~ "<p><b><center><font size=\"+3\">Read File Info<br/>%1 selected</font></"
-#~ "center></b></p>"
-#~ msgstr ""
-#~ "<p><b><center><font size=\"+3\">Léigh Faisnéis Chomhaid<br/>%1 "
-#~ "roghnaithe</font></center></b></p>"
-
-#~ msgid "1 Image"
-#~ msgid_plural "%1 Images"
-#~ msgstr[0] "%1 Íomhá"
-#~ msgstr[1] "%1 Íomhá"
-#~ msgstr[2] "%1 Íomhá"
-#~ msgstr[3] "%1 nÍomhá"
-#~ msgstr[4] "%1 Íomhá"
-
-#~ msgid "1 Movie"
-#~ msgid_plural "%1 Movies"
-#~ msgstr[0] "%1 Scannán"
-#~ msgstr[1] "%1 Scannán"
-#~ msgstr[2] "%1 Scannán"
-#~ msgstr[3] "%1 Scannán"
-#~ msgstr[4] "%1 Scannán"
-
-#~ msgid "What"
-#~ msgstr "Céard"
-
-#~ msgid "1 Category"
-#~ msgid_plural "%1 Categories"
-#~ msgstr[0] "%1 Chatagóir"
-#~ msgstr[1] "%1 Chatagóir"
-#~ msgstr[2] "%1 Chatagóir"
-#~ msgstr[3] "%1 gCatagóir"
-#~ msgstr[4] "%1 Catagóir"
-
-#~ msgid "Welcome to KPhotoAlbum"
-#~ msgstr "Fáilte go dtí KPhotoAlbum"
-
-#~ msgid "&OK"
-#~ msgstr "&OK"
-
-#~ msgid "Failed"
-#~ msgstr "Teipthe"
-
-#~ msgid "Untested"
-#~ msgstr "Gan Tástáil"
-
-#~ msgid "Unable to show video %1"
-#~ msgstr "Ní féidir físeán '%1' a thaispeáint"
-
-#~ msgid "Show More Help"
-#~ msgstr "Taispeáin Tuilleadh Cabhrach"
-
-#~ msgid "Other: "
-#~ msgstr "Eile: "
-
-#~ msgid "< 1 Month"
-#~ msgstr "< 1 Mhí"
-
-#~ msgid "1-6 Months"
-#~ msgstr "1-6 Mhí"
-
-#~ msgid "6-12 Months"
-#~ msgstr "6-12 Mí"
-
-#~ msgid "1-2 Year"
-#~ msgstr "1-2 Bhliain"
-
-#~ msgid "> 2 Years"
-#~ msgstr "> 2 Bhliain"
-
-#~ msgid "Image Count"
-#~ msgstr "Líon na nÍomhánna"
-
-#~ msgid "I'm a professional software developer"
-#~ msgstr "Is forbróir proifisiúnta bogearraí mé"
-
-#~ msgid "I'm a professional photographer"
-#~ msgstr "Is grianghrafadóir proifisiúnta mé"
-
-#~ msgid "I'm a C++ programmer"
-#~ msgstr "Is ríomhchláraitheoir C++ mé"
-
-#~ msgid "I'm a student studying something else"
-#~ msgstr "Is mac léinn mé ag déanamh staidéir ar rud éigin eile"
-
-#~ msgid "Private albums"
-#~ msgstr "Albaim phríobháideacha"
-
-#~ msgid "Professional"
-#~ msgstr "Proifisiúnta"
-
-#~ msgid "For what are you using KPhotoAlbum?"
-#~ msgstr "Cén fáth a bhfuil tú ag baint úsáid as KPhotoAlbum?"
-
-#~ msgid "General Comments"
-#~ msgstr "Trácht Ginearálta"
-
-#~ msgid "<< Prev"
-#~ msgstr "<< Siar"
-
-#~ msgid "Next >>"
-#~ msgstr "Ar Aghaidh >>"
-
-#~ msgid "Send Answers"
-#~ msgstr "Seol Freagraí"
-
-#~ msgid "Mbytes"
-#~ msgstr "MB"
-
-#~ msgid "Show %1"
-#~ msgstr "Taispeáin %1"
-
-#~ msgid "MPEG video support *TODO*"
-#~ msgstr "Tacaíocht físe MPEG *TODO*"
-
-#~ msgid "Quicktime video support (aka mov) *TODO*"
-#~ msgstr "Tacaíocht físe Quicktime (.mov) *TODO*"
-
-#~ msgid "ASF video support (aka wmv) *TODO*"
-#~ msgstr "Tacaíocht físe ASF (.wmv) *TODO*"
-
-#~ msgid "Real Media *TODO*"
-#~ msgstr "Real Media *TODO*"
-
-#~ msgid "New images were found. Should I trust their time stamps?"
-#~ msgstr ""
-#~ "Aimsíodh íomhánna nua. An bhfuil fonn ort muinín a chur sna stampaí ama?"
-
-#~ msgid "Rescan for EXIF information"
-#~ msgstr "Scan arís le haghaidh eolas EXIF"
-
-#~ msgid "Don't Show Videos"
-#~ msgstr "Ná Taispeáin Físeáin"
-
-#~ msgid "Rotated right"
-#~ msgstr "Rothlaithe ar deiseal"
-
-#~ msgid "Rotate 90 Degrees"
-#~ msgstr "Rothlaigh 90 Céim"
-
-#~ msgid "Rotate 180 Degrees"
-#~ msgstr "Rothlaigh 180 Céim"
-
-#~ msgid "Rotate 270 Degrees"
-#~ msgstr "Rothlaigh 270 Céim"
-
-#~ msgid "Rotate Left"
-#~ msgstr "Rothlaigh go Tuathalach"
-
-#~ msgid "Rotate Right"
-#~ msgstr "Rothlaigh go Deisealach"
-
-#~ msgid "Select"
-#~ msgstr "Roghnaigh"
-
-#~ msgid "Line"
-#~ msgstr "Líne"
-
-#~ msgid "Rectangle"
-#~ msgstr "Dronuilleog"
-
-#~ msgid "Circle"
-#~ msgstr "Ciorcal"
-
-#~ msgid "Reset Quick Search"
-#~ msgstr "Athshocraigh Mearchuardach"
-
-#~ msgid "Do not show this message again"
-#~ msgstr "Ná taispeáin an teachtaireacht seo arís"
-
-#~ msgid "Blend"
-#~ msgstr "Cumaisc"
-
-#~ msgid "Level:"
-#~ msgstr "Leibhéal:"
-
-#~ msgid "Brightness:"
-#~ msgstr "Gile:"
-
-#~ msgid "Bilinear"
-#~ msgstr "Délíneach"
-
-#~ msgid "VNG"
-#~ msgstr "VNG"
-
-#~ msgid "AHD"
-#~ msgstr "AHD"
-
-#~ msgid "Enable noise reduction"
-#~ msgstr "Cumasaigh laghdú torainn"
-
-#~ msgid "Threshold:"
-#~ msgstr "Tairseach:"
-
-#~ msgid "Color space:"
-#~ msgstr "Spás datha:"
-
-#~ msgid "sRGB"
-#~ msgstr "sRGB"
-
-#~ msgid "Adobe RGB"
-#~ msgstr "Adobe RGB"
-
-#~ msgid "Wide Gamut"
-#~ msgstr "Wide Gamut"
-
-#~ msgid "Pro-Photo"
-#~ msgstr "Pro-Photo"
-
-#~ msgid "Standard"
-#~ msgstr "Caighdeánach"
-
-#~ msgid "Black point"
-#~ msgstr "Pointe dubh"
-
-#~ msgid "Red multiplier:"
-#~ msgstr "Iolraitheoir dearg:"
-
-#~ msgid "Green 1 multiplier:"
-#~ msgstr "Iolraitheoir uaine 1:"
-
-#~ msgid "Blue multiplier:"
-#~ msgstr "Iolraitheoir gorm:"
-
-#~ msgid "Green 2 multiplier:"
-#~ msgstr "Iolraitheoir uaine 2:"
-
-#~ msgid "Advanced"
-#~ msgstr "Casta"
-
-#~ msgid "Could not open %1"
-#~ msgstr "Níorbh fhéidir %1 a oscailt"
-
-#~ msgid "Export..."
-#~ msgstr "Easpórtáil..."
-
-#~ msgid "Files about to be deleted: "
-#~ msgstr "Comhaid ar tí a bheith scriosta: "
-
-#~ msgid "Donate Money"
-#~ msgstr "Bronn Airgead"
-
-#~ msgid "Remove All KimDaBa 2.1 Thumbnails"
-#~ msgstr "Bain Gach Mionsamhail KimDaBa 2.1"
-
-#~ msgid "Donate Money..."
-#~ msgstr "Bronn Airgead..."
-
-#~ msgid "Show/Hide Windows"
-#~ msgstr "Taispeáin/Folaigh Fuinneoga"

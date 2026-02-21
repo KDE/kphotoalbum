@@ -42,12 +42,12 @@ class KActionMenu;
 class KTipDialog;
 class KToggleAction;
 
-#ifdef HAVE_MARBLE
-
 namespace Viewer
 {
 class ViewerWidget;
 }
+
+#ifdef HAVE_MARBLE
 namespace Map
 {
 class MapView;

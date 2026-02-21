@@ -1,5 +1,5 @@
-// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl at stonemx dot de>
 // SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
+// SPDX-FileCopyrightText: 2024-2026 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -10,6 +10,7 @@
 #include <KLocalizedString>
 
 // Qt includes
+#include <QDebug>
 #include <QDate>
 
 // C++ includes
@@ -175,17 +176,28 @@ QString Timespan::formatAgo(const Timespan::DateDifference &ago)
         return i18ncp("Like \"This happened \'6 days\' ago\"",
                       "%1 day", "%1 days", ago.allDays);
 
-    } else if (ago.allDays < 53) {
-        // Less than 8 (calculated) weeks --> we display weeks
-        if (ago.allDays % 7 == 0) {
-            // We have an exact amount of weeks
-            return i18ncp("Like \"This happened \'3 weeks\' ago\"",
-                          "%1 week", "%1 weeks", ago.allDays / 7);
+    } else if (ago.years == 0 && ago.months < 2) {
+        // Less than 2 months. Depending on the number of weeks,
+        // we either format weeks or we round to months.
 
+        const auto caWeeks = int(std::round(ago.allDays / 7.0));
+
+        if (caWeeks <= 8) {
+            // We format weeks
+            if (ago.allDays % 7 == 0) {
+                // We have an exact amount of weeks
+                return i18ncp("Like \"This happened \'3 weeks\' ago\"",
+                            "%1 week", "%1 weeks", ago.allDays / 7);
+
+            } else {
+                // We calculate a "ca." amount of weeks
+                return i18ncp("Like \"This happened \'ca. 6 weeks\' ago\"",
+                            "ca. %1 week", "ca. %1 weeks", caWeeks);
+            }
         } else {
-            // We calculate a "ca." amount of weeks
-            return i18ncp("Like \"This happened \'ca. 6 weeks\' ago\"",
-                          "ca. %1 week", "ca. %1 weeks", int(std::round(ago.allDays / 7.0)));
+            // We round up to "2 months"
+            return i18ncp("Like \"This happened \'ca. 2 months\' ago\"",
+                          "ca. %1 month", "ca. %1 months", 2);
         }
 
     } else if (ago.years == 0) {

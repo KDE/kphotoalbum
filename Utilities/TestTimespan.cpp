@@ -82,7 +82,7 @@ void KPATest::TestTimespan::testAgo()
     QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-1).addMonths(-2).addDays(-23))), QString::fromLatin1(" (1 year and 3 months ago)"));
     QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-1).addMonths(-2).addDays(-24))), QString::fromLatin1(" (1 year and 3 months ago)"));
     QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-1).addMonths(-11))), QString::fromLatin1(" (1 year and 11 months ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-1).addMonths(-11).addDays(-21))), QString::fromLatin1(" (1 year and 11 months ago)"));
+    QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-1).addMonths(-11).addDays(-21))), QString::fromLatin1(" (2 years ago)"));
     QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-1).addMonths(-11).addDays(-22))), QString::fromLatin1(" (2 years ago)"));
     QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-2))), QString::fromLatin1(" (2 years ago)"));
     QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-50), today.addYears(-49))), QString::fromLatin1(" (49 years to 50 years ago)"));

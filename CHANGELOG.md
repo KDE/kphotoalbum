@@ -1,6 +1,6 @@
 <!--
 SPDX-FileCopyrightText: 2022-2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-SPDX-FileCopyrightText: 2022-2025 Tobias Leupold <tl@stonemx.de>
+SPDX-FileCopyrightText: 2022-2026 Tobias Leupold <tl@stonemx.de>
 
 SPDX-License-Identifier: CC-BY-SA-4.0
 
@@ -32,8 +32,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
-(Unreleased)
-------------
+KPhotoAlbum 6.2.0 (2026-02-21)
+------------------------------
 
 ### Added
  - Display number of images on collapsed stacks (#223213)
@@ -44,10 +44,6 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Changed
  - Thumbnail cache and video thumbnail cache directories are now always ignored while searching for new images.
  - Do not automatically select an image cluster on the map when moving the map if the mouse action started on an image cluster.
-
-### Dependencies
-
-### Deprecated
 
 ### Fixed
  - Allow large images up to an in-memory size of 2GB (#500200)
@@ -61,10 +57,6 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Allow saving the Annotation Dialog's layout either globally (as a template for all databases) or per-database (#513933)
  - Prevent unnecessary entries in the block list (#512207)
  - Prevent creation of .kim files over 4GB (mitigates bug #512199)
-
-### Removed
-
-### Security
 
 
 KPhotoAlbum 6.1.0 (2025-10-04)

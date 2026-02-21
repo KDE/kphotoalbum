@@ -11,7 +11,6 @@
 # SPDX-FileCopyrightText: 2012 - 2013 Andreas Neustifter <andreas.neustifter@gmail.com>
 # SPDX-FileCopyrightText: 2012 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 # SPDX-FileCopyrightText: 2012 Albert Astals Cid <tsdgeos@terra.es>
-# SPDX-FileCopyrightText: 2014 - 2025 Tobias Leupold <tl@stonemx.de>
 # SPDX-FileCopyrightText: 2014 David Edmundson <kde@davidedmundson.co.uk>
 # SPDX-FileCopyrightText: 2016 Christoph Feck <cfeck@kde.org>
 # SPDX-FileCopyrightText: 2016 Luigi Toscano <luigi.toscano@tiscali.it>
@@ -20,11 +19,12 @@
 # SPDX-FileCopyrightText: 2018 2020 Robert Krawitz <rlk@alum.mit.edu>
 # SPDX-FileCopyrightText: 2020 Wes Hardaker <kpa@capturedonearth.com>
 # SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
+# SPDX-FileCopyrightText: 2014-2026 Tobias Leupold <tl@stonemx.de>
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
 cmake_minimum_required(VERSION 3.30.0)
-project(kphotoalbum LANGUAGES CXX VERSION 6.1.0)
+project(kphotoalbum LANGUAGES CXX VERSION 6.2.0)
 
 # set minimum versions here:
 set(MINIMUM_KF6_VERSION 6.0.0)

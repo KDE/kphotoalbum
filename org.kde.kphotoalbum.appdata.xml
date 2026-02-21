@@ -180,6 +180,9 @@ SPDX-License-Identifier: CC0-1.0
     <value key="KDE::mailinglist">kphotoalbum</value>
   </custom>
   <releases>
+    <release version="6.2.0" date="2026-02-21">
+      <url>https://www.kphotoalbum.org/2026/02/21/kphotoalbum-6.2.0-released/</url>
+    </release>
     <release version="6.1.0" date="2025-10-04">
       <url>https://www.kphotoalbum.org/2025/10/04/kphotoalbum-6.1.0-released/</url>
     </release>

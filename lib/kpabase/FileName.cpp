@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2012-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -20,17 +20,21 @@ DB::FileName::FileName()
 DB::FileName DB::FileName::fromAbsolutePath(const QString &fileName)
 {
     const QString imageRoot = Utilities::stripEndingForwardSlash(Settings::SettingsData::instance()->imageDirectory()) + QLatin1String("/");
+    if (fileName.isEmpty()) {
+        qCWarning(DBLog) << "Absolute filename cannot be empty!";
+        return {};
+    }
     if (!fileName.startsWith(imageRoot)) {
         qCWarning(DBLog) << "Absolute filename is outside of image root:" << fileName;
-        return FileName();
+        return {};
     }
 
     FileName res;
     res.m_isNull = false;
     res.m_absoluteFilePath = fileName;
     res.m_relativePath = fileName.mid(imageRoot.length());
-    if (res.m_relativePath.isEmpty() || res.m_absoluteFilePath.isEmpty()) {
-        qCWarning(DBLog) << "Relative or absolute filename cannot be empty!";
+    if (res.m_relativePath.isEmpty()) {
+        qCWarning(DBLog) << "Relative filename cannot be empty! Absolute filename:" << fileName;
         return {};
     }
     return res;

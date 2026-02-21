@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
@@ -34,16 +34,17 @@ void KPATest::TestFileName::absolute()
     using DB::FileName;
 
     // empty filename
-    const QRegularExpression imageRootWarning { QStringLiteral("Absolute filename is outside of image root:") };
-    QTest::ignoreMessage(QtWarningMsg, imageRootWarning);
+    QTest::ignoreMessage(QtWarningMsg, "Absolute filename cannot be empty!");
     const auto emptyFN = FileName::fromAbsolutePath({});
     QVERIFY(emptyFN.isNull());
 
-    QTest::ignoreMessage(QtWarningMsg, "Relative or absolute filename cannot be empty!");
+    const QRegularExpression relativeFileWarning { QStringLiteral("Relative filename cannot be empty! Absolute filename:") };
+    QTest::ignoreMessage(QtWarningMsg, relativeFileWarning);
     const auto rootFN = FileName::fromAbsolutePath(imageRoot.path() + QStringLiteral("/"));
     QVERIFY(rootFN.isNull());
 
     // incorrect root
+    const QRegularExpression imageRootWarning { QStringLiteral("Absolute filename is outside of image root:") };
     const auto outsidePath = QStringLiteral("/notarealdirectory/test.jpg");
     QVERIFY2(!outsidePath.startsWith(m_tmpDir.path()), msgPreconditionFailed);
     QTest::ignoreMessage(QtWarningMsg, imageRootWarning);

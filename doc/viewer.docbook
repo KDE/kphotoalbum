@@ -2,6 +2,7 @@
 SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
 SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 
 SPDX-License-Identifier: GFDL-1.2-only
 -->
@@ -12,13 +13,80 @@ SPDX-License-Identifier: GFDL-1.2-only
 spending hours after hours describing them, is of course that you at some
 point want to look at them. For that purpose &kphotoalbum; has an viewer
 capable of showing your images and videos. You open the viewer from the
-thumbnail view as described in <xref
-      linkend="chp-thumbnail-view"/>.</para>
+thumbnail view as described in <xref linkend="chp-thumbnail-view"/>.
+</para>
 
-  <para>The viewer can be seen in <xref linkend="fig-viewer"/>. The viewer
+<sect1 id="sect-viewer-common-commands">
+<title>Common Viewer Commands</title>
+<para>
+The viewer supports both images and videos.  The following commands are supported for both images and videos:
+</para>
+
+<itemizedlist>
+<listitem>
+<para>Press <keycap>Esc</keycap> to close the viewer window.
+</para>
+</listitem>
+
+<listitem>
+<para>Press either <keycap>Page Down</keycap> or the <keycap>Space</keycap> bar
+to move to the next image or video, and press <keycap>Page Up</keycap> to move
+to the previous image or video.
+</para>
+</listitem>
+
+<listitem>
+<para>Press <keycombo>&Ctrl;<keycap>1</keycap></keycombo> to open the <link
+linkend="chp-typingIn">annotation dialog</link> for the current image or
+video.
+</para>
+</listitem>
+
+<listitem>
+<para>Press <keycombo>&Ctrl;<keycap>4</keycap></keycombo> to set the image or
+video as the first in its stack (if it is already part of a stack).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Press <keycombo>&Ctrl;<keycap>d</keycap></keycombo> to edit the image description.
+</para>
+</listitem>
+
+<listitem>
+<para>Press either <keycap>&Enter;</keycap> or <keycap>F11</keycap> to toggle
+full screen mode while viewing an image or video.</para>
+</listitem>
+
+<listitem>
+<para>Press <keycap>Delete</keycap> to remove the current image or video from the
+viewer list (as if you hadn't selected it for viewing) and advance to the next
+item in the viewer list.  If the last image or video in the viewer list is
+removed, the viewer window is closed.</para>
+</listitem>
+
+<listitem>
+<para>Press <keycombo>&Ctrl;<keycap>Delete</keycap></keycombo> to add the
+current image or video to the viewer's deletion list.  When the viewer window
+is closed, &kphotoalbum; will open the <emphasis>Removing Items</emphasis>
+dialog if the deletion list is not empty.
+</para>
+</listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="sect-viewer-images">
+<title>Viewing Images</title>
+<para>
+See <xref linkend="sect-viewer-common-commands"/> for viewer commands supported for
+both images and videos.
+</para>
+
+<para>The viewer can be seen in <xref linkend="fig-viewer"/>. The viewer
 does of course show you the image, but in addition to that it also shows
-you the information you specified for each image, including, who is on the
- images, where and when it was takes, &etc;
+you the information you specified for each image, including who is in the
+image, where and when it was taken, &etc;
 </para>
 
   <figure id="fig-viewer">
@@ -30,11 +98,23 @@ you the information you specified for each image, including, who is on the
     </mediaobject>
   </figure>
 
-  <para>In case the info box is located on top of part of the images you actually
-want to see, you can simply grab it with the mouse, and move it elsewhere
-on the image. It is possible to configure what should be shown in the
+<sect2 id="viewer-infobox">
+<title>The Info Box</title>
+
+<para>The viewer provides an info box which can be overlaid on top of the
+image.  The info box is positioned at the bottom center in <xref
+linkend="fig-viewer"/>.
+</para>
+
+<para>If the info box is located on top of part of the image you actually
+want to see, you can click the &LMB; on the info box and drag it elsewhere
+on the image.  Press <keycombo>&Ctrl;<keycap>i</keycap></keycombo> to toggle
+the info box on or off.
+</para>
+
+<para>It is possible to configure what should be shown in the
 info box, and of course whether it should be shown at all. All these
-options are available by right clicking your mouse on the viewer. The
+options are available by clicking the &RMB; on the viewer. The
 context menu can be seen in <xref linkend="fig-viewer-contextmenu"/>
 below.</para>
 
@@ -47,56 +127,68 @@ below.</para>
     </mediaobject>
   </figure>
 
-  <para>Some of the words in the info box is underlines. If you click the
-mouse on one of these words the browser (see <xref linkend="chp-browsing"/>)
-will go into scope of that item. Thus if you click on <literal>Anne
-Helene</literal> the browser will show you all images of Anne Helene, just
+  <para>Some of the words in the info box are underlined. If you click the &LMB;
+on one of these words, the browser (see <xref linkend="chp-browsing"/>)
+will go into the scope of that item. For example, in the demo if you click on <literal>Anne
+Helene</literal> in the info box, the browser will show you all images of Anne Helene, just
 as it would have done if you selected <literal>People</literal> from the
 root of the browser, and next selected <literal>Anne
 Helene</literal>.</para>
 
-<para>In the info box you can see a small button with the &kphotoalbum;
-logo. Pressing that button will get you to the thumbnail viewer. The
+<para>In the top right-hand corner of the info box you can see a small <emphasis>Jump to Context</emphasis> button with the &kphotoalbum;
+logo. Clicking the &LMB; on this button will navigate to the <xref linkend="chp-thumbnail-view"/>. The
 thumbnail view will display all images, and the image you just had in the
 viewer will be selected. The idea behind this is the following: you browse
 to a given person, and look at the images of that
 person. One of the images is from say your high school time, and now you
 want to see images from that period of time. Using the <guilabel>Jump to
 Context</guilabel> button, you are brought to the thumbnail view showing
-all images, with the current one being in focus, and likely all your high
+all images, with the current one being in focus and likely all your high
 school pictures around it.</para>
 
-  <para>In case you have loaded several images into the viewer, you can go
-forth and back using <keycap>Page Up</keycap> and <keycap>Page
-Down</keycap>. You can go to the first and last images
+<para>
+If the current image has geolocation coordinates, you will see a map button
+below the <guilabel>Jump to Context</guilabel> button in the info box.
+Clicking the &LMB; on this button will open a new window with a map showing
+where the photograph was taken.
+</para>
+
+<important>
+<para>The map button is only displayed if &kphotoalbum; was compiled with &marble; support.
+</para>
+</important>
+</sect2>
+
+<sect2 id="viewer-navigation">
+<title>Viewing More Images</title>
+  <para>In case you have loaded several images into the viewer, in addition to moving
+forward and backward using <keycap>Page Up</keycap> and <keycap>Page
+Down</keycap> keys, respectively, you can go to the first and last images
 using <keycap>Home</keycap> and <keycap>End</keycap>. These functions
 are of course also available from the context menu.</para>
 
-  <para>If several images was loaded into the viewer, you can ask it to run
-them as a slide show, which means that &kphotoalbum; loads a new image every few
-second. How often it loads a new image is configure by pressing the control
-key and respective plus (for go faster) or minus
-(go slower). Starting and stopping the slide show is
-done simply by pressing <keycombo>&Ctrl;<keycap>S</keycap></keycombo>.</para>
+<para>Alternatively, you can display multiple images as
+a slide show.  In slide show mode, &kphotoalbum; loads a new image into
+the viewer every few seconds.  Press
+<keycombo>&Ctrl;<keycap>r</keycap></keycombo> to toggle the slide show on or
+off.  Press <keycombo>&Ctrl;<keycap>+</keycap></keycombo> to make the slide
+show go faster or <keycombo>&Ctrl;<keycap>-</keycap></keycombo> to make it
+go slower.
+</para>
+</sect2>
 
-  <para>A very useful feature of the &kphotoalbum; viewer is it ability to go into
-full screen mode. In this mode, the viewer is using the complete screen
-space, simply press the return key to make it go into and out of full screen
-mode.</para>
-
-  <para>Using the viewer, you may zoom in and out of your image, simply by
-dragging out a rectangle with the mouse. Pressing the minus key will zoom
-out again. Pressing the plus key will zoom in at the center of the image. <xref
-      linkend="fig-marking-zoom-rectangle"/> below shows how a zoom
+<sect2 id="viewer-zooming">
+<title>Zooming In and Out</title>
+<para>Using the viewer, you may zoom in and out of your image by
+dragging out a rectangle with the &LMB;. Pressing the <keycap>minus</keycap> key will zoom
+out again. Pressing the <keycap>plus</keycap> key will zoom in at the center of the image.
+<xref linkend="fig-marking-zoom-rectangle"/> below shows how a zoom
 rectangle is marked, and <xref linkend="fig-zoomed-view"/> shows the result of
 the zoom.</para>
 
-<para>Pressing the period key, lets you reset zooming, so the
-image is shown un-zoomed. Pressing the equal sign will set the zoom level so
+<para>Press the <keycap>period</keycap> key to reset the zoom level so the
+image is shown at its normal size. Pressing the <keycap>=</keycap> key will set the zoom level so
 each pixel on the screen correspond to a pixel in the image.</para>
-
-<para>Notice, for technical the only zooming operation that works when watching videos are  zoom in and out
-(the plus and minus key).</para>
 
   <figure id="fig-marking-zoom-rectangle">
     <title>Zooming in the viewer</title>
@@ -117,14 +209,121 @@ each pixel on the screen correspond to a pixel in the image.</para>
       </imageobject>
     </mediaobject>
   </figure>
+</sect2>
 
-  <para>Choosing the rotate operations from the context menu, you may
-rotate the image (Does not work for videos). You can annotate the current
-image, simply by choosing <guimenuitem>Annotate</guimenuitem> in the context menu.</para>
+<sect2 id="viewer-rotating">
+<title>Rotating Images</title>
+  <para>Press the <keycap>7</keycap> key to rotate the image 90 degrees to the
+  left.  The <keycap>9</keycap> key rotates the image 90 degrees to the right.
+  The <keycap>8</keycap> key rotates the image 180 degrees (&ie; flips it
+  upside down).
+</para>
+<important>
+<para>Any change to an image's rotation in the viewer is persistent.</para>
+</important>
+</sect2>
+</sect1>
 
+<sect1 id="sect-viewer-videos">
+<title>Viewing Videos</title>
+<para>
+See <xref linkend="sect-viewer-common-commands"/> for viewer commands supported for
+both videos and images.
+</para>
 
+<para>
+When a video is loaded into the viewer, the video starts playing automatically.
+Press the <keycap>p</keycap> key to pause the video, and press it again to
+resume video playback.
+</para>
 
+<para>Press <keycap>Home</keycap> to restart the current video from the
+beginning, and <keycap>End</keycap> stops the current video and rewinds it to
+the beginning.
+</para>
 
+<important>
+<para>Some viewer features are not available when viewing a video:</para>
+<itemizedlist>
+<listitem>
+<para>The info box can not be displayed on a video.</para>
+</listitem>
+<listitem>
+<para>Zooming operations other than toggling full-screen mode are not supported for videos.</para>
+</listitem>
+<listitem>
+<para>Rotation operations are not supported for videos.</para>
+</listitem>
+<listitem>
+<para>Slide show mode is not supported for videos.</para>
+</listitem>
+</itemizedlist>
+</important>
+
+<warning>
+<para>
+Both tokens (see
+<xref linkend="assigning-tokens-from-the-viewer"/>)
+and tags (see <xref linkend="annotating-from-the-viewer"/>)
+can be toggled when a video is displayed in the viewer, but there is no
+immediate user feedback that anything has changed.  You can set the
+viewer annotation mode to <emphasis>Locked</emphasis> to avoid accidentally
+toggling a token or tag.
+</para>
+
+<para>
+As noted above, the <keycap>p</keycap> key is used to toggle pause so it is not
+possible to use this key to toggle a token or tag while viewing a video.
+</para>
+</warning>
+
+<sect2 id="viewer-seeking">
+<title>Video Seeking</title>
+<para>
+The viewer supports seeking within a video.  The key bindings are listed in the <xref linkend="table-video-seek-controls"/>.
+</para>
+
+<table id="table-video-seek-controls">
+<title>Video Seek Controls</title>
+<tgroup cols="3">
+<thead>
+<row>
+<entry>Seek Duration</entry>
+<entry>Seek Backward</entry>
+<entry>Seek Forward</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>100 msec</entry>
+<entry><keycombo>&Shift;<keycap>&Up;</keycap></keycombo></entry>
+<entry><keycombo>&Shift;<keycap>&Down;</keycap></keycombo></entry>
+</row>
+<row>
+<entry>1 sec</entry>
+<entry><keycap>&Up;</keycap></entry>
+<entry><keycap>&Down;</keycap></entry>
+</row>
+<row>
+<entry>10 sec</entry>
+<entry><keycap>&Left;</keycap></entry>
+<entry><keycap>&Right;</keycap></entry>
+</row>
+<row>
+<entry>1 minute</entry>
+<entry><keycombo>&Shift;<keycap>&Left;</keycap></keycombo></entry>
+<entry><keycombo>&Shift;<keycap>&Right;</keycap></keycombo></entry>
+</row>
+<row>
+<entry>10 minutes</entry>
+<entry><keycombo>&Ctrl;<keycap>&Left;</keycap></keycombo></entry>
+<entry><keycombo>&Ctrl;<keycap>&Right;</keycap></keycombo></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</sect2>
+</sect1>
 
 <sect1 id="annotating-from-the-viewer">
 <title>Annotating images from the viewer</title>
@@ -135,7 +334,7 @@ The code for all of this have now been modernized to make the work flow much mor
 
 <para>There are three modes to annotating images in the viewer:</para>
 <itemizedlist>
-    <listitem><para><emphasis>Locked</emphasis> - This is the default mode when starting the viewer - in here no annotating or tokenizing will happen. This ensure you do not accidentally annotates images when viewing them.</para></listitem>
+    <listitem><para><emphasis>Locked</emphasis> - This is the default mode when starting the viewer - in here no annotating or tokenizing will happen. This ensure you do not accidentally annotate images when viewing them.</para></listitem>
     <listitem><para><emphasis>Assign Tokens</emphasis> - This allows you to set tokens on images, by simply pressing a key from A-Z on the keyboard.</para></listitem>
     <listitem><para><emphasis>Assign Tags</emphasis> - This allows you to assign macros to a keyboard key. As an example, <emphasis>L</emphasis> could mean set the item <emphasis>Las Vegas</emphasis> in the <emphasis>Location</emphasis> category. In addition to that, it also allows you to set any tag on an image.</para></listitem>
 </itemizedlist>
@@ -161,7 +360,7 @@ The two modes are described in details below.
 
 
 
-<sect1 id="tokens">
+<sect1 id="assigning-tokens-from-the-viewer">
 <title>Setting Tokens from the Viewer</title>
 <para>Imagine you want to sent a number of images
 to a printer to get them developed on paper. To see which you want, you
@@ -225,7 +424,7 @@ image is selected, this can be seen in
     Fortunately, it is now possible to add tags with the press of a single key when viewing the images. The realization behind this way of working with images is that most images are with the same few people in the same few places, plus a few "guest" appearances from time to time - say the location of your vacation, or some friends who were visiting you for a week.</para>
 
 <para>To tag your images while viewing them, you need to enter the <emphasis>Assign Tags mode</emphasis> - see <xref linkend="fig-ctxmenu-for-mode-selection"/>.
-    With this enable, simply press a letter key on your keyboard to either assign or use the assigned tag.</para>
+    With this enabled, simply press a letter key on your keyboard to either assign or use the assigned tag.</para>
 
 <para>In <xref linkend="fig-assign-macro-step1"/> below, I've just pressed <keycap>s</keycap> while watching images and being in the <emphasis>Assign Tags mode</emphasis>. This brought up the dialog where I can specify what tag to assign to that key.</para>
 
@@ -264,7 +463,12 @@ image is selected, this can be seen in
    </mediaobject>
 </figure>
 
-<para>While tagging images from the viewer, you may want to add a tag, without binding it to a key. To do so simply press <keycombo>&Ctrl;<keycap>a</keycap></keycombo></para>
+<para>While tagging images from the viewer, you may want to add a tag without binding it to a key. To do so simply press <keycombo>&Ctrl;<keycap>a</keycap></keycombo>.
+This is also how you open the dialog to see the macro key bindings.
+</para>
+
+<para>Press <keycombo>&Ctrl;<keycap>c</keycap></keycombo> to copy annotations from the previous image in the viewer list.
+</para>
 
 </sect1>
 </chapter>

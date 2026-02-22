@@ -1,5 +1,5 @@
-// SPDX-FileCopyrightText: 2003 - 2010 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2024-2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -33,7 +33,8 @@ static void myjpeg_error_exit(j_common_ptr cinfo)
     char buffer[JMSG_LENGTH_MAX];
     (*cinfo->err->format_message)(cinfo, buffer);
     // kWarning() << buffer;
-    longjmp(myerr->setjmp_buffer, 1);
+    qCWarning(UtilitiesLog) << "Utilities::loadJPEGInternal exited with error:" << buffer;
+    longjmp(myerr->setjmp_buffer, 1); // jump back to loadJPEGInternal setjmp
 }
 }
 
@@ -76,6 +77,8 @@ bool Utilities::loadJPEG(QImage *img, const DB::FileName &imageFile, QSize *full
         ok = loadJPEGInternal(img, nullptr, fullSize, dim, membuf, statbuf.st_size);
         (void)close(inputFD);
     }
+    if (!ok)
+        qCWarning(UtilitiesLog) << "Utilities::loadJPEG could not load JPEG for file" << imageFile.relative();
     return ok;
 }
 

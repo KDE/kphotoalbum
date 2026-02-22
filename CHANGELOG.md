@@ -40,6 +40,8 @@ KPhotoAlbum 6.2.0 (2026-02-21)
  - Add commandline option "--find-new-files" as a synonym for "--search". In the future, "--search" may become deprecated at some point.
  - Add support for QtMultimedia video backend
  - Make default annotation mode in viewer configurable (#474317)
+ - Improved diagnostic messages for JPEG decoding errors
+ - Improved diagnostic messages for invalid file names in database
 
 ### Changed
  - Thumbnail cache and video thumbnail cache directories are now always ignored while searching for new images.
@@ -57,6 +59,7 @@ KPhotoAlbum 6.2.0 (2026-02-21)
  - Allow saving the Annotation Dialog's layout either globally (as a template for all databases) or per-database (#513933)
  - Prevent unnecessary entries in the block list (#512207)
  - Prevent creation of .kim files over 4GB (mitigates bug #512199)
+ - Fix compilation without Marble
 
 
 KPhotoAlbum 6.1.0 (2025-10-04)

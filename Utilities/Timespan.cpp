@@ -10,8 +10,8 @@
 #include <KLocalizedString>
 
 // Qt includes
-#include <QDebug>
 #include <QDate>
+#include <QDebug>
 
 // C++ includes
 #include <cmath>
@@ -127,7 +127,7 @@ QString Timespan::formatAge(const Timespan::DateDifference &age)
     }
 }
 
-QString Timespan::ago(const DB::ImageDate &imageDate)
+QString Timespan::ago(const DB::ImageDate &imageDate, const QDate &reference)
 {
     if (!imageDate.isValid()) {
         return QString();
@@ -135,15 +135,14 @@ QString Timespan::ago(const DB::ImageDate &imageDate)
 
     const auto dateStart = imageDate.start().date();
     const auto dateEnd = imageDate.end().date();
-    const auto today = QDate::currentDate();
 
-    if (today < dateStart && today < dateEnd) {
+    if (reference < dateStart && reference < dateEnd) {
         // It's a photo not taken yet ;-)
         return QString();
     }
 
-    const auto minAgo = dateDifference(dateEnd, today);
-    const auto maxAgo = dateDifference(dateStart, today);
+    const auto minAgo = dateDifference(dateEnd, reference);
+    const auto maxAgo = dateDifference(dateStart, reference);
 
     if (minAgo == maxAgo) {
         if (minAgo.allDays == 0) {
@@ -187,12 +186,12 @@ QString Timespan::formatAgo(const Timespan::DateDifference &ago)
             if (ago.allDays % 7 == 0) {
                 // We have an exact amount of weeks
                 return i18ncp("Like \"This happened \'3 weeks\' ago\"",
-                            "%1 week", "%1 weeks", ago.allDays / 7);
+                              "%1 week", "%1 weeks", ago.allDays / 7);
 
             } else {
                 // We calculate a "ca." amount of weeks
                 return i18ncp("Like \"This happened \'ca. 6 weeks\' ago\"",
-                            "ca. %1 week", "ca. %1 weeks", caWeeks);
+                              "ca. %1 week", "ca. %1 weeks", caWeeks);
             }
         } else {
             // We round up to "2 months"

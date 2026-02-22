@@ -62,11 +62,12 @@ QString age(const QDate &birthDate, const DB::ImageDate &imageDate);
 QString formatAge(const DateDifference &age);
 
 /**
- * @brief ago computes, how long ago an image was taken, based on the current date.
+ * @brief ago computes, how long ago an image was taken, based on the reference date.
  * @param imageDate the (possibly fuzzy) reference date, usually of an image.
+ * @param reference the reference date, usually the current date
  * @return a translated, formatted string describing the timespan
  */
-QString ago(const DB::ImageDate &imageDate);
+QString ago(const DB::ImageDate &imageDate, const QDate &reference = QDate::currentDate());
 /**
  * @brief formatAgo creates a textual description of a given DateDifference, interpreted as a time span.
  * Colloquially speaking, this method answers the question "How long ago?".

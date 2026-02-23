@@ -10,12 +10,16 @@
 
 void KPATest::TestImageDate::initTestCase()
 {
-    QLocale::setDefault(QLocale::c());
     KLocalizedString::setApplicationDomain("kphotoalbum");
 }
 
 void KPATest::TestImageDate::testParseDateString()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     QVERIFY(!DB::parseDateString(QString(), true).isNull()); // TODO: should be null?
     QVERIFY(!DB::parseDateString(QString(), false).isNull()); // TODO: should be null?
 
@@ -80,6 +84,11 @@ void KPATest::TestImageDate::testParseDateString()
 
 void KPATest::TestImageDate::testDefaultConstructor()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     const DB::ImageDate id;
 
     QVERIFY(id.isNull());
@@ -114,6 +123,11 @@ void KPATest::TestImageDate::testDefaultConstructor()
 
 void KPATest::TestImageDate::testFileReadConstructor()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     // Arguments <= 0 are invalid.
     QCOMPARE(DB::ImageDate(-1, -1, -1, -1, -1, -1, -1, -1, -1), DB::ImageDate());
     QCOMPARE(DB::ImageDate(0, 0, 0, 0, 0, 0, 0, 0, 0), DB::ImageDate());
@@ -142,6 +156,11 @@ void KPATest::TestImageDate::testFileReadConstructor()
 
 void KPATest::TestImageDate::testFastDateTimeConstructorWithInvalidDates()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     const auto invalid = Utilities::FastDateTime(QDate(), QTime());
     const DB::ImageDate id = DB::ImageDate(invalid, invalid);
     QVERIFY(id.isNull());
@@ -154,6 +173,11 @@ void KPATest::TestImageDate::testFastDateTimeConstructorWithInvalidDates()
 
 void KPATest::TestImageDate::testQDateConstructorWithInvalidDates()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     const DB::ImageDate id = DB::ImageDate(QDate(), QDate());
     // This constructor always forces the times.
     QCOMPARE(id.start(), Utilities::FastDateTime(QDate(), QTime(0, 0, 0)));
@@ -166,6 +190,11 @@ void KPATest::TestImageDate::testQDateConstructorWithInvalidDates()
 
 void KPATest::TestImageDate::testQDateQTimeConstructorWithInvalidDates()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     const DB::ImageDate id = DB::ImageDate(QDate(), QDate(), QTime());
     // This constructor always forces the times if the time argument is invalid.
     QCOMPARE(id.start(), Utilities::FastDateTime(QDate(), QTime(0, 0, 0)));
@@ -178,6 +207,11 @@ void KPATest::TestImageDate::testQDateQTimeConstructorWithInvalidDates()
 
 void KPATest::TestImageDate::testFastDateTimeConstructorWithOneValidDate()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     const auto date = QDate(2025, 4, 22);
     const auto time_msec = QTime(3, 4, 5, 6); // Note the msecs.
     const auto time_no_msec = QTime(3, 4, 5);
@@ -195,6 +229,11 @@ void KPATest::TestImageDate::testFastDateTimeConstructorWithOneValidDate()
 
 void KPATest::TestImageDate::testQDateConstructorWithOneValidDate()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     const QDate date = QDate(2025, 4, 22);
     const DB::ImageDate id = DB::ImageDate(date, QDate());
     // This constructor always forces the times.
@@ -208,6 +247,11 @@ void KPATest::TestImageDate::testQDateConstructorWithOneValidDate()
 
 void KPATest::TestImageDate::testQDateQTimeConstructorWithOneValidDateAndInvalidTime()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     const QDate date = QDate(2025, 4, 22);
     const DB::ImageDate id = DB::ImageDate(date, QDate(), QTime());
     // This constructor always forces the times.
@@ -221,6 +265,11 @@ void KPATest::TestImageDate::testQDateQTimeConstructorWithOneValidDateAndInvalid
 
 void KPATest::TestImageDate::testQDateQTimeConstructorWithOneValidDateAndValidTime()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     const QDate date = QDate(2025, 4, 22);
     const QTime time_msec = QTime(4, 3, 2, 1); // Note the msecs.
     const QTime time_no_msec = QTime(4, 3, 2);
@@ -236,6 +285,11 @@ void KPATest::TestImageDate::testQDateQTimeConstructorWithOneValidDateAndValidTi
 
 void KPATest::TestImageDate::testFastDateTimeConstructorWithTwoIdenticalDates()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     const auto date = QDate(2025, 4, 22);
     const auto time = QTime(3, 4, 56);
     const auto start = Utilities::FastDateTime(date, time);
@@ -250,6 +304,11 @@ void KPATest::TestImageDate::testFastDateTimeConstructorWithTwoIdenticalDates()
 
 void KPATest::TestImageDate::testQDateConstructorWithTwoIdenticalDates()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     const QDate date = QDate(2026, 1, 5);
     const DB::ImageDate id = DB::ImageDate(date, date);
     // This constructor always forces the times.
@@ -262,6 +321,11 @@ void KPATest::TestImageDate::testQDateConstructorWithTwoIdenticalDates()
 
 void KPATest::TestImageDate::testQDateQTimeConstructorWithTwoIdenticalDatesAndInvalidTime()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     const QDate date = QDate(2026, 1, 5);
     const DB::ImageDate id = DB::ImageDate(date, date, QTime());
     // This constructor always forces the times if the time is invalid.
@@ -274,6 +338,11 @@ void KPATest::TestImageDate::testQDateQTimeConstructorWithTwoIdenticalDatesAndIn
 
 void KPATest::TestImageDate::testQDateQTimeConstructorWithTwoDatesAndValidTime()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     const QDate start = QDate(2026, 1, 5);
     const QDate end = QDate(2026, 1, 6);
     const QTime time = QTime(9, 8, 7);
@@ -290,6 +359,11 @@ void KPATest::TestImageDate::testQDateQTimeConstructorWithTwoDatesAndValidTime()
 
 void KPATest::TestImageDate::testFastDateTimeConstructorWithTwoValidDates()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     const auto start = Utilities::FastDateTime(QDate(2025, 4, 22), QTime(3, 4, 5));
     const auto end = Utilities::FastDateTime(QDate(2025, 4, 30), QTime(12, 13, 14));
     const DB::ImageDate id = DB::ImageDate(end, start); // Note they are swapped!
@@ -303,6 +377,11 @@ void KPATest::TestImageDate::testFastDateTimeConstructorWithTwoValidDates()
 
 void KPATest::TestImageDate::testQDateConstructorWithTwoValidDates()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     const QDate start = QDate(2025, 1, 1);
     const QDate end = QDate(2025, 12, 31);
     const DB::ImageDate id = DB::ImageDate(end, start); // Note they are swapped!
@@ -316,6 +395,11 @@ void KPATest::TestImageDate::testQDateConstructorWithTwoValidDates()
 
 void KPATest::TestImageDate::testExtendToAndIncludes()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     const QDate start = QDate(2025, 1, 1);
     const QDate end = QDate(2025, 12, 31);
     const DB::ImageDate id = DB::ImageDate(start, end);
@@ -402,6 +486,11 @@ void KPATest::TestImageDate::testExtendToAndIncludes()
 
 void KPATest::TestImageDate::testToString()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     QCOMPARE(DB::ImageDate().toString(false), QString());
     QCOMPARE(DB::ImageDate().toString(true), QString());
 

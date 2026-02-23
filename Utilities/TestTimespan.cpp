@@ -15,6 +15,11 @@ void KPATest::TestTimespan::initTestCase()
 
 void KPATest::TestTimespan::testAge()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     const auto birthDate = QDate(2000, 1, 1);
 
     // Invalid image date: TODO: the ImageDate isn't actually invalid?
@@ -42,6 +47,11 @@ void KPATest::TestTimespan::testAge()
 
 void KPATest::TestTimespan::testAgo()
 {
+    const auto restoreDefaultLocale = qScopeGuard([prior = QLocale()]() {
+        QLocale::setDefault(prior);
+    });
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+
     QFETCH(DB::ImageDate, imageDate);
     QFETCH(QDate, referenceDate);
     QFETCH(QString, result);

@@ -183,56 +183,61 @@ QString Timespan::formatAgo(const Timespan::DateDifference &ago)
         return i18ncp("Like \"This happened \'6 days\' ago\"",
                       "%1 day", "%1 days", ago.allDays);
 
-    } else if (ago.years == 0 && ago.months < 2) {
-        // Less than 2 months. Depending on the number of weeks,
-        // we either format weeks or we round to months.
-
-        const auto caWeeks = int(std::round(ago.allDays / 7.0));
-
-        if (caWeeks <= 8) {
-            // We format weeks
-            if (ago.allDays % 7 == 0) {
-                // We have an exact amount of weeks
-                return i18ncp("Like \"This happened \'3 weeks\' ago\"",
-                              "%1 week", "%1 weeks", ago.allDays / 7);
-
-            } else {
-                // We calculate a "ca." amount of weeks
-                return i18ncp("Like \"This happened \'ca. 6 weeks\' ago\"",
-                              "ca. %1 week", "ca. %1 weeks", caWeeks);
-            }
-        } else {
-            // We round up to "2 months"
-            return i18ncp("Like \"This happened \'ca. 2 months\' ago\"",
-                          "ca. %1 month", "ca. %1 months", 2);
-        }
-
     } else if (ago.years == 0) {
-        // Less than a year --> we display (ca. months)
-        if (ago.days == 0) {
-            // We have an exact amount of months
-            return i18ncp("Like \"This happened \'2 months\' ago\"",
-                          "%1 month", "%1 months", ago.months);
+        // Less than a year. We either want to output weeks or months.
 
-        } else if (ago.days <= 23) {
-            // Ca. one week to the next month --> we display the counted months
-            return i18ncp("Like \"This happened \'ca. 2 months\' ago\"",
-                          "ca. %1 month", "ca. %1 months", ago.months);
-        } else {
-            // Likely less than a week to the next month --> we add one more
-            if (ago.months + 1 < 12) {
-                return i18ncp("Like \"This happened \'ca. 2 months\' ago\"",
-                              "ca. %1 month", "ca. %1 months", ago.months + 1);
+        if (ago.months < 2) {
+            // Less than 2 months. Depending on the number of weeks,
+            // we either format weeks or we round to months.
+
+            const auto caWeeks = int(std::round(ago.allDays / 7.0));
+
+            if (caWeeks <= 8) {
+                // We format weeks
+                if (ago.allDays % 7 == 0) {
+                    // We have an exact amount of weeks
+                    return i18ncp("Like \"This happened \'3 weeks\' ago\"",
+                                  "%1 week", "%1 weeks", ago.allDays / 7);
+                } else {
+                    // We calculate a "ca." amount of weeks
+                    return i18ncp("Like \"This happened \'ca. 6 weeks\' ago\"",
+                                  "ca. %1 week", "ca. %1 weeks", caWeeks);
+                }
             } else {
-                // In case we complete the first year with this, we display "1 year",
-                // using the same translations string as for more years
-                return i18ncp("Like \"This happened \'2 years\' ago\"",
-                              "%1 year", "%1 years", 1);
+                // We round up to "2 months"
+                return i18ncp("Like \"This happened \'ca. 2 months\' ago\"",
+                              "ca. %1 month", "ca. %1 months", 2);
+            }
+
+        } else {
+            // Less than a year, but at least 2 months ago --> we display (ca. months)
+
+            if (ago.days == 0) {
+                // We have an exact amount of months
+                return i18ncp("Like \"This happened \'2 months\' ago\"",
+                              "%1 month", "%1 months", ago.months);
+
+            } else if (ago.days <= 23) {
+                // Ca. one week to the next month --> we display the counted months
+                return i18ncp("Like \"This happened \'ca. 2 months\' ago\"",
+                              "ca. %1 month", "ca. %1 months", ago.months);
+            } else {
+                // Likely less than a week to the next month --> we add one more
+                if (ago.months + 1 < 12) {
+                    return i18ncp("Like \"This happened \'ca. 2 months\' ago\"",
+                                  "ca. %1 month", "ca. %1 months", ago.months + 1);
+                } else {
+                    // In case we complete the first year with this, we display "1 year",
+                    // using the same translations string as for more years
+                    return i18ncp("Like \"This happened \'2 years\' ago\"",
+                                  "%1 year", "%1 years", 1);
+                }
             }
         }
 
     } else {
         // At least one year ago --> we display years and months
+
         auto years = ago.years;
         auto months = ago.months;
         if (ago.days > 23) {

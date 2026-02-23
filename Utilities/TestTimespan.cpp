@@ -138,8 +138,8 @@ void KPATest::TestTimespan::testAgo_data()
             << today
             << QString::fromLatin1(" (%1 years ago)").arg(years);
 
-        QTest::addRow("%d years, 5 months, 21 days ago (round to same year)", years)
-            << DB::ImageDate(today.addYears(-(years)).addMonths(5).addDays(21))
+        QTest::addRow("%d years, 0 months, 22 days ago (round to same year)", years)
+            << DB::ImageDate(today.addYears(-(years)).addDays(-22))
             << today
             << QString::fromLatin1(" (%1 years ago)").arg(years);
 
@@ -168,15 +168,18 @@ void KPATest::TestTimespan::testAgo_data()
             << today
             << QString::fromLatin1(" (1 year and %1 months ago)").arg(months);
 
-        QTest::addRow("1 year, %d months, 21 days ago (round down to neares month)", months)
-            << DB::ImageDate(today.addYears(-1).addMonths(-months).addDays(-21))
+        QTest::addRow("1 year, %d months, 22 days ago (round down to nearest month)", months)
+            << DB::ImageDate(today.addYears(-1).addMonths(-months).addDays(-22))
             << today
             << QString::fromLatin1(" (1 year and %1 months ago)").arg(months);
 
-        QTest::addRow("1 year, %d months, 22 days (round up to next month)", months)
-            << DB::ImageDate(today.addYears(-1).addMonths(-months).addDays(-22))
-            << today
-            << QString::fromLatin1(" (1 year and %1 months ago)").arg(months + 1);
+        if (months < 11) {
+            // rounding up 11 months is 2 years, not 1 year 12 months ;-)
+            QTest::addRow("1 year, %d months, 23 days (round up to next month)", months)
+                << DB::ImageDate(today.addYears(-1).addMonths(-months).addDays(-23))
+                << today
+                << QString::fromLatin1(" (1 year and %1 months ago)").arg(months + 1);
+        }
     }
     QTest::newRow("48 years, 7 months to 50 years, 5 months ago")
         << DB::ImageDate(today.addYears(-50).addMonths(-5), today.addYears(-49).addMonths(5))

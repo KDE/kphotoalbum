@@ -17,6 +17,7 @@ private Q_SLOTS:
     void initTestCase();
     void testAge();
     void testAgo();
+    void testAgo_data();
 };
 }
 

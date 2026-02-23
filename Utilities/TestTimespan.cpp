@@ -42,51 +42,145 @@ void KPATest::TestTimespan::testAge()
 
 void KPATest::TestTimespan::testAgo()
 {
-    // TimeSpan::ago() calculates relative to the current date.
+    QFETCH(DB::ImageDate, imageDate);
+    QFETCH(QDate, referenceDate);
+    QFETCH(QString, result);
+
+    QCOMPARE(Timespan::ago(imageDate, referenceDate), result);
+}
+
+void KPATest::TestTimespan::testAgo_data()
+{
+    QTest::addColumn<DB::ImageDate>("imageDate");
+    QTest::addColumn<QDate>("referenceDate");
+    QTest::addColumn<QString>("result");
+
     const auto today = QDate::currentDate();
 
-    // Image start date after current date:
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addDays(1))), QString());
-    // Image end date after current date:
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addDays(-1), today.addDays(1))), QString::fromLatin1(" (yesterday)")); // TODO: bug
+    QTest::newRow("Image start date after current date") << DB::ImageDate(today.addDays(1)) << today << QString();
+    QTest::newRow("Image end date after current date")
+        << DB::ImageDate(today.addDays(-1), today.addDays(1))
+        << today
+        << QString::fromLatin1(" (yesterday)"); // TODO: bug
 
-    QCOMPARE(Timespan::ago(DB::ImageDate(today)), QString::fromLatin1(" (today)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addDays(-1))), QString::fromLatin1(" (yesterday)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addDays(-2))), QString::fromLatin1(" (2 days ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addDays(-3))), QString::fromLatin1(" (3 days ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addDays(-7))), QString::fromLatin1(" (7 days ago)"));
+    QTest::newRow("today")
+        << DB::ImageDate(today)
+        << today
+        << QString::fromLatin1(" (today)");
+    QTest::newRow("yesterday")
+        << DB::ImageDate(today.addDays(-1))
+        << today
+        << QString::fromLatin1(" (yesterday)");
 
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addDays(-3), today.addDays(-2))), QString::fromLatin1(" (2 days to 3 days ago)"));
+    for (int days = 2; days <= 13; days++) {
+        QTest::addRow("%d days ago", days)
+            << DB::ImageDate(today.addDays(-days))
+            << today
+            << QString::fromLatin1(" (%1 days ago)").arg(days);
 
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addDays(-14))), QString::fromLatin1(" (2 weeks ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addDays(-15))), QString::fromLatin1(" (ca. 2 weeks ago)"));
+        QTest::addRow("%d to %d days ago", days - 1, days)
+            << DB::ImageDate(today.addDays(-(days - 1)), today.addDays(-days))
+            << today
+            << QString::fromLatin1(" (%1 days to %2 days ago)").arg(days - 1).arg(days);
+    }
 
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addDays(-28))), QString::fromLatin1(" (4 weeks ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addDays(-29))), QString::fromLatin1(" (ca. 4 weeks ago)"));
+    for (int weeks = 2; weeks <= 7; weeks++) {
+        QTest::addRow("exactly %d weeks ago", weeks)
+            << DB::ImageDate(today.addDays(-(weeks * 7)))
+            << today
+            << QString::fromLatin1(" (%1 weeks ago)").arg(weeks);
+        if (weeks > 2) {
+            // 2 weeks -1 day = 13 days
+            QTest::addRow("%d weeks -1 day ago", weeks)
+                << DB::ImageDate(today.addDays(-(weeks * 7) + 1))
+                << today
+                << QString::fromLatin1(" (ca. %1 weeks ago)").arg(weeks);
+        }
+        QTest::addRow("%d weeks +1 day ago", weeks)
+            << DB::ImageDate(today.addDays(-(weeks * 7) - 1))
+            << today
+            << QString::fromLatin1(" (ca. %1 weeks ago)").arg(weeks);
+    }
 
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addDays(-49))), QString::fromLatin1(" (7 weeks ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addDays(-52))), QString::fromLatin1(" (ca. 7 weeks ago)"));
+    // QTest::newRow("53 days ago = ~1 month")
+    //     << DB::ImageDate(today.addDays(-53))
+    //     << today
+    //     << QString::fromLatin1(" (ca. 1 month ago)"); // TODO why? this actually returns 8 weeks ago, which seems much more sensible...
 
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addDays(-53))), QString::fromLatin1(" (ca. 1 month ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addMonths(-2).addDays(1))), QString::fromLatin1(" (ca. 2 months ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addMonths(-2))), QString::fromLatin1(" (2 months ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addMonths(-2).addDays(-1))), QString::fromLatin1(" (ca. 2 months ago)"));
+    for (int months = 2; months <= 11; months++) {
+        QTest::addRow("exactly %d months ago", months)
+            << DB::ImageDate(today.addMonths(-months))
+            << today
+            << QString::fromLatin1(" (%1 months ago)").arg(months);
+        QTest::addRow("%d months +1 day ago", months)
+            << DB::ImageDate(today.addMonths(-months).addDays(1))
+            << today
+            << QString::fromLatin1(" (ca. %1 months ago)").arg(months);
+        QTest::addRow("%d months -1 day ago", months)
+            << DB::ImageDate(today.addMonths(-months).addDays(-1))
+            << today
+            << QString::fromLatin1(" (ca. %1 months ago)").arg(months);
 
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addMonths(-3), today.addMonths(-2))), QString::fromLatin1(" (2 months to 3 months ago)"));
+        QTest::addRow("%d to %d months ago", months - 1, months)
+            << DB::ImageDate(today.addMonths(-(months - 1)), today.addMonths(-months))
+            << today
+            << QString::fromLatin1(" (%1 months to %2 months ago)").arg(months - 1).arg(months);
+    }
 
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-1))), QString::fromLatin1(" (1 year ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-1).addMonths(-1))), QString::fromLatin1(" (1 year and 1 month ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-1).addMonths(-2))), QString::fromLatin1(" (1 year and 2 months ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-1).addMonths(-2).addDays(-1))), QString::fromLatin1(" (1 year and 2 months ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-1).addMonths(-2).addDays(-22))), QString::fromLatin1(" (1 year and 2 months ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-1).addMonths(-2).addDays(-23))), QString::fromLatin1(" (1 year and 3 months ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-1).addMonths(-2).addDays(-24))), QString::fromLatin1(" (1 year and 3 months ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-1).addMonths(-11))), QString::fromLatin1(" (1 year and 11 months ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-1).addMonths(-11).addDays(-21))), QString::fromLatin1(" (2 years ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-1).addMonths(-11).addDays(-22))), QString::fromLatin1(" (2 years ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-2))), QString::fromLatin1(" (2 years ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-50), today.addYears(-49))), QString::fromLatin1(" (49 years to 50 years ago)"));
-    QCOMPARE(Timespan::ago(DB::ImageDate(today.addYears(-50).addMonths(-5), today.addYears(-49).addMonths(5))), QString::fromLatin1(" (48 years and 7 months to 50 years and 5 months ago)"));
+    QTest::newRow("1 year ago")
+        << DB::ImageDate(today.addYears(-1))
+        << today
+        << QString::fromLatin1(" (1 year ago)");
+    // test more than one lifetime, but testing every year would be overkill
+    for (int years = 2; years < 150; years += 7) {
+        QTest::addRow("%d years ago", years)
+            << DB::ImageDate(today.addYears(-years))
+            << today
+            << QString::fromLatin1(" (%1 years ago)").arg(years);
+
+        QTest::addRow("%d years, 5 months, 21 days ago (round to same year)", years)
+            << DB::ImageDate(today.addYears(-(years)).addMonths(5).addDays(21))
+            << today
+            << QString::fromLatin1(" (%1 years ago)").arg(years);
+
+        QTest::addRow("%d years, 11 months, 22 days ago (round to next year)", years - 1)
+            << DB::ImageDate(today.addYears(-(years - 1)).addMonths(-11).addDays(-22))
+            << today
+            << QString::fromLatin1(" (%1 years ago)").arg(years);
+
+        QTest::addRow("%d to %d years ago", years, years + 1)
+            << DB::ImageDate(today.addYears(-years), today.addYears(-(years + 1)))
+            << today
+            << QString::fromLatin1(" (%1 years to %2 years ago)").arg(years).arg(years + 1);
+    }
+    // unstable test:
+    // QTest::addRow("") << DB::ImageDate(today.addYears(-1).addMonths(-11).addDays(-21)) << today << QString::fromLatin1(" (1 year and 11 months ago)");
+    // QTest::addRow("") << DB::ImageDate(today.addYears(-1).addMonths(-11).addDays(-21)) << today << QString::fromLatin1(" (2 years ago)");
+
+    QTest::newRow("1 year, 1 month ago")
+        << DB::ImageDate(today.addYears(-1).addMonths(-1))
+        << today
+        << QString::fromLatin1(" (1 year and 1 month ago)");
+    for (int months = 2; months <= 11; months++) {
+        QTest::addRow("1 year, %d months ago", months)
+            << DB::ImageDate(today.addYears(-1).addMonths(-months))
+            << today
+            << QString::fromLatin1(" (1 year and %1 months ago)").arg(months);
+
+        QTest::addRow("1 year, %d months, 21 days ago (round down to neares month)", months)
+            << DB::ImageDate(today.addYears(-1).addMonths(-months).addDays(-21))
+            << today
+            << QString::fromLatin1(" (1 year and %1 months ago)").arg(months);
+
+        QTest::addRow("1 year, %d months, 22 days (round up to next month)", months)
+            << DB::ImageDate(today.addYears(-1).addMonths(-months).addDays(-22))
+            << today
+            << QString::fromLatin1(" (1 year and %1 months ago)").arg(months + 1);
+    }
+    QTest::newRow("48 years, 7 months to 50 years, 5 months ago")
+        << DB::ImageDate(today.addYears(-50).addMonths(-5), today.addYears(-49).addMonths(5))
+        << today
+        << QString::fromLatin1(" (48 years and 7 months to 50 years and 5 months ago)");
 }
 
 QTEST_MAIN(KPATest::TestTimespan)

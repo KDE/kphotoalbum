@@ -157,8 +157,16 @@ QString Timespan::ago(const DB::ImageDate &imageDate, const QDate &reference)
                          " (%1 ago)", formatAgo(minAgo));
         }
     } else {
-        return i18nc("Like \"6 to 7 years ago\"",
-                     " (%1 to %2 ago)", formatAgo(minAgo), formatAgo(maxAgo));
+        // We have to check if the date difference is still different after being formatted
+        const auto formattedMin = formatAgo(minAgo);
+        const auto formattedMax = formatAgo(maxAgo);
+        if (formattedMin != formattedMax) {
+            return i18nc("Like \"6 to 7 years ago\"",
+                         " (%1 to %2 ago)", formattedMin, formattedMax);
+        } else {
+            return i18nc("Like \"6 years ago\"",
+                         " (%1 ago)", formattedMin);
+        }
     }
 }
 

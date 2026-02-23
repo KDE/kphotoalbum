@@ -55,7 +55,7 @@ void KPATest::TestTimespan::testAgo_data()
     QTest::addColumn<QDate>("referenceDate");
     QTest::addColumn<QString>("result");
 
-    const auto today = QDate::currentDate();
+    const auto today = QDate(2026, 2, 22);
 
     QTest::newRow("Image start date after current date") << DB::ImageDate(today.addDays(1)) << today << QString();
     QTest::newRow("Image end date after current date")
@@ -154,8 +154,9 @@ void KPATest::TestTimespan::testAgo_data()
             << QString::fromLatin1(" (%1 years to %2 years ago)").arg(years).arg(years + 1);
     }
     // unstable test:
-    // QTest::addRow("") << DB::ImageDate(today.addYears(-1).addMonths(-11).addDays(-21)) << today << QString::fromLatin1(" (1 year and 11 months ago)");
-    // QTest::addRow("") << DB::ImageDate(today.addYears(-1).addMonths(-11).addDays(-21)) << today << QString::fromLatin1(" (2 years ago)");
+    const auto today2 = QDate(2026, 2, 21);
+    QTest::newRow("~2 years ago from 2026-02-21") << DB::ImageDate(today2.addYears(-1).addMonths(-11).addDays(-21)) << today2 << QString::fromLatin1(" (1 year and 11 months ago)");
+    QTest::newRow("~2 years ago from 2026-02-22") << DB::ImageDate(today.addYears(-1).addMonths(-11).addDays(-21)) << today << QString::fromLatin1(" (1 year and 11 months ago)");
 
     QTest::newRow("1 year, 1 month ago")
         << DB::ImageDate(today.addYears(-1).addMonths(-1))

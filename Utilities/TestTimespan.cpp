@@ -112,11 +112,6 @@ void KPATest::TestTimespan::testAgo_data()
             << QString::fromLatin1(" (ca. %1 weeks ago)").arg(weeks);
     }
 
-    // QTest::newRow("53 days ago = ~1 month")
-    //     << DB::ImageDate(today.addDays(-53))
-    //     << today
-    //     << QString::fromLatin1(" (ca. 1 month ago)"); // TODO why? this actually returns 8 weeks ago, which seems much more sensible...
-
     for (int months = 2; months <= 11; months++) {
         QTest::addRow("exactly %d months ago", months)
             << DB::ImageDate(today.addMonths(-months))
@@ -141,20 +136,19 @@ void KPATest::TestTimespan::testAgo_data()
         << DB::ImageDate(today.addYears(-1))
         << today
         << QString::fromLatin1(" (1 year ago)");
-    // test more than one lifetime, but testing every year would be overkill
-    for (int years = 2; years < 150; years += 7) {
+    for (int years = 2; years <= 10; years++) {
         QTest::addRow("%d years ago", years)
             << DB::ImageDate(today.addYears(-years))
             << today
             << QString::fromLatin1(" (%1 years ago)").arg(years);
 
-        QTest::addRow("%d years, 0 months, 22 days ago (round to same year)", years)
-            << DB::ImageDate(today.addYears(-(years)).addDays(-22))
+        QTest::addRow("%d years, 0 months, 21 days ago (round to same year)", years)
+            << DB::ImageDate(today.addYears(-(years)).addDays(-21))
             << today
             << QString::fromLatin1(" (%1 years ago)").arg(years);
 
-        QTest::addRow("%d years, 11 months, 22 days ago (round to next year)", years - 1)
-            << DB::ImageDate(today.addYears(-(years - 1)).addMonths(-11).addDays(-22))
+        QTest::addRow("%d years, 11 months, 25 days ago (round to next year)", years - 1)
+            << DB::ImageDate(today.addYears(-(years - 1)).addMonths(-11).addDays(-25))
             << today
             << QString::fromLatin1(" (%1 years ago)").arg(years);
 
@@ -163,10 +157,28 @@ void KPATest::TestTimespan::testAgo_data()
             << today
             << QString::fromLatin1(" (%1 years to %2 years ago)").arg(years).arg(years + 1);
     }
-    // unstable test:
-    const auto today2 = QDate(2026, 2, 21);
-    QTest::newRow("~2 years ago from 2026-02-21") << DB::ImageDate(today2.addYears(-1).addMonths(-11).addDays(-21)) << today2 << QString::fromLatin1(" (1 year and 11 months ago)");
-    QTest::newRow("~2 years ago from 2026-02-22") << DB::ImageDate(today.addYears(-1).addMonths(-11).addDays(-21)) << today << QString::fromLatin1(" (1 year and 11 months ago)");
+    // test more than one lifetime, but testing every year would be overkill
+    for (int years = 11; years < 150; years += 7) {
+        QTest::addRow("%d years ago", years)
+            << DB::ImageDate(today.addYears(-years))
+            << today
+            << QString::fromLatin1(" (%1 years ago)").arg(years);
+
+        QTest::addRow("%d years, 5 months, 28 days ago (round to same year)", years)
+            << DB::ImageDate(today.addYears(-(years)).addMonths(-5).addDays(-28))
+            << today
+            << QString::fromLatin1(" (%1 years ago)").arg(years);
+
+        QTest::addRow("%d years, 6 months, 0 days ago (round to next year)", years - 1)
+            << DB::ImageDate(today.addYears(-(years - 1)).addMonths(-6))
+            << today
+            << QString::fromLatin1(" (%1 years ago)").arg(years);
+
+        QTest::addRow("%d to %d years ago", years, years + 1)
+            << DB::ImageDate(today.addYears(-years), today.addYears(-(years + 1)))
+            << today
+            << QString::fromLatin1(" (%1 years to %2 years ago)").arg(years).arg(years + 1);
+    }
 
     QTest::newRow("1 year, 1 month ago")
         << DB::ImageDate(today.addYears(-1).addMonths(-1))
@@ -178,23 +190,23 @@ void KPATest::TestTimespan::testAgo_data()
             << today
             << QString::fromLatin1(" (1 year and %1 months ago)").arg(months);
 
-        QTest::addRow("1 year, %d months, 22 days ago (round down to nearest month)", months)
-            << DB::ImageDate(today.addYears(-1).addMonths(-months).addDays(-22))
+        QTest::addRow("1 year, %d months, 21 days ago (round down to nearest month)", months)
+            << DB::ImageDate(today.addYears(-1).addMonths(-months).addDays(-21))
             << today
             << QString::fromLatin1(" (1 year and %1 months ago)").arg(months);
 
         if (months < 11) {
             // rounding up 11 months is 2 years, not 1 year 12 months ;-)
-            QTest::addRow("1 year, %d months, 23 days (round up to next month)", months)
-                << DB::ImageDate(today.addYears(-1).addMonths(-months).addDays(-23))
+            QTest::addRow("1 year, %d months, 25 days (round up to next month)", months)
+                << DB::ImageDate(today.addYears(-1).addMonths(-months).addDays(-25))
                 << today
                 << QString::fromLatin1(" (1 year and %1 months ago)").arg(months + 1);
         }
     }
-    QTest::newRow("48 years, 7 months to 50 years, 5 months ago")
+    QTest::newRow("48 years, 7 months to 50 years, 5 months ago (round to nearest years)")
         << DB::ImageDate(today.addYears(-50).addMonths(-5), today.addYears(-49).addMonths(5))
         << today
-        << QString::fromLatin1(" (48 years and 7 months to 50 years and 5 months ago)");
+        << QString::fromLatin1(" (49 years to 50 years ago)");
 }
 
 QTEST_MAIN(KPATest::TestTimespan)

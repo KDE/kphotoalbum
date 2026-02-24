@@ -235,8 +235,8 @@ QString Timespan::formatAgo(const Timespan::DateDifference &ago)
             }
         }
 
-    } else {
-        // At least one year ago --> we display years and months
+    } else if (ago.years < 10) {
+        // At least one year ago, but less than 10 --> we display years and months
 
         auto years = ago.years;
         auto months = ago.months;
@@ -262,6 +262,17 @@ QString Timespan::formatAgo(const Timespan::DateDifference &ago)
                          "formatted years string and the second one is the formatted months string",
                          "%1 and %2", formattedYears, formattedMonths);
         }
+
+    } else {
+        // At least 10 years ago --> we round to full years
+
+        auto years = ago.years;
+        if (ago.months >= 6) {
+            years++;
+        }
+
+        return i18ncp("Like \"This happened \'2 years\' ago\"",
+                      "%1 year", "%1 years", years);
     }
 }
 

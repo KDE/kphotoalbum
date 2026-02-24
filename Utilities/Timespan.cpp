@@ -18,6 +18,14 @@
 
 Timespan::DateDifference Timespan::dateDifference(const QDate &date, const QDate &reference)
 {
+    // We need this cĺass because the QDate arithmetic does not always match
+    // the "perceived" difference we need to render time intervals.
+    //
+    // Example: QDate(2026, 3, 30).addMonths(-1) will output QDate("2026-02-28")
+    //
+    // The DateDifference between 2026-02-28 and 2026-03-30 will be:
+    // DateDifference(years: 0, months: 1, days: 2 - total days: 30)
+
     if (date > reference) {
         return dateDifference(reference, date);
     }

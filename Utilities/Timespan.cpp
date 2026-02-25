@@ -122,7 +122,7 @@ QString Timespan::formatAge(const Timespan::DateDifference &age)
         if (age.months == 0) {
             return yearsString;
         } else {
-            const auto monthsString = i18ncp("Like \"The baby is \"4 months\" old\"",
+            const auto monthsString = i18ncp("Like \"The baby is \'4 months\' old\"",
                                              "%1 month", "%1 months", age.months);
             return i18nc("This combines an age of a person in years (%1) with the additional "
                          "months (%2), like \"The person is \'1 year and 3 months\' old\"",
@@ -207,18 +207,18 @@ QString Timespan::formatAgo(const Timespan::DateDifference &ago)
                     return i18ncp("Like \"This happened \'3 weeks\' ago\"",
                                   "%1 week", "%1 weeks", ago.allDays / 7);
                 } else {
-                    // We calculate a "ca." amount of weeks
-                    return i18ncp("Like \"This happened \'ca. 6 weeks\' ago\"",
-                                  "ca. %1 week", "ca. %1 weeks", caWeeks);
+                    // We calculate an "about" amount of weeks
+                    return i18ncp("Like \"This happened \'about 6 weeks\' ago\"",
+                                  "about %1 week", "about %1 weeks", caWeeks);
                 }
             } else {
                 // We round up to "2 months"
-                return i18ncp("Like \"This happened \'ca. 2 months\' ago\"",
-                              "ca. %1 month", "ca. %1 months", 2);
+                return i18ncp("Like \"This happened \'about 2 months\' ago\"",
+                              "about %1 month", "about %1 months", 2);
             }
 
         } else {
-            // Less than a year, but at least 2 months ago --> we display (ca. months)
+            // Less than a year, but at least 2 months ago --> we display ("about" months)
 
             if (ago.days == 0) {
                 // We have an exact amount of months
@@ -226,14 +226,14 @@ QString Timespan::formatAgo(const Timespan::DateDifference &ago)
                               "%1 month", "%1 months", ago.months);
 
             } else if (ago.days <= 23) {
-                // Ca. one week to the next month --> we display the counted months
-                return i18ncp("Like \"This happened \'ca. 2 months\' ago\"",
-                              "ca. %1 month", "ca. %1 months", ago.months);
+                // About one week to the next month --> we display the counted months
+                return i18ncp("Like \"This happened \'about 2 months\' ago\"",
+                              "about %1 month", "about %1 months", ago.months);
             } else {
                 // Likely less than a week to the next month --> we add one more
                 if (ago.months + 1 < 12) {
-                    return i18ncp("Like \"This happened \'ca. 2 months\' ago\"",
-                                  "ca. %1 month", "ca. %1 months", ago.months + 1);
+                    return i18ncp("Like \"This happened \'about 2 months\' ago\"",
+                                  "about %1 month", "about %1 months", ago.months + 1);
                 } else {
                     // In case we complete the first year with this, we display "1 year",
                     // using the same translations string as for more years

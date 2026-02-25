@@ -104,12 +104,12 @@ void KPATest::TestTimespan::testAgo_data()
             QTest::addRow("%d weeks -1 day ago", weeks)
                 << DB::ImageDate(today.addDays(-(weeks * 7) + 1))
                 << today
-                << QString::fromLatin1(" (ca. %1 weeks ago)").arg(weeks);
+                << QString::fromLatin1(" (about %1 weeks ago)").arg(weeks);
         }
         QTest::addRow("%d weeks +1 day ago", weeks)
             << DB::ImageDate(today.addDays(-(weeks * 7) - 1))
             << today
-            << QString::fromLatin1(" (ca. %1 weeks ago)").arg(weeks);
+            << QString::fromLatin1(" (about %1 weeks ago)").arg(weeks);
     }
 
     for (int months = 2; months <= 11; months++) {
@@ -120,11 +120,11 @@ void KPATest::TestTimespan::testAgo_data()
         QTest::addRow("%d months +1 day ago", months)
             << DB::ImageDate(today.addMonths(-months).addDays(1))
             << today
-            << QString::fromLatin1(" (ca. %1 months ago)").arg(months);
+            << QString::fromLatin1(" (about %1 months ago)").arg(months);
         QTest::addRow("%d months -1 day ago", months)
             << DB::ImageDate(today.addMonths(-months).addDays(-1))
             << today
-            << QString::fromLatin1(" (ca. %1 months ago)").arg(months);
+            << QString::fromLatin1(" (about %1 months ago)").arg(months);
 
         QTest::addRow("%d to %d months ago", months - 1, months)
             << DB::ImageDate(today.addMonths(-(months - 1)), today.addMonths(-months))

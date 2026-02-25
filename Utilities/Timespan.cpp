@@ -200,21 +200,20 @@ QString Timespan::formatAgo(const Timespan::DateDifference &ago)
 
             const auto caWeeks = int(std::round(ago.allDays / 7.0));
 
-            if (caWeeks <= 8) {
-                // We format weeks
-                if (ago.allDays % 7 == 0) {
-                    // We have an exact amount of weeks
-                    return i18ncp("Like \"This happened \'3 weeks\' ago\"",
-                                  "%1 week", "%1 weeks", ago.allDays / 7);
+            if (ago.allDays % 7 == 0) {
+                // We have an exact amount of weeks
+                return i18ncp("Like \"This happened \'3 weeks\' ago\"",
+                              "%1 week", "%1 weeks", ago.allDays / 7);
+            } else {
+                if (ago.days == 0) {
+                    // We round to "months"
+                    return i18ncp("Like \"This happened \'about 2 months\' ago\"",
+                                  "%1 month", "%1 months", ago.months);
                 } else {
                     // We calculate an "about" amount of weeks
                     return i18ncp("Like \"This happened \'about 6 weeks\' ago\"",
                                   "about %1 week", "about %1 weeks", caWeeks);
                 }
-            } else {
-                // We round up to "2 months"
-                return i18ncp("Like \"This happened \'about 2 months\' ago\"",
-                              "about %1 month", "about %1 months", 2);
             }
 
         } else {

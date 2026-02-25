@@ -88,13 +88,16 @@ void KPATest::TestTimespan::testAgo_data()
             << today
             << QString::fromLatin1(" (%1 days ago)").arg(days);
 
-        QTest::addRow("%d to %d days ago", days - 1, days)
-            << DB::ImageDate(today.addDays(-(days - 1)), today.addDays(-days))
-            << today
-            << QString::fromLatin1(" (%1 days to %2 days ago)").arg(days - 1).arg(days);
+        if (days > 2) {
+            // "yesterday to 2 days ago" is a special case
+            QTest::addRow("%d to %d days ago", days - 1, days)
+                << DB::ImageDate(today.addDays(-(days - 1)), today.addDays(-days))
+                << today
+                << QString::fromLatin1(" (%1 days to %2 days ago)").arg(days - 1).arg(days);
+        }
     }
 
-    for (int weeks = 2; weeks <= 7; weeks++) {
+    for (int weeks : { 2, 3, 5, 6, 7 }) {
         QTest::addRow("exactly %d weeks ago", weeks)
             << DB::ImageDate(today.addDays(-(weeks * 7)))
             << today
@@ -117,19 +120,22 @@ void KPATest::TestTimespan::testAgo_data()
             << DB::ImageDate(today.addMonths(-months))
             << today
             << QString::fromLatin1(" (%1 months ago)").arg(months);
-        QTest::addRow("%d months +1 day ago", months)
-            << DB::ImageDate(today.addMonths(-months).addDays(1))
-            << today
-            << QString::fromLatin1(" (about %1 months ago)").arg(months);
-        QTest::addRow("%d months -1 day ago", months)
-            << DB::ImageDate(today.addMonths(-months).addDays(-1))
-            << today
-            << QString::fromLatin1(" (about %1 months ago)").arg(months);
+        if (months > 2) {
+            QTest::addRow("%d months +1 day ago", months)
+                << DB::ImageDate(today.addMonths(-months).addDays(1))
+                << today
+                << QString::fromLatin1(" (about %1 months ago)").arg(months);
+            QTest::addRow("%d months -1 day ago", months)
+                << DB::ImageDate(today.addMonths(-months).addDays(-1))
+                << today
+                << QString::fromLatin1(" (about %1 months ago)").arg(months);
 
-        QTest::addRow("%d to %d months ago", months - 1, months)
-            << DB::ImageDate(today.addMonths(-(months - 1)), today.addMonths(-months))
-            << today
-            << QString::fromLatin1(" (%1 months to %2 months ago)").arg(months - 1).arg(months);
+            // less than 2 months triggers special cases with weeks or "about X months"
+            QTest::addRow("%d to %d months ago", months - 1, months)
+                << DB::ImageDate(today.addMonths(-(months - 1)), today.addMonths(-months))
+                << today
+                << QString::fromLatin1(" (%1 months to %2 months ago)").arg(months - 1).arg(months);
+        }
     }
 
     QTest::newRow("1 year ago")

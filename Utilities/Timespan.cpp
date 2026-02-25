@@ -182,71 +182,59 @@ QString Timespan::formatAgo(const Timespan::DateDifference &ago)
 {
     if (ago.allDays == 0) {
         return i18n("today");
-
-    } else if (ago.allDays == 1) {
+    }
+    if (ago.allDays == 1) {
         return i18n("yesterday");
-
-    } else if (ago.allDays < 14) {
+    }
+    if (ago.allDays < 14) {
         // Less than two weeks --> we display days
         return i18ncp("Like \"This happened \'6 days\' ago\"",
                       "%1 day", "%1 days", ago.allDays);
-
-    } else if (ago.years == 0) {
+    }
+    if (ago.years == 0) {
         // Less than a year. We either want to output weeks or months.
+        // If there is an exact unit, prefer the exact unit (e.g. prefer "1 month" over "4 weeks")
+
+        if (ago.days == 0) {
+            // We have an exact amount of months
+            return i18ncp("Like \"This happened \'2 months\' ago\"",
+                          "%1 month", "%1 months", ago.months);
+        }
 
         if (ago.months < 2) {
             // Less than 2 months. Depending on the number of weeks,
             // we either format weeks or we round to months.
 
             const auto caWeeks = int(std::round(ago.allDays / 7.0));
-
             if (ago.allDays % 7 == 0) {
                 // We have an exact amount of weeks
                 return i18ncp("Like \"This happened \'3 weeks\' ago\"",
                               "%1 week", "%1 weeks", ago.allDays / 7);
-            } else {
-                if (ago.days == 0) {
-                    // We round to "months"
-                    return i18ncp("Like \"This happened \'about 2 months\' ago\"",
-                                  "%1 month", "%1 months", ago.months);
-                } else {
-                    // We calculate an "about" amount of weeks
-                    return i18ncp("Like \"This happened \'about 6 weeks\' ago\"",
-                                  "about %1 week", "about %1 weeks", caWeeks);
-                }
             }
-
-        } else {
-            // Less than a year, but at least 2 months ago --> we display ("about" months)
-
-            if (ago.days == 0) {
-                // We have an exact amount of months
-                return i18ncp("Like \"This happened \'2 months\' ago\"",
-                              "%1 month", "%1 months", ago.months);
-
-            } else if (ago.days <= 23) {
-                // About one week to the next month --> we display the counted months
-                return i18ncp("Like \"This happened \'about 2 months\' ago\"",
-                              "about %1 month", "about %1 months", ago.months);
-            } else {
-                // Likely less than a week to the next month --> we add one more
-                if (ago.months + 1 < 12) {
-                    return i18ncp("Like \"This happened \'about 2 months\' ago\"",
-                                  "about %1 month", "about %1 months", ago.months + 1);
-                } else {
-                    // In case we complete the first year with this, we display "1 year",
-                    // using the same translations string as for more years
-                    return i18ncp("Like \"This happened \'2 years\' ago\"",
-                                  "%1 year", "%1 years", 1);
-                }
-            }
+            // We calculate an "about" amount of weeks
+            return i18ncp("Like \"This happened \'about 6 weeks\' ago\"",
+                          "about %1 week", "about %1 weeks", caWeeks);
         }
+        // at least 2 months ago --> we display "about" months, no weeks
 
-    } else if (ago.years < 10) {
+        auto months = ago.months;
+        if (ago.days > 23) {
+            // Likely less than a week to the next month --> we add one more
+            months++;
+        }
+        if (months == 12) {
+            // fall through to the ">=1 year" case
+        } else
+            return i18ncp("Like \"This happened \'about 2 months\' ago\"",
+                          "about %1 month", "about %1 months", months);
+    }
+
+    // over 1 year, ony years and months are relevant (and we adjust values as needed)
+    auto years = ago.years;
+    auto months = ago.months;
+    if (ago.years < 10) {
         // At least one year ago, but less than 10 --> we display years and months
 
-        auto years = ago.years;
-        auto months = ago.months;
         if (ago.days > 23) {
             // Likely less than a week to the next month --> we add one more
             months++;
@@ -255,32 +243,26 @@ QString Timespan::formatAgo(const Timespan::DateDifference &ago)
                 years++;
             }
         }
-
-        if (months == 0) {
-            return i18ncp("Like \"This happened \'2 years\' ago\"",
-                          "%1 year", "%1 years", years);
-        } else {
-            const auto formattedYears = i18ncp("Like \"This happened \'2 years\' ago\"",
-                                               "%1 year", "%1 years", years);
-            const auto formattedMonths = i18ncp("Like \"This happened \'2 months\' ago\"",
-                                                "%1 month", "%1 months", months);
-            return i18nc("This combines a number of years and months to a timespan, like \"This "
-                         "happened 3 years and 1 month\" ago, where the first parameter is the "
-                         "formatted years string and the second one is the formatted months string",
-                         "%1 and %2", formattedYears, formattedMonths);
-        }
-
     } else {
         // At least 10 years ago --> we round to full years
-
-        auto years = ago.years;
         if (ago.months >= 6) {
             years++;
         }
+        months = 0;
+    }
 
+    if (months == 0) {
         return i18ncp("Like \"This happened \'2 years\' ago\"",
                       "%1 year", "%1 years", years);
     }
+    const auto formattedYears = i18ncp("Like \"This happened \'2 years\' ago\"",
+                                       "%1 year", "%1 years", years);
+    const auto formattedMonths = i18ncp("Like \"This happened \'2 months\' ago\"",
+                                        "%1 month", "%1 months", months);
+    return i18nc("This combines a number of years and months to a timespan, like \"This "
+                 "happened 3 years and 1 month\" ago, where the first parameter is the "
+                 "formatted years string and the second one is the formatted months string",
+                 "%1 and %2", formattedYears, formattedMonths);
 }
 
 QDebug operator<<(QDebug debug, const Timespan::DateDifference &difference)

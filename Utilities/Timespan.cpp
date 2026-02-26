@@ -229,7 +229,7 @@ QString Timespan::formatAgo(const Timespan::DateDifference &ago)
                           "about %1 month", "about %1 months", months);
     }
 
-    // over 1 year, ony years and months are relevant (and we adjust values as needed)
+    // over 1 year, only years and months are relevant (and we adjust values as needed)
     auto years = ago.years;
     auto months = ago.months;
     if (ago.years < 10) {

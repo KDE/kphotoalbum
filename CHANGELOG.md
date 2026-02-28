@@ -60,6 +60,7 @@ KPhotoAlbum 6.2.0 (2026-02-21)
  - Prevent unnecessary entries in the block list (#512207)
  - Prevent creation of .kim files over 4GB (mitigates bug #512199)
  - Fix compilation without Marble
+ - Improved formatting of "time ago" texts
 
 
 KPhotoAlbum 6.1.0 (2025-10-04)

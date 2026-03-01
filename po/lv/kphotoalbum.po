@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-10 00:42+0000\n"
+"POT-Creation-Date: 2026-03-01 00:43+0000\n"
 "PO-Revision-Date: 2025-11-11 18:42+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -38,12 +38,12 @@ msgstr "Birka jau tiek izmantota citā zonā"
 msgid "tomorrow"
 msgstr "rīt"
 
-#: AnnotationDialog/DateEdit.cpp:70 Utilities/Timespan.cpp:168
+#: AnnotationDialog/DateEdit.cpp:70 Utilities/Timespan.cpp:184
 #, kde-format
 msgid "today"
 msgstr "šodien"
 
-#: AnnotationDialog/DateEdit.cpp:71 Utilities/Timespan.cpp:171
+#: AnnotationDialog/DateEdit.cpp:71 Utilities/Timespan.cpp:187
 #, kde-format
 msgid "yesterday"
 msgstr "vakar"
@@ -6485,25 +6485,25 @@ msgstr "<b>Etiķete: </b> "
 msgid "<b>Description: </b> "
 msgstr "<b>Apraksts: </b> "
 
-#: Utilities/Timespan.cpp:82
+#: Utilities/Timespan.cpp:91
 #, kde-format
 msgctxt "Like \"up to 6 years\" old"
 msgid " (up to %1)"
 msgstr " (līdz %1)"
 
-#: Utilities/Timespan.cpp:91
+#: Utilities/Timespan.cpp:100
 #, kde-format
 msgctxt "Like \"6 years\" old"
 msgid " (%1)"
 msgstr " (%1)"
 
-#: Utilities/Timespan.cpp:93
+#: Utilities/Timespan.cpp:102
 #, kde-format
 msgctxt "Like \"6 years to 7 years\" old"
 msgid " (%1 to %2)"
 msgstr " (no %1 līdz %2)"
 
-#: Utilities/Timespan.cpp:102
+#: Utilities/Timespan.cpp:111
 #, kde-format
 msgctxt "Like \"The baby is '8 days' old\""
 msgid "%1 day"
@@ -6512,7 +6512,7 @@ msgstr[0] "%1 dienu"
 msgstr[1] "%1 dienas"
 msgstr[2] "%1 dienu"
 
-#: Utilities/Timespan.cpp:107
+#: Utilities/Timespan.cpp:116 Utilities/Timespan.cpp:126
 #, kde-format
 msgctxt "Like \"The baby is '4 months' old\""
 msgid "%1 month"
@@ -6521,7 +6521,7 @@ msgstr[0] "%1 mēnesi"
 msgstr[1] "%1 mēnešus"
 msgstr[2] "%1 mēnešu"
 
-#: Utilities/Timespan.cpp:112
+#: Utilities/Timespan.cpp:121
 #, kde-format
 msgctxt "Like \"The person is '28 years' old\""
 msgid "%1 year"
@@ -6530,16 +6530,7 @@ msgstr[0] "%1 gadu"
 msgstr[1] "%1 gadus"
 msgstr[2] "%1 gadu"
 
-#: Utilities/Timespan.cpp:117
-#, kde-format
-msgctxt "Like \"The baby is \"4 months\" old\""
-msgid "%1 month"
-msgid_plural "%1 months"
-msgstr[0] "%1 mēnesi"
-msgstr[1] "%1 mēnešus"
-msgstr[2] "%1 mēnešu"
-
-#: Utilities/Timespan.cpp:120
+#: Utilities/Timespan.cpp:129
 #, kde-format
 msgctxt ""
 "This combines an age of a person in years (%1) with the additional months "
@@ -6547,29 +6538,29 @@ msgctxt ""
 msgid "%1, %2"
 msgstr "%1, %2"
 
-#: Utilities/Timespan.cpp:150
+#: Utilities/Timespan.cpp:158
 #, kde-format
 msgid " (today)"
 msgstr " (šodien)"
 
-#: Utilities/Timespan.cpp:153
+#: Utilities/Timespan.cpp:161
 #, kde-format
 msgid " (yesterday)"
 msgstr " (vakar)"
 
-#: Utilities/Timespan.cpp:157
+#: Utilities/Timespan.cpp:165 Utilities/Timespan.cpp:176
 #, kde-format
 msgctxt "Like \"6 years ago\""
 msgid " (%1 ago)"
 msgstr " (pirms %1)"
 
-#: Utilities/Timespan.cpp:161
+#: Utilities/Timespan.cpp:173
 #, kde-format
 msgctxt "Like \"6 to 7 years ago\""
 msgid " (%1 to %2 ago)"
 msgstr " (pirms starp %1 un %2)"
 
-#: Utilities/Timespan.cpp:176
+#: Utilities/Timespan.cpp:192
 #, kde-format
 msgctxt "Like \"This happened '6 days' ago\""
 msgid "%1 day"
@@ -6578,25 +6569,7 @@ msgstr[0] "%1 dienas"
 msgstr[1] "%1 dienām"
 msgstr[2] "%1 dienām"
 
-#: Utilities/Timespan.cpp:183
-#, kde-format
-msgctxt "Like \"This happened '3 weeks' ago\""
-msgid "%1 week"
-msgid_plural "%1 weeks"
-msgstr[0] "%1 nedēļas"
-msgstr[1] "%1 nedēļām"
-msgstr[2] "%1 nedēļām"
-
-#: Utilities/Timespan.cpp:188
-#, kde-format
-msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
-msgid "ca. %1 week"
-msgid_plural "ca. %1 weeks"
-msgstr[0] "apt. %1 nedēļas"
-msgstr[1] "apt. %1 nedēļām"
-msgstr[2] "apt. %1 nedēļām"
-
-#: Utilities/Timespan.cpp:196 Utilities/Timespan.cpp:235
+#: Utilities/Timespan.cpp:201 Utilities/Timespan.cpp:261
 #, kde-format
 msgctxt "Like \"This happened '2 months' ago\""
 msgid "%1 month"
@@ -6605,17 +6578,40 @@ msgstr[0] "%1 mēneša"
 msgstr[1] "%1 mēnešiem"
 msgstr[2] "%1 mēnešiem"
 
-#: Utilities/Timespan.cpp:201 Utilities/Timespan.cpp:206
+#: Utilities/Timespan.cpp:212
 #, kde-format
-msgctxt "Like \"This happened 'ca. 2 months' ago\""
-msgid "ca. %1 month"
-msgid_plural "ca. %1 months"
+msgctxt "Like \"This happened '3 weeks' ago\""
+msgid "%1 week"
+msgid_plural "%1 weeks"
+msgstr[0] "%1 nedēļas"
+msgstr[1] "%1 nedēļām"
+msgstr[2] "%1 nedēļām"
+
+#: Utilities/Timespan.cpp:216
+#, fuzzy, kde-format
+#| msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
+#| msgid "ca. %1 week"
+#| msgid_plural "ca. %1 weeks"
+msgctxt "Like \"This happened 'about 6 weeks' ago\""
+msgid "about %1 week"
+msgid_plural "about %1 weeks"
+msgstr[0] "apt. %1 nedēļas"
+msgstr[1] "apt. %1 nedēļām"
+msgstr[2] "apt. %1 nedēļām"
+
+#: Utilities/Timespan.cpp:229
+#, fuzzy, kde-format
+#| msgctxt "Like \"This happened 'ca. 2 months' ago\""
+#| msgid "ca. %1 month"
+#| msgid_plural "ca. %1 months"
+msgctxt "Like \"This happened 'about 2 months' ago\""
+msgid "about %1 month"
+msgid_plural "about %1 months"
 msgstr[0] "apt. %1 mēneša"
 msgstr[1] "apt. %1 mēnešiem"
 msgstr[2] "apt. %1 mēnešiem"
 
-#: Utilities/Timespan.cpp:211 Utilities/Timespan.cpp:230
-#: Utilities/Timespan.cpp:233
+#: Utilities/Timespan.cpp:256 Utilities/Timespan.cpp:259
 #, kde-format
 msgctxt "Like \"This happened '2 years' ago\""
 msgid "%1 year"
@@ -6624,7 +6620,7 @@ msgstr[0] "%1 gada"
 msgstr[1] "%1 gadiem"
 msgstr[2] "%1 gadiem"
 
-#: Utilities/Timespan.cpp:239
+#: Utilities/Timespan.cpp:265
 #, kde-format
 msgctxt ""
 "This combines a number of years and months to a timespan, like \"This "
@@ -7343,6 +7339,13 @@ msgstr "Rādīt attēla izmēru"
 #, kde-format
 msgid "Show Rating"
 msgstr "Rādīt reitingu"
+
+#~ msgctxt "Like \"The baby is \"4 months\" old\""
+#~ msgid "%1 month"
+#~ msgid_plural "%1 months"
+#~ msgstr[0] "%1 mēnesi"
+#~ msgstr[1] "%1 mēnešus"
+#~ msgstr[2] "%1 mēnešu"
 
 #~ msgid "locked"
 #~ msgstr "slēgts"

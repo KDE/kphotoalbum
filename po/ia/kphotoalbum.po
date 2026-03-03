@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-01 00:43+0000\n"
-"PO-Revision-Date: 2026-01-27 12:14+0100\n"
+"PO-Revision-Date: 2026-03-02 12:41+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -5972,10 +5972,7 @@ msgstr[0] "%1 septimana"
 msgstr[1] "%1 septimanas"
 
 #: Utilities/Timespan.cpp:216
-#, fuzzy, kde-format
-#| msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
-#| msgid "ca. %1 week"
-#| msgid_plural "ca. %1 weeks"
+#, kde-format
 msgctxt "Like \"This happened 'about 6 weeks' ago\""
 msgid "about %1 week"
 msgid_plural "about %1 weeks"
@@ -5983,10 +5980,7 @@ msgstr[0] "ca. %1 septimana"
 msgstr[1] "ca. %1 septimanas"
 
 #: Utilities/Timespan.cpp:229
-#, fuzzy, kde-format
-#| msgctxt "Like \"This happened 'ca. 2 months' ago\""
-#| msgid "ca. %1 month"
-#| msgid_plural "ca. %1 months"
+#, kde-format
 msgctxt "Like \"This happened 'about 2 months' ago\""
 msgid "about %1 month"
 msgid_plural "about %1 months"

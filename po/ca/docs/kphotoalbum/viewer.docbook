@@ -2,6 +2,7 @@
 SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
 SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 
 SPDX-License-Identifier: GFDL-1.2-only
 -->
@@ -10,10 +11,99 @@ SPDX-License-Identifier: GFDL-1.2-only
   <title
 >El visualitzador</title>
   <para
->La raó perquè poseu totes les vostres imatges dins del &kphotoalbum;, i passar hores i hores en descriure'ls, per descomptat, és que en algun moment les voldreu mirar. Per aquesta finalitat, el &kphotoalbum; disposa d'un visualitzador capaç per a mostrar les vostres imatges i vídeos. Obriu el visualitzador des de la vista de miniatures com es descriu al <xref linkend="chp-thumbnail-view"/>.</para>
+>La raó perquè poseu totes les vostres imatges dins del &kphotoalbum;, i passar hores i hores en descriure'ls, per descomptat, és que en algun moment les voldreu mirar. Per aquesta finalitat, el &kphotoalbum; disposa d'un visualitzador capaç per a mostrar les vostres imatges i vídeos. Obriu el visualitzador des de la vista de miniatures com es descriu al <xref linkend="chp-thumbnail-view"/>. </para>
 
-  <para
->El visualitzador es pot veure a <xref linkend="fig-viewer"/>. El visualitzador, per descomptat, mostrarà la imatge, però a més que també mostrarà la informació especificada per a cada imatge, inclosa, la que apareix a les imatges, on i quan es va prendre, &etc; </para>
+<sect1 id="sect-viewer-common-commands">
+<title
+>Ordres habituals del visualitzador</title>
+<para
+>El visualitzador admet tant imatges com vídeos. Les ordres següents s'admeten tant per a imatges com per a vídeos: </para>
+
+<itemizedlist>
+<listitem>
+<para
+>Premeu <keycap
+>Esc</keycap
+> per a tancar la finestra del visualitzador. </para>
+</listitem>
+
+<listitem>
+<para
+>Premeu <keycap
+>Av Pàg</keycap
+> o la barra d'<keycap
+>Espai</keycap
+> per a moure's a la imatge o vídeo següent, i premeu <keycap
+>Re Pàg</keycap
+> per a moure's a la imatge o vídeo anterior. </para>
+</listitem>
+
+<listitem>
+<para
+>Premeu <keycombo
+>&Ctrl;<keycap
+>1</keycap
+></keycombo
+> per a obrir el <link linkend="chp-typingIn"
+>diàleg d'anotació</link
+> per a la imatge o el vídeo actual. </para>
+</listitem>
+
+<listitem>
+<para
+>Premeu <keycombo
+>&Ctrl;<keycap
+>4</keycap
+></keycombo
+> per a establir la imatge o el vídeo com a primer a la seva pila (si ja és part d'una pila). </para>
+</listitem>
+
+<listitem>
+<para
+>Premeu <keycombo
+>&Ctrl;<keycap
+>d</keycap
+></keycombo
+> per a editar la descripció de la imatge. </para>
+</listitem>
+
+<listitem>
+<para
+>Premeu <keycap
+>&Intro;</keycap
+> o <keycap
+>F11</keycap
+> per commutar el mode de pantalla completa mentre es visualitza una imatge o un vídeo.</para>
+</listitem>
+
+<listitem>
+<para
+>Premeu <keycap
+>&Del;</keycap
+> per a eliminar la imatge o el vídeo actual de la llista del visualitzador (com si no l'hagéssiu seleccionat per a la seva visualització) i aneu a l'element següent de la llista del visualitzador. Si s'elimina l'última imatge o vídeo de la llista del visualitzador, es tanca la finestra del visualitzador.</para>
+</listitem>
+
+<listitem>
+<para
+>Premeu <keycombo
+>&Ctrl;<keycap
+>&Del;</keycap
+></keycombo
+> per a afegir la imatge o el vídeo actual a la llista de supressió del visualitzador. Quan es tanqui la finestra del visualitzador, el &kphotoalbum; obrirà el diàleg <emphasis
+>Eliminació d'elements</emphasis
+> si la llista de supressió no està buida. </para>
+</listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="sect-viewer-images">
+<title
+>Visualització d'imatges</title>
+<para
+>Vegeu a <xref linkend="sect-viewer-common-commands"/> les ordres del visualitzador admeses tant per a imatges com per a vídeos. </para>
+
+<para
+>El visualitzador es pot veure a <xref linkend="fig-viewer"/>. El visualitzador, per descomptat, mostrarà la imatge, però a més que també mostrarà la informació especificada per a cada imatge, incloent-hi qui apareix a les imatges, on i quan es va prendre, &etc; </para>
 
   <figure id="fig-viewer">
     <title
@@ -25,8 +115,22 @@ SPDX-License-Identifier: GFDL-1.2-only
     </mediaobject>
   </figure>
 
-  <para
->En cas que el rètol informatiu es trobi a la part superior d'una part de les imatges que voleu veure, només l'heu d'agafar amb el ratolí i moure'l cap a una altra part de la imatge. És possible configurar si s'ha de mostrar o no el rètol informatiu. Totes aquestes opcions estan disponibles fent clic dret amb el &BDR; sobre el visualitzador. El menú contextual es pot veure a la <xref linkend="fig-viewer-contextmenu"/> a continuació.</para>
+<sect2 id="viewer-infobox">
+<title
+>El rètol informatiu</title>
+
+<para
+>El visualitzador proporciona un rètol informatiu que es pot sobreposar a la part superior de la imatge. El rètol informatiu es col·loca al centre inferior al <xref linkend="fig-viewer"/>. </para>
+
+<para
+>Si el rètol informatiu es troba sobre una part de la imatge que voleu veure, només heu de fer clic amb el &BER; del rètol informatiu i arrossegar-lo cap a una altra part de la imatge. Premeu <keycombo
+>&Ctrl;<keycap
+>i</keycap
+></keycombo
+> per a activar o desactivar el rètol informatiu. </para>
+
+<para
+>És possible configurar si s'ha de mostrar o no el rètol informatiu. Totes aquestes opcions estan disponibles fent clic dret amb el &BDR; al visualitzador. El menú contextual es pot veure a la <xref linkend="fig-viewer-contextmenu"/> a continuació.</para>
 
   <figure id="fig-viewer-contextmenu">
     <title
@@ -39,48 +143,78 @@ SPDX-License-Identifier: GFDL-1.2-only
   </figure>
 
   <para
->Algunes de les paraules en el rètol informatiu estan subratllades. Si feu clic amb el ratolí sobre una d'aquestes paraules, el navegador (vegeu el <xref linkend="chp-browsing"/>) anirà a l'àmbit d'aquest element. Així, feu clic sobre <literal
+>Algunes de les paraules en el rètol informatiu estan subratllades. Si feu clic amb el &BER; sobre una d'aquestes paraules, el navegador (vegeu el <xref linkend="chp-browsing"/>) anirà a l'àmbit d'aquest element. Per exemple, si a la demo feu clic sobre <literal
 >Anne Helene</literal
->, el navegador us mostrarà totes les imatges d'Anne Helene, com ho hauria fet si seleccioneu <literal
+> del rètol informatiu, el navegador us mostrarà totes les imatges d'Anne Helene, com ho hauria fet si seleccioneu <literal
 >Gent</literal
 > des de l'arrel del navegador, i després seleccioneu <literal
 >Anne Helene</literal
 >.</para>
 
 <para
->En el rètol informatiu veureu un petit botó amb el logotip del &kphotoalbum;. En prémer aquest botó, anireu al visualitzador de miniatures. La vista de miniatures mostrarà totes les imatges, i la imatge que teníeu seleccionada al visualitzador. La idea al darrere d'això és la següent: navegueu fins a una persona determinada, i mireu les imatges d'aquesta persona. Una de les imatges és del temps de quan fèieu secundària, i ara voleu veure les imatges d'aquest període de temps. Utilitzant el botó <guilabel
+>A la cantonada superior dreta del rètol informatiu veureu un botó petit de <emphasis
+>Ves al context</emphasis
+> amb el logotip del &kphotoalbum;. En fer clic amb el &BER; en aquest botó anireu al <xref linkend="chp-thumbnail-view"/>. La vista de miniatures mostrarà totes les imatges, i la imatge que teníeu seleccionada al visualitzador. La idea al darrere d'això és la següent: navegueu fins a una persona determinada, i mireu les imatges d'aquesta persona. Una de les imatges és del temps de quan fèieu secundària, i ara voleu veure les imatges d'aquest període de temps. Utilitzant el botó <guilabel
 >Ves al context</guilabel
 >, anireu a la vista de miniatures que mostra totes les imatges, amb l'actual en el focus, i és probable que l'envoltin totes les fotografies de l'escola secundària.</para>
 
+<para
+>Si la imatge actual té coordenades de geolocalització, veureu un botó de mapa sota el botó <guilabel
+>Ves al context</guilabel
+> en el rètol informatiu. En fer clic amb el &BER; en aquest botó s'obrirà una finestra nova amb un mapa que mostrarà on s'ha fet la fotografia. </para>
+
+<note>
+<para
+>El botó del mapa només es mostrarà si el &kphotoalbum; s'ha compilat amb suport del &marble;. </para>
+</note>
+</sect2>
+
+<sect2 id="viewer-navigation">
+<title
+>Visualització de més imatges</title>
   <para
->En cas d'haver carregat diverses imatges al visualitzador, podreu anar endavant i enrere utilitzant les tecles <keysym
+>En cas d'haver carregat diverses imatges al visualitzador, a més d'anar endavant i enrere utilitzant les tecles <keysym
 >Re Pàg</keysym
 > i <keysym
 >Av Pàg</keysym
->. Podreu anar a la primera i l'última imatge utilitzant les tecles <keycap
+>, respectivament, podreu anar a la primera i l'última imatge utilitzant les tecles <keycap
 >Inici</keycap
 > i <keycap
 >Fi</keycap
 >. Aquestes característiques, per descomptat, també estan disponibles des del menú contextual.</para>
 
-  <para
->Si es carreguen diverses imatges al visualitzador, podreu demanar que s'executi com una presentació de diapositives, el qual significa que el &kphotoalbum; carregarà una imatge nova cada pocs segons. Amb quina freqüència es carrega una imatge nova es configura prement la tecla de control i la respectiva més (per a anar més de pressa) o menys (per a anar més lent). Iniciar i aturar la presentació de diapositives es realitza simplement prement <keycombo
+<para
+>Alternativament, podeu mostrar diverses imatges com a presentació de diapositives. En el mode de presentació de diapositives, el &kphotoalbum; carrega una imatge nova al visualitzador cada pocs segons. Premeu <keycombo
 >&Ctrl;<keycap
->S</keycap
+>r</keycap
 ></keycombo
->.</para>
+> per a activar o desactivar la presentació de diapositives. Premeu <keycombo
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+> per a fer que la presentació de diapositives vagi més ràpid o <keycombo
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+> per a fer-la més lenta. </para>
+</sect2>
 
-  <para
->Una característica molt útil del visualitzador del &kphotoalbum; és la seva capacitat d'entrar en el mode de pantalla completa. En aquest mode, el visualitzador utilitza tot l'espai de la pantalla, només haureu de prémer la tecla Retorn per a entrar i sortir del mode de pantalla completa.</para>
-
-  <para
->Utilitzant el visualitzador, podeu fer zoom per a apropar i allunyar la imatge, simplement arrossegant un rectangle amb el ratolí. En prémer la tecla de menys s'allunyarà. En prémer la tecla de més s'aproparà al centre de la imatge. La <xref linkend="fig-marking-zoom-rectangle"/> mostra com es marca un rectangle de zoom, i la <xref linkend="fig-zoomed-view"/> mostra el resultat del zoom.</para>
+<sect2 id="viewer-zooming">
+<title
+>Apropar i allunyar</title>
+<para
+>Utilitzant el visualitzador, podeu fer zoom per a apropar i allunyar la imatge arrossegant un rectangle amb el &BER;. En prémer la tecla <keycap
+>menys</keycap
+> s'allunyarà. En prémer la tecla <keycap
+>més</keycap
+> s'aproparà al centre de la imatge. La <xref linkend="fig-marking-zoom-rectangle"/> mostra com es marca un rectangle de zoom, i la <xref linkend="fig-zoomed-view"/> mostra el resultat del zoom.</para>
 
 <para
->En prémer la tecla de punt, es reinicia el zoom, de manera que la imatge es mostrarà sense zoom. En prémer la tecla del signe igual, establireu el nivell de zoom de manera que per a cada píxel a la pantalla es correspondrà amb un píxel a la imatge.</para>
-
-<para
->Des d'un punt de vista tècnic, l'única operació de zoom que funciona només quan es veuen vídeos són apropar i allunyar (les tecles de més i de menys).</para>
+>Prement la tecla de <keycap
+>punt</keycap
+> es reinicia el nivell de zoom, de manera que la imatge es mostrarà a la seva mida normal. Prement la tecla <keycap
+>=</keycap
+> s'establirà el nivell de zoom de manera que cada píxel de la pantalla es correspondrà amb un píxel a la imatge.</para>
 
   <figure id="fig-marking-zoom-rectangle">
     <title
@@ -103,24 +237,181 @@ SPDX-License-Identifier: GFDL-1.2-only
       </imageobject>
     </mediaobject>
   </figure>
+</sect2>
 
+<sect2 id="viewer-rotating">
+<title
+>Girar les imatges</title>
   <para
->L'elecció de les operacions de gira des del menú contextual, podeu girar la imatge (no funciona pels vídeos). Podeu anotar la imatge actual, simplement escollint <guimenuitem
->Anota</guimenuitem
-> al menú contextual.</para>
+>Premeu la tecla <keycap
+>7</keycap
+> per a girar la imatge 90 graus a l'esquerra. La tecla <keycap
+>9</keycap
+> gira la imatge 90 graus cap a la dreta. La tecla <keycap
+>8</keycap
+> gira la imatge 180 graus (&ead;, la capgira cap avall). </para>
+<important>
+<para
+>Qualsevol canvi en el gir d'una imatge al visualitzador és persistent.</para>
+</important>
+</sect2>
+</sect1>
 
+<sect1 id="sect-viewer-videos">
+<title
+>Visualització de vídeos</title>
+<para
+>Vegeu a <xref linkend="sect-viewer-common-commands"/> les ordres del visualitzador admeses tant per a vídeos com per a imatges. </para>
 
+<para
+>Quan es carrega un vídeo al visualitzador, el vídeo comença a reproduir-se automàticament. Premeu la tecla <keycap
+>p</keycap
+> per a aturar el vídeo i torneu-lo a prémer per a reprendre la reproducció de vídeo. </para>
 
+<para
+>Premeu <keycap
+>Inici</keycap
+> per a reiniciar el vídeo actual des del començament, i <keycap
+>&End;</keycap
+> atura el vídeo actual i el rebobina al començament. </para>
 
+<important>
+<para
+>Algunes característiques del visualitzador no estan disponibles en mirar un vídeo:</para>
+<itemizedlist>
+<listitem>
+<para
+>El rètol informatiu no es pot mostrar en un vídeo.</para>
+</listitem>
+<listitem>
+<para
+>Les operacions de zoom, excepte el mode de commutació a pantalla completa, no són compatibles amb els vídeos.</para>
+</listitem>
+<listitem>
+<para
+>Les operacions de gir no estan admeses als vídeos.</para>
+</listitem>
+<listitem>
+<para
+>El mode de presentació de diapositives no és compatible amb els vídeos.</para>
+</listitem>
+</itemizedlist>
+</important>
+
+<warning>
+<para
+>Tant els testimonis (vegeu <xref linkend="assigning-tokens-from-the-viewer"/>) com les etiquetes (vegeu <xref linkend="annotating-from-the-viewer"/>) es poden commutar quan es mostra un vídeo al visualitzador, però no hi ha cap retroalimentació immediata a l'usuari que hagi canviat res. Podeu establir el mode d'anotació del visualitzador a <emphasis
+>Bloquejat</emphasis
+> per a evitar commutar accidentalment un testimoni o una etiqueta. </para>
+
+<para
+>Com s'ha indicat anteriorment, la tecla <keycap
+>p</keycap
+> s'utilitza per a commutar la pausa, de manera que no és possible utilitzar aquesta tecla per a commutar un testimoni o una etiqueta mentre es visualitza un vídeo. </para>
+</warning>
+
+<sect2 id="viewer-seeking">
+<title
+>Cerca de vídeo</title>
+<para
+>El visualitzador admet la cerca dins d'un vídeo. Les vinculacions de tecles estan llistades en els <xref linkend="table-video-seek-controls"/>. </para>
+
+<table id="table-video-seek-controls">
+<title
+>Controls de cerca de vídeo</title>
+<tgroup cols="3">
+<thead>
+<row>
+<entry
+>Cerca de durada</entry>
+<entry
+>Cerca enrere</entry>
+<entry
+>Cerca endavant</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry
+>100 ms</entry>
+<entry
+><keycombo
+>&Maj;<keycap
+>&Up;</keycap
+></keycombo
+></entry>
+<entry
+><keycombo
+>&Maj;<keycap
+>&Down;</keycap
+></keycombo
+></entry>
+</row>
+<row>
+<entry
+>1 s</entry>
+<entry
+><keycap
+>&Up;</keycap
+></entry>
+<entry
+><keycap
+>&Down;</keycap
+></entry>
+</row>
+<row>
+<entry
+>10 s</entry>
+<entry
+><keycap
+>&Left;</keycap
+></entry>
+<entry
+><keycap
+>&Right;</keycap
+></entry>
+</row>
+<row>
+<entry
+>1 minut</entry>
+<entry
+><keycombo
+>&Maj;<keycap
+>&Left;</keycap
+></keycombo
+></entry>
+<entry
+><keycombo
+>&Maj;<keycap
+>&Right;</keycap
+></keycombo
+></entry>
+</row>
+<row>
+<entry
+>10 minuts</entry>
+<entry
+><keycombo
+>&Ctrl;<keycap
+>&Left;</keycap
+></keycombo
+></entry>
+<entry
+><keycombo
+>&Ctrl;<keycap
+>&Right;</keycap
+></keycombo
+></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</sect2>
+</sect1>
 
 <sect1 id="annotating-from-the-viewer">
 <title
 >Anotar les categories des del visualitzador</title>
-<para
->Tradicionalment, la manera principal d'etiquetar les imatges ha estat mitjançant <link linkend="chp-typingIn"
->el diàleg d'anotació</link
->. Al llarg dels anys s'han fet alguns intents diferents per a integrar l'etiquetatge en el visualitzador. El primer intent va ser mitjançant l'assignació de símbols en el visualitzador, un intent posterior va ser fent possible etiquetar directament escrivint part d'un element de categoria. A més, els elements de categoria es podrien assignar a les tecles de funció del teclat. El codi de tot això s'ha modernitzat per a fer el flux de treball molt més intuïtiu i accessible.</para>
-
 <para
 >Hi ha tres modes d'anotar les imatges en el visualitzador:</para>
 <itemizedlist>
@@ -170,7 +461,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 
 
 
-<sect1 id="tokens">
+<sect1 id="assigning-tokens-from-the-viewer">
 <title
 >Ajustar els símbols des del visualitzador</title>
 <para
@@ -252,7 +543,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 <para
 >Per a etiquetar les vostres imatges mentre les veieu, heu d'introduir el mode <emphasis
 >Assigna etiquetes</emphasis
->. Vegeu <xref linkend="fig-ctxmenu-for-mode-selection"/>. Amb aquesta opció, simplement premeu una tecla de lletra del teclat per a assignar o utilitzar l'etiqueta assignada.</para>
+>. Vegeu <xref linkend="fig-ctxmenu-for-mode-selection"/>. Amb això activat, simplement premeu una tecla de lletra del teclat per a assignar o utilitzar l'etiqueta assignada.</para>
 
 <para
 >A <xref linkend="fig-assign-macro-step1"/> a continuació, acabo de prémer <keycap
@@ -332,7 +623,14 @@ SPDX-License-Identifier: GFDL-1.2-only
 >&Ctrl;<keycap
 >a</keycap
 ></keycombo
-></para>
+>. També és així com obriu el diàleg per a veure els lligams de les tecles de macro. </para>
+
+<para
+>Premeu <keycombo
+>&Ctrl;<keycap
+>c</keycap
+></keycombo
+> per a copiar les anotacions de la imatge anterior a la llista de visualització. </para>
 
 </sect1>
 </chapter>

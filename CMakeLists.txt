@@ -354,8 +354,6 @@ set(libMainWindow_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/UpdateVideoThumbnail.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger/DuplicateMerger.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger/DuplicateMerger.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger/DuplicateMatch.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger/DuplicateMatch.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger/MergeToolTip.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger/MergeToolTip.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/CopyLinkEngine.cpp"

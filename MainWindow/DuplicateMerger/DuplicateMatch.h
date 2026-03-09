@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2012 - 2022 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -39,6 +40,11 @@ Q_SIGNALS:
 private:
     QLabel *m_image;
     QCheckBox *m_merge;
+
+    /**
+     * Contains the file selection radio buttons (one per filename in the set
+     * of duplicates).
+     */
     QList<QRadioButton *> m_buttons;
 };
 

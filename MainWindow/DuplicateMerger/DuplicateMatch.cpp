@@ -1,5 +1,6 @@
-// SPDX-FileCopyrightText: 2012-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2012 - 2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -34,6 +35,13 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList &files)
 
     QHBoxLayout *horizontalLayout = new QHBoxLayout;
     topLayout->addLayout(horizontalLayout);
+
+    m_merge = new QCheckBox();
+    m_merge->setToolTip(i18n("Merge these images"));
+    horizontalLayout->addWidget(m_merge);
+    m_merge->setChecked(false);
+    connect(m_merge, &QCheckBox::toggled, this, &DuplicateMatch::selectionChanged);
+
     m_image = new QLabel;
     horizontalLayout->addWidget(m_image);
 
@@ -42,11 +50,6 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList &files)
     horizontalLayout->addLayout(rightSideLayout);
     horizontalLayout->addStretch(1);
     rightSideLayout->addStretch(1);
-
-    m_merge = new QCheckBox(i18n("Merge these images"));
-    rightSideLayout->addWidget(m_merge);
-    m_merge->setChecked(false);
-    connect(m_merge, &QCheckBox::toggled, this, &DuplicateMatch::selectionChanged);
 
     QWidget *options = new QWidget;
     options->setEnabled(false);
@@ -63,6 +66,7 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList &files)
         optionsLayout->addLayout(lay);
         QRadioButton *button = new QRadioButton(fileName.relative());
         button->setProperty("data", QVariant::fromValue(fileName));
+        button->setFocusPolicy(Qt::TabFocus); // TODO: doesn't work
         lay->addWidget(button);
         if (first) {
             button->setChecked(true);
@@ -72,6 +76,7 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList &files)
         details->setText(i18nc("i for info", "i"));
         details->installEventFilter(this);
         details->setProperty("data", QVariant::fromValue(fileName));
+        details->setFocusPolicy(Qt::NoFocus);
         lay->addWidget(details);
         m_buttons.append(button);
     }

@@ -1014,7 +1014,7 @@ void MainWindow::Window::setupMenuBar()
     a->setText(i18n("Display Images and Videos with Incomplete Dates..."));
 
     a = actionCollection()->addAction(QLatin1String("mergeDuplicates"), this, &Window::mergeDuplicates);
-    a->setText(i18n("Merge duplicates"));
+    a->setText(i18n("Merge duplicates..."));
     a = actionCollection()->addAction(QString::fromLatin1("rebuildMD5s"), this, &Window::slotRecalcCheckSums);
     a->setText(i18n("Refresh Selected Thumbnails and Checksums"));
 

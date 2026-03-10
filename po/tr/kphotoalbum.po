@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-01 00:43+0000\n"
-"PO-Revision-Date: 2026-03-01 15:40+0300\n"
+"PO-Revision-Date: 2026-03-09 22:22+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -940,7 +940,7 @@ msgstr "Tümü"
 #: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:145
 #, kde-format
 msgid "Geo Position"
-msgstr "Coğrafi Konum"
+msgstr "Coğrafî Konum"
 
 #: Browser/OverviewPage.cpp:157
 #, kde-format
@@ -3288,7 +3288,7 @@ msgstr "Matthias Füssel"
 #: main.cpp:122
 #, kde-format
 msgid "Geo Position page in browser and various bug fixes"
-msgstr "Tarayıcıda coğrafi konum sayfası ve çeşitli hata düzeltmeleri"
+msgstr "Tarayıcıda coğrafî konum sayfası ve çeşitli hata düzeltmeleri"
 
 #: main.cpp:125
 #, kde-format
@@ -4773,23 +4773,23 @@ msgstr "<i>Görsellerden koordinatlar yükleniyor…</i>"
 #: Map/MapView.cpp:403
 #, kde-format
 msgid "<i>This image does not contain geographic coordinates.</i>"
-msgstr "<i>Bu görsel coğrafi koordinat içermiyor</i>"
+msgstr "<i>Bu görsel coğrafî koordinat içermiyor</i>"
 
 #: Map/MapView.cpp:411
 #, kde-format
 msgid ""
 "<i>Some of the selected images do not contain geographic coordinates.</i>"
-msgstr "<i>Seçili görsellerden bazıları coğrafik koordinat içermiyor.</i>"
+msgstr "<i>Seçili görsellerden bazıları coğrafî koordinat içermiyor.</i>"
 
 #: Map/MapView.cpp:421
 #, kde-format
 msgid "<i>Search for geographic coordinates.</i>"
-msgstr "<i>Coğrafik koordinatları ara.</i>"
+msgstr "<i>Coğrafî koordinatları ara.</i>"
 
 #: Map/MapView.cpp:429
 #, kde-format
 msgid "<i>None of the selected images contain geographic coordinates.</i>"
-msgstr "<i>Seçili görsellerden hiçbiri coğrafik koordinat içermiyor.</i>"
+msgstr "<i>Seçili görsellerden hiçbiri coğrafî koordinat içermiyor.</i>"
 
 #: Plugins/PurposeMenu.cpp:37
 #, kde-format
@@ -6659,7 +6659,7 @@ msgstr "[ yaklaş x%1 ]"
 #: Viewer/InfoBox.cpp:60
 #, kde-format
 msgid "Show the geographic position of this image on a map"
-msgstr "Bu görselin coğrafi konumunu haritada göster"
+msgstr "Bu görselin coğrafî konumunu haritada göster"
 
 #: Viewer/PhononDisplay.cpp:183 Viewer/QtMultimediaDisplay.cpp:94
 #, kde-format

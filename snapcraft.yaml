@@ -1,3 +1,4 @@
+# yamllint disable rule:line-length
 # Trigger build 3
 ---
 name: kphotoalbum
@@ -53,11 +54,11 @@ layout:
     symlink: $SNAP/usr/share/marble
 
 package-repositories:
--   type: apt
+  - type: apt
     components:
-    - main
+      - main
     suites:
-    - noble
+      - noble
     key-id: 444DABCF3667D0283F894EDDE6D4736255751E5D
     url: https://origin.archive.neon.kde.org/user
     key-server: keyserver.ubuntu.com
@@ -70,14 +71,14 @@ plugs:
     default-provider: hunspell-dictionaries
   ffmpeg-2404:
     interface: content
-    target: ffmpeg-platform # the folder where this content snap will be mounted
+    target: ffmpeg-platform  # the folder where this content snap will be mounted
     default-provider: ffmpeg-2404
 
 slots:
-    session-dbus-interface:
-        interface: dbus
-        name: org.kde.kphotoalbum
-        bus: session
+  session-dbus-interface:
+    interface: dbus
+    name: org.kde.kphotoalbum
+    bus: session
 
 parts:
   marble:
@@ -142,9 +143,9 @@ parts:
     source: https://invent.kde.org/graphics/kdegraphics-thumbnailers.git
     source-branch: release/25.12
     # build-packages:
-      # - libqmobipocket6-dev
+    # - libqmobipocket6-dev
     # stage-packages:
-      # - libqmobipocket6-2
+    # - libqmobipocket6-2
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release

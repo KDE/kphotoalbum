@@ -8,9 +8,9 @@ platforms:
     - name: Linux, FreeBSD
 public_lib: true  # if not defined, the library is ignored
 public_source_dirs:
-  - .
-#libraries: KF5::MyLib  # optional
-#cmakename: KF5BluezQt  # optional
+    - .
+# libraries: KF5::MyLib  # optional
+# cmakename: KF5BluezQt  # optional
 
 irc: kphotoalbum
 mailinglist: kphotoalbum

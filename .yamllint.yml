@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: CC0-1.0
+# SPDX-FileCopyrightText: 2024 KDE e.V.
+
+extends: default
+
+ignore-from-file:
+  - .gitignore
+  - .yamlignore
+
+rules:
+  # don't require a document start marker
+  document-start: disable
+  # allow longer lines; warn about even longer ones
+  line-length:
+    max: 160
+    level: warning

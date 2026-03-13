@@ -82,7 +82,7 @@ slots:
 parts:
   marble:
     source: https://invent.kde.org/education/marble.git
-    source-branch: release/25.08
+    source-branch: release/25.12
     plugin: cmake
     build-packages:
       - libpulse0
@@ -123,7 +123,7 @@ parts:
       - marble
     plugin: cmake
     source: https://invent.kde.org/graphics/libkdcraw.git
-    source-branch: release/25.08
+    source-branch: release/25.12
     build-packages:
       - libraw-dev
     stage-packages:
@@ -140,7 +140,7 @@ parts:
       - libkdcraw
     plugin: cmake
     source: https://invent.kde.org/graphics/kdegraphics-thumbnailers.git
-    source-branch: release/25.08
+    source-branch: release/25.12
     # build-packages:
       # - libqmobipocket6-dev
     # stage-packages:

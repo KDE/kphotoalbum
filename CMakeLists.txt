@@ -58,7 +58,7 @@ include(ECMCoverageOption)
 kde_enable_exceptions()
 
 file(GLOB_RECURSE PRE_COMMIT_HOOKS ${CMAKE_SOURCE_DIR}/dev/githooks/pre-commit.d/*)
-kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT CUSTOM_SCRIPTS ${PRE_COMMIT_HOOKS})
+kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT JSON_SCHEMA CUSTOM_SCRIPTS ${PRE_COMMIT_HOOKS})
 
 add_definitions(
     -DQT_DISABLE_DEPRECATED_BEFORE=${MINIMUM_QT6_VERSION_HEX}

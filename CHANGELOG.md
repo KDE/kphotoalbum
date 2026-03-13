@@ -32,7 +32,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
-KPhotoAlbum 6.2.0 (2026-02-21)
+KPhotoAlbum 6.2.0 (2026-03-13)
 ------------------------------
 
 ### Added

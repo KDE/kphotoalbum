@@ -32,7 +32,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
-KPhotoAlbum 6.2.0 (2026-02-21)
+KPhotoAlbum 6.2.0 (2026-03-13)
 ------------------------------
 
 ### Added
@@ -60,6 +60,7 @@ KPhotoAlbum 6.2.0 (2026-02-21)
  - Prevent unnecessary entries in the block list (#512207)
  - Prevent creation of .kim files over 4GB (mitigates bug #512199)
  - Fix compilation without Marble
+ - Added various tweaks to the format of the "how long ago was this taken?" string formatting
 
 
 KPhotoAlbum 6.1.0 (2025-10-04)

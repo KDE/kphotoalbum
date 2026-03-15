@@ -17,15 +17,4 @@ target_link_libraries(kpa-thumbnailtool PRIVATE
 
 install(TARGETS kpa-thumbnailtool ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
-include(ECMAddTests)
-ecm_add_test(
-    TestThumbnailCacheConverter.h
-    TestThumbnailCacheConverter.cpp
-    ThumbnailCacheConverter.cpp
-    ThumbnailCacheConverter.h
-    TEST_NAME ThumbnailCacheConverter
-    LINK_LIBRARIES Qt6::Core Qt6::Test KF6::I18n
-    )
-
-
 # vi:expandtab:tabstop=4 shiftwidth=4:

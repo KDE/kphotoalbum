@@ -52,6 +52,7 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
 include(KDEGitCommitHooks)
 
+include(ECMAddTests)
 include(ECMCoverageOption)
 
 # enable exceptions:
@@ -685,14 +686,16 @@ if(Marble_FOUND)
         )
 endif()
 
-add_subdirectory(DB)
 add_subdirectory(lib)
 add_subdirectory(images)
 add_subdirectory(icons)
 add_subdirectory(demo)
 add_subdirectory(themes)
 add_subdirectory(scripts)
-add_subdirectory(Utilities)
+
+if(BUILD_TESTING)
+    add_subdirectory(tests)
+endif()
 
 add_subdirectory(doc)
 

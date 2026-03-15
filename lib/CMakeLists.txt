@@ -82,9 +82,6 @@ endif()
 
 install(TARGETS kpabase ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
-# unit tests:
-add_subdirectory(kpabase)
-
 ################################################################################
 ### KPA::Thumbnails
 add_library(kpathumbnails
@@ -106,9 +103,6 @@ target_link_libraries(kpathumbnails
     )
 
 install(TARGETS kpathumbnails ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
-
-# unit tests:
-add_subdirectory(kpathumbnails)
 
 ################################################################################
 ### KPA::Exif
@@ -144,8 +138,5 @@ target_link_libraries(kpaexif
     )
 
 install(TARGETS kpaexif ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
-
-# unit tests:
-add_subdirectory(kpaexif)
 
 # vi:expandtab:tabstop=4 shiftwidth=4:

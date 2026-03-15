@@ -1,18 +1,23 @@
 # SPDX-FileCopyrightText: none
 # SPDX-License-Identifier: CC0-1.0
+
+# Relevant links:
+# https://invent.kde.org/sysadmin/ci-utilities/-/tree/master/gitlab-templates
 include:
   - project: sysadmin/ci-utilities
     file:
-        # validate:
-        - /gitlab-templates/reuse-lint.yml
-        - /gitlab-templates/xml-lint.yml
-        # build:
-        - /gitlab-templates/linux-qt6.yml
-        - /gitlab-templates/freebsd-qt6.yml
-        # deploy:
-        - /gitlab-templates/flatpak.yml
-        # - /gitlab-templates/craft-appimage-qt6.yml
-        - /gitlab-templates/snap-snapcraft-lxd.yml
+      # validate:
+      - /gitlab-templates/json-validation.yml
+      - /gitlab-templates/reuse-lint.yml
+      - /gitlab-templates/xml-lint.yml
+      - /gitlab-templates/yaml-lint.yml
+      # build:
+      - /gitlab-templates/linux-qt6.yml
+      - /gitlab-templates/freebsd-qt6.yml
+      # deploy:
+      - /gitlab-templates/flatpak.yml
+      # - /gitlab-templates/craft-appimage-qt6.yml
+      - /gitlab-templates/snap-snapcraft-lxd.yml
 
 ## jzarl: Until KF6 lands in Debian stable, disable CI there
 .template: &debian
@@ -34,12 +39,12 @@ include:
     - make install
     - ctest --rerun-failed --output-on-failure
 
-#build:debian-stable:
-#  stage: build
-#  image: "debian:stable"
-#  <<: *debian
+#  build:debian-stable:
+#    stage: build
+#    image: "debian:stable"
+#    <<: *debian
 #
-#build:debian-testing:
-#  stage: build
-#  image: "debian:testing"
-#  <<: *debian
+#  build:debian-testing:
+#    stage: build
+#    image: "debian:testing"
+#    <<: *debian

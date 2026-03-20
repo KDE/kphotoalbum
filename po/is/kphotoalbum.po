@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-01 00:43+0000\n"
-"PO-Revision-Date: 2026-02-08 14:41+0000\n"
+"PO-Revision-Date: 2026-03-19 18:05+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -1641,7 +1641,7 @@ msgstr "EXIF-upplýsingar og lýsigögn skráar"
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
-msgstr ""
+msgstr "Sía merkingar ..."
 
 #: Exif/InfoDialog.cpp:79
 #, kde-format
@@ -3156,7 +3156,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Automatically Stack Images"
-msgstr ""
+msgstr "Stafla myndum inn sjálfkrafa"
 
 #: MainWindow/AutoStackImages.cpp:56
 #, kde-format
@@ -3567,7 +3567,7 @@ msgstr "gagnagrunnsskrá"
 #: MainWindow/Options.cpp:31
 #, kde-format
 msgid "Application rc file."
-msgstr ""
+msgstr "rc-skrá forrits"
 
 #: MainWindow/Options.cpp:32
 #, kde-format
@@ -3895,7 +3895,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
-msgstr ""
+msgstr "Vandamál í stöflun"
 
 #: MainWindow/Window.cpp:412
 #, kde-format
@@ -3905,7 +3905,7 @@ msgstr ""
 #: MainWindow/Window.cpp:413
 #, kde-format
 msgid "Stacking Error"
-msgstr ""
+msgstr "Villa í stöflun:"
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:624
 #: MainWindow/Window.cpp:1340 MainWindow/Window.cpp:1437
@@ -4550,7 +4550,7 @@ msgstr "Endurnefna"
 #: Settings/CategoryPage.cpp:111
 #, kde-format
 msgid "Positionable tags:"
-msgstr ""
+msgstr "Staðsetjanleg merki:"
 
 #: Settings/CategoryPage.cpp:113
 #, kde-format
@@ -5780,8 +5780,8 @@ msgstr "Ýttu á <shortcut>Escape</shortcut> til að hreinsa síuna."
 #, kde-format
 msgid "Filter view by rating: %1 star"
 msgid_plural "Filter view by rating: %1 stars"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sía yfirlit eftir einkunn: %1 stjarna"
+msgstr[1] "Sía yfirlit eftir einkunn: %1 stjörnur"
 
 #: ThumbnailView/FilterWidget.cpp:62
 #, kde-format
@@ -5992,10 +5992,7 @@ msgstr[0] "%1 vika"
 msgstr[1] "%1 vikur"
 
 #: Utilities/Timespan.cpp:216
-#, fuzzy, kde-format
-#| msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
-#| msgid "ca. %1 week"
-#| msgid_plural "ca. %1 weeks"
+#, kde-format
 msgctxt "Like \"This happened 'about 6 weeks' ago\""
 msgid "about %1 week"
 msgid_plural "about %1 weeks"
@@ -6003,10 +6000,7 @@ msgstr[0] "u.þ.b. %1 vika"
 msgstr[1] "u.þ.b. %1 vikur"
 
 #: Utilities/Timespan.cpp:229
-#, fuzzy, kde-format
-#| msgctxt "Like \"This happened 'ca. 2 months' ago\""
-#| msgid "ca. %1 month"
-#| msgid_plural "ca. %1 months"
+#, kde-format
 msgctxt "Like \"This happened 'about 2 months' ago\""
 msgid "about %1 month"
 msgid_plural "about %1 months"
@@ -6101,7 +6095,7 @@ msgstr "[ aðdráttur x%1 ]"
 #: Viewer/InfoBox.cpp:60
 #, kde-format
 msgid "Show the geographic position of this image on a map"
-msgstr ""
+msgstr "Sýna landfræðilega staðsetningu þessarar myndar á korti"
 
 #: Viewer/PhononDisplay.cpp:183 Viewer/QtMultimediaDisplay.cpp:94
 #, kde-format
@@ -6111,7 +6105,7 @@ msgstr "Villa við afspilun á miðli"
 #: Viewer/SelectCategoryAndValue.cpp:107
 #, kde-format
 msgid "Type name of category and item"
-msgstr ""
+msgstr "Skrifaðu heiti flokks og atriðis"
 
 #: Viewer/SelectCategoryAndValue.cpp:136
 #, kde-format
@@ -6412,6 +6406,8 @@ msgid ""
 "Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
 "slideshow slower"
 msgstr ""
+"Ræsing skyggnusýningar<br/>%1 lætur skyggnusýningu fara hraðar<br/>%2 lætur "
+"skyggnusýningu fara hægar"
 
 #: Viewer/ViewerWidget.cpp:969
 #, kde-format

@@ -3948,7 +3948,7 @@ msgstr "عنوان_الواجهة"
 #: MainWindow/Options.cpp:58
 #, kde-format
 msgid "Save the database and immediately quit after showing the main window."
-msgstr "احفظ قاعدة البيانات والخروج فورًا بعد عرض النافذة الرئيسية."
+msgstr "احفظ قاعدة البيانات والخروج فورًا بعد عرض النافذة الرئيسة."
 
 #: MainWindow/Options.cpp:59
 #, kde-format

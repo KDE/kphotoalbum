@@ -6,14 +6,14 @@
 # Yuri Efremov <yur.arh@gmail.com>, 2010, 2014.
 # Victor Ryzhykh <victorr2007@yandex.ru>, 2014.
 # Julia Dronova <juliette.tux@gmail.com>, 2014.
-# Alexander Yavorsky <kekcuha@gmail.com>, 2020.
+# SPDX-FileCopyrightText: 2020, 2026 Alexander Yavorsky <kekcuha@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-01 00:43+0000\n"
-"PO-Revision-Date: 2020-03-22 17:24+0300\n"
-"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
+"PO-Revision-Date: 2026-04-03 22:23+0200\n"
+"Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 19.12.3\n"
+"X-Generator: Lokalize 25.12.3\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -63,16 +63,13 @@ msgid "Description"
 msgstr "Описание"
 
 #: AnnotationDialog/Dialog.cpp:111
-#, fuzzy, kde-format
-#| msgid ""
-#| "(You have differing descriptions on individual images, setting text here "
-#| "will override them all)"
+#, kde-format
 msgid ""
 "(You have differing descriptions on individual images.  Enter text to append "
 "to or replace the descriptions.)"
 msgstr ""
-"(Описания отличаются на отдельных изображениях, введённый здесь текст "
-"заменит все описания.)"
+"(Описания отличаются на отдельных изображениях. Введите текст для добавления "
+"к описаниям или замены их.)"
 
 #: AnnotationDialog/Dialog.cpp:136
 #, kde-format
@@ -237,23 +234,22 @@ msgstr "Искать только цифровые негативы (RAW)"
 #: AnnotationDialog/Dialog.cpp:440
 #, kde-format
 msgid "Append"
-msgstr ""
+msgstr "Добавить"
 
 #: AnnotationDialog/Dialog.cpp:441
 #, kde-format
 msgid "Append new text to each description"
-msgstr ""
+msgstr "Добавлять новый текст к каждому описанию"
 
 #: AnnotationDialog/Dialog.cpp:442
-#, fuzzy, kde-format
-#| msgid "Places"
+#, kde-format
 msgid "Replace"
-msgstr "Места"
+msgstr "Заменить"
 
 #: AnnotationDialog/Dialog.cpp:443
 #, kde-format
 msgid "Replace each description with the new text"
-msgstr ""
+msgstr "Заменить каждое описание новым текстом"
 
 # BUGME: this whatsthis displays XML tags as text --aspotashev
 #: AnnotationDialog/Dialog.cpp:452
@@ -302,13 +298,12 @@ msgstr "Настройка элементов окна..."
 #: AnnotationDialog/Dialog.cpp:938
 #, kde-format
 msgid "Save current layout globally"
-msgstr ""
+msgstr "Сохранить текущее расположение элементов"
 
 #: AnnotationDialog/Dialog.cpp:939
-#, fuzzy, kde-format
-#| msgid "Save the current map settings"
+#, kde-format
 msgid "Save current layout for this DB"
-msgstr "Сохранить текущие параметры карты"
+msgstr "Сохранить текущее расположение элементов для этой базы данных"
 
 #: AnnotationDialog/Dialog.cpp:941
 #, kde-format
@@ -353,35 +348,29 @@ msgid "Show Only Selected Ctrl+S"
 msgstr "Показать только выбранные (Ctrl+S)"
 
 #: AnnotationDialog/Dialog.cpp:1033 Map/MapView.cpp:360
-#, fuzzy, kde-format
-#| msgid "Settings saved"
+#, kde-format
 msgid "Settings saved!"
 msgstr "Параметры сохранены."
 
 #: AnnotationDialog/Dialog.cpp:1033
-#, fuzzy, kde-format
-#| msgid "Save Current Window Setup"
+#, kde-format
 msgid "Save current window setup"
-msgstr "Сохранить текущее состояние окна"
+msgstr "Сохранение текущего состояния окна"
 
 #: AnnotationDialog/Dialog.cpp:1098
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Some changes are made to annotations. Do you really want to cancel all "
-#| "recent changes for each affected file?</p>"
+#, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
-"<p>В окне комментирования были внесены изменения. Отменить все текущие "
-"изменения для каждого изменённого файла?</p>"
+"<p>Внесены изменения в комментарии. Отменить все недавние изменения для "
+"каждого затронутого файла?</p>"
 
 #: AnnotationDialog/Dialog.cpp:1099
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "Сохранение изменений"
+msgstr "Отменить изменения?"
 
 #: AnnotationDialog/Dialog.cpp:1198
 #, kde-format
@@ -494,16 +483,14 @@ msgstr ""
 "диалог настройки.</p>"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:51
-#, fuzzy, kde-format
-#| msgid "Annotate previous image"
+#, kde-format
 msgid "Annotate previous image (Page Up)"
-msgstr "Комментировать предыдущее изображение"
+msgstr "Комментировать предыдущее изображение (Page Up)"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:57
-#, fuzzy, kde-format
-#| msgid "Annotate next image"
+#, kde-format
 msgid "Annotate next image (Page Down)"
-msgstr "Комментировать следующее изображение"
+msgstr "Добавить аннотацию к следующему изображению (Page Down)"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:82
 #, kde-format
@@ -547,46 +534,40 @@ msgstr ""
 "отдельных изображений."
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:355
-#, fuzzy, kde-format
-#| msgid "Toggle fullscreen preview"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
 msgstr "Включить полноэкранный просмотр"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:356
-#, fuzzy, kde-format
-#| msgid "Rotate counterclockwise"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
 msgstr "Повернуть против часовой стрелки"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:357
-#, fuzzy, kde-format
-#| msgid "Rotate clockwise"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
 msgstr "Повернуть по часовой стрелке"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:358
-#, fuzzy, kde-format
-#| msgid "Copy tags from previously tagged image"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
-msgstr "Копировать метки из предыдущего помеченного изображения"
+msgstr "Копировать метки из ранее помеченного изображения"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:359
-#, fuzzy, kde-format
-#| msgid "Delete image"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete image"
 msgstr "Удалить изображение"
 
 #: AnnotationDialog/ListSelect.cpp:72
-#, fuzzy, kde-format
-#| msgid "Enter a date..."
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
-msgstr "Введите дату..."
+msgstr "Введите метку…"
 
 #: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:342
 #, kde-format
@@ -702,8 +683,7 @@ msgid "Really Delete %1?"
 msgstr "Удаление %1"
 
 #: AnnotationDialog/ListSelect.cpp:463
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "Переименование элемента"
@@ -723,16 +703,13 @@ msgstr ""
 "изображении, содержащем его.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:473
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename \"%1\""
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Переименовать «%1»..."
+msgstr "Переименовать «%1»?"
 
 #: AnnotationDialog/ListSelect.cpp:477
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Переименовать"
@@ -838,10 +815,9 @@ msgid "Extract Video Thumbnail"
 msgstr "Создание миниатюры видеозаписи"
 
 #: BackgroundJobs/ReadVideoMetaDataJob.cpp:38
-#, fuzzy, kde-format
-#| msgid "Read Video Length"
+#, kde-format
 msgid "Read Video Metadata"
-msgstr "Определение продолжительности видеозаписи"
+msgstr "Чтение метаданных видео"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
@@ -963,16 +939,14 @@ msgid "Videos"
 msgstr "Видеозаписи"
 
 #: Browser/AbstractCategoryModel.cpp:170
-#, fuzzy, kde-format
-#| msgid "Sort by Date"
+#, kde-format
 msgid "Start Date"
-msgstr "Сортировать по дате"
+msgstr "Дата начала"
 
 #: Browser/AbstractCategoryModel.cpp:172
-#, fuzzy, kde-format
-#| msgid "Date"
+#, kde-format
 msgid "End Date"
-msgstr "Дата"
+msgstr "Дата окончания"
 
 #: Browser/Breadcrumb.cpp:27
 #, kde-format
@@ -1126,21 +1100,20 @@ msgid "Move Items"
 msgstr "Перемещение элементов"
 
 #: DateBar/DateBarWidget.cpp:65
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
-msgstr "Дата:"
+msgstr "Шкала времени"
 
 #: DateBar/DateBarWidget.cpp:74
 #, kde-format
 msgid "Scroll right"
-msgstr ""
+msgstr "Прокрутить вправо"
 
 #: DateBar/DateBarWidget.cpp:83
 #, kde-format
 msgid "Scroll left"
-msgstr ""
+msgstr "Прокрутить влево"
 
 #: DateBar/DateBarWidget.cpp:92
 #, kde-format
@@ -1153,12 +1126,10 @@ msgid "Zoom out"
 msgstr "Уменьшить"
 
 #: DateBar/DateBarWidget.cpp:115
-#, fuzzy, kde-format
-#| msgctxt "Delete selected images"
-#| msgid "Delete Selected"
+#, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
-msgstr "Удалить выбранные"
+msgstr "Очистить выбор дат"
 
 #: DateBar/DateBarWidget.cpp:128
 #, kde-kuit-format
@@ -1171,6 +1142,14 @@ msgid ""
 "selection: Click/drag below the timeline.</item><item>Jump to a date by "
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
+"<title>Панель дат</title><para><list><item>Прокручивайте с помощью кнопок со "
+"стрелками, колеса прокрутки или средней кнопки мыши.</item><item>Используйте "
+"кнопки «В начало» и «В конец» для прокрутки к началу или концу.</"
+"item><item>Изменяйте масштаб с помощью кнопок «+»/«-» или комбинации Ctrl + "
+"колесо прокрутки.</item><item>Ограничьте область просмотра выбранным "
+"диапазоном дат: щёлкните и перетащите под временной шкалой.</"
+"item><item>Перейдите к дате, щёлкнув по столбцу гистограммы.</item></list></"
+"para>"
 
 #: DateBar/DateBarWidget.cpp:743
 #, kde-format
@@ -1272,16 +1251,14 @@ msgid "10 Seconds"
 msgstr "10 секунд"
 
 #: DB/Category.cpp:326
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1'."
+#, kde-format
 msgid "Unable to create folder '%1'."
-msgstr "Не удалось создать каталог «%1»."
+msgstr "Не удалось создать папку «%1»."
 
 #: DB/Category.cpp:326
-#, fuzzy, kde-format
-#| msgid "Unable to Create Directory"
+#, kde-format
 msgid "Unable to Create Folder"
-msgstr "Не удалось создать каталог"
+msgstr "Не удалось создать папку"
 
 #: DB/Category.cpp:335
 #, kde-format
@@ -1403,13 +1380,13 @@ msgstr "Видеозапись"
 #: DB/ImageDB.cpp:1024
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
-msgstr ""
+msgstr "KPhotoAlbum — требуется ручное исправление (%1)"
 
 #: DB/ImageDB.cpp:1025
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
-msgstr ""
+msgstr ","
 
 #: DB/NewImageFinder.cpp:488
 #, kde-format
@@ -1472,25 +1449,20 @@ msgid "No other %1"
 msgstr "Без других %1"
 
 #: DB/XML/FileReader.cpp:60
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</"
-#| "p><p>Chances are you will be able to read this file, but when writing it "
-#| "back, information saved in the newer version will be lost</p>"
+#, kde-format
 msgid ""
 "<p>The XML database file is from a newer version of KPhotoAlbum!</"
 "p><p>Chances are you will be able to read this file, but when writing it "
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
-"<p>Файл базы данных (index.xml) был создан более новой версией KPhotoAlbum.</"
-"p><p>Скорее всего, у вас получится прочитать этот файл. Но при записи в него "
-"будет потеряна информация, поддерживаемая только новой версией программы.</p>"
+"<p>Файл базы данных XML создан более новой версией KPhotoAlbum.</p><p>Скорее "
+"всего, его чтение будет возможно, но при сохранении будет утеряна "
+"информация, поддерживаемая только новой версией.</p>"
 
 #: DB/XML/FileReader.cpp:63
-#, fuzzy, kde-format
-#| msgid "index.xml version mismatch"
+#, kde-format
 msgid "XML database file version mismatch"
-msgstr "Несовпадение версии index.xml"
+msgstr "Несовпадение версии файла базы данных XML"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
@@ -1616,24 +1588,27 @@ msgid ""
 "now contain tags that were merged during the repair.</p><p>The following "
 "tags require manual inspection:<ul>"
 msgstr ""
+"<p>В базе данных обнаружены и исправлены несоответствия. В некоторых "
+"категориях теперь содержатся метки, объединённые при исправлении.</"
+"p><p>Следующие метки требуют ручной проверки:<ul>"
 
 #: DB/XML/FileReader.cpp:496
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
-msgstr ""
+msgstr "<li>%1:<br/>"
 
 #: DB/XML/FileReader.cpp:498
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
-msgstr ""
+msgstr "%1<br/>"
 
 #: DB/XML/FileReader.cpp:501
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
-msgstr ""
+msgstr "</li>"
 
 #: DB/XML/FileReader.cpp:506
 #, kde-format
@@ -1642,25 +1617,16 @@ msgid ""
 "</ul></p><p>All affected images have also been marked with a tag "
 "<em>KPhotoAlbum - manual repair needed</em>.</p>"
 msgstr ""
+"</ul></p><p>Все затронутые изображения также помечены меткой <em>KPhotoAlbum "
+"— требуется ручное исправление</em>.</p>"
 
 #: DB/XML/FileReader.cpp:510
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgid "Database repair required"
-msgstr "Модуль работы с базой данных"
+msgstr "Требуется восстановление базы данных"
 
 #: DB/XML/FileReader.cpp:533
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
-#| "installation error</p><p>If you have installed KPhotoAlbum yourself, then "
-#| "you must remember to set the environment variable <b>KDEDIRS</b>, to "
-#| "point to the topmost installation directory.</p><p>If you for example ran "
-#| "cmake with <b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, then you must "
-#| "use the following environment variable setup (this example is for Bash "
-#| "and compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></"
-#| "p><p>In case you already have KDEDIRS set, simply append the string as if "
-#| "you where setting the <b>PATH</b> environment variable</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
 "installation error</p><p>If you have installed KPhotoAlbum yourself, then "
@@ -1672,18 +1638,15 @@ msgid ""
 "you already have KDEDIRS set, simply append the string as if you where "
 "setting the <b>PATH</b> environment variable</p>"
 msgstr ""
-"<p>KPhotoAlbum не удалось загрузить параметры по умолчанию, что указывает на "
-"ошибку установки.</p>\n"
-"<p>Если вы устанавливали KPhotoAlbum самостоятельно, не забудьте установить "
-"переменную окружения <b>KDEDIRS</b>, которая должна указывать на корневой "
-"каталог установки.</p>\n"
-"<p>Например, если вы запускали cmake с параметром <b>-DCMAKE_INSTALL_PREFIX=/"
-"usr/local/kde</b>, то необходимо настроить переменную окружения следующим "
-"образом (этот пример для Bash и совместимых командных процессоров):</p>\n"
-"<p><b>export KDEDIRS=/usr/local/kde</b></p>\n"
-"<p>В случае, если переменная окружения KDEDIRS уже настроена, просто "
-"добавьте необходимое значение подобно тому, как вы настраиваете переменную "
-"окружения <b>PATH</b>.</p>"
+"<p>Не удалось загрузить параметры по умолчанию, что указывает на ошибку "
+"установки KPhotoAlbum.</p><p>Если вы устанавливали KPhotoAlbum "
+"самостоятельно, необходимо задать переменную окружения <b>KDEDIRS</b>, "
+"указывающую на корневой каталог установки.</p><p>Например, если вы запускали "
+"cmake с параметром <b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, то "
+"переменную окружения следует задать следующим образом (пример для Bash и "
+"совместимых оболочек):</p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>Если "
+"переменная KDEDIRS уже задана, просто добавьте путь к ней, как это делается "
+"для переменной окружения <b>PATH</b>.</p>"
 
 #: DB/XML/FileReader.cpp:541
 #, kde-format
@@ -1835,7 +1798,7 @@ msgstr "<p>Дополнительная информация об ошибке:<
 #: DB/XML/XmlReader.cpp:91
 #, kde-kuit-format
 msgid "<p>Database path: <filename>%1</filename></p>"
-msgstr ""
+msgstr "<p>Путь к базе данных: <filename>%1</filename></p>"
 
 #: DB/XML/XmlReader.cpp:94
 #, kde-format
@@ -1843,19 +1806,17 @@ msgid "Error while reading database file"
 msgstr "Ошибка при чтении файла базы данных"
 
 #: Exif/InfoDialog.cpp:35
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Exif Information"
+#, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
-msgstr "Метаданные EXIF"
+msgstr "Метаданные EXIF и файла"
 
 #: Exif/InfoDialog.cpp:75
 #, kde-format
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
-msgstr ""
+msgstr "Фильтр меток…"
 
 #: Exif/InfoDialog.cpp:79
 #, kde-format
@@ -1863,26 +1824,24 @@ msgid "IPTC character set:"
 msgstr "Кодировка IPTC:"
 
 #: Exif/InfoDialog.cpp:98
-#, fuzzy, kde-format
-#| msgid "Exif Info"
+#, kde-format
 msgid "Exif info"
 msgstr "Метаданные EXIF"
 
 #: Exif/InfoDialog.cpp:99
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgid "File metadata"
-msgstr "Поддержка метаданных видеозаписей"
+msgstr "Метаданные файла"
 
 #: Exif/MetaDataDisplay.cpp:37
 #, kde-format
 msgid "Absolute path:"
-msgstr ""
+msgstr "Абсолютный путь:"
 
 #: Exif/MetaDataDisplay.cpp:42
 #, kde-format
 msgid "MIME type:"
-msgstr ""
+msgstr "Тип MIME:"
 
 #: Exif/MetaDataDisplay.cpp:46 Settings/ViewerSizeConfig.cpp:26
 #, kde-format
@@ -1892,71 +1851,64 @@ msgstr "Размер:"
 #: Exif/MetaDataDisplay.cpp:50
 #, kde-format
 msgid "Created:"
-msgstr ""
+msgstr "Создано:"
 
 #: Exif/MetaDataDisplay.cpp:54
 #, kde-format
 msgid "Changed:"
-msgstr ""
+msgstr "Изменено:"
 
 #: Exif/MetaDataDisplay.cpp:58
 #, kde-format
 msgid "Owner:"
-msgstr ""
+msgstr "Владелец:"
 
 #: Exif/MetaDataDisplay.cpp:62
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Group name:"
+#, kde-format
 msgid "Group:"
-msgstr "Название группы:"
+msgstr "Группа:"
 
 #: Exif/MetaDataDisplay.cpp:66
 #, kde-format
 msgid "Permissions:"
-msgstr ""
+msgstr "Права доступа:"
 
 #: Exif/MetaDataDisplay.cpp:100
 #, kde-format
 msgid "Open folder with a file manager"
-msgstr ""
+msgstr "Открыть папку в файловом менеджере"
 
 #: Exif/MetaDataDisplay.cpp:107
-#, fuzzy, kde-format
-#| msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
-#| msgid "%1 (%2)"
+#, kde-format
 msgctxt ""
 "File size composed of a pre-formatted (already localized) human-readable "
 "file size (%1) and the number of bytes (%2)"
 msgid "%1 (%2 B)"
-msgstr "%1 (%2)"
+msgstr "%1 (%2 Б)"
 
 #: Exif/MetaDataDisplay.cpp:122 Exif/MetaDataDisplay.cpp:128
 #: Exif/MetaDataDisplay.cpp:134
-#, fuzzy, kde-format
-#| msgid "or"
+#, kde-format
 msgctxt "File permission shortcut for \"reading allowed\""
 msgid "r"
-msgstr "или"
+msgstr "r"
 
 #: Exif/MetaDataDisplay.cpp:124 Exif/MetaDataDisplay.cpp:130
 #: Exif/MetaDataDisplay.cpp:136
 #, kde-format
 msgctxt "File permission shortcut for \"writing allowed\""
 msgid "w"
-msgstr ""
+msgstr "н"
 
 #: Exif/MetaDataDisplay.cpp:126 Exif/MetaDataDisplay.cpp:132
 #: Exif/MetaDataDisplay.cpp:138
 #, kde-format
 msgctxt "File permission shortcut for \"executing allowed\""
 msgid "x"
-msgstr ""
+msgstr "x"
 
 #: Exif/MetaDataDisplay.cpp:157
-#, fuzzy, kde-format
-#| msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
-#| msgid "%1 (%2)"
+#, kde-format
 msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and its octal representation (e.g. \"0644\")"

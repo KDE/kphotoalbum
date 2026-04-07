@@ -85,9 +85,9 @@ SPDX-License-Identifier: GFDL-1.2-only
 >. Cependant, si la recherche est effectuée depuis la fenêtre principale, la sélection actuelle est explorée en détails pour une correspondance plus précise. En tout cas, à ce point, je vais passer par les images les mieux notées parmi toutes les images pour affiner de nouveau sur celles-ci. Par exemple, si j'ai cinq photos similaires d'une espèce de Nudibranche, je diminue généralement la note des images les moins bonnes et augmente la meilleure. Vous pouvez comparer des images en sélectionnant celles qui vous intéressent et en démarrant l'afficheur. Les images peuvent être supprimées depuis l'afficheur avec la touche<keycap
 >Suppr</keycap
 >. Cela désactive l'affichage de l'image courante à l'intérieur de l'afficheur, mais rien n'est retiré ou supprimé. Cela permet de comparer les deux ou trois meilleures images côte à côte en se déplaçant à l'aide de <keycap
->Page Suiv</keycap
+>Page Suivante</keycap
 > et <keycap
->Page Préc</keycap
+>Page Précédente</keycap
 >. J'ai couramment utilisé une catégorie <literal
 >tmp</literal
 > pour faire la notation. </para>

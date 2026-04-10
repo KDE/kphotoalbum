@@ -37,19 +37,42 @@
 // Width and height of the thumbnail preview pixmaps.
 const auto PREVIEW_SIZE = QSize(100, 100);
 
+// Implements custom filtering for the duplicates model.
+class DuplicateSortFilterProxyModel : public QSortFilterProxyModel
+{
+public:
+    explicit DuplicateSortFilterProxyModel(QObject *parent = nullptr)
+        : QSortFilterProxyModel(parent)
+    {
+    }
+
+protected:
+    bool filterAcceptsRow(int row, const QModelIndex &parent) const override
+    {
+        // Matches any filename in a row.
+        for (int col = 1; col < sourceModel()->columnCount(); col++) {
+            QModelIndex index = sourceModel()->index(row, col, parent);
+
+            if (sourceModel()->data(index).toString().contains(filterRegularExpression())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+};
+
 namespace MainWindow
 {
-
-DuplicateMerger::DuplicateMerger(QWidget *parent)
-    : QDialog(parent)
-    , m_model(new DuplicatesModel(this))
+DuplicateMerger::DuplicateMerger(QWidget *parent) : QDialog(parent) ,
+    m_model(new DuplicatesModel(this))
 {
     setModal(true);
 
     setAttribute(Qt::WA_DeleteOnClose);
     resize(800, 600);
 
-    m_filterProxy = new QSortFilterProxyModel(this);
+    m_filterProxy = new DuplicateSortFilterProxyModel(this);
     m_filterProxy->setSourceModel(m_model);
 
     QWidget *top = new QWidget(this);
@@ -90,7 +113,7 @@ DuplicateMerger::DuplicateMerger(QWidget *parent)
 
     topLayout->addWidget(m_lineEdit);
     connect(m_lineEdit, &QLineEdit::textChanged, this, &DuplicateMerger::textChanged);
-    // connect(m_lineEdit, &QLineEdit::returnPressed, this, &DuplicateMerger::returnPressed);
+    // connect(m_lineEdit, &QLineEdit::textChanged, m_filterProxy, &DuplicateSortFilterProxyModel::setFilterRegularExpression);
 
     m_lineEdit->installEventFilter(this);
     setFocusProxy(m_lineEdit);
@@ -107,20 +130,19 @@ DuplicateMerger::DuplicateMerger(QWidget *parent)
     connect(m_okButton, &QPushButton::clicked, this, &DuplicateMerger::go);
     connect(m_cancelButton, &QPushButton::clicked, this, &DuplicateMerger::reject);
 
-    // TODO: can this be moved out of the UX code?
     findDuplicates();
 
-    m_tableView = new QTableView();
-    m_tableView->setModel(m_model);
-    m_tableView->verticalHeader()->hide();
-    m_tableView->horizontalHeader()->setStretchLastSection(true);
-    m_tableView->setModel(m_filterProxy);
-    m_tableView->resizeRowsToContents();
-    m_tableView->resizeColumnsToContents();
-    m_model->setParent(m_tableView);
-    connect(m_tableView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &DuplicateMerger::selectionChanged);
-    // connect(m_tableView->selectionModel(), &QItemSelectionModel::dataChanged, this, &DuplicateMerger::selectionChanged);
-    topLayout->addWidget(m_tableView);
+    m_duplicatesView = new QTableView();
+    m_duplicatesView->setModel(m_model);
+    m_duplicatesView->verticalHeader()->hide();
+    m_duplicatesView->horizontalHeader()->setStretchLastSection(true);
+    m_duplicatesView->setModel(m_filterProxy);
+    m_duplicatesView->resizeRowsToContents();
+    m_duplicatesView->resizeColumnsToContents();
+    m_model->setParent(m_duplicatesView);
+    connect(m_duplicatesView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &DuplicateMerger::selectionChanged);
+    // connect(m_duplicatesView->selectionModel(), &QItemSelectionModel::dataChanged, this, &DuplicateMerger::selectionChanged);
+    topLayout->addWidget(m_duplicatesView);
 
     topLayout->addWidget(m_selectionCount);
 
@@ -134,23 +156,23 @@ MainWindow::DuplicateMerger::~DuplicateMerger()
 
 void DuplicateMerger::selectNone()
 {
-    m_tableView->selectionModel()->clearSelection();
+    m_duplicatesView->selectionModel()->clearSelection();
 }
 
 void DuplicateMerger::go()
 {
-    Utilities::DeleteMethod method = Utilities::RemoveFromDatabase;
+    // Utilities::DeleteMethod method = Utilities::RemoveFromDatabase;
 
-    if (m_trash->isChecked()) {
-        method = Utilities::MoveToTrash;
-    } else if (m_deleteFromDisk->isChecked()) {
-        method = Utilities::DeleteFromDisk;
-    }
+    // if (m_trash->isChecked()) {
+    //     method = Utilities::MoveToTrash;
+    // } else if (m_deleteFromDisk->isChecked()) {
+    //     method = Utilities::DeleteFromDisk;
+    // }
 
     // For each row, if a filename is selected then delete the unselected
     // filenames in that row.
     // TODO: need the delete/block logic from DuplicateMatch here!
-    for (auto index : m_tableView->selectionModel()->selectedIndexes()) {
+    for (auto index : m_duplicatesView->selectionModel()->selectedIndexes()) {
         // Column zero is the pixmap.
         for (int column = 1; column < m_model->columnCount(); column++) {
             if (column != index.column()) {
@@ -177,6 +199,7 @@ void DuplicateMerger::updateSelectionCount(qsizetype selectionCount)
     m_okButton->setEnabled(selectionCount > 0);
 }
 
+// TODO: move this out of the UX code:
 void DuplicateMerger::findDuplicates()
 {
     Utilities::ShowBusyCursor dummy;
@@ -244,7 +267,7 @@ void DuplicateMerger::tellThatNoDuplicatesWereFound()
 
 void DuplicateMerger::textChanged(const QString &str)
 {
-    m_filterProxy->setFilterFixedString(str);
+    m_filterProxy->setFilterRegularExpression(str);
 }
 
 void DuplicateMerger::selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
@@ -254,7 +277,7 @@ void DuplicateMerger::selectionChanged(const QItemSelection &selected, const QIt
     // TODO: only one selection per row
     Q_UNUSED(selected);
     Q_UNUSED(deselected);
-    updateSelectionCount(m_tableView->selectionModel()->selectedIndexes().size());
+    updateSelectionCount(m_duplicatesView->selectionModel()->selectedIndexes().size());
 }
 
 DuplicatesModel::DuplicatesModel(QObject* parent)
@@ -329,10 +352,8 @@ QVariant DuplicatesModel::headerData(int section, Qt::Orientation orientation, i
         return QVariant();
     if (section == 0) {
         return i18nc("@title:column Image preview", "Preview");
-    } else if (section == 1) {
-        return i18nc("@title:column Original file", "Original");
     } else {
-        return i18nc("@title:column Duplicate file", "Duplicate");
+        return i18nc("@title:column Duplicate file", "Duplicate %1", section);
     }
 }
 } // namespace MainWindow

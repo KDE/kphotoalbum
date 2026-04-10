@@ -17,18 +17,16 @@
 #include <QMap>
 #include <QWidget>
 
+class DuplicateSortFilterProxyModel;
 class QItemSelection;
 class QLabel;
 class QLineEdit;
 class QPushButton;
 class QRadioButton;
-class QSortFilterProxyModel;
 class QTableView;
 
 namespace MainWindow
 {
-
-class DuplicateMatch;
 
 class DuplicatesModel : public QAbstractTableModel, ImageManager::ImageClientInterface
 {
@@ -101,11 +99,11 @@ private:
     QPushButton *m_cancelButton;
 
     QLineEdit *m_lineEdit;
-    QSortFilterProxyModel *m_filterProxy;
+    DuplicateSortFilterProxyModel *m_filterProxy;
 
     DuplicatesModel *m_model;
 
-    QTableView *m_tableView;
+    QTableView *m_duplicatesView;
     QLabel *m_previewWidget;
 };
 

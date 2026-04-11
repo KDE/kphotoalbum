@@ -1,12 +1,13 @@
-# yamllint disable rule:line-length
-# Trigger build 3
+# SPDX-FileCopyrightText: 2024-2026 Scarlett Moore <sgmoore@kde.org>
+#
+# SPDX-License-Identifier: CC0-1.0
 ---
 name: kphotoalbum
 confinement: strict
 grade: stable
 base: core24
 adopt-info: kphotoalbum
-version: 6.0.1
+version: 6.2.0
 icon: $CRAFT_PROJECT_DIR/icons/global/32-apps-kphotoalbum.png
 apps:
   kphotoalbum:
@@ -29,19 +30,16 @@ apps:
       - hardware-observe
       - browser-support
     environment:
-      KP_PLUGIN_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/plugins/kphotalbum;$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/marble/plugins;$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/plugins;$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/plugins/kphotalbum/marble$SNAP/kf6/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/plugins"
+      KP_PLUGIN_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/plugins/kphotoalbum;$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/marble/plugins;$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/plugins;$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/plugins/kphotalbum/marble$SNAP/kf6/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/plugins"
       DICPATH: "$SNAP/usr/share/hunspell"
       PERL5LIB: "$SNAP/usr/share/perl5"
-      LD_LIBRARY_PATH: "$SNAP/ffmpeg-platform/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/kf6/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$LD_LIBRARY_PATH"
+      LD_LIBRARY_PATH: "/snap/kf6-core24/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib:$SNAP/lib/:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio:$SNAP/kf6/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/vlc:/usr/lib:/lib"
+      VLC_PLUGIN_PATH: "/snap/kf6-core24/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/vlc/plugins"
       PATH: $SNAP/ffmpeg-platform/usr/bin:$SNAP/usr/bin:$PATH
       ALSA_CONFIG_PATH: "$SNAP/kf6/etc/asound.conf"
       QT_MEDIA_BACKEND: "ffmpeg"
       QT_PLUGIN_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/marble/plugins:$SNAP/usr/lib/x86_64-linux-gnu/plugins:/snap/kf6-core24/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/plugins"
       QTWEBENGINE_DISABLE_SANDBOX: 1
-
-environment:
-  LD_LIBRARY_PATH: "/snap/kf6-core24/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib:$SNAP/lib/:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio:$SNAP/kf6/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/vlc:/usr/lib:/lib"
-  VLC_PLUGIN_PATH: "/snap/kf6-core24/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/vlc/plugins"
 
 layout:
   /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/alsa-lib:
@@ -53,16 +51,6 @@ layout:
   /usr/share/marble:
     symlink: $SNAP/usr/share/marble
 
-package-repositories:
-  - type: apt
-    components:
-      - main
-    suites:
-      - noble
-    key-id: 444DABCF3667D0283F894EDDE6D4736255751E5D
-    url: https://origin.archive.neon.kde.org/user
-    key-server: keyserver.ubuntu.com
-
 plugs:
   hunspell-dictionaries:
     content: hunspell-dictionaries
@@ -71,7 +59,7 @@ plugs:
     default-provider: hunspell-dictionaries
   ffmpeg-2404:
     interface: content
-    target: ffmpeg-platform  # the folder where this content snap will be mounted
+    target: ffmpeg-platform # the folder where this content snap will be mounted
     default-provider: ffmpeg-2404
 
 slots:
@@ -81,15 +69,46 @@ slots:
     bus: session
 
 parts:
-  marble:
-    source: https://invent.kde.org/education/marble.git
-    source-branch: release/25.12
+  wayland:
+    source: https://gitlab.freedesktop.org/wayland/wayland.git
+    source-branch: 1.23
+    plugin: meson
+    build-snaps:
+      - kde-qt6-core24-sdk/latest/beta
+      - kf6-core24-sdk/latest/beta
+    build-packages:
+      - meson
+      - pkgconf
+      - xsltproc
+    build-environment:
+      - PKG_CONFIG_PATH: "$CRAFT_STAGE/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig:/snap/kde-qt6-core24-sdk/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig:/snap/kf6-core24-sdk/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig"
+  wayland-protocols:
+    after:
+      - wayland
+    source: https://gitlab.freedesktop.org/wayland/wayland-protocols.git
+    source-tag: 1.47
+    plugin: meson
+    build-snaps:
+      - kde-qt6-core24-sdk/latest/beta
+      - kf6-core24-sdk/latest/beta
+    build-packages:
+      - libwayland-dev
+      - meson
+      - pkgconf
+    build-environment:
+      - PKG_CONFIG_PATH: "$CRAFT_STAGE/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig:/snap/kde-qt6-core24-sdk/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig:/snap/kf6-core24-sdk/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig"
+  libplasma:
+    source: https://invent.kde.org/plasma/libplasma.git
+    source-branch: master
     plugin: cmake
     build-packages:
       - libpulse0
       - rsync
     stage-packages:
       - libpulse0
+    build-snaps:
+      - kde-qt6-core24-sdk/latest/beta
+      - kf6-core24-sdk/latest/beta
     cmake-generator: Ninja
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
@@ -98,25 +117,53 @@ parts:
       - -DENABLE_QT5=OFF
       - -DENABLE_QT6=ON
       - -DBUILD_TESTING=OFF
-      - -DCMAKE_INSTALL_SYSCONFDIR=/etc
-      - -DCMAKE_INSTALL_LOCALSTATEDIR=/var
-      - -DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=ON
-      - -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF
-      - -DCMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY=ON
-      - -DCMAKE_INSTALL_RUNSTATEDIR=/run
-      - -DCMAKE_SKIP_INSTALL_ALL_DEPENDENCY=ON
-      - -DCMAKE_VERBOSE_MAKEFILE=ON
-      - -DCMAKE_INSTALL_LIBDIR=lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR
-      - --log-level=STATUS
-      - -DCMAKE_LIBRARY_PATH=lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR
-      - -DCMAKE_FIND_ROOT_PATH="/snap/ffmpeg-2404-sdk/current;/snap/kde-qt6-core24-sdk/current;/snap/kf6-core24-sdk/current"
+    override-build: |
+      craftctl default
+      rsync -a --ignore-existing $CRAFT_PART_INSTALL/ /
+    prime:
+      - -usr/bin/rsync
+  marble:
+    after:
+      - libplasma
+    source: https://invent.kde.org/education/marble.git
+    source-branch: master
+    plugin: cmake
+    build-snaps:
+      - kde-qt6-core24-sdk/latest/beta
+      - kf6-core24-sdk/latest/beta
+    build-packages:
+      - libpulse0
+      - rsync
+      - libshp-dev
+      - libgps-dev
+      - libwlocate-dev
+      - libabsl-dev
+      - libprotobuf-dev
+      - protobuf-compiler
+      - pkg-config
+    stage-packages:
+      - libpulse0
+      - libshp4
+      - libgps30t64
+      - libwlocate0
+      - libabsl20220623t64
+    cmake-generator: Ninja
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DQT_MAJOR_VERSION=6
+      - -DENABLE_QT5=OFF
+      - -DENABLE_QT6=ON
+      - -DBUILD_TESTING=OFF
+    stage:
+      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libz.so*
     override-build: |
       craftctl default
       rsync -a --ignore-existing $CRAFT_PART_INSTALL/ /
     build-environment: &build-environment
-      - PKG_CONFIG_PATH: "$CRAFT_STAGE/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig:/snap/ffmpeg-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig"
-      - LD_LIBRARY_PATH: "/snap/mesa-2404/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$CRAFT_STAGE/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/snap/ffmpeg-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/snap/kde-qt6-core24-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libproxy:$LD_LIBRARY_PATH"
       - DICPATH: "$CRAFT_STAGE/usr/share/hunspell"
+      - LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/snap/kde-qt6-core24-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/snap/kde-qt6-core24-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libproxy:/snap/kf6-core24-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$CRAFT_STAGE/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/usr
+      - PKG_CONFIG_PATH: /snap/kde-qt6-core24-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig
     prime:
       - -usr/bin/rsync
   libkdcraw:
@@ -125,6 +172,9 @@ parts:
     plugin: cmake
     source: https://invent.kde.org/graphics/libkdcraw.git
     source-branch: release/25.12
+    build-snaps:
+      - kde-qt6-core24-sdk/latest/beta
+      - kf6-core24-sdk/latest/beta
     build-packages:
       - libraw-dev
     stage-packages:
@@ -135,17 +185,15 @@ parts:
       - -DQT_MAJOR_VERSION=6
       - -DBUILD_WITH_QT6=ON
       - -DBUILD_TESTING=OFF
-    build-environment: *build-environment
   kdegraphics-thumbnailers:
     after:
       - libkdcraw
     plugin: cmake
     source: https://invent.kde.org/graphics/kdegraphics-thumbnailers.git
     source-branch: release/25.12
-    # build-packages:
-    # - libqmobipocket6-dev
-    # stage-packages:
-    # - libqmobipocket6-2
+    build-snaps:
+      - kde-qt6-core24-sdk/latest/beta
+      - kf6-core24-sdk/latest/beta
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
@@ -153,7 +201,6 @@ parts:
       - -DBUILD_WITH_QT6=ON
       - -DBUILD_TESTING=OFF
       - -DDISABLE_MOBIPOCKET=ON
-    build-environment: *build-environment
   kphotoalbum:
     after:
       - marble
@@ -162,23 +209,21 @@ parts:
     plugin: cmake
     source: .
     source-type: local
+    build-snaps:
+      - kde-qt6-core24-sdk/latest/beta
+      - kf6-core24-sdk/latest/beta
     build-packages:
       - libexiv2-dev
       - libjpeg-dev
       - libvlc-dev
       - libvlccore-dev
-      # - qt6-phonon-dev
-      # - qt6-phonon-backend-vlc
     stage-packages:
       - libasound2
       - libasound2-data
       - libasound2-plugins
       - libjpeg8
       - libvlc-bin
-      # - qt6-phonon
-      # - qt6-phonon-backend-vlc
       - exif
-      # - kdegraphics-thumbnailers
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
@@ -187,9 +232,6 @@ parts:
       - -DBUILD_TESTING=OFF
       - -DKDE_SKIP_TEST_SETTINGS=ON
       - -DBUILD_TESTING=OFF
-      - "-DCMAKE_FIND_ROOT_PATH=$CRAFT_STAGE\\;/snap/kde-qt6-core24-sdk/current\\;/snap/kf6-core24-sdk/current/usr"
-      - "-DCMAKE_PREFIX_PATH=$CRAFT_STAGE\\;/snap/kde-qt6-core24-sdk/current\\;/snap/kf6-core24-sdk/current/usr"
-    build-environment: *build-environment
     parse-info:
       - usr/share/metainfo/org.kde.kphotoalbum.appdata.xml
     prime:

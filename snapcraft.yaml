@@ -73,6 +73,8 @@ parts:
     source: https://gitlab.freedesktop.org/wayland/wayland.git
     source-branch: 1.23
     plugin: meson
+    meson-parameters:
+      - --prefix=/usr
     build-snaps:
       - kde-qt6-core24-sdk/latest/beta
       - kf6-core24-sdk/latest/beta
@@ -80,6 +82,12 @@ parts:
       - meson
       - pkgconf
       - xsltproc
+      - xmlto
+      - libexpat1-dev
+      - libffi-dev
+      - libxml2-dev
+      - doxygen
+      - graphviz
     build-environment:
       - PKG_CONFIG_PATH: "$CRAFT_STAGE/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig:/snap/kde-qt6-core24-sdk/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig:/snap/kf6-core24-sdk/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig"
   wayland-protocols:
@@ -88,6 +96,8 @@ parts:
     source: https://gitlab.freedesktop.org/wayland/wayland-protocols.git
     source-tag: 1.47
     plugin: meson
+    meson-parameters:
+      - --prefix=/usr
     build-snaps:
       - kde-qt6-core24-sdk/latest/beta
       - kf6-core24-sdk/latest/beta
@@ -97,9 +107,11 @@ parts:
       - pkgconf
     build-environment:
       - PKG_CONFIG_PATH: "$CRAFT_STAGE/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig:/snap/kde-qt6-core24-sdk/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig:/snap/kf6-core24-sdk/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig"
+      - LD_LIBRARY_PATH: "$CRAFT_STAGE/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/snap/ffmpeg-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/snap/kde-qt6-core24-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libproxy:$LD_LIBRARY_PATH"
   libplasma:
+    after: [wayland-protocols]
     source: https://invent.kde.org/plasma/libplasma.git
-    source-branch: master
+    source-branch: Plasma/6.6
     plugin: cmake
     build-packages:
       - libpulse0
@@ -155,6 +167,9 @@ parts:
       - -DENABLE_QT5=OFF
       - -DENABLE_QT6=ON
       - -DBUILD_TESTING=OFF
+    override-pull: |
+        craftctl default
+        patch -p0 < ${SNAPCRAFT_PROJECT_DIR}/snap/local/patches/disable_broken_osm_plugin.patch
     stage:
       - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libz.so*
     override-build: |

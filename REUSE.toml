@@ -13,6 +13,12 @@ SPDX-FileCopyrightText = "none"
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
+path = "snap/local/patches/disable_broken_osm_plugin.patch"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "none"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
 path = "testcases/integration-tests/**.xml"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "none"

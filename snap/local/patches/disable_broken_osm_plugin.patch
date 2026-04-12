@@ -1,0 +1,13 @@
+diff --git a/src/plugins/runner/CMakeLists.txt b/src/plugins/runner/CMakeLists.txt
+index f27ee6f4a..1c479973b 100644
+--- src/plugins/runner/CMakeLists.txt
++++ src/plugins/runner/CMakeLists.txt
+@@ -26,7 +26,7 @@ add_subdirectory(cache)
+ add_subdirectory(gpx)
+ add_subdirectory(json)
+ add_subdirectory(kml)
+-add_subdirectory(osm)
++#add_subdirectory(osm)
+ add_subdirectory(pn2)
+ add_subdirectory(pnt)
+ add_subdirectory(log)

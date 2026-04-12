@@ -115,9 +115,11 @@ parts:
     plugin: cmake
     build-packages:
       - libpulse0
+      - libxkbcommon-dev
       - rsync
     stage-packages:
       - libpulse0
+      - libxkbcommon0
     build-snaps:
       - kde-qt6-core24-sdk/latest/beta
       - kf6-core24-sdk/latest/beta
@@ -153,6 +155,7 @@ parts:
       - libprotobuf-dev
       - protobuf-compiler
       - pkg-config
+      - libdrm2
     stage-packages:
       - libpulse0
       - libshp4

@@ -230,6 +230,7 @@ parts:
     build-snaps:
       - kde-qt6-core24-sdk/latest/beta
       - kf6-core24-sdk/latest/beta
+      - cmake
     build-packages:
       - libexiv2-dev
       - libjpeg-dev

@@ -189,7 +189,7 @@ parts:
       - marble
     plugin: cmake
     source: https://invent.kde.org/graphics/libkdcraw.git
-    source-branch: release/25.12
+    source-branch: release/26.04
     build-snaps:
       - kde-qt6-core24-sdk/latest/beta
       - kf6-core24-sdk/latest/beta
@@ -208,7 +208,7 @@ parts:
       - libkdcraw
     plugin: cmake
     source: https://invent.kde.org/graphics/kdegraphics-thumbnailers.git
-    source-branch: release/25.12
+    source-branch: release/26.04
     build-snaps:
       - kde-qt6-core24-sdk/latest/beta
       - kf6-core24-sdk/latest/beta
@@ -253,6 +253,8 @@ parts:
       - -DBUILD_TESTING=OFF
     parse-info:
       - usr/share/metainfo/org.kde.kphotoalbum.appdata.xml
+    stage:
+      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libwayland-client.so.0
     prime:
       - -usr/lib/*/cmake/*
       - -usr/include/*

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-01 00:43+0000\n"
-"PO-Revision-Date: 2026-03-19 18:05+0000\n"
+"PO-Revision-Date: 2026-04-16 21:19+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -3161,7 +3161,7 @@ msgstr "Stafla myndum inn sjálfkrafa"
 #: MainWindow/AutoStackImages.cpp:56
 #, kde-format
 msgid "Stack images with identical MD5 sum"
-msgstr ""
+msgstr "Stafla myndum með eins MD5-gátsummu"
 
 #: MainWindow/AutoStackImages.cpp:64
 #, kde-format
@@ -3177,7 +3177,7 @@ msgstr "Upprunalega efst"
 #, kde-format
 msgctxt "Label for a QSpinbox that selects a number of seconds."
 msgid "Stack images created within the following time-frame:"
-msgstr ""
+msgstr "Stafla myndum sem gerðar hafa verið innan eftirfarandi tímaramma:"
 
 #: MainWindow/AutoStackImages.cpp:87
 #, kde-format
@@ -3204,7 +3204,7 @@ msgstr ""
 #: MainWindow/AutoStackImages.cpp:102
 #, kde-format
 msgid "Skip images that are already in a stack"
-msgstr ""
+msgstr "Sleppa myndum sem þegar eru í stafla"
 
 #: MainWindow/CategoryImagePopup.cpp:49
 #, kde-format
@@ -3900,7 +3900,7 @@ msgstr "Vandamál í stöflun"
 #: MainWindow/Window.cpp:412
 #, kde-format
 msgid "Unknown error, stack creation failed."
-msgstr ""
+msgstr "Óþekkt villa, mistókst að útbúa stafla."
 
 #: MainWindow/Window.cpp:413
 #, kde-format
@@ -3988,7 +3988,7 @@ msgstr ""
 #: MainWindow/Window.cpp:842
 #, kde-format
 msgid "Merge Images into a Stack"
-msgstr ""
+msgstr "Sameina myndir inn í stafla"
 
 #: MainWindow/Window.cpp:846
 #, kde-format

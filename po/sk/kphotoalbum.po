@@ -292,7 +292,7 @@ msgstr "Uložiť aktuálne rozloženie globálne"
 #: AnnotationDialog/Dialog.cpp:939
 #, kde-format
 msgid "Save current layout for this DB"
-msgstr "Uložiť aktuálne nastavenia mapy"
+msgstr "Uložiť aktuálne rozloženie pre túto databázu"
 
 #: AnnotationDialog/Dialog.cpp:941
 #, kde-format
@@ -551,7 +551,7 @@ msgstr "Odstrániť obrázok"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
-msgstr "Zadajte dátum..."
+msgstr "Zadajte značku..."
 
 #: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:342
 #, kde-format
@@ -689,7 +689,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Premenovať \"%1\""
+msgstr "Premenovať %1?"
 
 #: AnnotationDialog/ListSelect.cpp:477
 #, kde-format
@@ -1071,7 +1071,7 @@ msgstr "Presunúť položky"
 #, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
-msgstr "Dátum:"
+msgstr "Panel dátumu"
 
 #: DateBar/DateBarWidget.cpp:74
 #, kde-format
@@ -1707,7 +1707,7 @@ msgstr "Chyba vytvárania zip súboru %1"
 #: DB/XML/NumberedBackup.cpp:43 DB/XML/NumberedBackup.cpp:48
 #, kde-format
 msgid "Error Making Numbered Backup"
-msgstr "Chyba prehrania média"
+msgstr "Chyba pri vytváraní číslovanej zálohy"
 
 #: DB/XML/NumberedBackup.cpp:48
 #, kde-format
@@ -1790,7 +1790,7 @@ msgstr "Exif Info"
 #: Exif/InfoDialog.cpp:99
 #, kde-format
 msgid "File metadata"
-msgstr "Podpora videa"
+msgstr "Metadáta súboru"
 
 #: Exif/MetaDataDisplay.cpp:37
 #, kde-format
@@ -1843,7 +1843,7 @@ msgctxt ""
 "File size composed of a pre-formatted (already localized) human-readable "
 "file size (%1) and the number of bytes (%2)"
 msgid "%1 (%2 B)"
-msgstr "%1 (%2)"
+msgstr "%1 (%2 B)"
 
 #: Exif/MetaDataDisplay.cpp:122 Exif/MetaDataDisplay.cpp:128
 #: Exif/MetaDataDisplay.cpp:134
@@ -2316,7 +2316,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
-msgstr "Priečinok"
+msgstr "Priečinok existuje"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:530 MainWindow/SplashScreen.cpp:52
@@ -2438,13 +2438,13 @@ msgstr "Uložiť exportovaný súbor"
 #: ImportExport/Export.cpp:89 ImportExport/Import.cpp:30
 #, kde-format
 msgid "KPhotoAlbum import files"
-msgstr "Súbory exportu KPhotoAlbum"
+msgstr "Súbory importu KPhotoAlbum"
 
 #: ImportExport/Export.cpp:105
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
-msgstr "Čítať EXIF informácie zo súborov..."
+msgstr "Exportovať metadáta / kopírovať súbory"
 
 #: ImportExport/Export.cpp:118
 #, kde-format
@@ -2773,7 +2773,7 @@ msgstr "Nemôžem kopírovať z jedného z nasledovných umiestnení:"
 #, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr "Kopírujem súbory obrázkov"
+msgstr "Kopírovanie zlyhalo"
 
 #: ImportExport/ImportHandler.cpp:245
 #, kde-format
@@ -2906,7 +2906,7 @@ msgstr "Conflicting commandline options: %1 and %2!\n"
 #: kpa-thumbnailtool/main.cpp:44
 #, kde-format
 msgid "KPhotoAlbum Thumbnail Tool"
-msgstr "Spustiť demo KPhotoAlbum"
+msgstr "Nástroj miniatúr KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:46
 #, kde-format
@@ -3531,7 +3531,7 @@ msgstr "Zlúčiť tieto obrázky"
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:57
 #, kde-format
 msgid "Select image to keep:"
-msgstr "Vyberte cieľ:"
+msgstr "Vyberte obrázok na ponechanie:"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:72
 #, kde-format
@@ -3738,7 +3738,7 @@ msgstr "Mapový pohľad pre geotaggované obrázky."
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "SQLite database support"
-msgstr "Podpora videa"
+msgstr "Podpora databázy SQLite"
 
 #: MainWindow/FeatureDialog.cpp:144
 #, kde-format
@@ -3904,7 +3904,7 @@ msgstr "Uložiť databázu a okamžite skončiť po zobrazení hlavného okna."
 #: MainWindow/Options.cpp:59
 #, kde-format
 msgid "Search for new images on startup."
-msgstr "Hľadať nové obrázky a videá pri spustení"
+msgstr "Hľadať nové obrázky pri spustení."
 
 #: MainWindow/RunDialog.cpp:32
 #, no-c-format, kde-format
@@ -3950,7 +3950,7 @@ msgstr "%each"
 #, kde-format
 msgctxt "Name/title of the search bar toolbar widget"
 msgid "Search Bar"
-msgstr "Hľadať"
+msgstr "Panel vyhľadávania"
 
 #: MainWindow/SearchBar.cpp:25
 #, kde-format
@@ -4054,7 +4054,7 @@ msgstr "Celkom"
 #: MainWindow/StatusBar.cpp:104
 #, kde-format
 msgid "Thumbnail settings..."
-msgstr "Veľkosť miniatúry:"
+msgstr "Nastavenia miniatúr..."
 
 #: MainWindow/TokenEditor.cpp:36
 #, kde-format
@@ -4143,7 +4143,7 @@ msgstr "Adresár neexistuje, má sa vytvoriť?"
 #: MainWindow/WelcomeDialog.cpp:166
 #, kde-format
 msgid "Could not create folder %1"
-msgstr "Nepodarilo sa vytvoriť súbor '%1'."
+msgstr "Nepodarilo sa vytvoriť priečinok %1"
 
 #: MainWindow/WelcomeDialog.cpp:171
 #, kde-format
@@ -4271,7 +4271,7 @@ msgstr "Obmedziť pohľad na výber"
 #: MainWindow/Window.cpp:771
 #, kde-format
 msgid "No images are selected!"
-msgstr "Žiadna vybraná položka."
+msgstr "Nie sú vybrané žiadne obrázky!"
 
 #: MainWindow/Window.cpp:784
 #, kde-format
@@ -4432,12 +4432,12 @@ msgstr "Zobraziť tipy v okne miniatúr"
 #: MainWindow/Window.cpp:977
 #, kde-format
 msgid "Show Labels in Thumbnails Window"
-msgstr "Zobraziť tipy v okne miniatúr"
+msgstr "Zobraziť označenia v okne miniatúr"
 
 #: MainWindow/Window.cpp:987
 #, kde-format
 msgid "Show Categories in Thumbnails Window"
-msgstr "Zobraziť tipy v okne miniatúr"
+msgstr "Zobraziť kategórie v okne miniatúr"
 
 #: MainWindow/Window.cpp:1004
 #, kde-format
@@ -4603,7 +4603,7 @@ msgstr "Prehliadač"
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr "Dátum:"
+msgstr "Panel dátumu"
 
 #: MainWindow/Window.cpp:1394
 #, kde-format
@@ -5408,7 +5408,7 @@ msgstr "Rýchle PCIe/NVMe"
 #: Settings/FileVersionDetectionPage.cpp:194
 #, kde-format
 msgid "Manual Settings"
-msgstr "Nastavenia"
+msgstr "Manuálne nastavenia"
 
 #: Settings/FileVersionDetectionPage.cpp:197
 #, kde-format
@@ -6141,7 +6141,7 @@ msgstr ""
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
-msgstr "Backend databázy"
+msgstr "Video backend QtMultimedia"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:155
 #, kde-format
@@ -6153,19 +6153,19 @@ msgstr "Nenakonfigurovaný video backend"
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
-msgstr "Backend databázy"
+msgstr "Video backend Phonon"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:159
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
-msgstr "Backend databázy"
+msgstr "Video backend QtAV"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:161
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
-msgstr "Backend databázy"
+msgstr "Video backend VLC"
 
 #: Settings/ViewerPage.cpp:25
 #, kde-format
@@ -6270,12 +6270,12 @@ msgstr ""
 #: Settings/ViewerPage.cpp:101
 #, kde-format
 msgid "Video Backend:"
-msgstr "Backend databázy"
+msgstr "Video backend:"
 
 #: Settings/ViewerPage.cpp:112
 #, kde-format
 msgid "Default Annotation Mode"
-msgstr "Anotácie"
+msgstr "Predvolený režim anotácií"
 
 #: Settings/ViewerPage.cpp:114
 #, kde-format
@@ -6285,12 +6285,12 @@ msgstr "Zamknuté"
 #: Settings/ViewerPage.cpp:114
 #, kde-format
 msgid "Assign tags"
-msgstr "Tokeny"
+msgstr "Priradiť značky"
 
 #: Settings/ViewerPage.cpp:114
 #, kde-format
 msgid "Assign tokens"
-msgstr "Tokeny"
+msgstr "Priradiť tokeny"
 
 #: Settings/ViewerSizeConfig.cpp:19
 #, kde-format
@@ -6309,7 +6309,7 @@ msgstr "video"
 #, kde-format
 msgctxt "Name/title of the filter toolbar widget"
 msgid "Filter Toolbar"
-msgstr "Zobraziť editor kategórií"
+msgstr "Panel filtrov"
 
 #: ThumbnailView/FilterWidget.cpp:23
 #, kde-format
@@ -6513,13 +6513,13 @@ msgstr "včera"
 #, kde-format
 msgctxt "Like \"6 years ago\""
 msgid " (%1 ago)"
-msgstr " (%1)"
+msgstr " (%1 pred)"
 
 #: Utilities/Timespan.cpp:173
 #, kde-format
 msgctxt "Like \"6 to 7 years ago\""
 msgid " (%1 to %2 ago)"
-msgstr " (%1-%2)"
+msgstr " (%1-%2 pred)"
 
 #: Utilities/Timespan.cpp:192
 #, kde-format
@@ -6582,7 +6582,7 @@ msgctxt ""
 "happened 3 years and 1 month\" ago, where the first parameter is the "
 "formatted years string and the second one is the formatted months string"
 msgid "%1 and %2"
-msgstr "\"%1\" a \"%2\""
+msgstr "%1 a %2"
 
 #: Viewer/AnnotationHandler.cpp:69
 #, kde-format
@@ -6593,17 +6593,17 @@ msgstr "Priradiť makro"
 #: Viewer/AnnotationHandler.cpp:69
 #, kde-format
 msgid "Select item for macro key <b>%1</b>"
-msgstr "Nastavenia pre kategóriu <b>%1</b>"
+msgstr "Vybrať položku pre makro kláves <b>%1</b>"
 
 #: Viewer/AnnotationHandler.cpp:126
 #, kde-format
 msgid "Tag Item"
-msgstr "Premenovať položku"
+msgstr "Označiť položku"
 
 #: Viewer/AnnotationHandler.cpp:126
 #, kde-format
 msgid "Select tag for image"
-msgstr "Vyberte cieľ:"
+msgstr "Vybrať značku pre obrázok"
 
 #: Viewer/CategoryImageConfig.cpp:41
 #, kde-format
@@ -6704,7 +6704,7 @@ msgstr "TextLabel"
 #: Viewer/SelectCategoryAndValue.ui:43
 #, kde-format
 msgid "Add new Tag"
-msgstr "Pridať značku"
+msgstr "Pridať novú značku"
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
@@ -6935,12 +6935,12 @@ msgstr "Značky a tokeny sú uzamknuté"
 #: Viewer/ViewerWidget.cpp:631
 #, kde-format
 msgid "Assigning tags"
-msgstr "Tokeny"
+msgstr "Priraďujem značky"
 
 #: Viewer/ViewerWidget.cpp:633
 #, kde-format
 msgid "Assigning tokens"
-msgstr "Tokeny"
+msgstr "Priraďujem tokeny"
 
 #: Viewer/ViewerWidget.cpp:638
 #, kde-format
@@ -6951,7 +6951,7 @@ msgstr "Režim anotácie: %1"
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr "Spustiť prezentáciu"
+msgstr "Ukončenie prezentácie"
 
 #: Viewer/ViewerWidget.cpp:914
 #, kde-format
@@ -6978,13 +6978,13 @@ msgstr "%1&nbsp;s"
 #, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr "Popis témy"
+msgstr "Upraviť popis obrázka"
 
 #: Viewer/ViewerWidget.cpp:1245
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr "Popis témy"
+msgstr "Popis obrázka"
 
 #: Viewer/ViewerWidget.cpp:1260
 #, kde-format
@@ -7168,7 +7168,7 @@ msgstr "CTRL+a"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
-msgstr "Kopírovať značky z predchádzajúceho obrázka"
+msgstr "Kopírovať údaje z predchádzajúceho obrázka"
 
 #: Viewer/ViewerWidget.cpp:1514
 #, kde-format
@@ -7180,7 +7180,7 @@ msgstr "CTRL+c"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr "Popis"
+msgstr "Upraviť popis"
 
 #: Viewer/ViewerWidget.cpp:1518
 #, kde-format
@@ -7191,7 +7191,7 @@ msgstr "CTRL+d"
 #: Viewer/ViewerWidget.cpp:1521
 #, kde-format
 msgid "Annotation Mode"
-msgstr "Anotácie"
+msgstr "Režim anotácií"
 
 #: Viewer/ViewerWidget.cpp:1523
 #, kde-format
@@ -7221,7 +7221,7 @@ msgstr "F2"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr "Tokeny"
+msgstr "Priradiť tokeny"
 
 #: Viewer/ViewerWidget.cpp:1534
 #, kde-format

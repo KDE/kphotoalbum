@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-01 00:43+0000\n"
-"PO-Revision-Date: 2026-03-09 22:22+0300\n"
+"PO-Revision-Date: 2026-05-02 19:42+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -22,12 +22,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Serdar Soytetir, Emir SARI"
+msgstr "Serdar SOYTETİR, Emir SARI"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
@@ -37,7 +37,7 @@ msgstr "tulliana@gmail.com, emir_sari@icloud.com"
 #: AnnotationDialog/AreaTagSelectDialog.cpp:87
 #, kde-format
 msgid "Tag is already used for another area"
-msgstr "Bu künye halihazırda başka bir alan için kullanılıyor"
+msgstr "Bu künye hâlihazırda başka bir alan için kullanılıyor"
 
 #: AnnotationDialog/DateEdit.cpp:69
 #, kde-format
@@ -1597,7 +1597,7 @@ msgstr ""
 "ayarlamayı unutmayın.</p><p>cmake komutunu, örneğin <tt>--prefix=/usr/local/"
 "kde</tt> ile çalıştırdıysanız aşağıdaki çevre değişkeni ayarını "
 "kullanmalısınız (bu örnek Bash ve uyumlu kabuklar için geçerlidir):</"
-"p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>Halihazırda KDEDIRS ayarlı "
+"p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>Hâlihazırda KDEDIRS ayarlı "
 "ise <b>PATH</b> çevre değişkenini ayarladığınız yerde bu diziyi ekleyin.</p>"
 
 #: DB/XML/FileReader.cpp:541
@@ -3438,7 +3438,7 @@ msgstr ""
 #: MainWindow/AutoStackImages.cpp:102
 #, kde-format
 msgid "Skip images that are already in a stack"
-msgstr "Halihazırda yığında olan görselleri atla"
+msgstr "Hâlihazırda yığında olan görselleri atla"
 
 #: MainWindow/CategoryImagePopup.cpp:49
 #, kde-format
@@ -4091,7 +4091,7 @@ msgstr ""
 "araçtır. Değerli dosyalarınızı değiştirmez veya düzenlemez, yalnızca "
 "videolarınızı ve görsellerinizi daha kolay bulmanız ve yönetmeniz için "
 "dizinler.</p><p>Veri tabanımı Oluştur düğmesine basıp K Fotoğraf Albümü’ne "
-"görsellerinizin nerede olduğunu göstererek başlayabilirsiniz. Halihazırda K "
+"görsellerinizin nerede olduğunu göstererek başlayabilirsiniz. Hâlihazırda K "
 "Fotoğraf Albümü veri tabanınız varsa ve yeniden başlamak istiyorsanız da bu "
 "düğmeye basın.</p><p>Eğer hazır yüklü görsel kümeleri ile denemek isterseniz "
 "Tanıtımı Yükle butonuna basın.</p>"
@@ -4130,7 +4130,7 @@ msgstr ""
 "Görseller. Bu klasörde istediğiniz kadar alt klasörünüz olabilir, K Fotoğraf "
 "Albümü hepsini bulacaktır.</p><p>K Fotoğraf Albümü hiçbir görselinizi "
 "düzenlemeyecektir, bütün görsellerinizin olduğu klasöre işaret edebilirsiniz."
-"</p><p>Eğer halihazırda veri tabanınız veya görseller klasörünüz varsa o "
+"</p><p>Eğer hâlihazırda veri tabanınız veya görseller klasörünüz varsa o "
 "klasörü göstererek yeniden kullanmaya başlayabilirsiniz.</p>"
 
 #: MainWindow/WelcomeDialog.cpp:116
@@ -4220,7 +4220,7 @@ msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
 "them from their stacks and create a completely new one?"
 msgstr ""
-"Seçili görsellerin bazıları halihazırda bir yığına aitler. Bu görselleri "
+"Seçili görsellerin bazıları hâlihazırda bir yığına aitler. Bu görselleri "
 "yığınlarından kaldırmak ve tamamen yeni bir yığın yaratmak ister misiniz?"
 
 #: MainWindow/Window.cpp:402
@@ -5002,7 +5002,7 @@ msgid ""
 "this name already exists.</p>"
 msgstr ""
 "<p>Kategori adı “%1” → “%2” olarak değiştirilemiyor:</p><p>Bu adda bir "
-"kategori halihazırda var.</p>"
+"kategori hâlihazırda var.</p>"
 
 #: Settings/CategoryPage.cpp:292
 #, kde-format
@@ -5011,7 +5011,7 @@ msgid ""
 "pending rename action on the category \"%2\". Please save this change first."
 "</p>"
 msgstr ""
-"<p>“%1” kategorisinin adı “%2” olarak değiştirilemiyor:</p><p>Halihazırda "
+"<p>“%1” kategorisinin adı “%2” olarak değiştirilemiyor:</p><p>Hâlihazırda "
 "bekleyen “%2” kategorisi için yeniden adlandırma eylemi var. Lütfen önce bu "
 "değişikliği kaydedin.</p>"
 

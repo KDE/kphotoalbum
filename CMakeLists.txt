@@ -410,6 +410,8 @@ set(libDB_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryItem.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryPtr.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryPtr.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/DB/DuplicatesFinder.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/DB/DuplicatesFinder.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/ExifMode.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/ExifMode.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/FileInfo.cpp"

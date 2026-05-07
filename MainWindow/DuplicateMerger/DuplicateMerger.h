@@ -7,7 +7,7 @@
 #ifndef MAINWINDOW_DUPLICATEMERGER_H
 #define MAINWINDOW_DUPLICATEMERGER_H
 
-#include <DB/MD5.h>
+#include <DB/DuplicatesFinder.h>
 #include <kpabase/FileNameList.h>
 #include <ImageManager/ImageClientInterface.h>
 #include <Utilities/DeleteFiles.h>
@@ -31,7 +31,7 @@ namespace MainWindow
 class DuplicatesModel : public QAbstractTableModel, ImageManager::ImageClientInterface
 {
 public:
-    explicit DuplicatesModel(QObject *parent = nullptr);
+    explicit DuplicatesModel(const DB::DuplicatesType& duplicates, QObject *parent = nullptr);
 
     ~DuplicatesModel() override;
 
@@ -72,7 +72,7 @@ class DuplicateMerger : public QDialog
     Q_OBJECT
 
 public:
-    explicit DuplicateMerger(QWidget *parent = nullptr);
+    explicit DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *parent = nullptr);
     ~DuplicateMerger() override;
 
 private Q_SLOTS:
@@ -83,10 +83,6 @@ private Q_SLOTS:
     void selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
 
 private:
-    void findDuplicates();
-    void tellThatNoDuplicatesWereFound();
-
-    QMap<DB::MD5, DB::FileNameList> m_matches;
 
     QWidget *m_container;
     QRadioButton *m_trash;
@@ -99,9 +95,9 @@ private:
     QPushButton *m_cancelButton;
 
     QLineEdit *m_lineEdit;
-    DuplicateSortFilterProxyModel *m_filterProxy;
 
     DuplicatesModel *m_model;
+    DuplicateSortFilterProxyModel *m_filterProxy;
 
     QTableView *m_duplicatesView;
     QLabel *m_previewWidget;

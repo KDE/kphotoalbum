@@ -64,8 +64,9 @@ protected:
 
 namespace MainWindow
 {
-DuplicateMerger::DuplicateMerger(QWidget *parent) : QDialog(parent) ,
-    m_model(new DuplicatesModel(this))
+DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *parent)
+    : QDialog(parent)
+    , m_model(new DuplicatesModel(duplicates, this))
 {
     setModal(true);
 
@@ -103,8 +104,9 @@ DuplicateMerger::DuplicateMerger(QWidget *parent) : QDialog(parent) ,
     topLayout->addWidget(m_blockFromDB);
     topLayout->addSpacing(10);
 
-    m_previewWidget = new QLabel;
-    topLayout->addWidget(m_previewWidget);
+    // TODO: unused
+    // m_previewWidget = new QLabel;
+    // topLayout->addWidget(m_previewWidget);
 
     m_lineEdit = new QLineEdit(this);
     m_lineEdit->setClearButtonEnabled(true);
@@ -129,8 +131,6 @@ DuplicateMerger::DuplicateMerger(QWidget *parent) : QDialog(parent) ,
     connect(m_selectNoneButton, &QPushButton::clicked, this, &DuplicateMerger::selectNone);
     connect(m_okButton, &QPushButton::clicked, this, &DuplicateMerger::go);
     connect(m_cancelButton, &QPushButton::clicked, this, &DuplicateMerger::reject);
-
-    findDuplicates();
 
     m_duplicatesView = new QTableView();
     m_duplicatesView->setModel(m_model);
@@ -280,10 +280,24 @@ void DuplicateMerger::selectionChanged(const QItemSelection &selected, const QIt
     updateSelectionCount(m_duplicatesView->selectionModel()->selectedIndexes().size());
 }
 
-DuplicatesModel::DuplicatesModel(QObject* parent)
+DuplicatesModel::DuplicatesModel(const DB::DuplicatesType& duplicates, QObject* parent)
     : QAbstractTableModel(parent)
     , m_maxDuplicates(0)
 {
+    // This is used to sort the rows (selectors) in the dialog by relative
+    // pathname of the oldest image in each set of duplicates.
+    QMap<QString, DB::MD5> displayOrderMap;
+
+    for (QMap<DB::MD5, DB::FileNameList>::const_iterator it = duplicates.constBegin();
+         it != duplicates.constEnd(); ++it) {
+        if (it.value().count() > 1) {
+            displayOrderMap.insert(it.value().first().relative(), it.key());
+        }
+    }
+
+    for (DB::MD5 md5 : displayOrderMap.values()) {
+        addDuplicates(duplicates[md5]);
+    }
 }
 
 DuplicatesModel::~DuplicatesModel()

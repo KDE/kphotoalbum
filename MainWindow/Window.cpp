@@ -32,6 +32,7 @@
 #include <BackgroundTaskManager/JobManager.h>
 #include <Browser/BrowserWidget.h>
 #include <DB/CategoryCollection.h>
+#include <DB/DuplicatesFinder.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
 #include <DB/MD5.h>
@@ -1825,8 +1826,18 @@ void MainWindow::Window::usePreviousVideoThumbnail()
 
 void MainWindow::Window::mergeDuplicates()
 {
-    DuplicateMerger *merger = new DuplicateMerger;
-    merger->show();
+    Utilities::ShowBusyCursor busyCursor;
+
+    DB::DuplicatesFinder finder;
+
+    if (finder.findDuplicates()) {
+        DuplicateMerger *merger = new DuplicateMerger(finder.getDuplicates());
+        merger->show();
+    }
+    else {
+        busyCursor.stop();
+        KMessageBox::information(this, i18n("No duplicate files were found."), i18n("Empty Search Result"));
+    }
 }
 
 void MainWindow::Window::slotThumbnailSizeChanged()

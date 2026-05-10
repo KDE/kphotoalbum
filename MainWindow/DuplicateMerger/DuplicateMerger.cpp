@@ -21,6 +21,7 @@
 #include <QDebug>
 #include <QDialogButtonBox>
 #include <QFileInfo>
+#include <QHBoxLayout>
 #include <QHeaderView>
 #include <QLabel>
 #include <QLineEdit>
@@ -29,7 +30,8 @@
 #include <QScrollArea>
 #include <QSortFilterProxyModel>
 #include <QTableView>
-#include <QTableWidgetItem>
+#include <QListWidget>
+#include <QListWidgetItem>
 #include <QVBoxLayout>
 
 #include <utility>
@@ -67,14 +69,12 @@ namespace MainWindow
 DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *parent)
     : QDialog(parent)
     , m_model(new DuplicatesModel(duplicates, this))
+    , m_filterProxy(new DuplicateSortFilterProxyModel(this))
 {
     setModal(true);
 
     setAttribute(Qt::WA_DeleteOnClose);
     resize(800, 600);
-
-    m_filterProxy = new DuplicateSortFilterProxyModel(this);
-    m_filterProxy->setSourceModel(m_model);
 
     QWidget *top = new QWidget(this);
     QVBoxLayout *topLayout = new QVBoxLayout(top);
@@ -89,9 +89,6 @@ DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *
     fnt.setPixelSize(18);
     label->setFont(fnt);
     topLayout->addWidget(label);
-
-    // QHBoxLayout *horizontalLayout = new QHBoxLayout;
-    // topLayout->addLayout(horizontalLayout);
 
     m_trash = new QRadioButton(i18n("Move to &trash"));
     m_deleteFromDisk = new QRadioButton(i18n("&Delete from disk"));
@@ -120,7 +117,53 @@ DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *
     m_lineEdit->installEventFilter(this);
     setFocusProxy(m_lineEdit);
 
+    QHBoxLayout *horizontalLayout = new QHBoxLayout;
+    topLayout->addLayout(horizontalLayout);
+
+    m_duplicatesView = new QTableView();
+    m_filterProxy->setSourceModel(m_model);
+    m_duplicatesView->setModel(m_filterProxy);
+
+    m_duplicatesView->horizontalHeader()->setStretchLastSection(true);
+    m_duplicatesView->verticalHeader()->hide();
+    m_duplicatesView->resizeRowsToContents();
+    m_duplicatesView->resizeColumnsToContents();
+    // m_duplicatesView->setSelectionMode(QAbstractItemView::NoSelection);
+    connect(m_duplicatesView, &QTableView::clicked, this, &MainWindow::DuplicateMerger::duplicateClicked);
+    connect(m_duplicatesView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &DuplicateMerger::selectionChanged);
+    // connect(m_duplicatesView->selectionModel(), &QItemSelectionModel::dataChanged, this, &DuplicateMerger::selectionChanged);
+    horizontalLayout->addWidget(m_duplicatesView);
+
+    QVBoxLayout *buttonLayout = new QVBoxLayout;
+    horizontalLayout->addLayout(buttonLayout);
+
+    m_addButton = new QPushButton(i18n(">"), this);
+    m_addButton->setEnabled(false);
+    m_addButton->setToolTip(i18n("Add files to keep"));
+    m_addButton->resize(m_addButton->minimumSize());
+    connect(m_addButton, &QPushButton::clicked, this, &DuplicateMerger::addToKeepFiles);
+    buttonLayout->addWidget(m_addButton);
+
+    m_removeButton = new QPushButton(i18n("<"), this);
+    m_removeButton->setEnabled(false);
+    m_removeButton->setToolTip(i18n("Remove files to keep"));
+    connect(m_removeButton, &QPushButton::clicked, this, &DuplicateMerger::removeFromKeepFiles);
+    m_removeButton->resize(m_removeButton->minimumSize());
+    buttonLayout->addWidget(m_removeButton);
+
+    QVBoxLayout *listLayout = new QVBoxLayout;
+    horizontalLayout->addLayout(listLayout);
+
+    listLayout->addWidget(new QLabel(i18n("Files to keep:")));
+
+    m_keepersList = new QListWidget();
+    listLayout->addWidget(m_keepersList);
+    m_keepersList->setSelectionMode(QAbstractItemView::ExtendedSelection);
+
+    connect(m_keepersList->model(), &QAbstractTableModel::rowsInserted, this, &DuplicateMerger::enableAddToKeepFiles);
+
     m_selectionCount = new QLabel;
+    topLayout->addWidget(m_selectionCount);
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox();
 
@@ -132,26 +175,54 @@ DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *
     connect(m_okButton, &QPushButton::clicked, this, &DuplicateMerger::go);
     connect(m_cancelButton, &QPushButton::clicked, this, &DuplicateMerger::reject);
 
-    m_duplicatesView = new QTableView();
-    m_duplicatesView->setModel(m_model);
-    m_duplicatesView->verticalHeader()->hide();
-    m_duplicatesView->horizontalHeader()->setStretchLastSection(true);
-    m_duplicatesView->setModel(m_filterProxy);
-    m_duplicatesView->resizeRowsToContents();
-    m_duplicatesView->resizeColumnsToContents();
-    m_model->setParent(m_duplicatesView);
-    connect(m_duplicatesView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &DuplicateMerger::selectionChanged);
-    // connect(m_duplicatesView->selectionModel(), &QItemSelectionModel::dataChanged, this, &DuplicateMerger::selectionChanged);
-    topLayout->addWidget(m_duplicatesView);
-
-    topLayout->addWidget(m_selectionCount);
-
     topLayout->addWidget(buttonBox);
 }
 
 MainWindow::DuplicateMerger::~DuplicateMerger()
 {
     MergeToolTip::destroy();
+}
+
+void DuplicateMerger::duplicateClicked(const QModelIndex &index)
+{
+    qCDebug(ImageManagerLog) << __func__ << "clicked" << index;
+    m_addButton->setEnabled(true);
+}
+
+void DuplicateMerger::addToKeepFiles()
+{
+    m_addButton->setEnabled(false);
+    for (const auto index : m_duplicatesView->selectionModel()->selectedIndexes()) {
+        const QString fileName = m_model->data(m_model->index(index.row(), index.column()), Qt::DisplayRole).value<QString>();
+        m_duplicatesView->setRowHidden(index.row(), true);
+        m_indexes[fileName] = index.row();
+
+        m_keepersList->addItem(new QListWidgetItem(fileName));
+        qCDebug(ImageManagerLog) << __func__ << "removed" << fileName;
+    }
+
+    m_keepersList->sortItems();
+}
+
+void DuplicateMerger::enableAddToKeepFiles(const QModelIndex &parent, int first, int last)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(first);
+    Q_UNUSED(last);
+    m_removeButton->setEnabled(true);
+}
+
+void DuplicateMerger::removeFromKeepFiles()
+{
+    qCDebug(ImageManagerLog) << __func__ << "clicked";
+    for (const auto item : m_keepersList->selectedItems()) {
+        const auto fileName = item->data(Qt::DisplayRole).value<QString>();
+        m_keepersList->takeItem(m_keepersList->row(item));
+        m_duplicatesView->setRowHidden(m_indexes.take(fileName), false);
+        qCDebug(ImageManagerLog) << __func__ << "removed" << fileName;
+    }
+
+    m_removeButton->setEnabled(m_keepersList->model()->rowCount() > 0);
 }
 
 void DuplicateMerger::selectNone()
@@ -197,72 +268,7 @@ void DuplicateMerger::updateSelectionCount(qsizetype selectionCount)
 {
     m_selectionCount->setText(i18n("%1 of %2 selected", selectionCount, m_model->rowCount()));
     m_okButton->setEnabled(selectionCount > 0);
-}
-
-// TODO: move this out of the UX code:
-void DuplicateMerger::findDuplicates()
-{
-    Utilities::ShowBusyCursor dummy;
-
-    const auto images = DB::ImageDB::instance()->files();
-    for (const DB::FileName &fileName : images) {
-        const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
-        const DB::MD5 md5 = info->MD5Sum();
-        m_matches[md5].append(fileName);
-    }
-
-    // Sort any duplicates in order of increasing birth time to make the
-    // positioning in the table consistent (ie. the oldest duplicate in each
-    // row is in the first column and the newest duplicate is in the last
-    // column).
-    for (QMap<DB::MD5, DB::FileNameList>::iterator it = m_matches.begin();
-         it != m_matches.end(); ++it) {
-        if (it.value().count() > 1) {
-            std::sort(it.value().begin(), it.value().end(),
-                      [](DB::FileName a, DB::FileName b) {
-                          const QFileInfo aInfo(a.absolute());
-                          const QFileInfo bInfo(b.absolute());
-
-                          return aInfo.birthTime() < bInfo.birthTime();
-                      });
-        }
-    }
-
-    // This is used to sort the rows (selectors) in the dialog by relative
-    // pathname of the oldest image in each set of duplicates.
-    QMap<QString, DB::MD5> displayOrderMap;
-
-    for (QMap<DB::MD5, DB::FileNameList>::const_iterator it = m_matches.constBegin();
-         it != m_matches.constEnd(); ++it) {
-        if (it.value().count() > 1) {
-            displayOrderMap.insert(it.value().first().relative(), it.key());
-        }
-    }
-
-    if (displayOrderMap.empty()) {
-        tellThatNoDuplicatesWereFound();
-    } else {
-        for (DB::MD5 md5 : displayOrderMap.values()) {
-            m_model->addDuplicates(m_matches[md5]);
-        }
-    }
-
-    updateSelectionCount();
-}
-
-void DuplicateMerger::tellThatNoDuplicatesWereFound()
-{
-    QLabel *label = new QLabel(i18n("No duplicates found"));
-    QFont fnt = font();
-    fnt.setPixelSize(30);
-    label->setFont(fnt);
-
-    m_trash->setEnabled(false);
-    m_deleteFromDisk->setEnabled(false);
-    m_blockFromDB->setEnabled(false);
-
-    m_selectNoneButton->setEnabled(false);
-    m_okButton->setEnabled(false);
+    m_addButton->setEnabled(selectionCount > 0);
 }
 
 void DuplicateMerger::textChanged(const QString &str)
@@ -284,7 +290,7 @@ DuplicatesModel::DuplicatesModel(const DB::DuplicatesType& duplicates, QObject* 
     : QAbstractTableModel(parent)
     , m_maxDuplicates(0)
 {
-    // This is used to sort the rows (selectors) in the dialog by relative
+    // This is used to sort the rows in the duplicates table by relative
     // pathname of the oldest image in each set of duplicates.
     QMap<QString, DB::MD5> displayOrderMap;
 

@@ -21,6 +21,7 @@ class DuplicateSortFilterProxyModel;
 class QItemSelection;
 class QLabel;
 class QLineEdit;
+class QListWidget;
 class QPushButton;
 class QRadioButton;
 class QTableView;
@@ -76,6 +77,10 @@ public:
     ~DuplicateMerger() override;
 
 private Q_SLOTS:
+    void addToKeepFiles();
+    void removeFromKeepFiles();
+    void duplicateClicked(const QModelIndex &index);
+    void enableAddToKeepFiles(const QModelIndex &parent, int first, int last);
     void selectNone();
     void go();
     void updateSelectionCount(qsizetype selectionCount = 0);
@@ -90,6 +95,8 @@ private:
     QRadioButton *m_blockFromDB;
     QLabel *m_selectionCount;
 
+    QPushButton *m_addButton;
+    QPushButton *m_removeButton;
     QPushButton *m_selectNoneButton;
     QPushButton *m_okButton;
     QPushButton *m_cancelButton;
@@ -100,7 +107,11 @@ private:
     DuplicateSortFilterProxyModel *m_filterProxy;
 
     QTableView *m_duplicatesView;
-    QLabel *m_previewWidget;
+    QListWidget *m_keepersList;
+    // QLabel *m_previewWidget;
+
+    // Maps a filename to keep to its row in m_duplicatesView.
+    QMap<QString, int> m_indexes;
 };
 
 } // namespace MainWindow

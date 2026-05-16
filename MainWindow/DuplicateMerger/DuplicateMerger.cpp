@@ -39,7 +39,9 @@
 // Width and height of the thumbnail preview pixmaps.
 const auto PREVIEW_SIZE = QSize(100, 100);
 
-// Implements custom filtering for the duplicates model.
+/**
+ * This class implements custom filtering for the duplicates model.
+ */
 class DuplicateSortFilterProxyModel : public QSortFilterProxyModel
 {
 public:
@@ -61,6 +63,35 @@ protected:
         }
 
         return false;
+    }
+};
+
+/**
+ * This class exists to customize the selection behavior for the duplicates table.
+ */
+class DuplicatesTableView : public QTableView
+{
+protected:
+    virtual bool edit(const QModelIndex &index, QAbstractItemView::EditTrigger trigger, QEvent *event) override
+    {
+        if (index.column() == 0) {
+            // Don't allow selection in column zero (the pixmap column).
+            return true;
+        }
+
+        return QAbstractItemView::edit(index, trigger, event);
+    }
+
+protected:
+    QItemSelectionModel::SelectionFlags selectionCommand(const QModelIndex &index, const QEvent *event = nullptr) const override
+    {
+        if (event == nullptr && index.column() == 0) {
+            // Don't allow selection of column zero (the pixmap column) by
+            // clicking on the column header.
+            return QItemSelectionModel::NoUpdate;
+        }
+
+        return QAbstractItemView::selectionCommand(index, event);
     }
 };
 
@@ -101,10 +132,6 @@ DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *
     topLayout->addWidget(m_blockFromDB);
     topLayout->addSpacing(10);
 
-    // TODO: unused
-    // m_previewWidget = new QLabel;
-    // topLayout->addWidget(m_previewWidget);
-
     m_lineEdit = new QLineEdit(this);
     m_lineEdit->setClearButtonEnabled(true);
     m_lineEdit->setPlaceholderText(i18nc("@label:textbox", "Filter ..."));
@@ -120,7 +147,7 @@ DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *
     QHBoxLayout *horizontalLayout = new QHBoxLayout;
     topLayout->addLayout(horizontalLayout);
 
-    m_duplicatesView = new QTableView();
+    m_duplicatesView = new DuplicatesTableView();
     m_filterProxy->setSourceModel(m_model);
     m_duplicatesView->setModel(m_filterProxy);
 

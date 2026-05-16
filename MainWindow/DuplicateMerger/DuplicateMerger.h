@@ -18,13 +18,13 @@
 #include <QWidget>
 
 class DuplicateSortFilterProxyModel;
+class DuplicatesTableView;
 class QItemSelection;
 class QLabel;
 class QLineEdit;
 class QListWidget;
 class QPushButton;
 class QRadioButton;
-class QTableView;
 
 namespace MainWindow
 {
@@ -89,7 +89,6 @@ private Q_SLOTS:
 
 private:
 
-    QWidget *m_container;
     QRadioButton *m_trash;
     QRadioButton *m_deleteFromDisk;
     QRadioButton *m_blockFromDB;
@@ -106,9 +105,8 @@ private:
     DuplicatesModel *m_model;
     DuplicateSortFilterProxyModel *m_filterProxy;
 
-    QTableView *m_duplicatesView;
+    DuplicatesTableView *m_duplicatesView;
     QListWidget *m_keepersList;
-    // QLabel *m_previewWidget;
 
     // Maps a filename to keep to its row in m_duplicatesView.
     QMap<QString, int> m_indexes;

@@ -155,10 +155,7 @@ DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *
     m_duplicatesView->verticalHeader()->hide();
     m_duplicatesView->resizeRowsToContents();
     m_duplicatesView->resizeColumnsToContents();
-    // m_duplicatesView->setSelectionMode(QAbstractItemView::NoSelection);
-    connect(m_duplicatesView, &QTableView::clicked, this, &MainWindow::DuplicateMerger::duplicateClicked);
     connect(m_duplicatesView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &DuplicateMerger::selectionChanged);
-    // connect(m_duplicatesView->selectionModel(), &QItemSelectionModel::dataChanged, this, &DuplicateMerger::selectionChanged);
     horizontalLayout->addWidget(m_duplicatesView);
 
     QVBoxLayout *buttonLayout = new QVBoxLayout;
@@ -189,9 +186,6 @@ DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *
 
     connect(m_keepersList->model(), &QAbstractTableModel::rowsInserted, this, &DuplicateMerger::enableAddToKeepFiles);
 
-    m_selectionCount = new QLabel;
-    topLayout->addWidget(m_selectionCount);
-
     QDialogButtonBox *buttonBox = new QDialogButtonBox();
 
     m_selectNoneButton = buttonBox->addButton(i18n("Select &None"), QDialogButtonBox::NoRole);
@@ -208,12 +202,6 @@ DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *
 MainWindow::DuplicateMerger::~DuplicateMerger()
 {
     MergeToolTip::destroy();
-}
-
-void DuplicateMerger::duplicateClicked(const QModelIndex &index)
-{
-    qCDebug(ImageManagerLog) << __func__ << "clicked" << index;
-    m_addButton->setEnabled(true);
 }
 
 void DuplicateMerger::addToKeepFiles()
@@ -291,13 +279,6 @@ void DuplicateMerger::go()
     accept();
 }
 
-void DuplicateMerger::updateSelectionCount(qsizetype selectionCount)
-{
-    m_selectionCount->setText(i18n("%1 of %2 selected", selectionCount, m_model->rowCount()));
-    m_okButton->setEnabled(selectionCount > 0);
-    m_addButton->setEnabled(selectionCount > 0);
-}
-
 void DuplicateMerger::textChanged(const QString &str)
 {
     m_filterProxy->setFilterRegularExpression(str);
@@ -305,12 +286,28 @@ void DuplicateMerger::textChanged(const QString &str)
 
 void DuplicateMerger::selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
-    // TODO: check that no indexes in selected are blank...
-    // TODO: don't allow selections in the pixmap column
-    // TODO: only one selection per row
     Q_UNUSED(selected);
     Q_UNUSED(deselected);
-    updateSelectionCount(m_duplicatesView->selectionModel()->selectedIndexes().size());
+
+    // Counts the number of selected cells in each row.  The key is the row
+    // index.
+    QMap<unsigned, unsigned> counts;
+
+    for (auto i : m_duplicatesView->selectionModel()->selectedIndexes()) {
+        counts[i.row()]++;
+    }
+
+    unsigned maxCount = 0;
+
+    for (auto count : counts) {
+        if (count > maxCount) {
+            maxCount = count;
+        }
+    }
+
+    // Enable only if at least one row has one selected cell and no row has
+    // more than one selected cell.
+    m_addButton->setEnabled(maxCount == 1);
 }
 
 DuplicatesModel::DuplicatesModel(const DB::DuplicatesType& duplicates, QObject* parent)

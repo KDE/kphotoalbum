@@ -79,20 +79,16 @@ public:
 private Q_SLOTS:
     void addToKeepFiles();
     void removeFromKeepFiles();
-    void duplicateClicked(const QModelIndex &index);
     void enableAddToKeepFiles(const QModelIndex &parent, int first, int last);
     void selectNone();
     void go();
-    void updateSelectionCount(qsizetype selectionCount = 0);
     void textChanged(const QString &);
     void selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
 
 private:
-
     QRadioButton *m_trash;
     QRadioButton *m_deleteFromDisk;
     QRadioButton *m_blockFromDB;
-    QLabel *m_selectionCount;
 
     QPushButton *m_addButton;
     QPushButton *m_removeButton;

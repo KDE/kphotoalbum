@@ -66,35 +66,6 @@ protected:
     }
 };
 
-/**
- * This class exists to customize the selection behavior for the duplicates table.
- */
-class DuplicatesTableView : public QTableView
-{
-protected:
-    virtual bool edit(const QModelIndex &index, QAbstractItemView::EditTrigger trigger, QEvent *event) override
-    {
-        if (index.column() == 0) {
-            // Don't allow selection in column zero (the pixmap column).
-            return true;
-        }
-
-        return QAbstractItemView::edit(index, trigger, event);
-    }
-
-protected:
-    QItemSelectionModel::SelectionFlags selectionCommand(const QModelIndex &index, const QEvent *event = nullptr) const override
-    {
-        if (event == nullptr && index.column() == 0) {
-            // Don't allow selection of column zero (the pixmap column) by
-            // clicking on the column header.
-            return QItemSelectionModel::NoUpdate;
-        }
-
-        return QAbstractItemView::selectionCommand(index, event);
-    }
-};
-
 namespace MainWindow
 {
 DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *parent)
@@ -147,7 +118,7 @@ DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *
     QHBoxLayout *horizontalLayout = new QHBoxLayout;
     topLayout->addLayout(horizontalLayout);
 
-    m_duplicatesView = new DuplicatesTableView();
+    m_duplicatesView = new QTableView();
     m_filterProxy->setSourceModel(m_model);
     m_duplicatesView->setModel(m_filterProxy);
 
@@ -155,7 +126,7 @@ DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *
     m_duplicatesView->verticalHeader()->hide();
     m_duplicatesView->resizeRowsToContents();
     m_duplicatesView->resizeColumnsToContents();
-    connect(m_duplicatesView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &DuplicateMerger::selectionChanged);
+    connect(m_duplicatesView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &DuplicateMerger::duplicatesTableSelectionChanged);
     horizontalLayout->addWidget(m_duplicatesView);
 
     QVBoxLayout *buttonLayout = new QVBoxLayout;
@@ -184,12 +155,13 @@ DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *
     listLayout->addWidget(m_keepersList);
     m_keepersList->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
-    connect(m_keepersList->model(), &QAbstractTableModel::rowsInserted, this, &DuplicateMerger::enableAddToKeepFiles);
+    connect(m_keepersList, &QListWidget::itemSelectionChanged, this, &DuplicateMerger::keepersListSelectionChanged);
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox();
 
     m_selectNoneButton = buttonBox->addButton(i18n("Select &None"), QDialogButtonBox::NoRole);
     m_okButton = buttonBox->addButton(QDialogButtonBox::Ok);
+    m_okButton->setEnabled(false);
     m_cancelButton = buttonBox->addButton(QDialogButtonBox::Cancel);
 
     connect(m_selectNoneButton, &QPushButton::clicked, this, &DuplicateMerger::selectNone);
@@ -217,14 +189,12 @@ void DuplicateMerger::addToKeepFiles()
     }
 
     m_keepersList->sortItems();
+    m_okButton->setEnabled(m_keepersList->count() > 0);
 }
 
-void DuplicateMerger::enableAddToKeepFiles(const QModelIndex &parent, int first, int last)
+void DuplicateMerger::keepersListSelectionChanged()
 {
-    Q_UNUSED(parent);
-    Q_UNUSED(first);
-    Q_UNUSED(last);
-    m_removeButton->setEnabled(true);
+    m_removeButton->setEnabled(!m_keepersList->selectedItems().isEmpty());
 }
 
 void DuplicateMerger::removeFromKeepFiles()
@@ -237,7 +207,7 @@ void DuplicateMerger::removeFromKeepFiles()
         qCDebug(ImageManagerLog) << __func__ << "removed" << fileName;
     }
 
-    m_removeButton->setEnabled(m_keepersList->model()->rowCount() > 0);
+    m_okButton->setEnabled(m_keepersList->count() > 0);
 }
 
 void DuplicateMerger::selectNone()
@@ -284,7 +254,7 @@ void DuplicateMerger::textChanged(const QString &str)
     m_filterProxy->setFilterRegularExpression(str);
 }
 
-void DuplicateMerger::selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
+void DuplicateMerger::duplicatesTableSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
     Q_UNUSED(selected);
     Q_UNUSED(deselected);

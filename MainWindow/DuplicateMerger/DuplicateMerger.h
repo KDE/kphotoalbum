@@ -18,13 +18,13 @@
 #include <QWidget>
 
 class DuplicateSortFilterProxyModel;
-class DuplicatesTableView;
 class QItemSelection;
 class QLabel;
 class QLineEdit;
 class QListWidget;
 class QPushButton;
 class QRadioButton;
+class QTableView;
 
 namespace MainWindow
 {
@@ -53,6 +53,17 @@ public:
 
     QVariant data(const QModelIndex &index, int role) const override;
 
+    Qt::ItemFlags flags(const QModelIndex &index) const override
+    {
+        if (index.column() == 0) {
+            // Don't allow selection in column zero (the pixmap column) but
+            // keep it enabled so the pixmaps aren't grayscaled.
+            return Qt::ItemIsEnabled;
+        }
+
+        return QAbstractTableModel::flags(index);
+    }
+
     unsigned getTotalCount();
 
     void addDuplicates(const DB::FileNameList &files);
@@ -79,11 +90,11 @@ public:
 private Q_SLOTS:
     void addToKeepFiles();
     void removeFromKeepFiles();
-    void enableAddToKeepFiles(const QModelIndex &parent, int first, int last);
     void selectNone();
     void go();
     void textChanged(const QString &);
-    void selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+    void duplicatesTableSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+    void keepersListSelectionChanged();
 
 private:
     QRadioButton *m_trash;
@@ -101,7 +112,7 @@ private:
     DuplicatesModel *m_model;
     DuplicateSortFilterProxyModel *m_filterProxy;
 
-    DuplicatesTableView *m_duplicatesView;
+    QTableView *m_duplicatesView;
     QListWidget *m_keepersList;
 
     // Maps a filename to keep to its row in m_duplicatesView.

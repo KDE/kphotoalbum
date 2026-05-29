@@ -83,9 +83,9 @@ DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *
     setLayout(topLayout);
     topLayout->addWidget(top);
 
-    QString txt = i18n("<p>Below is a list of all images that are duplicated in your database.<br/>"
-                       "Select which you want merged, and which of the duplicates should be kept.<br/>"
-                       "The tag and description from the deleted images will be merged to the kept image.</p>");
+    QString txt = i18n("<p>Below is a list of all files that are duplicated in your database.<br/>"
+                       "Select the files you want to keep.<br/>"
+                       "Annotations from the deleted files will be merged to the kept image.</p>");
     QLabel *label = new QLabel(txt);
     QFont fnt = font();
     fnt.setPixelSize(18);
@@ -103,20 +103,22 @@ DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *
     topLayout->addWidget(m_blockFromDB);
     topLayout->addSpacing(10);
 
+    QHBoxLayout *horizontalLayout = new QHBoxLayout;
+    topLayout->addLayout(horizontalLayout);
+
+    QVBoxLayout *vLayout = new QVBoxLayout;
+    horizontalLayout->addLayout(vLayout);
+
     m_lineEdit = new QLineEdit(this);
     m_lineEdit->setClearButtonEnabled(true);
     m_lineEdit->setPlaceholderText(i18nc("@label:textbox", "Filter ..."));
-    m_lineEdit->setToolTip(i18n("Filter by filename"));
+    m_lineEdit->setToolTip(i18n("Filter duplicates by filename"));
 
-    topLayout->addWidget(m_lineEdit);
+    vLayout->addWidget(m_lineEdit);
     connect(m_lineEdit, &QLineEdit::textChanged, this, &DuplicateMerger::textChanged);
-    // connect(m_lineEdit, &QLineEdit::textChanged, m_filterProxy, &DuplicateSortFilterProxyModel::setFilterRegularExpression);
 
     m_lineEdit->installEventFilter(this);
     setFocusProxy(m_lineEdit);
-
-    QHBoxLayout *horizontalLayout = new QHBoxLayout;
-    topLayout->addLayout(horizontalLayout);
 
     m_duplicatesView = new QTableView();
     m_filterProxy->setSourceModel(m_model);
@@ -127,7 +129,7 @@ DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *
     m_duplicatesView->resizeRowsToContents();
     m_duplicatesView->resizeColumnsToContents();
     connect(m_duplicatesView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &DuplicateMerger::duplicatesTableSelectionChanged);
-    horizontalLayout->addWidget(m_duplicatesView);
+    vLayout->addWidget(m_duplicatesView);
 
     QVBoxLayout *buttonLayout = new QVBoxLayout;
     horizontalLayout->addLayout(buttonLayout);

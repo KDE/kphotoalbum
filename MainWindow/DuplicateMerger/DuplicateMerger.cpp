@@ -187,7 +187,7 @@ void DuplicateMerger::addToKeepFiles()
         m_indexes[fileName] = index.row();
 
         m_keepersList->addItem(new QListWidgetItem(fileName));
-        qCDebug(ImageManagerLog) << __func__ << "removed" << fileName;
+        qCDebug(ImageManagerLog) << __func__ << "added" << fileName;
     }
 
     m_keepersList->sortItems();
@@ -207,6 +207,7 @@ void DuplicateMerger::removeFromKeepFiles()
         m_keepersList->takeItem(m_keepersList->row(item));
         m_duplicatesView->setRowHidden(m_indexes.take(fileName), false);
         qCDebug(ImageManagerLog) << __func__ << "removed" << fileName;
+        delete item;
     }
 
     m_okButton->setEnabled(m_keepersList->count() > 0);
@@ -219,34 +220,49 @@ void DuplicateMerger::selectNone()
 
 void DuplicateMerger::go()
 {
-    // Utilities::DeleteMethod method = Utilities::RemoveFromDatabase;
+    Utilities::DeleteMethod method = Utilities::RemoveFromDatabase;
 
-    // if (m_trash->isChecked()) {
-    //     method = Utilities::MoveToTrash;
-    // } else if (m_deleteFromDisk->isChecked()) {
-    //     method = Utilities::DeleteFromDisk;
-    // }
+    if (m_trash->isChecked()) {
+        method = Utilities::MoveToTrash;
+    } else if (m_deleteFromDisk->isChecked()) {
+        method = Utilities::DeleteFromDisk;
+    }
 
-    // For each row, if a filename is selected then delete the unselected
-    // filenames in that row.
-    // TODO: need the delete/block logic from DuplicateMatch here!
-    for (auto index : m_duplicatesView->selectionModel()->selectedIndexes()) {
+    // For each row in m_keepersList, use the hash to get the (hidden) row in
+    // the duplicates table.  The keepers table provides the filename to keep
+    // and the files to remove are the other filenames from m_model for that row.
+    DB::FileNameList deleteList, dupList;
+
+    for (auto row = 0; row < m_keepersList->count(); row++) {
+        QListWidgetItem* item = m_keepersList->item(row);
+        const auto keeperFileName = item->data(Qt::DisplayRole).value<QString>();
+        const auto modelRow = m_indexes.take(keeperFileName);
+
+        qCDebug(ImageManagerLog) << "Keeping" << keeperFileName;
+
         // Column zero is the pixmap.
         for (int column = 1; column < m_model->columnCount(); column++) {
-            if (column != index.column()) {
-                const auto i = m_model->index(index.row(), column);
-                const auto fileName = m_model->data(i, Qt::DisplayRole);
-                // Rows in the table can be different lengths.
-                if (fileName.isValid()) {
-                    qCDebug(ImageManagerLog) << "Delete" << m_model->data(i, Qt::DisplayRole);
+            const auto i = m_model->index(modelRow, column);
+            const auto data = m_model->data(i, Qt::DisplayRole);
+
+            // Rows in the table can be different lengths.
+            if (data.isValid()) {
+                const auto fileName = data.value<QString>();
+
+                if (fileName != keeperFileName) {
+                    const auto relPath = DB::FileName::fromRelativePath(data.value<QString>());
+
+                    DB::ImageDB::instance()->copyData(relPath, DB::FileName::fromRelativePath(keeperFileName));
+                    qCDebug(ImageManagerLog) << "Deleting" << fileName;
+                    deleteList.append(relPath);
                 }
             }
         }
     }
-    // TODO: can this be moved out of the UX code?
-    // for (DuplicateMatch *selector : std::as_const(m_selectors)) {
-    //     selector->execute(method);
-    // }
+
+    Utilities::DeleteFiles::deleteFiles(deleteList, method);
+    // remove duplicate DB-entries without removing or blocking the file:
+    DB::ImageDB::instance()->deleteList(dupList); // TODO
 
     accept();
 }

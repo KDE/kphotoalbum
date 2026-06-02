@@ -8,24 +8,25 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-01 00:43+0000\n"
-"PO-Revision-Date: 2013-09-08 07:04+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"PO-Revision-Date: 2026-05-31 19:27-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "ئابدۇقادىر ئابلىز, غەيرەت كەنجى"
+msgstr "ئابدۇقادىر ئابلىز، غەيرەت كەنجى"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "sahran.ug@gmail.com,  gheyret@gmail.com"
+msgstr "sahranbay@gmail.com, gheyret@gmail.com"
 
 #: AnnotationDialog/AreaTagSelectDialog.cpp:87
 #, kde-format
@@ -73,12 +74,12 @@ msgstr "سۈرەتنى ئالدىن كۆزەت"
 #: AnnotationDialog/Dialog.cpp:165 DB/ImageDB.cpp:396
 #, kde-format
 msgid "Cancel"
-msgstr "ئەمەلدىن قالدۇر"
+msgstr "ۋاز كەچ"
 
 #: AnnotationDialog/Dialog.cpp:170 AnnotationDialog/Dialog.cpp:172
 #, kde-format
 msgid "Map"
-msgstr ""
+msgstr "خەرىتە"
 
 #: AnnotationDialog/Dialog.cpp:178
 #, kde-format
@@ -127,7 +128,7 @@ msgstr "ئەن: "
 #: AnnotationDialog/Dialog.cpp:324 ImportExport/MD5CheckPage.cpp:65
 #, kde-format
 msgid "Label"
-msgstr "ئەن"
+msgstr "بەلگە"
 
 #: AnnotationDialog/Dialog.cpp:333
 #, kde-format
@@ -179,7 +180,7 @@ msgstr ""
 #: AnnotationDialog/Dialog.cpp:407
 #, kde-format
 msgid "=="
-msgstr "=="
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:407
 #, kde-format
@@ -194,7 +195,7 @@ msgstr ""
 #: AnnotationDialog/Dialog.cpp:407
 #, kde-format
 msgid "!="
-msgstr "!="
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:415
 #, kde-format
@@ -214,7 +215,7 @@ msgstr ""
 #: AnnotationDialog/Dialog.cpp:440
 #, kde-format
 msgid "Append"
-msgstr ""
+msgstr "قوش"
 
 #: AnnotationDialog/Dialog.cpp:441
 #, kde-format
@@ -222,10 +223,9 @@ msgid "Append new text to each description"
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:442
-#, fuzzy, kde-format
-#| msgid "Places"
+#, kde-format
 msgid "Replace"
-msgstr "ئورۇنلار"
+msgstr "ئالماشتۇر"
 
 #: AnnotationDialog/Dialog.cpp:443
 #, kde-format
@@ -243,11 +243,10 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:635
-#, fuzzy, kde-format
-#| msgid "Annotations"
+#, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
-msgstr "ئىزاھات"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:878
 #, kde-format
@@ -261,8 +260,7 @@ msgid "Done"
 msgstr "تامام"
 
 #: AnnotationDialog/Dialog.cpp:888
-#, fuzzy, kde-format
-#| msgid "Annotations"
+#, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "ئىزاھات"
@@ -302,7 +300,7 @@ msgstr ""
 #: AnnotationDialog/Dialog.cpp:956
 #, kde-format
 msgid "Sort by Date"
-msgstr ""
+msgstr "چېسلا بويىچە تەرتىپلە"
 
 #: AnnotationDialog/Dialog.cpp:972
 #, kde-format
@@ -325,10 +323,9 @@ msgid "Show Only Selected Ctrl+S"
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:1033 Map/MapView.cpp:360
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "Settings saved!"
-msgstr "تەڭشەكلەر"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:1033
 #, kde-format
@@ -343,11 +340,10 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:1099
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "ئۆزگەرتكەننى ساقلامدۇ؟"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:1198
 #, kde-format
@@ -488,15 +484,13 @@ msgid "Toggle full-screen preview"
 msgstr ""
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:356
-#, fuzzy, kde-format
-#| msgid "Rotate counterclockwise"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
 msgstr "سائەت ئىسترېلكىسىغا قارشى يۆنىلىشتە چۆرگىلىتىش"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:357
-#, fuzzy, kde-format
-#| msgid "Rotate clockwise"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
 msgstr "سائەت ئىسترېلكىسى يۆنىلىشىدە چۆرگىلىتىش"
@@ -508,12 +502,10 @@ msgid "Copy tags from previously tagged image"
 msgstr ""
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:359
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Delete Image"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete image"
-msgstr "سۈرەت ئۆچۈر"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:72
 #, kde-format
@@ -558,7 +550,7 @@ msgstr ""
 #: AnnotationDialog/ListSelect.cpp:363
 #, kde-format
 msgid "<b>%1</b>"
-msgstr ""
+msgstr "<b>%1</b>"
 
 #: AnnotationDialog/ListSelect.cpp:369 Settings/CategoryPage.cpp:74
 #, kde-format
@@ -571,16 +563,14 @@ msgid "Rename..."
 msgstr "ئات ئۆزگەرت…"
 
 #: AnnotationDialog/ListSelect.cpp:372
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgid "<b>Tag Groups</b>"
-msgstr "يېڭى گۇرۇپپا"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:380
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgid "Tag groups"
-msgstr "يېڭى گۇرۇپپا"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:397
 #, kde-format
@@ -630,8 +620,7 @@ msgid "Really Delete %1?"
 msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:463
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "تۈرنىڭ ئاتىنى ئۆزگەرت"
@@ -639,7 +628,7 @@ msgstr "تۈرنىڭ ئاتىنى ئۆزگەرت"
 #: AnnotationDialog/ListSelect.cpp:463
 #, kde-format
 msgid "Enter new name:"
-msgstr ""
+msgstr "يېڭى ئات كىرگۈزۈلىدۇ:"
 
 #: AnnotationDialog/ListSelect.cpp:469
 #, kde-format
@@ -649,24 +638,21 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:473
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "ئات ئۆزگەرت…"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:477
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
-msgstr "ئات ئۆزگەرت…"
+msgstr "ئات ئۆزگەرت"
 
 #: AnnotationDialog/ListSelect.cpp:508
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgid "New tag group"
-msgstr "يېڭى گۇرۇپپا"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:509
 #, kde-format
@@ -695,7 +681,7 @@ msgstr ""
 #, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
-msgstr ""
+msgstr "%1 (%2)"
 
 #: AnnotationDialog/ResizableFrame.cpp:56
 #, kde-format
@@ -709,13 +695,13 @@ msgctxt ""
 "%1 is a prefix like 'Associate with', %2 is the tag name and %3 is the tag's "
 "category"
 msgid "%1 %2 (%3)"
-msgstr ""
+msgstr "%1 %2 (%3)"
 
 #: AnnotationDialog/ResizableFrame.cpp:316
 #, kde-format
 msgctxt "%1 is the tag name and %2 is the tag's category"
 msgid "%1 (%2)"
-msgstr ""
+msgstr "%1 (%2)"
 
 #: AnnotationDialog/ResizableFrame.cpp:357
 #, kde-format
@@ -784,7 +770,7 @@ msgstr "باشلىمىدى"
 #, kde-format
 msgctxt "@title:column Background job id"
 msgid "ID"
-msgstr "كىملىكى(ID)"
+msgstr "كىملىك"
 
 #: BackgroundTaskManager/JobModel.cpp:95
 #, kde-format
@@ -796,7 +782,7 @@ msgstr "ماۋزۇ"
 #, kde-format
 msgctxt "@title:column Additional information on background job"
 msgid "Details"
-msgstr "تەپسىلاتلار"
+msgstr "تەپسىلاتى"
 
 #: BackgroundTaskManager/JobModel.cpp:99
 #, kde-format
@@ -805,11 +791,10 @@ msgid "Elapsed"
 msgstr ""
 
 #: BackgroundTaskManager/JobViewer.cpp:21
-#, fuzzy, kde-format
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:window"
 msgid "Background Job Viewer"
-msgstr "تەگلىك رەڭگى"
+msgstr ""
 
 #: BackgroundTaskManager/JobViewer.cpp:30
 #: BackgroundTaskManager/JobViewer.cpp:65
@@ -863,23 +848,22 @@ msgstr[0] ""
 #: Browser/AbstractCategoryModel.cpp:166
 #, kde-format
 msgid "Images"
-msgstr "سۈرەتلەر"
+msgstr "سۈرەت"
 
 #: Browser/AbstractCategoryModel.cpp:168
 #, kde-format
 msgid "Videos"
-msgstr "سىنلار"
+msgstr "سىن"
 
 #: Browser/AbstractCategoryModel.cpp:170
 #, kde-format
 msgid "Start Date"
-msgstr ""
+msgstr "باشلاش چېسلاسى"
 
 #: Browser/AbstractCategoryModel.cpp:172
-#, fuzzy, kde-format
-#| msgid "Date"
+#, kde-format
 msgid "End Date"
-msgstr "چېسلا"
+msgstr "ئاخىرلىشىش چېسلاسى"
 
 #: Browser/Breadcrumb.cpp:27
 #, kde-format
@@ -888,10 +872,9 @@ msgid "All"
 msgstr "ھەممىسى"
 
 #: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:145
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgid "Geo Position"
-msgstr "چۈشەندۈرۈش"
+msgstr ""
 
 #: Browser/OverviewPage.cpp:157
 #, kde-format
@@ -912,7 +895,7 @@ msgstr ""
 #: Browser/OverviewPage.cpp:191
 #, kde-format
 msgid "Show Thumbnails"
-msgstr ""
+msgstr "كىچىك سۈرەتنى كۆرسەت"
 
 #: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
@@ -925,11 +908,9 @@ msgid "Empty Search Result"
 msgstr ""
 
 #: Browser/OverviewPage.cpp:277
-#, fuzzy, kde-format
-#| msgctxt "@title:window title of the 'find images' window"
-#| msgid "Search"
+#, kde-format
 msgid "Exif Search"
-msgstr "ئىزدە"
+msgstr ""
 
 #: Browser/OverviewPage.cpp:297
 #, kde-format
@@ -955,12 +936,12 @@ msgstr ""
 #: CategoryListView/CheckDropItem.cpp:118
 #, kde-format
 msgid "\"%1\" and \"%2\""
-msgstr ""
+msgstr "«%1» ۋە «%2»"
 
 #: CategoryListView/CheckDropItem.cpp:122
 #, kde-format
 msgid "\"%1\""
-msgstr ""
+msgstr "«%1»"
 
 #: CategoryListView/CheckDropItem.cpp:124
 #, kde-format
@@ -999,11 +980,10 @@ msgid "Move Items"
 msgstr "تۈر يۆتكە"
 
 #: DateBar/DateBarWidget.cpp:65
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
-msgstr "چېسلا: "
+msgstr ""
 
 #: DateBar/DateBarWidget.cpp:74
 #, kde-format
@@ -1016,26 +996,20 @@ msgid "Scroll left"
 msgstr ""
 
 #: DateBar/DateBarWidget.cpp:92
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Zoom In"
+#, kde-format
 msgid "Zoom in"
 msgstr "چوڭايت"
 
 #: DateBar/DateBarWidget.cpp:103
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Zoom Out"
+#, kde-format
 msgid "Zoom out"
-msgstr "كىچىكلىتىش"
+msgstr "كىچىكلەت"
 
 #: DateBar/DateBarWidget.cpp:115
-#, fuzzy, kde-format
-#| msgctxt "Delete selected images"
-#| msgid "Delete Selected"
+#, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
-msgstr "تاللانغاننى ئۆچۈرۈش"
+msgstr ""
 
 #: DateBar/DateBarWidget.cpp:128
 #, kde-kuit-format
@@ -1097,28 +1071,24 @@ msgid "%1 | %2"
 msgstr "%1 | %2"
 
 #: DateBar/ViewHandler.cpp:106
-#, fuzzy, kde-format
-#| msgid "1 Year"
+#, kde-format
 msgid "1 Year"
-msgstr "%1 يىل"
+msgstr ""
 
 #: DateBar/ViewHandler.cpp:139
-#, fuzzy, kde-format
-#| msgid "1 Month"
+#, kde-format
 msgid "1 Month"
-msgstr "%1 ئاي"
+msgstr ""
 
 #: DateBar/ViewHandler.cpp:176
-#, fuzzy, kde-format
-#| msgid "1 Week"
+#, kde-format
 msgid "1 Week"
-msgstr "%1 ھەپتە"
+msgstr ""
 
 #: DateBar/ViewHandler.cpp:203
-#, fuzzy, kde-format
-#| msgid "1 Day"
+#, kde-format
 msgid "1 Day"
-msgstr "%1 كۈن"
+msgstr "1 كۈن"
 
 #: DateBar/ViewHandler.cpp:244
 #, kde-format
@@ -1131,28 +1101,24 @@ msgid "10 Minutes"
 msgstr "10 مىنۇت"
 
 #: DateBar/ViewHandler.cpp:312
-#, fuzzy, kde-format
-#| msgid "10 Minutes"
+#, kde-format
 msgid "1 Minute"
-msgstr "10 مىنۇت"
+msgstr ""
 
 #: DateBar/ViewHandler.cpp:347
-#, fuzzy, kde-format
-#| msgid "1 second"
+#, kde-format
 msgid "10 Seconds"
-msgstr "%1 سېكۇنت"
+msgstr ""
 
 #: DB/Category.cpp:326
-#, fuzzy, kde-format
-#| msgid "Unable to create temporary file"
+#, kde-format
 msgid "Unable to create folder '%1'."
-msgstr "ۋاقىتلىق ھۆججەت قۇرالمىدى"
+msgstr "قىسقۇچ «%1» نى قۇرغىلى بولمىدى."
 
 #: DB/Category.cpp:326
-#, fuzzy, kde-format
-#| msgid "Unable to create temporary file"
+#, kde-format
 msgid "Unable to Create Folder"
-msgstr "ۋاقىتلىق ھۆججەت قۇرالمىدى"
+msgstr ""
 
 #: DB/Category.cpp:335
 #, kde-format
@@ -1260,16 +1226,12 @@ msgid "Media Type"
 msgstr "ۋاسىتە تىپى"
 
 #: DB/ImageDB.cpp:559 DB/ImageDB.cpp:865 DB/XML/FileReader.cpp:141
-#, fuzzy, kde-format
-#| msgctxt "Denotes the media type (video,image)"
-#| msgid "Image"
+#, kde-format
 msgid "Image"
 msgstr "سۈرەت"
 
 #: DB/ImageDB.cpp:559 DB/ImageDB.cpp:866 DB/XML/FileReader.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "Denotes the media type (video,image)"
-#| msgid "Video"
+#, kde-format
 msgid "Video"
 msgstr "سىن"
 
@@ -1282,7 +1244,7 @@ msgstr ""
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
-msgstr ""
+msgstr "، "
 
 #: DB/NewImageFinder.cpp:488
 #, kde-format
@@ -1453,7 +1415,7 @@ msgstr ""
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
-msgstr ""
+msgstr "%1<br/>"
 
 #: DB/XML/FileReader.cpp:501
 #, kde-format
@@ -1470,10 +1432,9 @@ msgid ""
 msgstr ""
 
 #: DB/XML/FileReader.cpp:510
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgid "Database repair required"
-msgstr "ساندان ئارقا ئۇچى"
+msgstr ""
 
 #: DB/XML/FileReader.cpp:533
 #, kde-format
@@ -1497,12 +1458,12 @@ msgstr ""
 #: DB/XML/FileReader.cpp:547 Settings/BirthdayPage.cpp:135
 #, kde-format
 msgid "People"
-msgstr "كىشىلەر"
+msgstr "كىشى"
 
 #: DB/XML/FileReader.cpp:548
 #, kde-format
 msgid "Places"
-msgstr "ئورۇنلار"
+msgstr "ئورۇن"
 
 #. i18n("Events"))
 #: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:448
@@ -1682,7 +1643,7 @@ msgstr "چوڭلۇقى:"
 #: Exif/MetaDataDisplay.cpp:50
 #, kde-format
 msgid "Created:"
-msgstr ""
+msgstr "قۇرغان ۋاقىت:"
 
 #: Exif/MetaDataDisplay.cpp:54
 #, kde-format
@@ -1692,18 +1653,17 @@ msgstr ""
 #: Exif/MetaDataDisplay.cpp:58
 #, kde-format
 msgid "Owner:"
-msgstr ""
+msgstr "ئىگىدار:"
 
 #: Exif/MetaDataDisplay.cpp:62
 #, kde-format
 msgid "Group:"
-msgstr "گۇرۇپپا: "
+msgstr "گۇرۇپپا:"
 
 #: Exif/MetaDataDisplay.cpp:66
-#, fuzzy, kde-format
-#| msgid "Version: %1"
+#, kde-format
 msgid "Permissions:"
-msgstr "نەشرى: %1"
+msgstr "ھوقۇقى:"
 
 #: Exif/MetaDataDisplay.cpp:100
 #, kde-format
@@ -1720,23 +1680,21 @@ msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:122 Exif/MetaDataDisplay.cpp:128
 #: Exif/MetaDataDisplay.cpp:134
-#, fuzzy, kde-format
-#| msgid "or"
+#, kde-format
 msgctxt "File permission shortcut for \"reading allowed\""
 msgid "r"
-msgstr "ياكى"
+msgstr "r"
 
 #: Exif/MetaDataDisplay.cpp:124 Exif/MetaDataDisplay.cpp:130
 #: Exif/MetaDataDisplay.cpp:136
 #, kde-format
 msgctxt "File permission shortcut for \"writing allowed\""
 msgid "w"
-msgstr ""
+msgstr "w"
 
 #: Exif/MetaDataDisplay.cpp:126 Exif/MetaDataDisplay.cpp:132
 #: Exif/MetaDataDisplay.cpp:138
-#, fuzzy, kde-format
-#| msgid "x"
+#, kde-format
 msgctxt "File permission shortcut for \"executing allowed\""
 msgid "x"
 msgstr "x"
@@ -1747,7 +1705,7 @@ msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and its octal representation (e.g. \"0644\")"
 msgid "%1 (%2)"
-msgstr ""
+msgstr "%1 (%2)"
 
 #: Exif/ReReadDialog.cpp:28
 #, kde-format
@@ -1798,23 +1756,20 @@ msgid "Override image dates"
 msgstr ""
 
 #: Exif/SearchDialog.cpp:31
-#, fuzzy, kde-format
-#| msgctxt "@title:window title of the 'find images' window"
-#| msgid "Search"
+#, kde-format
 msgctxt "@title:window"
 msgid "Exif Search"
-msgstr "ئىزدە"
+msgstr ""
 
 #: Exif/SearchDialog.cpp:35
 #, kde-format
 msgid "Settings"
-msgstr "تەڭشەكلەر"
+msgstr "تەڭشەك"
 
 #: Exif/SearchDialog.cpp:56
-#, fuzzy, kde-format
-#| msgid "Aperture Value"
+#, kde-format
 msgid "Aperture (F Number)"
-msgstr "نۇر چەمبەر قىممىتى"
+msgstr ""
 
 #: Exif/SearchDialog.cpp:66
 #, kde-format
@@ -1831,7 +1786,7 @@ msgstr "غا"
 #, kde-format
 msgctxt "This is millimeter for focal length, like 35mm"
 msgid "mm"
-msgstr "mm"
+msgstr ""
 
 #: Exif/SearchDialog.cpp:99
 #, kde-format
@@ -1841,12 +1796,12 @@ msgstr "كامېرا"
 #: Exif/SearchDialog.cpp:103
 #, kde-format
 msgid "Lens"
-msgstr ""
+msgstr "لېنزىلار"
 
 #: Exif/SearchDialog.cpp:108 Settings/GeneralPage.cpp:116
 #, kde-format
 msgid "Miscellaneous"
-msgstr "باشقىلار"
+msgstr "باشقا"
 
 #: Exif/SearchDialog.cpp:134
 #, kde-format
@@ -1860,10 +1815,9 @@ msgid "secs."
 msgstr ""
 
 #: Exif/SearchDialog.cpp:178
-#, fuzzy, kde-format
-#| msgid "1 second"
+#, kde-format
 msgid "1 second"
-msgstr "%1 سېكۇنت"
+msgstr "1 سېكۇنت"
 
 #: Exif/SearchDialog.cpp:195
 #, kde-format
@@ -1873,7 +1827,7 @@ msgstr "نۇرلاندۇرۇش ۋاقتى"
 #: Exif/SearchDialog.cpp:245
 #, kde-format
 msgid "Exposure Program"
-msgstr "يورۇتۇش پروگراممىسى"
+msgstr "يورۇتۇش پىروگراممىسى"
 
 #: Exif/SearchDialog.cpp:262 ImportExport/MD5CheckPage.cpp:67
 #, kde-format
@@ -1888,7 +1842,7 @@ msgstr "مۆلچەر شەكلى"
 #: Exif/SearchDialog.cpp:290
 #, kde-format
 msgid "Contrast"
-msgstr "ئاق-قارىلىقى"
+msgstr "سېلىشتۇرمىسى"
 
 #: Exif/SearchDialog.cpp:301
 #, kde-format
@@ -1983,8 +1937,7 @@ msgid "Date"
 msgstr "چېسلا"
 
 #: HTMLGenerator/HTMLDialog.cpp:53
-#, fuzzy, kde-format
-#| msgid "HTML Export"
+#, kde-format
 msgctxt "@title:window"
 msgid "HTML Export"
 msgstr "HTML چىقار"
@@ -2057,7 +2010,7 @@ msgstr "كىچىك سۈرەت چوڭلۇقى:"
 #: HTMLGenerator/HTMLDialog.cpp:202
 #, kde-format
 msgid "Number of columns:"
-msgstr "ئىستون سانى:"
+msgstr "رەت سانى:"
 
 #: HTMLGenerator/HTMLDialog.cpp:217
 #, kde-format
@@ -2090,16 +2043,14 @@ msgid "Base folder:"
 msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:314
-#, fuzzy, kde-format
-#| msgid "Output directory:"
+#, kde-format
 msgid "Gallery folder:"
-msgstr "چىقىرىش مۇندەرىجىسى:"
+msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:321
-#, fuzzy, kde-format
-#| msgid "Output directory:"
+#, kde-format
 msgid "Output folder:"
-msgstr "چىقىرىش مۇندەرىجىسى:"
+msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:332
 #, kde-format
@@ -2175,11 +2126,10 @@ msgid ""
 msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:443
-#, fuzzy, kde-format
-#| msgid "Folder"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
-msgstr "قىسقۇچ"
+msgstr ""
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:530 MainWindow/SplashScreen.cpp:52
@@ -2287,16 +2237,14 @@ msgid "Building thumbnails"
 msgstr ""
 
 #: ImportExport/Export.cpp:87
-#, fuzzy, kde-format
-#| msgid "Import"
+#, kde-format
 msgid "Save an export file"
-msgstr "ئىمپورت قىل"
+msgstr ""
 
 #: ImportExport/Export.cpp:89 ImportExport/Import.cpp:30
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "KPhotoAlbum import files"
-msgstr "KPhotoAlbum"
+msgstr ""
 
 #: ImportExport/Export.cpp:105
 #, kde-format
@@ -2305,10 +2253,9 @@ msgid "Export Metadata / Copy Files"
 msgstr ""
 
 #: ImportExport/Export.cpp:118
-#, fuzzy, kde-format
-#| msgid "Import"
+#, kde-format
 msgid "How to export %1 files"
-msgstr "ئىمپورت قىل"
+msgstr ""
 
 #: ImportExport/Export.cpp:122
 #, kde-format
@@ -2445,10 +2392,9 @@ msgid "How to Use the Export File"
 msgstr ""
 
 #: ImportExport/Import.cpp:28
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "KPhotoAlbum Export Files"
-msgstr "KPhotoAlbum"
+msgstr ""
 
 #: ImportExport/Import.cpp:60
 #, kde-format
@@ -2500,7 +2446,7 @@ msgstr "ھەممىنى تاللا"
 #: ImportExport/ImportDialog.cpp:158
 #, kde-format
 msgid "Deselect All"
-msgstr "تاللاشنىڭ ھەممىسىنى بىكار قىل"
+msgstr "ھەممىنى تاللىما"
 
 #: ImportExport/ImportDialog.cpp:192
 #, kde-format
@@ -2538,18 +2484,17 @@ msgid "Folder %1 does not exist. Should it be created?"
 msgstr ""
 
 #: ImportExport/ImportDialog.cpp:301 MainWindow/WelcomeDialog.cpp:157
-#, fuzzy, kde-format
-#| msgid "Unable to create temporary file"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "ۋاقىتلىق ھۆججەت قۇرالمىدى"
+msgstr ""
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1222
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr ""
+msgstr "ياسا"
 
 #: ImportExport/ImportDialog.cpp:311
 #, kde-format
@@ -2562,11 +2507,10 @@ msgid "How to resolve clashes"
 msgstr ""
 
 #: ImportExport/ImportHandler.cpp:97 ImportExport/ImportHandler.cpp:159
-#, fuzzy, kde-format
-#| msgid "Images"
+#, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
-msgstr "سۈرەتلەر"
+msgstr ""
 
 #: ImportExport/ImportHandler.cpp:174
 #, kde-format
@@ -2700,10 +2644,9 @@ msgid "Conflicting commandline options: %1 and %2!\n"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:44
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "KPhotoAlbum Thumbnail Tool"
-msgstr "KPhotoAlbum"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:46
 #, kde-format
@@ -2721,10 +2664,9 @@ msgid "Johannes Zarl-Zierl"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:98
-#, fuzzy, kde-format
-#| msgid "Development"
+#, kde-format
 msgid "Development, Maintainer"
-msgstr "ئىجادىيەت"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:99
 #, kde-format
@@ -2732,10 +2674,9 @@ msgid "Robert Krawitz"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:99
-#, fuzzy, kde-format
-#| msgid "Development"
+#, kde-format
 msgid "Development, Optimization"
-msgstr "ئىجادىيەت"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:58 main.cpp:100
 #, kde-format
@@ -2844,18 +2785,16 @@ msgid "%1 is not a folder!\n"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:116
-#, fuzzy, kde-format
-#| msgid "Thumbnail size:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail cache folder: %1\n"
-msgstr "كىچىك سۈرەت چوڭلۇقى:"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:117
-#, fuzzy, kde-format
-#| msgid "Thumbnail size:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index file version: %1\n"
-msgstr "كىچىك سۈرەت چوڭلۇقى:"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:118
 #, kde-format
@@ -2864,11 +2803,10 @@ msgid "Maximum supported thumbnailindex file version: %1\n"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:119
-#, fuzzy, kde-format
-#| msgid "Thumbnail size:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail storage dimensions: %1 pixels\n"
-msgstr "كىچىك سۈرەت چوڭلۇقى:"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:121
 #, kde-format
@@ -2879,11 +2817,10 @@ msgid ""
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:123
-#, fuzzy, kde-format
-#| msgid "Number of columns:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Number of thumbnails: %1\n"
-msgstr "ئىستون سانى:"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:129
 #, kde-format
@@ -3107,7 +3044,7 @@ msgstr ""
 #: main.cpp:138
 #, kde-format
 msgid "Teemu Rytilahti"
-msgstr ""
+msgstr "Teemu Rytilahti"
 
 #: main.cpp:139
 #, kde-format
@@ -3149,7 +3086,7 @@ msgstr ""
 #: main.cpp:155
 #, kde-format
 msgid "Marcel Wiesweg"
-msgstr "Marcel Wiesweg"
+msgstr ""
 
 #: main.cpp:156
 #, kde-format
@@ -3186,14 +3123,10 @@ msgid "Stack images created within the following time-frame:"
 msgstr ""
 
 #: MainWindow/AutoStackImages.cpp:87
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "The whole sentence should read: *Stack images that are shot within x "
-#| "seconds of each other*. (This being the text after x.)"
-#| msgid "seconds"
+#, kde-format
 msgctxt "Unit suffix on a QSpinBox; note the space at the beginning."
 msgid " seconds"
-msgstr "سېكۇنت"
+msgstr " سېكۇنت"
 
 #: MainWindow/AutoStackImages.cpp:90
 #, kde-format
@@ -3241,11 +3174,10 @@ msgid_plural "Link images to ..."
 msgstr[0] ""
 
 #: MainWindow/DeleteDialog.cpp:24
-#, fuzzy, kde-format
-#| msgid "Move Items"
+#, kde-format
 msgctxt "@title:window"
 msgid "Removing Items"
-msgstr "تۈر يۆتكە"
+msgstr ""
 
 #: MainWindow/DeleteDialog.cpp:64
 #, kde-format
@@ -3287,11 +3219,9 @@ msgid "Merge these images"
 msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:57
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Delete Image"
+#, kde-format
 msgid "Select image to keep:"
-msgstr "سۈرەت ئۆچۈر"
+msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:72
 #, kde-format
@@ -3361,7 +3291,7 @@ msgstr ""
 #: MainWindow/ExternalPopup.cpp:87
 #, kde-format
 msgid "Open With..."
-msgstr "بۇنىڭدا ئېچىش…"
+msgstr "ئاچقۇز…"
 
 #: MainWindow/ExternalPopup.cpp:102
 #, kde-format
@@ -3465,11 +3395,10 @@ msgid "SQLite database support"
 msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:144
-#, fuzzy, kde-format
-#| msgid "Creating thumbnails"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
-msgstr "كىچىك سۈرەت قۇرۇۋاتىدۇ"
+msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:147
 #, kde-format
@@ -3541,11 +3470,10 @@ msgid ""
 msgstr ""
 
 #: MainWindow/InvalidDateFinder.cpp:70
-#, fuzzy, kde-format
-#| msgid "Image Info"
+#, kde-format
 msgctxt "@title:window"
 msgid "Image Info"
-msgstr "Image Info"
+msgstr ""
 
 #: MainWindow/InvalidDateFinder.cpp:74
 #, kde-format
@@ -3566,10 +3494,9 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Options.cpp:27 MainWindow/Options.cpp:37
-#, fuzzy, kde-format
-#| msgid "Database driver:"
+#, kde-format
 msgid "databaseFile"
-msgstr "ساندان قوزغاتقۇچ:"
+msgstr ""
 
 #: MainWindow/Options.cpp:31
 #, kde-format
@@ -3577,10 +3504,9 @@ msgid "Application rc file."
 msgstr ""
 
 #: MainWindow/Options.cpp:32
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "kphotoalbumrc"
-msgstr "KPhotoAlbum"
+msgstr ""
 
 #: MainWindow/Options.cpp:36
 #, kde-format
@@ -3593,10 +3519,9 @@ msgid "Starts KPhotoAlbum with a prebuilt set of demo images."
 msgstr ""
 
 #: MainWindow/Options.cpp:42
-#, fuzzy, kde-format
-#| msgid "Import"
+#, kde-format
 msgid "Import file."
-msgstr "ئىمپورت قىل"
+msgstr ""
 
 #: MainWindow/Options.cpp:43
 #, kde-format
@@ -3662,20 +3587,16 @@ msgid "%each"
 msgstr ""
 
 #: MainWindow/SearchBar.cpp:20
-#, fuzzy, kde-format
-#| msgctxt "@title:window title of the 'find images' window"
-#| msgid "Search"
+#, kde-format
 msgctxt "Name/title of the search bar toolbar widget"
 msgid "Search Bar"
-msgstr "ئىزدە"
+msgstr "ئىزدەش بالدىقى"
 
 #: MainWindow/SearchBar.cpp:25
-#, fuzzy, kde-format
-#| msgctxt "@title:window title of the 'find images' window"
-#| msgid "Search"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Search ..."
-msgstr "ئىزدە"
+msgstr ""
 
 #: MainWindow/StatisticsDialog.cpp:35
 #, kde-format
@@ -3734,12 +3655,12 @@ msgstr ""
 #: Settings/UntaggedGroupBox.cpp:31
 #, kde-format
 msgid "Category:"
-msgstr "تۈرى:"
+msgstr "سەھىپە:"
 
 #: MainWindow/StatisticsDialog.cpp:120 Settings/UntaggedGroupBox.cpp:38
 #, kde-format
 msgid "Tag:"
-msgstr ""
+msgstr "بەلگە:"
 
 #: MainWindow/StatisticsDialog.cpp:127
 #, kde-format
@@ -3759,10 +3680,9 @@ msgid "Total"
 msgstr "جەمئىي"
 
 #: MainWindow/StatusBar.cpp:104
-#, fuzzy, kde-format
-#| msgid "Thumbnail size:"
+#, kde-format
 msgid "Thumbnail settings..."
-msgstr "كىچىك سۈرەت چوڭلۇقى:"
+msgstr ""
 
 #: MainWindow/TokenEditor.cpp:36
 #, kde-format
@@ -3878,12 +3798,10 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:325
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Delete Image"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
-msgstr "سۈرەت ئۆچۈر"
+msgstr ""
 
 #: MainWindow/Window.cpp:341
 #, kde-format
@@ -3891,11 +3809,10 @@ msgid "Do you want to save the changes?"
 msgstr ""
 
 #: MainWindow/Window.cpp:342
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
-msgstr "ئۆزگەرتكەننى ساقلامدۇ؟"
+msgstr "ئۆزگىرىشنى ساقلامدۇ؟"
 
 #: MainWindow/Window.cpp:399
 #, kde-format
@@ -3953,10 +3870,9 @@ msgid "Limit View to Selection"
 msgstr ""
 
 #: MainWindow/Window.cpp:771
-#, fuzzy, kde-format
-#| msgid "None Selected"
+#, kde-format
 msgid "No images are selected!"
-msgstr "تاللانمىدى"
+msgstr ""
 
 #: MainWindow/Window.cpp:784
 #, kde-format
@@ -3977,7 +3893,7 @@ msgstr ""
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
-msgstr "تاللانغاننى ئۆچۈرۈش"
+msgstr "تاللانغاننى ئۆچۈر"
 
 #: MainWindow/Window.cpp:828
 #, kde-format
@@ -4072,7 +3988,7 @@ msgstr ""
 #: MainWindow/Window.cpp:928
 #, kde-format
 msgid "Unlock"
-msgstr "قۇلۇپسىزلا"
+msgstr "قۇلۇپ ئاچ"
 
 #: MainWindow/Window.cpp:931
 #, kde-format
@@ -4102,7 +4018,7 @@ msgstr ""
 #: MainWindow/Window.cpp:955
 #, kde-format
 msgid "Icons"
-msgstr "سىنبەلگىلەر"
+msgstr "سىنبەلگە"
 
 #: MainWindow/Window.cpp:962
 #, kde-format
@@ -4180,10 +4096,9 @@ msgid "Build Thumbnails"
 msgstr ""
 
 #: MainWindow/Window.cpp:1042
-#, fuzzy, kde-format
-#| msgid "Statistics"
+#, kde-format
 msgid "Statistics..."
-msgstr "ستاتىستىكا"
+msgstr ""
 
 #: MainWindow/Window.cpp:1046
 #, kde-format
@@ -4193,7 +4108,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1056
 #, kde-format
 msgid "Enable All Messages"
-msgstr ""
+msgstr "ھەممە ئۇچۇرنى قوزغات"
 
 #: MainWindow/Window.cpp:1060
 #, kde-format
@@ -4278,11 +4193,10 @@ msgid "Viewer"
 msgstr "كۆرگۈچ"
 
 #: MainWindow/Window.cpp:1391
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr "چېسلا: "
+msgstr ""
 
 #: MainWindow/Window.cpp:1394
 #, kde-format
@@ -4358,7 +4272,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1639
 #, kde-format
 msgid "No Matches"
-msgstr ""
+msgstr "ماس كېلىدىغىنى يوق"
 
 #: MainWindow/Window.cpp:1811
 #, kde-format
@@ -4385,8 +4299,7 @@ msgid "Video thumbnails are not available"
 msgstr ""
 
 #: Map/GeoCluster.cpp:133
-#, fuzzy, kde-format
-#| msgid "%1"
+#, kde-format
 msgctxt "The number of images in an area of the map"
 msgid "%1"
 msgstr "%1"
@@ -4402,10 +4315,9 @@ msgid "Go to last map position"
 msgstr ""
 
 #: Map/MapView.cpp:182
-#, fuzzy, kde-format
-#| msgid "Creating thumbnails"
+#, kde-format
 msgid "Show thumbnails"
-msgstr "كىچىك سۈرەت قۇرۇۋاتىدۇ"
+msgstr "كىچىك سۈرەتنى كۆرسەت"
 
 #: Map/MapView.cpp:191
 #, kde-format
@@ -4459,10 +4371,9 @@ msgid "<i>None of the selected images contain geographic coordinates.</i>"
 msgstr ""
 
 #: Plugins/PurposeMenu.cpp:37
-#, fuzzy, kde-format
-#| msgid "Sharpness"
+#, kde-format
 msgid "Share"
-msgstr "ئۆتكۈرلۈك"
+msgstr "ھەمبەھىر"
 
 #: RemoteControl/ConnectionIndicator.cpp:30
 #, kde-format
@@ -4477,10 +4388,9 @@ msgid ""
 msgstr ""
 
 #: RemoteControl/ConnectionIndicator.cpp:90
-#, fuzzy, kde-format
-#| msgid "Server address:"
+#, kde-format
 msgid "Android device address: "
-msgstr "مۇلازىمېتىر ئادرېسى:"
+msgstr ""
 
 #: RemoteControl/Server.cpp:32
 #, kde-format
@@ -4508,12 +4418,10 @@ msgid ""
 msgstr ""
 
 #: Settings/BirthdayPage.cpp:59
-#, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Filters"
+#, kde-format
 msgctxt "@label:textedit"
 msgid "Filter ... (%1)"
-msgstr "سۈزگۈچ"
+msgstr ""
 
 #: Settings/BirthdayPage.cpp:93
 #, kde-format
@@ -4530,12 +4438,12 @@ msgstr ""
 #: Settings/BirthdayPage.cpp:157
 #, kde-format
 msgid "Name"
-msgstr ""
+msgstr "ئاتى"
 
 #: Settings/BirthdayPage.cpp:157
 #, kde-format
 msgid "Birthday"
-msgstr ""
+msgstr "تۇغۇلغان كۈن"
 
 #: Settings/BirthdayPage.cpp:225
 #, kde-format
@@ -4553,10 +4461,9 @@ msgid "<i>Select an item on the left to edit the birthday</i>"
 msgstr ""
 
 #: Settings/CategoryPage.cpp:49
-#, fuzzy, kde-format
-#| msgid "Categories"
+#, kde-format
 msgid "Category Settings"
-msgstr "كاتېگورىيە"
+msgstr ""
 
 #: Settings/CategoryPage.cpp:70
 #, kde-format
@@ -4564,10 +4471,9 @@ msgid "New"
 msgstr "يېڭى"
 
 #: Settings/CategoryPage.cpp:78
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgid "Rename"
-msgstr "ئات ئۆزگەرت…"
+msgstr "ئات ئۆزگەرت"
 
 #: Settings/CategoryPage.cpp:111
 #, kde-format
@@ -4681,10 +4587,9 @@ msgid "Confirm Action"
 msgstr ""
 
 #: Settings/CategoryPage.cpp:372
-#, fuzzy, kde-format
-#| msgid "Category"
+#, kde-format
 msgid "New category"
-msgstr "كاتېگورىيە"
+msgstr "يېڭى كاتېگورىيە"
 
 #: Settings/CategoryPage.cpp:404
 #, kde-format
@@ -4970,15 +4875,14 @@ msgid "Type of media on which your images are stored."
 msgstr ""
 
 #: Settings/FileVersionDetectionPage.cpp:189
-#, fuzzy, kde-format
-#| msgid "Hard"
+#, kde-format
 msgid "Hard Disk"
-msgstr "تەس"
+msgstr "قاتتىق دىسكا"
 
 #: Settings/FileVersionDetectionPage.cpp:190
 #, kde-format
 msgid "Network"
-msgstr ""
+msgstr "تور"
 
 #: Settings/FileVersionDetectionPage.cpp:191
 #, kde-format
@@ -4996,10 +4900,9 @@ msgid "Fast PCIe/NVMe"
 msgstr ""
 
 #: Settings/FileVersionDetectionPage.cpp:194
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "Manual Settings"
-msgstr "تەڭشەكلەر"
+msgstr ""
 
 #: Settings/FileVersionDetectionPage.cpp:197
 #, kde-format
@@ -5100,10 +5003,9 @@ msgid "Use Exif orientation information"
 msgstr ""
 
 #: Settings/GeneralPage.cpp:53
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgid "Use Exif description"
-msgstr "چۈشەندۈرۈش"
+msgstr ""
 
 #: Settings/GeneralPage.cpp:57
 #, kde-format
@@ -5123,13 +5025,12 @@ msgstr ""
 #: Settings/GeneralPage.cpp:87
 #, kde-format
 msgid "Histogram"
-msgstr "سىتاتىسكا گرافىكى، چاسا دىئاگرامما"
+msgstr "چاسا دىياگرامما"
 
 #: Settings/GeneralPage.cpp:94
-#, fuzzy, kde-format
-#| msgid "Histogram"
+#, kde-format
 msgid "Show histogram"
-msgstr "سىتاتىسكا گرافىكى، چاسا دىئاگرامما"
+msgstr ""
 
 #: Settings/GeneralPage.cpp:99
 #, kde-format
@@ -5213,7 +5114,7 @@ msgstr ""
 #: Settings/SettingsDialog.cpp:49
 #, kde-format
 msgid "Categories"
-msgstr "كاتېگورىيە"
+msgstr "سەھىپە"
 
 #: Settings/SettingsDialog.cpp:50
 #, kde-format
@@ -5221,10 +5122,9 @@ msgid "Birthdays"
 msgstr ""
 
 #: Settings/SettingsDialog.cpp:51
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgid "Tag Groups"
-msgstr "يېڭى گۇرۇپپا"
+msgstr ""
 
 #: Settings/SettingsDialog.cpp:53
 #, kde-format
@@ -5232,24 +5132,21 @@ msgid "Exif/IPTC Information"
 msgstr ""
 
 #: Settings/SettingsDialog.cpp:54
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgid "Database Backend"
-msgstr "ساندان ئارقا ئۇچى"
+msgstr ""
 
 #: Settings/SettingsDialog.cpp:74
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgctxt "@title:window"
 msgid "Settings"
-msgstr "تەڭشەكلەر"
+msgstr "تەڭشەك"
 
 #: Settings/TagGroupsPage.cpp:37
-#, fuzzy, kde-format
-#| msgid "Categories"
+#, kde-format
 msgctxt "@label"
 msgid "Categories and groups:"
-msgstr "كاتېگورىيە"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:46
 #, kde-format
@@ -5278,11 +5175,10 @@ msgid "Rename group \"%1\""
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:231
-#, fuzzy, kde-format
-#| msgid "Delete Group"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete group \"%1\""
-msgstr "%1 گۇرۇپپا ئۆچۈر"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:310
 #, kde-format
@@ -5291,15 +5187,13 @@ msgid "Tags in group \"%1\" of category \"%2\""
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:341
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgctxt "@title:window"
 msgid "New Group"
 msgstr "يېڭى گۇرۇپپا"
 
 #: Settings/TagGroupsPage.cpp:342
-#, fuzzy, kde-format
-#| msgid "Group name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Group name:"
 msgstr "گۇرۇپپا ئاتى:"
@@ -5317,18 +5211,16 @@ msgid "Cannot add group"
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:435 Settings/TagGroupsPage.cpp:454
-#, fuzzy, kde-format
-#| msgid "Delete Group"
+#, kde-format
 msgctxt "@title:window"
 msgid "Rename Group"
-msgstr "%1 گۇرۇپپا ئۆچۈر"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:436
-#, fuzzy, kde-format
-#| msgid "Group name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "New group name:"
-msgstr "گۇرۇپپا ئاتى:"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:449
 #, kde-kuit-format
@@ -5354,11 +5246,10 @@ msgid "<para>Really delete group \"%1\"?</para>"
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:521
-#, fuzzy, kde-format
-#| msgid "Delete Group"
+#, kde-format
 msgctxt "@title:window"
 msgid "Delete Group"
-msgstr "%1 گۇرۇپپا ئۆچۈر"
+msgstr "گۇرۇپپا ئۆچۈر"
 
 #: Settings/TagGroupsPage.cpp:522 Settings/TagGroupsPage.cpp:769
 #, kde-format
@@ -5366,18 +5257,16 @@ msgid "&Delete"
 msgstr "ئۆچۈر(&D)"
 
 #: Settings/TagGroupsPage.cpp:700
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename \"%1\""
-msgstr "ئات ئۆزگەرت…"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:702
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete \"%1\""
-msgstr "ئۆچۈر"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:713
 #, kde-format
@@ -5386,11 +5275,10 @@ msgid "New Tag Name"
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:714
-#, fuzzy, kde-format
-#| msgid "Database name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Tag name:"
-msgstr "ساندان ئاتى:"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:764
 #, kde-kuit-format
@@ -5428,20 +5316,19 @@ msgid "Build thumbnails on demand"
 msgstr ""
 
 #: Settings/ThumbnailsPage.cpp:52
-#, fuzzy, kde-format
-#| msgid "Thumbnail size:"
+#, kde-format
 msgid "Thumbnail table cells aspect ratio:"
-msgstr "كىچىك سۈرەت چوڭلۇقى:"
+msgstr ""
 
 #: Settings/ThumbnailsPage.cpp:54
 #, kde-format
 msgid "1:1"
-msgstr "1:1"
+msgstr ""
 
 #: Settings/ThumbnailsPage.cpp:54
 #, kde-format
 msgid "4:3"
-msgstr "4:3"
+msgstr ""
 
 #: Settings/ThumbnailsPage.cpp:55
 #, kde-format
@@ -5451,7 +5338,7 @@ msgstr ""
 #: Settings/ThumbnailsPage.cpp:55
 #, kde-format
 msgid "16:9"
-msgstr "16:9"
+msgstr ""
 
 #: Settings/ThumbnailsPage.cpp:55
 #, kde-format
@@ -5497,7 +5384,7 @@ msgstr ""
 #, kde-format
 msgctxt "Describing: 'ThumbnailView will not be automatically shown'"
 msgid "Disabled"
-msgstr "ئىناۋەتسىز قىلىنغان"
+msgstr "چەكلەنگەن"
 
 #: Settings/ThumbnailsPage.cpp:98
 #, kde-format
@@ -5642,11 +5529,10 @@ msgid ""
 msgstr ""
 
 #: Settings/VideoPlayerSelectorDialog.cpp:152
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
-msgstr "ساندان ئارقا ئۇچى"
+msgstr ""
 
 #: Settings/VideoPlayerSelectorDialog.cpp:155
 #, kde-format
@@ -5655,31 +5541,27 @@ msgid "Unconfigured video backend"
 msgstr ""
 
 #: Settings/VideoPlayerSelectorDialog.cpp:157
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
-msgstr "ساندان ئارقا ئۇچى"
+msgstr ""
 
 #: Settings/VideoPlayerSelectorDialog.cpp:159
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
-msgstr "ساندان ئارقا ئۇچى"
+msgstr ""
 
 #: Settings/VideoPlayerSelectorDialog.cpp:161
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
-msgstr "ساندان ئارقا ئۇچى"
+msgstr ""
 
 #: Settings/ViewerPage.cpp:25
-#, fuzzy, kde-format
-#| msgid "Not defined"
+#, kde-format
 msgid "Not Configured"
-msgstr "ئېنىقلىما بېرىلمىگەن"
+msgstr ""
 
 #: Settings/ViewerPage.cpp:44
 #, kde-format
@@ -5767,22 +5649,19 @@ msgid ""
 msgstr ""
 
 #: Settings/ViewerPage.cpp:101
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgid "Video Backend:"
-msgstr "ساندان ئارقا ئۇچى"
+msgstr ""
 
 #: Settings/ViewerPage.cpp:112
-#, fuzzy, kde-format
-#| msgid "Annotations"
+#, kde-format
 msgid "Default Annotation Mode"
-msgstr "ئىزاھات"
+msgstr ""
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgid "Unlock"
+#, kde-format
 msgid "Locked"
-msgstr "قۇلۇپسىزلا"
+msgstr "قۇلۇپلانغان"
 
 #: Settings/ViewerPage.cpp:114
 #, kde-format
@@ -5808,11 +5687,10 @@ msgid "video"
 msgstr "سىن"
 
 #: ThumbnailView/FilterWidget.cpp:17
-#, fuzzy, kde-format
-#| msgid "Main Toolbar"
+#, kde-format
 msgctxt "Name/title of the filter toolbar widget"
 msgid "Filter Toolbar"
-msgstr "ئاساسىي قورال بالداق"
+msgstr ""
 
 #: ThumbnailView/FilterWidget.cpp:23
 #, kde-format
@@ -5833,12 +5711,10 @@ msgid_plural "Filter view by rating: %1 stars"
 msgstr[0] ""
 
 #: ThumbnailView/FilterWidget.cpp:62
-#, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Filters"
+#, kde-format
 msgctxt "The label gives a textual description of the active filter"
 msgid "Filter: %1"
-msgstr "سۈزگۈچ"
+msgstr ""
 
 #: ThumbnailView/FilterWidget.cpp:85
 #, kde-kuit-format
@@ -5858,11 +5734,10 @@ msgid ""
 msgstr ""
 
 #: ThumbnailView/ThumbnailDND.cpp:100
-#, fuzzy, kde-format
-#| msgid "Creating thumbnails"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
-msgstr "كىچىك سۈرەت قۇرۇۋاتىدۇ"
+msgstr ""
 
 #: Utilities/DeleteFiles.cpp:37
 #, kde-format
@@ -5909,12 +5784,10 @@ msgid " (%1MP)"
 msgstr " (%1MP)"
 
 #: Utilities/DescriptionUtil.cpp:76
-#, fuzzy, kde-format
-#| msgctxt "short for: x megapixels"
-#| msgid " (%1MP)"
+#, kde-format
 msgctxt "aspect ratio"
 msgid " (%1:1)"
-msgstr " (%1MP)"
+msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:78
 #, kde-format
@@ -5950,31 +5823,26 @@ msgid " (up to %1)"
 msgstr ""
 
 #: Utilities/Timespan.cpp:100
-#, fuzzy, kde-format
-#| msgctxt "short for: x megapixels"
-#| msgid " (%1MP)"
+#, kde-format
 msgctxt "Like \"6 years\" old"
 msgid " (%1)"
-msgstr " (%1MP)"
+msgstr ""
 
 #: Utilities/Timespan.cpp:102
-#, fuzzy, kde-format
-#| msgctxt "short for: x megapixels"
-#| msgid " (%1MP)"
+#, kde-format
 msgctxt "Like \"6 years to 7 years\" old"
 msgid " (%1 to %2)"
-msgstr " (%1MP)"
+msgstr ""
 
 #: Utilities/Timespan.cpp:111
 #, kde-format
 msgctxt "Like \"The baby is '8 days' old\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] ""
+msgstr[0] "%1 كۈن"
 
 #: Utilities/Timespan.cpp:116 Utilities/Timespan.cpp:126
-#, fuzzy, kde-format
-#| msgid "1 Month"
+#, kde-format
 msgctxt "Like \"The baby is '4 months' old\""
 msgid "%1 month"
 msgid_plural "%1 months"
@@ -5985,7 +5853,7 @@ msgstr[0] "%1 ئاي"
 msgctxt "Like \"The person is '28 years' old\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] ""
+msgstr[0] "%1 يىل"
 
 #: Utilities/Timespan.cpp:129
 #, kde-format
@@ -5993,46 +5861,39 @@ msgctxt ""
 "This combines an age of a person in years (%1) with the additional months "
 "(%2), like \"The person is '1 year and 3 months' old\""
 msgid "%1, %2"
-msgstr ""
+msgstr "%1، %2"
 
 #: Utilities/Timespan.cpp:158
-#, fuzzy, kde-format
-#| msgid "today"
+#, kde-format
 msgid " (today)"
-msgstr "بۈگۈن"
+msgstr ""
 
 #: Utilities/Timespan.cpp:161
-#, fuzzy, kde-format
-#| msgid "yesterday"
+#, kde-format
 msgid " (yesterday)"
-msgstr "تۈنۈگۈن"
+msgstr ""
 
 #: Utilities/Timespan.cpp:165 Utilities/Timespan.cpp:176
-#, fuzzy, kde-format
-#| msgctxt "short for: x megapixels"
-#| msgid " (%1MP)"
+#, kde-format
 msgctxt "Like \"6 years ago\""
 msgid " (%1 ago)"
-msgstr " (%1MP)"
+msgstr ""
 
 #: Utilities/Timespan.cpp:173
-#, fuzzy, kde-format
-#| msgctxt "short for: x megapixels"
-#| msgid " (%1MP)"
+#, kde-format
 msgctxt "Like \"6 to 7 years ago\""
 msgid " (%1 to %2 ago)"
-msgstr " (%1MP)"
+msgstr ""
 
 #: Utilities/Timespan.cpp:192
 #, kde-format
 msgctxt "Like \"This happened '6 days' ago\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] ""
+msgstr[0] "%1 كۈن"
 
 #: Utilities/Timespan.cpp:201 Utilities/Timespan.cpp:261
-#, fuzzy, kde-format
-#| msgid "1 Month"
+#, kde-format
 msgctxt "Like \"This happened '2 months' ago\""
 msgid "%1 month"
 msgid_plural "%1 months"
@@ -6043,7 +5904,7 @@ msgstr[0] "%1 ئاي"
 msgctxt "Like \"This happened '3 weeks' ago\""
 msgid "%1 week"
 msgid_plural "%1 weeks"
-msgstr[0] ""
+msgstr[0] "%1 ھەپتە"
 
 #: Utilities/Timespan.cpp:216
 #, kde-format
@@ -6053,19 +5914,18 @@ msgid_plural "about %1 weeks"
 msgstr[0] ""
 
 #: Utilities/Timespan.cpp:229
-#, fuzzy, kde-format
-#| msgid "1 Month"
+#, kde-format
 msgctxt "Like \"This happened 'about 2 months' ago\""
 msgid "about %1 month"
 msgid_plural "about %1 months"
-msgstr[0] "%1 ئاي"
+msgstr[0] ""
 
 #: Utilities/Timespan.cpp:256 Utilities/Timespan.cpp:259
 #, kde-format
 msgctxt "Like \"This happened '2 years' ago\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] ""
+msgstr[0] "%1 يىل"
 
 #: Utilities/Timespan.cpp:265
 #, kde-format
@@ -6074,7 +5934,7 @@ msgctxt ""
 "happened 3 years and 1 month\" ago, where the first parameter is the "
 "formatted years string and the second one is the formatted months string"
 msgid "%1 and %2"
-msgstr ""
+msgstr "%1 ۋە %2"
 
 #: Viewer/AnnotationHandler.cpp:69
 #, kde-format
@@ -6088,17 +5948,14 @@ msgid "Select item for macro key <b>%1</b>"
 msgstr ""
 
 #: Viewer/AnnotationHandler.cpp:126
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgid "Tag Item"
-msgstr "تۈرنىڭ ئاتىنى ئۆزگەرت"
+msgstr ""
 
 #: Viewer/AnnotationHandler.cpp:126
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Delete Image"
+#, kde-format
 msgid "Select tag for image"
-msgstr "سۈرەت ئۆچۈر"
+msgstr ""
 
 #: Viewer/CategoryImageConfig.cpp:41
 #, kde-format
@@ -6110,13 +5967,13 @@ msgstr ""
 #, kde-format
 msgctxt "@label:listbox As in 'select the tag category'"
 msgid "Category:"
-msgstr "تۈرى:"
+msgstr "سەھىپە:"
 
 #: Viewer/CategoryImageConfig.cpp:57
 #, kde-format
 msgctxt "@label:listbox As in 'select a tag'"
 msgid "Tag:"
-msgstr ""
+msgstr "بەلگە:"
 
 #: Viewer/CategoryImageConfig.cpp:66
 #, kde-format
@@ -6165,17 +6022,17 @@ msgstr ""
 #: Viewer/SelectCategoryAndValue.cpp:136
 #, kde-format
 msgid "Add New"
-msgstr ""
+msgstr "يېڭىدىن قوش"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
 #, kde-format
 msgid "Key"
-msgstr ""
+msgstr "ئاچقۇچ"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
 #, kde-format
 msgid "Tag"
-msgstr ""
+msgstr "بەلگە"
 
 #: Viewer/SelectCategoryAndValue.cpp:220
 #, kde-format
@@ -6187,14 +6044,13 @@ msgstr ""
 #: Viewer/SelectCategoryAndValue.ui:14
 #, kde-format
 msgid "Dialog"
-msgstr ""
+msgstr "سۆزلەشكۈ"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
+#, kde-format
 msgid "TextLabel"
-msgstr "ئەن"
+msgstr "تېكىستلىك ئەن"
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
@@ -6204,9 +6060,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
+#, kde-format
 msgid "Title"
 msgstr "ماۋزۇ"
 
@@ -6268,7 +6122,7 @@ msgstr "سائەت ئىسترېلكىسىغا قارشى يۆنىلىشتە چۆ
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
-msgstr "ئۆتكۈزۈۋەت"
+msgstr "ئاتلا"
 
 #: Viewer/ViewerWidget.cpp:302
 #, kde-format
@@ -6286,7 +6140,7 @@ msgstr "ئاخىرقى"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
-msgstr ""
+msgstr "كېيىنكىنى كۆرسەت"
 
 #: Viewer/ViewerWidget.cpp:322
 #, kde-format
@@ -6310,7 +6164,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
-msgstr ""
+msgstr "ئالدىنقىنى كۆرسەت"
 
 #: Viewer/ViewerWidget.cpp:346
 #, kde-format
@@ -6346,19 +6200,19 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
-msgstr "كېڭەيت-تارايت"
+msgstr "نىسبەت"
 
 #: Viewer/ViewerWidget.cpp:388
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
-msgstr "چوڭايت"
+msgstr "يېقىنلات"
 
 #: Viewer/ViewerWidget.cpp:394
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
-msgstr "كىچىكلىتىش"
+msgstr "يىراقلات"
 
 #: Viewer/ViewerWidget.cpp:400
 #, kde-format
@@ -6382,7 +6236,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
-msgstr "تام تەسۋىرى"
+msgstr "تام تەسۋىر"
 
 #: Viewer/ViewerWidget.cpp:426 Viewer/ViewerWidget.cpp:908
 #, kde-format
@@ -6411,13 +6265,13 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
-msgstr ""
+msgstr "%1 %2"
 
 #: Viewer/ViewerWidget.cpp:553
 #, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
-msgstr "قوي"
+msgstr "ياڭرات"
 
 #: Viewer/ViewerWidget.cpp:555
 #, kde-format
@@ -6441,18 +6295,15 @@ msgid "Assigning tokens"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:638
-#, fuzzy, kde-format
-#| msgid "Annotations"
+#, kde-format
 msgid "Annotation mode: %1"
-msgstr "ئىزاھات"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:911
-#, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Slideshow"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr "تام تەسۋىرى"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:914
 #, kde-format
@@ -6475,18 +6326,16 @@ msgid "%1&nbsp;s"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1245
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr "چۈشەندۈرۈش"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1245
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr "چۈشەندۈرۈش"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1260
 #, kde-format
@@ -6631,29 +6480,27 @@ msgid ""
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1488
-#, fuzzy, kde-format
-#| msgid "Annotations"
+#, kde-format
 msgid "Annotate"
-msgstr "ئىزاھات"
+msgstr "ئىزاھ"
 
 #: Viewer/ViewerWidget.cpp:1507
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
-msgstr ""
+msgstr "ياردەم"
 
 #: Viewer/ViewerWidget.cpp:1509
-#, fuzzy, kde-format
-#| msgid "Annotations"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
-msgstr "ئىزاھات"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1510
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
-msgstr ""
+msgstr "بەلگە قوش"
 
 #: Viewer/ViewerWidget.cpp:1510
 #, kde-format
@@ -6674,11 +6521,10 @@ msgid "CTRL+c"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1517
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr "چۈشەندۈرۈش"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1518
 #, kde-format
@@ -6687,16 +6533,15 @@ msgid "CTRL+d"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1521
-#, fuzzy, kde-format
-#| msgid "Annotations"
+#, kde-format
 msgid "Annotation Mode"
-msgstr "ئىزاھات"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1523
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
-msgstr ""
+msgstr "قۇلۇپلانغان"
 
 #: Viewer/ViewerWidget.cpp:1524
 #, kde-format
@@ -6708,13 +6553,13 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
-msgstr ""
+msgstr "بەلگە تەقسىملە"
 
 #: Viewer/ViewerWidget.cpp:1529
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
-msgstr ""
+msgstr "F2"
 
 #: Viewer/ViewerWidget.cpp:1533
 #, kde-format
@@ -6774,10 +6619,9 @@ msgid "Show Filename"
 msgstr ""
 
 #: Viewer/VisibleOptionsMenu.cpp:64
-#, fuzzy, kde-format
-#| msgid "Show"
+#, kde-format
 msgid "Show Exif"
-msgstr "كۆرسەت"
+msgstr ""
 
 #: Viewer/VisibleOptionsMenu.cpp:69
 #, kde-format
@@ -6789,50 +6633,42 @@ msgstr ""
 msgid "Show Rating"
 msgstr ""
 
-#, fuzzy
 #~| msgid "1 Month"
 #~ msgctxt "Like \"The baby is \"4 months\" old\""
 #~ msgid "%1 month"
 #~ msgid_plural "%1 months"
 #~ msgstr[0] "%1 ئاي"
 
-#, fuzzy
 #~| msgid "Unlock"
 #~ msgid "locked"
 #~ msgstr "قۇلۇپسىزلا"
 
-#, fuzzy
 #~| msgid "Annotations"
 #~ msgid "annotating"
 #~ msgstr "ئىزاھات"
 
-#, fuzzy
 #~| msgid "Database driver:"
 #~ msgid "Invalid database file"
 #~ msgstr "ساندان قوزغاتقۇچ:"
 
-#, fuzzy
 #~| msgid "1 Month"
 #~ msgctxt "As in 'This happened 1 month ago'"
 #~ msgid "1 month ago"
 #~ msgid_plural "%1 months ago"
 #~ msgstr[0] "%1 ئاي"
 
-#, fuzzy
 #~| msgctxt "short for: x megapixels"
 #~| msgid " (%1MP)"
 #~ msgctxt "E.g. ' (7 months-1 year)'"
 #~ msgid " (%1-%2)"
 #~ msgstr " (%1MP)"
 
-#, fuzzy
 #~| msgctxt "short for: x megapixels"
 #~| msgid " (%1MP)"
 #~ msgctxt "E.g. ' (1-2 years ago)'"
 #~ msgid " (%1-%2)"
 #~ msgstr " (%1MP)"
 
-#, fuzzy
 #~| msgctxt "short for: x megapixels"
 #~| msgid " (%1MP)"
 #~ msgctxt "E.g. '(7 months ago-1 year ago)'"
@@ -6843,7 +6679,6 @@ msgstr ""
 #~ msgid "Search:"
 #~ msgstr "ئىزدە:"
 
-#, fuzzy
 #~| msgid "Plugins"
 #~ msgctxt ""
 #~ "Add 'Plugin' prefix so that KIPI plugins are obvious in KShortcutsDialog…"
@@ -6864,12 +6699,10 @@ msgstr ""
 #~ msgid "Password Protection"
 #~ msgstr "ئىم قوغداش"
 
-#, fuzzy
 #~| msgid "Background Color"
 #~ msgid "Background color:"
 #~ msgstr "تەگلىك رەڭگى"
 
-#, fuzzy
 #~| msgid "Description"
 #~ msgid "Geo position"
 #~ msgstr "چۈشەندۈرۈش"
@@ -6918,17 +6751,14 @@ msgstr ""
 #~ msgid "Centered Auto Fit"
 #~ msgstr "ئوتتۇرىغا ئاپتوماتىك تەڭشە"
 
-#, fuzzy
 #~| msgid "Thumbnail size:"
 #~ msgid "Thumbnail Size:"
 #~ msgstr "كىچىك سۈرەت چوڭلۇقى:"
 
-#, fuzzy
 #~| msgid "No Selection"
 #~ msgid "Face detection"
 #~ msgstr "تاللانمىدى"
 
-#, fuzzy
 #~| msgid "Database backend"
 #~ msgid "Database entry"
 #~ msgstr "ساندان ئارقا ئۇچى"
@@ -6948,17 +6778,14 @@ msgstr ""
 #~ msgid "Keywords"
 #~ msgstr "ھالقىلىق سۆزلەر"
 
-#, fuzzy
 #~| msgid "No Selection"
 #~ msgid "Face database training"
 #~ msgstr "تاللانمىدى"
 
-#, fuzzy
 #~| msgid "Database backend"
 #~ msgid "Database Update"
 #~ msgstr "ساندان ئارقا ئۇچى"
 
-#, fuzzy
 #~| msgid "Category"
 #~ msgid "Current Category"
 #~ msgstr "كاتېگورىيە"

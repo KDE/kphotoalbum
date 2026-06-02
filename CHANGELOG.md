@@ -38,7 +38,7 @@ KPhotoAlbum 6.2.0 (2026-03-13)
 ### Added
  - Display number of images on collapsed stacks (#223213)
  - Add commandline option "--find-new-files" as a synonym for "--search". In the future, "--search" may become deprecated at some point.
- - Add support for QtMultimedia video backend
+ - Add support for QtMultimedia video backend (https://invent.kde.org/graphics/kphotoalbum/-/work_items/4)
  - Make default annotation mode in viewer configurable (#474317)
  - Improved diagnostic messages for JPEG decoding errors
  - Improved diagnostic messages for invalid file names in database

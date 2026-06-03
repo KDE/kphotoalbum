@@ -42,6 +42,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="sl">KPhotoAlbum</name>
   <name xml:lang="sv">Kfotoalbum</name>
   <name xml:lang="tr">K Fotoğraf Albümü</name>
+  <name xml:lang="ug">KPhotoAlbum</name>
   <name xml:lang="uk">KPhotoAlbum</name>
   <name xml:lang="zh-CN">KPhotoAlbum</name>
   <name xml:lang="zh-TW">KPhotoAlbum</name>
@@ -82,6 +83,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="sl">Programska oprema za upravljanje slik v namizju KDE</summary>
   <summary xml:lang="sv">KDE bildhanteringsprogramvara</summary>
   <summary xml:lang="tr">KDE görsel yönetimi yazılımı</summary>
+  <summary xml:lang="ug">KDE سۈرەت باشقۇرۇش يۇمشاق دېتالى</summary>
   <summary xml:lang="uk">Програма для керування зображеннями у KDE</summary>
   <summary xml:lang="zh-CN">KDE 图像管理软件</summary>
   <summary xml:lang="zh-TW">KDE 圖片管理軟體</summary>

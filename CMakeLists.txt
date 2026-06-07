@@ -69,7 +69,7 @@ add_definitions(
 
 find_package(Qt6 ${MINIMUM_QT6_VERSION} REQUIRED COMPONENTS Core Sql Xml Widgets DBus Test Multimedia MultimediaWidgets)
 find_package(Phonon4Qt6)
-find_package(LIBVLC)
+find_package(LIBVLC 3.0)
 find_package(KF6 ${MINIMUM_KF6_VERSION} REQUIRED COMPONENTS Archive Completion Config CoreAddons I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons ColorScheme DocTools)
 
 find_package(JPEG REQUIRED)
@@ -775,7 +775,7 @@ if(Marble_FOUND)
     target_link_libraries(kphotoalbum PRIVATE Marble)
 endif()
 
-if(LIBVLC_FOUND)
+if(LIBVLC_FOUND AND LIBVLC_VERSION VERSION_LESS 4.0)
   include_directories(${LIBVLC_INCLUDE_DIR})
   target_sources(kphotoalbum PRIVATE
       "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VLCDisplay.cpp"

@@ -14,10 +14,10 @@
 // SPDX-FileCopyrightText: 2009-2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
 // SPDX-FileCopyrightText: 2013-2024, 2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2015-2020 Robert Krawitz <rlk@alum.mit.edu>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2022 Friedrich W. H. Kossebau <kossebau@kde.org>
+// SPDX-FileCopyrightText: 2014-2026 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -31,6 +31,13 @@
 #include "QtMultimediaDisplay.h"
 #include <kpabase/config-kpa-videobackends.h>
 
+#if LIBVLC_FOUND
+#include <vlc/libvlc_version.h>
+#if LIBVLC_VERSION_INT < LIBVLC_VERSION(4,0,0,0)
+#include "VLCDisplay.h"
+#endif
+#endif
+
 #if Phonon4Qt6_FOUND
 #include "PhononDisplay.h"
 #endif
@@ -38,10 +45,6 @@
 #include "TaggedArea.h"
 #include "TextDisplay.h"
 #include "TransientDisplay.h"
-
-#if LIBVLC_FOUND
-#include "VLCDisplay.h"
-#endif
 
 #include "AnnotationHandler.h"
 #include "VideoDisplay.h"
@@ -1447,7 +1450,7 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSent
     case Settings::VideoBackend::QtMultimedia:
         return new QtMultimediaDisplay(parent);
     case Settings::VideoBackend::VLC:
-#if LIBVLC_FOUND
+#if LIBVLC_FOUND && (LIBVLC_VERSION_INT < LIBVLC_VERSION(4,0,0,0))
         return new VLCDisplay(parent);
 #else
         qCWarning(ViewerLog) << "Video backend VLC not available. Selecting first available backend...";

@@ -1,91 +1,114 @@
-# SPDX-FileCopyrightText: 2014 Tadej Novak <tadej@tano.si>
-# SPDX-FileCopyrightText: Rohit Yadav <rohityadav89@gmail.com>
-# SPDX-License-Identifier: LGPL-3.0-or-later
-# Copied from https://github.com/vlc-qt/vlc-qt/blob/master/cmake/FindLIBVLC.cmake
-# Authorship and license information transformed to SPDX.
-#############################################################################
-# VLC - CMake module
-#############################################################################
+# CMake module to search for LIBVLC (VLC library)
+#
+# SPDX-FileCopyrightText: 2010 (c) Rohit Yadav <rohityadav89@gmail.com>
+# SPDX-FileCopyrightText: 2011 (c) Harald Sitter <sitter@kde.org>
+#
+# SPDX-License-Identifier: BSD-3-Clause
+#
+# Redistribution and use is allowed according to the terms of the BSD license.
+# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
+#
 # If it's found it sets LIBVLC_FOUND to TRUE
 # and following variables are set:
-#  LIBVLC_INCLUDE_DIR
-#  LIBVLC_LIBRARY
+#    LIBVLC_INCLUDE_DIR
+#    LIBVLC_LIBRARY
+#    LIBVLC_VERSION
 
+set(LIBVLC_INCLUDE_DIR LIBVLC_INCLUDE_DIR-NOTFOUND)
+set(LIBVLC_LIBRARY LIBVLC_LIBRARY-NOTFOUND)
+set(LIBVLCCORE_LIBRARY LIBVLCCORE_LIBRARY-NOTFOUND)
 
-# FIND_PATH and FIND_LIBRARY normally search standard locations
+if(NOT LIBVLC_MIN_VERSION)
+    set(LIBVLC_MIN_VERSION "0.0")
+endif(NOT LIBVLC_MIN_VERSION)
+
+# find_path and find_library normally search standard locations
 # before the specified paths. To search non-standard paths first,
 # FIND_* is invoked first with specified paths and NO_DEFAULT_PATH
 # and then again with no specified paths to search the default
 # locations. When an earlier FIND_* succeeds, subsequent FIND_*s
 # searching for the same item do nothing.
 
+if (NOT WIN32)
+    find_package(PkgConfig)
+    pkg_check_modules(PC_LIBVLC libvlc)
+    set(LIBVLC_DEFINITIONS ${PC_LIBVLC_CFLAGS_OTHER})
+endif (NOT WIN32)
+
 #Put here path to custom location
 #example: /home/user/vlc/include etc..
-FIND_PATH(LIBVLC_INCLUDE_DIR vlc/vlc.h
-  HINTS "$ENV{LIBVLC_INCLUDE_PATH}"
-  PATHS
-    #Mac OS and Contribs
-    "${CMAKE_CURRENT_SOURCE_DIR}/contribs/include"
-    "${CMAKE_CURRENT_SOURCE_DIR}/contribs/include/vlc"
-    "/Applications/VLC.app/Contents/MacOS/include"
-    "/Applications/VLC.app/Contents/MacOS/include/vlc"
-    # Env
+find_path(LIBVLC_INCLUDE_DIR vlc/vlc.h
+HINTS "$ENV{LIBVLC_INCLUDE_PATH}" ${PC_LIBVLC_INCLUDEDIR} ${PC_LIBVLC_INCLUDE_DIRS}
+PATHS
     "$ENV{LIB_DIR}/include"
     "$ENV{LIB_DIR}/include/vlc"
-    #
     "/usr/include"
     "/usr/include/vlc"
     "/usr/local/include"
     "/usr/local/include/vlc"
     #mingw
     c:/msys/local/include
-    "c:/Program Files (x86)/VideoLAN/VLC/sdk/include"
-  )
-FIND_PATH(LIBVLC_INCLUDE_DIR PATHS "${CMAKE_INCLUDE_PATH}/vlc" NAMES vlc.h)
+)
+find_path(LIBVLC_INCLUDE_DIR PATHS "${CMAKE_INCLUDE_PATH}/vlc" NAMES vlc.h
+        HINTS ${PC_LIBVLC_INCLUDEDIR} ${PC_LIBVLC_INCLUDE_DIRS})
 
 #Put here path to custom location
 #example: /home/user/vlc/lib etc..
-FIND_LIBRARY(LIBVLC_LIBRARY NAMES vlc libvlc
-  HINTS "$ENV{LIBVLC_LIBRARY_PATH}"
-  PATHS
+find_library(LIBVLC_LIBRARY NAMES vlc libvlc
+HINTS "$ENV{LIBVLC_LIBRARY_PATH}" ${PC_LIBVLC_LIBDIR} ${PC_LIBVLC_LIBRARY_DIRS}
+PATHS
     "$ENV{LIB_DIR}/lib"
-    #Mac OS
-    "${CMAKE_CURRENT_SOURCE_DIR}/contribs/lib"
-    "${CMAKE_CURRENT_SOURCE_DIR}/contribs/plugins"
-    "/Applications/VLC.app/Contents/MacOS/lib"
-    "/Applications/VLC.app/Contents/MacOS/plugins"
     #mingw
     c:/msys/local/lib
-    "c:/Program Files (x86)/VideoLAN/VLC/sdk/lib"
-  )
-FIND_LIBRARY(LIBVLC_LIBRARY NAMES vlc libvlc)
-FIND_LIBRARY(LIBVLCCORE_LIBRARY NAMES vlccore libvlccore
-  HINTS "$ENV{LIBVLC_LIBRARY_PATH}"
-  PATHS
+)
+find_library(LIBVLC_LIBRARY NAMES vlc libvlc)
+find_library(LIBVLCCORE_LIBRARY NAMES vlccore libvlccore
+HINTS "$ENV{LIBVLC_LIBRARY_PATH}" ${PC_LIBVLC_LIBDIR} ${PC_LIBVLC_LIBRARY_DIRS}
+PATHS
     "$ENV{LIB_DIR}/lib"
-    #Mac OS
-    "${CMAKE_CURRENT_SOURCE_DIR}/contribs/lib"
-    "${CMAKE_CURRENT_SOURCE_DIR}/contribs/plugins"
-    "/Applications/VLC.app/Contents/MacOS/lib"
-    "/Applications/VLC.app/Contents/MacOS/plugins"
     #mingw
     c:/msys/local/lib
-    "c:/Program Files (x86)/VideoLAN/VLC/sdk/lib"
-  )
-FIND_LIBRARY(LIBVLCCORE_LIBRARY NAMES vlccore libvlccore)
+)
+find_library(LIBVLCCORE_LIBRARY NAMES vlccore libvlccore)
 
-IF (LIBVLC_INCLUDE_DIR AND LIBVLC_LIBRARY AND LIBVLCCORE_LIBRARY)
-   SET(LIBVLC_FOUND TRUE)
-ENDIF (LIBVLC_INCLUDE_DIR AND LIBVLC_LIBRARY AND LIBVLCCORE_LIBRARY)
+set(LIBVLC_VERSION ${PC_LIBVLC_VERSION})
+if (LIBVLC_INCLUDE_DIR AND NOT LIBVLC_VERSION)
+    file(READ "${LIBVLC_INCLUDE_DIR}/vlc/libvlc_version.h" _libvlc_version_h)
 
-IF (LIBVLC_FOUND)
-   IF (NOT LIBVLC_FIND_QUIETLY)
-      MESSAGE(STATUS "Found LibVLC include-dir path: ${LIBVLC_INCLUDE_DIR}")
-      MESSAGE(STATUS "Found LibVLC library path:${LIBVLC_LIBRARY}")
-      MESSAGE(STATUS "Found LibVLCcore library path:${LIBVLCCORE_LIBRARY}")
-   ENDIF (NOT LIBVLC_FIND_QUIETLY)
-ELSE (LIBVLC_FOUND)
-   IF (LIBVLC_FIND_REQUIRED)
-      MESSAGE(FATAL_ERROR "Could not find LibVLC")
-   ENDIF (LIBVLC_FIND_REQUIRED)
-ENDIF (LIBVLC_FOUND)
+    string(REGEX MATCH "# define LIBVLC_VERSION_MAJOR +\\(([0-9])\\)" _dummy "${_libvlc_version_h}")
+    set(_version_major "${CMAKE_MATCH_1}")
+
+    string(REGEX MATCH "# define LIBVLC_VERSION_MINOR +\\(([0-9])\\)" _dummy "${_libvlc_version_h}")
+    set(_version_minor "${CMAKE_MATCH_1}")
+
+    string(REGEX MATCH "# define LIBVLC_VERSION_REVISION +\\(([0-9])\\)" _dummy "${_libvlc_version_h}")
+    set(_version_revision "${CMAKE_MATCH_1}")
+
+    # Optionally, one could also parse LIBVLC_VERSION_EXTRA, but it does not
+    # seem to be used by libvlc.pc.
+
+    set(LIBVLC_VERSION "${_version_major}.${_version_minor}.${_version_revision}")
+endif (LIBVLC_INCLUDE_DIR AND NOT LIBVLC_VERSION)
+
+if (LIBVLC_INCLUDE_DIR AND LIBVLC_LIBRARY AND LIBVLCCORE_LIBRARY)
+set(LIBVLC_FOUND TRUE)
+endif (LIBVLC_INCLUDE_DIR AND LIBVLC_LIBRARY AND LIBVLCCORE_LIBRARY)
+
+if (LIBVLC_VERSION VERSION_LESS "${LIBVLC_MIN_VERSION}")
+    message(WARNING "LibVLC version not found: version searched: ${LIBVLC_MIN_VERSION}, found ${LIBVLC_VERSION}\nUnless you are on Windows this is bound to fail.")
+# TODO: only activate once version detection can be garunteed (which is currently not the case on windows)
+#     set(LIBVLC_FOUND FALSE)
+endif (LIBVLC_VERSION VERSION_LESS "${LIBVLC_MIN_VERSION}")
+
+if (LIBVLC_FOUND)
+    if (NOT LIBVLC_FIND_QUIETLY)
+        message(STATUS "Found LibVLC include-dir path: ${LIBVLC_INCLUDE_DIR}")
+        message(STATUS "Found LibVLC library path:${LIBVLC_LIBRARY}")
+        message(STATUS "Found LibVLCcore library path:${LIBVLCCORE_LIBRARY}")
+        message(STATUS "Found LibVLC version: ${LIBVLC_VERSION} (searched for: ${LIBVLC_MIN_VERSION})")
+    endif (NOT LIBVLC_FIND_QUIETLY)
+else (LIBVLC_FOUND)
+    if (LIBVLC_FIND_REQUIRED)
+        message(FATAL_ERROR "Could not find LibVLC")
+    endif (LIBVLC_FIND_REQUIRED)
+endif (LIBVLC_FOUND)

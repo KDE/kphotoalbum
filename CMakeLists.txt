@@ -775,7 +775,7 @@ if(Marble_FOUND)
     target_link_libraries(kphotoalbum PRIVATE Marble)
 endif()
 
-if(LIBVLC_FOUND)
+if(LIBVLC_FOUND AND LIBVLC_VERSION VERSION_LESS 4.0)
   include_directories(${LIBVLC_INCLUDE_DIR})
   target_sources(kphotoalbum PRIVATE
       "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VLCDisplay.cpp"

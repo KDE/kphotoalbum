@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-01 00:43+0000\n"
+"POT-Creation-Date: 2026-06-12 00:41+0000\n"
 "PO-Revision-Date: 2025-12-16 21:17+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -4415,7 +4415,7 @@ msgstr "KPhotoAlbum 功能狀態"
 msgid "Show Demo Videos"
 msgstr "顯示範例影片"
 
-#: MainWindow/Window.cpp:1071 Viewer/ViewerWidget.cpp:193
+#: MainWindow/Window.cpp:1071 Viewer/ViewerWidget.cpp:196
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "顯示 Exif 資訊和檔案中繼資料"
@@ -6507,253 +6507,253 @@ msgstr "標題"
 msgid "Existing Assignments"
 msgstr "現有的指定"
 
-#: Viewer/ViewerWidget.cpp:187
+#: Viewer/ViewerWidget.cpp:190
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
 msgstr "設為堆疊內第一個影像"
 
-#: Viewer/ViewerWidget.cpp:199
+#: Viewer/ViewerWidget.cpp:202
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
 msgstr "複製影像到 ..."
 
-#: Viewer/ViewerWidget.cpp:205
+#: Viewer/ViewerWidget.cpp:208
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
 msgstr "連結影像到 ..."
 
-#: Viewer/ViewerWidget.cpp:213
+#: Viewer/ViewerWidget.cpp:216
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "關閉"
 
-#: Viewer/ViewerWidget.cpp:275
+#: Viewer/ViewerWidget.cpp:278
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "旋轉"
 
-#: Viewer/ViewerWidget.cpp:286
+#: Viewer/ViewerWidget.cpp:289
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
 msgstr "順時針方向旋轉"
 
-#: Viewer/ViewerWidget.cpp:287
+#: Viewer/ViewerWidget.cpp:290
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
 msgstr "翻轉"
 
-#: Viewer/ViewerWidget.cpp:288
+#: Viewer/ViewerWidget.cpp:291
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
 msgstr "逆時針方向旋轉"
 
-#: Viewer/ViewerWidget.cpp:299
+#: Viewer/ViewerWidget.cpp:302
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "略過"
 
-#: Viewer/ViewerWidget.cpp:302
+#: Viewer/ViewerWidget.cpp:305
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "第一"
 
-#: Viewer/ViewerWidget.cpp:309
+#: Viewer/ViewerWidget.cpp:312
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "最後"
 
-#: Viewer/ViewerWidget.cpp:316
+#: Viewer/ViewerWidget.cpp:319
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
 msgstr "顯示下一個"
 
-#: Viewer/ViewerWidget.cpp:322
+#: Viewer/ViewerWidget.cpp:325
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "往前跳 10 個"
 
-#: Viewer/ViewerWidget.cpp:328
+#: Viewer/ViewerWidget.cpp:331
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "往前跳 100 個"
 
-#: Viewer/ViewerWidget.cpp:334
+#: Viewer/ViewerWidget.cpp:337
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "往前跳 1000 個"
 
-#: Viewer/ViewerWidget.cpp:340
+#: Viewer/ViewerWidget.cpp:343
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "顯示前一個"
 
-#: Viewer/ViewerWidget.cpp:346
+#: Viewer/ViewerWidget.cpp:349
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "往後跳 10 個"
 
-#: Viewer/ViewerWidget.cpp:352
+#: Viewer/ViewerWidget.cpp:355
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "往後跳 100 個"
 
-#: Viewer/ViewerWidget.cpp:358
+#: Viewer/ViewerWidget.cpp:361
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "往後跳 1000 個"
 
-#: Viewer/ViewerWidget.cpp:364
+#: Viewer/ViewerWidget.cpp:367
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "刪除影像"
 
-#: Viewer/ViewerWidget.cpp:369
+#: Viewer/ViewerWidget.cpp:372
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
 msgstr "從顯示清單中移除影像"
 
-#: Viewer/ViewerWidget.cpp:384
+#: Viewer/ViewerWidget.cpp:387
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "縮放"
 
-#: Viewer/ViewerWidget.cpp:388
+#: Viewer/ViewerWidget.cpp:391
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "放大"
 
-#: Viewer/ViewerWidget.cpp:394
+#: Viewer/ViewerWidget.cpp:397
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "縮小"
 
-#: Viewer/ViewerWidget.cpp:400
+#: Viewer/ViewerWidget.cpp:403
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "完整檢視"
 
-#: Viewer/ViewerWidget.cpp:406
+#: Viewer/ViewerWidget.cpp:409
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
 msgstr "像素檢視"
 
-#: Viewer/ViewerWidget.cpp:412
+#: Viewer/ViewerWidget.cpp:415
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "切換全螢幕"
 
-#: Viewer/ViewerWidget.cpp:423
+#: Viewer/ViewerWidget.cpp:426
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "投影播放"
 
-#: Viewer/ViewerWidget.cpp:426 Viewer/ViewerWidget.cpp:908
+#: Viewer/ViewerWidget.cpp:429 Viewer/ViewerWidget.cpp:911
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "進行投影播放"
 
-#: Viewer/ViewerWidget.cpp:431
+#: Viewer/ViewerWidget.cpp:434
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
 msgstr "播放快一點"
 
-#: Viewer/ViewerWidget.cpp:436
+#: Viewer/ViewerWidget.cpp:439
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
 msgstr "播放慢一點"
 
-#: Viewer/ViewerWidget.cpp:474
+#: Viewer/ViewerWidget.cpp:477
 #, kde-format
 msgid "File not available"
 msgstr "找不到檔案"
 
-#: Viewer/ViewerWidget.cpp:517
+#: Viewer/ViewerWidget.cpp:520
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
 msgstr "%1 %2"
 
-#: Viewer/ViewerWidget.cpp:553
+#: Viewer/ViewerWidget.cpp:556
 #, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
 msgstr "播放"
 
-#: Viewer/ViewerWidget.cpp:555
+#: Viewer/ViewerWidget.cpp:558
 #, kde-format
 msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "暫停"
 
-#: Viewer/ViewerWidget.cpp:629 Viewer/ViewerWidget.cpp:1153
+#: Viewer/ViewerWidget.cpp:632 Viewer/ViewerWidget.cpp:1156
 #, kde-format
 msgid "Tags and tokens locked"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:631
+#: Viewer/ViewerWidget.cpp:634
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Assign Tags"
 msgid "Assigning tags"
 msgstr "指定標籤"
 
-#: Viewer/ViewerWidget.cpp:633
+#: Viewer/ViewerWidget.cpp:636
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Assign Tokens"
 msgid "Assigning tokens"
 msgstr "指定標記"
 
-#: Viewer/ViewerWidget.cpp:638
+#: Viewer/ViewerWidget.cpp:641
 #, fuzzy, kde-format
 #| msgid "Annotation Mode"
 msgid "Annotation mode: %1"
 msgstr "註記模式"
 
-#: Viewer/ViewerWidget.cpp:911
+#: Viewer/ViewerWidget.cpp:914
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
 msgstr "正在完成投影播放"
 
-#: Viewer/ViewerWidget.cpp:914
+#: Viewer/ViewerWidget.cpp:917
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "停止投影播放"
 
-#: Viewer/ViewerWidget.cpp:919
+#: Viewer/ViewerWidget.cpp:922
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
@@ -6761,145 +6761,145 @@ msgid ""
 "slideshow slower"
 msgstr "開始播放投影片<br/>%1 會讓投影播放更快<br/>%2 會讓投影播放更慢"
 
-#: Viewer/ViewerWidget.cpp:969
+#: Viewer/ViewerWidget.cpp:972
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
 msgstr "%1&nbsp;秒"
 
-#: Viewer/ViewerWidget.cpp:1245
+#: Viewer/ViewerWidget.cpp:1248
 #, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
 msgstr "編輯影像描述"
 
-#: Viewer/ViewerWidget.cpp:1245
+#: Viewer/ViewerWidget.cpp:1248
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
 msgstr "影像描述"
 
-#: Viewer/ViewerWidget.cpp:1260
+#: Viewer/ViewerWidget.cpp:1263
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "搜尋"
 
-#: Viewer/ViewerWidget.cpp:1282
+#: Viewer/ViewerWidget.cpp:1285
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "往後 10 分鐘"
 
-#: Viewer/ViewerWidget.cpp:1283
+#: Viewer/ViewerWidget.cpp:1286
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "往後 1 分鐘"
 
-#: Viewer/ViewerWidget.cpp:1284
+#: Viewer/ViewerWidget.cpp:1287
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "往後 10 秒鐘"
 
-#: Viewer/ViewerWidget.cpp:1285
+#: Viewer/ViewerWidget.cpp:1288
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "往後 1 秒鐘"
 
-#: Viewer/ViewerWidget.cpp:1286
+#: Viewer/ViewerWidget.cpp:1289
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "往後 100 毫秒"
 
-#: Viewer/ViewerWidget.cpp:1287
+#: Viewer/ViewerWidget.cpp:1290
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "往前 100 毫秒"
 
-#: Viewer/ViewerWidget.cpp:1288
+#: Viewer/ViewerWidget.cpp:1291
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "往前 1 秒"
 
-#: Viewer/ViewerWidget.cpp:1289
+#: Viewer/ViewerWidget.cpp:1292
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "往前 10 秒"
 
-#: Viewer/ViewerWidget.cpp:1290
+#: Viewer/ViewerWidget.cpp:1293
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "往前 1 分鐘"
 
-#: Viewer/ViewerWidget.cpp:1291
+#: Viewer/ViewerWidget.cpp:1294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "往前 10 分鐘"
 
-#: Viewer/ViewerWidget.cpp:1299
+#: Viewer/ViewerWidget.cpp:1302
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "停止"
 
-#: Viewer/ViewerWidget.cpp:1311
+#: Viewer/ViewerWidget.cpp:1314
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "使用目前縮圖檢視中的視框"
 
-#: Viewer/ViewerWidget.cpp:1318
+#: Viewer/ViewerWidget.cpp:1321
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "重新開始"
 
-#: Viewer/ViewerWidget.cpp:1334
+#: Viewer/ViewerWidget.cpp:1337
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "過濾器"
 
-#: Viewer/ViewerWidget.cpp:1337
+#: Viewer/ViewerWidget.cpp:1340
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "移除所有過濾器"
 
-#: Viewer/ViewerWidget.cpp:1341
+#: Viewer/ViewerWidget.cpp:1344
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "套用灰階過濾器"
 
-#: Viewer/ViewerWidget.cpp:1346
+#: Viewer/ViewerWidget.cpp:1349
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "套用對比延伸過濾器"
 
-#: Viewer/ViewerWidget.cpp:1351
+#: Viewer/ViewerWidget.cpp:1354
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "套用直方圖等化器過濾器"
 
-#: Viewer/ViewerWidget.cpp:1356
+#: Viewer/ViewerWidget.cpp:1359
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "套用單色過濾器"
 
-#: Viewer/ViewerWidget.cpp:1412
+#: Viewer/ViewerWidget.cpp:1415
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -6910,7 +6910,7 @@ msgstr ""
 "影片播放器的時候常發生的問題。</p><p>按 <i>繼續</i> 來讓 KPhotoAlbum 嘗試另一"
 "個影片播放後端程式…</p>"
 
-#: Viewer/ViewerWidget.cpp:1416
+#: Viewer/ViewerWidget.cpp:1419
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
@@ -6918,7 +6918,7 @@ msgid ""
 msgstr ""
 "<p>被中斷的影片後端：<tt>%1</tt></p><p>將改用的影片後端：<tt>%2</tt></p>"
 
-#: Viewer/ViewerWidget.cpp:1429
+#: Viewer/ViewerWidget.cpp:1432
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
@@ -6927,101 +6927,101 @@ msgstr ""
 "<p>KPhotoAlbum 已嘗試所有可用的影片後端，但每一個後端都有崩潰過。</p><p>現已"
 "關閉崩潰偵測。</p>"
 
-#: Viewer/ViewerWidget.cpp:1488
+#: Viewer/ViewerWidget.cpp:1493
 #, kde-format
 msgid "Annotate"
 msgstr "註記"
 
-#: Viewer/ViewerWidget.cpp:1507
+#: Viewer/ViewerWidget.cpp:1512
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "說明"
 
-#: Viewer/ViewerWidget.cpp:1509
+#: Viewer/ViewerWidget.cpp:1514
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "註記對話框"
 
-#: Viewer/ViewerWidget.cpp:1510
+#: Viewer/ViewerWidget.cpp:1515
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "新增標籤"
 
-#: Viewer/ViewerWidget.cpp:1510
+#: Viewer/ViewerWidget.cpp:1515
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "CTRL+a"
 
-#: Viewer/ViewerWidget.cpp:1513
+#: Viewer/ViewerWidget.cpp:1518
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "從前一張影像複製資料"
 
-#: Viewer/ViewerWidget.cpp:1514
+#: Viewer/ViewerWidget.cpp:1519
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "CTRL+c"
 
-#: Viewer/ViewerWidget.cpp:1517
+#: Viewer/ViewerWidget.cpp:1522
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "編輯描述"
 
-#: Viewer/ViewerWidget.cpp:1518
+#: Viewer/ViewerWidget.cpp:1523
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "CTRL+d"
 
-#: Viewer/ViewerWidget.cpp:1521
+#: Viewer/ViewerWidget.cpp:1526
 #, kde-format
 msgid "Annotation Mode"
 msgstr "註記模式"
 
-#: Viewer/ViewerWidget.cpp:1523
+#: Viewer/ViewerWidget.cpp:1528
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "已鎖定"
 
-#: Viewer/ViewerWidget.cpp:1524
+#: Viewer/ViewerWidget.cpp:1529
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "CTRL+l"
 
-#: Viewer/ViewerWidget.cpp:1528
+#: Viewer/ViewerWidget.cpp:1533
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "指定標籤"
 
-#: Viewer/ViewerWidget.cpp:1529
+#: Viewer/ViewerWidget.cpp:1534
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1533
+#: Viewer/ViewerWidget.cpp:1538
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "指定標記"
 
-#: Viewer/ViewerWidget.cpp:1534
+#: Viewer/ViewerWidget.cpp:1539
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "CTRL+t"
 
-#: Viewer/ViewerWidget.cpp:1698
+#: Viewer/ViewerWidget.cpp:1703
 #, kde-format
 msgid "Token %1"
 msgstr "標記 %1"

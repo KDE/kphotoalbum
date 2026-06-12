@@ -128,6 +128,17 @@ public:
 
     void addToBlockList(const DB::FileNameList &list);
     bool isBlocking(const DB::FileName &fileName);
+
+    /**
+     * Deletes a list of filenames from the XML database.  Updates any affected
+     * stacks (including removing any stacks that are now empty) as well as the
+     * image cache and the EXIF database.
+     *
+     * Note: this method does not delete files from the filesystem.
+     * @see Utilities::DeleteFiles::deleteFiles
+     *
+     * @param list is the list of filenames
+     */
     void deleteList(const DB::FileNameList &list);
     ImageInfoPtr info(const DB::FileName &fileName) const;
     MemberMap &memberMap();

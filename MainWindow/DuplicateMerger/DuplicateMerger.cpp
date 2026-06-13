@@ -13,7 +13,7 @@
 #include <DB/MD5.h>
 #include <ImageManager/AsyncLoader.h>
 #include <MainWindow/DuplicateMerger/DuplicatesModel.h>
-#include <Utilities/ShowBusyCursor.h>
+#include <Utilities/DeleteFiles.h>
 #include <kpabase/FileName.h>
 #include <kpabase/FileNameList.h>
 #include <kpabase/Logging.h>
@@ -21,7 +21,6 @@
 #include <KLocalizedString>
 #include <QDebug>
 #include <QDialogButtonBox>
-#include <QFileInfo>
 #include <QHBoxLayout>
 #include <QHeaderView>
 #include <QLabel>
@@ -54,7 +53,7 @@ public:
 protected:
     bool filterAcceptsRow(int row, const QModelIndex &parent) const override
     {
-        // Matches any filename in a row.
+        // Matches any filename in a row.  Column zero is the thumbnail.
         for (int col = 1; col < sourceModel()->columnCount(); col++) {
             QModelIndex index = sourceModel()->index(row, col, parent);
 

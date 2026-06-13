@@ -11,6 +11,7 @@
 
 #include <QAbstractTableModel>
 #include <QMap>
+#include <QSize>
 
 namespace MainWindow
 {
@@ -65,10 +66,26 @@ public:
 
     void pixmapLoaded(ImageManager::ImageRequest *request, const QImage &image) override;
 
+    QSize thumbnailSize() const
+    {
+        return m_thumbnailSize;
+    }
+
 private:
+
+    // The duplicates table data.  Each element in this list corresponds to a
+    // row in the duplicates table.  Each row is sorted from oldest to newest.
     QList<DB::FileNameList> m_files;
-    QMap<QString, QPixmap> m_pixmaps;
+
+    // The number of duplicate filenames in the longest row of m_files.
     int m_maxDuplicates;
+
+    // The thumbnails displayed in column zero of the table.  The key is the
+    // name of the oldest filename in a row of the duplicates table.
+    QMap<QString, QPixmap> m_pixmaps;
+
+    // The size of each thumbnail.
+    QSize m_thumbnailSize;
 };
 
 } // namespace MainWindow

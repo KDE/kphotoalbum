@@ -36,9 +36,6 @@
 
 #include <utility>
 
-// Width and height of the thumbnail preview pixmaps.
-const auto PREVIEW_SIZE = QSize(100, 100);
-
 /**
  * This class implements custom filtering for the duplicates model.
  */
@@ -126,6 +123,8 @@ DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *
 
     m_duplicatesView->horizontalHeader()->setStretchLastSection(true);
     m_duplicatesView->verticalHeader()->hide();
+    m_duplicatesView->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+    m_duplicatesView->verticalHeader()->setDefaultSectionSize(m_model->thumbnailSize().height());
     m_duplicatesView->resizeRowsToContents();
     m_duplicatesView->resizeColumnsToContents();
     connect(m_duplicatesView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &DuplicateMerger::duplicatesTableSelectionChanged);

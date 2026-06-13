@@ -16,13 +16,15 @@
 #include <utility>
 
 // Width and height of the thumbnail preview pixmaps.
-const auto PREVIEW_SIZE = QSize(100, 100);
+const auto THUMBNAIL_HEIGHT = 100;
+const auto THUMBNAIL_WIDTH = 100;
 
 namespace MainWindow
 {
 DuplicatesModel::DuplicatesModel(const DB::DuplicatesType& duplicates, QObject* parent)
     : QAbstractTableModel(parent)
     , m_maxDuplicates(0)
+    , m_thumbnailSize(THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT)
 {
     // This is used to sort the rows in the duplicates table by relative
     // pathname of the oldest image in each set of duplicates.
@@ -54,7 +56,7 @@ void DuplicatesModel::addDuplicates(const DB::FileNameList &files)
     const auto &originalFileName = files.first();
     const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(originalFileName);
     const int angle = info->angle();
-    ImageManager::ImageRequest *request = new ImageManager::ImageRequest(originalFileName, PREVIEW_SIZE, angle, this);
+    ImageManager::ImageRequest *request = new ImageManager::ImageRequest(originalFileName, m_thumbnailSize, angle, this);
     ImageManager::AsyncLoader::instance()->load(request);
 }
 
@@ -84,16 +86,11 @@ QVariant DuplicatesModel::data(const QModelIndex &index, int role) const
         else if (role == Qt::DecorationRole) {
             if (column == 0) {
                 const auto &originalFileName = m_files[row].first().relative();
-                qCDebug(ImageManagerLog) << "Get pixmap data for" << originalFileName;
                 return m_pixmaps[originalFileName];
             }
         }
         else if (role == Qt::SizeHintRole) {
-            if (column == 0) {
-                const auto &originalFileName = m_files[row].first().relative();
-                qCDebug(ImageManagerLog) << "Get pixmap size for" << originalFileName;
-                return PREVIEW_SIZE;
-            }
+            return m_thumbnailSize;
         }
     }
 

@@ -8,11 +8,8 @@
 #define MAINWINDOW_DUPLICATEMERGER_H
 
 #include <DB/DuplicatesFinder.h>
-#include <kpabase/FileNameList.h>
 #include <ImageManager/ImageClientInterface.h>
-#include <Utilities/DeleteFiles.h>
 
-#include <QAbstractTableModel>
 #include <QDialog>
 #include <QMap>
 #include <QWidget>

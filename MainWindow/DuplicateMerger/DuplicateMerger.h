@@ -18,6 +18,10 @@
 #include <QWidget>
 
 class DuplicateSortFilterProxyModel;
+namespace MainWindow
+{
+class DuplicatesModel;
+};
 class QItemSelection;
 class QLabel;
 class QLineEdit;
@@ -29,56 +33,14 @@ class QTableView;
 namespace MainWindow
 {
 
-class DuplicatesModel : public QAbstractTableModel, ImageManager::ImageClientInterface
-{
-public:
-    explicit DuplicatesModel(const DB::DuplicatesType& duplicates, QObject *parent = nullptr);
-
-    ~DuplicatesModel() override;
-
-    int rowCount(const QModelIndex &index = QModelIndex()) const override
-    {
-        if (index.isValid())
-            return 0;
-        else
-            return m_files.count();
-    }
-
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override
-    {
-        Q_UNUSED(parent);
-        // One column for the pixmap and a column for each duplicate.
-        return 1 + m_maxDuplicates;
-    }
-
-    QVariant data(const QModelIndex &index, int role) const override;
-
-    Qt::ItemFlags flags(const QModelIndex &index) const override
-    {
-        if (index.column() == 0) {
-            // Don't allow selection in column zero (the pixmap column) but
-            // keep it enabled so the pixmaps aren't grayscaled.
-            return Qt::ItemIsEnabled;
-        }
-
-        return QAbstractTableModel::flags(index);
-    }
-
-    unsigned getTotalCount();
-
-    void addDuplicates(const DB::FileNameList &files);
-
-    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
-
-    void pixmapLoaded(ImageManager::ImageRequest *request, const QImage &image) override;
-
-private:
-    QList<DB::FileNameList> m_files;
-    QMap<QString, QPixmap> m_pixmaps;
-    int m_maxDuplicates;
-};
-
-
+/**
+ * @brief Implements the merge duplicates dialog.
+ *
+ * Presents a table of duplicates and a list of files to keep.  When one or
+ * more files are selected and added to the list of files to keep, the rows in
+ * the duplicates table are hidden.  If a file is removed from the list of
+ * files to keep, the corresponding row in the duplicates table is unhidden.
+ */
 class DuplicateMerger : public QDialog
 {
     Q_OBJECT
@@ -107,15 +69,20 @@ private:
     QPushButton *m_okButton;
     QPushButton *m_cancelButton;
 
+    // The duplicates filter.
     QLineEdit *m_lineEdit;
 
-    DuplicatesModel *m_model;
+    // The data and sort models for the duplicates table.
+    MainWindow::DuplicatesModel *m_model;
     DuplicateSortFilterProxyModel *m_filterProxy;
 
+    // The duplicates table.
     QTableView *m_duplicatesView;
+
+    // The list of files to keep.
     QListWidget *m_keepersList;
 
-    // Maps a filename to keep to its row in m_duplicatesView.
+    // Maps a filename in m_keepersList to its hidden row in m_duplicatesView.
     QMap<QString, int> m_indexes;
 };
 

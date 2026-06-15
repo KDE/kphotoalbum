@@ -214,7 +214,8 @@ void DuplicateMerger::removeFromKeepFiles()
 
 void DuplicateMerger::selectNone()
 {
-    m_duplicatesView->selectionModel()->clearSelection();
+    m_duplicatesView->clearSelection();
+    m_keepersList->clearSelection();
 }
 
 void DuplicateMerger::go()
@@ -230,7 +231,7 @@ void DuplicateMerger::go()
     // For each row in m_keepersList, use the hash to get the (hidden) row in
     // the duplicates table.  The keepers table provides the filename to keep
     // and the files to remove are the other filenames from m_model for that row.
-    DB::FileNameList deleteList, dupList;
+    DB::FileNameList deleteList;
 
     for (auto row = 0; row < m_keepersList->count(); row++) {
         QListWidgetItem* item = m_keepersList->item(row);
@@ -260,9 +261,6 @@ void DuplicateMerger::go()
     }
 
     Utilities::DeleteFiles::deleteFiles(deleteList, method);
-    // remove duplicate DB-entries without removing or blocking the file:
-    DB::ImageDB::instance()->deleteList(dupList); // TODO
-
     accept();
 }
 

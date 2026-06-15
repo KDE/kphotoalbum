@@ -1812,7 +1812,7 @@ msgstr "镜头"
 #: Exif/SearchDialog.cpp:108 Settings/GeneralPage.cpp:116
 #, kde-format
 msgid "Miscellaneous"
-msgstr "杂项"
+msgstr "其他"
 
 #: Exif/SearchDialog.cpp:134
 #, kde-format

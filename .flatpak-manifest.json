@@ -87,8 +87,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.7.tar.gz",
-                    "sha256": "5e292b02614dbc0cee40fe1116db2f42f63ef6b2ba430c77b614e17b8d61a638",
+                    "url": "https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.8.tar.gz",
+                    "sha256": "ea51b0609f58a9afa063b60daa1539948b62247721e154f4fff0ad3aec9f9756",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 769,
@@ -108,8 +108,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://www.libraw.org/data/LibRaw-0.21.4.tar.gz",
-                    "sha256": "6be43f19397e43214ff56aab056bf3ff4925ca14012ce5a1538a172406a09e63",
+                    "url": "https://www.libraw.org/data/LibRaw-0.22.1.tar.gz",
+                    "sha256": "a789dc4e2409e2901d93793a4e0b80c7b49d0d97cf6ad71c850eb7616acfd786",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 1709,
@@ -136,8 +136,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.kde.org/stable/release-service/25.08.3/src/libkdcraw-25.08.3.tar.xz",
-                    "sha256": "52fa78d013e13c72c62fb4d6868ef10a8c11d89948a6d24415647e917aa72cdf",
+                    "url": "https://download.kde.org/stable/release-service/26.04.2/src/libkdcraw-26.04.2.tar.xz",
+                    "sha256": "0ceb4e3ae7921e25ff9e3c4ac0693321521fa8c455d3f44152d03b3ffbba391d",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 8763,
@@ -157,8 +157,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.kde.org/stable/release-service/25.08.3/src/marble-25.08.3.tar.xz",
-                    "sha256": "65c034dacc7a2d5bbf534fca6574289e8b1dbf2bd50e4f63ff4d1ab64ff07198",
+                    "url": "https://download.kde.org/stable/release-service/26.04.2/src/marble-26.04.2.tar.xz",
+                    "sha256": "8b1f4b1fba722c42852150427803bb28f800e5c217d9a2a8549b122646ef2d44",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 8763,

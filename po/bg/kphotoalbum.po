@@ -7362,31 +7362,3 @@ msgstr "Показване размер на изображението"
 #, kde-format
 msgid "Show Rating"
 msgstr "Показване на оценките"
-
-#~ msgctxt "Like \"The baby is \"4 months\" old\""
-#~ msgid "%1 month"
-#~ msgid_plural "%1 months"
-#~ msgstr[0] "%1 месец"
-#~ msgstr[1] "%1 месеца"
-
-#~ msgid "locked"
-#~ msgstr "заключено"
-
-#~ msgid "annotating"
-#~ msgstr "анотиране"
-
-#~ msgid "tokenizing"
-#~ msgstr "токенизиране"
-
-#~ msgid "Change display mode to %1"
-#~ msgstr "Промяна на режима на показване на %1"
-
-#~ msgid "Save Current Window Setup"
-#~ msgstr "Запазване на текущата настройка на прозореца"
-
-#~ msgctxt "@title:window"
-#~ msgid "Export Configuration / Copy Images"
-#~ msgstr "Експортиране на настройките / копиране на изображения"
-
-#~ msgid "How to Handle Images"
-#~ msgstr "Как да боравим с изображения"

@@ -286,7 +286,6 @@ void DuplicateMerger::go()
 
 void DuplicateMerger::textChanged(const QString &str)
 {
-    qCDebug(ImageManagerLog) << "setFilterRegularExpression:" << str;
     m_filterProxy->setFilterRegularExpression(str);
 
     // Clearing the filter can unhide rows we have hidden.

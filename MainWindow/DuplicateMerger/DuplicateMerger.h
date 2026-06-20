@@ -80,7 +80,7 @@ private:
     QListWidget *m_keepersList;
 
     // Maps a filename in m_keepersList to its hidden row in m_duplicatesView.
-    QMap<QString, int> m_indexes;
+    QMap<QString, int> m_hiddenRows;
 };
 
 } // namespace MainWindow

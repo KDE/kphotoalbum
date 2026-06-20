@@ -71,6 +71,7 @@ DuplicateMerger::DuplicateMerger(const DB::DuplicatesType& duplicates, QWidget *
     , m_filterProxy(new DuplicateSortFilterProxyModel(this))
 {
     setModal(true);
+    setWindowTitle(i18n("Merge Duplicates"));
 
     setAttribute(Qt::WA_DeleteOnClose);
     resize(800, 600);
@@ -180,17 +181,28 @@ MainWindow::DuplicateMerger::~DuplicateMerger()
 void DuplicateMerger::addToKeepFiles()
 {
     m_addButton->setEnabled(false);
-    for (const auto index : m_duplicatesView->selectionModel()->selectedIndexes()) {
-        const QString fileName = m_model->data(m_model->index(index.row(), index.column()), Qt::DisplayRole).value<QString>();
-        m_duplicatesView->setRowHidden(index.row(), true);
-        m_indexes[fileName] = index.row();
 
-        m_keepersList->addItem(new QListWidgetItem(fileName));
-        qCDebug(ImageManagerLog) << __func__ << "added" << fileName;
+    for (const auto proxyIndex : m_duplicatesView->selectionModel()->selectedIndexes()) {
+        // The proxyIndex and index are different when a filter is active.
+        const auto index = m_filterProxy->mapToSource(proxyIndex);
+
+        // Selection using a column header also selects hidden rows.
+        if (!m_duplicatesView->isRowHidden(index.row()))
+        {
+            const QString fileName = m_model->data(index, Qt::DisplayRole).value<QString>();
+            m_duplicatesView->setRowHidden(proxyIndex.row(), true);
+            m_hiddenRows[fileName] = index.row();
+
+            m_keepersList->addItem(new QListWidgetItem(fileName));
+            qCDebug(ImageManagerLog) << __func__ << "added" << fileName << "proxyIndex:" << proxyIndex.row() << "index:" << index.row();
+        }
     }
 
     m_keepersList->sortItems();
     m_okButton->setEnabled(m_keepersList->count() > 0);
+
+    // Hidden rows are still selected.
+    m_duplicatesView->clearSelection();
 }
 
 void DuplicateMerger::keepersListSelectionChanged()
@@ -200,12 +212,20 @@ void DuplicateMerger::keepersListSelectionChanged()
 
 void DuplicateMerger::removeFromKeepFiles()
 {
-    qCDebug(ImageManagerLog) << __func__ << "clicked";
     for (const auto item : m_keepersList->selectedItems()) {
         const auto fileName = item->data(Qt::DisplayRole).value<QString>();
         m_keepersList->takeItem(m_keepersList->row(item));
-        m_duplicatesView->setRowHidden(m_indexes.take(fileName), false);
-        qCDebug(ImageManagerLog) << __func__ << "removed" << fileName;
+
+        // The model index and proxy index are different when a filter is active.
+        const auto row = m_hiddenRows.take(fileName);
+        const auto proxyIndex = m_filterProxy->mapFromSource(m_model->index(row, 0));
+
+        if (proxyIndex.isValid()) {
+            // This row in m_duplicatesView is not currently filtered.
+            m_duplicatesView->setRowHidden(proxyIndex.row(), false);
+        }
+
+        qCDebug(ImageManagerLog) << __func__ << "removed" << fileName << "proxyIndex:" << proxyIndex.row() << "row:" << row;
         delete item;
     }
 
@@ -236,7 +256,7 @@ void DuplicateMerger::go()
     for (auto row = 0; row < m_keepersList->count(); row++) {
         QListWidgetItem* item = m_keepersList->item(row);
         const auto keeperFileName = item->data(Qt::DisplayRole).value<QString>();
-        const auto modelRow = m_indexes.take(keeperFileName);
+        const auto modelRow = m_hiddenRows.take(keeperFileName);
 
         qCDebug(ImageManagerLog) << "Keeping" << keeperFileName;
 
@@ -266,7 +286,15 @@ void DuplicateMerger::go()
 
 void DuplicateMerger::textChanged(const QString &str)
 {
+    qCDebug(ImageManagerLog) << "setFilterRegularExpression:" << str;
     m_filterProxy->setFilterRegularExpression(str);
+
+    // Clearing the filter can unhide rows we have hidden.
+    if (str.isEmpty()) {
+        for (auto i = m_hiddenRows.cbegin(); i != m_hiddenRows.cend(); ++i) {
+            m_duplicatesView->setRowHidden(i.value(), true);
+        }
+    }
 }
 
 void DuplicateMerger::duplicatesTableSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected)

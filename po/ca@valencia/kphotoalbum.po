@@ -258,7 +258,7 @@ msgid ""
 msgstr ""
 "<para>Un text descriptiu de la imatge.</para><para>Si s'ha marcat "
 "<emphasis>Utilitza la descripció Exif</emphasis> davall "
-"<interface>Configuració -> Configura KPhotoAlbum… -> General</interface>, en "
+"<interface>Configuració → Configura KPhotoAlbum… → General</interface>, en "
 "este camp s'importarà la descripció incrustada en la informació Exif de la "
 "imatge, si està disponible.</para>"
 
@@ -516,7 +516,7 @@ msgid ""
 "interface>, you can associate specific image areas with tags."
 msgstr ""
 "Si s'activen les <emphasis>etiquetes posicionables</emphasis> com a mínim "
-"per a una categoria en <interface>Configuració -> Configura KPhotoAlbum… -> "
+"per a una categoria en <interface>Configuració → Configura KPhotoAlbum… → "
 "Categories</interface>, es poden associar àrees específiques de la imatge "
 "amb etiquetes."
 
@@ -593,10 +593,9 @@ msgid ""
 "selected for this purpose."
 msgstr ""
 "L'etiqueta que heu introduït és l'etiquetà que s'assignarà automàticament a "
-"les imatges noves trobades sense etiqueta (<interface>Configuració -> "
-"Configura KPhotoAlbum… -> Categories -> Imatges sense etiquetes</"
-"interface>). No es mostrarà ací, ja que està seleccionada per a esta "
-"finalitat."
+"les imatges noves trobades sense etiqueta (<interface>Configuració → "
+"Configura KPhotoAlbum… → Categories → Imatges sense etiquetes</interface>). "
+"No es mostrarà ací, ja que està seleccionada per a esta finalitat."
 
 #: AnnotationDialog/ListSelect.cpp:359
 #, kde-format
@@ -1355,7 +1354,7 @@ msgstr "Vídeo"
 #: DB/ImageDB.cpp:1024
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
-msgstr "KPhotoAlbum - cal una reparació manual (%1)"
+msgstr "KPhotoAlbum – cal una reparació manual (%1)"
 
 #: DB/ImageDB.cpp:1025
 #, kde-format
@@ -1519,9 +1518,9 @@ msgstr ""
 "b>, el qual podeu utilitzar per a trobar les imatges on falta la informació "
 "de la data.</p><p>Llavors podeu seleccionar les imatges que teniu raons per "
 "a creure que porten una data correcta a les dades Exif o en el fitxer, i "
-"executar «<b>Manteniment -> Llig la informació Exif</b>» per a tornar a "
+"executar «<b>Manteniment → Llig la informació Exif</b>» per a tornar a "
 "llegir la informació.</p><p>Finalment, una vegada totes les imatges tinguen "
-"la seua data informada, podeu executar «<b>Imatges -> Ordena-ho tot per data "
+"la seua data informada, podeu executar «<b>Imatges → Ordena-ho tot per data "
 "i hora</b>» per a ordenar-les en la base de dades.</p>"
 
 #: DB/XML/FileReader.cpp:455
@@ -1590,7 +1589,7 @@ msgid ""
 "<em>KPhotoAlbum - manual repair needed</em>.</p>"
 msgstr ""
 "</ul></p><p>Totes les imatges afectades també s'han marcat amb l'etiqueta "
-"<em>KPhotoAlbum - cal una reparació manual</em>.</p>"
+"<em>KPhotoAlbum – cal una reparació manual</em>.</p>"
 
 #: DB/XML/FileReader.cpp:510
 #, kde-format
@@ -3252,7 +3251,7 @@ msgid ""
 msgstr ""
 "<p>S'ha produït un error mentre s'executava la busca en la base de dades de "
 "l'Exif. Segurament l'error és degut a un fitxer trencat de la base de dades."
-"</p><p>Per a arreglar este problema executeu «Manteniment -> Reconstruïx la "
+"</p><p>Per a arreglar este problema executeu «Manteniment → Reconstruïx la "
 "base de dades de busques Exif».</p><hr/><p>Per a depuració: l'ordre que "
 "s'intenta executar és:<br/>%1</p><p>El missatge d'error que s'ha obtingut és:"
 "<br/>%2</p>"
@@ -3270,7 +3269,7 @@ msgid ""
 "error message obtained was:<br/>%1</p>"
 msgstr ""
 "<p>S'ha produït un error mentre s'obria la base de dades de l'Exif.</"
-"p><p>Per a arreglar este problema executeu «Manteniment -> Reconstruïx la "
+"p><p>Per a arreglar este problema executeu «Manteniment → Reconstruïx la "
 "base de dades de busques Exif».</p><hr/><p>El missatge d'error que s'ha "
 "obtingut és:<br/>%1</p>"
 
@@ -3281,7 +3280,7 @@ msgid ""
 "problem run Maintenance->Recreate Exif Search database.</p>"
 msgstr ""
 "<p>La base de dades de l'Exif està trencada i no conté dades.</p><p>Per a "
-"arreglar este problema executeu «Manteniment -> Reconstruïx la base de dades "
+"arreglar este problema executeu «Manteniment → Reconstruïx la base de dades "
 "de busques Exif».</p>"
 
 #: main.cpp:85
@@ -4208,7 +4207,7 @@ msgstr ""
 "<p>No pareix que KPhotoAlbum estiga construït amb la compatibilitat de totes "
 "les seues característiques. La següent és una llista que indica el què vos "
 "podeu perdre:<ul>%1</ul></p><p>Per als detalls de com solucionar este "
-"problema, trieu en els menús «<b>Ajuda</b> -> <b>Estat de les "
+"problema, trieu en els menús «<b>Ajuda</b> → <b>Estat de les "
 "característiques de KPhotoAlbum</b>».</p>"
 
 #: MainWindow/WelcomeDialog.cpp:192 MainWindow/WelcomeDialog.cpp:195
@@ -4634,8 +4633,8 @@ msgstr ""
 "<p>Heu configurat una etiqueta per a les imatges sense etiqueta, però la "
 "mateixa etiqueta o la seua categoria no existixen en la base de dades.</"
 "p><p>Reviseu la configuració de l'etiqueta sense etiquetar a "
-"«<interface>Configuració -> Configura KPhotoAlbum… -> Categories</"
-"interface>»</p>"
+"«<interface>Configuració → Configura KPhotoAlbum… → Categories</interface>»</"
+"p>"
 
 #: MainWindow/Window.cpp:1389 Settings/SettingsDialog.cpp:46
 #, kde-format
@@ -5247,7 +5246,7 @@ msgid ""
 msgstr ""
 "<p>KPhotoAlbum és capaç de buscar imatges i vídeos nous en iniciar, encara "
 "que açò tarda una estona. En el seu lloc podeu dir-li manualment a "
-"KPhotoAlbum que busque imatges noves utilitzant «<b>Manteniment -> Torna a "
+"KPhotoAlbum que busque imatges noves utilitzant «<b>Manteniment → Torna a "
 "explorar per a les imatges noves</b>»</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:66
@@ -6202,12 +6201,12 @@ msgstr ""
 "vós. Per altra banda, si utilitzeu X11 llavors VLC segurament és la millor "
 "elecció.</p><p>Tradicionalment, KPhotoAlbum ha utilitzat <b>Phonon</b> com a "
 "dorsal del reproductor de vídeo. Tanmateix, hem vist que falla amb molts "
-"formats diferents de vídeo - possiblement perquè el sistema no està "
+"formats diferents de vídeo – possiblement perquè el sistema no està "
 "configurat correctament</p><p><b>QtMultimedia</b> és el dorsal de "
 "reproducció de vídeo més nou dels tres. És un component estàndard de les Qt. "
 "S'espera que es convertisca en el nou estàndard, i potser l'únic dorsal.</"
 "p><p><b><font color=red>En qualsevol moment es pot canviar el dorsal des de "
-"Configuració -> Visor</font></b></p></html>"
+"Configuració → Visor</font></b></p></html>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:55
 #: Settings/VideoPlayerSelectorDialog.cpp:64

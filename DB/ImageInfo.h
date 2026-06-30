@@ -142,10 +142,36 @@ public:
     short rating() const;
     void setRating(short rating);
 
+    /**
+     * @return true if this file is part of a stack.
+     */
     bool isStacked() const { return m_stackId != 0; }
+
+    /**
+     * @return true if this file is the first in a stack.
+     */
+    bool isFirstInStack() const {
+        return m_stackId > 0 && m_stackOrder == 1;
+    }
+
+    /**
+     * @return the non-zero stack identifier for this file, or zero if this
+     * file is not part of a stack.
+     */
     StackID stackId() const;
 
+    /**
+     * @return this file's position within its stack, or zero if this file
+     * is not part of a stack.
+     */
     unsigned int stackOrder() const;
+
+    /**
+     * Sets this file's position within its stack.
+     *
+     * @param stackOrder is the new stack position or zero if this file
+     * is not stacked.
+     */
     void setStackOrder(const unsigned int stackOrder);
 
     void setVideoLength(int seconds);
@@ -263,7 +289,14 @@ protected:
     void markDirty();
     bool updateDateInformation(int mode) const;
 
+    /**
+     * Sets this file's stack ID.  If the stack ID is zero, the file
+     * is not stacked.
+     *
+     * @param stackID is the new stack ID.
+     */
     void setStackId(const StackID stackId);
+
     friend class XMLDB::Database;
     friend class DB::ImageDB;
 
@@ -284,7 +317,18 @@ private:
     QSize m_size;
     MediaType m_type;
     short m_rating;
+
+    /**
+     * If zero, this file is not part of a stack.  Otherwise, this identifies
+     * the stack the file is part of.
+     */
     StackID m_stackId;
+
+    /**
+     * If zero, this file is not part of a stack.  Otherwise, this identifies
+     * the position of this file withing the stack.  The top of the stack is at
+     * position 1.
+     */
     unsigned int m_stackOrder;
     int m_videoLength;
     bool m_isMatched = false;

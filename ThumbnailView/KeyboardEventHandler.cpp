@@ -97,6 +97,43 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent(QKeyEvent *event)
         return true;
     }
 
+    if (event->key() == Qt::Key_Equal) {
+        const DB::FileNameList selection = widget()->selection(ThumbnailView::NoExpandCollapsedStacks);
+
+        // Multiple selection would require potentially dealing with toggling multiple stacks.
+        if (selection.size() == 1) {
+            const DB::FileName currentItem = widget()->currentItem();
+            const DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info(currentItem);
+
+            if (imageInfo && imageInfo->isStacked()) {
+                model()->toggleStackExpansion(currentItem);
+
+                // The widget's current item gets reset by toggleStackExpansion().
+                if (imageInfo->isFirstInStack()) {
+                    widget()->setCurrentItem(currentItem);
+                }
+                else {
+                    // The currentItem was not the first in the stack so the
+                    // stack was collapsed.  Make the first item in the stack
+                    // the new current item.  Note that getStackFor() returns
+                    // an unsorted list.
+                    DB::FileNameList stack = DB::ImageDB::instance()->getStackFor(currentItem);
+
+                    for (const DB::FileName &fileName : stack) {
+                        const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
+
+                        if (info && info->isFirstInStack()) {
+                            widget()->setCurrentItem(fileName);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
     return false;
 }
 

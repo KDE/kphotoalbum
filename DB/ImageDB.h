@@ -204,12 +204,11 @@ public:
      * */
     void unstack(const DB::FileNameList &items);
 
-    /** @short Return a list of images which are in the same stack as the one specified.
+    /**
+     * @return an unsorted list of images which are in the same stack as the one specified.
      *
-     * Returns an empty list when the image is not stacked.
-     *
-     * They are returned sorted according to their stackOrder.
-     * */
+     * Returns an empty list if the referenceImage is not stacked.
+     */
     DB::FileNameList getStackFor(const DB::FileName &referenceImage) const;
 
     void copyData(const DB::FileName &from, const DB::FileName &to);

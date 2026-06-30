@@ -8,7 +8,7 @@
 // SPDX-FileCopyrightText: 2013 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2014 - 2019 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2017 - 2020 Robert Krawitz <rlk@alum.mit.edu>
-// SPDX-FileCopyrightText: 2025 Randall Rude <rsquared42@proton.me>
+// SPDX-FileCopyrightText: 2025 - 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 

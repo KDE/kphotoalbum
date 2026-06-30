@@ -1,12 +1,13 @@
-// SPDX-FileCopyrightText: 2003-2014 Jesper K. Pedersen <jesper.pedersen@kdab.com>
-// SPDX-FileCopyrightText: 2006-2010 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2003 - 2014 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2006 - 2010 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007 - 2008 Jan Kundrát <jkt@flaska.net>
 // SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
-// SPDX-FileCopyrightText: 2007-2008 Jan Kundrát <jkt@flaska.net>
-// SPDX-FileCopyrightText: 2008-2009 Henner Zeller <h.zeller@acm.org>
-// SPDX-FileCopyrightText: 2012-2015 Miika Turkia <miika.turkia@gmail.com>
-// SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2008 - 2009 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2012 - 2015 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2012 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2015 - 2025 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2018 Robert Krawitz <rlk@alum.mit.edu>
-// SPDX-FileCopyrightText: 2015-2025 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 

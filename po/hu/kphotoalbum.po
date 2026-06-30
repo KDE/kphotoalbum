@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-12 00:41+0000\n"
+"POT-Creation-Date: 2026-06-30 00:41+0000\n"
 "PO-Revision-Date: 2014-12-09 21:03+0100\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -419,12 +419,12 @@ msgstr "OK párbeszédablak"
 msgid "Copy tags from previous image"
 msgstr "Címkék másolása az előző képből"
 
-#: AnnotationDialog/Dialog.cpp:1366 MainWindow/Window.cpp:853
+#: AnnotationDialog/Dialog.cpp:1366 MainWindow/Window.cpp:854
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Forgatás balra"
 
-#: AnnotationDialog/Dialog.cpp:1369 MainWindow/Window.cpp:857
+#: AnnotationDialog/Dialog.cpp:1369 MainWindow/Window.cpp:858
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Forgatás jobbra"
@@ -952,6 +952,7 @@ msgid "Search did not match any images or videos."
 msgstr "A keresés nem talált egyetlen képet vagy videót sem."
 
 #: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
+#: MainWindow/Window.cpp:1839
 #, kde-format
 msgid "Empty Search Result"
 msgstr "Üres keresési eredmény"
@@ -968,7 +969,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "keresés"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1787
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1788
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -978,7 +979,7 @@ msgid ""
 "section <b>Untagged Images</b></li></ul></p>"
 msgstr ""
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1794
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1795
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "A szolgáltatás még nincs beállítva"
@@ -2626,7 +2627,7 @@ msgid "Create folder?"
 msgstr "Alapkönyvtár:"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1222
+#: MainWindow/Window.cpp:1223
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -3412,66 +3413,94 @@ msgid_plural "Only remove %1 items from database"
 msgstr[0] "Csak távolítsa el az elemet az adatbázisból"
 msgstr[1] "Csak távolítson el %1 elemet az adatbázisból"
 
-#: MainWindow/DuplicateMerger/DuplicateMatch.cpp:46
-#, kde-format
-msgid "Merge these images"
-msgstr "Ezen képek egyesítése"
-
-#: MainWindow/DuplicateMerger/DuplicateMatch.cpp:57
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:74
 #, fuzzy, kde-format
-#| msgid "Select target:"
-msgid "Select image to keep:"
-msgstr "Cél kiválasztása:"
+#| msgid "Merge duplicates"
+msgid "Merge Duplicates"
+msgstr "Azonosak egyesítése"
 
-#: MainWindow/DuplicateMerger/DuplicateMatch.cpp:72
-#, kde-format
-msgctxt "i for info"
-msgid "i"
-msgstr "i"
-
-#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:45
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:84
 #, kde-format
 msgid ""
-"<p>Below is a list of all images that are duplicate in your database.<br/"
-">Select which you want merged, and which of the duplicates should be kept."
-"<br/>The tag and description from the deleted images will be transferred to "
-"the kept image</p>"
+"<p>Below is a list of all files that are duplicated in your database.<br/"
+">Select the files you want to keep.<br/>Annotations from the deleted files "
+"will be merged to the kept image.</p>"
 msgstr ""
 
-#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:54
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:93
 #, kde-format
 msgid "Move to &trash"
 msgstr "Áthelyezés a &kukába"
 
-#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:55
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:94
 #, kde-format
 msgid "&Delete from disk"
 msgstr "&Törlés a lemezről"
 
-#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:56
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:95
 #, kde-format
 msgid "&Block from database"
 msgstr "&Blokkolás az adatbázisból"
 
-#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:78
-#, kde-format
-msgid "Select &All"
-msgstr "Min&den kijelölése"
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:112
+#, fuzzy, kde-format
+#| msgctxt "@title:inmenu"
+#| msgid "Filters"
+msgctxt "@label:textbox"
+msgid "Filter ..."
+msgstr "Szűrők"
 
-#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:79
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:113
+#, kde-format
+msgid "Filter duplicates by filename"
+msgstr ""
+
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:137
+#, fuzzy, kde-format
+#| msgid ">="
+msgid ">"
+msgstr ">="
+
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:139
+#, kde-format
+msgid "Add files to keep"
+msgstr ""
+
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:144
+#, fuzzy, kde-format
+#| msgid "<="
+msgid "<"
+msgstr "<="
+
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:146
+#, fuzzy, kde-format
+#| msgid "Select target:"
+msgid "Remove files to keep"
+msgstr "Cél kiválasztása:"
+
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:154
+#, fuzzy, kde-format
+#| msgid "Select target:"
+msgid "Files to keep:"
+msgstr "Cél kiválasztása:"
+
+#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:164
 #, kde-format
 msgid "Select &None"
 msgstr "Kijelölés &megszüntetése"
 
-#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:136
-#, kde-format
-msgid "%1 of %2 selected"
-msgstr "%1 / %2 kiválasztva"
+#: MainWindow/DuplicateMerger/DuplicatesModel.cpp:105
+#, fuzzy, kde-format
+#| msgid "Image Preview"
+msgctxt "@title:column Image preview"
+msgid "Preview"
+msgstr "Kép előnézete"
 
-#: MainWindow/DuplicateMerger/DuplicateMerger.cpp:206
+#: MainWindow/DuplicateMerger/DuplicatesModel.cpp:107
 #, kde-format
-msgid "No duplicates found"
-msgstr "Nem található másolat"
+msgctxt "@title:column Duplicate file"
+msgid "Duplicate %1"
+msgstr ""
 
 #: MainWindow/ExternalPopup.cpp:57
 #, kde-format
@@ -4010,12 +4039,12 @@ msgstr "Szolgáltatás ellenőrzés"
 msgid "Congratulations: all dynamic features have been enabled."
 msgstr "Gratulálunk: minden dinamikus szolgáltatás engedélyezve lett."
 
-#: MainWindow/Window.cpp:277
+#: MainWindow/Window.cpp:278
 #, kde-format
 msgid "Searching for New Files"
 msgstr "Új fájlok keresése"
 
-#: MainWindow/Window.cpp:320
+#: MainWindow/Window.cpp:321
 #, kde-format
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
@@ -4026,26 +4055,26 @@ msgid ""
 "</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:325
+#: MainWindow/Window.cpp:326
 #, fuzzy, kde-format
 #| msgid "Delete Demo Database"
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "Demóadatbázis törlése"
 
-#: MainWindow/Window.cpp:341
+#: MainWindow/Window.cpp:342
 #, kde-format
 msgid "Do you want to save the changes?"
 msgstr "Szeretné elmenteni a változtatásokat?"
 
-#: MainWindow/Window.cpp:342
+#: MainWindow/Window.cpp:343
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Save Changes?"
 msgstr "Változtatások mentése?"
 
-#: MainWindow/Window.cpp:399
+#: MainWindow/Window.cpp:400
 #, kde-format
 msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
@@ -4054,335 +4083,336 @@ msgstr ""
 "A kijelölt képek közül néhány már egy halomhoz tartozik. Szeretné "
 "eltávolítani azokat a saját halmukból és létrehozni egy teljesen újat?"
 
-#: MainWindow/Window.cpp:402
+#: MainWindow/Window.cpp:403
 #, fuzzy, kde-format
 #| msgid "Stacking Error"
 msgctxt "@title"
 msgid "Stacking problem"
 msgstr "Halmozási hiba"
 
-#: MainWindow/Window.cpp:412
+#: MainWindow/Window.cpp:413
 #, kde-format
 msgid "Unknown error, stack creation failed."
 msgstr "Ismeretlen hiba, a halom létrehozása nem sikerült."
 
-#: MainWindow/Window.cpp:413
+#: MainWindow/Window.cpp:414
 #, kde-format
 msgid "Stacking Error"
 msgstr "Halmozási hiba"
 
-#: MainWindow/Window.cpp:492 MainWindow/Window.cpp:624
-#: MainWindow/Window.cpp:1340 MainWindow/Window.cpp:1437
+#: MainWindow/Window.cpp:493 MainWindow/Window.cpp:625
+#: MainWindow/Window.cpp:1341 MainWindow/Window.cpp:1438
 #, kde-format
 msgid "No item is selected."
 msgstr "Nincs kiválasztott elem."
 
-#: MainWindow/Window.cpp:492 MainWindow/Window.cpp:624
-#: MainWindow/Window.cpp:1340 MainWindow/Window.cpp:1438
+#: MainWindow/Window.cpp:493 MainWindow/Window.cpp:625
+#: MainWindow/Window.cpp:1341 MainWindow/Window.cpp:1439
 #, kde-format
 msgid "No Selection"
 msgstr "Nincs kijelölés"
 
-#: MainWindow/Window.cpp:544
+#: MainWindow/Window.cpp:545
 #, kde-format
 msgid "Saving..."
 msgstr "Mentés…"
 
-#: MainWindow/Window.cpp:549
+#: MainWindow/Window.cpp:550
 #, kde-format
 msgid "Saving... Done"
 msgstr "Mentés… kész"
 
-#: MainWindow/Window.cpp:697
+#: MainWindow/Window.cpp:698
 #, kde-format
 msgid "There are no images to be shown."
 msgstr "Nincsenek megjelenítendő képek."
 
-#: MainWindow/Window.cpp:770 MainWindow/Window.cpp:911
+#: MainWindow/Window.cpp:771 MainWindow/Window.cpp:912
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "Nézet korlátozása a kijelölésre"
 
-#: MainWindow/Window.cpp:771
+#: MainWindow/Window.cpp:772
 #, fuzzy, kde-format
 #| msgid "No item is selected."
 msgid "No images are selected!"
 msgstr "Nincs kiválasztott elem."
 
-#: MainWindow/Window.cpp:784
+#: MainWindow/Window.cpp:785
 #, kde-format
 msgid "Generate HTML..."
 msgstr "HTML előállítása…"
 
-#: MainWindow/Window.cpp:788
+#: MainWindow/Window.cpp:789
 #, kde-format
 msgid "Import..."
 msgstr "Importálás…"
 
-#: MainWindow/Window.cpp:791
+#: MainWindow/Window.cpp:792
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "Képek exportálása/másolása…"
 
-#: MainWindow/Window.cpp:820
+#: MainWindow/Window.cpp:821
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Kijelöltek törlése"
 
-#: MainWindow/Window.cpp:828
+#: MainWindow/Window.cpp:829
 #, fuzzy, kde-format
 #| msgid "Remove Tokens"
 msgid "Remove Tokens..."
 msgstr "Tokenek eltávolítása"
 
-#: MainWindow/Window.cpp:831
+#: MainWindow/Window.cpp:832
 #, kde-format
 msgid "Open List of Files..."
 msgstr "Fájlok listájának megnyitása…"
 
-#: MainWindow/Window.cpp:834
+#: MainWindow/Window.cpp:835
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Egyedi elemek magyarázata"
 
-#: MainWindow/Window.cpp:838
+#: MainWindow/Window.cpp:839
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "Több elem egyidejű magyarázata"
 
-#: MainWindow/Window.cpp:842
+#: MainWindow/Window.cpp:843
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "Képek egyesítése egy halomba"
 
-#: MainWindow/Window.cpp:846
+#: MainWindow/Window.cpp:847
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "Képek eltávolítása a halomból"
 
-#: MainWindow/Window.cpp:849
+#: MainWindow/Window.cpp:850
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "Beállítás első képként a halomban"
 
-#: MainWindow/Window.cpp:862
+#: MainWindow/Window.cpp:863
 #, kde-format
 msgid "View"
 msgstr "Nézet"
 
-#: MainWindow/Window.cpp:867
+#: MainWindow/Window.cpp:868
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Nézet (új ablakban)"
 
-#: MainWindow/Window.cpp:872
+#: MainWindow/Window.cpp:873
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Diavetítés indítása"
 
-#: MainWindow/Window.cpp:879
+#: MainWindow/Window.cpp:880
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Véletlenszerű diavetítés indítása"
 
-#: MainWindow/Window.cpp:887
+#: MainWindow/Window.cpp:888
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "Minden halom összecsukása"
 
-#: MainWindow/Window.cpp:893
+#: MainWindow/Window.cpp:894
 #, kde-format
 msgid "Expand all stacks"
 msgstr "Minden halom kibontása"
 
-#: MainWindow/Window.cpp:898
+#: MainWindow/Window.cpp:899
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "Leg&régebbi megjelenítése először"
 
-#: MainWindow/Window.cpp:903
+#: MainWindow/Window.cpp:904
 #, kde-format
 msgid "Show &Newest First"
 msgstr "L&egújabb megjelenítése először"
 
-#: MainWindow/Window.cpp:908
+#: MainWindow/Window.cpp:909
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Kijelöltek rendezése dátum és idő szerint"
 
-#: MainWindow/Window.cpp:916
+#: MainWindow/Window.cpp:917
 #, kde-format
 msgid "Jump to Context"
 msgstr "Ugrás a környezethez"
 
-#: MainWindow/Window.cpp:924
+#: MainWindow/Window.cpp:925
 #, kde-format
 msgid "Lock Images"
 msgstr "Képek zárolása"
 
-#: MainWindow/Window.cpp:928
+#: MainWindow/Window.cpp:929
 #, kde-format
 msgid "Unlock"
 msgstr "Feloldás"
 
-#: MainWindow/Window.cpp:931
+#: MainWindow/Window.cpp:932
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Minden más elem elzárása"
 
-#: MainWindow/Window.cpp:934
+#: MainWindow/Window.cpp:935
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Elemek jelenlegi halmazának elzárása"
 
-#: MainWindow/Window.cpp:937
+#: MainWindow/Window.cpp:938
 #, kde-format
 msgid "Configure Current View"
 msgstr "A jelenlegi nézet beállítása"
 
-#: MainWindow/Window.cpp:945
+#: MainWindow/Window.cpp:946
 #, kde-format
 msgid "Tree"
 msgstr "Fa"
 
-#: MainWindow/Window.cpp:950
+#: MainWindow/Window.cpp:951
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "Fa felhasználói ikonokkal"
 
-#: MainWindow/Window.cpp:955
+#: MainWindow/Window.cpp:956
 #, kde-format
 msgid "Icons"
 msgstr "Ikonok"
 
-#: MainWindow/Window.cpp:962
+#: MainWindow/Window.cpp:963
 #, kde-format
 msgid "Use natural sort order"
 msgstr ""
 
-#: MainWindow/Window.cpp:972
+#: MainWindow/Window.cpp:973
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Buboréksúgók megjelenítése a bélyegképek ablakban"
 
-#: MainWindow/Window.cpp:977
+#: MainWindow/Window.cpp:978
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Labels in Thumbnails Window"
 msgstr "Buboréksúgók megjelenítése a bélyegképek ablakban"
 
-#: MainWindow/Window.cpp:987
+#: MainWindow/Window.cpp:988
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Categories in Thumbnails Window"
 msgstr "Buboréksúgók megjelenítése a bélyegképek ablakban"
 
-#: MainWindow/Window.cpp:1004
+#: MainWindow/Window.cpp:1005
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr ""
 
-#: MainWindow/Window.cpp:1011
+#: MainWindow/Window.cpp:1012
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Képek és videók megjelenítése, amelyek nincsenek a lemezen"
 
-#: MainWindow/Window.cpp:1014
+#: MainWindow/Window.cpp:1015
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Befejezetlen dátumú képek és videók megjelenítése…"
 
-#: MainWindow/Window.cpp:1017
-#, kde-format
-msgid "Merge duplicates"
+#: MainWindow/Window.cpp:1018
+#, fuzzy, kde-format
+#| msgid "Merge duplicates"
+msgid "Merge duplicates..."
 msgstr "Azonosak egyesítése"
 
-#: MainWindow/Window.cpp:1019 MainWindow/Window.cpp:1074
+#: MainWindow/Window.cpp:1020 MainWindow/Window.cpp:1075
 #, fuzzy, kde-format
 #| msgid "Recreate Selected Thumbnails"
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "A kijelölt bélyegképek újralétrehozása"
 
-#: MainWindow/Window.cpp:1023
+#: MainWindow/Window.cpp:1024
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Képek és videók újrakeresése"
 
-#: MainWindow/Window.cpp:1026
+#: MainWindow/Window.cpp:1027
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "EXIF keresési adatbázis újralétrehozása"
 
-#: MainWindow/Window.cpp:1029
+#: MainWindow/Window.cpp:1030
 #, fuzzy, kde-format
 #| msgid "Read EXIF Info From Files..."
 msgid "Read Metadata from Files..."
 msgstr "EXIF információk olvasása a fájlokból…"
 
-#: MainWindow/Window.cpp:1032
+#: MainWindow/Window.cpp:1033
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "Összes rendezése dátum és idő szerint"
 
-#: MainWindow/Window.cpp:1036
+#: MainWindow/Window.cpp:1037
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Kijelölt képek automatikus halmozása…"
 
-#: MainWindow/Window.cpp:1039
+#: MainWindow/Window.cpp:1040
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Bélyegképek készítése"
 
-#: MainWindow/Window.cpp:1042
+#: MainWindow/Window.cpp:1043
 #, fuzzy, kde-format
 #| msgid "Statistics"
 msgid "Statistics..."
 msgstr "Statisztikák"
 
-#: MainWindow/Window.cpp:1046
+#: MainWindow/Window.cpp:1047
 #, kde-format
 msgid "Mark As Untagged"
 msgstr ""
 
-#: MainWindow/Window.cpp:1056
+#: MainWindow/Window.cpp:1057
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Minden üzenet engedélyezése"
 
-#: MainWindow/Window.cpp:1060
+#: MainWindow/Window.cpp:1061
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "A KPhotoAlbum demó futtatása"
 
-#: MainWindow/Window.cpp:1064
+#: MainWindow/Window.cpp:1065
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "KPhotoAlbum szolgáltatás állapot"
 
-#: MainWindow/Window.cpp:1067
+#: MainWindow/Window.cpp:1068
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Demó videók megjelenítése"
 
-#: MainWindow/Window.cpp:1071 Viewer/ViewerWidget.cpp:196
+#: MainWindow/Window.cpp:1072 Viewer/ViewerWidget.cpp:196
 #, fuzzy, kde-format
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "EXIF információk megjelenítése"
 
-#: MainWindow/Window.cpp:1077
+#: MainWindow/Window.cpp:1078
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Következő videó bélyegkép használata"
 
-#: MainWindow/Window.cpp:1081
+#: MainWindow/Window.cpp:1082
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Előző videó bélyegkép használata"
 
-#: MainWindow/Window.cpp:1085 MainWindow/Window.cpp:1318
+#: MainWindow/Window.cpp:1086 MainWindow/Window.cpp:1319
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Copy images to..."
@@ -4391,7 +4421,7 @@ msgid_plural "Copy images to ..."
 msgstr[0] "Képek másolása ide…"
 msgstr[1] "Képek másolása ide…"
 
-#: MainWindow/Window.cpp:1089 MainWindow/Window.cpp:1322
+#: MainWindow/Window.cpp:1090 MainWindow/Window.cpp:1323
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Copy images to..."
@@ -4400,30 +4430,30 @@ msgid_plural "Link images to ..."
 msgstr[0] "Képek másolása ide…"
 msgstr[1] "Képek másolása ide…"
 
-#: MainWindow/Window.cpp:1113
+#: MainWindow/Window.cpp:1114
 #, kde-format
 msgid "Auto saving...."
 msgstr "Automatikus mentés…"
 
-#: MainWindow/Window.cpp:1116
+#: MainWindow/Window.cpp:1117
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Automatikus mentés… kész"
 
-#: MainWindow/Window.cpp:1216
+#: MainWindow/Window.cpp:1217
 #, fuzzy, kde-format
 #| msgid "Do you really want to erase the database?"
 msgid "<p>Do you want to create this database file?<br />%1</p>"
 msgstr "Valóban törölni szeretné az adatbázist?"
 
-#: MainWindow/Window.cpp:1219
+#: MainWindow/Window.cpp:1220
 #, fuzzy, kde-format
 #| msgid "Erase database"
 msgctxt "@title"
 msgid "Create database"
 msgstr "Adatbázis törlése"
 
-#: MainWindow/Window.cpp:1263
+#: MainWindow/Window.cpp:1264
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4432,47 +4462,47 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1389 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1390 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Általános"
 
-#: MainWindow/Window.cpp:1390 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1391 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Megjelenítő"
 
-#: MainWindow/Window.cpp:1391
+#: MainWindow/Window.cpp:1392
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Dátum: "
 
-#: MainWindow/Window.cpp:1394
+#: MainWindow/Window.cpp:1395
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Magyarázat párbeszédablak"
 
-#: MainWindow/Window.cpp:1395 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1396 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Bélyegkép nézet"
 
-#: MainWindow/Window.cpp:1538
+#: MainWindow/Window.cpp:1539
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
 "show-again check box?</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1540
+#: MainWindow/Window.cpp:1541
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1554
+#: MainWindow/Window.cpp:1555
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4483,62 +4513,68 @@ msgid ""
 "on due to the missing make install.</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1554
+#: MainWindow/Window.cpp:1555
 #, kde-format
 msgid "Internal Error"
 msgstr "Belső hiba"
 
-#: MainWindow/Window.cpp:1565
+#: MainWindow/Window.cpp:1566
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1568
+#: MainWindow/Window.cpp:1569
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1573
+#: MainWindow/Window.cpp:1574
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1624
+#: MainWindow/Window.cpp:1625
 #, kde-format
 msgid "Open List of Files"
 msgstr "Fájlok listájának megnyitása"
 
-#: MainWindow/Window.cpp:1625
+#: MainWindow/Window.cpp:1626
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
 
-#: MainWindow/Window.cpp:1639
+#: MainWindow/Window.cpp:1640
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Nem található a bemenetre illeszkedő kép."
 
-#: MainWindow/Window.cpp:1639
+#: MainWindow/Window.cpp:1640
 #, kde-format
 msgid "No Matches"
 msgstr "Nincs találat"
 
-#: MainWindow/Window.cpp:1811
+#: MainWindow/Window.cpp:1812
 #, fuzzy, kde-format
 #| msgid "Rereading EXIF information from all images"
 msgid "Rereading Exif information from all images"
 msgstr "EXIF információk újraolvasása minden képből"
 
-#: MainWindow/Window.cpp:1838
+#: MainWindow/Window.cpp:1839
+#, fuzzy, kde-format
+#| msgid "No duplicates found"
+msgid "No duplicate files were found."
+msgstr "Nem található másolat"
+
+#: MainWindow/Window.cpp:1849
 #, fuzzy, no-c-format, kde-format
 #| msgid "Thumbnail image size:"
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Bélyegkép képméret:"
 
-#: MainWindow/Window.cpp:1891
+#: MainWindow/Window.cpp:1902
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Unable to find MPlayer on the system.</p><p>Without MPlayer, "
@@ -4553,7 +4589,7 @@ msgstr ""
 "nem lesz képes megjeleníteni a videó bélyegképeket és a videó hosszát. "
 "Kérjük telepítse az MPlayer2 csomagot</p>"
 
-#: MainWindow/Window.cpp:1894
+#: MainWindow/Window.cpp:1905
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Videó bélyegképek nem érhetők el"
@@ -7016,6 +7052,19 @@ msgstr "Képméret megjelenítése"
 #, kde-format
 msgid "Show Rating"
 msgstr "Értékelés megjelenítése"
+
+#~ msgid "Merge these images"
+#~ msgstr "Ezen képek egyesítése"
+
+#~ msgctxt "i for info"
+#~ msgid "i"
+#~ msgstr "i"
+
+#~ msgid "Select &All"
+#~ msgstr "Min&den kijelölése"
+
+#~ msgid "%1 of %2 selected"
+#~ msgstr "%1 / %2 kiválasztva"
 
 #, fuzzy
 #~| msgid "1 month"

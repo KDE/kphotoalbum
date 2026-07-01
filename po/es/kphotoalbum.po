@@ -2,17 +2,17 @@
 # Copyright (C) 2009-2026 This file is copyright:
 # This file is distributed under the same license as the kphotoalbum package.
 #
-# SPDX-FileCopyrightText: 2009, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2009, 2014-2026 Eloy Cuadra <ecuadra@eloihr.net>
 # SPDX-FileCopyrightText: 2009 Cristina Yenyxe Gonzalez Garcia <the.blue.valkyrie@gmail.com>
 # SPDX-FileCopyrightText: 2009 Adrián Martínez <sfxgt3@gmail.com>
-# SPDX-FileCopyrightText: 2010, 2011 Pablo Pita Leira <pablo.pita@gmail.com>
+# SPDX-FileCopyrightText: 2010-2011 Pablo Pita Leira <pablo.pita@gmail.com>
 # SPDX-FileCopyrightText: 2013 Aitor Morant <fromhell091@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-30 00:41+0000\n"
-"PO-Revision-Date: 2026-03-01 15:32+0100\n"
+"PO-Revision-Date: 2026-06-30 21:32+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3545,27 +3545,21 @@ msgstr[0] "Solo eliminar de la base de datos"
 msgstr[1] "Eliminar %1 elementos de la base de datos"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:74
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge Duplicates"
 msgstr "Fusionar duplicados"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:84
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Below is a list of all images that are duplicate in your database.<br/"
-#| ">Select which you want merged, and which of the duplicates should be kept."
-#| "<br/>The tag and description from the deleted images will be transferred "
-#| "to the kept image</p>"
+#, kde-format
 msgid ""
 "<p>Below is a list of all files that are duplicated in your database.<br/"
 ">Select the files you want to keep.<br/>Annotations from the deleted files "
 "will be merged to the kept image.</p>"
 msgstr ""
-"<p>A continuación se muestra una lista con todas las imágenes duplicadas en "
-"la base de datos.<br/>Seleccione las que quiere fusionar y los duplicados "
-"que desea mantener.<br/>Las etiquetas y las descripciones de las imágenes "
-"borradas se transferirán a las imágenes que se mantienen.</p>"
+"<p>A continuación se muestra una lista con todos los archivos duplicados en "
+"la base de datos.<br/>Seleccione los que quiera conservar.<br/>Las "
+"anotaciones de los archivos borrados se fusionarán con las imágenes que "
+"conserve.</p>"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:93
 #, kde-format
@@ -3583,46 +3577,40 @@ msgid "&Block from database"
 msgstr "&Bloquear de la base de datos"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@label:textedit"
-#| msgid "Filter ... (%1)"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Filter ..."
-msgstr "Filtrar… (%1)"
+msgstr "Filtrar…"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:113
 #, kde-format
 msgid "Filter duplicates by filename"
-msgstr ""
+msgstr "Filtrar duplicados por nombre"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:137
-#, fuzzy, kde-format
-#| msgid ">="
+#, kde-format
 msgid ">"
-msgstr ">="
+msgstr ">"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:139
 #, kde-format
 msgid "Add files to keep"
-msgstr ""
+msgstr "Añadir archivos que se conservarán"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:144
-#, fuzzy, kde-format
-#| msgid "<="
+#, kde-format
 msgid "<"
-msgstr "<="
+msgstr "<"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:146
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Remove files to keep"
-msgstr "Seleccione la imagen que se guardará:"
+msgstr "Eliminar archivos que se conservarán"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:154
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Files to keep:"
-msgstr "Seleccione la imagen que se guardará:"
+msgstr "Archivos que se conservarán:"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:164
 #, kde-format
@@ -3630,17 +3618,16 @@ msgid "Select &None"
 msgstr "No seleccionar &nada"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:105
-#, fuzzy, kde-format
-#| msgid "Image Preview"
+#, kde-format
 msgctxt "@title:column Image preview"
 msgid "Preview"
-msgstr "Vista preliminar de imagen"
+msgstr "Vista previa"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:107
 #, kde-format
 msgctxt "@title:column Duplicate file"
 msgid "Duplicate %1"
-msgstr ""
+msgstr "Duplicar %1"
 
 #: MainWindow/ExternalPopup.cpp:57
 #, kde-format
@@ -4524,10 +4511,9 @@ msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Mostrar imágenes y vídeos con fechas incompletas…"
 
 #: MainWindow/Window.cpp:1018
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge duplicates..."
-msgstr "Fusionar duplicados"
+msgstr "Fusionar duplicados…"
 
 #: MainWindow/Window.cpp:1020 MainWindow/Window.cpp:1075
 #, kde-format
@@ -4767,10 +4753,9 @@ msgid "Rereading Exif information from all images"
 msgstr "Releyendo información Exif de todas las imágenes"
 
 #: MainWindow/Window.cpp:1839
-#, fuzzy, kde-format
-#| msgid "No duplicates found"
+#, kde-format
 msgid "No duplicate files were found."
-msgstr "No se encontraron duplicados"
+msgstr "No se han encontrado archivos duplicados."
 
 #: MainWindow/Window.cpp:1849
 #, no-c-format, kde-format
@@ -7399,16 +7384,3 @@ msgstr "Mostrar tamaño de imagen"
 #, kde-format
 msgid "Show Rating"
 msgstr "Mostrar puntuación"
-
-#~ msgid "Merge these images"
-#~ msgstr "Fusionar estas imágenes"
-
-#~ msgctxt "i for info"
-#~ msgid "i"
-#~ msgstr "i"
-
-#~ msgid "Select &All"
-#~ msgstr "Seleccionar &todo"
-
-#~ msgid "%1 of %2 selected"
-#~ msgstr "%1 de %2 seleccionado"

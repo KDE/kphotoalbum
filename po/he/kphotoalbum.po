@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kphotoalbum package.
 #
-# SPDX-FileCopyrightText: 2024, 2025, 2026 Yaron Shahrabani <sh.yaron@gmail.com>
+# SPDX-FileCopyrightText: 2024-2026 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-30 00:41+0000\n"
-"PO-Revision-Date: 2026-03-01 18:52+0200\n"
+"PO-Revision-Date: 2026-06-30 09:12+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.12.1\n"
+"X-Generator: Lokalize 26.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3505,26 +3505,19 @@ msgstr[2] "להסיר רק %1 פריטים ממסד הנתונים"
 msgstr[3] "להסיר רק %1 פריטים ממסד הנתונים"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:74
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge Duplicates"
 msgstr "מיזוג כפילויות"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:84
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Below is a list of all images that are duplicate in your database.<br/"
-#| ">Select which you want merged, and which of the duplicates should be kept."
-#| "<br/>The tag and description from the deleted images will be transferred "
-#| "to the kept image</p>"
+#, kde-format
 msgid ""
 "<p>Below is a list of all files that are duplicated in your database.<br/"
 ">Select the files you want to keep.<br/>Annotations from the deleted files "
 "will be merged to the kept image.</p>"
 msgstr ""
-"<p>להלן רשימת כל התמונות הכפולות במסד הנתונים שלך.<br/>נא לבחור אילו מהן "
-"למזג ואילו מהכפילויות לשמור.<br/>התגית והתיאור מהתמונות שנמחקו יתווספו "
-"לתמונה שנשארה</p>"
+"<p>להלן רשימת כל הקבצים הכפולים במסד הנתונים שלך.<br/>נא לבחור אילו קבצים "
+"לשמור.<br/>פרשנויות מהקבצים שנמחקו ימוזגו לתמונה שנשארה.</p>"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:93
 #, kde-format
@@ -3542,46 +3535,40 @@ msgid "&Block from database"
 msgstr "&חסימה ממסד הנתונים"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@label:textedit"
-#| msgid "Filter ... (%1)"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Filter ..."
-msgstr "סינון… (%1)"
+msgstr "סינון…"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:113
 #, kde-format
 msgid "Filter duplicates by filename"
-msgstr ""
+msgstr "סינון כפילויות לפי שם קובץ"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:137
-#, fuzzy, kde-format
-#| msgid ">="
+#, kde-format
 msgid ">"
-msgstr ">="
+msgstr ">"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:139
 #, kde-format
 msgid "Add files to keep"
-msgstr ""
+msgstr "הוספת קבצים לשמירה"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:144
-#, fuzzy, kde-format
-#| msgid "<="
+#, kde-format
 msgid "<"
-msgstr "<="
+msgstr "<"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:146
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Remove files to keep"
-msgstr "נא לבחור תמונה לשמירה:"
+msgstr "הסרת קבצים לשמירה"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:154
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Files to keep:"
-msgstr "נא לבחור תמונה לשמירה:"
+msgstr "קבצים לשמירה:"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:164
 #, kde-format
@@ -3589,17 +3576,16 @@ msgid "Select &None"
 msgstr "&ביטול בחירה"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:105
-#, fuzzy, kde-format
-#| msgid "Image Preview"
+#, kde-format
 msgctxt "@title:column Image preview"
 msgid "Preview"
-msgstr "תצוגת תמונה מקדימה"
+msgstr "תצוגה מקדימה"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:107
 #, kde-format
 msgctxt "@title:column Duplicate file"
 msgid "Duplicate %1"
-msgstr ""
+msgstr "שכפול %1"
 
 #: MainWindow/ExternalPopup.cpp:57
 #, kde-format
@@ -4461,10 +4447,9 @@ msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "הצגת תמונות וסרטונים עם תאריכים חלקיים…"
 
 #: MainWindow/Window.cpp:1018
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge duplicates..."
-msgstr "מיזוג כפילויות"
+msgstr "מיזוג כפילויות…"
 
 #: MainWindow/Window.cpp:1020 MainWindow/Window.cpp:1075
 #, kde-format
@@ -4702,10 +4687,9 @@ msgid "Rereading Exif information from all images"
 msgstr "פרטי ה־Exif נקראים מחדש מכל התמונות"
 
 #: MainWindow/Window.cpp:1839
-#, fuzzy, kde-format
-#| msgid "No duplicates found"
+#, kde-format
 msgid "No duplicate files were found."
-msgstr "לא נמצאו כפילויות"
+msgstr "לא נמצאו קבצים כפולים."
 
 #: MainWindow/Window.cpp:1849
 #, no-c-format, kde-format

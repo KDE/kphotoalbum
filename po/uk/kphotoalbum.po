@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-30 00:41+0000\n"
-"PO-Revision-Date: 2026-03-01 12:17+0200\n"
+"PO-Revision-Date: 2026-06-30 20:10+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -3601,27 +3601,20 @@ msgstr[2] "Вилучити лише %1 записів з бази даних"
 msgstr[3] "Вилучити лише запис з бази даних"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:74
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge Duplicates"
 msgstr "Об’єднати дублікати"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:84
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Below is a list of all images that are duplicate in your database.<br/"
-#| ">Select which you want merged, and which of the duplicates should be kept."
-#| "<br/>The tag and description from the deleted images will be transferred "
-#| "to the kept image</p>"
+#, kde-format
 msgid ""
 "<p>Below is a list of all files that are duplicated in your database.<br/"
 ">Select the files you want to keep.<br/>Annotations from the deleted files "
 "will be merged to the kept image.</p>"
 msgstr ""
-"<p>Нижче наведено список усіх зображень у вашій базі даних, які є "
-"дублікатами.<br/>Виберіть ті з них, які слід об’єднати, і ті, дублікати яких "
-"слід залишити.<br/>Мітку та опис з вилучених зображень буде перенесено на "
-"збережені.</p>"
+"<p>Нижче наведено список усіх файлів-дублікатів у вашій базі даних.<br/"
+">Виберіть файли, які слід зберегти.<br/>Анотації з вилучених файлів буде "
+"дописано до збереженого зображення.</p>"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:93
 #, kde-format
@@ -3639,46 +3632,40 @@ msgid "&Block from database"
 msgstr "За&блокувати входження до бази даних"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@label:textedit"
-#| msgid "Filter ... (%1)"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Filter ..."
-msgstr "Фільтрувати… (%1)"
+msgstr "Фільтрувати…"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:113
 #, kde-format
 msgid "Filter duplicates by filename"
-msgstr ""
+msgstr "Фільтрувати дублікати за назвою файла"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:137
-#, fuzzy, kde-format
-#| msgid ">="
+#, kde-format
 msgid ">"
-msgstr "⩾"
+msgstr ">"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:139
 #, kde-format
 msgid "Add files to keep"
-msgstr ""
+msgstr "Додати файли до збережених"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:144
-#, fuzzy, kde-format
-#| msgid "<="
+#, kde-format
 msgid "<"
-msgstr "⩽"
+msgstr "<"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:146
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Remove files to keep"
-msgstr "Виберіть зображення, яке слід зберегти:"
+msgstr "Вилучити файли зі збережених"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:154
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Files to keep:"
-msgstr "Виберіть зображення, яке слід зберегти:"
+msgstr "Файли, які слід зберегти:"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:164
 #, kde-format
@@ -3686,17 +3673,16 @@ msgid "Select &None"
 msgstr "&Нічого не позначати"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:105
-#, fuzzy, kde-format
-#| msgid "Image Preview"
+#, kde-format
 msgctxt "@title:column Image preview"
 msgid "Preview"
-msgstr "Перегляд зображення"
+msgstr "Перегляд"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:107
 #, kde-format
 msgctxt "@title:column Duplicate file"
 msgid "Duplicate %1"
-msgstr ""
+msgstr "Здублювати %1"
 
 #: MainWindow/ExternalPopup.cpp:57
 #, kde-format
@@ -4583,10 +4569,9 @@ msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Показати зображення і відеофайли з неповними датами..."
 
 #: MainWindow/Window.cpp:1018
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge duplicates..."
-msgstr "Об’єднати дублікати"
+msgstr "Об’єднати дублікати…"
 
 #: MainWindow/Window.cpp:1020 MainWindow/Window.cpp:1075
 #, kde-format
@@ -4831,10 +4816,9 @@ msgid "Rereading Exif information from all images"
 msgstr "Повторне читання інформації Exif з усіх зображень"
 
 #: MainWindow/Window.cpp:1839
-#, fuzzy, kde-format
-#| msgid "No duplicates found"
+#, kde-format
 msgid "No duplicate files were found."
-msgstr "Дублікатів не знайдено"
+msgstr "Дублікатів не знайдено."
 
 #: MainWindow/Window.cpp:1849
 #, no-c-format, kde-format

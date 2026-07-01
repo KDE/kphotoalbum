@@ -9,14 +9,14 @@
 # doutor.zero <doutor.zero@gmail.com>, 2007.
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2008, 2009, 2010, 2012, 2015, 2016, 2017, 2018, 2019, 2020, 2021.
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016.
-# SPDX-FileCopyrightText: 2010, 2025, 2026 Marcus Vinícius de Andrade Gama <marcus.gama@gmail.com>
+# SPDX-FileCopyrightText: 2010, 2025-2026 Marcus Vinícius de Andrade Gama <marcus.gama@gmail.com>
 # Marcus Gama <marcus.gama@gmail.com>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-30 00:41+0000\n"
-"PO-Revision-Date: 2026-03-01 08:03-0300\n"
+"PO-Revision-Date: 2026-06-30 08:04-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3543,27 +3543,20 @@ msgstr[0] "Somente remover o item do banco de dados"
 msgstr[1] "Somente remover os %1 itens do banco de dados"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:74
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge Duplicates"
 msgstr "Mesclar duplicadas"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:84
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Below is a list of all images that are duplicate in your database.<br/"
-#| ">Select which you want merged, and which of the duplicates should be kept."
-#| "<br/>The tag and description from the deleted images will be transferred "
-#| "to the kept image</p>"
+#, kde-format
 msgid ""
 "<p>Below is a list of all files that are duplicated in your database.<br/"
 ">Select the files you want to keep.<br/>Annotations from the deleted files "
 "will be merged to the kept image.</p>"
 msgstr ""
-"<p>A lista abaixo apresenta todas as imagens duplicadas no seu banco de "
-"dados.<br/>Selecione quais serão mescladas e quais serão mantidas.<br/>As "
-"etiquetas e descrição das imagens excluídas serão transferidas para a imagem "
-"mantida</p>"
+"<p>Abaixo está uma lista de todos os arquivos duplicados no seu banco de "
+"dados.<br/>Selecione os arquivos que deseja manter.<br/>As anotações dos "
+"arquivos excluídos serão mescladas à imagem mantida.</p>"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:93
 #, kde-format
@@ -3581,46 +3574,40 @@ msgid "&Block from database"
 msgstr "&Bloquear no banco de dados"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@label:textedit"
-#| msgid "Filter ... (%1)"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Filter ..."
-msgstr "Filtro ... (%1)"
+msgstr "Filtro ..."
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:113
 #, kde-format
 msgid "Filter duplicates by filename"
-msgstr ""
+msgstr "Filtrar duplicadas por nome de arquivo"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:137
-#, fuzzy, kde-format
-#| msgid ">="
+#, kde-format
 msgid ">"
-msgstr ">="
+msgstr ">"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:139
 #, kde-format
 msgid "Add files to keep"
-msgstr ""
+msgstr "Adiciona arquivos a manter"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:144
-#, fuzzy, kde-format
-#| msgid "<="
+#, kde-format
 msgid "<"
-msgstr "<="
+msgstr "<"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:146
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Remove files to keep"
-msgstr "Selecionar imagem a manter:"
+msgstr "Remove arquivos a manter"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:154
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Files to keep:"
-msgstr "Selecionar imagem a manter:"
+msgstr "Arquivos a manter:"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:164
 #, kde-format
@@ -3628,17 +3615,16 @@ msgid "Select &None"
 msgstr "&Desmarcar tudo"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:105
-#, fuzzy, kde-format
-#| msgid "Image Preview"
+#, kde-format
 msgctxt "@title:column Image preview"
 msgid "Preview"
-msgstr "Visualização de imagem"
+msgstr "Visualização"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:107
 #, kde-format
 msgctxt "@title:column Duplicate file"
 msgid "Duplicate %1"
-msgstr ""
+msgstr "Duplicar %1"
 
 #: MainWindow/ExternalPopup.cpp:57
 #, kde-format
@@ -4526,10 +4512,9 @@ msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Mostrar imagens e vídeos com datas incompletas..."
 
 #: MainWindow/Window.cpp:1018
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge duplicates..."
-msgstr "Mesclar duplicadas"
+msgstr "Mesclar duplicadas..."
 
 #: MainWindow/Window.cpp:1020 MainWindow/Window.cpp:1075
 #, kde-format
@@ -4769,10 +4754,9 @@ msgid "Rereading Exif information from all images"
 msgstr "Lendo novamente as informações EXIF de todas as imagens"
 
 #: MainWindow/Window.cpp:1839
-#, fuzzy, kde-format
-#| msgid "No duplicates found"
+#, kde-format
 msgid "No duplicate files were found."
-msgstr "Não foram encontradas duplicadas"
+msgstr "Nenhum arquivo duplicado foi encontrado."
 
 #: MainWindow/Window.cpp:1849
 #, no-c-format, kde-format

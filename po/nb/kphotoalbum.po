@@ -6946,16 +6946,3 @@ msgstr "Vis bildestørrelse"
 #, kde-format
 msgid "Show Rating"
 msgstr "Vis karakter"
-
-#~ msgid "Merge these images"
-#~ msgstr "Flett sammen disse bildene"
-
-#~ msgctxt "i for info"
-#~ msgid "i"
-#~ msgstr "i"
-
-#~ msgid "Select &All"
-#~ msgstr "Merk &alle"
-
-#~ msgid "%1 of %2 selected"
-#~ msgstr "%1 av %2 valgt"

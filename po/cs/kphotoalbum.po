@@ -3375,8 +3375,7 @@ msgstr[1] "%1 položky odstranit pouze z databáze"
 msgstr[2] "%1 položek odstranit pouze z databáze"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:74
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge Duplicates"
 msgstr "Sloučit duplicity"
 
@@ -3417,10 +3416,9 @@ msgid "Filter duplicates by filename"
 msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:137
-#, fuzzy, kde-format
-#| msgid ">="
+#, kde-format
 msgid ">"
-msgstr ">="
+msgstr ">"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:139
 #, kde-format
@@ -3428,10 +3426,9 @@ msgid "Add files to keep"
 msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:144
-#, fuzzy, kde-format
-#| msgid "<="
+#, kde-format
 msgid "<"
-msgstr "<="
+msgstr "<"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:146
 #, fuzzy, kde-format

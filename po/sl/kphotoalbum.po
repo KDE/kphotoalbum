@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-30 00:41+0000\n"
-"PO-Revision-Date: 2026-03-01 08:52+0100\n"
+"PO-Revision-Date: 2026-06-30 06:24+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3563,26 +3563,20 @@ msgstr[2] "Odstrani samo %1 elemente iz zbirke podatkov"
 msgstr[3] "Odstrani samo %1 elementov iz zbirke podatkov"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:74
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge Duplicates"
-msgstr "Spoji dvojnike"
+msgstr "Zlij dvojnike"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:84
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Below is a list of all images that are duplicate in your database.<br/"
-#| ">Select which you want merged, and which of the duplicates should be kept."
-#| "<br/>The tag and description from the deleted images will be transferred "
-#| "to the kept image</p>"
+#, kde-format
 msgid ""
 "<p>Below is a list of all files that are duplicated in your database.<br/"
 ">Select the files you want to keep.<br/>Annotations from the deleted files "
 "will be merged to the kept image.</p>"
 msgstr ""
-"<p>Spodaj je seznam vseh slik, ki so podvojene v zbirki podatkov.<br/"
-">Izberite, katere želite združili, in kateri od dvojnikov naj se ohranijo."
-"<br/>Značko in opis iz izbrisanih slik boste prenesli na shranjeno sliko.</p>"
+"<p>Spodaj je seznam vseh datotek, ki so podvojene v vaši zbirki podatkov.<br/"
+">Izberite datoteke, ki jih želite obdržati.<br/>Zapisi iz izbrisanih datotek "
+"bodo združeni s shranjeno sliko.</p>"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:93
 #, kde-format
@@ -3600,46 +3594,40 @@ msgid "&Block from database"
 msgstr "&Blokiraj iz zbirke podatkov"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@label:textedit"
-#| msgid "Filter ... (%1)"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Filter ..."
-msgstr "Filter ... (%1)"
+msgstr "Filter ..."
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:113
 #, kde-format
 msgid "Filter duplicates by filename"
-msgstr ""
+msgstr "Filtriraj podvojene datoteke po imenu datoteke"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:137
-#, fuzzy, kde-format
-#| msgid ">="
+#, kde-format
 msgid ">"
-msgstr ">="
+msgstr ">"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:139
 #, kde-format
 msgid "Add files to keep"
-msgstr ""
+msgstr "Dodaj datoteke, ki jih želite obdržati"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:144
-#, fuzzy, kde-format
-#| msgid "<="
+#, kde-format
 msgid "<"
-msgstr "<="
+msgstr "<"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:146
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Remove files to keep"
-msgstr "Izberite sliko, ki jo želite obdržati:"
+msgstr "Odstranite datoteke, ki jih želite obdržati"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:154
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Files to keep:"
-msgstr "Izberite sliko, ki jo želite obdržati:"
+msgstr "Datoteke, ki jih želite obdržati:"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:164
 #, kde-format
@@ -3647,17 +3635,16 @@ msgid "Select &None"
 msgstr "&Nič ne izberi"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:105
-#, fuzzy, kde-format
-#| msgid "Image Preview"
+#, kde-format
 msgctxt "@title:column Image preview"
 msgid "Preview"
-msgstr "Predogled slike"
+msgstr "Predogled"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:107
 #, kde-format
 msgctxt "@title:column Duplicate file"
 msgid "Duplicate %1"
-msgstr ""
+msgstr "Dupliciraj %1"
 
 #: MainWindow/ExternalPopup.cpp:57
 #, kde-format
@@ -4540,10 +4527,9 @@ msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Prikaži slike in videoposnetke z nepopolnim datumom ..."
 
 #: MainWindow/Window.cpp:1018
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge duplicates..."
-msgstr "Spoji dvojnike"
+msgstr "Zlij dvojnike..."
 
 #: MainWindow/Window.cpp:1020 MainWindow/Window.cpp:1075
 #, kde-format
@@ -4786,10 +4772,9 @@ msgid "Rereading Exif information from all images"
 msgstr "Ponovno branje podatkov Exif iz vseh slik"
 
 #: MainWindow/Window.cpp:1839
-#, fuzzy, kde-format
-#| msgid "No duplicates found"
+#, kde-format
 msgid "No duplicate files were found."
-msgstr "Dvojnikov ni bilo mogoče najti"
+msgstr "Nobenih dvojnikov ni bilo mogoče najti."
 
 #: MainWindow/Window.cpp:1849
 #, no-c-format, kde-format

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-30 00:41+0000\n"
-"PO-Revision-Date: 2026-03-01 11:10+0100\n"
+"PO-Revision-Date: 2026-06-30 10:00+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -3558,27 +3558,20 @@ msgstr[0] "Elimina l'element només de la base de dades"
 msgstr[1] "Elimina %1 elements només de la base de dades"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:74
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge Duplicates"
 msgstr "Combina els duplicats"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:84
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Below is a list of all images that are duplicate in your database.<br/"
-#| ">Select which you want merged, and which of the duplicates should be kept."
-#| "<br/>The tag and description from the deleted images will be transferred "
-#| "to the kept image</p>"
+#, kde-format
 msgid ""
 "<p>Below is a list of all files that are duplicated in your database.<br/"
 ">Select the files you want to keep.<br/>Annotations from the deleted files "
 "will be merged to the kept image.</p>"
 msgstr ""
-"<p>A sota hi ha una llista de totes les imatges que estan duplicades en la "
-"base de dades.<br/>Seleccioneu les que voleu combinar, i quines de les "
-"duplicades s'haurien de mantenir.<br/>L'etiqueta i la descripció de les "
-"imatges suprimides es transferiran a la imatge que es manté</p>"
+"<p>A sota hi ha una llista de tots els fitxers que estan duplicats en la "
+"base de dades.<br/>Seleccioneu els que voleu mantenir.<br/>Les anotacions "
+"dels fitxers suprimits es combinaran a la imatge que es manté</p>"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:93
 #, kde-format
@@ -3596,46 +3589,40 @@ msgid "&Block from database"
 msgstr "&Bloqueja des de la base de dades"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@label:textedit"
-#| msgid "Filter ... (%1)"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Filter ..."
-msgstr "Filtre... (%1)"
+msgstr "Filtre..."
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:113
 #, kde-format
 msgid "Filter duplicates by filename"
-msgstr ""
+msgstr "Filtra els duplicats per nom de fitxer"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:137
-#, fuzzy, kde-format
-#| msgid ">="
+#, kde-format
 msgid ">"
-msgstr ">="
+msgstr ">"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:139
 #, kde-format
 msgid "Add files to keep"
-msgstr ""
+msgstr "Afegeix fitxers a mantenir"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:144
-#, fuzzy, kde-format
-#| msgid "<="
+#, kde-format
 msgid "<"
-msgstr "<="
+msgstr "<"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:146
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Remove files to keep"
-msgstr "Seleccioneu la imatge a mantenir:"
+msgstr "Elimina fitxers a mantenir"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:154
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Files to keep:"
-msgstr "Seleccioneu la imatge a mantenir:"
+msgstr "Fitxers a mantenir:"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:164
 #, kde-format
@@ -3643,17 +3630,16 @@ msgid "Select &None"
 msgstr "&No seleccionar-ne cap"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:105
-#, fuzzy, kde-format
-#| msgid "Image Preview"
+#, kde-format
 msgctxt "@title:column Image preview"
 msgid "Preview"
-msgstr "Vista prèvia de la imatge"
+msgstr "Vista prèvia"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:107
 #, kde-format
 msgctxt "@title:column Duplicate file"
 msgid "Duplicate %1"
-msgstr ""
+msgstr "Duplica %1"
 
 #: MainWindow/ExternalPopup.cpp:57
 #, kde-format
@@ -4536,10 +4522,9 @@ msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Mostra les imatges i vídeos amb dates incompletes..."
 
 #: MainWindow/Window.cpp:1018
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge duplicates..."
-msgstr "Combina els duplicats"
+msgstr "Combina els duplicats..."
 
 #: MainWindow/Window.cpp:1020 MainWindow/Window.cpp:1075
 #, kde-format
@@ -4780,10 +4765,9 @@ msgid "Rereading Exif information from all images"
 msgstr "S'està tornant a llegir la informació Exif des de totes les imatges"
 
 #: MainWindow/Window.cpp:1839
-#, fuzzy, kde-format
-#| msgid "No duplicates found"
+#, kde-format
 msgid "No duplicate files were found."
-msgstr "No s'ha trobat cap duplicat"
+msgstr "No s'ha trobat cap fitxer duplicat."
 
 #: MainWindow/Window.cpp:1849
 #, no-c-format, kde-format

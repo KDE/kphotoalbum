@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-30 00:41+0000\n"
-"PO-Revision-Date: 2026-03-08 09:48+0400\n"
+"PO-Revision-Date: 2026-06-30 20:42+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -3570,26 +3570,20 @@ msgstr[4] "أزِل %1 عنصرًا من قاعدة البيانات فقط"
 msgstr[5] "أزِل %1 عنصر من قاعدة البيانات فقط"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:74
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge Duplicates"
-msgstr "ادمج التكرارات"
+msgstr "ادمج النسخ المكررة"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:84
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Below is a list of all images that are duplicate in your database.<br/"
-#| ">Select which you want merged, and which of the duplicates should be kept."
-#| "<br/>The tag and description from the deleted images will be transferred "
-#| "to the kept image</p>"
+#, kde-format
 msgid ""
 "<p>Below is a list of all files that are duplicated in your database.<br/"
 ">Select the files you want to keep.<br/>Annotations from the deleted files "
 "will be merged to the kept image.</p>"
 msgstr ""
-"<p>فيما يلي قائمة بجميع الصور المكررة في قاعدة البيانات الخاصة بك.<br/>اختر "
-"أيها تريد دمجها، وأي النسخ المكررة يجب أن تُحفظ.<br/>سَتُنقل الوسم والوصف من "
-"الصور المحذوفة إلى الصورة المحفوظة</p>"
+"<p>فيما يلي قائمة بجميع الملفات المكررة في قاعدة بياناتك.<br/>حدد الملفات "
+"التي تريد الاحتفاظ بها.<br/>ستُدمج التعليقات التوضيحية من الملفات المحذوفة مع "
+"الصورة المحفوظة.</p>"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:93
 #, kde-format
@@ -3607,46 +3601,40 @@ msgid "&Block from database"
 msgstr "ا&منع من قاعدة البيانات"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@label:textedit"
-#| msgid "Filter ... (%1)"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Filter ..."
-msgstr "المرشح... (%1)"
+msgstr "المرشّح ..."
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:113
 #, kde-format
 msgid "Filter duplicates by filename"
-msgstr ""
+msgstr "صفِ المكررات حسب اسم الملف"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:137
-#, fuzzy, kde-format
-#| msgid ">="
+#, kde-format
 msgid ">"
-msgstr ">="
+msgstr ">"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:139
 #, kde-format
 msgid "Add files to keep"
-msgstr ""
+msgstr "أضف ملفات إلى التي ستُحفظ"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:144
-#, fuzzy, kde-format
-#| msgid "<="
+#, kde-format
 msgid "<"
-msgstr "<="
+msgstr "<"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:146
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Remove files to keep"
-msgstr "اختر الصورة التي ستُحفظ:"
+msgstr "الملفات المزالة التي ستُحفظ:"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:154
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Files to keep:"
-msgstr "اختر الصورة التي ستُحفظ:"
+msgstr "الملفات التي ستُحفظ:"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:164
 #, kde-format
@@ -3654,17 +3642,16 @@ msgid "Select &None"
 msgstr "حدّد لا &شيء"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:105
-#, fuzzy, kde-format
-#| msgid "Image Preview"
+#, kde-format
 msgctxt "@title:column Image preview"
 msgid "Preview"
-msgstr "معاينة الصورة"
+msgstr "معاينة"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:107
 #, kde-format
 msgctxt "@title:column Duplicate file"
 msgid "Duplicate %1"
-msgstr ""
+msgstr "كرّر %1"
 
 #: MainWindow/ExternalPopup.cpp:57
 #, kde-format
@@ -4536,10 +4523,9 @@ msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "اعرض الصور و المرئيات ذي التواريخ غير الكاملة..."
 
 #: MainWindow/Window.cpp:1018
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge duplicates..."
-msgstr "ادمج التكرارات"
+msgstr "ادمج النسخ المكررة..."
 
 #: MainWindow/Window.cpp:1020 MainWindow/Window.cpp:1075
 #, kde-format
@@ -4783,10 +4769,9 @@ msgid "Rereading Exif information from all images"
 msgstr "يعيد قراءة معلومات Exif من جميع الصور"
 
 #: MainWindow/Window.cpp:1839
-#, fuzzy, kde-format
-#| msgid "No duplicates found"
+#, kde-format
 msgid "No duplicate files were found."
-msgstr "لم تُعثَر على أي تكرارات"
+msgstr "لم يُعثَر على أي ملفات مكررة"
 
 #: MainWindow/Window.cpp:1849
 #, no-c-format, kde-format

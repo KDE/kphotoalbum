@@ -6689,6 +6689,3 @@ msgstr ""
 #, kde-format
 msgid "Show Rating"
 msgstr ""
-
-#~ msgid "Select &All"
-#~ msgstr "Vállje &buot"

@@ -27,7 +27,6 @@
 #include <QImage>
 #ifdef HAVE_KDCRAW
 #include <KDCRAW/KDcraw>
-#include <libkdcraw_version.h>
 #endif
 
 namespace ImageManager

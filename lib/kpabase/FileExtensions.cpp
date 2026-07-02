@@ -20,7 +20,6 @@
 
 #ifdef HAVE_KDCRAW
 #include <KDCRAW/RawFiles>
-#include <libkdcraw_version.h>
 #endif
 
 #include <QDebug>

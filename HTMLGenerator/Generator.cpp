@@ -44,7 +44,6 @@
 #include <QMimeDatabase>
 #include <QRegularExpression>
 #include <QStandardPaths>
-#include <kio_version.h>
 
 namespace
 {

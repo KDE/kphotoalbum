@@ -33,9 +33,7 @@
 #include <QFile>
 #include <QProgressDialog>
 #include <kio/job.h>
-#include <kio_version.h>
 #include <kmessagebox.h>
-#include <kwidgetsaddons_version.h>
 #include <memory>
 
 using namespace ImportExport;

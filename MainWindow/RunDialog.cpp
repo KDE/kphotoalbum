@@ -17,7 +17,6 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
-#include <kio_version.h>
 #include <kshell.h>
 
 #include <utility>

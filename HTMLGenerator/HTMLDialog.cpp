@@ -41,8 +41,6 @@
 #include <QStandardPaths>
 #include <QStringMatcher>
 #include <QVBoxLayout>
-#include <kio_version.h>
-#include <kwidgetsaddons_version.h>
 
 using namespace HTMLGenerator;
 

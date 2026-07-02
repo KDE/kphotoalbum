@@ -16,7 +16,6 @@
 #include <KMessageBox>
 #include <QMimeData>
 #include <QTimer>
-#include <kwidgetsaddons_version.h>
 
 ThumbnailView::ThumbnailDND::ThumbnailDND(ThumbnailFactory *factory)
     : ThumbnailComponent(factory)

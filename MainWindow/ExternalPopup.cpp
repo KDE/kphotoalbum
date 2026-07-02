@@ -31,8 +31,6 @@
 #include <QRegularExpression>
 #include <QStringList>
 #include <QUrl>
-#include <kio_version.h>
-#include <kservice_version.h>
 
 #include <utility>
 

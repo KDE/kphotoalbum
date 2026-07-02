@@ -22,7 +22,6 @@
 #include <KIconButton>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <kwidgetsaddons_version.h>
 
 // Local includes
 #include "CategoryItem.h"

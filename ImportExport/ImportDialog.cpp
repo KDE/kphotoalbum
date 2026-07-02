@@ -29,7 +29,6 @@
 #include <QPixmap>
 #include <QPushButton>
 #include <QScrollArea>
-#include <kwidgetsaddons_version.h>
 
 #include <utility>
 

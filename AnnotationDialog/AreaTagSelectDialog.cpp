@@ -13,7 +13,6 @@
 
 // KDE includes
 #include <KLocalizedString>
-#include <kcompletion_version.h>
 
 // Qt includes
 #include <QGridLayout>

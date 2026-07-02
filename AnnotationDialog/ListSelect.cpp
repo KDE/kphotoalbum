@@ -45,8 +45,6 @@
 #include <QRadioButton>
 #include <QToolButton>
 #include <QWidgetAction>
-#include <kcompletion_version.h>
-#include <kwidgetsaddons_version.h>
 
 using namespace AnnotationDialog;
 using CategoryListView::CheckDropItem;

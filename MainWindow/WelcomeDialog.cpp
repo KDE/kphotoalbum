@@ -23,7 +23,6 @@
 #include <QPushButton>
 #include <QStandardPaths>
 #include <QVBoxLayout>
-#include <kwidgetsaddons_version.h>
 
 using namespace MainWindow;
 

@@ -80,10 +80,6 @@
 #include <stdlib.h>
 #endif
 
-#include <kconfigwidgets_version.h>
-#include <kio_version.h> // for #if KIO_VERSION...
-#include <kwidgetsaddons_version.h>
-
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KColorSchemeManager>

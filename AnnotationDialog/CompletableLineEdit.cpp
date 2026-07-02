@@ -12,7 +12,6 @@
 #include <QRegularExpression>
 #include <QTreeWidgetItem>
 #include <QTreeWidgetItemIterator>
-#include <kcompletion_version.h>
 
 AnnotationDialog::CompletableLineEdit::CompletableLineEdit(ListSelect *parent)
     : KLineEdit(parent)

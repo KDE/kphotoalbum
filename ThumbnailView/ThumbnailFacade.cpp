@@ -1,5 +1,6 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003 - 2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -41,6 +42,7 @@ ThumbnailView::ThumbnailFacade::ThumbnailFacade(ImageManager::ThumbnailCache *th
     connect(m_widget, &ThumbnailWidget::selectionCountChanged, this, &ThumbnailFacade::selectionChanged);
     connect(m_model, &ThumbnailModel::collapseAllStacksEnabled, this, &ThumbnailFacade::collapseAllStacksEnabled);
     connect(m_model, &ThumbnailModel::expandAllStacksEnabled, this, &ThumbnailFacade::expandAllStacksEnabled);
+    connect(m_model, &ThumbnailModel::toggleAllStacksEnabled, this, &ThumbnailFacade::toggleAllStacksEnabled);
     connect(m_model, &ThumbnailModel::filterChanged, this, &ThumbnailFacade::filterChanged);
 
     s_instance = this;
@@ -138,6 +140,11 @@ void ThumbnailView::ThumbnailFacade::collapseAllStacks()
 void ThumbnailView::ThumbnailFacade::expandAllStacks()
 {
     m_model->expandAllStacks();
+}
+
+void ThumbnailView::ThumbnailFacade::toggleAllStacks()
+{
+    m_model->toggleAllStacks();
 }
 
 void ThumbnailView::ThumbnailFacade::updateDisplayModel()

@@ -1,5 +1,6 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003 - 2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -66,6 +67,7 @@ public Q_SLOTS:
     void toggleStackExpansion(const DB::FileName &id);
     void collapseAllStacks();
     void expandAllStacks();
+    void toggleAllStacks();
     void updateDisplayModel();
     void changeSingleSelection(const DB::FileName &fileName);
 
@@ -81,6 +83,7 @@ Q_SIGNALS:
     void selectionChanged(int numberOfItemsSelected);
     void collapseAllStacksEnabled(bool enabled);
     void expandAllStacksEnabled(bool enabled);
+    void toggleAllStacksEnabled(bool enabled);
     void filterChanged(const DB::ImageSearchInfo &);
 
 private:

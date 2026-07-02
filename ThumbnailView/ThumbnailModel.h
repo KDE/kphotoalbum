@@ -1,11 +1,12 @@
-// SPDX-FileCopyrightText: 2009-2014 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2009 - 2014 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2009 - 2025 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2010 Jan Kundrát <jkt@flaska.net>
 // SPDX-FileCopyrightText: 2010 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2013 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
-// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2019-2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2019 - 2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2020 Robert Krawitz <rlk@alum.mit.edu>
-// SPDX-FileCopyrightText: 2009-2025 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -65,6 +66,7 @@ public:
     void toggleStackExpansion(const DB::FileName &id);
     void collapseAllStacks();
     void expandAllStacks();
+    void toggleAllStacks();
     bool isItemInExpandedStack(const DB::StackID &id) const;
 
     //-------------------------------------------------- Position Information
@@ -157,6 +159,7 @@ public Q_SLOTS:
 Q_SIGNALS:
     void collapseAllStacksEnabled(bool enabled);
     void expandAllStacksEnabled(bool enabled);
+    void toggleAllStacksEnabled(bool enabled);
     void selectionChanged(int numberOfItemsSelected);
     void filterChanged(const DB::ImageSearchInfo &filter);
 

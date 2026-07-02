@@ -889,6 +889,13 @@ void MainWindow::Window::setupMenuBar()
     a->setEnabled(false);
     a->setText(i18n("Expand all stacks"));
 
+    a = actionCollection()->addAction(QString::fromLatin1("toggleAllStacks"),
+                                      m_thumbnailView, &ThumbnailView::ThumbnailFacade::toggleAllStacks);
+    connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::toggleAllStacksEnabled, a, &QAction::setEnabled);
+    a->setEnabled(false);
+    a->setText(i18n("Toggle all stacks"));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::Key_Equal));
+
     QActionGroup *grp = new QActionGroup(this);
 
     a = actionCollection()->add<KToggleAction>(QString::fromLatin1("orderIncr"), this, &Window::slotOrderIncr);

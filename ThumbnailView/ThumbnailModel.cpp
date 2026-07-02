@@ -1,11 +1,12 @@
-// SPDX-FileCopyrightText: 2009-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2009 - 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2009 - 2025 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2010 Jan Kundrát <jkt@flaska.net>
 // SPDX-FileCopyrightText: 2010 Tuomas Suutari <tuomas@nepnep.net>
 // SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
-// SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2013 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2015 - 2024 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2015 Andreas Neustifter <andreas.neustifter@gmail.com>
-// SPDX-FileCopyrightText: 2015-2024 Tobias Leupold <tl@stonemx.de>
-// SPDX-FileCopyrightText: 2009-2025 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -127,6 +128,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
 
     Q_EMIT collapseAllStacksEnabled(m_expandedStacks.size() > 0);
     Q_EMIT expandAllStacksEnabled(m_allStacks.size() != m_expandedStacks.size());
+    Q_EMIT toggleAllStacksEnabled(m_allStacks.size() > 0);
     endResetModel();
     qCInfo(TimingLog) << "ThumbnailModel::updateDisplayModel(): " << timer.restart() << "ms.";
 }
@@ -155,6 +157,14 @@ void ThumbnailView::ThumbnailModel::collapseAllStacks()
 void ThumbnailView::ThumbnailModel::expandAllStacks()
 {
     m_expandedStacks = m_allStacks;
+    updateDisplayModel();
+}
+
+void ThumbnailView::ThumbnailModel::toggleAllStacks()
+{
+    const QSet<DB::StackID> formerlyExpandedStacks = m_expandedStacks;
+    m_expandedStacks = m_allStacks;
+    m_expandedStacks.subtract(formerlyExpandedStacks);
     updateDisplayModel();
 }
 

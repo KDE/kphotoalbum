@@ -162,10 +162,10 @@ void ThumbnailView::ThumbnailModel::expandAllStacks()
 
 void ThumbnailView::ThumbnailModel::toggleAllStacks()
 {
-    const QSet<DB::StackID> formerlyExpandedStacks = m_expandedStacks;
-    m_expandedStacks = m_allStacks;
-    m_expandedStacks.subtract(formerlyExpandedStacks);
-    updateDisplayModel();
+    if (m_expandedStacks.empty())
+        expandAllStacks();
+    else
+        collapseAllStacks();
 }
 
 void ThumbnailView::ThumbnailModel::setImageList(const DB::FileNameList &items)

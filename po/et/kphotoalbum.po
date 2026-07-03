@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-30 00:41+0000\n"
+"POT-Creation-Date: 2026-07-03 00:43+0000\n"
 "PO-Revision-Date: 2020-05-05 11:56+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -28,7 +28,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "qiilaq69@gmail.com"
 
-#: AnnotationDialog/AreaTagSelectDialog.cpp:87
+#: AnnotationDialog/AreaTagSelectDialog.cpp:86
 #, kde-format
 msgid "Tag is already used for another area"
 msgstr "Silti kasutatakse juba teises piirkonnas"
@@ -48,13 +48,13 @@ msgstr "täna"
 msgid "yesterday"
 msgstr "eile"
 
-#: AnnotationDialog/DescriptionEdit.cpp:15 AnnotationDialog/Dialog.cpp:144
-#: HTMLGenerator/HTMLDialog.cpp:144 ImportExport/MD5CheckPage.cpp:66
+#: AnnotationDialog/DescriptionEdit.cpp:15 AnnotationDialog/Dialog.cpp:143
+#: HTMLGenerator/HTMLDialog.cpp:142 ImportExport/MD5CheckPage.cpp:66
 #, kde-format
 msgid "Description"
 msgstr "Kirjeldus"
 
-#: AnnotationDialog/Dialog.cpp:111
+#: AnnotationDialog/Dialog.cpp:110
 #, fuzzy, kde-format
 #| msgid ""
 #| "(You have differing descriptions on individual images, setting text here "
@@ -66,27 +66,27 @@ msgstr ""
 "(Su piltidel on eri kirjeldused, siin teksti määrates saab need kõik "
 "tühistada)"
 
-#: AnnotationDialog/Dialog.cpp:136
+#: AnnotationDialog/Dialog.cpp:135
 #, kde-format
 msgid "Label and Dates"
 msgstr "Pealdis ja kuupäevad"
 
-#: AnnotationDialog/Dialog.cpp:141
+#: AnnotationDialog/Dialog.cpp:140
 #, kde-format
 msgid "Image Preview"
 msgstr "Pildi eelvaatlus"
 
-#: AnnotationDialog/Dialog.cpp:165 DB/ImageDB.cpp:396
+#: AnnotationDialog/Dialog.cpp:164 DB/ImageDB.cpp:396
 #, kde-format
 msgid "Cancel"
 msgstr "Loobu"
 
-#: AnnotationDialog/Dialog.cpp:170 AnnotationDialog/Dialog.cpp:172
+#: AnnotationDialog/Dialog.cpp:169 AnnotationDialog/Dialog.cpp:171
 #, kde-format
 msgid "Map"
 msgstr "Kaart"
 
-#: AnnotationDialog/Dialog.cpp:178
+#: AnnotationDialog/Dialog.cpp:177
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -96,63 +96,63 @@ msgstr ""
 "Kaardividin võimaldab näha piltide asukohta, kui Exifi teabes peaksid "
 "leiduma GPS-koordinaadid."
 
-#: AnnotationDialog/Dialog.cpp:226
+#: AnnotationDialog/Dialog.cpp:225
 #, kde-format
 msgid "Revert This Item"
 msgstr "Taasta elemendi algolek"
 
-#: AnnotationDialog/Dialog.cpp:232 AnnotationDialog/Dialog.cpp:1376
+#: AnnotationDialog/Dialog.cpp:231 AnnotationDialog/Dialog.cpp:1375
 #, kde-format
 msgid "Clear Form"
 msgstr "Puhasta vorm"
 
-#: AnnotationDialog/Dialog.cpp:235 AnnotationDialog/Dialog.cpp:1379
+#: AnnotationDialog/Dialog.cpp:234 AnnotationDialog/Dialog.cpp:1378
 #, kde-format
 msgid "Options..."
 msgstr "Valikud"
 
-#: AnnotationDialog/Dialog.cpp:240
+#: AnnotationDialog/Dialog.cpp:239
 #, kde-format
 msgid "&Done"
 msgstr "Tehtu&d"
 
-#: AnnotationDialog/Dialog.cpp:243
+#: AnnotationDialog/Dialog.cpp:242
 #, kde-format
 msgid "Continue &Later"
 msgstr "Jätka hi&ljem"
 
-#: AnnotationDialog/Dialog.cpp:251 AnnotationDialog/Dialog.cpp:873
+#: AnnotationDialog/Dialog.cpp:250 AnnotationDialog/Dialog.cpp:872
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
 msgstr "&Otsi"
 
-#: AnnotationDialog/Dialog.cpp:320
+#: AnnotationDialog/Dialog.cpp:319
 #, kde-format
 msgid "Label: "
 msgstr "Pealdis: "
 
-#: AnnotationDialog/Dialog.cpp:324 ImportExport/MD5CheckPage.cpp:65
+#: AnnotationDialog/Dialog.cpp:323 ImportExport/MD5CheckPage.cpp:65
 #, kde-format
 msgid "Label"
 msgstr "Pealdis"
 
-#: AnnotationDialog/Dialog.cpp:333
+#: AnnotationDialog/Dialog.cpp:332
 #, kde-format
 msgid "Date: "
 msgstr "Kuupäev: "
 
-#: AnnotationDialog/Dialog.cpp:349
+#: AnnotationDialog/Dialog.cpp:348
 #, kde-format
 msgid "Time: "
 msgstr "Kellaaeg: "
 
-#: AnnotationDialog/Dialog.cpp:355
+#: AnnotationDialog/Dialog.cpp:354
 #, kde-format
 msgid "Use Fuzzy Date"
 msgstr "Umbmäärase aja kasutamine"
 
-#: AnnotationDialog/Dialog.cpp:357
+#: AnnotationDialog/Dialog.cpp:356
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -170,83 +170,83 @@ msgstr ""
 "tehtud analoogkaameraga), siis tasuks sisse lülitada valik "
 "<interface>Umbmäärase aja kasutamine</interface>.</para>"
 
-#: AnnotationDialog/Dialog.cpp:372
+#: AnnotationDialog/Dialog.cpp:371
 #, kde-format
 msgid "Minimum megapixels:"
 msgstr "Min. megapiksleid:"
 
-#: AnnotationDialog/Dialog.cpp:382
+#: AnnotationDialog/Dialog.cpp:381
 #, kde-format
 msgid "Maximum megapixels:"
 msgstr "Maks. megapiksleid:"
 
-#: AnnotationDialog/Dialog.cpp:395
+#: AnnotationDialog/Dialog.cpp:394
 #, kde-format
 msgid "Rating:"
 msgstr "Hinnang:"
 
-#: AnnotationDialog/Dialog.cpp:403
+#: AnnotationDialog/Dialog.cpp:402
 #, kde-format
 msgid "Rating search mode:"
 msgstr "Hinnangu otsimisrežiim:"
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "=="
 msgstr "=="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid ">="
 msgstr ">="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "<="
 msgstr "<="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "!="
 msgstr "!="
 
-#: AnnotationDialog/Dialog.cpp:415
+#: AnnotationDialog/Dialog.cpp:414
 #, kde-format
 msgid "File Name Pattern: "
 msgstr "Failinime muster: "
 
-#: AnnotationDialog/Dialog.cpp:418
+#: AnnotationDialog/Dialog.cpp:417
 #, kde-format
 msgid "File Name Pattern"
 msgstr "Failinime muster"
 
-#: AnnotationDialog/Dialog.cpp:423
+#: AnnotationDialog/Dialog.cpp:422
 #, kde-format
 msgid "Search only for RAW files"
 msgstr "Ainult toorfailide otsimine"
 
-#: AnnotationDialog/Dialog.cpp:440
+#: AnnotationDialog/Dialog.cpp:439
 #, kde-format
 msgid "Append"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:441
+#: AnnotationDialog/Dialog.cpp:440
 #, kde-format
 msgid "Append new text to each description"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:442
+#: AnnotationDialog/Dialog.cpp:441
 #, fuzzy, kde-format
 #| msgid "Replacements"
 msgid "Replace"
 msgstr "Asendused"
 
-#: AnnotationDialog/Dialog.cpp:443
+#: AnnotationDialog/Dialog.cpp:442
 #, kde-format
 msgid "Replace each description with the new text"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:452
+#: AnnotationDialog/Dialog.cpp:451
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -261,99 +261,99 @@ msgstr ""
 "sellele väljale pildi Exifi teabes leiduv kirjeldus (kui see on ikka olemas)."
 "<interface>"
 
-#: AnnotationDialog/Dialog.cpp:635
+#: AnnotationDialog/Dialog.cpp:634
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "Annotatsioonid (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:878
+#: AnnotationDialog/Dialog.cpp:877
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Otsing"
 
-#: AnnotationDialog/Dialog.cpp:881
+#: AnnotationDialog/Dialog.cpp:880
 #, kde-format
 msgid "Done"
 msgstr "Tehtud"
 
-#: AnnotationDialog/Dialog.cpp:888
+#: AnnotationDialog/Dialog.cpp:887
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Annotatsioonid"
 
-#: AnnotationDialog/Dialog.cpp:937
+#: AnnotationDialog/Dialog.cpp:936
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "Seadista akna paigutust ..."
 
-#: AnnotationDialog/Dialog.cpp:938
+#: AnnotationDialog/Dialog.cpp:937
 #, kde-format
 msgid "Save current layout globally"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:939
+#: AnnotationDialog/Dialog.cpp:938
 #, fuzzy, kde-format
 #| msgid "Save the current map settings"
 msgid "Save current layout for this DB"
 msgstr "Aktiivse kaardi seadistuste salvestamine"
 
-#: AnnotationDialog/Dialog.cpp:941
+#: AnnotationDialog/Dialog.cpp:940
 #, kde-format
 msgid "Reset layout"
 msgstr "Lähtesta paigutus"
 
-#: AnnotationDialog/Dialog.cpp:948 AnnotationDialog/Dialog.cpp:1331
-#: AnnotationDialog/ListSelect.cpp:110
+#: AnnotationDialog/Dialog.cpp:947 AnnotationDialog/Dialog.cpp:1330
+#: AnnotationDialog/ListSelect.cpp:108
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Sordi alfabeetiliselt (puus)"
 
-#: AnnotationDialog/Dialog.cpp:952 AnnotationDialog/Dialog.cpp:1335
-#: AnnotationDialog/ListSelect.cpp:116
+#: AnnotationDialog/Dialog.cpp:951 AnnotationDialog/Dialog.cpp:1334
+#: AnnotationDialog/ListSelect.cpp:114
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Sordi alfabeetiliselt (liigendamata)"
 
-#: AnnotationDialog/Dialog.cpp:956
+#: AnnotationDialog/Dialog.cpp:955
 #, kde-format
 msgid "Sort by Date"
 msgstr "Sortimine kuupäeva järgi"
 
-#: AnnotationDialog/Dialog.cpp:972
+#: AnnotationDialog/Dialog.cpp:971
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr "Siltide sobitamine esimese tähe järgi"
 
-#: AnnotationDialog/Dialog.cpp:973
+#: AnnotationDialog/Dialog.cpp:972
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr "Siltide sobitamine sõnapiiride järgi"
 
-#: AnnotationDialog/Dialog.cpp:974
+#: AnnotationDialog/Dialog.cpp:973
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr "Siltide sobitamine kõikjal"
 
-#: AnnotationDialog/Dialog.cpp:991
+#: AnnotationDialog/Dialog.cpp:990
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "Ainult valitute näitamine Ctrl+S"
 
-#: AnnotationDialog/Dialog.cpp:1033 Map/MapView.cpp:360
+#: AnnotationDialog/Dialog.cpp:1032 Map/MapView.cpp:360
 #, kde-format
 msgid "Settings saved!"
 msgstr "Seadistused salvestatud!"
 
-#: AnnotationDialog/Dialog.cpp:1033
+#: AnnotationDialog/Dialog.cpp:1032
 #, fuzzy, kde-format
 #| msgid "Save Current Window Setup"
 msgid "Save current window setup"
 msgstr "Salvesta akna praegused seadistused"
 
-#: AnnotationDialog/Dialog.cpp:1098
+#: AnnotationDialog/Dialog.cpp:1097
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Some changes are made to annotations. Do you really want to cancel all "
@@ -365,14 +365,14 @@ msgstr ""
 "<p>Annotatsioonidesse on tehtud muudatusi. Kas tõesti tühistada kõigi "
 "failide äsjased muudatused?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1099
+#: AnnotationDialog/Dialog.cpp:1098
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Kas salvestada muudatused?"
 
-#: AnnotationDialog/Dialog.cpp:1198
+#: AnnotationDialog/Dialog.cpp:1197
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -389,7 +389,7 @@ msgstr ""
 "samuti <a href=\"help:/kphotoalbum/chp-typingIn.html\">käsiraamatu vastav "
 "osa</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1206
+#: AnnotationDialog/Dialog.cpp:1205
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -402,52 +402,52 @@ msgstr ""
 "soovitav oleks kulutada mõni minut <a href=\"help:/kphotoalbum/chp-typingIn."
 "html\">dialoogi kohta käiva käsiraamatu osa lugemisele</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1338
+#: AnnotationDialog/Dialog.cpp:1337
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Sordi viimase kasutamise järgi"
 
-#: AnnotationDialog/Dialog.cpp:1341
+#: AnnotationDialog/Dialog.cpp:1340
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Lülita sortimist"
 
-#: AnnotationDialog/Dialog.cpp:1346
+#: AnnotationDialog/Dialog.cpp:1345
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Lülita ainult valitud elementide näitamist"
 
-#: AnnotationDialog/Dialog.cpp:1350
+#: AnnotationDialog/Dialog.cpp:1349
 #, kde-format
 msgid "Annotate Next"
 msgstr "Annoteeri järgmine"
 
-#: AnnotationDialog/Dialog.cpp:1354
+#: AnnotationDialog/Dialog.cpp:1353
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Annoteeri eelmine"
 
-#: AnnotationDialog/Dialog.cpp:1358
+#: AnnotationDialog/Dialog.cpp:1357
 #, kde-format
 msgid "OK dialog"
 msgstr "OK-dialoog"
 
-#: AnnotationDialog/Dialog.cpp:1362
+#: AnnotationDialog/Dialog.cpp:1361
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Kopeeri sildid eelmisest pildist"
 
-#: AnnotationDialog/Dialog.cpp:1366 MainWindow/Window.cpp:854
+#: AnnotationDialog/Dialog.cpp:1365 MainWindow/Window.cpp:850
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Pööra vastupäeva"
 
-#: AnnotationDialog/Dialog.cpp:1369 MainWindow/Window.cpp:858
+#: AnnotationDialog/Dialog.cpp:1368 MainWindow/Window.cpp:854
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Pööra päripäeva"
 
-#: AnnotationDialog/Dialog.cpp:1372
+#: AnnotationDialog/Dialog.cpp:1371
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Täisekraan-eelvaatlus"
@@ -554,34 +554,34 @@ msgctxt "@info:tooltip"
 msgid "Delete image"
 msgstr "Pildi kustutamine"
 
-#: AnnotationDialog/ListSelect.cpp:72
+#: AnnotationDialog/ListSelect.cpp:70
 #, fuzzy, kde-format
 #| msgid "Enter a date..."
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
 msgstr "Kirjuta kuupäev ..."
 
-#: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:342
+#: AnnotationDialog/ListSelect.cpp:95 DB/search/ImageSearchInfo.cpp:342
 #, kde-format
 msgid "or"
 msgstr "või"
 
-#: AnnotationDialog/ListSelect.cpp:98 DB/search/ImageSearchInfo.cpp:337
+#: AnnotationDialog/ListSelect.cpp:96 DB/search/ImageSearchInfo.cpp:337
 #, kde-format
 msgid "and"
 msgstr "ja"
 
-#: AnnotationDialog/ListSelect.cpp:122
+#: AnnotationDialog/ListSelect.cpp:120
 #, kde-format
 msgid "Sort by date"
 msgstr "Sortimine kuupäeva järgi"
 
-#: AnnotationDialog/ListSelect.cpp:128
+#: AnnotationDialog/ListSelect.cpp:126
 #, kde-format
 msgid "Show only selected Ctrl+S"
 msgstr "Ainult valitute näitamine Ctrl+S"
 
-#: AnnotationDialog/ListSelect.cpp:177
+#: AnnotationDialog/ListSelect.cpp:175
 #, kde-format
 msgid ""
 "The tag you entered is the tag that is set automatically for newly found, "
@@ -594,72 +594,72 @@ msgstr ""
 "Kategooriad|Sildistamata pildid</interface>). Seda ei näidata seni, kuni sa "
 "pole seda konkreetselt valinud."
 
-#: AnnotationDialog/ListSelect.cpp:359
+#: AnnotationDialog/ListSelect.cpp:357
 #, kde-format
 msgid "No Item Selected"
 msgstr "Ühtki elementi ei ole valitud"
 
-#: AnnotationDialog/ListSelect.cpp:363
+#: AnnotationDialog/ListSelect.cpp:361
 #, kde-format
 msgid "<b>%1</b>"
 msgstr "<b>%1</b>"
 
-#: AnnotationDialog/ListSelect.cpp:369 Settings/CategoryPage.cpp:74
+#: AnnotationDialog/ListSelect.cpp:367 Settings/CategoryPage.cpp:73
 #, kde-format
 msgid "Delete"
 msgstr "Kustuta"
 
-#: AnnotationDialog/ListSelect.cpp:370
+#: AnnotationDialog/ListSelect.cpp:368
 #, kde-format
 msgid "Rename..."
 msgstr "Muuda nime ..."
 
-#: AnnotationDialog/ListSelect.cpp:372
+#: AnnotationDialog/ListSelect.cpp:370
 #, kde-format
 msgid "<b>Tag Groups</b>"
 msgstr "<b>Sildigrupid</b>"
 
-#: AnnotationDialog/ListSelect.cpp:380
+#: AnnotationDialog/ListSelect.cpp:378
 #, kde-format
 msgid "Tag groups"
 msgstr "Sildigrupid"
 
-#: AnnotationDialog/ListSelect.cpp:397
+#: AnnotationDialog/ListSelect.cpp:395
 #, kde-format
 msgid "Add this tag to a new tag group..."
 msgstr "Lisa see silt uude sildigruppi ..."
 
-#: AnnotationDialog/ListSelect.cpp:400
+#: AnnotationDialog/ListSelect.cpp:398
 #, kde-format
 msgid "Make this tag a tag group and add a tag..."
 msgstr "Muuda see silt sildigrupiks ja lisa silt ..."
 
-#: AnnotationDialog/ListSelect.cpp:406
+#: AnnotationDialog/ListSelect.cpp:404
 #, kde-format
 msgid "Remove from tag group %1"
 msgstr "Eemalda sildigrupist %1"
 
-#: AnnotationDialog/ListSelect.cpp:409
+#: AnnotationDialog/ListSelect.cpp:407
 #, kde-format
 msgid "<b>Sorting</b>"
 msgstr "<b>Sortimine</b>"
 
-#: AnnotationDialog/ListSelect.cpp:415
+#: AnnotationDialog/ListSelect.cpp:413
 #, kde-format
 msgid "Usage"
 msgstr "Kasutamine"
 
-#: AnnotationDialog/ListSelect.cpp:416
+#: AnnotationDialog/ListSelect.cpp:414
 #, kde-format
 msgid "Alphabetical (Flat)"
 msgstr "Alfabeetiline (liigendamata)"
 
-#: AnnotationDialog/ListSelect.cpp:417
+#: AnnotationDialog/ListSelect.cpp:415
 #, kde-format
 msgid "Alphabetical (Tree)"
 msgstr "Alfabeetiline (puu)"
 
-#: AnnotationDialog/ListSelect.cpp:442
+#: AnnotationDialog/ListSelect.cpp:440
 #, kde-format
 msgid ""
 "<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
@@ -668,24 +668,24 @@ msgstr ""
 "<p>Kas tõesti kustutada \"%1\"?<br/>Selle elemendi kustutamine eemaldab info "
 "selle kohta igalt elementi sisaldavalt pildilt.</p>"
 
-#: AnnotationDialog/ListSelect.cpp:446
+#: AnnotationDialog/ListSelect.cpp:444
 #, kde-format
 msgid "Really Delete %1?"
 msgstr "Kas tõesti kustutada %1?"
 
-#: AnnotationDialog/ListSelect.cpp:463
+#: AnnotationDialog/ListSelect.cpp:461
 #, fuzzy, kde-format
 #| msgid "Rename Item"
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "Elemendi ümbernimetamine"
 
-#: AnnotationDialog/ListSelect.cpp:463
+#: AnnotationDialog/ListSelect.cpp:461
 #, kde-format
 msgid "Enter new name:"
 msgstr "Uus nimi:"
 
-#: AnnotationDialog/ListSelect.cpp:469
+#: AnnotationDialog/ListSelect.cpp:467
 #, kde-format
 msgid ""
 "<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
@@ -694,7 +694,7 @@ msgstr ""
 "<p>Kas tõesti nimetada \"%1\" ümber ja anda sellele nimeks \"%2\"?<br/>Sel "
 "moel hakkab see igas seda sisaldavas pildis kandma nime \"%3\".</p>"
 
-#: AnnotationDialog/ListSelect.cpp:473
+#: AnnotationDialog/ListSelect.cpp:471
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Rename \"%1\""
@@ -702,34 +702,34 @@ msgctxt "@title"
 msgid "Rename %1?"
 msgstr "Muuda grupi \"%1\" nime"
 
-#: AnnotationDialog/ListSelect.cpp:477
+#: AnnotationDialog/ListSelect.cpp:475
 #, fuzzy, kde-format
 #| msgid "Rename"
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Muuda nime"
 
-#: AnnotationDialog/ListSelect.cpp:508
+#: AnnotationDialog/ListSelect.cpp:506
 #, kde-format
 msgid "New tag group"
 msgstr "Uus sildigrupp"
 
-#: AnnotationDialog/ListSelect.cpp:509
+#: AnnotationDialog/ListSelect.cpp:507
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
 msgstr "Uue sildigrupi nimi, millesse silt lisada:"
 
-#: AnnotationDialog/ListSelect.cpp:521
+#: AnnotationDialog/ListSelect.cpp:519
 #, kde-format
 msgid "Add a tag"
 msgstr "Sildi lisamine"
 
-#: AnnotationDialog/ListSelect.cpp:522
+#: AnnotationDialog/ListSelect.cpp:520
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
 msgstr "Sildi nimi, mis sellesse sildigruppi lisada:"
 
-#: AnnotationDialog/ListSelect.cpp:776
+#: AnnotationDialog/ListSelect.cpp:774
 #, kde-format
 msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
@@ -737,7 +737,7 @@ msgctxt ""
 msgid "%1 (%2-%3)"
 msgstr "%1 (%2-%3)"
 
-#: AnnotationDialog/ListSelect.cpp:789
+#: AnnotationDialog/ListSelect.cpp:787
 #, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
@@ -974,7 +974,7 @@ msgid "Search did not match any images or videos."
 msgstr "Otsing ei leidnud ühtegi sobivat pilti või videod."
 
 #: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
-#: MainWindow/Window.cpp:1839
+#: MainWindow/Window.cpp:1835
 #, kde-format
 msgid "Empty Search Result"
 msgstr "Tühi otsingutulemus"
@@ -990,7 +990,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "otsing"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1788
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1784
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -1005,7 +1005,7 @@ msgstr ""
 "li><li>Nüüd vali <b>Kategooriad</b> icon</li><li>Nüüd vali seadistus "
 "sektsioonis <b>Sildistamata pildid</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1795
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1791
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Omadust pole veel seadistatud"
@@ -1333,7 +1333,7 @@ msgid "Loading information from images"
 msgstr "Info laadimine piltidest"
 
 #: DB/ImageDB.cpp:558 DB/ImageDB.cpp:864 DB/XML/FileReader.cpp:139
-#: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:364
+#: Settings/CategoryPage.cpp:257 ThumbnailView/ThumbnailModel.cpp:364
 #, kde-format
 msgid "Media Type"
 msgstr "Andmekandja tüüp"
@@ -1438,7 +1438,7 @@ msgstr "Faili index.xml versiooni ei sobi kokku"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: DB/XML/FileReader.cpp:91 Settings/CategoryPage.cpp:256
+#: DB/XML/FileReader.cpp:91 Settings/CategoryPage.cpp:255
 #: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:364
 #, kde-format
 msgid "Folder"
@@ -2069,116 +2069,116 @@ msgstr ""
 "piltidel oleks andmed objektiivi kohta, loo EXIF-i otsinguandmebaas uuesti.</"
 "note>"
 
-#: HTMLGenerator/Generator.cpp:54
+#: HTMLGenerator/Generator.cpp:53
 #, kde-format
 msgid "<p>No file name given!</p>"
 msgstr "<p>Failinime pole antud!</p>"
 
-#: HTMLGenerator/Generator.cpp:80
+#: HTMLGenerator/Generator.cpp:79
 #, kde-format
 msgid "Generating images for HTML page "
 msgstr "Piltide genereerimine HTML-leheküljele "
 
-#: HTMLGenerator/Generator.cpp:183
+#: HTMLGenerator/Generator.cpp:182
 #, kde-format
 msgid "Error copying %1 to %2"
 msgstr "Viga %1 kopeerimisel asukohta %2"
 
-#: HTMLGenerator/Generator.cpp:470
+#: HTMLGenerator/Generator.cpp:469
 #, kde-format
 msgid "<a href=\"%1\">prev</a>"
 msgstr "<a href=\"%1\">eelmine</a>"
 
-#: HTMLGenerator/Generator.cpp:472 HTMLGenerator/Generator.cpp:480
+#: HTMLGenerator/Generator.cpp:471 HTMLGenerator/Generator.cpp:479
 #, kde-format
 msgid "prev"
 msgstr "eelmine"
 
-#: HTMLGenerator/Generator.cpp:484
+#: HTMLGenerator/Generator.cpp:483
 #, kde-format
 msgid "<a href=\"index-%1.html\">index</a>"
 msgstr "<a href=\"index-%1.html\">indeks</a>"
 
-#: HTMLGenerator/Generator.cpp:493
+#: HTMLGenerator/Generator.cpp:492
 #, kde-format
 msgid "<a href=\"%1\">next</a>"
 msgstr "<a href=\"%1\">järgmine</a>"
 
-#: HTMLGenerator/Generator.cpp:495 HTMLGenerator/Generator.cpp:502
+#: HTMLGenerator/Generator.cpp:494 HTMLGenerator/Generator.cpp:501
 #, kde-format
 msgid "next"
 msgstr "järgmine"
 
-#: HTMLGenerator/Generator.cpp:643
+#: HTMLGenerator/Generator.cpp:642
 #, kde-format
 msgid "Could not create file '%1'."
 msgstr "Faili '%1' loomine nurjus."
 
-#: HTMLGenerator/Generator.cpp:644
+#: HTMLGenerator/Generator.cpp:643
 #, kde-format
 msgid "Could Not Create File"
 msgstr "Faili loomine nurjus"
 
-#: HTMLGenerator/Generator.cpp:663
+#: HTMLGenerator/Generator.cpp:662
 #, kde-format
 msgid "<p>Unable to copy %1 to %2</p>"
 msgstr "<qt>Kopeerimine %1 -> %2 nurjus</qt>"
 
-#: HTMLGenerator/Generator.cpp:697
+#: HTMLGenerator/Generator.cpp:696
 #, kde-format
 msgid "Unable to write image '%1'."
 msgstr "Pildi '%1' kirjutamine nurjus."
 
-#: HTMLGenerator/Generator.cpp:771 HTMLGenerator/HTMLDialog.cpp:148
+#: HTMLGenerator/Generator.cpp:770 HTMLGenerator/HTMLDialog.cpp:146
 #, kde-format
 msgid "Date"
 msgstr "Kuupäev"
 
-#: HTMLGenerator/HTMLDialog.cpp:53
+#: HTMLGenerator/HTMLDialog.cpp:51
 #, kde-format
 msgctxt "@title:window"
 msgid "HTML Export"
 msgstr "HTML eksport"
 
-#: HTMLGenerator/HTMLDialog.cpp:79 HTMLGenerator/HTMLDialog.cpp:80
+#: HTMLGenerator/HTMLDialog.cpp:77 HTMLGenerator/HTMLDialog.cpp:78
 #, kde-format
 msgid "Content"
 msgstr "Sisu"
 
-#: HTMLGenerator/HTMLDialog.cpp:88
+#: HTMLGenerator/HTMLDialog.cpp:86
 #, kde-format
 msgid "Page title:"
 msgstr "Lehe pealkiri:"
 
-#: HTMLGenerator/HTMLDialog.cpp:95
+#: HTMLGenerator/HTMLDialog.cpp:93
 #, kde-format
 msgid "Copyright:"
 msgstr "Autoriõigus:"
 
-#: HTMLGenerator/HTMLDialog.cpp:104
+#: HTMLGenerator/HTMLDialog.cpp:102
 #, kde-format
 msgid "Description:"
 msgstr "Kirjeldus:"
 
-#: HTMLGenerator/HTMLDialog.cpp:111
+#: HTMLGenerator/HTMLDialog.cpp:109
 #, kde-format
 msgid "Create .kim export file"
 msgstr ".kim-eksportfaili loomine"
 
-#: HTMLGenerator/HTMLDialog.cpp:116
+#: HTMLGenerator/HTMLDialog.cpp:114
 #, kde-format
 msgctxt ""
 "Inline as a verb, i.e. 'please show movies right on the page, not as links'"
 msgid "Inline Movies in pages"
 msgstr "Filmid lisatakse lehtedele"
 
-#: HTMLGenerator/HTMLDialog.cpp:121
+#: HTMLGenerator/HTMLDialog.cpp:119
 #, kde-format
 msgctxt "Tag as in HTML-tag, not as in image tag"
 msgid "Use HTML5 video tag"
 msgstr "HTML5 videosildi kasutamine"
 
-#: HTMLGenerator/HTMLDialog.cpp:130
+#: HTMLGenerator/HTMLDialog.cpp:128
 #, kde-format
 msgid ""
 "<p>This selection will generate video files suitable for displaying on web. "
@@ -2187,80 +2187,80 @@ msgstr ""
 "<p>Selle valikuga saab genereerida veebis näitamiseks sobivad videofailid. "
 "Videofaili genereerimiseks on vajalikud avconv ja ffmpeg2theora.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:132
+#: HTMLGenerator/HTMLDialog.cpp:130
 #, kde-format
 msgid "Generate HTML5 video files (mp4 and ogg)"
 msgstr "HTML5 videofailide genereerimine (mp4 ja ogg)"
 
-#: HTMLGenerator/HTMLDialog.cpp:140
+#: HTMLGenerator/HTMLDialog.cpp:138
 #, kde-format
 msgid "What to Include"
 msgstr "Mida kaasata"
 
-#: HTMLGenerator/HTMLDialog.cpp:177 HTMLGenerator/HTMLDialog.cpp:178
+#: HTMLGenerator/HTMLDialog.cpp:175 HTMLGenerator/HTMLDialog.cpp:176
 #, kde-format
 msgid "Layout"
 msgstr "Paigutus"
 
-#: HTMLGenerator/HTMLDialog.cpp:187 Settings/CategoryPage.cpp:130
+#: HTMLGenerator/HTMLDialog.cpp:185 Settings/CategoryPage.cpp:129
 #, kde-format
 msgid "Thumbnail size:"
 msgstr "Pisipildi suurus:"
 
-#: HTMLGenerator/HTMLDialog.cpp:202
+#: HTMLGenerator/HTMLDialog.cpp:200
 #, kde-format
 msgid "Number of columns:"
 msgstr "Veergude arv:"
 
-#: HTMLGenerator/HTMLDialog.cpp:217
+#: HTMLGenerator/HTMLDialog.cpp:215
 #, kde-format
 msgid "Theme:"
 msgstr "Teema:"
 
-#: HTMLGenerator/HTMLDialog.cpp:225
+#: HTMLGenerator/HTMLDialog.cpp:223
 #, kde-format
 msgid "Theme Description"
 msgstr "Teema kirjeldus"
 
-#: HTMLGenerator/HTMLDialog.cpp:232
+#: HTMLGenerator/HTMLDialog.cpp:230
 #, kde-format
 msgid "Image Sizes"
 msgstr "Piltide suurus"
 
-#: HTMLGenerator/HTMLDialog.cpp:241
+#: HTMLGenerator/HTMLDialog.cpp:239
 #, kde-format
 msgid "Full size"
 msgstr "Täielik suurus"
 
-#: HTMLGenerator/HTMLDialog.cpp:286 HTMLGenerator/HTMLDialog.cpp:287
+#: HTMLGenerator/HTMLDialog.cpp:284 HTMLGenerator/HTMLDialog.cpp:285
 #, kde-format
 msgid "Destination"
 msgstr "Sihtkoht"
 
-#: HTMLGenerator/HTMLDialog.cpp:297
+#: HTMLGenerator/HTMLDialog.cpp:295
 #, fuzzy, kde-format
 #| msgid "Base directory:"
 msgid "Base folder:"
 msgstr "Baaskataloog:"
 
-#: HTMLGenerator/HTMLDialog.cpp:314
+#: HTMLGenerator/HTMLDialog.cpp:312
 #, fuzzy, kde-format
 #| msgid "Gallery directory:"
 msgid "Gallery folder:"
 msgstr "Galeriikataloog:"
 
-#: HTMLGenerator/HTMLDialog.cpp:321
+#: HTMLGenerator/HTMLDialog.cpp:319
 #, fuzzy, kde-format
 #| msgid "Output directory:"
 msgid "Output folder:"
 msgstr "Väljundkataloog:"
 
-#: HTMLGenerator/HTMLDialog.cpp:332
+#: HTMLGenerator/HTMLDialog.cpp:330
 #, kde-format
 msgid "URL for final destination of .kim file:"
 msgstr ".kim-faili lõpliku sihtkoha URL:"
 
-#: HTMLGenerator/HTMLDialog.cpp:334
+#: HTMLGenerator/HTMLDialog.cpp:332
 #, kde-format
 msgid ""
 "<p>If you move the gallery to a remote location, set this to the destination "
@@ -2270,23 +2270,23 @@ msgstr ""
 "<p>Kui liigutad galerii kuhugi kaugemale, saab siin määrata sihtkoha URL-i.</"
 "p><p>See mõjutab ainult genereeritud<filename>.kim</filename>-faili.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:343
+#: HTMLGenerator/HTMLDialog.cpp:341
 #, kde-format
 msgid "Open gallery in browser:"
 msgstr "Galerii avamine brauseris:"
 
-#: HTMLGenerator/HTMLDialog.cpp:359
+#: HTMLGenerator/HTMLDialog.cpp:357
 #, kde-format
 msgid "You must select at least one resolution."
 msgstr "Mingi lahutus tuleb ikka valida."
 
-#: HTMLGenerator/HTMLDialog.cpp:386
+#: HTMLGenerator/HTMLDialog.cpp:384
 #, fuzzy, kde-format
 #| msgid "Select base directory..."
 msgid "Select base folder..."
 msgstr "Baaskataloogi valimine ..."
 
-#: HTMLGenerator/HTMLDialog.cpp:399
+#: HTMLGenerator/HTMLDialog.cpp:397
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>You did not specify a base directory. This is the topmost directory "
@@ -2300,13 +2300,13 @@ msgstr ""
 "<p>Jätsid baaskataloogi määramata. See on sinu piltide ülemkataloog, milles "
 "asuvad eraldi kataloogides kõik sinu pildikollektsioonid.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:403
+#: HTMLGenerator/HTMLDialog.cpp:401
 #, fuzzy, kde-format
 #| msgid "No Base Directory Specified"
 msgid "No Base Folder Specified"
 msgstr "Baaskataloog ei ole määratud"
 
-#: HTMLGenerator/HTMLDialog.cpp:409
+#: HTMLGenerator/HTMLDialog.cpp:407
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>You did not specify an output directory. This is a directory "
@@ -2320,13 +2320,13 @@ msgstr ""
 "<p>Jätsid väljundkataloogi määramata. See on tegelikult pilte sisaldav "
 "kataloog. See asub ülal määratud baaskataloogis.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:412
+#: HTMLGenerator/HTMLDialog.cpp:410
 #, fuzzy, kde-format
 #| msgid "No Output Directory Specified"
 msgid "No Output Folder Specified"
 msgstr "Väljundkataloog ei ole määratud"
 
-#: HTMLGenerator/HTMLDialog.cpp:420
+#: HTMLGenerator/HTMLDialog.cpp:418
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Error while reading information about %1. This is most likely because "
@@ -2338,7 +2338,7 @@ msgstr ""
 "<p>Tõrge %1 teabe lugemisel. Tõenäoliselt ei ole sellist kataloogi lihtsalt "
 "olemas.</p><p>Veateade oli: %2</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:429
+#: HTMLGenerator/HTMLDialog.cpp:427
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>%1 does not exist, is not a directory or cannot be written to.</p>"
@@ -2346,7 +2346,7 @@ msgid "<p>%1 does not exist, is not a folder or cannot be written to.</p>"
 msgstr ""
 "<p>%1 puudub, ei ole kataloog või ei ole sul sinna kirjutamisõigust.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:439
+#: HTMLGenerator/HTMLDialog.cpp:437
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Output directory %1 already exists. Usually, this means you should "
@@ -2358,7 +2358,7 @@ msgstr ""
 "<p>Väljundkataloog %1 on juba olemas. Tavaliselt oleks mõtet määrata uus "
 "kataloog.</p><p>Kas kustutada kõigepealt %2?</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:443
+#: HTMLGenerator/HTMLDialog.cpp:441
 #, fuzzy, kde-format
 #| msgid "Folder"
 msgctxt "@title"
@@ -2366,22 +2366,22 @@ msgid "Folder Exists"
 msgstr "Kataloog"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
-#: HTMLGenerator/HTMLDialog.cpp:530 MainWindow/SplashScreen.cpp:52
+#: HTMLGenerator/HTMLDialog.cpp:528 MainWindow/SplashScreen.cpp:52
 #, kde-format
 msgid "%1"
 msgstr "%1"
 
-#: HTMLGenerator/HTMLDialog.cpp:541
+#: HTMLGenerator/HTMLDialog.cpp:539
 #, kde-format
 msgid "Could not find any themes - this is very likely an installation error"
 msgstr "Ühtki teemat ei leitud - see peaks küll olema paigalduse viga"
 
-#: HTMLGenerator/HTMLDialog.cpp:548
+#: HTMLGenerator/HTMLDialog.cpp:546
 #, kde-format
 msgid "More than one theme is set as default, using theme %1"
 msgstr "Enam kui üks teema on määratud vaiketeemaks, kasutatakse teemat %1"
 
-#: HTMLGenerator/HTMLDialog.cpp:555
+#: HTMLGenerator/HTMLDialog.cpp:553
 #, kde-format
 msgctxt ""
 "This is to show the author of the theme. E.g. copyright character (&#169;) "
@@ -2390,7 +2390,7 @@ msgctxt ""
 msgid "by "
 msgstr "autor: "
 
-#: HTMLGenerator/HTMLDialog.cpp:557
+#: HTMLGenerator/HTMLDialog.cpp:555
 #, kde-format
 msgid ""
 "\n"
@@ -2399,13 +2399,13 @@ msgstr ""
 "\n"
 " "
 
-#: HTMLGenerator/HTMLDialog.cpp:572
+#: HTMLGenerator/HTMLDialog.cpp:570
 #, fuzzy, kde-format
 #| msgid "<p>Gallery directory cannot be empty.</p>"
 msgid "<p>Gallery folder cannot be empty.</p>"
 msgstr "<p>Galeriikataloogi ei saa andmata jätta.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:576
+#: HTMLGenerator/HTMLDialog.cpp:574
 #, fuzzy, kde-format
 #| msgid "<p>The output directory already exists.</p>"
 msgid "<p>The output folder already exists.</p>"
@@ -2671,7 +2671,7 @@ msgstr "KPhotoAlbumi ekspordifailid"
 msgid "Unable to create temporary file"
 msgstr "Ajutise faili loomine nurjus"
 
-#: ImportExport/ImportDialog.cpp:87
+#: ImportExport/ImportDialog.cpp:86
 #, kde-format
 msgid ""
 "<p>XML file did not specify the source of the images, this is a strong "
@@ -2680,7 +2680,7 @@ msgstr ""
 "<p>XML-fail ei määra piltide allikat, mis osutab üsna kindlasti sellele, et "
 "fail on katki</p>"
 
-#: ImportExport/ImportDialog.cpp:121
+#: ImportExport/ImportDialog.cpp:120
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This "
@@ -2742,114 +2742,114 @@ msgstr ""
 "näidatud punaselt, nii on väga hõlpus aru saada, milliseid sümboleid ei ole "
 "sinu andmebaasist leitud või millised ainult osaliselt sobivad.</li></ol>"
 
-#: ImportExport/ImportDialog.cpp:140
+#: ImportExport/ImportDialog.cpp:139
 #, kde-format
 msgctxt "@title:tab introduction page"
 msgid "Introduction"
 msgstr "Sissejuhatus"
 
-#: ImportExport/ImportDialog.cpp:156 MainWindow/TokenEditor.cpp:60
+#: ImportExport/ImportDialog.cpp:155 MainWindow/TokenEditor.cpp:60
 #, kde-format
 msgid "Select All"
 msgstr "Vali kõik"
 
-#: ImportExport/ImportDialog.cpp:158
+#: ImportExport/ImportDialog.cpp:157
 #, kde-format
 msgid "Deselect All"
 msgstr "Tühista kõigi valimine"
 
-#: ImportExport/ImportDialog.cpp:192
+#: ImportExport/ImportDialog.cpp:191
 #, kde-format
 msgid "Select Which Images to Import"
 msgstr "Imporditavate piltide valik"
 
-#: ImportExport/ImportDialog.cpp:204
+#: ImportExport/ImportDialog.cpp:203
 #, kde-format
 msgid "Destination of images: "
 msgstr "Piltide sihtkoht:"
 
-#: ImportExport/ImportDialog.cpp:217
+#: ImportExport/ImportDialog.cpp:216
 #, kde-format
 msgid "Destination of Images"
 msgstr "Piltide sihtkoht"
 
-#: ImportExport/ImportDialog.cpp:225
+#: ImportExport/ImportDialog.cpp:224
 #, fuzzy, kde-format
 #| msgid "The directory must be a subdirectory of %1"
 msgid "The folder must be a subfolder of %1"
 msgstr "See kataloog peab olema %1 alamkataloog"
 
-#: ImportExport/ImportDialog.cpp:228
+#: ImportExport/ImportDialog.cpp:227
 #, fuzzy, kde-format
 #| msgid "This directory is reserved for category images."
 msgid "This folder is reserved for category images."
 msgstr "See kataloog on reserveeritud kategooriapiltidele."
 
-#: ImportExport/ImportDialog.cpp:268
+#: ImportExport/ImportDialog.cpp:267
 #, kde-format
 msgid "Match Categories"
 msgstr "Kategooriate sobitamine"
 
-#: ImportExport/ImportDialog.cpp:300
+#: ImportExport/ImportDialog.cpp:299
 #, fuzzy, kde-format
 #| msgid "Directory %1 does not exist. Should it be created?"
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr "Kataloogi %1 ei ole olemas. Kas luua see?"
 
-#: ImportExport/ImportDialog.cpp:301 MainWindow/WelcomeDialog.cpp:157
+#: ImportExport/ImportDialog.cpp:300 MainWindow/WelcomeDialog.cpp:156
 #, fuzzy, kde-format
 #| msgid "Base directory:"
 msgctxt "@title"
 msgid "Create folder?"
 msgstr "Baaskataloog:"
 
-#: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1223
+#: ImportExport/ImportDialog.cpp:304 MainWindow/WelcomeDialog.cpp:160
+#: MainWindow/Window.cpp:1219
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
 msgstr ""
 
-#: ImportExport/ImportDialog.cpp:311
+#: ImportExport/ImportDialog.cpp:310
 #, fuzzy, kde-format
 #| msgid "Error creating zip file %1"
 msgid "Error creating folder %1"
 msgstr "Tõrge zip-faili %1 loomisel"
 
-#: ImportExport/ImportDialog.cpp:390
+#: ImportExport/ImportDialog.cpp:389
 #, kde-format
 msgid "How to resolve clashes"
 msgstr "Kuidas lahendada konfliktid"
 
-#: ImportExport/ImportHandler.cpp:97 ImportExport/ImportHandler.cpp:159
+#: ImportExport/ImportHandler.cpp:95 ImportExport/ImportHandler.cpp:157
 #, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "Piltide kopeerimine"
 
-#: ImportExport/ImportHandler.cpp:174
+#: ImportExport/ImportHandler.cpp:172
 #, kde-format
 msgid "Error when writing image %1"
 msgstr "Viga pildi %1 salvestamisel"
 
-#: ImportExport/ImportHandler.cpp:193
+#: ImportExport/ImportHandler.cpp:191
 #, kde-format
 msgid "Updating Database"
 msgstr "Andmebaasi uuendamine"
 
-#: ImportExport/ImportHandler.cpp:238
+#: ImportExport/ImportHandler.cpp:236
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
 msgstr "Kopeerimine järgmistest asukohtadest nurjus:"
 
-#: ImportExport/ImportHandler.cpp:239
+#: ImportExport/ImportHandler.cpp:237
 #, fuzzy, kde-format
 #| msgid "Copying image files"
 msgctxt "@title"
 msgid "Copy failed"
 msgstr "Pildifailide kopeerimine"
 
-#: ImportExport/ImportHandler.cpp:245
+#: ImportExport/ImportHandler.cpp:243
 #, fuzzy, kde-format
 #| msgid "Continue without Asking"
 msgctxt "@action:button"
@@ -3718,32 +3718,32 @@ msgctxt "@title:column Duplicate file"
 msgid "Duplicate %1"
 msgstr ""
 
-#: MainWindow/ExternalPopup.cpp:57
+#: MainWindow/ExternalPopup.cpp:55
 #, kde-format
 msgid "Current Item"
 msgstr "Aktiivne element"
 
-#: MainWindow/ExternalPopup.cpp:60
+#: MainWindow/ExternalPopup.cpp:58
 #, kde-format
 msgid "All Selected Items"
 msgstr "Kõik valitud elemendid"
 
-#: MainWindow/ExternalPopup.cpp:63
+#: MainWindow/ExternalPopup.cpp:61
 #, kde-format
 msgid "Copy and Open"
 msgstr "Kopeeritud ja avatud"
 
-#: MainWindow/ExternalPopup.cpp:87
+#: MainWindow/ExternalPopup.cpp:85
 #, kde-format
 msgid "Open With..."
 msgstr "Ava rakendusega..."
 
-#: MainWindow/ExternalPopup.cpp:102
+#: MainWindow/ExternalPopup.cpp:100
 #, kde-format
 msgid "Your Command Line"
 msgstr "Käsurida"
 
-#: MainWindow/ExternalPopup.cpp:165
+#: MainWindow/ExternalPopup.cpp:163
 #, kde-format
 msgid "Invoke External Program"
 msgstr "Välise rakenduse väljakutsumine"
@@ -4029,7 +4029,7 @@ msgstr ""
 msgid "Search for new images on startup."
 msgstr "Uute piltide otsimine käivitumisel."
 
-#: MainWindow/RunDialog.cpp:32
+#: MainWindow/RunDialog.cpp:31
 #, no-c-format, kde-format
 msgid ""
 "<p>Enter your command to run below:</p><p><i>%all will be replaced with a "
@@ -4037,7 +4037,7 @@ msgid ""
 msgstr ""
 "<p>Sisesta allpool oma käsk:</p><p><i>%all asendatakse faililoendiga</i></p>"
 
-#: MainWindow/RunDialog.cpp:41
+#: MainWindow/RunDialog.cpp:40
 #, fuzzy, no-c-format, kde-format
 #| msgid ""
 #| "<p>Enter the command you want to run on your image file(s). KPhotoAlbum "
@@ -4058,7 +4058,7 @@ msgstr ""
 "oled valinud, kopeeritakse kataloogi /tmp</p><p>Samuti võid kasutada märgist "
 "%each, et käsk käivitatakse iga faili kohta üks kord.</p>"
 
-#: MainWindow/RunDialog.cpp:75
+#: MainWindow/RunDialog.cpp:74
 #, no-c-format, kde-format
 msgctxt ""
 "As in 'Execute a command and replace any occurrence of %all with the "
@@ -4066,7 +4066,7 @@ msgctxt ""
 msgid "%all"
 msgstr "%all"
 
-#: MainWindow/RunDialog.cpp:77
+#: MainWindow/RunDialog.cpp:76
 #, no-c-format, kde-format
 msgctxt ""
 "As in 'Execute a command for each selected file in turn and replace any "
@@ -4202,7 +4202,7 @@ msgstr "Vali kõigilt piltidelt ja videodelt eemaldatavad märgised:"
 msgid "Select None"
 msgstr "Ära vali midagi"
 
-#: MainWindow/WelcomeDialog.cpp:46
+#: MainWindow/WelcomeDialog.cpp:45
 #, kde-format
 msgid ""
 "<h1>Welcome to KPhotoAlbum</h1><p>KPhotoAlbum is a powerful free tool to "
@@ -4224,22 +4224,22 @@ msgstr ""
 "aga ettevaatusest esmalt proovida KPhotoAlbumit juba valmispiltidega, klõpsa "
 "nupule Laadi demo.</p>"
 
-#: MainWindow/WelcomeDialog.cpp:61
+#: MainWindow/WelcomeDialog.cpp:60
 #, kde-format
 msgid "Create My Own Database..."
 msgstr "Loo minu isiklik andmebaas..."
 
-#: MainWindow/WelcomeDialog.cpp:64
+#: MainWindow/WelcomeDialog.cpp:63
 #, kde-format
 msgid "Load Demo"
 msgstr "Laadi demo"
 
-#: MainWindow/WelcomeDialog.cpp:67
+#: MainWindow/WelcomeDialog.cpp:66
 #, kde-format
 msgid "Check My Feature Set"
 msgstr "Kontrolli võimalusi"
 
-#: MainWindow/WelcomeDialog.cpp:101
+#: MainWindow/WelcomeDialog.cpp:100
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1>KPhotoAlbum database creation</h1><p>You need to show where the "
@@ -4271,31 +4271,31 @@ msgstr ""
 "KPhotoAlbumi andmebaas ja juurkataloog, siis anna selle asukoht "
 "KPhotoAlbumile teada, et see saaks seda taas kasutama hakata.</p>"
 
-#: MainWindow/WelcomeDialog.cpp:116
+#: MainWindow/WelcomeDialog.cpp:115
 #, fuzzy, kde-format
 #| msgid "Image/Video root directory: "
 msgid "Image/Video root folder: "
 msgstr "Piltide/videode baaskataloog: "
 
-#: MainWindow/WelcomeDialog.cpp:156
+#: MainWindow/WelcomeDialog.cpp:155
 #, fuzzy, kde-format
 #| msgid "Directory does not exist, create it?"
 msgid "Folder does not exist, create it?"
 msgstr "Kataloogi ei ole olemas. Kas luua see?"
 
-#: MainWindow/WelcomeDialog.cpp:166
+#: MainWindow/WelcomeDialog.cpp:165
 #, fuzzy, kde-format
 #| msgid "Could not create file '%1'."
 msgid "Could not create folder %1"
 msgstr "Faili '%1' loomine nurjus."
 
-#: MainWindow/WelcomeDialog.cpp:171
+#: MainWindow/WelcomeDialog.cpp:170
 #, fuzzy, kde-format
 #| msgid "%1 exists, but is not a directory"
 msgid "%1 exists, but is not a folder"
 msgstr "%1 on olemas, aga see pole kataloog"
 
-#: MainWindow/WelcomeDialog.cpp:187
+#: MainWindow/WelcomeDialog.cpp:186
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum does not seem to be built with support for all its features. "
@@ -4307,22 +4307,22 @@ msgstr ""
 "nimelt järgmised võimalused:<ul>%1</ul></p><p>Kuidas neid omadusi siiski "
 "kasutada, uuri menüükäsuga <b>Abi</b>|<b>KPhotoAlbumi omaduste olek</b>.</p>"
 
-#: MainWindow/WelcomeDialog.cpp:192 MainWindow/WelcomeDialog.cpp:195
+#: MainWindow/WelcomeDialog.cpp:191 MainWindow/WelcomeDialog.cpp:194
 #, kde-format
 msgid "Feature Check"
 msgstr "Omaduste kontroll"
 
-#: MainWindow/WelcomeDialog.cpp:194
+#: MainWindow/WelcomeDialog.cpp:193
 #, kde-format
 msgid "Congratulations: all dynamic features have been enabled."
 msgstr "Õnnitleme: kõik dünaamilised omadused on sisse lülitatud."
 
-#: MainWindow/Window.cpp:278
+#: MainWindow/Window.cpp:274
 #, kde-format
 msgid "Searching for New Files"
 msgstr "Uute failide otsimine"
 
-#: MainWindow/Window.cpp:321
+#: MainWindow/Window.cpp:317
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed "
@@ -4344,26 +4344,26 @@ msgstr ""
 "kettaruumi. Samas - kui sa tahad peagi uuesti demo vaadata, võid selle ka "
 "alles hoida.</p>"
 
-#: MainWindow/Window.cpp:326
+#: MainWindow/Window.cpp:322
 #, fuzzy, kde-format
 #| msgid "Delete Demo Database"
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "Kustuta demoandmebaas"
 
-#: MainWindow/Window.cpp:342
+#: MainWindow/Window.cpp:338
 #, kde-format
 msgid "Do you want to save the changes?"
 msgstr "Kas soovid muudatused salvestada?"
 
-#: MainWindow/Window.cpp:343
+#: MainWindow/Window.cpp:339
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Save Changes?"
 msgstr "Kas salvestada muudatused?"
 
-#: MainWindow/Window.cpp:400
+#: MainWindow/Window.cpp:396
 #, kde-format
 msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
@@ -4372,334 +4372,334 @@ msgstr ""
 "Osa valitud pilte on juba pakis. Kas eemaldada need oma pakist ja luua "
 "täiesti uus?"
 
-#: MainWindow/Window.cpp:403
+#: MainWindow/Window.cpp:399
 #, fuzzy, kde-format
 #| msgid "Stacking Error"
 msgctxt "@title"
 msgid "Stacking problem"
 msgstr "Paki loomise viga"
 
-#: MainWindow/Window.cpp:413
+#: MainWindow/Window.cpp:409
 #, kde-format
 msgid "Unknown error, stack creation failed."
 msgstr "Tundmatu viga, paki loomine nurjus."
 
-#: MainWindow/Window.cpp:414
+#: MainWindow/Window.cpp:410
 #, kde-format
 msgid "Stacking Error"
 msgstr "Paki loomise viga"
 
-#: MainWindow/Window.cpp:493 MainWindow/Window.cpp:625
-#: MainWindow/Window.cpp:1341 MainWindow/Window.cpp:1438
+#: MainWindow/Window.cpp:489 MainWindow/Window.cpp:621
+#: MainWindow/Window.cpp:1337 MainWindow/Window.cpp:1434
 #, kde-format
 msgid "No item is selected."
 msgstr "Ühtki elementi ei ole valitud."
 
-#: MainWindow/Window.cpp:493 MainWindow/Window.cpp:625
-#: MainWindow/Window.cpp:1341 MainWindow/Window.cpp:1439
+#: MainWindow/Window.cpp:489 MainWindow/Window.cpp:621
+#: MainWindow/Window.cpp:1337 MainWindow/Window.cpp:1435
 #, kde-format
 msgid "No Selection"
 msgstr "Valik puudub"
 
-#: MainWindow/Window.cpp:545
+#: MainWindow/Window.cpp:541
 #, kde-format
 msgid "Saving..."
 msgstr "Salvestamine..."
 
-#: MainWindow/Window.cpp:550
+#: MainWindow/Window.cpp:546
 #, kde-format
 msgid "Saving... Done"
 msgstr "Salvestamine... Tehtud"
 
-#: MainWindow/Window.cpp:698
+#: MainWindow/Window.cpp:694
 #, kde-format
 msgid "There are no images to be shown."
 msgstr "Pole ühtegi pilti näidata."
 
-#: MainWindow/Window.cpp:771 MainWindow/Window.cpp:912
+#: MainWindow/Window.cpp:767 MainWindow/Window.cpp:908
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "Näita vaates ainult valituid"
 
-#: MainWindow/Window.cpp:772
+#: MainWindow/Window.cpp:768
 #, fuzzy, kde-format
 #| msgid "No item is selected."
 msgid "No images are selected!"
 msgstr "Ühtki elementi ei ole valitud."
 
-#: MainWindow/Window.cpp:785
+#: MainWindow/Window.cpp:781
 #, kde-format
 msgid "Generate HTML..."
 msgstr "Tekita HTML..."
 
-#: MainWindow/Window.cpp:789
+#: MainWindow/Window.cpp:785
 #, kde-format
 msgid "Import..."
 msgstr "Import..."
 
-#: MainWindow/Window.cpp:792
+#: MainWindow/Window.cpp:788
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "Piltide eksport/kopeerimine"
 
-#: MainWindow/Window.cpp:821
+#: MainWindow/Window.cpp:817
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Kustuta valitud"
 
-#: MainWindow/Window.cpp:829
+#: MainWindow/Window.cpp:825
 #, kde-format
 msgid "Remove Tokens..."
 msgstr "Eemalda märgised ..."
 
-#: MainWindow/Window.cpp:832
+#: MainWindow/Window.cpp:828
 #, kde-format
 msgid "Open List of Files..."
 msgstr "Ava failide nimekiri..."
 
-#: MainWindow/Window.cpp:835
+#: MainWindow/Window.cpp:831
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Annoteeri üks element korraga"
 
-#: MainWindow/Window.cpp:839
+#: MainWindow/Window.cpp:835
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "Annoteeri mitu elementi korraga"
 
-#: MainWindow/Window.cpp:843
+#: MainWindow/Window.cpp:839
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "Ühenda pildid pakiks"
 
-#: MainWindow/Window.cpp:847
+#: MainWindow/Window.cpp:843
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "Eemalda pildid pakist"
 
-#: MainWindow/Window.cpp:850
+#: MainWindow/Window.cpp:846
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "Määra paki esimeseks pildiks"
 
-#: MainWindow/Window.cpp:863
+#: MainWindow/Window.cpp:859
 #, kde-format
 msgid "View"
 msgstr "Näita"
 
-#: MainWindow/Window.cpp:868
+#: MainWindow/Window.cpp:864
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Näita (uues aknas)"
 
-#: MainWindow/Window.cpp:873
+#: MainWindow/Window.cpp:869
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Käivita slaidiseanss"
 
-#: MainWindow/Window.cpp:880
+#: MainWindow/Window.cpp:876
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Käivita juhuslikus järjekorras slaidiseanss"
 
-#: MainWindow/Window.cpp:888
+#: MainWindow/Window.cpp:884
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "Keri kõik pakid kokku"
 
-#: MainWindow/Window.cpp:894
+#: MainWindow/Window.cpp:890
 #, kde-format
 msgid "Expand all stacks"
 msgstr "Keri kõik pakid lahti"
 
-#: MainWindow/Window.cpp:899
+#: MainWindow/Window.cpp:895
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "Näita &vanimat esimesena"
 
-#: MainWindow/Window.cpp:904
+#: MainWindow/Window.cpp:900
 #, kde-format
 msgid "Show &Newest First"
 msgstr "&Näita uusimat esimesena"
 
-#: MainWindow/Window.cpp:909
+#: MainWindow/Window.cpp:905
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Sordi valitud kuupäeva ja kellaaja järgi"
 
-#: MainWindow/Window.cpp:917
+#: MainWindow/Window.cpp:913
 #, kde-format
 msgid "Jump to Context"
 msgstr "Hüppa kontekstile"
 
-#: MainWindow/Window.cpp:925
+#: MainWindow/Window.cpp:921
 #, kde-format
 msgid "Lock Images"
 msgstr "Lukusta pildid"
 
-#: MainWindow/Window.cpp:929
+#: MainWindow/Window.cpp:925
 #, kde-format
 msgid "Unlock"
 msgstr "Eemalda lukk"
 
-#: MainWindow/Window.cpp:932
+#: MainWindow/Window.cpp:928
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Lukusta kõik muud elemendid"
 
-#: MainWindow/Window.cpp:935
+#: MainWindow/Window.cpp:931
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Lukusta praegune elementide valik"
 
-#: MainWindow/Window.cpp:938
+#: MainWindow/Window.cpp:934
 #, kde-format
 msgid "Configure Current View"
 msgstr "Aktiivse vaate seadistamine"
 
-#: MainWindow/Window.cpp:946
+#: MainWindow/Window.cpp:942
 #, kde-format
 msgid "Tree"
 msgstr "Puu"
 
-#: MainWindow/Window.cpp:951
+#: MainWindow/Window.cpp:947
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "Puu kasutaja ikoonidega"
 
-#: MainWindow/Window.cpp:956
+#: MainWindow/Window.cpp:952
 #, kde-format
 msgid "Icons"
 msgstr "Ikoonid"
 
-#: MainWindow/Window.cpp:963
+#: MainWindow/Window.cpp:959
 #, kde-format
 msgid "Use natural sort order"
 msgstr ""
 
-#: MainWindow/Window.cpp:973
+#: MainWindow/Window.cpp:969
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Kohtspikrite näitamine pisipildiaknas"
 
-#: MainWindow/Window.cpp:978
+#: MainWindow/Window.cpp:974
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Labels in Thumbnails Window"
 msgstr "Kohtspikrite näitamine pisipildiaknas"
 
-#: MainWindow/Window.cpp:988
+#: MainWindow/Window.cpp:984
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Categories in Thumbnails Window"
 msgstr "Kohtspikrite näitamine pisipildiaknas"
 
-#: MainWindow/Window.cpp:1005
+#: MainWindow/Window.cpp:1001
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr "Värviskeemi valimine"
 
-#: MainWindow/Window.cpp:1012
+#: MainWindow/Window.cpp:1008
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Näita kettalt puuduvaid pilte ja videoid"
 
-#: MainWindow/Window.cpp:1015
+#: MainWindow/Window.cpp:1011
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Näita ebatäieliku kuupäevaga pilte ja videoid..."
 
-#: MainWindow/Window.cpp:1018
+#: MainWindow/Window.cpp:1014
 #, fuzzy, kde-format
 #| msgid "Merge duplicates"
 msgid "Merge duplicates..."
 msgstr "Ühenda topeltpildid"
 
-#: MainWindow/Window.cpp:1020 MainWindow/Window.cpp:1075
+#: MainWindow/Window.cpp:1016 MainWindow/Window.cpp:1071
 #, fuzzy, kde-format
 #| msgid "Recreate Selected Thumbnails"
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Valitud pisipiltide taasloomine"
 
-#: MainWindow/Window.cpp:1024
+#: MainWindow/Window.cpp:1020
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Otsi pilte ja videoid uuesti"
 
-#: MainWindow/Window.cpp:1027
+#: MainWindow/Window.cpp:1023
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Loo EXIF-otsingu andmebaas uuesti"
 
-#: MainWindow/Window.cpp:1030
+#: MainWindow/Window.cpp:1026
 #, fuzzy, kde-format
 #| msgid "Read Exif Info from Files..."
 msgid "Read Metadata from Files..."
 msgstr "EXIF-teabe lugemine failidest ..."
 
-#: MainWindow/Window.cpp:1033
+#: MainWindow/Window.cpp:1029
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "Sordi kõik kuupäeva ja kellaaja järgi"
 
-#: MainWindow/Window.cpp:1037
+#: MainWindow/Window.cpp:1033
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Sea valitud pildid automaatselt pakki..."
 
-#: MainWindow/Window.cpp:1040
+#: MainWindow/Window.cpp:1036
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Tekita pisipildid"
 
-#: MainWindow/Window.cpp:1043
+#: MainWindow/Window.cpp:1039
 #, kde-format
 msgid "Statistics..."
 msgstr "Statistika ..."
 
-#: MainWindow/Window.cpp:1047
+#: MainWindow/Window.cpp:1043
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "Märgi sildistamatuks"
 
-#: MainWindow/Window.cpp:1057
+#: MainWindow/Window.cpp:1053
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Kõigi teadete lubamine"
 
-#: MainWindow/Window.cpp:1061
+#: MainWindow/Window.cpp:1057
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "KPhotoAlbumi demo käivitamine"
 
-#: MainWindow/Window.cpp:1065
+#: MainWindow/Window.cpp:1061
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "KPhotoAlbumi omaduste olek"
 
-#: MainWindow/Window.cpp:1068
+#: MainWindow/Window.cpp:1064
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Näita demovideosid"
 
-#: MainWindow/Window.cpp:1072 Viewer/ViewerWidget.cpp:196
+#: MainWindow/Window.cpp:1068 Viewer/ViewerWidget.cpp:196
 #, fuzzy, kde-format
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "EXIF-info näitamine"
 
-#: MainWindow/Window.cpp:1078
+#: MainWindow/Window.cpp:1074
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Järgmise video pisipildi kasutamine"
 
-#: MainWindow/Window.cpp:1082
+#: MainWindow/Window.cpp:1078
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Eelmise video pisipildi kasutamine"
 
-#: MainWindow/Window.cpp:1086 MainWindow/Window.cpp:1319
+#: MainWindow/Window.cpp:1082 MainWindow/Window.cpp:1315
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Copy images to..."
@@ -4708,7 +4708,7 @@ msgid_plural "Copy images to ..."
 msgstr[0] "Piltide kopeerimine ..."
 msgstr[1] "Piltide kopeerimine ..."
 
-#: MainWindow/Window.cpp:1090 MainWindow/Window.cpp:1323
+#: MainWindow/Window.cpp:1086 MainWindow/Window.cpp:1319
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Link images to..."
@@ -4717,23 +4717,23 @@ msgid_plural "Link images to ..."
 msgstr[0] "Piltide linkimine ..."
 msgstr[1] "Piltide linkimine ..."
 
-#: MainWindow/Window.cpp:1114
+#: MainWindow/Window.cpp:1110
 #, kde-format
 msgid "Auto saving...."
 msgstr "Automaatne salvestamine..."
 
-#: MainWindow/Window.cpp:1117
+#: MainWindow/Window.cpp:1113
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Automaatne salvestamine... Tehtud"
 
-#: MainWindow/Window.cpp:1217
+#: MainWindow/Window.cpp:1213
 #, fuzzy, kde-format
 #| msgid "Do you want to save the changes?"
 msgid "<p>Do you want to create this database file?<br />%1</p>"
 msgstr "Kas soovid muudatused salvestada?"
 
-#: MainWindow/Window.cpp:1220
+#: MainWindow/Window.cpp:1216
 #, fuzzy, kde-format
 #| msgid ""
 #| "Use data from\n"
@@ -4744,7 +4744,7 @@ msgstr ""
 "Andmebaasi andmete\n"
 "kasutamine"
 
-#: MainWindow/Window.cpp:1264
+#: MainWindow/Window.cpp:1260
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4757,34 +4757,34 @@ msgstr ""
 "seadistus, mille leiad <interface>Seadistused|KPhotoAlbumi seadistused ...|"
 "Kategooriad</interface> alt.</p>"
 
-#: MainWindow/Window.cpp:1390 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1386 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Üldine"
 
-#: MainWindow/Window.cpp:1391 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Näitaja"
 
-#: MainWindow/Window.cpp:1392
+#: MainWindow/Window.cpp:1388
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Kuupäev: "
 
-#: MainWindow/Window.cpp:1395
+#: MainWindow/Window.cpp:1391
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Annotatsioonidialoog"
 
-#: MainWindow/Window.cpp:1396 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1392 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Pisipildivaade"
 
-#: MainWindow/Window.cpp:1539
+#: MainWindow/Window.cpp:1535
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4793,13 +4793,13 @@ msgstr ""
 "<p>Kas tõesti lubada kõik teatekastid - ka seal, kus oled varem ära märkinud "
 "võimaluse dialoogi mitte näidata?</p>"
 
-#: MainWindow/Window.cpp:1541
+#: MainWindow/Window.cpp:1537
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1555
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4816,32 +4816,32 @@ msgstr ""
 "tööd, kuid on üpris tõenäoline, et mainitud põhjusel tabab teda hiljem krahh."
 "</p>"
 
-#: MainWindow/Window.cpp:1555
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid "Internal Error"
 msgstr "Sisemine viga"
 
-#: MainWindow/Window.cpp:1566
+#: MainWindow/Window.cpp:1562
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "Pildid edukalt jagatud. Asukoha kopeerimine lõikepuhvrisse ..."
 
-#: MainWindow/Window.cpp:1569
+#: MainWindow/Window.cpp:1565
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Pildid edukalt jagatud."
 
-#: MainWindow/Window.cpp:1574
+#: MainWindow/Window.cpp:1570
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Pildi jagamine nurjus teatega: %1"
 
-#: MainWindow/Window.cpp:1625
+#: MainWindow/Window.cpp:1621
 #, kde-format
 msgid "Open List of Files"
 msgstr "Failide nimekirja avamine"
 
-#: MainWindow/Window.cpp:1626
+#: MainWindow/Window.cpp:1622
 #, fuzzy, kde-format
 #| msgid ""
 #| "You can open a set of files from KPhotoAlbum's image root by listing the "
@@ -4853,34 +4853,34 @@ msgstr ""
 "KPhotoAlbumi juurkataloogis asuvate failikogu saab avada faile siin "
 "loetledes."
 
-#: MainWindow/Window.cpp:1640
+#: MainWindow/Window.cpp:1636
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Sisestatutel vastavaid pilte ei leitud."
 
-#: MainWindow/Window.cpp:1640
+#: MainWindow/Window.cpp:1636
 #, kde-format
 msgid "No Matches"
 msgstr "Sobivusi pole"
 
-#: MainWindow/Window.cpp:1812
+#: MainWindow/Window.cpp:1808
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Exifi teabe uuestilugemine kõigist piltidest"
 
-#: MainWindow/Window.cpp:1839
+#: MainWindow/Window.cpp:1835
 #, fuzzy, kde-format
 #| msgid "No duplicates found"
 msgid "No duplicate files were found."
 msgstr "Duplikaate ei leitud"
 
-#: MainWindow/Window.cpp:1849
+#: MainWindow/Window.cpp:1845
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Pisipildi laius: %1px (salvesti suurus: %2px)"
 
-#: MainWindow/Window.cpp:1902
+#: MainWindow/Window.cpp:1898
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4890,7 +4890,7 @@ msgstr ""
 "<p>Süsteemist ei leitud ffmpeg'i.</p><p>Ilma selleta ei saa KPhotoAlbum "
 "näidata ei videopisipilte ega videopikkust. Palun paigalda ffmpeg pakett.</p>"
 
-#: MainWindow/Window.cpp:1905
+#: MainWindow/Window.cpp:1901
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Videopisipilte pole saada"
@@ -5074,27 +5074,27 @@ msgstr "Kirjuta kuupäev ..."
 msgid "<i>Select an item on the left to edit the birthday</i>"
 msgstr "<i>Sünnipäeva muutmiseks vali vasakul vajalik element</i>"
 
-#: Settings/CategoryPage.cpp:49
+#: Settings/CategoryPage.cpp:48
 #, kde-format
 msgid "Category Settings"
 msgstr "Kategooria seadistused"
 
-#: Settings/CategoryPage.cpp:70
+#: Settings/CategoryPage.cpp:69
 #, kde-format
 msgid "New"
 msgstr "Uus"
 
-#: Settings/CategoryPage.cpp:78
+#: Settings/CategoryPage.cpp:77
 #, kde-format
 msgid "Rename"
 msgstr "Muuda nime"
 
-#: Settings/CategoryPage.cpp:111
+#: Settings/CategoryPage.cpp:110
 #, kde-format
 msgid "Positionable tags:"
 msgstr "Piirkonnasildid:"
 
-#: Settings/CategoryPage.cpp:113
+#: Settings/CategoryPage.cpp:112
 #, kde-format
 msgid ""
 "Tags in this category can be\n"
@@ -5103,37 +5103,37 @@ msgstr ""
 "Selle kategooria silte saab\n"
 "seondada piltide piirkondadega"
 
-#: Settings/CategoryPage.cpp:120
+#: Settings/CategoryPage.cpp:119
 #, kde-format
 msgid "Icon:"
 msgstr "Ikoon:"
 
-#: Settings/CategoryPage.cpp:140
+#: Settings/CategoryPage.cpp:139
 #, kde-format
 msgid "Preferred view:"
 msgstr "Eelistatud vaade:"
 
-#: Settings/CategoryPage.cpp:145
+#: Settings/CategoryPage.cpp:144
 #, kde-format
 msgid "List View"
 msgstr "Nimekirjavaade"
 
-#: Settings/CategoryPage.cpp:146
+#: Settings/CategoryPage.cpp:145
 #, kde-format
 msgid "List View with Custom Thumbnails"
 msgstr "Nimekirjavaade kohandatud pisipiltidega"
 
-#: Settings/CategoryPage.cpp:147
+#: Settings/CategoryPage.cpp:146
 #, kde-format
 msgid "Icon View"
 msgstr "Ikoonivaade"
 
-#: Settings/CategoryPage.cpp:148
+#: Settings/CategoryPage.cpp:147
 #, kde-format
 msgid "Icon View with Custom Thumbnails"
 msgstr "Ikoonivaade kohandatud pisipiltidega"
 
-#: Settings/CategoryPage.cpp:158
+#: Settings/CategoryPage.cpp:157
 #, kde-format
 msgid ""
 "<font color='red'>The database has unsaved changes. As long as those are not "
@@ -5144,22 +5144,22 @@ msgstr ""
 "salvestatud,<br/>ei saa kategooriate nimesid muuta ega saa ka luua uusi "
 "kategooriaid.</font>"
 
-#: Settings/CategoryPage.cpp:166
+#: Settings/CategoryPage.cpp:165
 #, kde-format
 msgid "Save the DB now"
 msgstr "Salvesta andmebaas kohe"
 
-#: Settings/CategoryPage.cpp:206
+#: Settings/CategoryPage.cpp:205
 #, kde-format
 msgid "Settings for category <b>%1</b>"
 msgstr "Kategooria <b>%1</b> seadistused"
 
-#: Settings/CategoryPage.cpp:209
+#: Settings/CategoryPage.cpp:208
 #, kde-format
 msgid "<i>Pending change: rename to \"%1\"</i>"
 msgstr "<i>Ootel muutus: uueks nimeks antakse \"%1\"</i>"
 
-#: Settings/CategoryPage.cpp:263
+#: Settings/CategoryPage.cpp:262
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>\"%2\" is a "
@@ -5170,12 +5170,12 @@ msgstr ""
 "spetsiaalne reserveeritud kategoorianimi, mida ei saa tarvitada tavapärase "
 "kategooriana.</p>"
 
-#: Settings/CategoryPage.cpp:267 Settings/CategoryPage.cpp:278
+#: Settings/CategoryPage.cpp:266 Settings/CategoryPage.cpp:277
 #, kde-format
 msgid "Invalid category name"
 msgstr "Vigane kategooria nimi"
 
-#: Settings/CategoryPage.cpp:275
+#: Settings/CategoryPage.cpp:274
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>A category with "
@@ -5184,7 +5184,7 @@ msgstr ""
 "<p>Kategooriale \"%1\" ei saa anda nimeks \"%2\":</p><p>selle nimega "
 "kategooria on juba olemas.</p>"
 
-#: Settings/CategoryPage.cpp:292
+#: Settings/CategoryPage.cpp:291
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>There's a "
@@ -5195,40 +5195,40 @@ msgstr ""
 "on juba ootel nime muutmise toiming. Palun salvesta kõigepealt see muutus.</"
 "p>"
 
-#: Settings/CategoryPage.cpp:296
+#: Settings/CategoryPage.cpp:295
 #, kde-format
 msgid "Unsaved pending renaming action"
 msgstr "Salvestamata ootel nime muutmine toiming"
 
-#: Settings/CategoryPage.cpp:327
+#: Settings/CategoryPage.cpp:326
 #, kde-format
 msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
 "linked against this category will be discarded!</p>"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:335
+#: Settings/CategoryPage.cpp:334
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:372
+#: Settings/CategoryPage.cpp:371
 #, kde-format
 msgid "New category"
 msgstr "Uus kategooria"
 
-#: Settings/CategoryPage.cpp:404
+#: Settings/CategoryPage.cpp:403
 #, kde-format
 msgid "<p>Really delete category \"%1\"?</p>"
 msgstr "<p>Kas tõesti kustutada kategooria \"%1\"?</p>"
 
-#: Settings/CategoryPage.cpp:408
+#: Settings/CategoryPage.cpp:407
 #, kde-format
 msgid "Confirm Action"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:521
+#: Settings/CategoryPage.cpp:520
 #, kde-format
 msgid "<i>Choose a category to edit it</i>"
 msgstr "<i>Muudetava kategooria valimine</i>"
@@ -6545,7 +6545,7 @@ msgstr ""
 "Vihje: kasuta selle märgise filtri lülitamiseks kiirklahve <shortcut>Alt"
 "+Shift+<placeholder>A-Z</placeholder></shortcut>."
 
-#: ThumbnailView/ThumbnailDND.cpp:93
+#: ThumbnailView/ThumbnailDND.cpp:92
 #, kde-format
 msgid ""
 "<p><b>Really reorder thumbnails?</b></p><p>By dragging images around in the "
@@ -6561,7 +6561,7 @@ msgstr ""
 "kuupäeva ja kellaaja järgi</b> või <b>Vaade &gt; Sorteeri valitud kuupäeva "
 "ja kellaaja järgi</b>.</p>"
 
-#: ThumbnailView/ThumbnailDND.cpp:100
+#: ThumbnailView/ThumbnailDND.cpp:99
 #, fuzzy, kde-format
 #| msgid "Reorder Thumbnails"
 msgctxt "@title"

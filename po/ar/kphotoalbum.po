@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-30 00:41+0000\n"
+"POT-Creation-Date: 2026-07-03 00:43+0000\n"
 "PO-Revision-Date: 2026-06-30 20:42+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -29,7 +29,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "metehyi@free.fr,zayed.alsaidi@gmail.com"
 
-#: AnnotationDialog/AreaTagSelectDialog.cpp:87
+#: AnnotationDialog/AreaTagSelectDialog.cpp:86
 #, kde-format
 msgid "Tag is already used for another area"
 msgstr "وسم مستخدم فعلًا لمنطقة أخرى"
@@ -49,13 +49,13 @@ msgstr "اليوم"
 msgid "yesterday"
 msgstr "البارحة"
 
-#: AnnotationDialog/DescriptionEdit.cpp:15 AnnotationDialog/Dialog.cpp:144
-#: HTMLGenerator/HTMLDialog.cpp:144 ImportExport/MD5CheckPage.cpp:66
+#: AnnotationDialog/DescriptionEdit.cpp:15 AnnotationDialog/Dialog.cpp:143
+#: HTMLGenerator/HTMLDialog.cpp:142 ImportExport/MD5CheckPage.cpp:66
 #, kde-format
 msgid "Description"
 msgstr "الوصف"
 
-#: AnnotationDialog/Dialog.cpp:111
+#: AnnotationDialog/Dialog.cpp:110
 #, kde-format
 msgid ""
 "(You have differing descriptions on individual images.  Enter text to append "
@@ -64,27 +64,27 @@ msgstr ""
 "(لديك أوصاف مختلفة للصور الفردية، أدخل النص المراد إضافته إلى الأوصاف أو "
 "استبدالها.)"
 
-#: AnnotationDialog/Dialog.cpp:136
+#: AnnotationDialog/Dialog.cpp:135
 #, kde-format
 msgid "Label and Dates"
 msgstr "التسمية و التاريخ"
 
-#: AnnotationDialog/Dialog.cpp:141
+#: AnnotationDialog/Dialog.cpp:140
 #, kde-format
 msgid "Image Preview"
 msgstr "معاينة الصورة"
 
-#: AnnotationDialog/Dialog.cpp:165 DB/ImageDB.cpp:396
+#: AnnotationDialog/Dialog.cpp:164 DB/ImageDB.cpp:396
 #, kde-format
 msgid "Cancel"
 msgstr "ألغِ"
 
-#: AnnotationDialog/Dialog.cpp:170 AnnotationDialog/Dialog.cpp:172
+#: AnnotationDialog/Dialog.cpp:169 AnnotationDialog/Dialog.cpp:171
 #, kde-format
 msgid "Map"
 msgstr "الخريطة"
 
-#: AnnotationDialog/Dialog.cpp:178
+#: AnnotationDialog/Dialog.cpp:177
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -93,63 +93,63 @@ msgid ""
 msgstr ""
 "تتيح لك أداة الخريطة عرض موقع الصور إذا عُثر على إحداثيات GPS في معلومات Exif."
 
-#: AnnotationDialog/Dialog.cpp:226
+#: AnnotationDialog/Dialog.cpp:225
 #, kde-format
 msgid "Revert This Item"
 msgstr "استرجع هذا العنصر"
 
-#: AnnotationDialog/Dialog.cpp:232 AnnotationDialog/Dialog.cpp:1376
+#: AnnotationDialog/Dialog.cpp:231 AnnotationDialog/Dialog.cpp:1375
 #, kde-format
 msgid "Clear Form"
 msgstr "امحُ الاستمارة"
 
-#: AnnotationDialog/Dialog.cpp:235 AnnotationDialog/Dialog.cpp:1379
+#: AnnotationDialog/Dialog.cpp:234 AnnotationDialog/Dialog.cpp:1378
 #, kde-format
 msgid "Options..."
 msgstr "الخيارات..."
 
-#: AnnotationDialog/Dialog.cpp:240
+#: AnnotationDialog/Dialog.cpp:239
 #, kde-format
 msgid "&Done"
 msgstr "&تمّ"
 
-#: AnnotationDialog/Dialog.cpp:243
+#: AnnotationDialog/Dialog.cpp:242
 #, kde-format
 msgid "Continue &Later"
 msgstr "تابع لا&حقًا"
 
-#: AnnotationDialog/Dialog.cpp:251 AnnotationDialog/Dialog.cpp:873
+#: AnnotationDialog/Dialog.cpp:250 AnnotationDialog/Dialog.cpp:872
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
 msgstr "ا&بحث"
 
-#: AnnotationDialog/Dialog.cpp:320
+#: AnnotationDialog/Dialog.cpp:319
 #, kde-format
 msgid "Label: "
 msgstr "التسمية: "
 
-#: AnnotationDialog/Dialog.cpp:324 ImportExport/MD5CheckPage.cpp:65
+#: AnnotationDialog/Dialog.cpp:323 ImportExport/MD5CheckPage.cpp:65
 #, kde-format
 msgid "Label"
 msgstr "التسمية"
 
-#: AnnotationDialog/Dialog.cpp:333
+#: AnnotationDialog/Dialog.cpp:332
 #, kde-format
 msgid "Date: "
 msgstr "التاريخ: "
 
-#: AnnotationDialog/Dialog.cpp:349
+#: AnnotationDialog/Dialog.cpp:348
 #, kde-format
 msgid "Time: "
 msgstr "الوقت: "
 
-#: AnnotationDialog/Dialog.cpp:355
+#: AnnotationDialog/Dialog.cpp:354
 #, kde-format
 msgid "Use Fuzzy Date"
 msgstr "استخدم تاريخ مبهم"
 
-#: AnnotationDialog/Dialog.cpp:357
+#: AnnotationDialog/Dialog.cpp:356
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -166,82 +166,82 @@ msgstr ""
 "لم تكن تعرف بالضبط متى أُخذت الصورة (مثلًا إذا كانت الصورة من كاميرا تماثلية)، "
 "فيجب عليك تعيين <interface>استخدام التاريخ التقريبي</interface>.</para>"
 
-#: AnnotationDialog/Dialog.cpp:372
+#: AnnotationDialog/Dialog.cpp:371
 #, kde-format
 msgid "Minimum megapixels:"
 msgstr "الحد الأدنى للميغابكسل:"
 
-#: AnnotationDialog/Dialog.cpp:382
+#: AnnotationDialog/Dialog.cpp:381
 #, kde-format
 msgid "Maximum megapixels:"
 msgstr "الحد الأقصى للميغابكسل:"
 
-#: AnnotationDialog/Dialog.cpp:395
+#: AnnotationDialog/Dialog.cpp:394
 #, kde-format
 msgid "Rating:"
 msgstr "التقييم:"
 
-#: AnnotationDialog/Dialog.cpp:403
+#: AnnotationDialog/Dialog.cpp:402
 #, kde-format
 msgid "Rating search mode:"
 msgstr "وضع بحث التقييم:"
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "=="
 msgstr "=="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid ">="
 msgstr ">="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "<="
 msgstr "<="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "!="
 msgstr "!="
 
-#: AnnotationDialog/Dialog.cpp:415
+#: AnnotationDialog/Dialog.cpp:414
 #, kde-format
 msgid "File Name Pattern: "
 msgstr "نمط اسم الملف: "
 
-#: AnnotationDialog/Dialog.cpp:418
+#: AnnotationDialog/Dialog.cpp:417
 #, kde-format
 msgid "File Name Pattern"
 msgstr "نمط اسم الملف"
 
-#: AnnotationDialog/Dialog.cpp:423
+#: AnnotationDialog/Dialog.cpp:422
 #, kde-format
 msgid "Search only for RAW files"
 msgstr "ابحث عن ملفات RAW فقط"
 
-#: AnnotationDialog/Dialog.cpp:440
+#: AnnotationDialog/Dialog.cpp:439
 #, kde-format
 msgid "Append"
 msgstr "ألحق"
 
-#: AnnotationDialog/Dialog.cpp:441
+#: AnnotationDialog/Dialog.cpp:440
 #, kde-format
 msgid "Append new text to each description"
 msgstr "ألحق نصًا جديدًا بكل وصف"
 
-#: AnnotationDialog/Dialog.cpp:442
+#: AnnotationDialog/Dialog.cpp:441
 #, kde-format
 msgid "Replace"
 msgstr "استبدل"
 
-#: AnnotationDialog/Dialog.cpp:443
+#: AnnotationDialog/Dialog.cpp:442
 #, kde-format
 msgid "Replace each description with the new text"
 msgstr "استبدل بكل وصف النص الجديد"
 
-#: AnnotationDialog/Dialog.cpp:452
+#: AnnotationDialog/Dialog.cpp:451
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -255,97 +255,97 @@ msgstr ""
 "سيُستورد الوصف المضمن في معلومات Exif الخاصة بالصورة إلى هذا الحقل إذا كان "
 "متاحًا.</para>"
 
-#: AnnotationDialog/Dialog.cpp:635
+#: AnnotationDialog/Dialog.cpp:634
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "الشروح (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:878
+#: AnnotationDialog/Dialog.cpp:877
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "ابحث"
 
-#: AnnotationDialog/Dialog.cpp:881
+#: AnnotationDialog/Dialog.cpp:880
 #, kde-format
 msgid "Done"
 msgstr "تمّ"
 
-#: AnnotationDialog/Dialog.cpp:888
+#: AnnotationDialog/Dialog.cpp:887
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "الشروح"
 
-#: AnnotationDialog/Dialog.cpp:937
+#: AnnotationDialog/Dialog.cpp:936
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "اضبط تخطيط النافذة..."
 
-#: AnnotationDialog/Dialog.cpp:938
+#: AnnotationDialog/Dialog.cpp:937
 #, kde-format
 msgid "Save current layout globally"
 msgstr "احفظ التخطيط الحالي للجميع"
 
-#: AnnotationDialog/Dialog.cpp:939
+#: AnnotationDialog/Dialog.cpp:938
 #, kde-format
 msgid "Save current layout for this DB"
 msgstr "حفظ التخطيط الحالي لهذا قاعدة البيانات"
 
-#: AnnotationDialog/Dialog.cpp:941
+#: AnnotationDialog/Dialog.cpp:940
 #, kde-format
 msgid "Reset layout"
 msgstr "صفّر التخطيط"
 
-#: AnnotationDialog/Dialog.cpp:948 AnnotationDialog/Dialog.cpp:1331
-#: AnnotationDialog/ListSelect.cpp:110
+#: AnnotationDialog/Dialog.cpp:947 AnnotationDialog/Dialog.cpp:1330
+#: AnnotationDialog/ListSelect.cpp:108
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "افرز أبجديًا (شجري)"
 
-#: AnnotationDialog/Dialog.cpp:952 AnnotationDialog/Dialog.cpp:1335
-#: AnnotationDialog/ListSelect.cpp:116
+#: AnnotationDialog/Dialog.cpp:951 AnnotationDialog/Dialog.cpp:1334
+#: AnnotationDialog/ListSelect.cpp:114
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "افرز أبجديًا (مسطح)"
 
-#: AnnotationDialog/Dialog.cpp:956
+#: AnnotationDialog/Dialog.cpp:955
 #, kde-format
 msgid "Sort by Date"
 msgstr "رتب بالتّاريخ"
 
-#: AnnotationDialog/Dialog.cpp:972
+#: AnnotationDialog/Dialog.cpp:971
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr "طابق الوسوم من الحرف الأول"
 
-#: AnnotationDialog/Dialog.cpp:973
+#: AnnotationDialog/Dialog.cpp:972
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr "طابق الوسوم من حدود الكلمات"
 
-#: AnnotationDialog/Dialog.cpp:974
+#: AnnotationDialog/Dialog.cpp:973
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr "طابق الوسوم في أي مكان"
 
-#: AnnotationDialog/Dialog.cpp:991
+#: AnnotationDialog/Dialog.cpp:990
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "أظهر المحدّد فقط Ctrl+S"
 
-#: AnnotationDialog/Dialog.cpp:1033 Map/MapView.cpp:360
+#: AnnotationDialog/Dialog.cpp:1032 Map/MapView.cpp:360
 #, kde-format
 msgid "Settings saved!"
 msgstr "حُفظت الإعدادات!"
 
-#: AnnotationDialog/Dialog.cpp:1033
+#: AnnotationDialog/Dialog.cpp:1032
 #, kde-format
 msgid "Save current window setup"
 msgstr "أحفظ تعيين النافذة الحالي"
 
-#: AnnotationDialog/Dialog.cpp:1098
+#: AnnotationDialog/Dialog.cpp:1097
 #, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
@@ -354,13 +354,13 @@ msgstr ""
 "<p>أُجريت بعض التغييرات على الشروح التوضيحية. هل تريد حقًا تجاهل جميع "
 "التغييرات الحديثة لكل ملف متأثر؟</p>"
 
-#: AnnotationDialog/Dialog.cpp:1099
+#: AnnotationDialog/Dialog.cpp:1098
 #, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "ارفض التّغييرات"
 
-#: AnnotationDialog/Dialog.cpp:1198
+#: AnnotationDialog/Dialog.cpp:1197
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -376,7 +376,7 @@ msgstr ""
 "يمكنك العثور على نصائح إضافية حول استخدامه من خلال قراءة <a href=\"help:/"
 "kphotoalbum/chp-typingIn.html\">الإدخال</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1206
+#: AnnotationDialog/Dialog.cpp:1205
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -389,52 +389,52 @@ msgstr ""
 "لقراءة <a href=\"help:/kphotoalbum/chp-typingIn.html\">الوثائق الخاصة بهذا "
 "الحوار</a></p>"
 
-#: AnnotationDialog/Dialog.cpp:1338
+#: AnnotationDialog/Dialog.cpp:1337
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "افرز الأحدث استعمال"
 
-#: AnnotationDialog/Dialog.cpp:1341
+#: AnnotationDialog/Dialog.cpp:1340
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "اقلب حالة الفرز"
 
-#: AnnotationDialog/Dialog.cpp:1346
+#: AnnotationDialog/Dialog.cpp:1345
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "بدّل إظهار العناصر المحددة فقط"
 
-#: AnnotationDialog/Dialog.cpp:1350
+#: AnnotationDialog/Dialog.cpp:1349
 #, kde-format
 msgid "Annotate Next"
 msgstr "اشرح التالي"
 
-#: AnnotationDialog/Dialog.cpp:1354
+#: AnnotationDialog/Dialog.cpp:1353
 #, kde-format
 msgid "Annotate Previous"
 msgstr "اشرح السابق"
 
-#: AnnotationDialog/Dialog.cpp:1358
+#: AnnotationDialog/Dialog.cpp:1357
 #, kde-format
 msgid "OK dialog"
 msgstr "حوار الموافقة"
 
-#: AnnotationDialog/Dialog.cpp:1362
+#: AnnotationDialog/Dialog.cpp:1361
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "انسخ الوسوم من الصورة السابقة"
 
-#: AnnotationDialog/Dialog.cpp:1366 MainWindow/Window.cpp:854
+#: AnnotationDialog/Dialog.cpp:1365 MainWindow/Window.cpp:850
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "أدر عكس عقارب الساعة"
 
-#: AnnotationDialog/Dialog.cpp:1369 MainWindow/Window.cpp:858
+#: AnnotationDialog/Dialog.cpp:1368 MainWindow/Window.cpp:854
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "أدر باتجاه عقارب الساعة"
 
-#: AnnotationDialog/Dialog.cpp:1372
+#: AnnotationDialog/Dialog.cpp:1371
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "بدّل معاينة ملء الشاشة"
@@ -544,33 +544,33 @@ msgctxt "@info:tooltip"
 msgid "Delete image"
 msgstr "احذف الصورة"
 
-#: AnnotationDialog/ListSelect.cpp:72
+#: AnnotationDialog/ListSelect.cpp:70
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
 msgstr "أدخل وسمًا ..."
 
-#: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:342
+#: AnnotationDialog/ListSelect.cpp:95 DB/search/ImageSearchInfo.cpp:342
 #, kde-format
 msgid "or"
 msgstr "أو"
 
-#: AnnotationDialog/ListSelect.cpp:98 DB/search/ImageSearchInfo.cpp:337
+#: AnnotationDialog/ListSelect.cpp:96 DB/search/ImageSearchInfo.cpp:337
 #, kde-format
 msgid "and"
 msgstr "و"
 
-#: AnnotationDialog/ListSelect.cpp:122
+#: AnnotationDialog/ListSelect.cpp:120
 #, kde-format
 msgid "Sort by date"
 msgstr "افرز حسب التاريخ"
 
-#: AnnotationDialog/ListSelect.cpp:128
+#: AnnotationDialog/ListSelect.cpp:126
 #, kde-format
 msgid "Show only selected Ctrl+S"
 msgstr "أظهر المحدّد فقط Ctrl+S"
 
-#: AnnotationDialog/ListSelect.cpp:177
+#: AnnotationDialog/ListSelect.cpp:175
 #, kde-format
 msgid ""
 "The tag you entered is the tag that is set automatically for newly found, "
@@ -582,72 +582,72 @@ msgstr ""
 "حديثًا (راجع <interface>إعدادات|اضبط دفتر الصور...|الفئات|الصور غير الموسومة</"
 "interface>). لن يظهر هنا طالما حُدد لهذا الغرض."
 
-#: AnnotationDialog/ListSelect.cpp:359
+#: AnnotationDialog/ListSelect.cpp:357
 #, kde-format
 msgid "No Item Selected"
 msgstr "لم يحدد أي عنصر"
 
-#: AnnotationDialog/ListSelect.cpp:363
+#: AnnotationDialog/ListSelect.cpp:361
 #, kde-format
 msgid "<b>%1</b>"
 msgstr "<b>%1</b>"
 
-#: AnnotationDialog/ListSelect.cpp:369 Settings/CategoryPage.cpp:74
+#: AnnotationDialog/ListSelect.cpp:367 Settings/CategoryPage.cpp:73
 #, kde-format
 msgid "Delete"
 msgstr "احذف"
 
-#: AnnotationDialog/ListSelect.cpp:370
+#: AnnotationDialog/ListSelect.cpp:368
 #, kde-format
 msgid "Rename..."
 msgstr "غيّر الاسم..."
 
-#: AnnotationDialog/ListSelect.cpp:372
+#: AnnotationDialog/ListSelect.cpp:370
 #, kde-format
 msgid "<b>Tag Groups</b>"
 msgstr "<b>مجموعات الوسوم</b>"
 
-#: AnnotationDialog/ListSelect.cpp:380
+#: AnnotationDialog/ListSelect.cpp:378
 #, kde-format
 msgid "Tag groups"
 msgstr "مجموعات الوسوم"
 
-#: AnnotationDialog/ListSelect.cpp:397
+#: AnnotationDialog/ListSelect.cpp:395
 #, kde-format
 msgid "Add this tag to a new tag group..."
 msgstr "أضف هذا الوسم إلى مجموعة وسوم جديدة..."
 
-#: AnnotationDialog/ListSelect.cpp:400
+#: AnnotationDialog/ListSelect.cpp:398
 #, kde-format
 msgid "Make this tag a tag group and add a tag..."
 msgstr "اجعل هذا الوسم مجموعة وسوم وأضف وسم..."
 
-#: AnnotationDialog/ListSelect.cpp:406
+#: AnnotationDialog/ListSelect.cpp:404
 #, kde-format
 msgid "Remove from tag group %1"
 msgstr "أزل من مجموعة الوسوم %1"
 
-#: AnnotationDialog/ListSelect.cpp:409
+#: AnnotationDialog/ListSelect.cpp:407
 #, kde-format
 msgid "<b>Sorting</b>"
 msgstr "<b>الفرز</b>"
 
-#: AnnotationDialog/ListSelect.cpp:415
+#: AnnotationDialog/ListSelect.cpp:413
 #, kde-format
 msgid "Usage"
 msgstr "الاستعمالية"
 
-#: AnnotationDialog/ListSelect.cpp:416
+#: AnnotationDialog/ListSelect.cpp:414
 #, kde-format
 msgid "Alphabetical (Flat)"
 msgstr "أبجدي (مسطح)"
 
-#: AnnotationDialog/ListSelect.cpp:417
+#: AnnotationDialog/ListSelect.cpp:415
 #, kde-format
 msgid "Alphabetical (Tree)"
 msgstr "أبجدي (شجري)"
 
-#: AnnotationDialog/ListSelect.cpp:442
+#: AnnotationDialog/ListSelect.cpp:440
 #, kde-format
 msgid ""
 "<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
@@ -656,23 +656,23 @@ msgstr ""
 "<p>هل تريد حقًا حذف \"%1\"؟<br/>سيؤدي حذف العنصر إلى إزالة أي معلومات عنه من "
 "أي صورة تحتوي على العنصر.</p>"
 
-#: AnnotationDialog/ListSelect.cpp:446
+#: AnnotationDialog/ListSelect.cpp:444
 #, kde-format
 msgid "Really Delete %1?"
 msgstr "محو %1 حقاً ؟"
 
-#: AnnotationDialog/ListSelect.cpp:463
+#: AnnotationDialog/ListSelect.cpp:461
 #, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "غيّر التسمية"
 
-#: AnnotationDialog/ListSelect.cpp:463
+#: AnnotationDialog/ListSelect.cpp:461
 #, kde-format
 msgid "Enter new name:"
 msgstr "أدخل الاسم الجديد:"
 
-#: AnnotationDialog/ListSelect.cpp:469
+#: AnnotationDialog/ListSelect.cpp:467
 #, kde-format
 msgid ""
 "<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
@@ -681,39 +681,39 @@ msgstr ""
 "<p>هل تريد حقًا إعادة تسمية \"%1\" إلى \"%2\"؟<br/>سيؤدي القيام بذلك إلى "
 "إعادة تسمية \"%3\" على أي صورة تحتويه.</p>"
 
-#: AnnotationDialog/ListSelect.cpp:473
+#: AnnotationDialog/ListSelect.cpp:471
 #, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
 msgstr "هل أغيّر الاسم %1؟"
 
-#: AnnotationDialog/ListSelect.cpp:477
+#: AnnotationDialog/ListSelect.cpp:475
 #, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "غيّر الاسم"
 
-#: AnnotationDialog/ListSelect.cpp:508
+#: AnnotationDialog/ListSelect.cpp:506
 #, kde-format
 msgid "New tag group"
 msgstr "مجموعة وسوم جديدة"
 
-#: AnnotationDialog/ListSelect.cpp:509
+#: AnnotationDialog/ListSelect.cpp:507
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
 msgstr "اسم مجموعة الوسوم الجديدة التي ستُضاف الوسم إليها:"
 
-#: AnnotationDialog/ListSelect.cpp:521
+#: AnnotationDialog/ListSelect.cpp:519
 #, kde-format
 msgid "Add a tag"
 msgstr "أضف وسمًا"
 
-#: AnnotationDialog/ListSelect.cpp:522
+#: AnnotationDialog/ListSelect.cpp:520
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
 msgstr "اسم الوسم المراد إضافته إلى مجموعة الوسوم هذه:"
 
-#: AnnotationDialog/ListSelect.cpp:776
+#: AnnotationDialog/ListSelect.cpp:774
 #, kde-format
 msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
@@ -721,7 +721,7 @@ msgctxt ""
 msgid "%1 (%2-%3)"
 msgstr "%1 (%2-%3)"
 
-#: AnnotationDialog/ListSelect.cpp:789
+#: AnnotationDialog/ListSelect.cpp:787
 #, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
@@ -965,7 +965,7 @@ msgid "Search did not match any images or videos."
 msgstr "البحث لم يتبق أي صور أو أي مرئيات."
 
 #: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
-#: MainWindow/Window.cpp:1839
+#: MainWindow/Window.cpp:1835
 #, kde-format
 msgid "Empty Search Result"
 msgstr "أفرغ نتائج البحث"
@@ -981,7 +981,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "ابحث"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1788
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1784
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -996,7 +996,7 @@ msgstr ""
 "أيقونة <b>الفئات</b></li><li>الآن اضبط قسم <b>الصور غير الموسومة</b></li></"
 "ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1795
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1791
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "لم تُضبط الميزة"
@@ -1363,7 +1363,7 @@ msgid "Loading information from images"
 msgstr "يحمّل المعلومات من الصور"
 
 #: DB/ImageDB.cpp:558 DB/ImageDB.cpp:864 DB/XML/FileReader.cpp:139
-#: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:364
+#: Settings/CategoryPage.cpp:257 ThumbnailView/ThumbnailModel.cpp:364
 #, kde-format
 msgid "Media Type"
 msgstr "نوع الوسائط"
@@ -1466,7 +1466,7 @@ msgstr "عدم تطابق إصدار ملف قاعدة بيانات XML"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: DB/XML/FileReader.cpp:91 Settings/CategoryPage.cpp:256
+#: DB/XML/FileReader.cpp:91 Settings/CategoryPage.cpp:255
 #: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:364
 #, kde-format
 msgid "Folder"
@@ -2072,116 +2072,116 @@ msgstr ""
 "ليس جميع الصور في قاعدة البيانات تحتوي على معلومات العدسة. <note>أعد إنشاء "
 "قاعدة بيانات بحث Exif لضمان وجود بيانات العدسة لجميع الصور.</note>"
 
-#: HTMLGenerator/Generator.cpp:54
+#: HTMLGenerator/Generator.cpp:53
 #, kde-format
 msgid "<p>No file name given!</p>"
 msgstr "<p>لم يُعط اسم للملفّ!</p>"
 
-#: HTMLGenerator/Generator.cpp:80
+#: HTMLGenerator/Generator.cpp:79
 #, kde-format
 msgid "Generating images for HTML page "
 msgstr "توليد الصور لصفحة لغة علامات النص الفائق HTML "
 
-#: HTMLGenerator/Generator.cpp:183
+#: HTMLGenerator/Generator.cpp:182
 #, kde-format
 msgid "Error copying %1 to %2"
 msgstr "خطأ في نسخ %1 غلى %2"
 
-#: HTMLGenerator/Generator.cpp:470
+#: HTMLGenerator/Generator.cpp:469
 #, kde-format
 msgid "<a href=\"%1\">prev</a>"
 msgstr "<a href=\"%1\">السابق</a>"
 
-#: HTMLGenerator/Generator.cpp:472 HTMLGenerator/Generator.cpp:480
+#: HTMLGenerator/Generator.cpp:471 HTMLGenerator/Generator.cpp:479
 #, kde-format
 msgid "prev"
 msgstr "السابق"
 
-#: HTMLGenerator/Generator.cpp:484
+#: HTMLGenerator/Generator.cpp:483
 #, kde-format
 msgid "<a href=\"index-%1.html\">index</a>"
 msgstr "<a href=\"index-%1.html\">الدليل</a>"
 
-#: HTMLGenerator/Generator.cpp:493
+#: HTMLGenerator/Generator.cpp:492
 #, kde-format
 msgid "<a href=\"%1\">next</a>"
 msgstr "<a href=\"%1\">التالي</a>"
 
-#: HTMLGenerator/Generator.cpp:495 HTMLGenerator/Generator.cpp:502
+#: HTMLGenerator/Generator.cpp:494 HTMLGenerator/Generator.cpp:501
 #, kde-format
 msgid "next"
 msgstr "التالي"
 
-#: HTMLGenerator/Generator.cpp:643
+#: HTMLGenerator/Generator.cpp:642
 #, kde-format
 msgid "Could not create file '%1'."
 msgstr "لم أتمكن من إنشاء الملف '%1'."
 
-#: HTMLGenerator/Generator.cpp:644
+#: HTMLGenerator/Generator.cpp:643
 #, kde-format
 msgid "Could Not Create File"
 msgstr "لم أتمكن من إنشاء الملف"
 
-#: HTMLGenerator/Generator.cpp:663
+#: HTMLGenerator/Generator.cpp:662
 #, kde-format
 msgid "<p>Unable to copy %1 to %2</p>"
 msgstr "<p>غير قادر على نسخ الملف %1 إلى %2</p>"
 
-#: HTMLGenerator/Generator.cpp:697
+#: HTMLGenerator/Generator.cpp:696
 #, kde-format
 msgid "Unable to write image '%1'."
 msgstr "غير قادر على كتابة الصورة '%1'."
 
-#: HTMLGenerator/Generator.cpp:771 HTMLGenerator/HTMLDialog.cpp:148
+#: HTMLGenerator/Generator.cpp:770 HTMLGenerator/HTMLDialog.cpp:146
 #, kde-format
 msgid "Date"
 msgstr "التاريخ"
 
-#: HTMLGenerator/HTMLDialog.cpp:53
+#: HTMLGenerator/HTMLDialog.cpp:51
 #, kde-format
 msgctxt "@title:window"
 msgid "HTML Export"
 msgstr "تصدير HTML"
 
-#: HTMLGenerator/HTMLDialog.cpp:79 HTMLGenerator/HTMLDialog.cpp:80
+#: HTMLGenerator/HTMLDialog.cpp:77 HTMLGenerator/HTMLDialog.cpp:78
 #, kde-format
 msgid "Content"
 msgstr "المحتوى"
 
-#: HTMLGenerator/HTMLDialog.cpp:88
+#: HTMLGenerator/HTMLDialog.cpp:86
 #, kde-format
 msgid "Page title:"
 msgstr "عنوان الصفحة:"
 
-#: HTMLGenerator/HTMLDialog.cpp:95
+#: HTMLGenerator/HTMLDialog.cpp:93
 #, kde-format
 msgid "Copyright:"
 msgstr "حقوق النسخ:"
 
-#: HTMLGenerator/HTMLDialog.cpp:104
+#: HTMLGenerator/HTMLDialog.cpp:102
 #, kde-format
 msgid "Description:"
 msgstr "الوصف:"
 
-#: HTMLGenerator/HTMLDialog.cpp:111
+#: HTMLGenerator/HTMLDialog.cpp:109
 #, kde-format
 msgid "Create .kim export file"
 msgstr "أنشئ ملف التصدير .kim"
 
-#: HTMLGenerator/HTMLDialog.cpp:116
+#: HTMLGenerator/HTMLDialog.cpp:114
 #, kde-format
 msgctxt ""
 "Inline as a verb, i.e. 'please show movies right on the page, not as links'"
 msgid "Inline Movies in pages"
 msgstr "ضمّن مقاطع الفيديو مباشرة في الصفحات"
 
-#: HTMLGenerator/HTMLDialog.cpp:121
+#: HTMLGenerator/HTMLDialog.cpp:119
 #, kde-format
 msgctxt "Tag as in HTML-tag, not as in image tag"
 msgid "Use HTML5 video tag"
 msgstr "استخدم وسم فيديو HTML5"
 
-#: HTMLGenerator/HTMLDialog.cpp:130
+#: HTMLGenerator/HTMLDialog.cpp:128
 #, kde-format
 msgid ""
 "<p>This selection will generate video files suitable for displaying on web. "
@@ -2190,77 +2190,77 @@ msgstr ""
 "<p>هذا الخيار سيولد ملفات فيديو مناسبة للعرض على الويب. avconv و "
 "ffmpeg2theora مطلوبان لتوليد ملفات الفيديو.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:132
+#: HTMLGenerator/HTMLDialog.cpp:130
 #, kde-format
 msgid "Generate HTML5 video files (mp4 and ogg)"
 msgstr "ولّد ملفات فيديو HTML5 (mp4 و ogg)"
 
-#: HTMLGenerator/HTMLDialog.cpp:140
+#: HTMLGenerator/HTMLDialog.cpp:138
 #, kde-format
 msgid "What to Include"
 msgstr "ما هي الأشياء التي يجب ضمّها"
 
-#: HTMLGenerator/HTMLDialog.cpp:177 HTMLGenerator/HTMLDialog.cpp:178
+#: HTMLGenerator/HTMLDialog.cpp:175 HTMLGenerator/HTMLDialog.cpp:176
 #, kde-format
 msgid "Layout"
 msgstr "التخطيط"
 
-#: HTMLGenerator/HTMLDialog.cpp:187 Settings/CategoryPage.cpp:130
+#: HTMLGenerator/HTMLDialog.cpp:185 Settings/CategoryPage.cpp:129
 #, kde-format
 msgid "Thumbnail size:"
 msgstr "حجم المصغّرة:"
 
-#: HTMLGenerator/HTMLDialog.cpp:202
+#: HTMLGenerator/HTMLDialog.cpp:200
 #, kde-format
 msgid "Number of columns:"
 msgstr "عدد الأعمدة:"
 
-#: HTMLGenerator/HTMLDialog.cpp:217
+#: HTMLGenerator/HTMLDialog.cpp:215
 #, kde-format
 msgid "Theme:"
 msgstr "السمة:"
 
-#: HTMLGenerator/HTMLDialog.cpp:225
+#: HTMLGenerator/HTMLDialog.cpp:223
 #, kde-format
 msgid "Theme Description"
 msgstr "وصف السمة"
 
-#: HTMLGenerator/HTMLDialog.cpp:232
+#: HTMLGenerator/HTMLDialog.cpp:230
 #, kde-format
 msgid "Image Sizes"
 msgstr "حجم الصور"
 
-#: HTMLGenerator/HTMLDialog.cpp:241
+#: HTMLGenerator/HTMLDialog.cpp:239
 #, kde-format
 msgid "Full size"
 msgstr "كامل الحجم"
 
-#: HTMLGenerator/HTMLDialog.cpp:286 HTMLGenerator/HTMLDialog.cpp:287
+#: HTMLGenerator/HTMLDialog.cpp:284 HTMLGenerator/HTMLDialog.cpp:285
 #, kde-format
 msgid "Destination"
 msgstr "الهدف"
 
-#: HTMLGenerator/HTMLDialog.cpp:297
+#: HTMLGenerator/HTMLDialog.cpp:295
 #, kde-format
 msgid "Base folder:"
 msgstr "المجلد الأساسي:"
 
-#: HTMLGenerator/HTMLDialog.cpp:314
+#: HTMLGenerator/HTMLDialog.cpp:312
 #, kde-format
 msgid "Gallery folder:"
 msgstr "مجلد المعرض :"
 
-#: HTMLGenerator/HTMLDialog.cpp:321
+#: HTMLGenerator/HTMLDialog.cpp:319
 #, kde-format
 msgid "Output folder:"
 msgstr "مجلد المخرجات:"
 
-#: HTMLGenerator/HTMLDialog.cpp:332
+#: HTMLGenerator/HTMLDialog.cpp:330
 #, kde-format
 msgid "URL for final destination of .kim file:"
 msgstr "عنوان URL للوجهة النهائية لملف .kim:"
 
-#: HTMLGenerator/HTMLDialog.cpp:334
+#: HTMLGenerator/HTMLDialog.cpp:332
 #, kde-format
 msgid ""
 "<p>If you move the gallery to a remote location, set this to the destination "
@@ -2270,22 +2270,22 @@ msgstr ""
 "<p>إذا قمت بنقل المعرض إلى موقع بعيد، فاضبط هذا على عنوان URL الوجهة.</"
 "p><p>هذا يؤثر فقط على ملف <filename>.kim</filename> المُنشأ.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:343
+#: HTMLGenerator/HTMLDialog.cpp:341
 #, kde-format
 msgid "Open gallery in browser:"
 msgstr "افتح المعرض في المتصفح:"
 
-#: HTMLGenerator/HTMLDialog.cpp:359
+#: HTMLGenerator/HTMLDialog.cpp:357
 #, kde-format
 msgid "You must select at least one resolution."
 msgstr "يجب عليك أن تختار غلى الأقل دقة ( الصورة) واحدة."
 
-#: HTMLGenerator/HTMLDialog.cpp:386
+#: HTMLGenerator/HTMLDialog.cpp:384
 #, kde-format
 msgid "Select base folder..."
 msgstr "حدد المجلد الأساسي..."
 
-#: HTMLGenerator/HTMLDialog.cpp:399
+#: HTMLGenerator/HTMLDialog.cpp:397
 #, kde-format
 msgid ""
 "<p>You did not specify a base folder. This is the topmost folder for your "
@@ -2295,12 +2295,12 @@ msgstr ""
 "<p> لم تحدّد مجلد أساسي. هذا هو المجلد الأعلى لصورك. كل مجموعة مُنشأة ستُضع في "
 "هذا المجلد في مجلدات فرعية منفصلة.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:403
+#: HTMLGenerator/HTMLDialog.cpp:401
 #, kde-format
 msgid "No Base Folder Specified"
 msgstr "لم تحدّد مجلد أساسي"
 
-#: HTMLGenerator/HTMLDialog.cpp:409
+#: HTMLGenerator/HTMLDialog.cpp:407
 #, kde-format
 msgid ""
 "<p>You did not specify an output folder. This is a folder containing the "
@@ -2310,12 +2310,12 @@ msgstr ""
 "<p>لم تحدّد مجلد إخراج. هذا هو المجلد الذي يحتوي على الصور الفعلية. سيكون "
 "المجلد مجلدًا فرعيًا للمجلد الأساسي المحدد أعلاه.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:412
+#: HTMLGenerator/HTMLDialog.cpp:410
 #, kde-format
 msgid "No Output Folder Specified"
 msgstr "لم تحدّد مجلد إخراج"
 
-#: HTMLGenerator/HTMLDialog.cpp:420
+#: HTMLGenerator/HTMLDialog.cpp:418
 #, kde-format
 msgid ""
 "<p>Error while reading information about %1. This is most likely because the "
@@ -2324,12 +2324,12 @@ msgstr ""
 "<p>خطأ أثناء قراءة المعلومات حول %1. هذا على الأرجح لأن المجلد غير موجود.</"
 "p><p>كانت رسالة الخطأ: %2</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:429
+#: HTMLGenerator/HTMLDialog.cpp:427
 #, kde-format
 msgid "<p>%1 does not exist, is not a folder or cannot be written to.</p>"
 msgstr "<p>%1 غير موجود، أو ليس مجلدًا، أو لا يمكن الكتابة إليه.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:439
+#: HTMLGenerator/HTMLDialog.cpp:437
 #, kde-format
 msgid ""
 "<p>Output folder %1 already exists. Usually, this means you should specify a "
@@ -2338,29 +2338,29 @@ msgstr ""
 "<p>مجلد الإخراج %1 موجود فعلًا. عادةً، هذا يعني أنه يجب عليك تحديد مجلد جديد.</"
 "p><p>هل يجب حذف %2 أولاً؟</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:443
+#: HTMLGenerator/HTMLDialog.cpp:441
 #, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
 msgstr "المجلد موجود"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
-#: HTMLGenerator/HTMLDialog.cpp:530 MainWindow/SplashScreen.cpp:52
+#: HTMLGenerator/HTMLDialog.cpp:528 MainWindow/SplashScreen.cpp:52
 #, kde-format
 msgid "%1"
 msgstr "%1"
 
-#: HTMLGenerator/HTMLDialog.cpp:541
+#: HTMLGenerator/HTMLDialog.cpp:539
 #, kde-format
 msgid "Could not find any themes - this is very likely an installation error"
 msgstr "لم أستطع العثور على أي سمة - يمكن أن يكون هذا خطأ في التثبيت"
 
-#: HTMLGenerator/HTMLDialog.cpp:548
+#: HTMLGenerator/HTMLDialog.cpp:546
 #, kde-format
 msgid "More than one theme is set as default, using theme %1"
 msgstr "عُيّن أكثر من سمة مبدئية، سيستخدم السمة %1"
 
-#: HTMLGenerator/HTMLDialog.cpp:555
+#: HTMLGenerator/HTMLDialog.cpp:553
 #, kde-format
 msgctxt ""
 "This is to show the author of the theme. E.g. copyright character (&#169;) "
@@ -2369,7 +2369,7 @@ msgctxt ""
 msgid "by "
 msgstr "بواسطة "
 
-#: HTMLGenerator/HTMLDialog.cpp:557
+#: HTMLGenerator/HTMLDialog.cpp:555
 #, kde-format
 msgid ""
 "\n"
@@ -2378,12 +2378,12 @@ msgstr ""
 "\n"
 " "
 
-#: HTMLGenerator/HTMLDialog.cpp:572
+#: HTMLGenerator/HTMLDialog.cpp:570
 #, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
 msgstr "<p>لا يمكن أن يكون مجلد المعرض فارغًا.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:576
+#: HTMLGenerator/HTMLDialog.cpp:574
 #, kde-format
 msgid "<p>The output folder already exists.</p>"
 msgstr "<p>مجلد الإخراج موجود فعلًا.</p>"
@@ -2644,14 +2644,14 @@ msgstr "ملفات تصدير دفتر الصور"
 msgid "Unable to create temporary file"
 msgstr "تعذر إنشاء ملف مؤقت"
 
-#: ImportExport/ImportDialog.cpp:87
+#: ImportExport/ImportDialog.cpp:86
 #, kde-format
 msgid ""
 "<p>XML file did not specify the source of the images, this is a strong "
 "indication that the file is corrupted</p>"
 msgstr "<p>لم يحدد ملف XML مصدر الصور، وهذا مؤشر قوي على تلف الملف</p>"
 
-#: ImportExport/ImportDialog.cpp:121
+#: ImportExport/ImportDialog.cpp:120
 #, kde-format
 msgid ""
 "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This wizard "
@@ -2691,108 +2691,108 @@ msgstr ""
 "تتمكن من رؤية الرموز التي لم يعثر عليها في قاعدة البيانات الخاصة بك، أو "
 "الرموز التي كانت تطابقًا جزئيًا فقط.</li></ol>"
 
-#: ImportExport/ImportDialog.cpp:140
+#: ImportExport/ImportDialog.cpp:139
 #, kde-format
 msgctxt "@title:tab introduction page"
 msgid "Introduction"
 msgstr "المقدمة"
 
-#: ImportExport/ImportDialog.cpp:156 MainWindow/TokenEditor.cpp:60
+#: ImportExport/ImportDialog.cpp:155 MainWindow/TokenEditor.cpp:60
 #, kde-format
 msgid "Select All"
 msgstr "حدّد الكلّ"
 
-#: ImportExport/ImportDialog.cpp:158
+#: ImportExport/ImportDialog.cpp:157
 #, kde-format
 msgid "Deselect All"
 msgstr "ألغِ تحديد الكلّ"
 
-#: ImportExport/ImportDialog.cpp:192
+#: ImportExport/ImportDialog.cpp:191
 #, kde-format
 msgid "Select Which Images to Import"
 msgstr "اختر الصورة للاستيراد"
 
-#: ImportExport/ImportDialog.cpp:204
+#: ImportExport/ImportDialog.cpp:203
 #, kde-format
 msgid "Destination of images: "
 msgstr "هدف الصور: "
 
-#: ImportExport/ImportDialog.cpp:217
+#: ImportExport/ImportDialog.cpp:216
 #, kde-format
 msgid "Destination of Images"
 msgstr "هدف الصور"
 
-#: ImportExport/ImportDialog.cpp:225
+#: ImportExport/ImportDialog.cpp:224
 #, kde-format
 msgid "The folder must be a subfolder of %1"
 msgstr "يجب أن يكون المجلد مجلدًا فرعيًا لـ %1"
 
-#: ImportExport/ImportDialog.cpp:228
+#: ImportExport/ImportDialog.cpp:227
 #, kde-format
 msgid "This folder is reserved for category images."
 msgstr "هذا المجلد محجوز لصور الفئات."
 
-#: ImportExport/ImportDialog.cpp:268
+#: ImportExport/ImportDialog.cpp:267
 #, kde-format
 msgid "Match Categories"
 msgstr "مواءمة الأصناف"
 
-#: ImportExport/ImportDialog.cpp:300
+#: ImportExport/ImportDialog.cpp:299
 #, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr "المجلد %1 غير موجود. هل يجب إنشاؤه؟"
 
-#: ImportExport/ImportDialog.cpp:301 MainWindow/WelcomeDialog.cpp:157
+#: ImportExport/ImportDialog.cpp:300 MainWindow/WelcomeDialog.cpp:156
 #, kde-format
 msgctxt "@title"
 msgid "Create folder?"
 msgstr "إنشاء مجلد؟"
 
-#: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1223
+#: ImportExport/ImportDialog.cpp:304 MainWindow/WelcomeDialog.cpp:160
+#: MainWindow/Window.cpp:1219
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
 msgstr "أنشئ"
 
-#: ImportExport/ImportDialog.cpp:311
+#: ImportExport/ImportDialog.cpp:310
 #, kde-format
 msgid "Error creating folder %1"
 msgstr "خطأ في إنشاء المجلّد %1"
 
-#: ImportExport/ImportDialog.cpp:390
+#: ImportExport/ImportDialog.cpp:389
 #, kde-format
 msgid "How to resolve clashes"
 msgstr "كيفية حل التعارضات"
 
-#: ImportExport/ImportHandler.cpp:97 ImportExport/ImportHandler.cpp:159
+#: ImportExport/ImportHandler.cpp:95 ImportExport/ImportHandler.cpp:157
 #, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "ينسخ الصور"
 
-#: ImportExport/ImportHandler.cpp:174
+#: ImportExport/ImportHandler.cpp:172
 #, kde-format
 msgid "Error when writing image %1"
 msgstr "حدث خطأ عند كتابة الصورة %1"
 
-#: ImportExport/ImportHandler.cpp:193
+#: ImportExport/ImportHandler.cpp:191
 #, kde-format
 msgid "Updating Database"
 msgstr "يحدّث قاعدة البيانات"
 
-#: ImportExport/ImportHandler.cpp:238
+#: ImportExport/ImportHandler.cpp:236
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
 msgstr "تعذر النسخ من أي من المواقع التالية:"
 
-#: ImportExport/ImportHandler.cpp:239
+#: ImportExport/ImportHandler.cpp:237
 #, kde-format
 msgctxt "@title"
 msgid "Copy failed"
 msgstr "فشل النسخ"
 
-#: ImportExport/ImportHandler.cpp:245
+#: ImportExport/ImportHandler.cpp:243
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
@@ -3653,32 +3653,32 @@ msgctxt "@title:column Duplicate file"
 msgid "Duplicate %1"
 msgstr "كرّر %1"
 
-#: MainWindow/ExternalPopup.cpp:57
+#: MainWindow/ExternalPopup.cpp:55
 #, kde-format
 msgid "Current Item"
 msgstr "العنصر الحالي"
 
-#: MainWindow/ExternalPopup.cpp:60
+#: MainWindow/ExternalPopup.cpp:58
 #, kde-format
 msgid "All Selected Items"
 msgstr "كلّ العناصر المختارة"
 
-#: MainWindow/ExternalPopup.cpp:63
+#: MainWindow/ExternalPopup.cpp:61
 #, kde-format
 msgid "Copy and Open"
 msgstr "انسخ وافتح"
 
-#: MainWindow/ExternalPopup.cpp:87
+#: MainWindow/ExternalPopup.cpp:85
 #, kde-format
 msgid "Open With..."
 msgstr "افتح ب‍..."
 
-#: MainWindow/ExternalPopup.cpp:102
+#: MainWindow/ExternalPopup.cpp:100
 #, kde-format
 msgid "Your Command Line"
 msgstr "سطر أوامرك"
 
-#: MainWindow/ExternalPopup.cpp:165
+#: MainWindow/ExternalPopup.cpp:163
 #, kde-format
 msgid "Invoke External Program"
 msgstr "منادات برنامج خارجي"
@@ -3977,7 +3977,7 @@ msgstr "احفظ قاعدة البيانات والخروج فورًا بعد ع
 msgid "Search for new images on startup."
 msgstr "ابحث عن صور جديدة عند بدء التشغيل."
 
-#: MainWindow/RunDialog.cpp:32
+#: MainWindow/RunDialog.cpp:31
 #, no-c-format, kde-format
 msgid ""
 "<p>Enter your command to run below:</p><p><i>%all will be replaced with a "
@@ -3986,7 +3986,7 @@ msgstr ""
 "<p>أدخل الأمر الذي تريد تنفيذه أدناه:</p><p><i>سيُستبدل بـ %all قائمة ملفات</"
 "i></p>"
 
-#: MainWindow/RunDialog.cpp:41
+#: MainWindow/RunDialog.cpp:40
 #, no-c-format, kde-format
 msgid ""
 "<p>Enter the command you want to run on your image file(s). KPhotoAlbum will "
@@ -4000,7 +4000,7 @@ msgstr ""
 "أدخلت:</p><ul><li>cp %all /tmp</li></ul><p>فسينسخ الملفات التي حددتها إلى "
 "مجلد /tmp</p><p>يمكنك أيضًا استخدام %each لتشغيل الأمر مرة واحدة لكل ملف.</p>"
 
-#: MainWindow/RunDialog.cpp:75
+#: MainWindow/RunDialog.cpp:74
 #, no-c-format, kde-format
 msgctxt ""
 "As in 'Execute a command and replace any occurrence of %all with the "
@@ -4008,7 +4008,7 @@ msgctxt ""
 msgid "%all"
 msgstr "%الكل"
 
-#: MainWindow/RunDialog.cpp:77
+#: MainWindow/RunDialog.cpp:76
 #, no-c-format, kde-format
 msgctxt ""
 "As in 'Execute a command for each selected file in turn and replace any "
@@ -4140,7 +4140,7 @@ msgstr "اختر العلامات التي تحذف من كلّ الصور و ا
 msgid "Select None"
 msgstr "اختر لا شيئ"
 
-#: MainWindow/WelcomeDialog.cpp:46
+#: MainWindow/WelcomeDialog.cpp:45
 #, kde-format
 msgid ""
 "<h1>Welcome to KPhotoAlbum</h1><p>KPhotoAlbum is a powerful free tool to "
@@ -4161,22 +4161,22 @@ msgstr ""
 "الأمان لتجربة دفتر الصور أولاً بمجموعة صور مُعدة مسبقًا، اضغط على زر تحميل "
 "العرض التوضيحي.</p>"
 
-#: MainWindow/WelcomeDialog.cpp:61
+#: MainWindow/WelcomeDialog.cpp:60
 #, kde-format
 msgid "Create My Own Database..."
 msgstr "أنشئ قاعدة البيانات الخاصة بك..."
 
-#: MainWindow/WelcomeDialog.cpp:64
+#: MainWindow/WelcomeDialog.cpp:63
 #, kde-format
 msgid "Load Demo"
 msgstr "حمّل العرض التوضيحي"
 
-#: MainWindow/WelcomeDialog.cpp:67
+#: MainWindow/WelcomeDialog.cpp:66
 #, kde-format
 msgid "Check My Feature Set"
 msgstr "استكشف مجموعة مميزاتي"
 
-#: MainWindow/WelcomeDialog.cpp:101
+#: MainWindow/WelcomeDialog.cpp:100
 #, kde-format
 msgid ""
 "<h1>KPhotoAlbum database creation</h1><p>You need to show where the photos "
@@ -4198,27 +4198,27 @@ msgstr ""
 "قاعدة بيانات موجودة لـ دفتر الصور ومجلد صور في مكان ما، فوجّه دفتر الصور إلى "
 "ذلك المجلد لبدء استخدامها مرة أخرى.</p>"
 
-#: MainWindow/WelcomeDialog.cpp:116
+#: MainWindow/WelcomeDialog.cpp:115
 #, kde-format
 msgid "Image/Video root folder: "
 msgstr "المجلد الجذري للصور/الفيديو: "
 
-#: MainWindow/WelcomeDialog.cpp:156
+#: MainWindow/WelcomeDialog.cpp:155
 #, kde-format
 msgid "Folder does not exist, create it?"
 msgstr "المجلد غير موجود، هل تنشئه؟"
 
-#: MainWindow/WelcomeDialog.cpp:166
+#: MainWindow/WelcomeDialog.cpp:165
 #, kde-format
 msgid "Could not create folder %1"
 msgstr "تعذّر إنشاء المجلد %1"
 
-#: MainWindow/WelcomeDialog.cpp:171
+#: MainWindow/WelcomeDialog.cpp:170
 #, kde-format
 msgid "%1 exists, but is not a folder"
 msgstr "%1 موجود، ولكنه ليس مجلدًا"
 
-#: MainWindow/WelcomeDialog.cpp:187
+#: MainWindow/WelcomeDialog.cpp:186
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum does not seem to be built with support for all its features. "
@@ -4231,22 +4231,22 @@ msgstr ""
 "المشكلة، يرجى اختيار <b>المساعدة</b>|<b>حالة ميزات دفتر الصور</b> من القوائم."
 "</p>"
 
-#: MainWindow/WelcomeDialog.cpp:192 MainWindow/WelcomeDialog.cpp:195
+#: MainWindow/WelcomeDialog.cpp:191 MainWindow/WelcomeDialog.cpp:194
 #, kde-format
 msgid "Feature Check"
 msgstr "استكشف الميزات"
 
-#: MainWindow/WelcomeDialog.cpp:194
+#: MainWindow/WelcomeDialog.cpp:193
 #, kde-format
 msgid "Congratulations: all dynamic features have been enabled."
 msgstr "مبارك: مكّنت جميع الميزات الديناميكية."
 
-#: MainWindow/Window.cpp:278
+#: MainWindow/Window.cpp:274
 #, kde-format
 msgid "Searching for New Files"
 msgstr "يبحث عن ملفات جديدة"
 
-#: MainWindow/Window.cpp:321
+#: MainWindow/Window.cpp:317
 #, kde-format
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
@@ -4262,24 +4262,24 @@ msgstr ""
 "القرص؛ من ناحية أخرى، إذا كنت ترغب في العودة وتجربة العرض التوضيحي مرة أخرى، "
 "فقد ترغب في الاحتفاظ بها مع التغييرات التي أجريتها خلال هذه الجلسة.</p>"
 
-#: MainWindow/Window.cpp:326
+#: MainWindow/Window.cpp:322
 #, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "احذف قاعدة بيانات العرض التوضيحي"
 
-#: MainWindow/Window.cpp:342
+#: MainWindow/Window.cpp:338
 #, kde-format
 msgid "Do you want to save the changes?"
 msgstr "هل تريد حفظ التغييرات ؟"
 
-#: MainWindow/Window.cpp:343
+#: MainWindow/Window.cpp:339
 #, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
 msgstr "حفظ التغييرات ؟"
 
-#: MainWindow/Window.cpp:400
+#: MainWindow/Window.cpp:396
 #, kde-format
 msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
@@ -4288,326 +4288,326 @@ msgstr ""
 "بعض الصور المحددة تنتمي فعلًا إلى مجموعة مكدسة. هل تريد إزالتها من مجموعاتها "
 "المكدسة وإنشاء مجموعة جديدة تمامًا؟"
 
-#: MainWindow/Window.cpp:403
+#: MainWindow/Window.cpp:399
 #, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
 msgstr "مشكلة في التكديس"
 
-#: MainWindow/Window.cpp:413
+#: MainWindow/Window.cpp:409
 #, kde-format
 msgid "Unknown error, stack creation failed."
 msgstr "خطأ غير معروف، فشل إنشاء المكدس."
 
-#: MainWindow/Window.cpp:414
+#: MainWindow/Window.cpp:410
 #, kde-format
 msgid "Stacking Error"
 msgstr "خطأ في التكديس"
 
-#: MainWindow/Window.cpp:493 MainWindow/Window.cpp:625
-#: MainWindow/Window.cpp:1341 MainWindow/Window.cpp:1438
+#: MainWindow/Window.cpp:489 MainWindow/Window.cpp:621
+#: MainWindow/Window.cpp:1337 MainWindow/Window.cpp:1434
 #, kde-format
 msgid "No item is selected."
 msgstr "لم تحدد عنصر"
 
-#: MainWindow/Window.cpp:493 MainWindow/Window.cpp:625
-#: MainWindow/Window.cpp:1341 MainWindow/Window.cpp:1439
+#: MainWindow/Window.cpp:489 MainWindow/Window.cpp:621
+#: MainWindow/Window.cpp:1337 MainWindow/Window.cpp:1435
 #, kde-format
 msgid "No Selection"
 msgstr "لا خيار"
 
-#: MainWindow/Window.cpp:545
+#: MainWindow/Window.cpp:541
 #, kde-format
 msgid "Saving..."
 msgstr "يحفظ..."
 
-#: MainWindow/Window.cpp:550
+#: MainWindow/Window.cpp:546
 #, kde-format
 msgid "Saving... Done"
 msgstr "انتهيت من الحفظ"
 
-#: MainWindow/Window.cpp:698
+#: MainWindow/Window.cpp:694
 #, kde-format
 msgid "There are no images to be shown."
 msgstr "لا توجد صور لعرضها."
 
-#: MainWindow/Window.cpp:771 MainWindow/Window.cpp:912
+#: MainWindow/Window.cpp:767 MainWindow/Window.cpp:908
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "تقييد العرض إلى التحديد"
 
-#: MainWindow/Window.cpp:772
+#: MainWindow/Window.cpp:768
 #, kde-format
 msgid "No images are selected!"
 msgstr "لم تُحدد أي صور!"
 
-#: MainWindow/Window.cpp:785
+#: MainWindow/Window.cpp:781
 #, kde-format
 msgid "Generate HTML..."
 msgstr "توليد لغة علامات النص الفائق HTML"
 
-#: MainWindow/Window.cpp:789
+#: MainWindow/Window.cpp:785
 #, kde-format
 msgid "Import..."
 msgstr "استورد..."
 
-#: MainWindow/Window.cpp:792
+#: MainWindow/Window.cpp:788
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "صدّر/انسخ الصور..."
 
-#: MainWindow/Window.cpp:821
+#: MainWindow/Window.cpp:817
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "امحُ المحدد"
 
-#: MainWindow/Window.cpp:829
+#: MainWindow/Window.cpp:825
 #, kde-format
 msgid "Remove Tokens..."
 msgstr "أزِل الرموز..."
 
-#: MainWindow/Window.cpp:832
+#: MainWindow/Window.cpp:828
 #, kde-format
 msgid "Open List of Files..."
 msgstr "افتح قائمة الملفات..."
 
-#: MainWindow/Window.cpp:835
+#: MainWindow/Window.cpp:831
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "أضف تعليقات على العناصر الفردية"
 
-#: MainWindow/Window.cpp:839
+#: MainWindow/Window.cpp:835
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "أضف تعليقات على العناصر المتعددة بوقت واحد"
 
-#: MainWindow/Window.cpp:843
+#: MainWindow/Window.cpp:839
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "ادمج الصور في مكدس"
 
-#: MainWindow/Window.cpp:847
+#: MainWindow/Window.cpp:843
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "أزِل الصور من المكدس"
 
-#: MainWindow/Window.cpp:850
+#: MainWindow/Window.cpp:846
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "عيّن كأول صورة في المكدس"
 
-#: MainWindow/Window.cpp:863
+#: MainWindow/Window.cpp:859
 #, kde-format
 msgid "View"
 msgstr "اعرض"
 
-#: MainWindow/Window.cpp:868
+#: MainWindow/Window.cpp:864
 #, kde-format
 msgid "View (In New Window)"
 msgstr "اعرض ( في نافذة جديدة )"
 
-#: MainWindow/Window.cpp:873
+#: MainWindow/Window.cpp:869
 #, kde-format
 msgid "Run Slide Show"
 msgstr "شغّل عرض الشرائح"
 
-#: MainWindow/Window.cpp:880
+#: MainWindow/Window.cpp:876
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "شغّل عرض الشرائح العشوائي"
 
-#: MainWindow/Window.cpp:888
+#: MainWindow/Window.cpp:884
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "اطو جميع المكدسات"
 
-#: MainWindow/Window.cpp:894
+#: MainWindow/Window.cpp:890
 #, kde-format
 msgid "Expand all stacks"
 msgstr "وسّع جميع المكدسات"
 
-#: MainWindow/Window.cpp:899
+#: MainWindow/Window.cpp:895
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "اعرض ال&أقدم أولاً"
 
-#: MainWindow/Window.cpp:904
+#: MainWindow/Window.cpp:900
 #, kde-format
 msgid "Show &Newest First"
 msgstr "اعرض الأ&حدث أولاً"
 
-#: MainWindow/Window.cpp:909
+#: MainWindow/Window.cpp:905
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "أفرز الخيار حسب التاريخ و الوقت"
 
-#: MainWindow/Window.cpp:917
+#: MainWindow/Window.cpp:913
 #, kde-format
 msgid "Jump to Context"
 msgstr "أقفز إلى السياق"
 
-#: MainWindow/Window.cpp:925
+#: MainWindow/Window.cpp:921
 #, kde-format
 msgid "Lock Images"
 msgstr "أقفل الصور"
 
-#: MainWindow/Window.cpp:929
+#: MainWindow/Window.cpp:925
 #, kde-format
 msgid "Unlock"
 msgstr "فك القفل"
 
-#: MainWindow/Window.cpp:932
+#: MainWindow/Window.cpp:928
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "فك قفل كلّ العناصر الأخرى"
 
-#: MainWindow/Window.cpp:935
+#: MainWindow/Window.cpp:931
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "فك قفل طاقم العناصر الحالي"
 
-#: MainWindow/Window.cpp:938
+#: MainWindow/Window.cpp:934
 #, kde-format
 msgid "Configure Current View"
 msgstr "اضبط العرض الحالي"
 
-#: MainWindow/Window.cpp:946
+#: MainWindow/Window.cpp:942
 #, kde-format
 msgid "Tree"
 msgstr "شجرة"
 
-#: MainWindow/Window.cpp:951
+#: MainWindow/Window.cpp:947
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "شجرة مع أيقونات المستخدم"
 
-#: MainWindow/Window.cpp:956
+#: MainWindow/Window.cpp:952
 #, kde-format
 msgid "Icons"
 msgstr "الأيقونات"
 
-#: MainWindow/Window.cpp:963
+#: MainWindow/Window.cpp:959
 #, kde-format
 msgid "Use natural sort order"
 msgstr "استخدام ترتيب الفرز الطبيعي"
 
-#: MainWindow/Window.cpp:973
+#: MainWindow/Window.cpp:969
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "اعرض تلميحات الأدوات في نافذة المصغرات"
 
-#: MainWindow/Window.cpp:978
+#: MainWindow/Window.cpp:974
 #, kde-format
 msgid "Show Labels in Thumbnails Window"
 msgstr "أظهر التسميات في نافذة الصور المصغرة"
 
-#: MainWindow/Window.cpp:988
+#: MainWindow/Window.cpp:984
 #, kde-format
 msgid "Show Categories in Thumbnails Window"
 msgstr "أظهر الفئات في نافذة الصور المصغرة"
 
-#: MainWindow/Window.cpp:1005
+#: MainWindow/Window.cpp:1001
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr "اختر مخطط الألوان"
 
-#: MainWindow/Window.cpp:1012
+#: MainWindow/Window.cpp:1008
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "اعرض الصور و المرئيات غير الموجودة على القرص"
 
-#: MainWindow/Window.cpp:1015
+#: MainWindow/Window.cpp:1011
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "اعرض الصور و المرئيات ذي التواريخ غير الكاملة..."
 
-#: MainWindow/Window.cpp:1018
+#: MainWindow/Window.cpp:1014
 #, kde-format
 msgid "Merge duplicates..."
 msgstr "ادمج النسخ المكررة..."
 
-#: MainWindow/Window.cpp:1020 MainWindow/Window.cpp:1075
+#: MainWindow/Window.cpp:1016 MainWindow/Window.cpp:1071
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "حدّث الصور المصغرة المحددة ومجموعات التحقق"
 
-#: MainWindow/Window.cpp:1024
+#: MainWindow/Window.cpp:1020
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "إعادة المسح للصور و المرئيات"
 
-#: MainWindow/Window.cpp:1027
+#: MainWindow/Window.cpp:1023
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "أعد إنشاء قاعدة بيانات بحث Exif"
 
-#: MainWindow/Window.cpp:1030
+#: MainWindow/Window.cpp:1026
 #, kde-format
 msgid "Read Metadata from Files..."
 msgstr "اقرأ البيانات الوصفية من الملفات…"
 
-#: MainWindow/Window.cpp:1033
+#: MainWindow/Window.cpp:1029
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "افرز الكل حسب التاريخ والوقت"
 
-#: MainWindow/Window.cpp:1037
+#: MainWindow/Window.cpp:1033
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "كدّس الصور المحددة آليًا..."
 
-#: MainWindow/Window.cpp:1040
+#: MainWindow/Window.cpp:1036
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "ابنِ المصغرات"
 
-#: MainWindow/Window.cpp:1043
+#: MainWindow/Window.cpp:1039
 #, kde-format
 msgid "Statistics..."
 msgstr "الإحصائيّات..."
 
-#: MainWindow/Window.cpp:1047
+#: MainWindow/Window.cpp:1043
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "ضع علامة غير موسوم"
 
-#: MainWindow/Window.cpp:1057
+#: MainWindow/Window.cpp:1053
 #, kde-format
 msgid "Enable All Messages"
 msgstr "مكّن كلّ الرسائل"
 
-#: MainWindow/Window.cpp:1061
+#: MainWindow/Window.cpp:1057
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "شغّل عرض دفتر الصور التوضيحي"
 
-#: MainWindow/Window.cpp:1065
+#: MainWindow/Window.cpp:1061
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "حالة الميزات لـ دفتر الصور"
 
-#: MainWindow/Window.cpp:1068
+#: MainWindow/Window.cpp:1064
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "اعرض فيديوهات العرض التوضيحي"
 
-#: MainWindow/Window.cpp:1072 Viewer/ViewerWidget.cpp:196
+#: MainWindow/Window.cpp:1068 Viewer/ViewerWidget.cpp:196
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "أظهر معلومات Exif وبيانات وصفية للملف"
 
-#: MainWindow/Window.cpp:1078
+#: MainWindow/Window.cpp:1074
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "استخدام الصورة المصغرة التالية للفيديو"
 
-#: MainWindow/Window.cpp:1082
+#: MainWindow/Window.cpp:1078
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "استخدام الصورة المصغرة السابقة للفيديو"
 
-#: MainWindow/Window.cpp:1086 MainWindow/Window.cpp:1319
+#: MainWindow/Window.cpp:1082 MainWindow/Window.cpp:1315
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
@@ -4618,7 +4618,7 @@ msgstr[3] "انسخ صور إلى ..."
 msgstr[4] "انسخ صور إلى ..."
 msgstr[5] "انسخ صور إلى ..."
 
-#: MainWindow/Window.cpp:1090 MainWindow/Window.cpp:1323
+#: MainWindow/Window.cpp:1086 MainWindow/Window.cpp:1319
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
@@ -4629,28 +4629,28 @@ msgstr[3] "اربط صور بـ ..."
 msgstr[4] "اربط صور بـ ..."
 msgstr[5] "اربط صور بـ ..."
 
-#: MainWindow/Window.cpp:1114
+#: MainWindow/Window.cpp:1110
 #, kde-format
 msgid "Auto saving...."
 msgstr "يحفظ آليًّا..."
 
-#: MainWindow/Window.cpp:1117
+#: MainWindow/Window.cpp:1113
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "انتهى الحفظ الآليّ...."
 
-#: MainWindow/Window.cpp:1217
+#: MainWindow/Window.cpp:1213
 #, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
 msgstr "<p>هل تريد إنشاء ملف قاعدة البيانات هذا؟<br />%1</p>"
 
-#: MainWindow/Window.cpp:1220
+#: MainWindow/Window.cpp:1216
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "أنشئ قاعدة بيانات"
 
-#: MainWindow/Window.cpp:1264
+#: MainWindow/Window.cpp:1260
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4662,33 +4662,33 @@ msgstr ""
 "في قاعدة البيانات.</p><p>يرجى مراجعة إعداد الوسم غير الموسوم الخاص بك تحت "
 "<interface>الإعدادات|ضبط دفتر الصور...|الفئات</interface></p>"
 
-#: MainWindow/Window.cpp:1390 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1386 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "عام"
 
-#: MainWindow/Window.cpp:1391 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "المستعرض"
 
-#: MainWindow/Window.cpp:1392
+#: MainWindow/Window.cpp:1388
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "شريط التاريخ"
 
-#: MainWindow/Window.cpp:1395
+#: MainWindow/Window.cpp:1391
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "حوار إضافة التعليق"
 
-#: MainWindow/Window.cpp:1396 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1392 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "عرض المصغرات"
 
-#: MainWindow/Window.cpp:1539
+#: MainWindow/Window.cpp:1535
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4697,13 +4697,13 @@ msgstr ""
 "<p>هل تريد حقًا تمكين جميع مربعات الرسائل حيث حددت سابقًا خانة الاختيار 'عدم "
 "الإظهار مرة أخرى'؟</p>"
 
-#: MainWindow/Window.cpp:1541
+#: MainWindow/Window.cpp:1537
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "صفّر الحوارات المخفية"
 
-#: MainWindow/Window.cpp:1555
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4719,32 +4719,32 @@ msgstr ""
 "الإبلاغ عن هذا كخطأ.</p><p>سيستمر دفتر الصور في التنفيذ، ولكن ليس من "
 "المستبعد تمامًا أن يتعطل لاحقًا بسبب عدم إجراء make install.</p>"
 
-#: MainWindow/Window.cpp:1555
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid "Internal Error"
 msgstr "خطأ داخليّ"
 
-#: MainWindow/Window.cpp:1566
+#: MainWindow/Window.cpp:1562
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "شارك الصور بنجاح. ينسخ الموقع إلى الحافظة..."
 
-#: MainWindow/Window.cpp:1569
+#: MainWindow/Window.cpp:1565
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "شارك الصور بنجاح."
 
-#: MainWindow/Window.cpp:1574
+#: MainWindow/Window.cpp:1570
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "فشلت مشاركة الصور مع الرسالة: %1"
 
-#: MainWindow/Window.cpp:1625
+#: MainWindow/Window.cpp:1621
 #, kde-format
 msgid "Open List of Files"
 msgstr "افتح قائمة الملفات"
 
-#: MainWindow/Window.cpp:1626
+#: MainWindow/Window.cpp:1622
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4753,33 +4753,33 @@ msgstr ""
 "يمكنك فتح مجموعة من الملفات في قاعدة بيانات دفتر الصور عن طريق سرد الملفات "
 "هنا."
 
-#: MainWindow/Window.cpp:1640
+#: MainWindow/Window.cpp:1636
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "لم يعثر على أي صور تطابق إدخالك."
 
-#: MainWindow/Window.cpp:1640
+#: MainWindow/Window.cpp:1636
 #, kde-format
 msgid "No Matches"
 msgstr "لا يوجد تطابق"
 
-#: MainWindow/Window.cpp:1812
+#: MainWindow/Window.cpp:1808
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "يعيد قراءة معلومات Exif من جميع الصور"
 
-#: MainWindow/Window.cpp:1839
+#: MainWindow/Window.cpp:1835
 #, kde-format
 msgid "No duplicate files were found."
 msgstr "لم يُعثَر على أي ملفات مكررة"
 
-#: MainWindow/Window.cpp:1849
+#: MainWindow/Window.cpp:1845
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "عرض الصورة المصغرة: %1 بكسل (حجم التخزين: %2 بكسل)"
 
-#: MainWindow/Window.cpp:1902
+#: MainWindow/Window.cpp:1898
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4789,7 +4789,7 @@ msgstr ""
 "<p>تعذر العثور على ffmpeg على النظام.</p><p>بدونه، لن يتمكن دفتر الصور من "
 "عرض الصور المصغرة للفيديو وأطوال الفيديو. يرجى تثبيت حزمة ffmpeg</p>"
 
-#: MainWindow/Window.cpp:1905
+#: MainWindow/Window.cpp:1901
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "الصور المصغرة للفيديو غير متوفرة"
@@ -4967,27 +4967,27 @@ msgstr "أدخل تاريخًا..."
 msgid "<i>Select an item on the left to edit the birthday</i>"
 msgstr "<i>حدد عنصرًا على اليسار لتعديل تاريخ الميلاد</i>"
 
-#: Settings/CategoryPage.cpp:49
+#: Settings/CategoryPage.cpp:48
 #, kde-format
 msgid "Category Settings"
 msgstr "إعدادات الفئة"
 
-#: Settings/CategoryPage.cpp:70
+#: Settings/CategoryPage.cpp:69
 #, kde-format
 msgid "New"
 msgstr "جديد"
 
-#: Settings/CategoryPage.cpp:78
+#: Settings/CategoryPage.cpp:77
 #, kde-format
 msgid "Rename"
 msgstr "غيّر الاسم"
 
-#: Settings/CategoryPage.cpp:111
+#: Settings/CategoryPage.cpp:110
 #, kde-format
 msgid "Positionable tags:"
 msgstr "الوسوم القابلة للتحديد:"
 
-#: Settings/CategoryPage.cpp:113
+#: Settings/CategoryPage.cpp:112
 #, kde-format
 msgid ""
 "Tags in this category can be\n"
@@ -4996,37 +4996,37 @@ msgstr ""
 "يمكن ربط الوسوم في هذه الفئة\n"
 "بمناطق داخل الصور"
 
-#: Settings/CategoryPage.cpp:120
+#: Settings/CategoryPage.cpp:119
 #, kde-format
 msgid "Icon:"
 msgstr "الأيقونة:"
 
-#: Settings/CategoryPage.cpp:140
+#: Settings/CategoryPage.cpp:139
 #, kde-format
 msgid "Preferred view:"
 msgstr "العرض المفضل:"
 
-#: Settings/CategoryPage.cpp:145
+#: Settings/CategoryPage.cpp:144
 #, kde-format
 msgid "List View"
 msgstr "عرض مسرد"
 
-#: Settings/CategoryPage.cpp:146
+#: Settings/CategoryPage.cpp:145
 #, kde-format
 msgid "List View with Custom Thumbnails"
 msgstr "عرض قائمة مع مصغرات مخصصة"
 
-#: Settings/CategoryPage.cpp:147
+#: Settings/CategoryPage.cpp:146
 #, kde-format
 msgid "Icon View"
 msgstr "عرض أيقوني"
 
-#: Settings/CategoryPage.cpp:148
+#: Settings/CategoryPage.cpp:147
 #, kde-format
 msgid "Icon View with Custom Thumbnails"
 msgstr "عرض أيقونة مع مصغرات مخصصة"
 
-#: Settings/CategoryPage.cpp:158
+#: Settings/CategoryPage.cpp:157
 #, kde-format
 msgid ""
 "<font color='red'>The database has unsaved changes. As long as those are not "
@@ -5037,22 +5037,22 @@ msgstr ""
 "هذه التغييرات،<br/>لا يمكن تغيير أسماء الفئات ولا يمكن إضافة فئات جديدة.</"
 "font>"
 
-#: Settings/CategoryPage.cpp:166
+#: Settings/CategoryPage.cpp:165
 #, kde-format
 msgid "Save the DB now"
 msgstr "احفظ قاعدة البيانات الآن"
 
-#: Settings/CategoryPage.cpp:206
+#: Settings/CategoryPage.cpp:205
 #, kde-format
 msgid "Settings for category <b>%1</b>"
 msgstr "إعدادات الفئة <b>%1</b>"
 
-#: Settings/CategoryPage.cpp:209
+#: Settings/CategoryPage.cpp:208
 #, kde-format
 msgid "<i>Pending change: rename to \"%1\"</i>"
 msgstr "<i>تغيير معلق: إعادة تسمية إلى \"%1\"</i>"
 
-#: Settings/CategoryPage.cpp:263
+#: Settings/CategoryPage.cpp:262
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>\"%2\" is a "
@@ -5062,12 +5062,12 @@ msgstr ""
 "<p>لا يمكن تغيير اسم الفئة \"%1\" إلى \"%2\":</p><p>\"%2\" هو اسم فئة خاص "
 "محجوز ولا يمكن استخدامه لفئة عادية.</p>"
 
-#: Settings/CategoryPage.cpp:267 Settings/CategoryPage.cpp:278
+#: Settings/CategoryPage.cpp:266 Settings/CategoryPage.cpp:277
 #, kde-format
 msgid "Invalid category name"
 msgstr "اسم فئة غير صالح"
 
-#: Settings/CategoryPage.cpp:275
+#: Settings/CategoryPage.cpp:274
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>A category with "
@@ -5076,7 +5076,7 @@ msgstr ""
 "<p>لا يمكن تغيير اسم الفئة \"%1\" إلى \"%2\":</p><p>فئة بهذا الاسم موجودة "
 "فعلًا.</p>"
 
-#: Settings/CategoryPage.cpp:292
+#: Settings/CategoryPage.cpp:291
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>There's a "
@@ -5086,12 +5086,12 @@ msgstr ""
 "<p>لا يمكن تغيير اسم الفئة \"%1\" إلى \"%2\":</p><p>يوجد إجراء إعادة تسمية "
 "معلق على الفئة \"%2\". يرجى حفظ هذا التغيير أولاً.</p>"
 
-#: Settings/CategoryPage.cpp:296
+#: Settings/CategoryPage.cpp:295
 #, kde-format
 msgid "Unsaved pending renaming action"
 msgstr "إجراء إعادة تسمية معلق غير محفوظ"
 
-#: Settings/CategoryPage.cpp:327
+#: Settings/CategoryPage.cpp:326
 #, kde-format
 msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
@@ -5100,28 +5100,28 @@ msgstr ""
 "<p>هل تريد حقًا جعل \"%1\" غير قابلة للتحديد؟</p><p>سيتجاهل جميع المناطق "
 "المرتبطة بهذه الفئة!</p>"
 
-#: Settings/CategoryPage.cpp:335
+#: Settings/CategoryPage.cpp:334
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
 msgstr "أكّد إجراء"
 
-#: Settings/CategoryPage.cpp:372
+#: Settings/CategoryPage.cpp:371
 #, kde-format
 msgid "New category"
 msgstr "فئة جديدة"
 
-#: Settings/CategoryPage.cpp:404
+#: Settings/CategoryPage.cpp:403
 #, kde-format
 msgid "<p>Really delete category \"%1\"?</p>"
 msgstr "<p>هل تريد حقًا حذف الفئة \"%1\"؟</p>"
 
-#: Settings/CategoryPage.cpp:408
+#: Settings/CategoryPage.cpp:407
 #, kde-format
 msgid "Confirm Action"
 msgstr "أكد الإجراء"
 
-#: Settings/CategoryPage.cpp:521
+#: Settings/CategoryPage.cpp:520
 #, kde-format
 msgid "<i>Choose a category to edit it</i>"
 msgstr "<i>اختر فئة لتعديلها</i>"
@@ -6403,7 +6403,7 @@ msgstr ""
 "نصيحة: استخدم <shortcut>Alt+Shift+<placeholder>A-Z</placeholder></shortcut> "
 "لتبديل مرشح لذلك الرمز."
 
-#: ThumbnailView/ThumbnailDND.cpp:93
+#: ThumbnailView/ThumbnailDND.cpp:92
 #, kde-format
 msgid ""
 "<p><b>Really reorder thumbnails?</b></p><p>By dragging images around in the "
@@ -6418,7 +6418,7 @@ msgstr ""
 "فيجب استخدام <b>الصيانة -&gt; فرز الكل حسب التاريخ والوقت</b> أو <b>عرض -"
 "&gt; فرز المحدد حسب التاريخ والوقت</b>.</p>"
 
-#: ThumbnailView/ThumbnailDND.cpp:100
+#: ThumbnailView/ThumbnailDND.cpp:99
 #, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"

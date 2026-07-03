@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-30 00:41+0000\n"
+"POT-Creation-Date: 2026-07-03 00:43+0000\n"
 "PO-Revision-Date: 2026-07-01 05:24+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -28,7 +28,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "Temuri.doghonadze@gmail.com"
 
-#: AnnotationDialog/AreaTagSelectDialog.cpp:87
+#: AnnotationDialog/AreaTagSelectDialog.cpp:86
 #, kde-format
 msgid "Tag is already used for another area"
 msgstr "ჭდე უკვე გამოყენებულია სხვა ადგილას"
@@ -48,13 +48,13 @@ msgstr "დღეს"
 msgid "yesterday"
 msgstr "გუშინ"
 
-#: AnnotationDialog/DescriptionEdit.cpp:15 AnnotationDialog/Dialog.cpp:144
-#: HTMLGenerator/HTMLDialog.cpp:144 ImportExport/MD5CheckPage.cpp:66
+#: AnnotationDialog/DescriptionEdit.cpp:15 AnnotationDialog/Dialog.cpp:143
+#: HTMLGenerator/HTMLDialog.cpp:142 ImportExport/MD5CheckPage.cpp:66
 #, kde-format
 msgid "Description"
 msgstr "აღწერა"
 
-#: AnnotationDialog/Dialog.cpp:111
+#: AnnotationDialog/Dialog.cpp:110
 #, kde-format
 msgid ""
 "(You have differing descriptions on individual images.  Enter text to append "
@@ -63,27 +63,27 @@ msgstr ""
 "(გაქვთ განსხვავებული აღწერები თითოეული გამოსახულებისთვის.  შეიყვანეთ ტექსტი "
 "აღწერის ბოლოში მისაწერად, ან მისი ჩანაცვლებისთვის)"
 
-#: AnnotationDialog/Dialog.cpp:136
+#: AnnotationDialog/Dialog.cpp:135
 #, kde-format
 msgid "Label and Dates"
 msgstr "ჭდე და თარიღები"
 
-#: AnnotationDialog/Dialog.cpp:141
+#: AnnotationDialog/Dialog.cpp:140
 #, kde-format
 msgid "Image Preview"
 msgstr "გამოსახულების მინიატურა"
 
-#: AnnotationDialog/Dialog.cpp:165 DB/ImageDB.cpp:396
+#: AnnotationDialog/Dialog.cpp:164 DB/ImageDB.cpp:396
 #, kde-format
 msgid "Cancel"
 msgstr "გაუქმება"
 
-#: AnnotationDialog/Dialog.cpp:170 AnnotationDialog/Dialog.cpp:172
+#: AnnotationDialog/Dialog.cpp:169 AnnotationDialog/Dialog.cpp:171
 #, kde-format
 msgid "Map"
 msgstr "რუკა"
 
-#: AnnotationDialog/Dialog.cpp:178
+#: AnnotationDialog/Dialog.cpp:177
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -93,63 +93,63 @@ msgstr ""
 "რუკის ვიჯეტი საშუალება გაძლევთ, იხილოთ გამოსახულების მდებარეობა, თუ Exif "
 "ინფორმაცია GPS კოორდინატებს შეიცავს."
 
-#: AnnotationDialog/Dialog.cpp:226
+#: AnnotationDialog/Dialog.cpp:225
 #, kde-format
 msgid "Revert This Item"
 msgstr "ამ ელემენტის დაბრუნება"
 
-#: AnnotationDialog/Dialog.cpp:232 AnnotationDialog/Dialog.cpp:1376
+#: AnnotationDialog/Dialog.cpp:231 AnnotationDialog/Dialog.cpp:1375
 #, kde-format
 msgid "Clear Form"
 msgstr "ფორმის ფასუფთავება"
 
-#: AnnotationDialog/Dialog.cpp:235 AnnotationDialog/Dialog.cpp:1379
+#: AnnotationDialog/Dialog.cpp:234 AnnotationDialog/Dialog.cpp:1378
 #, kde-format
 msgid "Options..."
 msgstr "მორგება..."
 
-#: AnnotationDialog/Dialog.cpp:240
+#: AnnotationDialog/Dialog.cpp:239
 #, kde-format
 msgid "&Done"
 msgstr "&შესრულებულია"
 
-#: AnnotationDialog/Dialog.cpp:243
+#: AnnotationDialog/Dialog.cpp:242
 #, kde-format
 msgid "Continue &Later"
 msgstr "&მოგვიანებით გაგრძელება"
 
-#: AnnotationDialog/Dialog.cpp:251 AnnotationDialog/Dialog.cpp:873
+#: AnnotationDialog/Dialog.cpp:250 AnnotationDialog/Dialog.cpp:872
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
 msgstr "&ძებნა"
 
-#: AnnotationDialog/Dialog.cpp:320
+#: AnnotationDialog/Dialog.cpp:319
 #, kde-format
 msgid "Label: "
 msgstr "ჭდე: "
 
-#: AnnotationDialog/Dialog.cpp:324 ImportExport/MD5CheckPage.cpp:65
+#: AnnotationDialog/Dialog.cpp:323 ImportExport/MD5CheckPage.cpp:65
 #, kde-format
 msgid "Label"
 msgstr "ჭდე"
 
-#: AnnotationDialog/Dialog.cpp:333
+#: AnnotationDialog/Dialog.cpp:332
 #, kde-format
 msgid "Date: "
 msgstr "თარიღი: "
 
-#: AnnotationDialog/Dialog.cpp:349
+#: AnnotationDialog/Dialog.cpp:348
 #, kde-format
 msgid "Time: "
 msgstr "დრო: "
 
-#: AnnotationDialog/Dialog.cpp:355
+#: AnnotationDialog/Dialog.cpp:354
 #, kde-format
 msgid "Use Fuzzy Date"
 msgstr "არაზუსტი თარიღის გამოყენება"
 
-#: AnnotationDialog/Dialog.cpp:357
+#: AnnotationDialog/Dialog.cpp:356
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -167,82 +167,82 @@ msgstr ""
 "გადაღებულია ფოტო (მაგ., თუ ფოტო ანალოგური კამერიდანაა), მაშინ უნდა "
 "<interface>გამოიყენოთ ბუნდოვანი თარიღი</interface>.</para>"
 
-#: AnnotationDialog/Dialog.cpp:372
+#: AnnotationDialog/Dialog.cpp:371
 #, kde-format
 msgid "Minimum megapixels:"
 msgstr "მინიმუმ მეგაპიქსელი:"
 
-#: AnnotationDialog/Dialog.cpp:382
+#: AnnotationDialog/Dialog.cpp:381
 #, kde-format
 msgid "Maximum megapixels:"
 msgstr "მაქსიმუმ მეგაპიქსელი:"
 
-#: AnnotationDialog/Dialog.cpp:395
+#: AnnotationDialog/Dialog.cpp:394
 #, kde-format
 msgid "Rating:"
 msgstr "შეფასება:"
 
-#: AnnotationDialog/Dialog.cpp:403
+#: AnnotationDialog/Dialog.cpp:402
 #, kde-format
 msgid "Rating search mode:"
 msgstr "შეფასები ძებნის რეჟიმი:"
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "=="
 msgstr "=="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid ">="
 msgstr ">="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "<="
 msgstr "<="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "!="
 msgstr "!="
 
-#: AnnotationDialog/Dialog.cpp:415
+#: AnnotationDialog/Dialog.cpp:414
 #, kde-format
 msgid "File Name Pattern: "
 msgstr "ფაილის სახელის შაბლონი: "
 
-#: AnnotationDialog/Dialog.cpp:418
+#: AnnotationDialog/Dialog.cpp:417
 #, kde-format
 msgid "File Name Pattern"
 msgstr "ფაილის სახელის შაბლონი"
 
-#: AnnotationDialog/Dialog.cpp:423
+#: AnnotationDialog/Dialog.cpp:422
 #, kde-format
 msgid "Search only for RAW files"
 msgstr "მხოლოდ RAW ფაილების მოძებნა"
 
-#: AnnotationDialog/Dialog.cpp:440
+#: AnnotationDialog/Dialog.cpp:439
 #, kde-format
 msgid "Append"
 msgstr "ბოლოში მიწერა"
 
-#: AnnotationDialog/Dialog.cpp:441
+#: AnnotationDialog/Dialog.cpp:440
 #, kde-format
 msgid "Append new text to each description"
 msgstr "ახალი ტექსტის მიწერა თითოეული აღწერისთვის"
 
-#: AnnotationDialog/Dialog.cpp:442
+#: AnnotationDialog/Dialog.cpp:441
 #, kde-format
 msgid "Replace"
 msgstr "ჩანაცვლება"
 
-#: AnnotationDialog/Dialog.cpp:443
+#: AnnotationDialog/Dialog.cpp:442
 #, kde-format
 msgid "Replace each description with the new text"
 msgstr "თითოეული აღწერის ჩანაცვლება ახალი ტექსტით"
 
-#: AnnotationDialog/Dialog.cpp:452
+#: AnnotationDialog/Dialog.cpp:451
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -256,97 +256,97 @@ msgstr ""
 "მორგება...|ზოგადი</interface>, აღწერა, რომელიც გამოსახულები Exif ჭდეშია "
 "ჩაშენებული, თუ არსებობს, აქ გამოჩნდება.</para>"
 
-#: AnnotationDialog/Dialog.cpp:635
+#: AnnotationDialog/Dialog.cpp:634
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "ანოტაციები (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:878
+#: AnnotationDialog/Dialog.cpp:877
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "ძებნა"
 
-#: AnnotationDialog/Dialog.cpp:881
+#: AnnotationDialog/Dialog.cpp:880
 #, kde-format
 msgid "Done"
 msgstr "დასრულება"
 
-#: AnnotationDialog/Dialog.cpp:888
+#: AnnotationDialog/Dialog.cpp:887
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "ანოტაციები"
 
-#: AnnotationDialog/Dialog.cpp:937
+#: AnnotationDialog/Dialog.cpp:936
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "ფანჯრის განლაგების მოძებნა..."
 
-#: AnnotationDialog/Dialog.cpp:938
+#: AnnotationDialog/Dialog.cpp:937
 #, kde-format
 msgid "Save current layout globally"
 msgstr "მიმდინარე განლაგების შენახვა გლობალურად"
 
-#: AnnotationDialog/Dialog.cpp:939
+#: AnnotationDialog/Dialog.cpp:938
 #, kde-format
 msgid "Save current layout for this DB"
 msgstr "მიმდინარე განლაგების შენახვა ამ DB-ისთვის"
 
-#: AnnotationDialog/Dialog.cpp:941
+#: AnnotationDialog/Dialog.cpp:940
 #, kde-format
 msgid "Reset layout"
 msgstr "განლაგების საწყის მდგომარეობაში დაბრუნება"
 
-#: AnnotationDialog/Dialog.cpp:948 AnnotationDialog/Dialog.cpp:1331
-#: AnnotationDialog/ListSelect.cpp:110
+#: AnnotationDialog/Dialog.cpp:947 AnnotationDialog/Dialog.cpp:1330
+#: AnnotationDialog/ListSelect.cpp:108
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "ანბანის მიხედვით დალაგება (ხე)"
 
-#: AnnotationDialog/Dialog.cpp:952 AnnotationDialog/Dialog.cpp:1335
-#: AnnotationDialog/ListSelect.cpp:116
+#: AnnotationDialog/Dialog.cpp:951 AnnotationDialog/Dialog.cpp:1334
+#: AnnotationDialog/ListSelect.cpp:114
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "ანბანის მიხედვით დალაგება (ბრტყელი)"
 
-#: AnnotationDialog/Dialog.cpp:956
+#: AnnotationDialog/Dialog.cpp:955
 #, kde-format
 msgid "Sort by Date"
 msgstr "თარიღის მიხედვით დალაგება"
 
-#: AnnotationDialog/Dialog.cpp:972
+#: AnnotationDialog/Dialog.cpp:971
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr "ძებნა ჭდის პირველი სიმბოლოდან"
 
-#: AnnotationDialog/Dialog.cpp:973
+#: AnnotationDialog/Dialog.cpp:972
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr "ჭდეში სიტყვის დასაწყისიდან ძებნა"
 
-#: AnnotationDialog/Dialog.cpp:974
+#: AnnotationDialog/Dialog.cpp:973
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr "ძებნა ჭდის ყველა ნაწილში"
 
-#: AnnotationDialog/Dialog.cpp:991
+#: AnnotationDialog/Dialog.cpp:990
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "მხოლოდ მონიშნულების ჩვენება Ctrl+S"
 
-#: AnnotationDialog/Dialog.cpp:1033 Map/MapView.cpp:360
+#: AnnotationDialog/Dialog.cpp:1032 Map/MapView.cpp:360
 #, kde-format
 msgid "Settings saved!"
 msgstr "პარამეტრები დამახსოვრებულია!"
 
-#: AnnotationDialog/Dialog.cpp:1033
+#: AnnotationDialog/Dialog.cpp:1032
 #, kde-format
 msgid "Save current window setup"
 msgstr "ფანჯრის მიმდინარე განლაგების შენახვა"
 
-#: AnnotationDialog/Dialog.cpp:1098
+#: AnnotationDialog/Dialog.cpp:1097
 #, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
@@ -355,13 +355,13 @@ msgstr ""
 "<p>ანოტაციებში შეტანილია ცვლილებები. გნებავთ, მოაცილოთ უახლესი ცვლილებები "
 "თითოეული შეცვლილი ფაილისთვის?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1099
+#: AnnotationDialog/Dialog.cpp:1098
 #, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "გავაუქმო ცვლილებები?"
 
-#: AnnotationDialog/Dialog.cpp:1198
+#: AnnotationDialog/Dialog.cpp:1197
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -378,7 +378,7 @@ msgstr ""
 "ინფორმაციის შესაყვანად გამოიყენოთ. დამატებითი მინიშნებები <a href=\"help:/"
 "kphotoalbum/chp-typingIn.html\">აქ შეგიძლიათ, იხილოთ</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1206
+#: AnnotationDialog/Dialog.cpp:1205
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -391,52 +391,52 @@ msgstr ""
 "</p><p>მკაცრად რეკომენდირებულია, რომ გამონახოთ 5 წუთი <a href=\"help:/"
 "kphotoalbum/chp-typingIn.html\">ამ დიალოგის დოკუმენტაციის</a> წასაკითხად</p>"
 
-#: AnnotationDialog/Dialog.cpp:1338
+#: AnnotationDialog/Dialog.cpp:1337
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "ახლახანს გამოყენებულების დალაგება"
 
-#: AnnotationDialog/Dialog.cpp:1341
+#: AnnotationDialog/Dialog.cpp:1340
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "დალაგების გადართვა"
 
-#: AnnotationDialog/Dialog.cpp:1346
+#: AnnotationDialog/Dialog.cpp:1345
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "მხოლოდ მონიშნული ელემენტების ჩვენების გადართვა"
 
-#: AnnotationDialog/Dialog.cpp:1350
+#: AnnotationDialog/Dialog.cpp:1349
 #, kde-format
 msgid "Annotate Next"
 msgstr "შემდეგის ანოტაცია"
 
-#: AnnotationDialog/Dialog.cpp:1354
+#: AnnotationDialog/Dialog.cpp:1353
 #, kde-format
 msgid "Annotate Previous"
 msgstr "წინას ანოტაცია"
 
-#: AnnotationDialog/Dialog.cpp:1358
+#: AnnotationDialog/Dialog.cpp:1357
 #, kde-format
 msgid "OK dialog"
 msgstr "დაიხ დიალოგი"
 
-#: AnnotationDialog/Dialog.cpp:1362
+#: AnnotationDialog/Dialog.cpp:1361
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "ჭდეების წინა გამოსახულებიდან კოპირება"
 
-#: AnnotationDialog/Dialog.cpp:1366 MainWindow/Window.cpp:854
+#: AnnotationDialog/Dialog.cpp:1365 MainWindow/Window.cpp:850
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "საათის ისრის საწინააღმდეგო მიმართულებით შებრუნება"
 
-#: AnnotationDialog/Dialog.cpp:1369 MainWindow/Window.cpp:858
+#: AnnotationDialog/Dialog.cpp:1368 MainWindow/Window.cpp:854
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "საათის ისრის მიმართულებით შებრუნება"
 
-#: AnnotationDialog/Dialog.cpp:1372
+#: AnnotationDialog/Dialog.cpp:1371
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "სრულ ეკრანზე თვალიერების გადართვა"
@@ -548,33 +548,33 @@ msgctxt "@info:tooltip"
 msgid "Delete image"
 msgstr "გამოსახულების წაშლა"
 
-#: AnnotationDialog/ListSelect.cpp:72
+#: AnnotationDialog/ListSelect.cpp:70
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
 msgstr "შეიყვანეთ ჭდე ..."
 
-#: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:342
+#: AnnotationDialog/ListSelect.cpp:95 DB/search/ImageSearchInfo.cpp:342
 #, kde-format
 msgid "or"
 msgstr "ან"
 
-#: AnnotationDialog/ListSelect.cpp:98 DB/search/ImageSearchInfo.cpp:337
+#: AnnotationDialog/ListSelect.cpp:96 DB/search/ImageSearchInfo.cpp:337
 #, kde-format
 msgid "and"
 msgstr "და"
 
-#: AnnotationDialog/ListSelect.cpp:122
+#: AnnotationDialog/ListSelect.cpp:120
 #, kde-format
 msgid "Sort by date"
 msgstr "თარიღის მიხედვით დალაგება"
 
-#: AnnotationDialog/ListSelect.cpp:128
+#: AnnotationDialog/ListSelect.cpp:126
 #, kde-format
 msgid "Show only selected Ctrl+S"
 msgstr "მხოლოდ მონიშნულების ჩვენება Ctrl+S"
 
-#: AnnotationDialog/ListSelect.cpp:177
+#: AnnotationDialog/ListSelect.cpp:175
 #, kde-format
 msgid ""
 "The tag you entered is the tag that is set automatically for newly found, "
@@ -587,72 +587,72 @@ msgstr ""
 "კატეგორიები|გამოსახულებები ჭდის გარეშე</interface>). ეს ჭდე აქ არ "
 "გამოჩნდება, სანამ ამ მიზნით გამოიყენება."
 
-#: AnnotationDialog/ListSelect.cpp:359
+#: AnnotationDialog/ListSelect.cpp:357
 #, kde-format
 msgid "No Item Selected"
 msgstr "არაფერი მოგინიშნავთ"
 
-#: AnnotationDialog/ListSelect.cpp:363
+#: AnnotationDialog/ListSelect.cpp:361
 #, kde-format
 msgid "<b>%1</b>"
 msgstr "<b>%1</b>"
 
-#: AnnotationDialog/ListSelect.cpp:369 Settings/CategoryPage.cpp:74
+#: AnnotationDialog/ListSelect.cpp:367 Settings/CategoryPage.cpp:73
 #, kde-format
 msgid "Delete"
 msgstr "Delete"
 
-#: AnnotationDialog/ListSelect.cpp:370
+#: AnnotationDialog/ListSelect.cpp:368
 #, kde-format
 msgid "Rename..."
 msgstr "სახელის გადარქმევა..."
 
-#: AnnotationDialog/ListSelect.cpp:372
+#: AnnotationDialog/ListSelect.cpp:370
 #, kde-format
 msgid "<b>Tag Groups</b>"
 msgstr "<b>ჭდის ჯგუფები</b>"
 
-#: AnnotationDialog/ListSelect.cpp:380
+#: AnnotationDialog/ListSelect.cpp:378
 #, kde-format
 msgid "Tag groups"
 msgstr "ჯგუფების ჭდე"
 
-#: AnnotationDialog/ListSelect.cpp:397
+#: AnnotationDialog/ListSelect.cpp:395
 #, kde-format
 msgid "Add this tag to a new tag group..."
 msgstr "ამ ჭდის ჩამატება ახალი ჭდის ჯგუფში..."
 
-#: AnnotationDialog/ListSelect.cpp:400
+#: AnnotationDialog/ListSelect.cpp:398
 #, kde-format
 msgid "Make this tag a tag group and add a tag..."
 msgstr "ამ ჭდის ჭდეების ჯგუფად გადაკეთება და ჭდის დამატება..."
 
-#: AnnotationDialog/ListSelect.cpp:406
+#: AnnotationDialog/ListSelect.cpp:404
 #, kde-format
 msgid "Remove from tag group %1"
 msgstr "წაშლა ჭდეების ჯგუფიდან %1"
 
-#: AnnotationDialog/ListSelect.cpp:409
+#: AnnotationDialog/ListSelect.cpp:407
 #, kde-format
 msgid "<b>Sorting</b>"
 msgstr "<b>დალაგება</b>"
 
-#: AnnotationDialog/ListSelect.cpp:415
+#: AnnotationDialog/ListSelect.cpp:413
 #, kde-format
 msgid "Usage"
 msgstr "გამოყენება"
 
-#: AnnotationDialog/ListSelect.cpp:416
+#: AnnotationDialog/ListSelect.cpp:414
 #, kde-format
 msgid "Alphabetical (Flat)"
 msgstr "ანბანით (ბრტყელი)"
 
-#: AnnotationDialog/ListSelect.cpp:417
+#: AnnotationDialog/ListSelect.cpp:415
 #, kde-format
 msgid "Alphabetical (Tree)"
 msgstr "ანბანით (ხე)"
 
-#: AnnotationDialog/ListSelect.cpp:442
+#: AnnotationDialog/ListSelect.cpp:440
 #, kde-format
 msgid ""
 "<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
@@ -661,23 +661,23 @@ msgstr ""
 "<p>მართლა გნებავთ, წაშალოთ \"%1\"?<br/>ელემენტის წაშლა ასევე წაშლის ყველა "
 "ინფორმაციას მის შესახებ ყველა გამოსახულებიდან, რომელიც მას შეიცავდა.</p>"
 
-#: AnnotationDialog/ListSelect.cpp:446
+#: AnnotationDialog/ListSelect.cpp:444
 #, kde-format
 msgid "Really Delete %1?"
 msgstr "მართლა წავშალო %1?"
 
-#: AnnotationDialog/ListSelect.cpp:463
+#: AnnotationDialog/ListSelect.cpp:461
 #, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "ჩანაწერის სახელის გადარქმევა"
 
-#: AnnotationDialog/ListSelect.cpp:463
+#: AnnotationDialog/ListSelect.cpp:461
 #, kde-format
 msgid "Enter new name:"
 msgstr "შეიყვანეთ ახალი სახელი:"
 
-#: AnnotationDialog/ListSelect.cpp:469
+#: AnnotationDialog/ListSelect.cpp:467
 #, kde-format
 msgid ""
 "<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
@@ -686,39 +686,39 @@ msgstr ""
 "<p>მართლა გნებავთ, \"%1\"-ის სახელის \"%2\"-ზე გადარქმევა?<br/>თუ ასე იზამთ, "
 "\"%3\"-ის სახელი შეიცვლება ყველა გამოსახულებაზე, რომელიც მას შეიცავს.</p>"
 
-#: AnnotationDialog/ListSelect.cpp:473
+#: AnnotationDialog/ListSelect.cpp:471
 #, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
 msgstr "გადავარქვა სახელი %1-ს?"
 
-#: AnnotationDialog/ListSelect.cpp:477
+#: AnnotationDialog/ListSelect.cpp:475
 #, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "გადარქმევა"
 
-#: AnnotationDialog/ListSelect.cpp:508
+#: AnnotationDialog/ListSelect.cpp:506
 #, kde-format
 msgid "New tag group"
 msgstr "ახალი ჭდის ჯგუფი"
 
-#: AnnotationDialog/ListSelect.cpp:509
+#: AnnotationDialog/ListSelect.cpp:507
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
 msgstr "ახალი ჭდის ჯგუფის სახელი, რომელშიც ჭდე ჩაემატება:"
 
-#: AnnotationDialog/ListSelect.cpp:521
+#: AnnotationDialog/ListSelect.cpp:519
 #, kde-format
 msgid "Add a tag"
 msgstr "ჭდის დამატება"
 
-#: AnnotationDialog/ListSelect.cpp:522
+#: AnnotationDialog/ListSelect.cpp:520
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
 msgstr "ჭდეების ამ ჯგუფში ჩასამატებელი ჭდის სახელი:"
 
-#: AnnotationDialog/ListSelect.cpp:776
+#: AnnotationDialog/ListSelect.cpp:774
 #, kde-format
 msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
@@ -726,7 +726,7 @@ msgctxt ""
 msgid "%1 (%2-%3)"
 msgstr "%1 (%2-%3)"
 
-#: AnnotationDialog/ListSelect.cpp:789
+#: AnnotationDialog/ListSelect.cpp:787
 #, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
@@ -963,7 +963,7 @@ msgid "Search did not match any images or videos."
 msgstr "ძებნამ ვიდეოები ან გამოსახულებები ვერ აღმოაჩინა."
 
 #: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
-#: MainWindow/Window.cpp:1839
+#: MainWindow/Window.cpp:1835
 #, kde-format
 msgid "Empty Search Result"
 msgstr "ძიების ცარიელი შედეგი"
@@ -979,7 +979,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "ძებნა"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1788
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1784
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -995,7 +995,7 @@ msgstr ""
 "ხატულა</li><li>ახლა მოირგეთ სექცია <b>ჭდისგარეშე გამოსახულებები</b></li></"
 "ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1795
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1791
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "ფუნქცია მორგებული არაა"
@@ -1316,7 +1316,7 @@ msgid "Loading information from images"
 msgstr "გამოსახულებების ინფორმაციის ჩატვირთვა"
 
 #: DB/ImageDB.cpp:558 DB/ImageDB.cpp:864 DB/XML/FileReader.cpp:139
-#: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:364
+#: Settings/CategoryPage.cpp:257 ThumbnailView/ThumbnailModel.cpp:364
 #, kde-format
 msgid "Media Type"
 msgstr "მატარებლის ტიპი"
@@ -1417,7 +1417,7 @@ msgstr "XML მონაცემთა ბაზის ფაილის ვ�
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: DB/XML/FileReader.cpp:91 Settings/CategoryPage.cpp:256
+#: DB/XML/FileReader.cpp:91 Settings/CategoryPage.cpp:255
 #: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:364
 #, kde-format
 msgid "Folder"
@@ -2034,116 +2034,116 @@ msgstr ""
 "<note>შექმენით თავიდან Exif-ის მონაცემთა ბაზა, რომ დარწმუნდეთ, რომ ლინზის "
 "ინფორმაცია ყველას გამოსახულებისთვის ჩაიტვირთება.</note>"
 
-#: HTMLGenerator/Generator.cpp:54
+#: HTMLGenerator/Generator.cpp:53
 #, kde-format
 msgid "<p>No file name given!</p>"
 msgstr "<p>სახელი მინიჭებული არ აქვს!</p>"
 
-#: HTMLGenerator/Generator.cpp:80
+#: HTMLGenerator/Generator.cpp:79
 #, kde-format
 msgid "Generating images for HTML page "
 msgstr "სურათების გენერირება HTML გვერდისთვის "
 
-#: HTMLGenerator/Generator.cpp:183
+#: HTMLGenerator/Generator.cpp:182
 #, kde-format
 msgid "Error copying %1 to %2"
 msgstr "%1-ის %2-ში კოპირები შეცდომა"
 
-#: HTMLGenerator/Generator.cpp:470
+#: HTMLGenerator/Generator.cpp:469
 #, kde-format
 msgid "<a href=\"%1\">prev</a>"
 msgstr "<a href=\"%1\">წინა</a>"
 
-#: HTMLGenerator/Generator.cpp:472 HTMLGenerator/Generator.cpp:480
+#: HTMLGenerator/Generator.cpp:471 HTMLGenerator/Generator.cpp:479
 #, kde-format
 msgid "prev"
 msgstr "წინა"
 
-#: HTMLGenerator/Generator.cpp:484
+#: HTMLGenerator/Generator.cpp:483
 #, kde-format
 msgid "<a href=\"index-%1.html\">index</a>"
 msgstr "<a href=\"index-%1.html\">index</a>"
 
-#: HTMLGenerator/Generator.cpp:493
+#: HTMLGenerator/Generator.cpp:492
 #, kde-format
 msgid "<a href=\"%1\">next</a>"
 msgstr "<a href=\"%1\">შემდეგი</a>"
 
-#: HTMLGenerator/Generator.cpp:495 HTMLGenerator/Generator.cpp:502
+#: HTMLGenerator/Generator.cpp:494 HTMLGenerator/Generator.cpp:501
 #, kde-format
 msgid "next"
 msgstr "შემდეგი"
 
-#: HTMLGenerator/Generator.cpp:643
+#: HTMLGenerator/Generator.cpp:642
 #, kde-format
 msgid "Could not create file '%1'."
 msgstr "ფაილის შექმნის შეცდომა: \"%1\"."
 
-#: HTMLGenerator/Generator.cpp:644
+#: HTMLGenerator/Generator.cpp:643
 #, kde-format
 msgid "Could Not Create File"
 msgstr "ფაილის შექმნის შეცდომა"
 
-#: HTMLGenerator/Generator.cpp:663
+#: HTMLGenerator/Generator.cpp:662
 #, kde-format
 msgid "<p>Unable to copy %1 to %2</p>"
 msgstr "<p>%1 -დან %2 -ში კოპირების შეცდომა</p>"
 
-#: HTMLGenerator/Generator.cpp:697
+#: HTMLGenerator/Generator.cpp:696
 #, kde-format
 msgid "Unable to write image '%1'."
 msgstr "გამოსახულების ჩაწერის შეცდომა: %1."
 
-#: HTMLGenerator/Generator.cpp:771 HTMLGenerator/HTMLDialog.cpp:148
+#: HTMLGenerator/Generator.cpp:770 HTMLGenerator/HTMLDialog.cpp:146
 #, kde-format
 msgid "Date"
 msgstr "თარიღი"
 
-#: HTMLGenerator/HTMLDialog.cpp:53
+#: HTMLGenerator/HTMLDialog.cpp:51
 #, kde-format
 msgctxt "@title:window"
 msgid "HTML Export"
 msgstr "HTML-ში გატანა"
 
-#: HTMLGenerator/HTMLDialog.cpp:79 HTMLGenerator/HTMLDialog.cpp:80
+#: HTMLGenerator/HTMLDialog.cpp:77 HTMLGenerator/HTMLDialog.cpp:78
 #, kde-format
 msgid "Content"
 msgstr "შემცველობა"
 
-#: HTMLGenerator/HTMLDialog.cpp:88
+#: HTMLGenerator/HTMLDialog.cpp:86
 #, kde-format
 msgid "Page title:"
 msgstr "გვერდის სათაური:"
 
-#: HTMLGenerator/HTMLDialog.cpp:95
+#: HTMLGenerator/HTMLDialog.cpp:93
 #, kde-format
 msgid "Copyright:"
 msgstr "უფლებები:"
 
-#: HTMLGenerator/HTMLDialog.cpp:104
+#: HTMLGenerator/HTMLDialog.cpp:102
 #, kde-format
 msgid "Description:"
 msgstr "აღწერა:"
 
-#: HTMLGenerator/HTMLDialog.cpp:111
+#: HTMLGenerator/HTMLDialog.cpp:109
 #, kde-format
 msgid "Create .kim export file"
 msgstr ".kim გატანის ფაილის შექმნა"
 
-#: HTMLGenerator/HTMLDialog.cpp:116
+#: HTMLGenerator/HTMLDialog.cpp:114
 #, kde-format
 msgctxt ""
 "Inline as a verb, i.e. 'please show movies right on the page, not as links'"
 msgid "Inline Movies in pages"
 msgstr "ვიდეოების ჩვენება გვერდშივე"
 
-#: HTMLGenerator/HTMLDialog.cpp:121
+#: HTMLGenerator/HTMLDialog.cpp:119
 #, kde-format
 msgctxt "Tag as in HTML-tag, not as in image tag"
 msgid "Use HTML5 video tag"
 msgstr "HTML5-ის video ჭდის გამოყენება"
 
-#: HTMLGenerator/HTMLDialog.cpp:130
+#: HTMLGenerator/HTMLDialog.cpp:128
 #, kde-format
 msgid ""
 "<p>This selection will generate video files suitable for displaying on web. "
@@ -2152,77 +2152,77 @@ msgstr ""
 "<p>ეს არჩევანი შექმნის ვიდეოფაილებს, რომლებიც ვებისთვისაა განკუთვნილი. "
 "ვიდეოფაილის გენერაციას სჭირდება პროგრამები avconv და ffmpeg2theora.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:132
+#: HTMLGenerator/HTMLDialog.cpp:130
 #, kde-format
 msgid "Generate HTML5 video files (mp4 and ogg)"
 msgstr "HTML5 ვიდეოფაილების (mp4 და off) შექმნა"
 
-#: HTMLGenerator/HTMLDialog.cpp:140
+#: HTMLGenerator/HTMLDialog.cpp:138
 #, kde-format
 msgid "What to Include"
 msgstr "რა ჩავსვა"
 
-#: HTMLGenerator/HTMLDialog.cpp:177 HTMLGenerator/HTMLDialog.cpp:178
+#: HTMLGenerator/HTMLDialog.cpp:175 HTMLGenerator/HTMLDialog.cpp:176
 #, kde-format
 msgid "Layout"
 msgstr "განლაგება"
 
-#: HTMLGenerator/HTMLDialog.cpp:187 Settings/CategoryPage.cpp:130
+#: HTMLGenerator/HTMLDialog.cpp:185 Settings/CategoryPage.cpp:129
 #, kde-format
 msgid "Thumbnail size:"
 msgstr "მინიატურის ზომა:"
 
-#: HTMLGenerator/HTMLDialog.cpp:202
+#: HTMLGenerator/HTMLDialog.cpp:200
 #, kde-format
 msgid "Number of columns:"
 msgstr "სვეტების რიცხვი:"
 
-#: HTMLGenerator/HTMLDialog.cpp:217
+#: HTMLGenerator/HTMLDialog.cpp:215
 #, kde-format
 msgid "Theme:"
 msgstr "თემა:"
 
-#: HTMLGenerator/HTMLDialog.cpp:225
+#: HTMLGenerator/HTMLDialog.cpp:223
 #, kde-format
 msgid "Theme Description"
 msgstr "თემის აღწერა"
 
-#: HTMLGenerator/HTMLDialog.cpp:232
+#: HTMLGenerator/HTMLDialog.cpp:230
 #, kde-format
 msgid "Image Sizes"
 msgstr "გამოსახულების ზომები"
 
-#: HTMLGenerator/HTMLDialog.cpp:241
+#: HTMLGenerator/HTMLDialog.cpp:239
 #, kde-format
 msgid "Full size"
 msgstr "სრული ზომა"
 
-#: HTMLGenerator/HTMLDialog.cpp:286 HTMLGenerator/HTMLDialog.cpp:287
+#: HTMLGenerator/HTMLDialog.cpp:284 HTMLGenerator/HTMLDialog.cpp:285
 #, kde-format
 msgid "Destination"
 msgstr "დანიშნულება"
 
-#: HTMLGenerator/HTMLDialog.cpp:297
+#: HTMLGenerator/HTMLDialog.cpp:295
 #, kde-format
 msgid "Base folder:"
 msgstr "საბაზსო საქაღალდე:"
 
-#: HTMLGenerator/HTMLDialog.cpp:314
+#: HTMLGenerator/HTMLDialog.cpp:312
 #, kde-format
 msgid "Gallery folder:"
 msgstr "გალერეის საქაღალდე:"
 
-#: HTMLGenerator/HTMLDialog.cpp:321
+#: HTMLGenerator/HTMLDialog.cpp:319
 #, kde-format
 msgid "Output folder:"
 msgstr "გამოტანის საქაღალდე:"
 
-#: HTMLGenerator/HTMLDialog.cpp:332
+#: HTMLGenerator/HTMLDialog.cpp:330
 #, kde-format
 msgid "URL for final destination of .kim file:"
 msgstr "ბმული .kim ფაილის საბოლოო სამიზნისთვის:"
 
-#: HTMLGenerator/HTMLDialog.cpp:334
+#: HTMLGenerator/HTMLDialog.cpp:332
 #, kde-format
 msgid ""
 "<p>If you move the gallery to a remote location, set this to the destination "
@@ -2232,22 +2232,22 @@ msgstr ""
 "<p>თუ გნებავთ, გალერეა დაშორებულ ადგილას გადაიტანოთ, დააყენეთ ეს სამიზნე URL-"
 "ზე</p><p>ეს, მხოლოდ, შექმნილ <filename>.kim</filename> ფაილს ეხება.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:343
+#: HTMLGenerator/HTMLDialog.cpp:341
 #, kde-format
 msgid "Open gallery in browser:"
 msgstr "გალერეის ბრაუზერში გახსნა:"
 
-#: HTMLGenerator/HTMLDialog.cpp:359
+#: HTMLGenerator/HTMLDialog.cpp:357
 #, kde-format
 msgid "You must select at least one resolution."
 msgstr "თქვენ უნდა აირჩიოთ მინიმუმ ერთი გაფართოება."
 
-#: HTMLGenerator/HTMLDialog.cpp:386
+#: HTMLGenerator/HTMLDialog.cpp:384
 #, kde-format
 msgid "Select base folder..."
 msgstr "აირჩიეთ საბაზისო საქაღალდე..."
 
-#: HTMLGenerator/HTMLDialog.cpp:399
+#: HTMLGenerator/HTMLDialog.cpp:397
 #, kde-format
 msgid ""
 "<p>You did not specify a base folder. This is the topmost folder for your "
@@ -2258,12 +2258,12 @@ msgstr ""
 "გამოსახულებებისთვის. თითოეული გენერირებული კოლექცია ამ საქაღალდეში, ცალ-"
 "ცალკე ქვესაქაღალდეებში მოთავსდება.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:403
+#: HTMLGenerator/HTMLDialog.cpp:401
 #, kde-format
 msgid "No Base Folder Specified"
 msgstr "საბაზისო საქაღალდე მითითებული არაა"
 
-#: HTMLGenerator/HTMLDialog.cpp:409
+#: HTMLGenerator/HTMLDialog.cpp:407
 #, kde-format
 msgid ""
 "<p>You did not specify an output folder. This is a folder containing the "
@@ -2274,12 +2274,12 @@ msgstr ""
 "გამოსახულებებს შეიცავს. საქაღალდე ზემოთ მითითებული საბაზისო საქაღალდის "
 "ქვესაქაღალდე იქნება.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:412
+#: HTMLGenerator/HTMLDialog.cpp:410
 #, kde-format
 msgid "No Output Folder Specified"
 msgstr "გამოტანის საქაღალდე მითითებული არაა"
 
-#: HTMLGenerator/HTMLDialog.cpp:420
+#: HTMLGenerator/HTMLDialog.cpp:418
 #, kde-format
 msgid ""
 "<p>Error while reading information about %1. This is most likely because the "
@@ -2288,12 +2288,12 @@ msgstr ""
 "<p>შეცდომა %1-ის შესახებ ინფორმაციის კითხვისას. ყველაზე ხშირად ეს ხდება "
 "მაშინ, როცა საქაღალდე არ არსებობს.</p><p>შეცდომის შეტყობინება: %2</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:429
+#: HTMLGenerator/HTMLDialog.cpp:427
 #, kde-format
 msgid "<p>%1 does not exist, is not a folder or cannot be written to.</p>"
 msgstr "<p>%1 არ არსებობს, საქაღალდე არაა, ან მასში ჩაწერა შეუძლებელია.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:439
+#: HTMLGenerator/HTMLDialog.cpp:437
 #, kde-format
 msgid ""
 "<p>Output folder %1 already exists. Usually, this means you should specify a "
@@ -2302,29 +2302,29 @@ msgstr ""
 "<p>გამოტანის საქაღალდე %1 უკვე არსებობს. ჩვეულებრივ, ეს ნიშნავს, რომ ახალი "
 "საქაღალდე უნდა მიუთითოთ.</p><p>ჯერ წავშალო %2?</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:443
+#: HTMLGenerator/HTMLDialog.cpp:441
 #, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
 msgstr "საქაღალდე არსებობს"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
-#: HTMLGenerator/HTMLDialog.cpp:530 MainWindow/SplashScreen.cpp:52
+#: HTMLGenerator/HTMLDialog.cpp:528 MainWindow/SplashScreen.cpp:52
 #, kde-format
 msgid "%1"
 msgstr "%1"
 
-#: HTMLGenerator/HTMLDialog.cpp:541
+#: HTMLGenerator/HTMLDialog.cpp:539
 #, kde-format
 msgid "Could not find any themes - this is very likely an installation error"
 msgstr "თემები აღმოჩენილი არაა - ეს, სავარაუდოდ, დაყენების შეცდომაა"
 
-#: HTMLGenerator/HTMLDialog.cpp:548
+#: HTMLGenerator/HTMLDialog.cpp:546
 #, kde-format
 msgid "More than one theme is set as default, using theme %1"
 msgstr "ერთზე მეტი თემა დაყენებულია როგორც ნაგულისხმევი. გამოიყენება თემა %1"
 
-#: HTMLGenerator/HTMLDialog.cpp:555
+#: HTMLGenerator/HTMLDialog.cpp:553
 #, kde-format
 msgctxt ""
 "This is to show the author of the theme. E.g. copyright character (&#169;) "
@@ -2333,7 +2333,7 @@ msgctxt ""
 msgid "by "
 msgstr "ავტორი "
 
-#: HTMLGenerator/HTMLDialog.cpp:557
+#: HTMLGenerator/HTMLDialog.cpp:555
 #, kde-format
 msgid ""
 "\n"
@@ -2342,12 +2342,12 @@ msgstr ""
 "\n"
 " "
 
-#: HTMLGenerator/HTMLDialog.cpp:572
+#: HTMLGenerator/HTMLDialog.cpp:570
 #, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
 msgstr "<p>გალერეის საქაღალდე არ შეიძლება, ცარიელი იყოს.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:576
+#: HTMLGenerator/HTMLDialog.cpp:574
 #, kde-format
 msgid "<p>The output folder already exists.</p>"
 msgstr "<p>გამოტანი საქაღალდე უკვე არსებობს.</p>"
@@ -2614,7 +2614,7 @@ msgstr "KPhotoAlbum-ის გატანილი ფაილები"
 msgid "Unable to create temporary file"
 msgstr "დროებითი ფაილის შექმნის შეცდომა"
 
-#: ImportExport/ImportDialog.cpp:87
+#: ImportExport/ImportDialog.cpp:86
 #, kde-format
 msgid ""
 "<p>XML file did not specify the source of the images, this is a strong "
@@ -2623,7 +2623,7 @@ msgstr ""
 "<p>XML ფაილი არ შეიცავს გამოსახულებების წყაროებს, რაც მიუთითებს იმაზე, რომ "
 "ფაილი დაზიანებულია</p>"
 
-#: ImportExport/ImportDialog.cpp:121
+#: ImportExport/ImportDialog.cpp:120
 #, kde-format
 msgid ""
 "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This wizard "
@@ -2667,108 +2667,108 @@ msgstr ""
 "აღინიშნება წითლად, რათა დაინახოთ, რომელი ელემენტები არ მოიძებნა თქვენს "
 "მონაცემთა ბაზაში ან რომელი დაემთხვა მხოლოდ ნაწილობრივ.</li></ol>"
 
-#: ImportExport/ImportDialog.cpp:140
+#: ImportExport/ImportDialog.cpp:139
 #, kde-format
 msgctxt "@title:tab introduction page"
 msgid "Introduction"
 msgstr "შესავალი"
 
-#: ImportExport/ImportDialog.cpp:156 MainWindow/TokenEditor.cpp:60
+#: ImportExport/ImportDialog.cpp:155 MainWindow/TokenEditor.cpp:60
 #, kde-format
 msgid "Select All"
 msgstr "ყველას მონიშვნა"
 
-#: ImportExport/ImportDialog.cpp:158
+#: ImportExport/ImportDialog.cpp:157
 #, kde-format
 msgid "Deselect All"
 msgstr "მონიშვნის მოხსნა"
 
-#: ImportExport/ImportDialog.cpp:192
+#: ImportExport/ImportDialog.cpp:191
 #, kde-format
 msgid "Select Which Images to Import"
 msgstr "მონიშნეთ, რომელი გამოსახულებების შემოტანა გნებავთ"
 
-#: ImportExport/ImportDialog.cpp:204
+#: ImportExport/ImportDialog.cpp:203
 #, kde-format
 msgid "Destination of images: "
 msgstr "გამოსახულებების სამიზნე: "
 
-#: ImportExport/ImportDialog.cpp:217
+#: ImportExport/ImportDialog.cpp:216
 #, kde-format
 msgid "Destination of Images"
 msgstr "გამოსახულებების სამიზნე"
 
-#: ImportExport/ImportDialog.cpp:225
+#: ImportExport/ImportDialog.cpp:224
 #, kde-format
 msgid "The folder must be a subfolder of %1"
 msgstr "საქაღალდე %1-ის ქვესაქაღალდე უნდა იყოს"
 
-#: ImportExport/ImportDialog.cpp:228
+#: ImportExport/ImportDialog.cpp:227
 #, kde-format
 msgid "This folder is reserved for category images."
 msgstr "ეს საქაღალდე დაცულია კატეგორიის გამოსახულებებისთვის."
 
-#: ImportExport/ImportDialog.cpp:268
+#: ImportExport/ImportDialog.cpp:267
 #, kde-format
 msgid "Match Categories"
 msgstr "კატეგორიების დამთხვევა"
 
-#: ImportExport/ImportDialog.cpp:300
+#: ImportExport/ImportDialog.cpp:299
 #, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr "საქაღალდე %1 არ არსებობს. შეიქმნას?"
 
-#: ImportExport/ImportDialog.cpp:301 MainWindow/WelcomeDialog.cpp:157
+#: ImportExport/ImportDialog.cpp:300 MainWindow/WelcomeDialog.cpp:156
 #, kde-format
 msgctxt "@title"
 msgid "Create folder?"
 msgstr "შევქმნა საქაღალდე?"
 
-#: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1223
+#: ImportExport/ImportDialog.cpp:304 MainWindow/WelcomeDialog.cpp:160
+#: MainWindow/Window.cpp:1219
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
 msgstr "შექმნა"
 
-#: ImportExport/ImportDialog.cpp:311
+#: ImportExport/ImportDialog.cpp:310
 #, kde-format
 msgid "Error creating folder %1"
 msgstr "შეცდომა საქაღალდის შექმნისას: %1"
 
-#: ImportExport/ImportDialog.cpp:390
+#: ImportExport/ImportDialog.cpp:389
 #, kde-format
 msgid "How to resolve clashes"
 msgstr "როგორ გადავჭრათ კონფლიქტები"
 
-#: ImportExport/ImportHandler.cpp:97 ImportExport/ImportHandler.cpp:159
+#: ImportExport/ImportHandler.cpp:95 ImportExport/ImportHandler.cpp:157
 #, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "გამოსახულებების კოპირება"
 
-#: ImportExport/ImportHandler.cpp:174
+#: ImportExport/ImportHandler.cpp:172
 #, kde-format
 msgid "Error when writing image %1"
 msgstr "გამოსახულების ჩაწერის შეცდომა: %1"
 
-#: ImportExport/ImportHandler.cpp:193
+#: ImportExport/ImportHandler.cpp:191
 #, kde-format
 msgid "Updating Database"
 msgstr "ბაზის განახლება"
 
-#: ImportExport/ImportHandler.cpp:238
+#: ImportExport/ImportHandler.cpp:236
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
 msgstr "ვერ დავაკოპირე ერთ-ერთი შემდეგი მდებარეობიდან:"
 
-#: ImportExport/ImportHandler.cpp:239
+#: ImportExport/ImportHandler.cpp:237
 #, kde-format
 msgctxt "@title"
 msgid "Copy failed"
 msgstr "კოპირების შეცდომა"
 
-#: ImportExport/ImportHandler.cpp:245
+#: ImportExport/ImportHandler.cpp:243
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
@@ -3596,32 +3596,32 @@ msgctxt "@title:column Duplicate file"
 msgid "Duplicate %1"
 msgstr "%1-ის დუბლირება"
 
-#: MainWindow/ExternalPopup.cpp:57
+#: MainWindow/ExternalPopup.cpp:55
 #, kde-format
 msgid "Current Item"
 msgstr "მიმდინარე ელემენტი"
 
-#: MainWindow/ExternalPopup.cpp:60
+#: MainWindow/ExternalPopup.cpp:58
 #, kde-format
 msgid "All Selected Items"
 msgstr "ყველა მონიშნული ელემენტი"
 
-#: MainWindow/ExternalPopup.cpp:63
+#: MainWindow/ExternalPopup.cpp:61
 #, kde-format
 msgid "Copy and Open"
 msgstr "კოპირება და გახსნა"
 
-#: MainWindow/ExternalPopup.cpp:87
+#: MainWindow/ExternalPopup.cpp:85
 #, kde-format
 msgid "Open With..."
 msgstr "გამხსნელი პროგრამა..."
 
-#: MainWindow/ExternalPopup.cpp:102
+#: MainWindow/ExternalPopup.cpp:100
 #, kde-format
 msgid "Your Command Line"
 msgstr "თქვენი ბრძანების სტრიქონი"
 
-#: MainWindow/ExternalPopup.cpp:165
+#: MainWindow/ExternalPopup.cpp:163
 #, kde-format
 msgid "Invoke External Program"
 msgstr "გარე პროგრამის ჩაწოდება"
@@ -3923,7 +3923,7 @@ msgstr ""
 msgid "Search for new images on startup."
 msgstr "ახალი სურათების მოძებნა გაშვებისას."
 
-#: MainWindow/RunDialog.cpp:32
+#: MainWindow/RunDialog.cpp:31
 #, no-c-format, kde-format
 msgid ""
 "<p>Enter your command to run below:</p><p><i>%all will be replaced with a "
@@ -3932,7 +3932,7 @@ msgstr ""
 "<p>შეიყვანეთ თქვენი გასაშვები ბრძანება ქვემოთ:</p><p><i>%all ფაილების სიით "
 "ჩანაცვლდება</i></p>"
 
-#: MainWindow/RunDialog.cpp:41
+#: MainWindow/RunDialog.cpp:40
 #, no-c-format, kde-format
 msgid ""
 "<p>Enter the command you want to run on your image file(s). KPhotoAlbum will "
@@ -3948,7 +3948,7 @@ msgstr ""
 "გამოიყენოთ ცვლადი %each , თუ გნებავთ, ბრძანება ერთხელ გაუშვათ თითოეული "
 "ფაილისთვის.</p>"
 
-#: MainWindow/RunDialog.cpp:75
+#: MainWindow/RunDialog.cpp:74
 #, no-c-format, kde-format
 msgctxt ""
 "As in 'Execute a command and replace any occurrence of %all with the "
@@ -3956,7 +3956,7 @@ msgctxt ""
 msgid "%all"
 msgstr "%all"
 
-#: MainWindow/RunDialog.cpp:77
+#: MainWindow/RunDialog.cpp:76
 #, no-c-format, kde-format
 msgctxt ""
 "As in 'Execute a command for each selected file in turn and replace any "
@@ -4090,7 +4090,7 @@ msgstr "აირჩიეთ კოდები, რომლებიც ყ�
 msgid "Select None"
 msgstr "მონიშვნის მოხსნა"
 
-#: MainWindow/WelcomeDialog.cpp:46
+#: MainWindow/WelcomeDialog.cpp:45
 #, kde-format
 msgid ""
 "<h1>Welcome to KPhotoAlbum</h1><p>KPhotoAlbum is a powerful free tool to "
@@ -4113,22 +4113,22 @@ msgstr ""
 "გამოსცადოთ KPhotoAlbum წინასწარ მომზადებული სურათებით, დააჭირეთ ღილაკს „დემო "
 "ვერსიის ჩატვირთვა“.</p>"
 
-#: MainWindow/WelcomeDialog.cpp:61
+#: MainWindow/WelcomeDialog.cpp:60
 #, kde-format
 msgid "Create My Own Database..."
 msgstr "ჩემი საკუთარი მონაცემთა ბაზის შექმნა..."
 
-#: MainWindow/WelcomeDialog.cpp:64
+#: MainWindow/WelcomeDialog.cpp:63
 #, kde-format
 msgid "Load Demo"
 msgstr "დემოს ჩატვირთვა"
 
-#: MainWindow/WelcomeDialog.cpp:67
+#: MainWindow/WelcomeDialog.cpp:66
 #, kde-format
 msgid "Check My Feature Set"
 msgstr "ხელმისაწვდომი ფუნქციების შემოწმება"
 
-#: MainWindow/WelcomeDialog.cpp:101
+#: MainWindow/WelcomeDialog.cpp:100
 #, kde-format
 msgid ""
 "<h1>KPhotoAlbum database creation</h1><p>You need to show where the photos "
@@ -4152,27 +4152,27 @@ msgstr ""
 "სურათების საქაღალდე, მიუთითეთ KPhotoAlbum-ს ამ საქაღალდეზე, რათა კვლავ "
 "დაიწყოთ მისი გამოყენება.</p>"
 
-#: MainWindow/WelcomeDialog.cpp:116
+#: MainWindow/WelcomeDialog.cpp:115
 #, kde-format
 msgid "Image/Video root folder: "
 msgstr "გამოსახულების/ვიდეოს ძირითადი საქაღალდე: "
 
-#: MainWindow/WelcomeDialog.cpp:156
+#: MainWindow/WelcomeDialog.cpp:155
 #, kde-format
 msgid "Folder does not exist, create it?"
 msgstr "საქაღალდე არ არსებობს. შევქმნა?"
 
-#: MainWindow/WelcomeDialog.cpp:166
+#: MainWindow/WelcomeDialog.cpp:165
 #, kde-format
 msgid "Could not create folder %1"
 msgstr "საქაღალდის შექმნის შეცდომა: %1"
 
-#: MainWindow/WelcomeDialog.cpp:171
+#: MainWindow/WelcomeDialog.cpp:170
 #, kde-format
 msgid "%1 exists, but is not a folder"
 msgstr "%1 არსებობს, მაგრამ საქაღალდე არაა"
 
-#: MainWindow/WelcomeDialog.cpp:187
+#: MainWindow/WelcomeDialog.cpp:186
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum does not seem to be built with support for all its features. "
@@ -4185,22 +4185,22 @@ msgstr ""
 "p><p>დეტალებისთვის, როგორ გადაწყვიტოთ ეს პრობლემა, მენიუდან აირჩიეთ "
 "<b>დახმარება</b>|<b>KPhotoAlbum-ის ფუნქციების სტატუსი</b>.</p>"
 
-#: MainWindow/WelcomeDialog.cpp:192 MainWindow/WelcomeDialog.cpp:195
+#: MainWindow/WelcomeDialog.cpp:191 MainWindow/WelcomeDialog.cpp:194
 #, kde-format
 msgid "Feature Check"
 msgstr "ფუნქციების შემოწმება"
 
-#: MainWindow/WelcomeDialog.cpp:194
+#: MainWindow/WelcomeDialog.cpp:193
 #, kde-format
 msgid "Congratulations: all dynamic features have been enabled."
 msgstr "გილოცავთ: ყველა დინამიური ფუნქცია ჩართულია."
 
-#: MainWindow/Window.cpp:278
+#: MainWindow/Window.cpp:274
 #, kde-format
 msgid "Searching for New Files"
 msgstr "ახალი ფაილების ძებნა"
 
-#: MainWindow/Window.cpp:321
+#: MainWindow/Window.cpp:317
 #, kde-format
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
@@ -4217,24 +4217,24 @@ msgstr ""
 "დაბრუნდეთ და კვლავ სცადოთ სადემონსტრაციო ვერსია, შესაძლოა მოგინდეთ მისი "
 "შენახვა ამ სესიაზე განხორციელებული ცვლილებებითურთ.</p>"
 
-#: MainWindow/Window.cpp:326
+#: MainWindow/Window.cpp:322
 #, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "დემო ბაზის წაშლა"
 
-#: MainWindow/Window.cpp:342
+#: MainWindow/Window.cpp:338
 #, kde-format
 msgid "Do you want to save the changes?"
 msgstr "გსურთ ცვლილებების შენახვა?"
 
-#: MainWindow/Window.cpp:343
+#: MainWindow/Window.cpp:339
 #, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
 msgstr "შევინახო ცვლილებები?"
 
-#: MainWindow/Window.cpp:400
+#: MainWindow/Window.cpp:396
 #, kde-format
 msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
@@ -4243,361 +4243,361 @@ msgstr ""
 "ზოგიერთი მონიშნული გამოსახულება ჯგუფს უკვე ეკუთვნის. გნებავთ, მათი წაშლა "
 "ჯგუფებიდან და ახლის შექმნა?"
 
-#: MainWindow/Window.cpp:403
+#: MainWindow/Window.cpp:399
 #, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
 msgstr "დაჯგუფების პრობლემა"
 
-#: MainWindow/Window.cpp:413
+#: MainWindow/Window.cpp:409
 #, kde-format
 msgid "Unknown error, stack creation failed."
 msgstr "უცნობი შეცდომა. ჯგუფის შექმნა ჩავარდა."
 
-#: MainWindow/Window.cpp:414
+#: MainWindow/Window.cpp:410
 #, kde-format
 msgid "Stacking Error"
 msgstr "დაჯგუფების შეცდომა"
 
-#: MainWindow/Window.cpp:493 MainWindow/Window.cpp:625
-#: MainWindow/Window.cpp:1341 MainWindow/Window.cpp:1438
+#: MainWindow/Window.cpp:489 MainWindow/Window.cpp:621
+#: MainWindow/Window.cpp:1337 MainWindow/Window.cpp:1434
 #, kde-format
 msgid "No item is selected."
 msgstr "ელემენტი მონიშნული არაა."
 
-#: MainWindow/Window.cpp:493 MainWindow/Window.cpp:625
-#: MainWindow/Window.cpp:1341 MainWindow/Window.cpp:1439
+#: MainWindow/Window.cpp:489 MainWindow/Window.cpp:621
+#: MainWindow/Window.cpp:1337 MainWindow/Window.cpp:1435
 #, kde-format
 msgid "No Selection"
 msgstr "მონიშნულის გარეშე"
 
-#: MainWindow/Window.cpp:545
+#: MainWindow/Window.cpp:541
 #, kde-format
 msgid "Saving..."
 msgstr "Შენახვა..."
 
-#: MainWindow/Window.cpp:550
+#: MainWindow/Window.cpp:546
 #, kde-format
 msgid "Saving... Done"
 msgstr "შენახვა... მზადაა"
 
-#: MainWindow/Window.cpp:698
+#: MainWindow/Window.cpp:694
 #, kde-format
 msgid "There are no images to be shown."
 msgstr "საჩვენებელი სურათების გარეშე."
 
-#: MainWindow/Window.cpp:771 MainWindow/Window.cpp:912
+#: MainWindow/Window.cpp:767 MainWindow/Window.cpp:908
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "ხედის შეზღუდვა მონიშნულზე"
 
-#: MainWindow/Window.cpp:772
+#: MainWindow/Window.cpp:768
 #, kde-format
 msgid "No images are selected!"
 msgstr "გამოსახულებები არ მოგინიშნავთ!"
 
-#: MainWindow/Window.cpp:785
+#: MainWindow/Window.cpp:781
 #, kde-format
 msgid "Generate HTML..."
 msgstr "HTML-ის გენერაცია..."
 
-#: MainWindow/Window.cpp:789
+#: MainWindow/Window.cpp:785
 #, kde-format
 msgid "Import..."
 msgstr "შემოტანა..."
 
-#: MainWindow/Window.cpp:792
+#: MainWindow/Window.cpp:788
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "გამოსახულებების გატანა/კოპირება..."
 
-#: MainWindow/Window.cpp:821
+#: MainWindow/Window.cpp:817
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "მონიშნულის წაშლა"
 
-#: MainWindow/Window.cpp:829
+#: MainWindow/Window.cpp:825
 #, kde-format
 msgid "Remove Tokens..."
 msgstr "ტოკენების წაშლა.."
 
-#: MainWindow/Window.cpp:832
+#: MainWindow/Window.cpp:828
 #, kde-format
 msgid "Open List of Files..."
 msgstr "ფაილების სიის გახსნა..."
 
-#: MainWindow/Window.cpp:835
+#: MainWindow/Window.cpp:831
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "ცალ-ცალკე ელემენტების ანოტაცია"
 
-#: MainWindow/Window.cpp:839
+#: MainWindow/Window.cpp:835
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "ერთზე მეტი ელემენტის ანოტაცია"
 
-#: MainWindow/Window.cpp:843
+#: MainWindow/Window.cpp:839
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "სურათების გაერთიანება ჯგუფში"
 
-#: MainWindow/Window.cpp:847
+#: MainWindow/Window.cpp:843
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "სურათების წაშლა ჯგუფიდან"
 
-#: MainWindow/Window.cpp:850
+#: MainWindow/Window.cpp:846
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "ჯგუფის პირველ სურათად დაყენება"
 
-#: MainWindow/Window.cpp:863
+#: MainWindow/Window.cpp:859
 #, kde-format
 msgid "View"
 msgstr "ნახვა"
 
-#: MainWindow/Window.cpp:868
+#: MainWindow/Window.cpp:864
 #, kde-format
 msgid "View (In New Window)"
 msgstr "ნახვა (ახალ ფანჯარაში)"
 
-#: MainWindow/Window.cpp:873
+#: MainWindow/Window.cpp:869
 #, kde-format
 msgid "Run Slide Show"
 msgstr "სლაიდშოუს გაშვება"
 
-#: MainWindow/Window.cpp:880
+#: MainWindow/Window.cpp:876
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "შემთხვევითი სლაიდშოუს გაშვება"
 
-#: MainWindow/Window.cpp:888
+#: MainWindow/Window.cpp:884
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "ყველა ჯგუფის ჩაკეცვა"
 
-#: MainWindow/Window.cpp:894
+#: MainWindow/Window.cpp:890
 #, kde-format
 msgid "Expand all stacks"
 msgstr "ყველა ჯგუფი ამოკეცვა"
 
-#: MainWindow/Window.cpp:899
+#: MainWindow/Window.cpp:895
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "&ჯერ უძველესები"
 
-#: MainWindow/Window.cpp:904
+#: MainWindow/Window.cpp:900
 #, kde-format
 msgid "Show &Newest First"
 msgstr "ჯერ &უახლესები"
 
-#: MainWindow/Window.cpp:909
+#: MainWindow/Window.cpp:905
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "მონიშნულის დალაგება თარიღითა და დროით"
 
-#: MainWindow/Window.cpp:917
+#: MainWindow/Window.cpp:913
 #, kde-format
 msgid "Jump to Context"
 msgstr "კონტექსტზე გადასვლა"
 
-#: MainWindow/Window.cpp:925
+#: MainWindow/Window.cpp:921
 #, kde-format
 msgid "Lock Images"
 msgstr "გამოსახულებების დაბლოკვა"
 
-#: MainWindow/Window.cpp:929
+#: MainWindow/Window.cpp:925
 #, kde-format
 msgid "Unlock"
 msgstr "განბლოკვა"
 
-#: MainWindow/Window.cpp:932
+#: MainWindow/Window.cpp:928
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "ყველა სხვა ელემენტის დაბლოკვა"
 
-#: MainWindow/Window.cpp:935
+#: MainWindow/Window.cpp:931
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "ელემენტების მიმდინარე ნაკრების დაბლოკვა"
 
-#: MainWindow/Window.cpp:938
+#: MainWindow/Window.cpp:934
 #, kde-format
 msgid "Configure Current View"
 msgstr "მიმდინარე ხედის მორგება"
 
-#: MainWindow/Window.cpp:946
+#: MainWindow/Window.cpp:942
 #, kde-format
 msgid "Tree"
 msgstr "ხე"
 
-#: MainWindow/Window.cpp:951
+#: MainWindow/Window.cpp:947
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "ხე მომხმარებლის ხატულებით"
 
-#: MainWindow/Window.cpp:956
+#: MainWindow/Window.cpp:952
 #, kde-format
 msgid "Icons"
 msgstr "ხატულები"
 
-#: MainWindow/Window.cpp:963
+#: MainWindow/Window.cpp:959
 #, kde-format
 msgid "Use natural sort order"
 msgstr "ბუნებრივი მიმდევრობის გამოყენება"
 
-#: MainWindow/Window.cpp:973
+#: MainWindow/Window.cpp:969
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "მინიშნებების ჩვენება მინიატურების ფანჯარაში"
 
-#: MainWindow/Window.cpp:978
+#: MainWindow/Window.cpp:974
 #, kde-format
 msgid "Show Labels in Thumbnails Window"
 msgstr "ჭდეების ჩვენება მინიატურების ფანჯარაში"
 
-#: MainWindow/Window.cpp:988
+#: MainWindow/Window.cpp:984
 #, kde-format
 msgid "Show Categories in Thumbnails Window"
 msgstr "კატეგორიების ჩვენება მინიატურების ფანჯარაში"
 
-#: MainWindow/Window.cpp:1005
+#: MainWindow/Window.cpp:1001
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr "აირჩიეთ ფერის სქემა"
 
-#: MainWindow/Window.cpp:1012
+#: MainWindow/Window.cpp:1008
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "დისკზე არმყოფი გამოსახულებებისა და ვიდეოების ჩვენება"
 
-#: MainWindow/Window.cpp:1015
+#: MainWindow/Window.cpp:1011
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "არასრული თარიღების მქონე გამოსახულებებისა და ვიდეოების ჩვენება..."
 
-#: MainWindow/Window.cpp:1018
+#: MainWindow/Window.cpp:1014
 #, kde-format
 msgid "Merge duplicates..."
 msgstr "დუბლიკატების შერწყმა..."
 
-#: MainWindow/Window.cpp:1020 MainWindow/Window.cpp:1075
+#: MainWindow/Window.cpp:1016 MainWindow/Window.cpp:1071
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "მონიშნული მინიატურების და საკონტროლო ჯამების განახლება"
 
-#: MainWindow/Window.cpp:1024
+#: MainWindow/Window.cpp:1020
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "სურათებისა და ვიდეოების თავიდან სკანირება"
 
-#: MainWindow/Window.cpp:1027
+#: MainWindow/Window.cpp:1023
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Exif-ის ძებნის მონაცემთა ბაზის თავიდან შექმნა"
 
-#: MainWindow/Window.cpp:1030
+#: MainWindow/Window.cpp:1026
 #, kde-format
 msgid "Read Metadata from Files..."
 msgstr "მეტამონაცემების წაკითხვა ფაილებიდან..."
 
-#: MainWindow/Window.cpp:1033
+#: MainWindow/Window.cpp:1029
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "ყველას დალაგება თარიღისა და დროის მიხედვით"
 
-#: MainWindow/Window.cpp:1037
+#: MainWindow/Window.cpp:1033
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "მონიშნული გამოსახულებების ავტომატური დაჯგუფება..."
 
-#: MainWindow/Window.cpp:1040
+#: MainWindow/Window.cpp:1036
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "მინიატურების აგება"
 
-#: MainWindow/Window.cpp:1043
+#: MainWindow/Window.cpp:1039
 #, kde-format
 msgid "Statistics..."
 msgstr "სტატისტიკა..."
 
-#: MainWindow/Window.cpp:1047
+#: MainWindow/Window.cpp:1043
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "მონიშვნა, როგორც ჭდის გარეშე"
 
-#: MainWindow/Window.cpp:1057
+#: MainWindow/Window.cpp:1053
 #, kde-format
 msgid "Enable All Messages"
 msgstr "ყველა შეტყობინების ჩართვა"
 
-#: MainWindow/Window.cpp:1061
+#: MainWindow/Window.cpp:1057
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "KPhotoAlbum-ის დემოს გაშვება"
 
-#: MainWindow/Window.cpp:1065
+#: MainWindow/Window.cpp:1061
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "KPhotoAlbum-ის ფუნქციის სტატუსი"
 
-#: MainWindow/Window.cpp:1068
+#: MainWindow/Window.cpp:1064
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "დემო ვიდეოების ჩვენება"
 
-#: MainWindow/Window.cpp:1072 Viewer/ViewerWidget.cpp:196
+#: MainWindow/Window.cpp:1068 Viewer/ViewerWidget.cpp:196
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Exif ინფრმაციისა და ფაილის მეტამონაცემების ჩვენება"
 
-#: MainWindow/Window.cpp:1078
+#: MainWindow/Window.cpp:1074
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "შემდეგი ვიდეოს მინიატურის გამოყენება"
 
-#: MainWindow/Window.cpp:1082
+#: MainWindow/Window.cpp:1078
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "წინა ვიდეოს მინიატურის გამოყეება"
 
-#: MainWindow/Window.cpp:1086 MainWindow/Window.cpp:1319
+#: MainWindow/Window.cpp:1082 MainWindow/Window.cpp:1315
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "გამოსახულების კოპირება სად..."
 msgstr[1] "გამოსახულების კოპირება სად..."
 
-#: MainWindow/Window.cpp:1090 MainWindow/Window.cpp:1323
+#: MainWindow/Window.cpp:1086 MainWindow/Window.cpp:1319
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
 msgstr[0] "გამოსახულების ბმული სად..."
 msgstr[1] "გამოსახულების ბმული სად..."
 
-#: MainWindow/Window.cpp:1114
+#: MainWindow/Window.cpp:1110
 #, kde-format
 msgid "Auto saving...."
 msgstr "ავტოშენახვა..."
 
-#: MainWindow/Window.cpp:1117
+#: MainWindow/Window.cpp:1113
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "ავტოშენახვა... მზადაა"
 
-#: MainWindow/Window.cpp:1217
+#: MainWindow/Window.cpp:1213
 #, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
 msgstr "<p>მართლა გნებავთ ამ მონაცემთა ბაზის ფაილის შექმნა?<br />%1</p>"
 
-#: MainWindow/Window.cpp:1220
+#: MainWindow/Window.cpp:1216
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "ბაზის შექმნა"
 
-#: MainWindow/Window.cpp:1264
+#: MainWindow/Window.cpp:1260
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4610,33 +4610,33 @@ msgstr ""
 "გარეშე სურათებისთვის მენიუში <interface>მორგება|KPhotoAlbum-ის მორგება...|"
 "კატეგორიები</interface></p>"
 
-#: MainWindow/Window.cpp:1390 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1386 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "საერთო"
 
-#: MainWindow/Window.cpp:1391 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "მაყურებელი"
 
-#: MainWindow/Window.cpp:1392
+#: MainWindow/Window.cpp:1388
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "თარიღის ზოლი"
 
-#: MainWindow/Window.cpp:1395
+#: MainWindow/Window.cpp:1391
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "ანოტაციის ფანჯარა"
 
-#: MainWindow/Window.cpp:1396 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1392 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "მინიატურის ხედი"
 
-#: MainWindow/Window.cpp:1539
+#: MainWindow/Window.cpp:1535
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4645,13 +4645,13 @@ msgstr ""
 "<p>მართლა ჩავრთო ყველა შეტყობინების ველი, სადაც ადრე დასვით თოლია 'აღარ "
 "მაჩვენო'?</p>"
 
-#: MainWindow/Window.cpp:1541
+#: MainWindow/Window.cpp:1537
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "დამალული დიალოგების ჩამოყრა"
 
-#: MainWindow/Window.cpp:1555
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4668,34 +4668,34 @@ msgstr ""
 "მუშაობას, მაგრამ დიდი შანსია, რომ მოგვიანებით ავარიულად დასრულდეს იმის გამო, "
 "რომ არ გაგიშვიათ ბრძანება make install.</p>"
 
-#: MainWindow/Window.cpp:1555
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid "Internal Error"
 msgstr "შიდა შეცდომა"
 
-#: MainWindow/Window.cpp:1566
+#: MainWindow/Window.cpp:1562
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 "გამოსახულებები წარმატებით გაზიარდა. მიმდინარეობს მდებარეობების კოპირება "
 "ბუფერში..."
 
-#: MainWindow/Window.cpp:1569
+#: MainWindow/Window.cpp:1565
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "გამოსახულებები წარმატებით გაზიარდა."
 
-#: MainWindow/Window.cpp:1574
+#: MainWindow/Window.cpp:1570
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "გამოსახულების გაზიარება ჩავარდა შეტყობინებით: %1"
 
-#: MainWindow/Window.cpp:1625
+#: MainWindow/Window.cpp:1621
 #, kde-format
 msgid "Open List of Files"
 msgstr "ფაილების სიის გახსნა"
 
-#: MainWindow/Window.cpp:1626
+#: MainWindow/Window.cpp:1622
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4704,33 +4704,33 @@ msgstr ""
 "შეგიზლიათ, KPhotoAlbum-ის მონაცემთა ბაზაში ფაილების ნაკრები მათი აქ "
 "ჩამოთვლით გახსნათ."
 
-#: MainWindow/Window.cpp:1640
+#: MainWindow/Window.cpp:1636
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "თქვენი შეყვანის შესაბამისი სურათები აღმოჩენილი არაა."
 
-#: MainWindow/Window.cpp:1640
+#: MainWindow/Window.cpp:1636
 #, kde-format
 msgid "No Matches"
 msgstr "დამთხვევის გარეშე"
 
-#: MainWindow/Window.cpp:1812
+#: MainWindow/Window.cpp:1808
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Exif ინფორმაციის თავიდან წაკითხვა ყველა სურათიდან"
 
-#: MainWindow/Window.cpp:1839
+#: MainWindow/Window.cpp:1835
 #, kde-format
 msgid "No duplicate files were found."
 msgstr "დუბლიკატი ფაილები აღმოჩენილი არაა."
 
-#: MainWindow/Window.cpp:1849
+#: MainWindow/Window.cpp:1845
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "მინიატურის სიგანე: %1px (საცავის ზომა: %2px)"
 
-#: MainWindow/Window.cpp:1902
+#: MainWindow/Window.cpp:1898
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4741,7 +4741,7 @@ msgstr ""
 "ექნება საშუალება, გაჩვენოთ ვიდეოს მინიატურები და ხანგრძლივობები. დააყენეთ "
 "პაკეტი ffmpeg.</p>"
 
-#: MainWindow/Window.cpp:1905
+#: MainWindow/Window.cpp:1901
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "ვიდეო მინიატურები მიუწვდომელია"
@@ -4924,27 +4924,27 @@ msgstr "შეიყვანეთ თარიღი..."
 msgid "<i>Select an item on the left to edit the birthday</i>"
 msgstr "<i>დაბადების დღის ჩასასწორებლად აირჩიეთ ელემენტი მარხენა მხარეს</i>"
 
-#: Settings/CategoryPage.cpp:49
+#: Settings/CategoryPage.cpp:48
 #, kde-format
 msgid "Category Settings"
 msgstr "კატეგორიის პარამეტრები"
 
-#: Settings/CategoryPage.cpp:70
+#: Settings/CategoryPage.cpp:69
 #, kde-format
 msgid "New"
 msgstr "ახალი"
 
-#: Settings/CategoryPage.cpp:78
+#: Settings/CategoryPage.cpp:77
 #, kde-format
 msgid "Rename"
 msgstr "გადარქმევა"
 
-#: Settings/CategoryPage.cpp:111
+#: Settings/CategoryPage.cpp:110
 #, kde-format
 msgid "Positionable tags:"
 msgstr "პოზიცირებადი ჭდეები:"
 
-#: Settings/CategoryPage.cpp:113
+#: Settings/CategoryPage.cpp:112
 #, kde-format
 msgid ""
 "Tags in this category can be\n"
@@ -4953,37 +4953,37 @@ msgstr ""
 "ამ კატეგორიაში მყოფი ჭდეები\n"
 "შეგიძლიათ, გამოსახულებების შიგნით ალაგებს მიანიჭოთ"
 
-#: Settings/CategoryPage.cpp:120
+#: Settings/CategoryPage.cpp:119
 #, kde-format
 msgid "Icon:"
 msgstr "ხატულა:"
 
-#: Settings/CategoryPage.cpp:140
+#: Settings/CategoryPage.cpp:139
 #, kde-format
 msgid "Preferred view:"
 msgstr "სასურველი ხედი:"
 
-#: Settings/CategoryPage.cpp:145
+#: Settings/CategoryPage.cpp:144
 #, kde-format
 msgid "List View"
 msgstr "სიის ხედი"
 
-#: Settings/CategoryPage.cpp:146
+#: Settings/CategoryPage.cpp:145
 #, kde-format
 msgid "List View with Custom Thumbnails"
 msgstr "სიის ხედი მორგებული მინიატურებით"
 
-#: Settings/CategoryPage.cpp:147
+#: Settings/CategoryPage.cpp:146
 #, kde-format
 msgid "Icon View"
 msgstr "ხატულებით ჩვენება"
 
-#: Settings/CategoryPage.cpp:148
+#: Settings/CategoryPage.cpp:147
 #, kde-format
 msgid "Icon View with Custom Thumbnails"
 msgstr "ხატულების ხედი მორგებული მინიატურებით"
 
-#: Settings/CategoryPage.cpp:158
+#: Settings/CategoryPage.cpp:157
 #, kde-format
 msgid ""
 "<font color='red'>The database has unsaved changes. As long as those are not "
@@ -4994,22 +4994,22 @@ msgstr ""
 "არ სეინახავთ,<br/>კატეგორიის სახელები არ შეიცვლება და ახლები არ დაემატება.</"
 "font>"
 
-#: Settings/CategoryPage.cpp:166
+#: Settings/CategoryPage.cpp:165
 #, kde-format
 msgid "Save the DB now"
 msgstr "DB-ის შენახვა"
 
-#: Settings/CategoryPage.cpp:206
+#: Settings/CategoryPage.cpp:205
 #, kde-format
 msgid "Settings for category <b>%1</b>"
 msgstr "პარამეტრები კატეგორიისთვის <b>%1</b>"
 
-#: Settings/CategoryPage.cpp:209
+#: Settings/CategoryPage.cpp:208
 #, kde-format
 msgid "<i>Pending change: rename to \"%1\"</i>"
 msgstr "<i>მომლოდინე ცვლილება: გადარქმევა სახელზე \"%1\"</i>"
 
-#: Settings/CategoryPage.cpp:263
+#: Settings/CategoryPage.cpp:262
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>\"%2\" is a "
@@ -5020,12 +5020,12 @@ msgstr ""
 "\"%2\" სპეციალური კატეგორიის სახელია, რომელიც დაცულია და ნორმალური "
 "კატეგორიისთვის ვერ გამოიყენებთ.</p>"
 
-#: Settings/CategoryPage.cpp:267 Settings/CategoryPage.cpp:278
+#: Settings/CategoryPage.cpp:266 Settings/CategoryPage.cpp:277
 #, kde-format
 msgid "Invalid category name"
 msgstr "არასწორი კატეგორიის სახელი"
 
-#: Settings/CategoryPage.cpp:275
+#: Settings/CategoryPage.cpp:274
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>A category with "
@@ -5034,7 +5034,7 @@ msgstr ""
 "<p>კატეგორიის სახელის გადარქმევის შეცდომა \"%1\"-დან \"%2\"-ზე:</"
 "p><p>კატეგორია ამ სახელით უკვე არსებობს.</p>"
 
-#: Settings/CategoryPage.cpp:292
+#: Settings/CategoryPage.cpp:291
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>There's a "
@@ -5044,12 +5044,12 @@ msgstr ""
 "<p>ვერ შევცვალე კატეგორიის სახელი \"%1\"-დან \"%2\"-ზე:</p><p>კატეგორიაში "
 "\"%2\" რიგშია სახელის გადარქმევის ქმედება. ჯერ შეინახეთ ეს ცვლილება.</p>"
 
-#: Settings/CategoryPage.cpp:296
+#: Settings/CategoryPage.cpp:295
 #, kde-format
 msgid "Unsaved pending renaming action"
 msgstr "სახელის გადარქმევის შეუნახავი ქმედება"
 
-#: Settings/CategoryPage.cpp:327
+#: Settings/CategoryPage.cpp:326
 #, kde-format
 msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
@@ -5058,28 +5058,28 @@ msgstr ""
 "<p>მართლა გნებავთ \"%1\" არაპოზიციონირებადი გახდეს?</p><p>ყველა არე, რომელიც "
 "ამ კატეგორიაზეა მიბმული, წაიშლება!</p>"
 
-#: Settings/CategoryPage.cpp:335
+#: Settings/CategoryPage.cpp:334
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
 msgstr "ქმედების დადასტურება"
 
-#: Settings/CategoryPage.cpp:372
+#: Settings/CategoryPage.cpp:371
 #, kde-format
 msgid "New category"
 msgstr "ახალი კატეგორია"
 
-#: Settings/CategoryPage.cpp:404
+#: Settings/CategoryPage.cpp:403
 #, kde-format
 msgid "<p>Really delete category \"%1\"?</p>"
 msgstr "<p>ნამდვილად წავშალო კატეგორია \"%1\"?</p>"
 
-#: Settings/CategoryPage.cpp:408
+#: Settings/CategoryPage.cpp:407
 #, kde-format
 msgid "Confirm Action"
 msgstr "ქმედების დადასტურება"
 
-#: Settings/CategoryPage.cpp:521
+#: Settings/CategoryPage.cpp:520
 #, kde-format
 msgid "<i>Choose a category to edit it</i>"
 msgstr "<i>აირჩიეთ ჩასასწრორებელი კატეგორია</i>"
@@ -6402,7 +6402,7 @@ msgstr ""
 "რჩევა: გამოიყენეთ <shortcut>Alt + Shift + <placeholder>A-Z</placeholder></"
 "shortcut> რომ გადართოთ ფილტრი ამ კოდისთვის."
 
-#: ThumbnailView/ThumbnailDND.cpp:93
+#: ThumbnailView/ThumbnailDND.cpp:92
 #, kde-format
 msgid ""
 "<p><b>Really reorder thumbnails?</b></p><p>By dragging images around in the "
@@ -6418,7 +6418,7 @@ msgstr ""
 "<b>რემონტი -&gt; ყველას დალაგება დროითა და თარიღით</b> ან <b>ხედი -&gt; "
 "მონიშნულის დალაგება დროითა და თარიღით</b>.</p>"
 
-#: ThumbnailView/ThumbnailDND.cpp:100
+#: ThumbnailView/ThumbnailDND.cpp:99
 #, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"

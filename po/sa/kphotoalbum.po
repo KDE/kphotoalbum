@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-03 00:43+0000\n"
+"POT-Creation-Date: 2026-07-04 00:41+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -966,7 +966,7 @@ msgid "Search did not match any images or videos."
 msgstr "अन्वेषणं कस्यापि चित्रस्य वा भिडियायाः वा मेलनं न कृतवान् ।"
 
 #: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
-#: MainWindow/Window.cpp:1835
+#: MainWindow/Window.cpp:1842
 #, kde-format
 msgid "Empty Search Result"
 msgstr "रिक्त अन्वेषण परिणाम"
@@ -982,7 +982,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "अन्वेषण"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1784
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1791
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -997,7 +997,7 @@ msgstr ""
 "<b>Categories</b> चिह्नं चिनोतु</li><li> अधुना <b>Untagged Images इति</b> विभागं "
 "विन्यस्यताम्</li></ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1791
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1798
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "विशेषता विन्यस्तं नास्ति"
@@ -1323,7 +1323,7 @@ msgid "Loading information from images"
 msgstr "चित्रेभ्यः सूचनां लोड् करणम्"
 
 #: DB/ImageDB.cpp:558 DB/ImageDB.cpp:864 DB/XML/FileReader.cpp:139
-#: Settings/CategoryPage.cpp:257 ThumbnailView/ThumbnailModel.cpp:364
+#: Settings/CategoryPage.cpp:257 ThumbnailView/ThumbnailModel.cpp:374
 #, kde-format
 msgid "Media Type"
 msgstr "मीडिया प्रकार"
@@ -1424,7 +1424,7 @@ msgstr "XML दत्तांशकोशसञ्चिकासंस्क�
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: DB/XML/FileReader.cpp:91 Settings/CategoryPage.cpp:255
-#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:364
+#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:374
 #, kde-format
 msgid "Folder"
 msgstr "समुच्चय"
@@ -2714,7 +2714,7 @@ msgid "Create folder?"
 msgstr "पुटं रचयन्तु?"
 
 #: ImportExport/ImportDialog.cpp:304 MainWindow/WelcomeDialog.cpp:160
-#: MainWindow/Window.cpp:1219
+#: MainWindow/Window.cpp:1226
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -3130,25 +3130,25 @@ msgid "&View"
 msgstr "&दृश्यं"
 
 #. i18n: ectx: Menu (privacy)
-#: kphotoalbumui.rc:53
+#: kphotoalbumui.rc:54
 #, kde-format
 msgid "Privacy"
 msgstr "निजता"
 
 #. i18n: ectx: Menu (maintenance)
-#: kphotoalbumui.rc:68
+#: kphotoalbumui.rc:69
 #, kde-format
 msgid "&Maintenance"
 msgstr "&अनुरक्षणम्‌"
 
 #. i18n: ectx: Menu (plugins)
-#: kphotoalbumui.rc:90
+#: kphotoalbumui.rc:91
 #, kde-format
 msgid "Plugins"
 msgstr "प्लगिन्स्"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:102
+#: kphotoalbumui.rc:103
 #, kde-format
 msgid "Main Toolbar"
 msgstr "मुख्य साधनपट्टी"
@@ -4227,13 +4227,13 @@ msgid "Stacking Error"
 msgstr "स्टैकिंग त्रुटि"
 
 #: MainWindow/Window.cpp:489 MainWindow/Window.cpp:621
-#: MainWindow/Window.cpp:1337 MainWindow/Window.cpp:1434
+#: MainWindow/Window.cpp:1344 MainWindow/Window.cpp:1441
 #, kde-format
 msgid "No item is selected."
 msgstr "कोऽपि द्रव्यः न चयनितः।"
 
 #: MainWindow/Window.cpp:489 MainWindow/Window.cpp:621
-#: MainWindow/Window.cpp:1337 MainWindow/Window.cpp:1435
+#: MainWindow/Window.cpp:1344 MainWindow/Window.cpp:1442
 #, kde-format
 msgid "No Selection"
 msgstr "न चयनम्"
@@ -4253,7 +4253,7 @@ msgstr "सञ्चयम्... कृतम्"
 msgid "There are no images to be shown."
 msgstr "तत्र चित्राणि दर्शयितुं न सन्ति।"
 
-#: MainWindow/Window.cpp:767 MainWindow/Window.cpp:908
+#: MainWindow/Window.cpp:767 MainWindow/Window.cpp:915
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "दृश्यं चयनं प्रति सीमितं कुर्वन्तु"
@@ -4349,224 +4349,230 @@ msgstr "सर्वाणि स्तम्भानि ध्वंसयन�
 msgid "Expand all stacks"
 msgstr "सर्वाणि स्तम्भानि विस्तारयन्तु"
 
-#: MainWindow/Window.cpp:895
+#: MainWindow/Window.cpp:896
+#, fuzzy, kde-format
+#| msgid "Collapse all stacks"
+msgid "Toggle all stacks"
+msgstr "सर्वाणि स्तम्भानि ध्वंसयन्तु"
+
+#: MainWindow/Window.cpp:902
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "&Oldest प्रथमं दर्शयतु"
 
-#: MainWindow/Window.cpp:900
+#: MainWindow/Window.cpp:907
 #, kde-format
 msgid "Show &Newest First"
 msgstr "प्रथमं &नवीनतमं दर्शयतु"
 
-#: MainWindow/Window.cpp:905
+#: MainWindow/Window.cpp:912
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "तिथि && समय द्वारा चयनित क्रमबद्ध करें"
 
-#: MainWindow/Window.cpp:913
+#: MainWindow/Window.cpp:920
 #, kde-format
 msgid "Jump to Context"
 msgstr "सन्दर्भं प्रति कूदन्तु"
 
-#: MainWindow/Window.cpp:921
+#: MainWindow/Window.cpp:928
 #, kde-format
 msgid "Lock Images"
 msgstr "लॉक इमेजेज"
 
-#: MainWindow/Window.cpp:925
+#: MainWindow/Window.cpp:932
 #, kde-format
 msgid "Unlock"
 msgstr "अनलॉक"
 
-#: MainWindow/Window.cpp:928
+#: MainWindow/Window.cpp:935
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "अन्ये सर्वे वस्तूनि ताडयन्तु"
 
-#: MainWindow/Window.cpp:931
+#: MainWindow/Window.cpp:938
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Lock Away वर्तमान द्रव्यसमूहः"
 
-#: MainWindow/Window.cpp:934
+#: MainWindow/Window.cpp:941
 #, kde-format
 msgid "Configure Current View"
 msgstr "वर्तमानदृश्यं विन्यस्यताम्"
 
-#: MainWindow/Window.cpp:942
+#: MainWindow/Window.cpp:949
 #, kde-format
 msgid "Tree"
 msgstr "वृक्षः"
 
-#: MainWindow/Window.cpp:947
+#: MainWindow/Window.cpp:954
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "उपयोक्तृचिह्नयुक्तः वृक्षः"
 
-#: MainWindow/Window.cpp:952
+#: MainWindow/Window.cpp:959
 #, kde-format
 msgid "Icons"
 msgstr "चिह्नानि"
 
-#: MainWindow/Window.cpp:959
+#: MainWindow/Window.cpp:966
 #, kde-format
 msgid "Use natural sort order"
 msgstr "प्राकृतिक क्रमाङ्कनस्य उपयोगं कुर्वन्तु"
 
-#: MainWindow/Window.cpp:969
+#: MainWindow/Window.cpp:976
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Thumbnails Window मध्ये Tooltips दर्शयतु"
 
-#: MainWindow/Window.cpp:974
+#: MainWindow/Window.cpp:981
 #, kde-format
 msgid "Show Labels in Thumbnails Window"
 msgstr "लघुचित्रविण्डो मध्ये लेबल्स् दर्शयन्तु"
 
-#: MainWindow/Window.cpp:984
+#: MainWindow/Window.cpp:991
 #, kde-format
 msgid "Show Categories in Thumbnails Window"
 msgstr "लघुचित्रविण्डो मध्ये श्रेणयः दर्शयन्तु"
 
-#: MainWindow/Window.cpp:1001
+#: MainWindow/Window.cpp:1008
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr "Color Scheme इति चिनोतु"
 
-#: MainWindow/Window.cpp:1008
+#: MainWindow/Window.cpp:1015
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "चित्राणि विडियो च प्रदर्शयन्तु डिस्कमध्ये नास्ति"
 
-#: MainWindow/Window.cpp:1011
+#: MainWindow/Window.cpp:1018
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "अपूर्णतिथियुक्तानि चित्राणि विडियो च प्रदर्शयन्तु..."
 
-#: MainWindow/Window.cpp:1014
+#: MainWindow/Window.cpp:1021
 #, fuzzy, kde-format
 #| msgid "Merge duplicates"
 msgid "Merge duplicates..."
 msgstr "डुप्लिकेट् विलीनीकरणं कुर्वन्तु"
 
-#: MainWindow/Window.cpp:1016 MainWindow/Window.cpp:1071
+#: MainWindow/Window.cpp:1023 MainWindow/Window.cpp:1078
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "चयनित लघुचित्रं चेकसमं च ताजगीं कुर्वन्तु"
 
-#: MainWindow/Window.cpp:1020
+#: MainWindow/Window.cpp:1027
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "चित्राणि विडियो च पुनः स्कैन कुर्वन्तु"
 
-#: MainWindow/Window.cpp:1023
+#: MainWindow/Window.cpp:1030
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Exif Search Database पुनः रचयन्तु"
 
-#: MainWindow/Window.cpp:1026
+#: MainWindow/Window.cpp:1033
 #, fuzzy, kde-format
 #| msgid "Read Exif Info from Files..."
 msgid "Read Metadata from Files..."
 msgstr "Files तः Exif Info पठन्तु..."
 
-#: MainWindow/Window.cpp:1029
+#: MainWindow/Window.cpp:1036
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "Sort All by Date && समय"
 
-#: MainWindow/Window.cpp:1033
+#: MainWindow/Window.cpp:1040
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "चयनितचित्रं स्वयमेव स्तम्भयन्तु..."
 
-#: MainWindow/Window.cpp:1036
+#: MainWindow/Window.cpp:1043
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "लघुचित्रं निर्मायताम्"
 
-#: MainWindow/Window.cpp:1039
+#: MainWindow/Window.cpp:1046
 #, kde-format
 msgid "Statistics..."
 msgstr "सांख्यिकी..."
 
-#: MainWindow/Window.cpp:1043
+#: MainWindow/Window.cpp:1050
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "Untagged इति चिह्नं कुर्वन्तु"
 
-#: MainWindow/Window.cpp:1053
+#: MainWindow/Window.cpp:1060
 #, kde-format
 msgid "Enable All Messages"
 msgstr "सर्वे सन्देशाः सक्षमाः कुर्वन्तु"
 
-#: MainWindow/Window.cpp:1057
+#: MainWindow/Window.cpp:1064
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "KPhotoAlbum Demo चलाये"
 
-#: MainWindow/Window.cpp:1061
+#: MainWindow/Window.cpp:1068
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "KPhotoAlbum विशेषता स्थिति"
 
-#: MainWindow/Window.cpp:1064
+#: MainWindow/Window.cpp:1071
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "डेमो विडियो दर्शयतु"
 
-#: MainWindow/Window.cpp:1068 Viewer/ViewerWidget.cpp:196
+#: MainWindow/Window.cpp:1075 Viewer/ViewerWidget.cpp:196
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Exif Info तथा सञ्चिका मेटाडाटा दर्शयन्तु"
 
-#: MainWindow/Window.cpp:1074
+#: MainWindow/Window.cpp:1081
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "अग्रिमस्य विडियो लघुचित्रस्य उपयोगं कुर्वन्तु"
 
-#: MainWindow/Window.cpp:1078
+#: MainWindow/Window.cpp:1085
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "पूर्वस्य विडियो लघुचित्रस्य उपयोगं कुर्वन्तु"
 
-#: MainWindow/Window.cpp:1082 MainWindow/Window.cpp:1315
+#: MainWindow/Window.cpp:1089 MainWindow/Window.cpp:1322
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "चित्रं प्रतिलिख्य ..."
 msgstr[1] "चित्राणि प्रतिलिख्य ..."
 
-#: MainWindow/Window.cpp:1086 MainWindow/Window.cpp:1319
+#: MainWindow/Window.cpp:1093 MainWindow/Window.cpp:1326
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
 msgstr[0] "चित्रं लिङ्क् कुर्वन्तु ..."
 msgstr[1] "चित्राणि लिङ्क् कुर्वन्तु ..."
 
-#: MainWindow/Window.cpp:1110
+#: MainWindow/Window.cpp:1117
 #, kde-format
 msgid "Auto saving...."
 msgstr "स्वतः बचतम्...."
 
-#: MainWindow/Window.cpp:1113
+#: MainWindow/Window.cpp:1120
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "स्वतः बचतम्.... कृतम्"
 
-#: MainWindow/Window.cpp:1213
+#: MainWindow/Window.cpp:1220
 #, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
 msgstr "<p>किं भवान् एतां दत्तांशकोशसञ्चिकां निर्मातुम् इच्छति ?<br /> %1</p>"
 
-#: MainWindow/Window.cpp:1216
+#: MainWindow/Window.cpp:1223
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "दत्तांशकोशं रचयन्तु"
 
-#: MainWindow/Window.cpp:1260
+#: MainWindow/Window.cpp:1267
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4578,33 +4584,33 @@ msgstr ""
 "p><p> कृपया अन्तर्गतं स्वस्य अटैग्ड् टैग् सेटिंग् समीक्षां कुर्वन्तु<interface> सेटिंग्स्|"
 "KPhotoAlbum...|वर्गाः विन्यस्तं कुर्वन्तु</interface></p>"
 
-#: MainWindow/Window.cpp:1386 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1393 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "सामान्य"
 
-#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1394 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "दर्शक"
 
-#: MainWindow/Window.cpp:1388
+#: MainWindow/Window.cpp:1395
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "तिथि बार"
 
-#: MainWindow/Window.cpp:1391
+#: MainWindow/Window.cpp:1398
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "एनोटेशन संवाद"
 
-#: MainWindow/Window.cpp:1392 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1399 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "लघुचित्र दृश्य"
 
-#: MainWindow/Window.cpp:1535
+#: MainWindow/Window.cpp:1542
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4613,13 +4619,13 @@ msgstr ""
 "<p>यत्र पूर्वं भवान् पुनः न दर्शयतु इति चेक् बॉक्स् कृतवान् तत्र सर्वाणि सन्देशपेटिकाः यथार्थतया "
 "सक्षमं कुर्वन्तु?</p>"
 
-#: MainWindow/Window.cpp:1537
+#: MainWindow/Window.cpp:1544
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "गुप्तसंवादं पुनः सेट् कुर्वन्तु"
 
-#: MainWindow/Window.cpp:1551
+#: MainWindow/Window.cpp:1558
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4636,32 +4642,32 @@ msgstr ""
 "करिष्यति, परन्तु make install इत्यस्य लुप्तस्य कारणेन पश्चात् क्रैश भविष्यति इति सर्वथा "
 "असम्भाव्यम् नास्ति ।</p>"
 
-#: MainWindow/Window.cpp:1551
+#: MainWindow/Window.cpp:1558
 #, kde-format
 msgid "Internal Error"
 msgstr "आन्तरिकदोषः"
 
-#: MainWindow/Window.cpp:1562
+#: MainWindow/Window.cpp:1569
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "सफलतया साझाकृतं चित्रं (प्रतिबिम्बं)। स्थानस्य प्रतिलिपिं क्लिपबोर्ड् मध्ये भवति..."
 
-#: MainWindow/Window.cpp:1565
+#: MainWindow/Window.cpp:1572
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "सफलतया साझाकृतं चित्रं (प्रतिबिम्बं)।"
 
-#: MainWindow/Window.cpp:1570
+#: MainWindow/Window.cpp:1577
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "प्रतिबिम्बसाझेदारी सन्देशेन सह विफलम्: %1"
 
-#: MainWindow/Window.cpp:1621
+#: MainWindow/Window.cpp:1628
 #, kde-format
 msgid "Open List of Files"
 msgstr "सञ्चिकानां सूचीं उद्घाटयन्तु"
 
-#: MainWindow/Window.cpp:1622
+#: MainWindow/Window.cpp:1629
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4670,34 +4676,34 @@ msgstr ""
 "अत्र सञ्चिकानां सूचीं कृत्वा KPhotoAlbum इत्यस्य दत्तांशकोशे सञ्चिकानां समुच्चयं उद्घाटयितुं "
 "शक्नुवन्ति ।"
 
-#: MainWindow/Window.cpp:1636
+#: MainWindow/Window.cpp:1643
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "भवतः निवेशेन सह मेलनं कुर्वन्तः कोऽपि चित्रः न प्राप्तः ।"
 
-#: MainWindow/Window.cpp:1636
+#: MainWindow/Window.cpp:1643
 #, kde-format
 msgid "No Matches"
 msgstr "न मेलः"
 
-#: MainWindow/Window.cpp:1808
+#: MainWindow/Window.cpp:1815
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "सर्वेभ्यः चित्रेभ्यः Exif सूचनां पुनः पठति"
 
-#: MainWindow/Window.cpp:1835
+#: MainWindow/Window.cpp:1842
 #, fuzzy, kde-format
 #| msgid "No duplicates found"
 msgid "No duplicate files were found."
 msgstr "न डुप्लिकेट् प्राप्तम्"
 
-#: MainWindow/Window.cpp:1845
+#: MainWindow/Window.cpp:1852
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "लघुचित्रविस्तारः %1px (भण्डारणस्य आकारः %2px)"
 
-#: MainWindow/Window.cpp:1898
+#: MainWindow/Window.cpp:1905
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4707,7 +4713,7 @@ msgstr ""
 "<p>प्रणाल्यां ffmpeg अन्वेष्टुं असमर्थः।</p><p> तस्य विना KPhotoAlbum विडियो लघुचित्रं "
 "विडियो दीर्घतां च प्रदर्शयितुं न शक्नोति। कृपया ffmpeg संकुलं संस्थापयन्तु</p>"
 
-#: MainWindow/Window.cpp:1901
+#: MainWindow/Window.cpp:1908
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "विडियो लघुचित्रं उपलब्धं नास्ति"

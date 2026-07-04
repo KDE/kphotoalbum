@@ -32,6 +32,25 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
+(Unreleased)
+------------
+
+### Added
+ - Add keyboard shortcut ('=') to toggle (i.e. expand/collapse) the currently selected stack in the thumbnail view (#185871)
+ - Add action ('Ctrl-=') to toggle all stacks in the thumbnail view.
+
+### Changed
+
+### Dependencies
+
+### Deprecated
+
+### Fixed
+
+### Removed
+
+### Security
+
 KPhotoAlbum 6.2.0 (2026-03-13)
 ------------------------------
 

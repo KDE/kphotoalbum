@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-04 00:41+0000\n"
-"PO-Revision-Date: 2026-06-30 06:24+0200\n"
+"PO-Revision-Date: 2026-07-04 13:19+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -4432,10 +4432,9 @@ msgid "Expand all stacks"
 msgstr "Razširi vse sklade"
 
 #: MainWindow/Window.cpp:896
-#, fuzzy, kde-format
-#| msgid "Collapse all stacks"
+#, kde-format
 msgid "Toggle all stacks"
-msgstr "Strni vse sklade"
+msgstr "Preklopi vse sklade"
 
 #: MainWindow/Window.cpp:902
 #, kde-format

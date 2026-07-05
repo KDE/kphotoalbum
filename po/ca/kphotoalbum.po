@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-04 00:41+0000\n"
-"PO-Revision-Date: 2026-06-30 10:00+0200\n"
+"PO-Revision-Date: 2026-07-04 16:26+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -4427,10 +4427,9 @@ msgid "Expand all stacks"
 msgstr "Expandeix totes les piles"
 
 #: MainWindow/Window.cpp:896
-#, fuzzy, kde-format
-#| msgid "Collapse all stacks"
+#, kde-format
 msgid "Toggle all stacks"
-msgstr "Redueix totes les piles"
+msgstr "Canvia totes les piles"
 
 #: MainWindow/Window.cpp:902
 #, kde-format

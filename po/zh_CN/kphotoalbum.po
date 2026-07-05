@@ -4031,11 +4031,9 @@ msgid "Expand all stacks"
 msgstr ""
 
 #: MainWindow/Window.cpp:896
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Toggle Full Screen"
+#, kde-format
 msgid "Toggle all stacks"
-msgstr "切换全屏显示"
+msgstr ""
 
 #: MainWindow/Window.cpp:902
 #, kde-format

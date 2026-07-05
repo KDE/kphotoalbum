@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-04 00:41+0000\n"
-"PO-Revision-Date: 2026-06-30 20:10+0300\n"
+"PO-Revision-Date: 2026-07-04 09:40+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -4474,10 +4474,9 @@ msgid "Expand all stacks"
 msgstr "Розгорнути всі стоси"
 
 #: MainWindow/Window.cpp:896
-#, fuzzy, kde-format
-#| msgid "Collapse all stacks"
+#, kde-format
 msgid "Toggle all stacks"
-msgstr "Згорнути всі стоси"
+msgstr "Перемкнути усі стоси"
 
 #: MainWindow/Window.cpp:902
 #, kde-format

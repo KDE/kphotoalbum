@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-04 00:41+0000\n"
-"PO-Revision-Date: 2026-07-01 12:46+0200\n"
+"PO-Revision-Date: 2026-07-05 10:00+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 26.04.2\n"
+"X-Generator: Lokalize 26.04.3\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -4472,10 +4472,9 @@ msgid "Expand all stacks"
 msgstr "Dépiler toutes les piles"
 
 #: MainWindow/Window.cpp:896
-#, fuzzy, kde-format
-#| msgid "Collapse all stacks"
+#, kde-format
 msgid "Toggle all stacks"
-msgstr "Replier toutes les piles"
+msgstr "Déplier / Regrouper toutes les piles"
 
 #: MainWindow/Window.cpp:902
 #, kde-format

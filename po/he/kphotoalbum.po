@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-04 00:41+0000\n"
-"PO-Revision-Date: 2026-06-30 09:12+0300\n"
+"PO-Revision-Date: 2026-07-07 09:05+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -4352,10 +4352,9 @@ msgid "Expand all stacks"
 msgstr "הרחבת כל הערמות"
 
 #: MainWindow/Window.cpp:896
-#, fuzzy, kde-format
-#| msgid "Collapse all stacks"
+#, kde-format
 msgid "Toggle all stacks"
-msgstr "צמצום כל הערמות"
+msgstr "החלפת מצב כינוס של כל הערמות"
 
 #: MainWindow/Window.cpp:902
 #, kde-format

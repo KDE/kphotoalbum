@@ -2,6 +2,7 @@
 SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
 SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 
 SPDX-License-Identifier: GFDL-1.2-only
 -->
@@ -10,9 +11,98 @@ SPDX-License-Identifier: GFDL-1.2-only
   <title
 >De viewer</title>
   <para
->De reden voor u om al uw afbeeldingen in &kphotoalbum; te stoppen en uren en uren om ze te beschrijven, is natuurlijk dat u op een gegeven moment naar ze wilt kijken. Daarvoor heeft &kphotoalbum; een viewer die in staat is om uw afbeeldingen en video's te laten zien. U opent de viewer vanuit de miniaturenweergave zoals beschreven in <xref linkend="chp-thumbnail-view"/>.</para>
+>De reden voor u om al uw afbeeldingen in &kphotoalbum; te stoppen en uren en uren om ze te beschrijven, is natuurlijk dat u op een gegeven moment naar ze wilt kijken. Daarvoor heeft &kphotoalbum; een viewer die in staat is om uw afbeeldingen en video's te laten zien. U opent de viewer vanuit de miniaturenweergave zoals beschreven in <xref linkend="chp-thumbnail-view"/>. </para>
 
-  <para
+<sect1 id="sect-viewer-common-commands">
+<title
+>Veelgebruikte Viewer-opdrachten</title>
+<para
+>De viewer ondersteunt zowel afbeeldingen als video's. De volgende commando's worden ondersteund voor zowel afbeeldingen als video's: </para>
+
+<itemizedlist>
+<listitem>
+<para
+>Druk op <keycap
+>Esc</keycap
+> om het venster te sluiten. </para>
+</listitem>
+
+<listitem>
+<para
+>Druk op <keycap
+>Page Down</keycap
+> of de <keycap
+>Space</keycap
+>-toets om naar de volgende afbeelding of video te gaan, en druk op <keycap
+>Page Up</keycap
+> om naar de vorige afbeelding of video te gaan. </para>
+</listitem>
+
+<listitem>
+<para
+>Druk op <keycombo
+>&Ctrl;<keycap
+>1</keycap
+></keycombo
+> om het <link linkend="chp-typingIn"
+>annotatiedialoogvenster</link
+> te openen voor de huidige afbeelding of video. </para>
+</listitem>
+
+<listitem>
+<para
+>Druk op <keycombo
+>&Ctrl;<keycap
+>4</keycap
+></keycombo
+> om de afbeelding of video als eerste in de stapel te plaatsen (als deze al deel uitmaakt van een stapel). </para>
+</listitem>
+
+<listitem>
+<para
+>Druk op <keycombo
+>&Ctrl;<keycap
+>d</keycap
+></keycombo
+> om de afbeeldingsbeschrijving te bewerken. </para>
+</listitem>
+
+<listitem>
+<para
+>Druk op <keycap
+>&Enter;</keycap
+> of <keycap
+>F11</keycap
+> om de volledige schermmodus in of uit te schakelen tijdens het bekijken van een afbeelding of video.</para>
+</listitem>
+
+<listitem>
+<para
+>Druk op <keycap
+>Delete</keycap
+> om de huidige afbeelding of video uit de lijst met weergaven te verwijderen (alsof u deze niet had geselecteerd om te bekijken) en naar het volgende item in de lijst met weergaven te gaan. Als de laatste afbeelding of video in de lijst met weergaven wordt verwijderd, wordt het venster gesloten.</para>
+</listitem>
+
+<listitem>
+<para
+>Druk op <keycombo
+>&Ctrl;<keycap
+>Verwijderen</keycap
+></keycombo
+> om de huidige afbeelding of video toe te voegen aan de verwijderingslijst van de viewer. Wanneer het viewer-venster wordt gesloten, opent &kphotoalbum; het dialoogvenster <emphasis
+>Items verwijderen</emphasis
+> als de verwijderingslijst niet leeg is. </para>
+</listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="sect-viewer-images">
+<title
+>Afbeeldingen bekijken</title>
+<para
+>Zie <xref linkend="sect-viewer-common-commands"/> voor de viewer-opdrachten. Deze worden ondersteund voor zowel afbeeldingen als video's. </para>
+
+<para
 >De viewer kunt u zien in <xref linkend="fig-viewer"/>. De viewer toont natuurlijk de foto aan u, maar bovendien toont het ook de opgegeven informatie over elke foto met wie staat er op de foto, waar en wanneer is deze genomen, &etc; </para>
 
   <figure id="fig-viewer">
@@ -25,8 +115,22 @@ SPDX-License-Identifier: GFDL-1.2-only
     </mediaobject>
   </figure>
 
-  <para
->In het geval dat de ondertiteling wordt geprojecteerd op een gedeelte van de foto die u wilt bekijken, dan kunt u deze eenvoudig verslepen naar een ander gedeelte van de foto. Het is mogelijk om in te stellen welke informatie zichtbaar is in de ondertiteling, maar ook of de informatie überhaupt zichtbaar is. Al deze keuzemogelijkheden zijn instelbaar na het klikken met de &RMB; in de viewer. Het contextmenu ziet u hieronder in <xref linkend="fig-viewer-contextmenu"/>.</para>
+<sect2 id="viewer-infobox">
+<title
+>Het informatievak</title>
+
+<para
+>De viewer biedt een infobox die over de afbeelding heen geplaatst kan worden. Het informatievak is onderaan in het midden geplaatst in <xref linkend="fig-viewer"/>. </para>
+
+<para
+>Als het informatievak zich boven een deel van de afbeelding bevindt dat u daadwerkelijk wilt zien, kunt u met de linkermuisknop op het informatievak klikken en het naar een andere plek op de afbeelding slepen. Druk op <keycombo
+>&Ctrl;<keycap
+>i</keycap
+></keycombo
+> om het informatievak in of uit te schakelen. </para>
+
+<para
+>Het is mogelijk om in te stellen welke informatie zichtbaar is in de ondertiteling, maar ook of de informatie überhaupt zichtbaar is. Al deze keuzemogelijkheden zijn instelbaar na het klikken met de &RMB; in de viewer . Het contextmenu ziet u hieronder in <xref linkend="fig-viewer-contextmenu"/>.</para>
 
   <figure id="fig-viewer-contextmenu">
     <title
@@ -39,21 +143,37 @@ SPDX-License-Identifier: GFDL-1.2-only
   </figure>
 
   <para
->Sommige woorden in de ondertiteling zijn onderstreept. Als u met de muis klikt op een van deze woorden klikt dan gaat het weergavevenster (zie <xref linkend="chp-browsing"/>) naar de scope van dat item. Dus als u klikt op <literal
+>Sommige woorden in de ondertiteling zijn onderstreept. Als u met de &LMB; klikt op een van deze woorden klikt dan gaat het weergavevenster (zie <xref linkend="chp-browsing"/>) naar de scope van dat item. Bijvoorbeeld, in de demo, als u klikt op <literal
 >Anne Helene</literal
-> dan toont de browser u alle foto's met Anne Helene, net zoals het gedaan zou hebben als u <literal
+> in het informatievak, dan toont de browser u alle foto's met Anne Helene, net zoals het gedaan zou hebben als u <literal
 >Mensen</literal
 > in de root van de browser en vervolgens <literal
 >Anne Helene</literal
 > zou selecteren.</para>
 
 <para
->In de ondertiteling kunt u een kleine knop met het &kphotoalbum; logo zien. Als u op die knop drukt dan opent de miniaturenviewer. De miniaturenviewer toont alle foto's, waarbij de foto die u in de viewer bekeek nog steeds is geselecteerd. Het idee hierachter is het volgende: u zoekt naar foto's met een bepaalde persoon om ze daarna te bekijken. Een van de foto's is van uw middelbare schooltijd en nu wilt u foto's uit die periode gaan bekijken. Door het gebruik van de knop <guilabel
+>In de rechter bovenhoek van het informatievak kunt u een kleine knop <emphasis
+>Spring naar context</emphasis
+> met het &kphotoalbum;0logo zien. Met de &LMB; op die knop drukken stuurt u naar de <xref linkend="chp-thumbnail-view"/>. De miniaturenweergave toont alle foto's, waarbij de foto die u in de viewer bekeek nog steeds is geselecteerd. Het idee hierachter is het volgende: u zoekt naar foto's met een bepaalde persoon om ze daarna te bekijken. Een van de foto's is van uw middelbare schooltijd en nu wilt u foto's uit die periode gaan bekijken. Door het gebruik van de knop <guilabel
 >Naar context gaan</guilabel
 >  gaat u naar de miniaturenweergave waar u alle foto's ziet met de focus op de laatst geselecteerde en waarschijnlijk de foto's van de middelbare schooltijd daaromheen.</para>
 
+<para
+>Als de huidige afbeelding geolocatiecoördinaten bevat, ziet u een kaartknop onder de knop <guilabel
+>Ga naar context</guilabel
+> in het infovenster. Door op deze knop te klikken, wordt een nieuw venster geopend met een kaart waarop wordt weergegeven waar de foto is genomen. </para>
+
+<note>
+<para
+>De kaartknop wordt alleen weergegeven als &kphotoalbum; is gecompileerd met ondersteuning voor &marble;. </para>
+</note>
+</sect2>
+
+<sect2 id="viewer-navigation">
+<title
+>Meer afbeeldingen bekijken</title>
   <para
->In het geval dat u verschillende foto's heeft geladen in de viewer, kunt u door de foto's vooruit en achteruit gaan met gebruik van <keycap
+>In het geval dat u verschillende foto's heeft geladen in de viewer, naast vooruit en achteruit te gaan met gebruik van respectievelijk de toetsen <keycap
 >Page Up</keycap
 > en <keycap
 >Page Down</keycap
@@ -63,30 +183,38 @@ SPDX-License-Identifier: GFDL-1.2-only
 >End</keycap
 >. Deze mogelijkheden zijn natuurlijk ook in het contextmenu beschikbaar.</para>
 
-  <para
->Als meerdere foto's zijn geladen in de viewer dan kunt u deze als diashow afspelen, wat inhoud dat &kphotoalbum; elke paar seconde een nieuwe foto toont. Hoe vaak de viewer een nieuwe foto laadt kunt u instellen door de toets &Ctrl; en  respectievelijk plus (om sneller te gaan) of minus (voor langzamer). Het starten en stoppen van de diashow kunt u doen door het intoetsten van <keycombo
+<para
+>U kunt ook meerdere afbeeldingen als diavoorstelling weergeven. In de diavoorstellingmodus laadt &kphotoalbum; elke paar seconden een nieuwe afbeelding in de viewer. Druk op <keycombo
 >&Ctrl;<keycap
->S</keycap
+>r</keycap
 ></keycombo
->.</para>
+> om de diavoorstelling in of uit te schakelen. Druk op <keycombo
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+> om de diavoorstelling sneller te laten verlopen of op <keycombo
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+> om deze langzamer te laten verlopen. </para>
+</sect2>
 
-  <para
->De mogelijkheid van de &kphotoalbum;-viewer om schermvullend te werken is erg handig. De viewer gebruikt in deze mode het complete scherm. Door het indrukken van de toets <keycap
->Enter</keycap
-> verandert het beeld van en naar schermvullend.</para>
-
-  <para
->Tijdens het gebruik van de viewer, kunt u op uw foto in- en uit-zoomen, door met de muis een rechthoek te tekenen. Door het indrukken van de toets <keycap
+<sect2 id="viewer-zooming">
+<title
+>In- en uitzoomen</title>
+<para
+>Tijdens het gebruik van de viewer, kunt u op uw foto in- en uit-zoomen, door met de &LMB; een rechthoek te tekenen. Door het indrukken van de toets <keycap
 >-</keycap
 > zoomt u weer uit. Door het indrukken van de toets <keycap
 >+</keycap
 > zoomt u in op het midden van de foto. <xref linkend="fig-marking-zoom-rectangle"/> hieronder laat een zoom-rechthoek zien en <xref linkend="fig-zoomed-view"/> toont het resultaat van het inzoomen.</para>
 
 <para
->Indrukken van de punt, laat u het zoomen resetten, zodat de afbeelding zonder zoom getoond wordt. Op het is-teken drukken stelt het zoomniveau in zodat elk pixel op het scherm correspondeert met een pixel in de afbeelding.</para>
-
-<para
->Merk op dat vanwege technische redenen de enige werkende zoom-functie tijdens het kijken naar video's het in- en uitzoomen is (met de plus- en minus-toets).</para>
+>Druk op de toets <keycap
+>.</keycap
+> om het zoomniveau te resetten zodat de afbeelding op zijn normale grootte wordt getoond. Op het de toets<keycap
+>=</keycap
+> drukken stelt het zoomniveau in zodat elk pixel op het scherm correspondeert met een pixel in de afbeelding.</para>
 
   <figure id="fig-marking-zoom-rectangle">
     <title
@@ -109,24 +237,181 @@ SPDX-License-Identifier: GFDL-1.2-only
       </imageobject>
     </mediaobject>
   </figure>
+</sect2>
 
+<sect2 id="viewer-rotating">
+<title
+>Afbeeldingen draaien</title>
   <para
->Door het kiezen van de rotatie-bewerkingen uit het context menu kunt u de foto roteren (Dit werkt niet bij video's). U kunt ook de huidige foto annoteren door  <guimenuitem
->Individuele items annoteren</guimenuitem
-> in het contextmenu te selecteren.</para>
+>Druk op de <keycap
+>7</keycap
+>-toets om de afbeelding 90 graden naar links te draaien. De <keycap
+>9</keycap
+>-toets draait de afbeelding 90 graden naar rechts. De <keycap
+>8</keycap
+>-toets draait de afbeelding 180 graden (oftewel, zet hem ondersteboven). </para>
+<important>
+<para
+>Elke wijziging in de rotatie van een afbeelding in de viewer is permanent.</para>
+</important>
+</sect2>
+</sect1>
 
+<sect1 id="sect-viewer-videos">
+<title
+>Video's bekijken</title>
+<para
+>Zie <xref linkend="sect-viewer-common-commands"/> voor de viewer-opdrachten. Deze worden ondersteund voor zowel video's als afbeeldingen. </para>
 
+<para
+>Wanneer een video in de viewer wordt geladen, begint de video automatisch af te spelen. Druk op de <keycap
+>P</keycap
+> om de video te pauzeren en druk er nogmaals op om het afspelen te hervatten. </para>
 
+<para
+>Druk op <keycap
+>Home</keycap
+> om de huidige video vanaf het begin opnieuw af te spelen, en op <keycap
+>End</keycap
+> om de huidige video te stoppen en terug te spoelen naar het begin. </para>
 
+<important>
+<para
+>Sommige weergavefuncties zijn niet beschikbaar bij het bekijken van een video:</para>
+<itemizedlist>
+<listitem>
+<para
+>Het informatievak kan niet in een video worden weergegeven.</para>
+</listitem>
+<listitem>
+<para
+>Voor video's worden geen zoomfuncties ondersteund, behalve het in- en uitschakelen van de volledige schermmodus.</para>
+</listitem>
+<listitem>
+<para
+>Rotatiebewerkingen worden niet ondersteund voor video's.</para>
+</listitem>
+<listitem>
+<para
+>De modus diavoorstelling wordt niet ondersteund voor video's.</para>
+</listitem>
+</itemizedlist>
+</important>
+
+<warning>
+<para
+>Zowel tokens (zie <xref linkend="assigning-tokens-from-the-viewer"/>) als tags (zie <xref linkend="annotating-from-the-viewer"/>) kunnen worden gewijzigd wanneer een video in de viewer wordt weergegeven, maar er is geen directe feedback voor de gebruiker dat er iets is veranderd. U kunt de annotatiemodus van de viewer instellen op <emphasis
+>Vergrendeld</emphasis
+> om te voorkomen dat u per ongeluk een token of tag wijzigt. </para>
+
+<para
+>Zoals hierboven vermeld, wordt de <keycap
+>p</keycap
+>-toets gebruikt om de pauzefunctie in of uit te schakelen. Het is dus niet mogelijk om deze toets te gebruiken om een ​​token of tag in of uit te schakelen tijdens het bekijken van een video. </para>
+</warning>
+
+<sect2 id="viewer-seeking">
+<title
+>Video vooruit- en achteruitspoelen</title>
+<para
+>De viewer ondersteunt het vooruit- en achteruitspoelen in een video. De sneltoetsen staan ​​vermeld in de <xref linkend="table-video-seek-controls"/>. </para>
+
+<table id="table-video-seek-controls">
+<title
+>Besturing van video vooruit- en achteruitspoelen</title>
+<tgroup cols="3">
+<thead>
+<row>
+<entry
+>Tijdsduur van spoelen</entry>
+<entry
+>Achterwaarts zoeken</entry>
+<entry
+>Voorwaarts zoeken</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry
+>100 msec</entry>
+<entry
+><keycombo
+>&Shift;<keycap
+>&Up;</keycap
+></keycombo
+></entry>
+<entry
+><keycombo
+>&Shift;<keycap
+>&Down;</keycap
+></keycombo
+></entry>
+</row>
+<row>
+<entry
+>1 sec</entry>
+<entry
+><keycap
+>&Up;</keycap
+></entry>
+<entry
+><keycap
+>&Down;</keycap
+></entry>
+</row>
+<row>
+<entry
+>10 sec</entry>
+<entry
+><keycap
+>&Left;</keycap
+></entry>
+<entry
+><keycap
+>&Right;</keycap
+></entry>
+</row>
+<row>
+<entry
+>1 minuut</entry>
+<entry
+><keycombo
+>&Shift;<keycap
+>&Left;</keycap
+></keycombo
+></entry>
+<entry
+><keycombo
+>&Shift;<keycap
+>&Right;</keycap
+></keycombo
+></entry>
+</row>
+<row>
+<entry
+>10 minuten</entry>
+<entry
+><keycombo
+>&Ctrl;<keycap
+>&Left;</keycap
+></keycombo
+></entry>
+<entry
+><keycombo
+>&Ctrl;<keycap
+>&Right;</keycap
+></keycombo
+></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</sect2>
+</sect1>
 
 <sect1 id="annotating-from-the-viewer">
 <title
 >Afbeeldingen annoteren vanuit de viewer</title>
-<para
->Traditioneel is de hoofdmanier voor tags geven aan afbeeldingen via <link linkend="chp-typingIn"
->de annotatiedialoog</link
->. Over de jaren zijn een paar verschillende pogingen gedaan om tags toe te kennen in de viewer, de eerste poging was door tokens in de viewer toe te kennen, een latere poging was door het mogelijk maken om een tag direct toe te kennen door een gedeelte van een categorie-item in te typen. Bovendien konden categorie-items toegekend worden aan functietoetsen op het toetsenbord. De code voor dat alles is nu gemoderniseerd om de werkmethode veel intuïtiever en inzichtelijk te maken.</para>
-
 <para
 >Er zijn drie modi om afbeeldingen te annoteren vanuit de viewer:</para>
 <itemizedlist>
@@ -176,7 +461,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 
 
 
-<sect1 id="tokens">
+<sect1 id="assigning-tokens-from-the-viewer">
 <title
 >Tokens instellen vanuit de viewer</title>
 <para
@@ -338,7 +623,14 @@ SPDX-License-Identifier: GFDL-1.2-only
 >&Ctrl;<keycap
 >A</keycap
 ></keycombo
-></para>
+>. Zo opent u ook het dialoogvenster om de macro-toetscombinaties te bekijken. </para>
+
+<para
+>Druk op <keycombo
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+> om annotaties van de vorige afbeelding in de lijst te kopiëren. </para>
 
 </sect1>
 </chapter>

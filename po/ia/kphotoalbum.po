@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-04 00:41+0000\n"
-"PO-Revision-Date: 2026-03-02 12:41+0100\n"
+"PO-Revision-Date: 2026-07-22 18:11+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3267,8 +3267,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:74
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge Duplicates"
 msgstr "Fusiona duplicatos"
 
@@ -3296,12 +3295,10 @@ msgid "&Block from database"
 msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@label:textedit"
-#| msgid "Filter ... (%1)"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Filter ..."
-msgstr "Filtro ... (%1)"
+msgstr "Filtra ..."
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:113
 #, kde-format
@@ -3309,10 +3306,9 @@ msgid "Filter duplicates by filename"
 msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:137
-#, fuzzy, kde-format
-#| msgid ">="
+#, kde-format
 msgid ">"
-msgstr ">="
+msgstr ">"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:139
 #, kde-format
@@ -3320,22 +3316,19 @@ msgid "Add files to keep"
 msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:144
-#, fuzzy, kde-format
-#| msgid "<="
+#, kde-format
 msgid "<"
-msgstr "<="
+msgstr "<"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:146
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Remove files to keep"
-msgstr "Selige imagine a mantener :"
+msgstr "Remove files a mantener "
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:154
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Files to keep:"
-msgstr "Selige imagine a mantener :"
+msgstr "Files a mantener :"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:164
 #, kde-format
@@ -3343,17 +3336,16 @@ msgid "Select &None"
 msgstr "Selige &Nulle"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:105
-#, fuzzy, kde-format
-#| msgid "Image Preview"
+#, kde-format
 msgctxt "@title:column Image preview"
 msgid "Preview"
-msgstr "Vista preliminar de Imagine"
+msgstr "Vista preliminar"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:107
 #, kde-format
 msgctxt "@title:column Duplicate file"
 msgid "Duplicate %1"
-msgstr ""
+msgstr "Duplica %1"
 
 #: MainWindow/ExternalPopup.cpp:55
 #, kde-format
@@ -3766,7 +3758,7 @@ msgstr "Total"
 #: MainWindow/StatusBar.cpp:104
 #, kde-format
 msgid "Thumbnail settings..."
-msgstr ""
+msgstr "Preferentias de miniatura..."
 
 #: MainWindow/TokenEditor.cpp:36
 #, kde-format
@@ -4045,11 +4037,9 @@ msgid "Expand all stacks"
 msgstr ""
 
 #: MainWindow/Window.cpp:896
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Toggle Full Screen"
+#, kde-format
 msgid "Toggle all stacks"
-msgstr "Commuta schermo plen"
+msgstr "Commuta omne pilas"
 
 #: MainWindow/Window.cpp:902
 #, kde-format
@@ -4147,10 +4137,9 @@ msgid "Display Images and Videos with Incomplete Dates..."
 msgstr ""
 
 #: MainWindow/Window.cpp:1021
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge duplicates..."
-msgstr "Fusiona duplicatos"
+msgstr "Fusiona duplicatos..."
 
 #: MainWindow/Window.cpp:1023 MainWindow/Window.cpp:1078
 #, kde-format
@@ -4986,7 +4975,7 @@ msgstr "Rete"
 #: Settings/FileVersionDetectionPage.cpp:191
 #, kde-format
 msgid "SATA SSD"
-msgstr ""
+msgstr "SATA SSD"
 
 #: Settings/FileVersionDetectionPage.cpp:192
 #, kde-format
@@ -5071,7 +5060,7 @@ msgstr ""
 #: Settings/GeneralPage.cpp:29
 #, kde-format
 msgid "Loading New Images"
-msgstr ""
+msgstr "Cargante nove imagines"
 
 #: Settings/GeneralPage.cpp:37
 #, kde-format
@@ -5104,7 +5093,7 @@ msgstr ""
 #: Settings/GeneralPage.cpp:53
 #, kde-format
 msgid "Use Exif description"
-msgstr ""
+msgstr "Usa description de Exif"
 
 #: Settings/GeneralPage.cpp:57
 #, kde-format
@@ -5307,7 +5296,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Cannot add group"
-msgstr ""
+msgstr "Non pote adder gruppo"
 
 #: Settings/TagGroupsPage.cpp:435 Settings/TagGroupsPage.cpp:454
 #, kde-format
@@ -5371,7 +5360,7 @@ msgstr "Dele \"%1\""
 #, kde-format
 msgctxt "@title:window"
 msgid "New Tag Name"
-msgstr ""
+msgstr "Nove Nomine de Etiquetta"
 
 #: Settings/TagGroupsPage.cpp:714
 #, kde-format
@@ -5777,7 +5766,7 @@ msgstr "Assigna Indicios (tokens)"
 #: Settings/ViewerSizeConfig.cpp:19
 #, kde-format
 msgid "Launch in full screen"
-msgstr ""
+msgstr "Lancea a schermo plen"
 
 #: ThumbnailView/Delegate.cpp:258
 #, kde-format
@@ -5798,7 +5787,7 @@ msgstr "Barra de instrumento de filtro"
 msgctxt ""
 "The action enables/disables filtering of images in the thumbnail view."
 msgid "Toggle filter"
-msgstr ""
+msgstr "Commuta filtro"
 
 #: ThumbnailView/FilterWidget.cpp:25
 #, kde-kuit-format
@@ -6149,7 +6138,7 @@ msgstr "Etiquetta"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear assignment"
-msgstr ""
+msgstr "Netta assignamento"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
@@ -6179,7 +6168,7 @@ msgstr "Titulo"
 #: Viewer/SelectCategoryAndValue.ui:120
 #, kde-format
 msgid "Existing Assignments"
-msgstr ""
+msgstr "Assignamentos existente"
 
 #: Viewer/ViewerWidget.cpp:190
 #, kde-format

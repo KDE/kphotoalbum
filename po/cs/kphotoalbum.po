@@ -3,6 +3,7 @@
 # SPDX-FileCopyrightText: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2023, 2024 Vít Pelčák <vit@pelcak.org>
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012, 2013.
 # SPDX-FileCopyrightText: 2021, 2023, 2024 Vit Pelcak <vit@pelcak.org>
+# SPDX-FileCopyrightText: 2026 Libor Filípek <libor.filipek@gmail.com>
 #
 # SPDX-FileCopyrightText: 2026 Jan Papez (honyczek)
 msgid ""
@@ -10,25 +11,27 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-04 00:41+0000\n"
-"PO-Revision-Date: 2026-01-10 09:14+0100\n"
-"Last-Translator: Jan Papez (honyczek) <honyczek@centrum.cz>\n"
-"Language-Team: Czech <kde-i18n-cs@kde.org>\n"
+"PO-Revision-Date: 2026-07-29 21:55+0200\n"
+"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
+"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Jan Papež, Vít Pelčák, Zdeněk Pech"
+msgstr "Jan Papež,Vít Pelčák,Zdeněk Pech,Libor Filípek"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "honyczek@centrum.cz, vit@pelcak.org, dom.toretto@seznam.cz"
+msgstr ""
+"honyczek@centrum.cz,vit@pelcak.org,dom.toretto@seznam.cz,libor.filipek@gmail."
+"com"
 
 #: AnnotationDialog/AreaTagSelectDialog.cpp:86
 #, kde-format
@@ -149,7 +152,7 @@ msgstr "Čas: "
 #: AnnotationDialog/Dialog.cpp:354
 #, kde-format
 msgid "Use Fuzzy Date"
-msgstr ""
+msgstr "Použít přibližné datum"
 
 #: AnnotationDialog/Dialog.cpp:356
 #, kde-format
@@ -162,6 +165,12 @@ msgid ""
 "the photo comes from an analog camera), then you should set <interface>Use "
 "Fuzzy Date</interface>.</para>"
 msgstr ""
+"<para>V programu KPhotoAlbum mohou mít snímky buď přesné datum a čas, nebo "
+"<emphasis>přibližné</emphasis> datum, které odpovídá libovolnému okamžiku v "
+"rámci zadaného časového intervalu. Snímky pořízené digitálními fotoaparáty "
+"mají obvykle přesné datum.</para><para>Pokud nevíte přesně, kdy byla "
+"fotografie pořízena (např. pokud pochází z analogového fotoaparátu), měli "
+"byste nastavit možnost <interface>Použít přibližné datum</interface>.</para>"
 
 #: AnnotationDialog/Dialog.cpp:371
 #, kde-format
@@ -247,6 +256,10 @@ msgid ""
 "KPhotoAlbum...|General</interface>, a description embedded in the image Exif "
 "information is imported to this field if available.</para>"
 msgstr ""
+"<para>Popis obrázku.</para><para>Je-li v nabídce <interface>Nastavení|"
+"Nastavit KPhotoAlbum...|Obecné</interface> zapnuta možnost <emphasis>Použít "
+"popis Exif</emphasis>, do tohoto pole se v případě dostupnosti načte popis "
+"obsažený v Exif informacích obrázku.</para>"
 
 #: AnnotationDialog/Dialog.cpp:634
 #, kde-format
@@ -311,17 +324,17 @@ msgstr "Řadit podle data"
 #: AnnotationDialog/Dialog.cpp:971
 #, kde-format
 msgid "Match Tags from the First Character"
-msgstr ""
+msgstr "Porovnat značky od prvního znaku"
 
 #: AnnotationDialog/Dialog.cpp:972
 #, kde-format
 msgid "Match Tags from Word Boundaries"
-msgstr ""
+msgstr "Porovnat značky podle hranic slov"
 
 #: AnnotationDialog/Dialog.cpp:973
 #, kde-format
 msgid "Match Tags Anywhere"
-msgstr ""
+msgstr "Porovnat značky kdekoli"
 
 #: AnnotationDialog/Dialog.cpp:990
 #, kde-format
@@ -331,7 +344,7 @@ msgstr "Zobrazit pouze vybrané Ctrl+S"
 #: AnnotationDialog/Dialog.cpp:1032 Map/MapView.cpp:360
 #, kde-format
 msgid "Settings saved!"
-msgstr "Nastavení byla uložena."
+msgstr "Nastavení byla uložena!"
 
 #: AnnotationDialog/Dialog.cpp:1032
 #, kde-format
@@ -441,6 +454,10 @@ msgid ""
 "change this in the settings dialog. If this tag shouldn't be in the "
 "recognition database anymore, it can be deleted in the settings.</p>"
 msgstr ""
+"<p><b>Nelze přiřadit značku \"%2\"</b></p><p>Do kategorie \"%1\", do které "
+"značka \"%2\" patří, ji nelze umístit.</p><p>Chcete-li tuto značku použít, "
+"proveďte změnu v dialogovém okně nastavení. Pokud by tato značka již neměla "
+"být v databázi rozpoznávání, lze ji v nastavení odstranit.</p>"
 
 #: AnnotationDialog/ImagePreview.cpp:528
 #, kde-format
@@ -450,16 +467,21 @@ msgid ""
 "this category and mark it as positionable. If this tag shouldn't be in the "
 "recognition database anymore, it can be deleted in the settings dialog.</p>"
 msgstr ""
+"<p><b>Nelze přiřadit značku \"%2\"</b></p><p>Kategorie \"%1\", do které "
+"značka \"%2\" patří, již neexistuje.</p><p>Chcete-li tuto značku použít, "
+"přidejte tuto kategorii a označte ji jako polohovatelnou. Pokud by tato "
+"značka již neměla být v databázi rozpoznávání, lze ji odstranit v dialogovém "
+"okně nastavení.</p>"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:51
 #, kde-format
 msgid "Annotate previous image (Page Up)"
-msgstr ""
+msgstr "Přidat poznámku k předchozímu obrázku (Page Up)"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:57
 #, kde-format
 msgid "Annotate next image (Page Down)"
-msgstr "Opatřit následující obrázek poznámkami (Page Down)"
+msgstr "Přidat poznámku k dalšímu obrázku (Page Down)"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:82
 #, kde-format
@@ -468,6 +490,8 @@ msgid ""
 "<para>Set the same tags on this image than on the previous one. The image "
 "date, label, rating, and description are left unchanged.</para>"
 msgstr ""
+"<para>K tomuto obrázku přiřadit stejné značky jako k předchozímu. Datum "
+"pořízení, název, hodnocení a popis obrázku zůstávají beze změny.</para>"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:110
 #, kde-format
@@ -478,7 +502,7 @@ msgstr "Kategorie pro nové oblasti:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide or show areas on the image"
-msgstr ""
+msgstr "Skrýt nebo zobrazit oblasti na obrázku"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:320
 #, kde-format
@@ -488,12 +512,17 @@ msgid ""
 "category in <interface>Settings|Configure KPhotoAlbum...|Categories</"
 "interface>, you can associate specific image areas with tags."
 msgstr ""
+"Pokud v části <interface>Nastavení|Nastavit KPhotoAlbum...|Kategorie</"
+"interface> povolíte <emphasis>polohovatelné značky</emphasis> alespoň pro "
+"jednu kategorii, můžete ke značkám přiřadit konkrétní oblasti obrázků."
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:325
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Areas on an image can only be shown in single-image annotation mode."
 msgstr ""
+"Oblasti na obrázku lze zobrazit pouze v režimu poznámek k jednotlivým "
+"obrázkům."
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:355
 #, kde-format
@@ -559,11 +588,15 @@ msgid ""
 "Untagged Images</interface>). It will not show up here as long as it is "
 "selected for this purpose."
 msgstr ""
+"Zadaná značka je značka, která se automaticky přiřazuje nově nalezeným, "
+"neoznačeným obrázkům (viz <interface>Nastavení|Nastavit KPhotoAlbum...|"
+"Kategorie|Neoznačené obrázky</interface>). Dokud je pro tento účel vybrána, "
+"nebude se zde zobrazovat."
 
 #: AnnotationDialog/ListSelect.cpp:357
 #, kde-format
 msgid "No Item Selected"
-msgstr "Žádná položka vybrána"
+msgstr "Není vybrána žádná položka"
 
 #: AnnotationDialog/ListSelect.cpp:361
 #, kde-format
@@ -593,12 +626,12 @@ msgstr "Skupiny značek"
 #: AnnotationDialog/ListSelect.cpp:395
 #, kde-format
 msgid "Add this tag to a new tag group..."
-msgstr ""
+msgstr "Přidat tuto značku do nové skupiny značek..."
 
 #: AnnotationDialog/ListSelect.cpp:398
 #, kde-format
 msgid "Make this tag a tag group and add a tag..."
-msgstr ""
+msgstr "Vytvořit z této značky skupinu značek a přidat značku..."
 
 #: AnnotationDialog/ListSelect.cpp:404
 #, kde-format
@@ -679,7 +712,7 @@ msgstr "Nová skupina značek"
 #: AnnotationDialog/ListSelect.cpp:507
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
-msgstr ""
+msgstr "Název nové skupiny značek, do které bude značka přidána:"
 
 #: AnnotationDialog/ListSelect.cpp:519
 #, kde-format
@@ -689,7 +722,7 @@ msgstr "Přidat značku"
 #: AnnotationDialog/ListSelect.cpp:520
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
-msgstr ""
+msgstr "Název značky, která má být přidána do této skupiny značek:"
 
 #: AnnotationDialog/ListSelect.cpp:774
 #, kde-format
@@ -731,6 +764,8 @@ msgid ""
 "<p>%1 has already been tagged in another area on this image.</p><p>If you "
 "continue, the previous tag will be removed...</p>"
 msgstr ""
+"<p>%1 již byla na tomto obrázku označena v jiné oblasti.</p><p>Pokud budete "
+"pokračovat, předchozí značka bude odstraněna...</p>"
 
 #: AnnotationDialog/ResizableFrame.cpp:360
 #, kde-format
@@ -747,7 +782,7 @@ msgstr "Odstranit značku %1 (%2)"
 #: AnnotationDialog/ResizableFrame.cpp:472
 #, kde-format
 msgid "Associate with"
-msgstr ""
+msgstr "Přiřadit k"
 
 #: AnnotationDialog/ResizableFrame.cpp:496
 #: AnnotationDialog/ResizableFrame.cpp:505
@@ -756,7 +791,7 @@ msgctxt ""
 "As in: associate [this marked area of the image] with one of the following "
 "choices/menu items"
 msgid "Associate with"
-msgstr ""
+msgstr "Přiřadit k"
 
 #: BackgroundJobs/ExtractOneThumbnailJob.cpp:42
 #, kde-format
@@ -776,12 +811,12 @@ msgstr "Přečíst metadata videa"
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
 msgid "Search for videos without length information"
-msgstr ""
+msgstr "Vyhledávání videí bez údajů o délce"
 
 #: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:58
 #, kde-format
 msgid "Searching for videos without video thumbnails"
-msgstr ""
+msgstr "Vyhledávání videí bez náhledů"
 
 #: BackgroundTaskManager/JobInfo.cpp:55
 #, kde-format
@@ -816,7 +851,7 @@ msgstr "Uplynulo"
 #, kde-format
 msgctxt "@title:window"
 msgid "Background Job Viewer"
-msgstr ""
+msgstr "Prohlížeč úloh na pozadí"
 
 #: BackgroundTaskManager/JobViewer.cpp:30
 #: BackgroundTaskManager/JobViewer.cpp:65
@@ -839,6 +874,13 @@ msgid ""
 "is executing a foreground job (like extracting a thumbnail for a video file, "
 "which is currently shown in the thumbnail viewer)</li></ul></p>"
 msgstr ""
+"<p>Aktivní úlohy: %1<br/>Úlohy čekající na zpracování: %2<hr/><br/>Barevné "
+"kódy:<ul><li><b>blikající zelená</b>: Aktivní úlohy na pozadí</"
+"li><li><b>šedá</b>: Žádné aktivní úlohy</li><li><b>žlutá (svítící)</b>: "
+"Fronta úloh je pozastavena</li><li><b>blikající žlutá</b>: Fronta úloh je "
+"pozastavena pro úlohy na pozadí, ale provádí úlohu v popředí (například "
+"extrakci miniatury pro video soubor, který je aktuálně zobrazen v prohlížeči "
+"miniatur)</li></ul></p>"
 
 #: Browser/AbstractCategoryModel.cpp:42 Exif/SearchDialog.cpp:387
 #: lib/kpaexif/SearchInfo.cpp:191
@@ -1017,7 +1059,7 @@ msgstr "Přesunout položky"
 #, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
-msgstr ""
+msgstr "Časová osa"
 
 #: DateBar/DateBarWidget.cpp:74
 #, kde-format
@@ -1874,7 +1916,7 @@ msgstr "Nastavení ISO"
 #, kde-format
 msgctxt "Example 1.6 secs (as in seconds)"
 msgid "secs."
-msgstr " sek."
+msgstr "sek."
 
 #: Exif/SearchDialog.cpp:178
 #, kde-format
@@ -3314,9 +3356,9 @@ msgstr[2] "Kopírovat obrázky do ..."
 msgctxt "@title:window"
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Odkázat obrázek do..."
+msgstr[1] "Odkázat obrázky do..."
+msgstr[2] "Odkázat obrázky do..."
 
 #: MainWindow/DeleteDialog.cpp:24
 #, kde-format
@@ -3403,17 +3445,15 @@ msgid "&Block from database"
 msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@label:textedit"
-#| msgid "Filter ... (%1)"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Filter ..."
-msgstr "Filtr ... (%1)"
+msgstr "Filtrovat..."
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:113
 #, kde-format
 msgid "Filter duplicates by filename"
-msgstr ""
+msgstr "Filtrovat duplicity podle názvu souboru"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:137
 #, kde-format
@@ -3423,7 +3463,7 @@ msgstr ">"
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:139
 #, kde-format
 msgid "Add files to keep"
-msgstr ""
+msgstr "Přidat soubory, které se mají zachovat"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:144
 #, kde-format
@@ -3431,16 +3471,14 @@ msgid "<"
 msgstr "<"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:146
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Remove files to keep"
-msgstr "Vyberte obrázek, který ponechat:"
+msgstr "Odstranit soubory, které se mají zachovat"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:154
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Files to keep:"
-msgstr "Vyberte obrázek, který ponechat:"
+msgstr "Soubory k zachování:"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:164
 #, kde-format
@@ -3448,17 +3486,16 @@ msgid "Select &None"
 msgstr "Nevybrat žád&ný"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:105
-#, fuzzy, kde-format
-#| msgid "Image Preview"
+#, kde-format
 msgctxt "@title:column Image preview"
 msgid "Preview"
-msgstr "Náhled obrázku"
+msgstr "Náhled"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:107
 #, kde-format
 msgctxt "@title:column Duplicate file"
 msgid "Duplicate %1"
-msgstr ""
+msgstr "Duplikovat %1"
 
 #: MainWindow/ExternalPopup.cpp:55
 #, kde-format
@@ -3699,7 +3736,7 @@ msgstr "databaseFile"
 #: MainWindow/Options.cpp:31
 #, kde-format
 msgid "Application rc file."
-msgstr "rc soubor aplikace."
+msgstr "Rc soubor aplikace."
 
 #: MainWindow/Options.cpp:32
 #, kde-format
@@ -3894,7 +3931,7 @@ msgstr "Celkem"
 #: MainWindow/StatusBar.cpp:104
 #, kde-format
 msgid "Thumbnail settings..."
-msgstr ""
+msgstr "Nastavení náhledu..."
 
 #: MainWindow/TokenEditor.cpp:36
 #, kde-format
@@ -4061,7 +4098,7 @@ msgstr "Chyba při seskupování"
 #: MainWindow/Window.cpp:1344 MainWindow/Window.cpp:1441
 #, kde-format
 msgid "No item is selected."
-msgstr "Žádná položka není vybrána."
+msgstr "Není vybrána žádná položka."
 
 #: MainWindow/Window.cpp:489 MainWindow/Window.cpp:621
 #: MainWindow/Window.cpp:1344 MainWindow/Window.cpp:1442
@@ -4092,7 +4129,7 @@ msgstr "Omezit pohled na vybrané"
 #: MainWindow/Window.cpp:768
 #, kde-format
 msgid "No images are selected!"
-msgstr "Nebyl vybrán žádný obrázek."
+msgstr "Nebyl vybrán žádný obrázek!"
 
 #: MainWindow/Window.cpp:781
 #, kde-format
@@ -4282,10 +4319,9 @@ msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Zobrazit obrázky a videa s neúplným datem..."
 
 #: MainWindow/Window.cpp:1021
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge duplicates..."
-msgstr "Sloučit duplicity"
+msgstr "Sloučit duplicity..."
 
 #: MainWindow/Window.cpp:1023 MainWindow/Window.cpp:1078
 #, kde-format
@@ -5856,7 +5892,7 @@ msgstr "Interval prezentace:"
 #: Settings/ViewerPage.cpp:60
 #, kde-format
 msgid " sec"
-msgstr " sek."
+msgstr " sek"
 
 #: Settings/ViewerPage.cpp:63
 #, kde-format
@@ -5950,16 +5986,12 @@ msgid "Locked"
 msgstr "Uzamčeno"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tags"
+#, kde-format
 msgid "Assign tags"
 msgstr "Přiřadit značky"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tokens"
+#, kde-format
 msgid "Assign tokens"
 msgstr "Přiřadit tokeny"
 
@@ -6120,7 +6152,7 @@ msgstr "<b>Popis: </b> "
 #, kde-format
 msgctxt "Like \"up to 6 years\" old"
 msgid " (up to %1)"
-msgstr "(až po %1)"
+msgstr " (až po %1)"
 
 #: Utilities/Timespan.cpp:100
 #, kde-format
@@ -6410,7 +6442,7 @@ msgstr "Kopírovat obrázek do..."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
-msgstr ""
+msgstr "Odkázat obrázek do..."
 
 #: Viewer/ViewerWidget.cpp:216
 #, kde-format
@@ -6623,10 +6655,9 @@ msgid "Assigning tokens"
 msgstr "Přiřadit tokeny"
 
 #: Viewer/ViewerWidget.cpp:641
-#, fuzzy, kde-format
-#| msgid "Annotation Mode"
+#, kde-format
 msgid "Annotation mode: %1"
-msgstr "Režim poznámek"
+msgstr "Režim poznámek: %1"
 
 #: Viewer/ViewerWidget.cpp:914
 #, kde-format

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-04 00:41+0000\n"
-"PO-Revision-Date: 2026-07-29 21:55+0200\n"
+"PO-Revision-Date: 2026-07-30 19:15+0200\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -1047,8 +1047,31 @@ msgid_plural ""
 "it really your intention to make \"%3\" a tag group and add %2 as members?</"
 "p>"
 msgstr[0] ""
+"<p>Právě jste přetáhli jednu položku na druhou. Tím se cílový prvek stane "
+"skupinou značek a přetažená položka se stane členem této skupiny. Skupiny "
+"značek lze použít k vyjádření faktů, jako je například 'Las Vegas leží v "
+"USA'. V tomto příkladu byste přetáhli Las Vegas na USA. Jakmile si skupiny "
+"značek nastavíte, můžete si například zobrazit všechny obrázky z USA pouhým "
+"výběrem této položky v prohlížeči.</p><p>Opravdu jste chtěli vytvořit z "
+"\"%3\" skupinu značek a přidat \"%2\" jako jejího člena?</p>"
 msgstr[1] ""
+"<p>Právě jste přetáhli některé položky na jinou položku. Tím se cílová "
+"položka stane skupinou značek a přetažené položky se stanou členy této "
+"skupiny. Skupiny značek lze použít k vyjádření skutečností, jako je "
+"například 'Las Vegas a New York leží v USA'. V tomto příkladu byste přetáhli "
+"Las Vegas a New York na položku USA. Po vytvoření skupin značek můžete "
+"například zobrazit všechny obrázky z USA pouhým výběrem této položky v "
+"prohlížeči. </p><p>Opravdu jste chtěli z \"%3\" vytvořit skupinu značek a "
+"přidat %2 jako její členy?</p>"
 msgstr[2] ""
+"<p>Právě jste přetáhli některé položky na jinou položku. Tím se cílová "
+"položka stane skupinou značek a přetažené položky se stanou členy této "
+"skupiny. Skupiny značek lze použít k vyjádření skutečností, jako je "
+"například 'Las Vegas a New York leží v USA'. V tomto příkladu byste přetáhli "
+"Las Vegas a New York na položku USA. Po vytvoření skupin značek můžete "
+"například zobrazit všechny obrázky z USA pouhým výběrem této položky v "
+"prohlížeči. </p><p>Opravdu jste chtěli z \"%3\" vytvořit skupinu značek a "
+"přidat %2 jako její členy?</p>"
 
 #: CategoryListView/CheckDropItem.cpp:157
 #, kde-format
@@ -1085,7 +1108,7 @@ msgstr "Oddálit"
 #, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
-msgstr ""
+msgstr "Vymazat výběr data"
 
 #: DateBar/DateBarWidget.cpp:128
 #, kde-kuit-format
@@ -1098,6 +1121,13 @@ msgid ""
 "selection: Click/drag below the timeline.</item><item>Jump to a date by "
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
+"<title>Časová osa</title><para><list><item>Procházejte pomocí šipek, "
+"rolovacího kolečka nebo prostředního tlačítka myši.</item><item>Pomocí "
+"kláves Home a End se přesuňte na začátek nebo konec.</item><item>Měřítko "
+"upravujte pomocí tlačítek +/- nebo kombinací kláves Ctrl + rolovací kolečko."
+"</item><item>Omezte zobrazení na vybraný časový rozsah: Klikněte a "
+"přetáhněte pod časovou osou.</item><item>Přejděte na konkrétní datum "
+"kliknutím na sloupec histogramu.</item></list></para>"
 
 #: DateBar/DateBarWidget.cpp:743
 #, kde-format
@@ -1292,6 +1322,8 @@ msgid ""
 "Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
 "autosave file be used?"
 msgstr ""
+"Soubor automatického uložení '%1' existuje (velikost %3 KB) a je novější než "
+"'%2'. Má se použít soubor automatického uložení?"
 
 #: DB/ImageDB.cpp:68
 #, kde-format
@@ -1345,9 +1377,9 @@ msgstr ""
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "<p><b>Výpočet kontrolního součtu %1 souboru</b></p>"
+msgstr[1] "<p><b>Výpočet kontrolního součtu %1 souborů</b></p>"
+msgstr[2] "<p><b>Výpočet kontrolního součtu %1 souborů</b></p>"
 
 #: DB/NewImageFinder.cpp:704
 #, kde-format
@@ -1394,6 +1426,9 @@ msgid ""
 "p><p>Chances are you will be able to read this file, but when writing it "
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
+"<p>Soubor XML databáze pochází z novější verze programu KPhotoAlbum!</"
+"p><p>Je pravděpodobné, že tento soubor budete moci načíst, ale při jeho "
+"zpětném zápisu dojde ke ztrátě informací uložených v novější verzi</p>"
 
 #: DB/XML/FileReader.cpp:63
 #, kde-format
@@ -1420,6 +1455,9 @@ msgid ""
 "ignore the duplicate category and try an automatic repair, or choose cancel "
 "to quit.</p>"
 msgstr ""
+"<p>Řádek %1, sloupec %2: duplicitní kategorie '%3'</p><p>Kliknutím na "
+"Pokračovat duplicitní kategorii budete ignorovat a spustíte automatickou "
+"opravu, kliknutím na Zrušit proces ukončíte.</p>"
 
 #: DB/XML/FileReader.cpp:207 DB/XML/FileReader.cpp:312
 #, kde-format
@@ -1439,6 +1477,12 @@ msgid ""
 "p><p>In some cases, you may get two additional empty categories, \"Folder\" "
 "and \"Media Type\". You can delete those.</p>"
 msgstr ""
+"<p><b>Tato verze programu KPhotoAlbum již nepřekládá \"standardní\" "
+"kategorie.</b></p><p>To může znamenat, že – pokud používáte jiné jazykové "
+"nastavení než angličtinu – některé z vašich kategorií se nyní zobrazují v "
+"angličtině.</p><p>Kategorie můžete kdykoli ručně přejmenovat a poté uložit "
+"databázi.</p><p>V některých případech se mohou objevit dvě další prázdné "
+"kategorie: \"Složka\" a \"Typ média\". Ty můžete smazat.</p>"
 
 #: DB/XML/FileReader.cpp:275
 #, kde-format
@@ -1451,6 +1495,8 @@ msgid ""
 "<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
 "</p><p>Manual repair required!</p>"
 msgstr ""
+"<p>Řádek %1, sloupec %2: duplicitní záznam pro soubor '%3' s odlišným "
+"součtem MD5.</p><p>Je nutná ruční oprava!</p>"
 
 #: DB/XML/FileReader.cpp:446
 #, kde-format
@@ -1490,6 +1536,13 @@ msgid ""
 "doing so will result in extra space around images in the thumbnail view - "
 "that is all - so there is no urgency in doing it.</p>"
 msgstr ""
+"<p>Ne všechny obrázky v databázi obsahují informace o velikosti; tyto údaje "
+"jsou však nezbytné pro dosažení co nejlepšího výsledku při zobrazení "
+"náhledů. Chcete-li tento problém vyřešit, stačí přejít do nabídky <b>Údržba</"
+"b> a nejprve zvolit možnost <b>Odstranit všechny náhledy</b>, a poté zvolit "
+"možnost <tt>Vytvořit náhledy</tt>.</p><p>Pokud tak neučiníte, bude v náhledu "
+"kolem obrázků zbývat volné místo – to je vše – takže není nutné to provádět "
+"okamžitě.</p>"
 
 #: DB/XML/FileReader.cpp:472
 #, kde-format
@@ -1504,6 +1557,9 @@ msgid ""
 "now contain tags that were merged during the repair.</p><p>The following "
 "tags require manual inspection:<ul>"
 msgstr ""
+"<p>Ve vaší databázi byly nalezeny a opraveny nesrovnalosti. Některé "
+"kategorie nyní obsahují značky, které byly během opravy sloučeny.</"
+"p><p>Následující značky vyžadují ruční kontrolu:<ul>"
 
 #: DB/XML/FileReader.cpp:496
 #, kde-format
@@ -1530,6 +1586,8 @@ msgid ""
 "</ul></p><p>All affected images have also been marked with a tag "
 "<em>KPhotoAlbum - manual repair needed</em>.</p>"
 msgstr ""
+"</ul></p><p>Všechny dotčené obrázky byly rovněž označeny značkou "
+"<em>KPhotoAlbum – nutná ruční oprava</em>.</p>"
 
 #: DB/XML/FileReader.cpp:510
 #, kde-format
@@ -1549,6 +1607,16 @@ msgid ""
 "you already have KDEDIRS set, simply append the string as if you where "
 "setting the <b>PATH</b> environment variable</p>"
 msgstr ""
+"<p>Programu KPhotoAlbum se nepodařilo načíst výchozí nastavení, což "
+"naznačuje chybu při instalaci</p><p>Pokud jste si program KPhotoAlbum "
+"nainstalovali sami, nezapomeňte nastavit proměnnou prostředí <b>KDEDIRS</b> "
+"tak, aby odkazovala na nejvyšší instalační složku.</p><p>Pokud jste "
+"například spustili cmake s parametrem <b>-DCMAKE_INSTALL_PREFIX=/usr/local/"
+"kde</b>, musíte použít následující nastavení proměnné prostředí (tento "
+"příklad je pro Bash a kompatibilní prostředí shellu):</p><p><b>export "
+"KDEDIRS=/usr/local/kde</b></p><p>Pokud již máte proměnnou KDEDIRS "
+"nastavenou, jednoduše k ní připojte řetězec, jako byste nastavovali "
+"proměnnou prostředí <b>PATH</b></p>"
 
 #: DB/XML/FileReader.cpp:541
 #, kde-format
@@ -1617,6 +1685,8 @@ msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
 "because of the following error: %2"
 msgstr ""
+"<p>Nepodařilo se uložit databázi obrázků do formátu XML.</p>Soubor %1 se "
+"nepodařilo otevřít z důvodu následující chyby: %2"
 
 #: DB/XML/FileWriter.cpp:82 DB/XML/FileWriter.cpp:118 DB/XML/FileWriter.cpp:127
 #, kde-format
@@ -1629,6 +1699,8 @@ msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
 "replace the file %1 with file %2 manually!</p>"
 msgstr ""
+"<p>Nepodařilo se odstranit starou verzi obrazové databáze.</p><p>Zkuste to "
+"prosím znovu nebo ručně nahraďte soubor %1 souborem %2!</p>"
 
 #: DB/XML/FileWriter.cpp:124
 #, kde-format
@@ -1636,6 +1708,8 @@ msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "
 "again or rename file %1 to %2 manually!</p>"
 msgstr ""
+"<p>Nepodařilo se přesunout dočasný soubor XML do trvalého umístění.</"
+"p><p>Zkuste to prosím znovu nebo ručně přejmenujte soubor %1 na %2!</p>"
 
 #: DB/XML/NumberedBackup.cpp:43
 #, kde-format
@@ -1645,7 +1719,7 @@ msgstr "Chyba při vytváření zip souboru %1"
 #: DB/XML/NumberedBackup.cpp:43 DB/XML/NumberedBackup.cpp:48
 #, kde-format
 msgid "Error Making Numbered Backup"
-msgstr ""
+msgstr "Chyba při vytváření číslované zálohy"
 
 #: DB/XML/NumberedBackup.cpp:48
 #, kde-format
@@ -1660,34 +1734,34 @@ msgstr "Chyba při čtení následujícího prvku"
 #: DB/XML/XmlReader.cpp:46
 #, kde-format
 msgid "Expected to read a start or stop element, but read %1"
-msgstr ""
+msgstr "Očekávalo se načtení prvku start nebo stop, ale byl načten %1"
 
 #: DB/XML/XmlReader.cpp:51
 #, kde-format
 msgid "Expected to read %1, but read %2"
-msgstr ""
+msgstr "Očekávalo se načtení %1, ale bylo načteno %2"
 
 #: DB/XML/XmlReader.cpp:62
 #, kde-format
 msgid "Expected to read an end element but read %1"
-msgstr ""
+msgstr "Očekávalo se načtení koncového prvku, ale byl načten %1"
 
 #: DB/XML/XmlReader.cpp:80
 #, kde-format
 msgid "Expected to read start element '%1'"
-msgstr ""
+msgstr "Očekává se načtení počátečního prvku '%1'"
 
 #: DB/XML/XmlReader.cpp:86
 #, kde-format
 msgid ""
 "<p>An error was encountered on line %1, column %2:<nl/><message>%3</"
 "message></p>"
-msgstr ""
+msgstr "<p>V řádku %1, sloupci %2 došlo k chybě:<nl/><message>%3</message></p>"
 
 #: DB/XML/XmlReader.cpp:90
 #, kde-format
 msgid "<p>Additional error information:<nl/><message>%1</message></p>"
-msgstr ""
+msgstr "<p>Další informace o chybě:<nl/><message>%1</message></p>"
 
 #: DB/XML/XmlReader.cpp:91
 #, kde-kuit-format
@@ -1873,7 +1947,7 @@ msgstr "Nastavení"
 #: Exif/SearchDialog.cpp:56
 #, kde-format
 msgid "Aperture (F Number)"
-msgstr ""
+msgstr "Clona (číslo F)"
 
 #: Exif/SearchDialog.cpp:66
 #, kde-format
@@ -1900,7 +1974,7 @@ msgstr "Fotoaparát"
 #: Exif/SearchDialog.cpp:103
 #, kde-format
 msgid "Lens"
-msgstr "Čočka"
+msgstr "Objektiv"
 
 #: Exif/SearchDialog.cpp:108 Settings/GeneralPage.cpp:116
 #, kde-format
@@ -1966,7 +2040,7 @@ msgstr "V databázi nebyl nalezen žádný fotoaparát"
 #: Exif/SearchDialog.cpp:383
 #, kde-format
 msgid "No lenses found in the database"
-msgstr "V databázi nebyly nalezeny žádné čočky"
+msgstr "V databázi nebyly nalezeny žádné objektivy"
 
 #: Exif/SearchDialog.cpp:398
 #, kde-format
@@ -1974,6 +2048,9 @@ msgid ""
 "Not all images in the database have lens information. <note>Recreate the "
 "Exif search database to ensure lens data for all images.</note>"
 msgstr ""
+"Ne všechny snímky v databázi obsahují informace o objektivu. "
+"<note>Vygenerujte znovu databázi pro vyhledávání podle Exif, abyste "
+"zajistili, že budou k dispozici údaje o objektivu u všech snímků.</note>"
 
 #: HTMLGenerator/Generator.cpp:53
 #, kde-format
@@ -2090,11 +2167,13 @@ msgid ""
 "<p>This selection will generate video files suitable for displaying on web. "
 "avconv and ffmpeg2theora are required for video file generation.</p>"
 msgstr ""
+"<p>Tento výběr vygeneruje video soubory vhodné pro zobrazení na webu. K "
+"vytvoření video souborů jsou nutné nástroje avconv a ffmpeg2theora.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:130
 #, kde-format
 msgid "Generate HTML5 video files (mp4 and ogg)"
-msgstr ""
+msgstr "Vytvořit HTML5 video soubory (mp4 a ogg)"
 
 #: HTMLGenerator/HTMLDialog.cpp:138
 #, kde-format
@@ -2168,6 +2247,9 @@ msgid ""
 "URL.</p><p>This only affects the generated <filename>.kim</filename> file.</"
 "p>"
 msgstr ""
+"<p>Pokud přesunete galerii na vzdálené místo, nastavte zde cílovou URL "
+"adresu.</p><p>Toto nastavení se týká pouze vygenerovaného souboru <filename>."
+"kim</filename>.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:341
 #, kde-format
@@ -2300,7 +2382,7 @@ msgstr "Spadlo"
 #: ImageManager/ExtractOneVideoFrame.cpp:99
 #, kde-format
 msgid "Timedout"
-msgstr ""
+msgstr "Časový limit vypršel"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:102
 #, kde-format
@@ -2321,6 +2403,7 @@ msgstr "Neznámá chyba"
 #, kde-format
 msgid "<p>Error when extracting video thumbnails.<br/>Error was: %1</p>"
 msgstr ""
+"<p>Došlo k chybě při extrahování náhledů videa.<br/>Chyba zněla: %1</p>"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:137
 #, kde-format
@@ -2332,16 +2415,22 @@ msgid ""
 "(You might need to wait till the video extraction led in your status bar has "
 "stopped blinking, to see all affected videos.)"
 msgstr ""
+"Z některých souborů se nepodařilo extrahovat náhledy videí. Buď je soubor "
+"nějakým způsobem poškozen, nebo je video extrémně krátké. Pro vaše pohodlí "
+"byl u těchto videí nastaven příznak '%1'.\n"
+"\n"
+"(Možná budete muset počkat, až přestane blikat kontrolka extrakce videa na "
+"stavové liště, abyste viděli všechna dotčená videa.)"
 
 #: ImageManager/ThumbnailBuilder.cpp:103
 #, kde-format
 msgid "Building all thumbnails may take a long time."
-msgstr ""
+msgstr "Vytvoření všech náhledů může trvat dlouho."
 
 #: ImageManager/ThumbnailBuilder.cpp:104
 #, kde-format
 msgid "Do you want to rebuild all of your thumbnails?"
-msgstr ""
+msgstr "Chcete znovu vygenerovat všechny náhledy?"
 
 #: ImageManager/ThumbnailBuilder.cpp:178
 #, kde-format
@@ -2377,7 +2466,7 @@ msgstr "Včetně .kim souboru"
 #: ImportExport/Export.cpp:123
 #, kde-format
 msgid "Do not copy files, only generate .kim file"
-msgstr ""
+msgstr "Soubory nekopírovat, pouze vytvořit soubor .kim"
 
 #: ImportExport/Export.cpp:124
 #, kde-format
@@ -2462,6 +2551,16 @@ msgid ""
 "place them next to each other, so the user can access the images s/he wants."
 "</p>"
 msgstr ""
+"<p>Při exportu obrázků mějte na paměti, že osoba, která tyto obrázky bude "
+"znovu importovat, bude potřebovat dvě věci:<br/>1) metadata (obsah obrázku, "
+"datum atd.)<br/>2) samotné obrázky.</p><p>Samotné obrázky lze buď umístit "
+"vedle souboru .kim, nebo zkopírovat do souboru .kim. Zkopírování obrázků do "
+"souboru .kim je vhodné pro příjemce, který chce všechny nebo většinu z "
+"těchto obrázků, například při zasílání celé skupiny obrázků e-mailem. Pokud "
+"však obrázky umístíte na web, uvidí je sice mnoho lidí, ale s největší "
+"pravděpodobností si stáhnou jen některé z nich. V takovém případě je lepší "
+"oddělit obrázky od souboru .kim a umístit je vedle sebe, aby měl uživatel "
+"přístup k obrázkům, které chce.</p>"
 
 #: ImportExport/Export.cpp:270
 #, kde-format
@@ -2564,6 +2663,26 @@ msgid ""
 "not found in your database, or which tokens was only a partial match.</li></"
 "ol>"
 msgstr ""
+"<h1><font size=\"+2\">Vítejte v importu programu KPhotoAlbum</font></"
+"h1>Tento průvodce vás provede jednotlivými kroky importu. Jedná se o "
+"následující kroky:<ol><li>Nejprve musíte vybrat, které obrázky chcete z "
+"exportního souboru importovat. To provedete zaškrtnutím políčka vedle "
+"příslušného obrázku.</li><li>Dále musíte programu KPhotoAlbum určit, do "
+"které složky mají být obrázky uloženy. Tato složka musí samozřejmě být "
+"součástí základní složky, kterou KPhotoAlbum pro obrázky používá. "
+"KPhotoAlbum se postará o to, aby nedošlo ke kolizím názvů</li><li>Dalším "
+"krokem je určení kategorií, které chcete importovat (Lidé, Místa, ...), a "
+"také nastavení, jak má KPhotoAlbum přiřadit kategorie ze souboru k vašim "
+"kategoriím. Představte si, že načítáte ze souboru, kde se kategorie jmenuje "
+"<b>Blomst</b> (což je dánské slovo pro květinu), pak byste ji pravděpodobně "
+"chtěli přiřadit ke své kategorii, která by se mohla jmenovat <b>Blume</b> "
+"(což je německé slovo pro květinu) – samozřejmě za předpokladu, že jste "
+"Němec.</li><li>Posledním krokem je přiřazení jednotlivých tokenů z "
+"kategorií. Já se ve své databázi obrázků možná nazývám <b>Jesper</b>, "
+"zatímco vy mě chcete oslovovat mým plným jménem, tedy <b>Jesper K. Pedersen</"
+"b>. V tomto kroku budou neshodné položky zvýrazněny červeně, abyste viděli, "
+"které tokeny se ve vaší databázi nenašly nebo které tokeny se shodovaly "
+"pouze částečně.</li></ol>"
 
 #: ImportExport/ImportDialog.cpp:139
 #, kde-format
@@ -2794,17 +2913,17 @@ msgstr "Datum a čas"
 #, kde-format
 msgctxt "@info:shell"
 msgid "Conflicting commandline options: %1 and %2!\n"
-msgstr ""
+msgstr "Neslučitelné parametry příkazového řádku: %1 a %2!\n"
 
 #: kpa-thumbnailtool/main.cpp:44
 #, kde-format
 msgid "KPhotoAlbum Thumbnail Tool"
-msgstr ""
+msgstr "Nástroj pro náhledy KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:46
 #, kde-format
 msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
-msgstr ""
+msgstr "Nástroj pro kontrolu a úpravy mezipaměti náhledů programu KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:48
 #, kde-format
@@ -2819,7 +2938,7 @@ msgstr "Johannes Zarl-Zierl"
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:98
 #, kde-format
 msgid "Development, Maintainer"
-msgstr "Vývojář, Správce"
+msgstr "Vývojář, správce"
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:99
 #, kde-format
@@ -2829,7 +2948,7 @@ msgstr "Robert Krawitz"
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:99
 #, kde-format
 msgid "Development, Optimization"
-msgstr ""
+msgstr "Vývoj, optimalizace"
 
 #: kpa-thumbnailtool/main.cpp:58 main.cpp:100
 #, kde-format
@@ -2839,7 +2958,7 @@ msgstr "Tobias Leupold"
 #: kpa-thumbnailtool/main.cpp:58 main.cpp:100
 #, kde-format
 msgid "Development, Releases, Website"
-msgstr ""
+msgstr "Vývoj, vydání, webové stránky"
 
 #: kpa-thumbnailtool/main.cpp:59 main.cpp:101
 #, kde-format
@@ -2849,7 +2968,7 @@ msgstr "Jesper K. Pedersen"
 #: kpa-thumbnailtool/main.cpp:59 main.cpp:101
 #, kde-format
 msgid "Former Maintainer, Project Creator"
-msgstr ""
+msgstr "Bývalý správce, zakladatel projektu"
 
 #: kpa-thumbnailtool/main.cpp:61 main.cpp:103
 #, kde-format
@@ -2891,19 +3010,19 @@ msgstr "Složka obsahující složku .thumbnail."
 #, kde-format
 msgctxt "@info:shell"
 msgid "Print information about thumbnail cache."
-msgstr ""
+msgstr "Vytisknout informace o mezipaměti náhledů."
 
 #: kpa-thumbnailtool/main.cpp:73
 #, kde-format
 msgctxt "@info:shell"
 msgid "Convert thumbnailindex to format suitable for KPhotoAlbum >= 4.3."
-msgstr ""
+msgstr "Převést index náhledů do formátu vhodného pro KPhotoAlbum >= 4.3."
 
 #: kpa-thumbnailtool/main.cpp:75
 #, kde-format
 msgctxt "@info:shell"
 msgid "Check thumbnail cache for consistency of thumbnail dimensions."
-msgstr ""
+msgstr "Zkontrolovat mezipaměť náhledů, zda rozměry náhledů odpovídají."
 
 #: kpa-thumbnailtool/main.cpp:77
 #, kde-format
@@ -2912,18 +3031,20 @@ msgid ""
 "Fix inconsistent thumbnails by removing them from the cache (requires --"
 "check-thumbnail-dimensions)."
 msgstr ""
+"Opravit nesprávné náhledy odstraněním z mezipaměti (vyžaduje volbu --check-"
+"thumbnail-dimensions)."
 
 #: kpa-thumbnailtool/main.cpp:79
 #, kde-format
 msgctxt "@info:shell"
 msgid "Remove unreferenced thumbnails from the thumbnail data files."
-msgstr ""
+msgstr "Odeberte neodkazované náhledy z datových souborů náhledů."
 
 #: kpa-thumbnailtool/main.cpp:81
 #, kde-format
 msgctxt "@info:shell"
 msgid "Be less verbose."
-msgstr ""
+msgstr "Buďte stručnější."
 
 #: kpa-thumbnailtool/main.cpp:97
 #, kde-format
@@ -2941,7 +3062,7 @@ msgstr "%1 není složkou.\n"
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail cache folder: %1\n"
-msgstr ""
+msgstr "Složka s mezipamětí náhledů: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:117
 #, kde-format
@@ -2953,7 +3074,7 @@ msgstr "Verze souboru indexu náhledů: %1\n"
 #, kde-format
 msgctxt "@info:shell"
 msgid "Maximum supported thumbnailindex file version: %1\n"
-msgstr ""
+msgstr "Maximální podporovaná verze souboru indexu náhledů: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:119
 #, kde-format
@@ -2968,33 +3089,35 @@ msgid ""
 "Note: Thumbnail storage dimensions are defined in the configuration file "
 "prior to v5.\n"
 msgstr ""
+"Poznámka: Velikost úložiště náhledů je definována v konfiguračním souboru ve "
+"verzích starších než v5.\n"
 
 #: kpa-thumbnailtool/main.cpp:123
 #, kde-format
 msgctxt "@info:shell"
 msgid "Number of thumbnails: %1\n"
-msgstr ""
+msgstr "Počet náhledů: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:129
 #, kde-format
 msgctxt "@info:shell"
 msgid "No inconsistencies found.\n"
-msgstr ""
+msgstr "Nebyly nalezeny žádné nesrovnalosti.\n"
 
 #: kpa-thumbnailtool/main.cpp:133
 #, kde-format
 msgctxt "@info:shell This line is printed before a list of file names."
 msgid "The following thumbnails appear to have incorrect sizes:\n"
-msgstr ""
+msgstr "Zdá se, že následující náhledy mají nesprávné rozměry:\n"
 
 #: kpa-thumbnailtool/main.cpp:142
 #, kde-format
 msgctxt "@info:shell"
 msgid "Removed 1 inconsistent thumbnail from the database.\n"
 msgid_plural "Removed %1 inconsistent thumbnails from the database.\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Z databáze byl odstraněn 1 nekonzistentní náhled.\n"
+msgstr[1] "Z databáze byly odstraněny %1 nekonzistentní náhledy.\n"
+msgstr[2] "Z databáze bylo odstraněno %1 nekonzistentních náhledů.\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:20
 #, kde-format
@@ -3015,7 +3138,7 @@ msgstr "Index náhledů nebyl změněn.\n"
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not open temporary file for writing!\n"
-msgstr ""
+msgstr "Nelze otevřít dočasný soubor pro zápis!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:35
 #, kde-format
@@ -3034,7 +3157,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Error message was: %1\n"
-msgstr ""
+msgstr "Chybová zpráva byla: %1\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:55
 #, kde-format
@@ -3131,6 +3254,9 @@ msgid ""
 "<p>The Exif search database is corrupted and has no data.</p> <p>To fix this "
 "problem run Maintenance->Recreate Exif Search database.</p>"
 msgstr ""
+"<p>Databáze pro vyhledávání Exif je poškozená a neobsahuje žádná data.</"
+"p><p>Chcete-li tento problém vyřešit, spusťte příkaz Správa -> Znovu "
+"vytvořit vyhledávací databázi Exif.</p>"
 
 #: main.cpp:85
 #, kde-format
@@ -3182,7 +3308,7 @@ msgstr "Matthias Füssel"
 #: main.cpp:122
 #, kde-format
 msgid "Geo Position page in browser and various bug fixes"
-msgstr ""
+msgstr "Stránka zeměpisné polohy v prohlížeči a různé opravy chyb"
 
 #: main.cpp:125
 #, kde-format
@@ -3192,7 +3318,7 @@ msgstr "Wes Hardaker"
 #: main.cpp:126
 #, kde-format
 msgid "Some very useful features to improve workflow"
-msgstr ""
+msgstr "Několik velmi užitečných funkcí pro zefektivnění pracovního postupu"
 
 #: main.cpp:129
 #, kde-format
@@ -3226,7 +3352,7 @@ msgstr "Teemu Rytilahti"
 #: main.cpp:139
 #, kde-format
 msgid "Theme support for HTML generation"
-msgstr ""
+msgstr "Podpora motivů pro generování HTML"
 
 #: main.cpp:142
 #, kde-format
@@ -3290,7 +3416,7 @@ msgstr "Seskupit obrázky se stejným součtem MD5"
 #: MainWindow/AutoStackImages.cpp:64
 #, kde-format
 msgid "Stack images based on file version detection"
-msgstr ""
+msgstr "Seskupit obrázky na základě rozpoznání verze souboru"
 
 #: MainWindow/AutoStackImages.cpp:68
 #, kde-format
@@ -3428,6 +3554,9 @@ msgid ""
 ">Select the files you want to keep.<br/>Annotations from the deleted files "
 "will be merged to the kept image.</p>"
 msgstr ""
+"<p>Níže je uveden seznam všech souborů, které se ve vaší databázi vyskytují "
+"dvakrát.<br/>Vyberte soubory, které chcete ponechat.<br/>Poznámky z "
+"odstraněných souborů budou sloučeny do obrázku, který si ponecháte.</p>"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:93
 #, kde-format
@@ -3442,7 +3571,7 @@ msgstr "Smazat z &disku"
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:95
 #, kde-format
 msgid "&Block from database"
-msgstr ""
+msgstr "&Blokovat z databáze"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:112
 #, kde-format
@@ -3536,7 +3665,7 @@ msgstr "Stav funkcí"
 #: MainWindow/FeatureDialog.cpp:59
 #, kde-format
 msgid "<h1>Overview</h1><p>Optional features in KPhotoAlbum:</p>%1"
-msgstr ""
+msgstr "<h1>Přehled</h1><p>Volitelná funkce v programu KPhotoAlbum:</p>%1"
 
 #: MainWindow/FeatureDialog.cpp:65
 #, kde-format
@@ -3551,6 +3680,16 @@ msgid ""
 "from the package manager or an app store, you can file a bug report with the "
 "supplier of the package.</>"
 msgstr ""
+"<h1>Funkce při kompilaci</h1><p>Funkce při kompilaci jsou volitelné funkce, "
+"které je třeba při kompilaci programu KPhotoAlbum povolit.</p><p>Pokud jste "
+"si program KPhotoAlbum zkompilovali sami a něco jste přehlédli, podívejte se "
+"prosím do <a href=\"https://community.kde.org/KPhotoAlbum/build_instructions"
+"\">pokynů ke kompilaci</a>. Pokud potřebujete pomoc s kompilací programu "
+"KPhotoAlbum, neváhejte se obrátit na <a href=\"https://mail.kde.org/cgi-bin/"
+"mailman/listinfo/kphotoalbum\">diskusní skupinu KPhotoAlbum</a> a požádat o "
+"pomoc.</p><p>Pokud jste program KPhotoAlbum nainstalovali pomocí správce "
+"balíčků nebo z obchodu s aplikacemi, můžete nahlásit chybu poskytovateli "
+"balíčku.</>"
 
 #: MainWindow/FeatureDialog.cpp:79
 #, kde-format
@@ -3559,6 +3698,9 @@ msgid ""
 "supports the <em>Purpose</em> plugin system which is part of KDE Frameworks."
 "</p>"
 msgstr ""
+"<h2><a name=\"purpose\">Podpora modulu Purpose</a></h2><p>KPhotoAlbum "
+"podporuje <em>Purpose</em> – systém modulů, který je součástí KDE Frameworks."
+"</p>"
 
 #: MainWindow/FeatureDialog.cpp:83
 #, kde-format
@@ -3567,6 +3709,9 @@ msgid ""
 "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
 "images with GPS information on a map.</p>"
 msgstr ""
+"<h2><a name=\"geomap\">Zobrazení mapy pro snímky s geotagováním</a></"
+"h2><p>Pokud byl program KPhotoAlbum sestaven s podporou aplikace Marble, "
+"dokáže zobrazovat snímky s GPS informacemi na mapě.</p>"
 
 #: MainWindow/FeatureDialog.cpp:88
 #, kde-format
@@ -3575,6 +3720,10 @@ msgid ""
 "depend on another package or program being available during runtime. I.e. "
 "you can enable these features by installing the right package.</p>"
 msgstr ""
+"<h1>Funkce spouštěné v běhovém prostředí</h1><p>Funkce spouštěné v běhovém "
+"prostředí jsou volitelné funkce, jejichž fungování závisí na dostupnosti "
+"jiného balíčku nebo programu během spuštění. To znamená, že tyto funkce "
+"můžete aktivovat instalací příslušného balíčku.</p>"
 
 #: MainWindow/FeatureDialog.cpp:94
 #, kde-format
@@ -3604,6 +3753,17 @@ msgid ""
 "p><p>This feature is only available if ffprobe is installed. Usually, "
 "ffprobe is also part of the FFmpeg package.</p>"
 msgstr ""
+"<h2><a name=\"video\">Podpora videa</a></h2><p>KPhotoAlbum využívá k "
+"zobrazení videí knihovnu Phonon nebo přehrávač VLC</p><h2><a name="
+"\"videoPreview\">Podpora náhledů videí</a></h2><p>KPhotoAlbum může k "
+"extrakci náhledů z videí používat <tt>ffmpeg</tt>. Tyto náhledy se používají "
+"k náhledu videí v prohlížeči náhledů.</p><p>Tato funkce je k dispozici pouze "
+"v případě, že je nainstalován FFmpeg.</p><h2><a name=\"videoInfo\">Podpora "
+"metadat videa</a></h2><p>KPhotoAlbum může pomocí <tt>ffprobe</tt> extrahovat "
+"informace o délce videí. Správné informace o délce jsou nezbytné pro správné "
+"vykreslení náhledů videí.</p><p>Tato funkce je k dispozici pouze v případě, "
+"že je nainstalován ffprobe. Obvykle je ffprobe také součástí balíčku FFmpeg."
+"</p>"
 
 #: MainWindow/FeatureDialog.cpp:135
 #, kde-format
@@ -3727,6 +3887,8 @@ msgid ""
 "Use <databaseFile> instead of the default. Deprecated - use '--db "
 "<databaseFile>' instead."
 msgstr ""
+"Použijte <databaseFile> namísto výchozího nastavení. Zastaralé – místo toho "
+"použijte '--db <databaseFile>'."
 
 #: MainWindow/Options.cpp:27 MainWindow/Options.cpp:37
 #, kde-format
@@ -3746,7 +3908,7 @@ msgstr "kphotoalbumrc"
 #: MainWindow/Options.cpp:36
 #, kde-format
 msgid "Use <databaseFile> instead of the default."
-msgstr ""
+msgstr "Použijte <databaseFile> namísto výchozího nastavení."
 
 #: MainWindow/Options.cpp:39
 #, kde-format
@@ -3771,7 +3933,7 @@ msgstr "Naslouchat sítovým spojením."
 #: MainWindow/Options.cpp:54
 #, kde-format
 msgid "Listen for network connections on address <interface_address>."
-msgstr ""
+msgstr "Naslouchat síťovým připojením na adrese <interface_address>."
 
 #: MainWindow/Options.cpp:55
 #, kde-format
@@ -3806,6 +3968,12 @@ msgid ""
 "files you selected would be copied to the /tmp folder</p><p>You can also use "
 "%each to have a command be run once per file.</p>"
 msgstr ""
+"<p>Zadejte příkaz, který chcete spustit na svých obrázkových souborech. "
+"KPhotoAlbum tento příkaz spustí a nahradí všechny tokeny '%all' seznamem "
+"vašich souborů. Například pokud zadáte:</p><ul><li>cp %all /tmp</li></"
+"ul><p>V takovém případě by se vybrané soubory zkopírovaly do složky /tmp</"
+"p><p>Můžete také použít %each, aby se příkaz spustil jednou pro každý soubor."
+"</p>"
 
 #: MainWindow/RunDialog.cpp:74
 #, no-c-format, kde-format
@@ -3961,6 +4129,16 @@ msgid ""
 "</p><p>If you feel safer first trying out KPhotoAlbum with prebuilt set of "
 "images, press the Load Demo button.</p>"
 msgstr ""
+"<h1>Vítejte v programu KPhotoAlbum</h1><p>KPhotoAlbum je výkonný bezplatný "
+"nástroj pro archivaci, označování a správu vašich fotografií a videí. Vaše "
+"cenné soubory nijak neupravuje ani nemění, pouze je indexuje a umožňuje vám "
+"snadno vyhledávat a spravovat vaše fotografie a videa.</p><p>Začněte tím, že "
+"programu KPhotoAlbum ukážete, kde se vaše fotografie nacházejí, a to "
+"stisknutím tlačítka Vytvořit vlastní databázi. Toto tlačítko vyberte také v "
+"případě, že již máte existující databázi KPhotoAlbum, kterou chcete znovu "
+"začít používat.</p><p>Pokud se budete chtít cítit jistěji, můžete nejprve "
+"vyzkoušet KPhotoAlbum s předem připravenou sadou obrázků, stačí stisknout "
+"tlačítko Načíst ukázku.</p>"
 
 #: MainWindow/WelcomeDialog.cpp:60
 #, kde-format
@@ -3970,7 +4148,7 @@ msgstr "Vytvořit vlastní databázi..."
 #: MainWindow/WelcomeDialog.cpp:63
 #, kde-format
 msgid "Load Demo"
-msgstr "Načíst demo"
+msgstr "Načíst ukázku"
 
 #: MainWindow/WelcomeDialog.cpp:66
 #, kde-format
@@ -3990,6 +4168,15 @@ msgid ""
 "folder somewhere, point KPhotoAlbum to that folder to start using it again.</"
 "p>"
 msgstr ""
+"<h1>Vytvoření databáze KPhotoAlbum</h1><p>Aby program KPhotoAlbum mohl "
+"fotografie a videa najít, musíte mu určit, kde se nacházejí. Všechny soubory "
+"musí být uloženy v jedné složce, například /home/user/Images. V této složce "
+"můžete mít libovolný počet podsložek, KPhotoAlbum je všechny najde za vás.</"
+"p><p>Můžete být v klidu, KPhotoAlbum žádné z vašich obrázků neupraví ani "
+"nezmění, takže stačí KPhotoAlbum nasměrovat do složky, ve které již máte "
+"všechny své obrázky.</p><p>Pokud již někde máte existující databázi "
+"KPhotoAlbum a složku s obrázky, nasměrujte KPhotoAlbum do této složky, "
+"abyste ji mohli znovu začít používat.</p>"
 
 #: MainWindow/WelcomeDialog.cpp:115
 #, kde-format
@@ -4019,6 +4206,10 @@ msgid ""
 "p><p>For details on how to solve this problem, please choose <b>Help</b>|"
 "<b>KPhotoAlbum Feature Status</b> from the menus.</p>"
 msgstr ""
+"<p>Zdá se, že program KPhotoAlbum nebyl sestaven s podporou všech svých "
+"funkcí. Následující seznam uvádí, o co byste mohli přijít:<ul>%1</ul></"
+"p><p>Podrobnosti o tom, jak tento problém vyřešit, najdete v nabídkách pod "
+"položkami <b>Nápověda</b>|<b>Stav funkcí KPhotoAlbum</b>.</p>"
 
 #: MainWindow/WelcomeDialog.cpp:191 MainWindow/WelcomeDialog.cpp:194
 #, kde-format
@@ -4082,7 +4273,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
-msgstr ""
+msgstr "Problém se seskupením"
 
 #: MainWindow/Window.cpp:409
 #, kde-format
@@ -4218,10 +4409,9 @@ msgid "Expand all stacks"
 msgstr "Rozbalit všechny skupiny"
 
 #: MainWindow/Window.cpp:896
-#, fuzzy, kde-format
-#| msgid "Collapse all stacks"
+#, kde-format
 msgid "Toggle all stacks"
-msgstr "Sbalit všechny skupiny"
+msgstr "Přepnout všechny skupiny"
 
 #: MainWindow/Window.cpp:902
 #, kde-format
@@ -4366,7 +4556,7 @@ msgstr "Statistiky..."
 #: MainWindow/Window.cpp:1050
 #, kde-format
 msgid "Mark As Untagged"
-msgstr ""
+msgstr "Označit jako neoznačené"
 
 #: MainWindow/Window.cpp:1060
 #, kde-format
@@ -4401,7 +4591,7 @@ msgstr "Použít následující náhled videa"
 #: MainWindow/Window.cpp:1085
 #, kde-format
 msgid "Use previous video thumbnail"
-msgstr ""
+msgstr "Použít předchozí náhled videa"
 
 #: MainWindow/Window.cpp:1089 MainWindow/Window.cpp:1322
 #, kde-format
@@ -4448,6 +4638,10 @@ msgid ""
 "untagged tag setting under <interface>Settings|Configure KPhotoAlbum...|"
 "Categories</interface></p>"
 msgstr ""
+"<p>Nastavili jste značku pro neoznačené obrázky, ale buď samotná značka, "
+"nebo její kategorie v databázi neexistuje.</p><p>Zkontrolujte prosím "
+"nastavení značky pro neoznačené obrázky v části <interface>Nastavení|"
+"Nastavit KPhotoAlbum...|Kategorie</interface></p>"
 
 #: MainWindow/Window.cpp:1393 Settings/SettingsDialog.cpp:46
 #, kde-format
@@ -4463,7 +4657,7 @@ msgstr "Prohlížeč"
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr ""
+msgstr "Časová osa"
 
 #: MainWindow/Window.cpp:1398
 #, kde-format
@@ -4488,7 +4682,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
-msgstr ""
+msgstr "Obnovit skrytá dialogová okna"
 
 #: MainWindow/Window.cpp:1558
 #, kde-format
@@ -4500,6 +4694,13 @@ msgid ""
 "continue execution, but it is not entirely unlikely that it will crash later "
 "on due to the missing make install.</p>"
 msgstr ""
+"<p>V programu KPhotoAlbum došlo k interní chybě (chybí nabídka modulů v "
+"MainWindow::Window::setupPluginMenu). To naznačuje, že jste zapomněli "
+"provést příkaz make install. Pokud jste si KPhotoAlbum zkompilovali sami, "
+"spusťte prosím příkaz make install. V opačném případě prosím tuto skutečnost "
+"nahlaste jako chybu.</p><p>KPhotoAlbum bude pokračovat v běhu, ale není "
+"zcela vyloučeno, že později dojde k jeho pádu kvůli chybějícímu příkazu make "
+"install.</p>"
 
 #: MainWindow/Window.cpp:1558
 #, kde-format
@@ -4509,17 +4710,17 @@ msgstr "Vnitřní chyba"
 #: MainWindow/Window.cpp:1569
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
-msgstr ""
+msgstr "Obrázky byly úspěšně sdíleny. Kopíruje se umístění do schránky..."
 
 #: MainWindow/Window.cpp:1572
 #, kde-format
 msgid "Successfully shared image(s)."
-msgstr ""
+msgstr "Obrázky byly úspěšně sdíleny."
 
 #: MainWindow/Window.cpp:1577
 #, kde-format
 msgid "Image sharing failed with message: %1"
-msgstr ""
+msgstr "Sdílení obrázku se nezdařilo a zobrazila se následující zpráva: %1"
 
 #: MainWindow/Window.cpp:1628
 #, kde-format
@@ -4532,6 +4733,8 @@ msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
+"Sadu souborů v databázi programu KPhotoAlbum můžete otevřít tak, že je zde "
+"uvedete."
 
 #: MainWindow/Window.cpp:1643
 #, kde-format
@@ -4549,10 +4752,9 @@ msgid "Rereading Exif information from all images"
 msgstr "Nové načítání informací Exif ze všech obrázků"
 
 #: MainWindow/Window.cpp:1842
-#, fuzzy, kde-format
-#| msgid "No duplicates found"
+#, kde-format
 msgid "No duplicate files were found."
-msgstr "Nebyl nalezen žádný duplicitní"
+msgstr "Nebyly nalezeny žádné duplicitní soubory."
 
 #: MainWindow/Window.cpp:1852
 #, no-c-format, kde-format
@@ -4567,11 +4769,14 @@ msgid ""
 "not be able to display video thumbnails and video lengths. Please install "
 "the ffmpeg package</p>"
 msgstr ""
+"<p>V systému se nepodařilo najít ffmpeg.</p><p>Bez něj nebude KPhotoAlbum "
+"schopno zobrazit náhledy videí a jejich délku. Nainstalujte prosím balíček "
+"ffmpeg</p>"
 
 #: MainWindow/Window.cpp:1908
 #, kde-format
 msgid "Video thumbnails are not available"
-msgstr "Miniatury videí jsou nedostupné"
+msgstr "Náhledy videí nejsou dostupné"
 
 #: Map/GeoCluster.cpp:133
 #, kde-format
@@ -4582,7 +4787,7 @@ msgstr "%1"
 #: Map/MapView.cpp:168
 #, kde-format
 msgid "Save the current map settings"
-msgstr ""
+msgstr "Uložit aktuální nastavení mapy"
 
 #: Map/MapView.cpp:175
 #, kde-format
@@ -4598,7 +4803,7 @@ msgstr "Zobrazit náhledy"
 #, kde-format
 msgctxt "@action to group, as in aggregate thumbnails into clusters"
 msgid "Group adjacent thumbnails into clickable clusters"
-msgstr ""
+msgstr "Seskupit sousední náhledy do klikatelných skupin"
 
 #: Map/MapView.cpp:203
 #, kde-format
@@ -4627,23 +4832,23 @@ msgstr "<i>Načítání informací z obrázků ...</i>"
 #: Map/MapView.cpp:403
 #, kde-format
 msgid "<i>This image does not contain geographic coordinates.</i>"
-msgstr ""
+msgstr "<i>Tento obrázek neobsahuje zeměpisné souřadnice.</i>"
 
 #: Map/MapView.cpp:411
 #, kde-format
 msgid ""
 "<i>Some of the selected images do not contain geographic coordinates.</i>"
-msgstr ""
+msgstr "<i>Některé z vybraných obrázků neobsahují zeměpisné souřadnice.</i>"
 
 #: Map/MapView.cpp:421
 #, kde-format
 msgid "<i>Search for geographic coordinates.</i>"
-msgstr ""
+msgstr "<i>Vyhledat zeměpisné souřadnice.</i>"
 
 #: Map/MapView.cpp:429
 #, kde-format
 msgid "<i>None of the selected images contain geographic coordinates.</i>"
-msgstr ""
+msgstr "<i>Žádný z vybraných obrázků neobsahuje zeměpisné souřadnice.</i>"
 
 #: Plugins/PurposeMenu.cpp:37
 #, kde-format
@@ -4661,16 +4866,23 @@ msgid ""
 "android device's address.\n"
 "The android client can be downloaded from google play."
 msgstr ""
+"Tato ikona signalizuje, zda je aplikace KPhotoAlbum připojena k zařízení s "
+"operačním systémem Android.\n"
+"Kliknutím na ikonu zapnete nebo vypnete naslouchání klientům v místní síti.\n"
+"Pokud místní síť neumožňuje vysílání paketů mezi klientem Android a aplikací "
+"KPhotoAlbum, klikněte pravým tlačítkem myši na ikonu a zadejte adresu "
+"zařízení s operačním systémem Android.\n"
+"Klienta pro Android lze stáhnout z Google Play."
 
 #: RemoteControl/ConnectionIndicator.cpp:90
 #, kde-format
 msgid "Android device address: "
-msgstr ""
+msgstr "Adresa zařízení s operačním systémem Android: "
 
 #: RemoteControl/Server.cpp:32
 #, kde-format
 msgid "Unable to bind to socket"
-msgstr ""
+msgstr "Nelze navázat spojení se soketem"
 
 #: RemoteControl/Server.cpp:33
 #, kde-format
@@ -4678,6 +4890,8 @@ msgid ""
 "Unable to listen for remote Android connections. This is likely because you "
 "have another KPhotoAlbum application running."
 msgstr ""
+"Nelze naslouchat vzdáleným připojením systému Android. Pravděpodobně je to "
+"způsobeno tím, že máte spuštěnou jinou aplikaci KPhotoAlbum."
 
 #: RemoteControl/Server.cpp:67
 #, kde-format
@@ -4691,6 +4905,9 @@ msgid ""
 "Desktop protocol version: %1\n"
 "Remote Control protocol version: %2"
 msgstr ""
+"Nesoulad verzí mezi vzdáleným klientem a aplikací KPhotoAlbum na ploše. \n"
+"Verze protokolu na ploše: %1\n"
+"Verze protokolu vzdáleného ovládání: %2"
 
 #: Settings/BirthdayPage.cpp:59
 #, kde-format
@@ -4709,6 +4926,8 @@ msgid ""
 "Set the date of birth for items (say people) here, and then see their age "
 "when viewing the images."
 msgstr ""
+"Zde nastavte datum narození objektů (například osob) a při prohlížení "
+"obrázků pak uvidíte jejich věk."
 
 #: Settings/BirthdayPage.cpp:157
 #, kde-format
@@ -4723,7 +4942,7 @@ msgstr "Narozeniny"
 #: Settings/BirthdayPage.cpp:225
 #, kde-format
 msgid "Birthday of %1:"
-msgstr ""
+msgstr "Narozeniny %1:"
 
 #: Settings/BirthdayPage.cpp:233
 #, kde-format
@@ -4733,7 +4952,7 @@ msgstr "Zadejte datum..."
 #: Settings/BirthdayPage.cpp:297
 #, kde-format
 msgid "<i>Select an item on the left to edit the birthday</i>"
-msgstr ""
+msgstr "<i>Vyberte objekt vlevo a upravte datum narozenin</i>"
 
 #: Settings/CategoryPage.cpp:48
 #, kde-format
@@ -4743,7 +4962,7 @@ msgstr "Nastavení kategorie"
 #: Settings/CategoryPage.cpp:69
 #, kde-format
 msgid "New"
-msgstr "Nový"
+msgstr "Nové"
 
 #: Settings/CategoryPage.cpp:77
 #, kde-format
@@ -4753,7 +4972,7 @@ msgstr "Přejmenovat"
 #: Settings/CategoryPage.cpp:110
 #, kde-format
 msgid "Positionable tags:"
-msgstr ""
+msgstr "Polohovatelné značky:"
 
 #: Settings/CategoryPage.cpp:112
 #, kde-format
@@ -4761,6 +4980,8 @@ msgid ""
 "Tags in this category can be\n"
 "associated with areas within images"
 msgstr ""
+"Značky v této kategorii mohou být\n"
+"spojeny s oblastmi v obrázcích"
 
 #: Settings/CategoryPage.cpp:119
 #, kde-format
@@ -4799,11 +5020,13 @@ msgid ""
 "saved,<br/>the names of categories can't be changed and new ones can't be "
 "added.</font>"
 msgstr ""
+"<font color='red'>V databázi jsou neuložené změny. Dokud nebudou uloženy,<br/"
+">nelze měnit názvy kategorií ani přidávat nové.</font>"
 
 #: Settings/CategoryPage.cpp:165
 #, kde-format
 msgid "Save the DB now"
-msgstr ""
+msgstr "Uložit databázi nyní"
 
 #: Settings/CategoryPage.cpp:205
 #, kde-format
@@ -4813,7 +5036,7 @@ msgstr "Nastavení pro kategorii <b>%1</b>"
 #: Settings/CategoryPage.cpp:208
 #, kde-format
 msgid "<i>Pending change: rename to \"%1\"</i>"
-msgstr ""
+msgstr "<i>Čekající změna: přejmenovat na \"%1\"</i>"
 
 #: Settings/CategoryPage.cpp:262
 #, kde-format
@@ -4822,6 +5045,9 @@ msgid ""
 "special category name which is reserved and can't be used for a normal "
 "category.</p>"
 msgstr ""
+"<p>Nelze změnit název kategorie \"%1\" na \"%2\":</p><p>\"%2\" je speciální "
+"název kategorie, který je vyhrazen a nelze jej použít pro běžnou kategorii.</"
+"p>"
 
 #: Settings/CategoryPage.cpp:266 Settings/CategoryPage.cpp:277
 #, kde-format
@@ -4834,6 +5060,8 @@ msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>A category with "
 "this name already exists.</p>"
 msgstr ""
+"<p>Nelze změnit název kategorie \"%1\" na \"%2\":</p><p>Kategorie s tímto "
+"názvem již existuje.</p>"
 
 #: Settings/CategoryPage.cpp:291
 #, kde-format
@@ -4842,11 +5070,14 @@ msgid ""
 "pending rename action on the category \"%2\". Please save this change first."
 "</p>"
 msgstr ""
+"<p>Nelze změnit název kategorie \"%1\" na \"%2\":</p><p>U kategorie \"%2\" "
+"je v současné době čekající akce přejmenování. Nejprve prosím uložte tuto "
+"změnu.</p>"
 
 #: Settings/CategoryPage.cpp:295
 #, kde-format
 msgid "Unsaved pending renaming action"
-msgstr ""
+msgstr "Neuložená čekající akce přejmenování"
 
 #: Settings/CategoryPage.cpp:326
 #, kde-format
@@ -4854,6 +5085,8 @@ msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
 "linked against this category will be discarded!</p>"
 msgstr ""
+"<p>Opravdu chcete, aby \"%1\" nebyla polohovatelná?</p><p>Všechny oblasti "
+"propojené s touto kategorií budou odstraněny!</p>"
 
 #: Settings/CategoryPage.cpp:334
 #, kde-format
@@ -4879,7 +5112,7 @@ msgstr "Potvrdit činnost"
 #: Settings/CategoryPage.cpp:520
 #, kde-format
 msgid "<i>Choose a category to edit it</i>"
-msgstr ""
+msgstr "<i>Vyberte kategorii, kterou chcete upravit</i>"
 
 #: Settings/DatabaseBackendPage.cpp:23
 #, kde-format
@@ -4923,6 +5156,14 @@ msgid ""
 "images, and in that case it is useful to ask KPhotoAlbum to zip the backup "
 "files to preserve disk space.</p>"
 msgstr ""
+"<p>KPhotoAlbum umí zálohovat soubor XML databáze tak, že uchovává jeho kopie "
+"(například u databázového souboru s názvem index.xml se zálohy nazývají "
+"index.xml~0001~, index.xml~0002~ atd.) a pomocí rozbalovacího seznamu můžete "
+"určit, kolik záložních souborů se má uchovat. Jakmile KPhotoAlbum dosáhne "
+"maximálního počtu záložních souborů, smaže nejstarší z nich.</p><p>Pokud "
+"máte mnoho obrázků, může se velikost souboru XML databáze výrazně zvětšit. V "
+"takovém případě je užitečné požádat KPhotoAlbum, aby záložní soubory "
+"zkomprimoval do formátu ZIP, čímž se ušetří místo na disku.</p>"
 
 #: Settings/DatabaseBackendPage.cpp:68
 #, kde-format
@@ -4932,6 +5173,10 @@ msgid ""
 "time to approximately half, by checking this check box. The disadvantage is "
 "that the XML database file is less readable by human eyes.</p>"
 msgstr ""
+"<p>KPhotoAlbum používá jako svou <i>databázi</i> jediný soubor XML. Při "
+"velkém počtu obrázků může načítání tohoto souboru trvat dlouho. Zaškrtnutím "
+"tohoto políčka můžete tuto dobu zkrátit přibližně na polovinu. Nevýhodou je, "
+"že soubor XML s databází je pro lidské oko hůře čitelný.</p>"
 
 #: Settings/ExifPage.cpp:37
 #, kde-format
@@ -4961,12 +5206,12 @@ msgstr "Při spuštění vyhledat nové obrázky a videa"
 #: Settings/FileVersionDetectionPage.cpp:39
 #, kde-format
 msgid "Ignore file extensions when searching for new images and videos"
-msgstr ""
+msgstr "Při vyhledávání nových obrázků a videí ignorovat přípony souborů"
 
 #: Settings/FileVersionDetectionPage.cpp:42
 #, kde-format
 msgid "Skip symbolic links when searching for new images"
-msgstr ""
+msgstr "Při vyhledávání nových obrázků přeskočit symbolické odkazy"
 
 #: Settings/FileVersionDetectionPage.cpp:45
 #, kde-format
@@ -4987,6 +5232,10 @@ msgid ""
 "KPhotoAlbum to ignore these two folder names in any folder when searching "
 "for new images.</p>"
 msgstr ""
+"<p>Zadejte seznam názvů složek, které mají být ignorovány, oddělených "
+"čárkami.</p><p>Například pokud zde zadáte \"<tt>.thumbs,.thumbnails</tt>\", "
+"KPhotoAlbum při vyhledávání nových obrázků bude tyto dva názvy složek "
+"ignorovat v jakékoli složce.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:61
 #, kde-format
@@ -5009,6 +5258,11 @@ msgid ""
 "their extension. This will take significantly longer than finding files by "
 "extension!</p>"
 msgstr ""
+"<p>KPhotoAlbum obvykle vyhledává nové obrázky a videa podle jejich přípon. "
+"Je-li tato volba zapnutá, <em>všechny</em> soubory, které nejsou ani v "
+"databázi, ani na seznamu blokovaných položek, budou zkontrolovány podle "
+"jejich MIME typu, bez ohledu na jejich příponu. To bude trvat podstatně déle "
+"než vyhledávání souborů podle přípon!</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:72
 #, kde-format
@@ -5018,6 +5272,11 @@ msgid ""
 "This is useful if for some reason you have e.g. both the original files and "
 "symbolic links to these files within your image folder.</p>"
 msgstr ""
+"<p>KPhotoAlbum se pokouší načíst všechny soubory obrázků, ať už se jedná o "
+"skutečné soubory nebo symbolické odkazy. Pokud chcete symbolické odkazy "
+"ignorovat, zaškrtněte tuto volbu. To se hodí například v případě, že z "
+"nějakého důvodu máte ve složce s obrázky jak původní soubory, tak i "
+"symbolické odkazy na tyto soubory.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:77
 #, kde-format
@@ -5041,6 +5300,10 @@ msgid ""
 "searching for new photos. Thumbnail directories of different tools should be "
 "configured here. E.g. <tt>xml,ThumbNails,.thumbs,.thumbnails</tt>.</p>"
 msgstr ""
+"<p>Adresáře zde definované (oddělené čárkou <tt>,</tt>) se při vyhledávání "
+"nových fotografií přeskočí. Zde by měly být nakonfigurovány adresáře pro "
+"náhledy různých nástrojů. Např. <tt>xml,ThumbNails,.thumbs,.thumbnails</tt>."
+"</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:91
 #, kde-format
@@ -5082,6 +5345,12 @@ msgid ""
 "associated metadata (category information, ratings, etc) will be copied or "
 "moved from the original file to the new one.</p>"
 msgstr ""
+"<p>Když KPhotoAlbum prohledává nové soubory a najde soubor, který odpovídá "
+"<i>regulárnímu výrazu pro vyhledávání upravených souborů</i>, předpokládá "
+"se, že může existovat původní verze obrázku. Vzor regulárního výrazu bude "
+"nahrazen <i>textem pro nahrazení původního souboru</i> a pokud tento soubor "
+"existuje, budou všechna související metadata (informace o kategorii, "
+"hodnocení atd.) zkopírována nebo přesunuta z původního souboru do nového.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:123
 #, kde-format
@@ -5094,6 +5363,13 @@ msgid ""
 "<li>You can group parts of the expression using parenthesis.</li> </"
 "ul>Example: <tt>-modified\\.(jpg|tiff)</tt> </p>"
 msgstr ""
+"<p>Regulární výraz v jazyce Perl, který by měl najít upravený soubor."
+"<ul><li>Tečka odpovídá jednomu znaku (<tt>\\.</tt> odpovídá tečce)</"
+"li><li>Můžete použít kvantifikátory <tt>*</tt>,<tt>+</tt>,<tt>?</tt>, nebo "
+"můžete     najít více výskytů výrazu pomocí složených závorek (např. "
+"<tt>e{0,1}</tt> najde 0 nebo 1 výskyt znaku \"e\").</li><li>Části výrazu "
+"můžete seskupit pomocí závorek.</li> </ul>Příklad: <tt>-modified\\.(jpg|"
+"tiff)</tt> </p>"
 
 #: Settings/FileVersionDetectionPage.cpp:133
 #, kde-format
@@ -5103,6 +5379,11 @@ msgid ""
 "string is used to replace the match in the new file's name until an original "
 "file is found or we run out of options.</p>"
 msgstr ""
+"<p>Řetězec, který se použije k nahrazení nalezeného výrazu z <i>regulárního "
+"výrazu pro vyhledávání verzí souborů</i>. Může se jednat o seznam oddělený "
+"středníky (<tt>;</tt>). Každý řetězec se použije k nahrazení nalezeného "
+"výrazu v názvu nového souboru, dokud nebude nalezen původní soubor nebo "
+"dokud nedojdou možnosti.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:139
 #, kde-format
@@ -5110,6 +5391,8 @@ msgid ""
 "<p>The tagging is moved from the original file to the new file. This way "
 "only the latest version of an image is tagged.</p>"
 msgstr ""
+"<p>Značky se přesouvají z původního souboru do nového souboru. Tímto "
+"způsobem jsou označeny pouze nejnovější verze obrázků.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:143
 #, kde-format
@@ -5118,6 +5401,9 @@ msgid ""
 "and placed to the top of the stack. This way the new image is shown when the "
 "stack is in collapsed state - the default state in KPhotoAlbum.</p>"
 msgstr ""
+"<p>Je-li tato volba zapnutá, nové verze snímku se automaticky přidávají do "
+"skupiny a umisťují na její začátek. Díky tomu se nový snímek zobrazí, i když "
+"je skupina sbalená – což je výchozí stav v programu KPhotoAlbum.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:151
 #, kde-format
@@ -5130,7 +5416,7 @@ msgstr "Zkopírovat soubor a otevřít v externí aplikaci"
 #: Settings/FileVersionDetectionPage.cpp:155
 #, kde-format
 msgid "Copy file search regexp:"
-msgstr ""
+msgstr "Regulární výraz pro vyhledávání kopírovaných souborů:"
 
 #: Settings/FileVersionDetectionPage.cpp:161
 #, kde-format
@@ -5147,16 +5433,24 @@ msgid ""
 "png)\"</i> and replacement text <i>\"-mod.\\1\"</i> would copy test.jpg to "
 "test-mod.jpg and open the new file in selected application.</p>"
 msgstr ""
+"<p>KPhotoAlbum může před otevřením obrázku v externí aplikaci vytvořit jeho "
+"kopii. Toto nastavení určuje, jak bude nový soubor pojmenován.</"
+"p><p>Regulární výraz definuje část původního názvu souboru, která bude "
+"nahrazena <i>náhradním textem</i>. Např. regulární výraz <i>\"\\.(jpg|"
+"png)\"</i> a náhradní text <i>\"-mod.\\1\"</i> zkopíruje soubor test.jpg do "
+"test-mod.jpg a nový soubor otevře ve vybrané aplikaci.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:178
 #, kde-format
 msgid "EXPERIMENTAL: Tune new image loading for best performance."
 msgstr ""
+"EXPERIMENTÁLNÍ: Vylepšené načítání obrázků s cílem dosáhnout co nejlepšího "
+"výkonu."
 
 #: Settings/FileVersionDetectionPage.cpp:184
 #, kde-format
 msgid "Type of media on which your images are stored."
-msgstr ""
+msgstr "Typ média, na kterém jsou vaše obrázky uloženy."
 
 #: Settings/FileVersionDetectionPage.cpp:189
 #, kde-format
@@ -5176,7 +5470,7 @@ msgstr "SATA SSD"
 #: Settings/FileVersionDetectionPage.cpp:192
 #, kde-format
 msgid "Slow PCIe/NVMe"
-msgstr ""
+msgstr "Pomalý PCIe/NVMe"
 
 #: Settings/FileVersionDetectionPage.cpp:193
 #, kde-format
@@ -5196,11 +5490,16 @@ msgid ""
 "media, choose the slowest media type used.</p><p>Use Manual Settings to "
 "configure details of how the loading is performed.</p>"
 msgstr ""
+"<p>Nastavte načítání obrázků tak, aby bylo dosaženo co nejlepšího výkonu, a "
+"to podle typu úložiště, na kterém je uložena vaše databáze obrázků. Pokud je "
+"vaše databáze obrázků uložena na více typech médií, vyberte nejpomalejší z "
+"nich.</p><p>Pomocí ručních nastavení můžete nastavit podrobnosti toho, jak "
+"se načítání provádí.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:205
 #, kde-format
 msgid "Calculate MD5 checksum while images are being preloaded"
-msgstr ""
+msgstr "Vypočítat kontrolní součet MD5 během přednačítání obrázků"
 
 #: Settings/FileVersionDetectionPage.cpp:210
 #, kde-format
@@ -5210,11 +5509,16 @@ msgid ""
 "slow, this degrades performance as the checksum calculation has to wait "
 "longer for the images to be preloaded.</p>"
 msgstr ""
+"<p>Vypočítat kontrolní součty MD5 během přednačítání obrázků.  Toto řešení "
+"funguje dobře, pokud je úložiště velmi rychlé, například disk NVMe.  Pokud "
+"je úložiště pomalé, dochází ke snížení výkonu, protože výpočet kontrolního "
+"součtu musí déle čekat na přednačtení obrázků.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:216
 #, kde-format
 msgid "Number of threads to use for preloading (scouting) images"
 msgstr ""
+"Počet vláken, která se mají použít pro přednačítání (vyhledávání) obrázků"
 
 #: Settings/FileVersionDetectionPage.cpp:224
 #, kde-format
@@ -5224,11 +5528,18 @@ msgid ""
 "for faster storage, but not more than the number of cores in your CPU. "
 "Default is 1, which works well for mechanical hard disks.</p>"
 msgstr ""
+"<p>Počet vláken, která se mají použít k přednačtení obrázků, aby byly v "
+"paměti v okamžiku výpočtu jejich kontrolních součtů.  Pro rychlejší úložiště "
+"by tato hodnota měla být obecně nastavena na vyšší číslo, avšak ne vyšší než "
+"počet jader vašeho procesoru. Výchozí hodnota je 1, což je vhodné pro "
+"mechanické pevné disky.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:230
 #, kde-format
 msgid "Number of threads to use for thumbnailPreloading (scouting) images"
 msgstr ""
+"Počet vláken, která se mají použít pro přednačítání (vyhledávání) obrázků "
+"pro náhledy"
 
 #: Settings/FileVersionDetectionPage.cpp:238
 #, kde-format
@@ -5237,11 +5548,14 @@ msgid ""
 "thumbnails.  Normally this should be set to 1; the exception might be if you "
 "have very fast storage.</p>"
 msgstr ""
+"<p>Počet vláken, která se mají použít k přednačtení obrázků před vytvořením "
+"náhledů.  Obvykle by měla být nastavena hodnota 1; výjimkou může být případ, "
+"kdy máte k dispozici velmi rychlé úložiště.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:244
 #, kde-format
 msgid "Number of threads to use for building thumbnails"
-msgstr ""
+msgstr "Počet vláken, která se mají použít při vytváření náhledů"
 
 #: Settings/FileVersionDetectionPage.cpp:252
 #, kde-format
@@ -5252,6 +5566,12 @@ msgid ""
 "may see benefit from setting this to a larger value.</p><p>KPhotoAlbum must "
 "be restarted for changes to take effect.</p>"
 msgstr ""
+"<p>Počet vláken, která se mají použít při vytváření náhledů.  Pokud je "
+"nastavena hodnota 0, bude tento počet automaticky nastaven na hodnotu o "
+"jedno jádro menší než je počet jader procesoru, přičemž minimální hodnota je "
+"jedna a maximální tři.  Pokud máte rychlé úložiště a procesor s velkým "
+"počtem jader, může být výhodné nastavit tuto hodnotu na vyšší číslo.</"
+"p><p>Aby se změny projevily, je nutné restartovat KPhotoAlbum.</p>"
 
 #: Settings/GeneralPage.cpp:29
 #, kde-format
@@ -5294,7 +5614,7 @@ msgstr "Použít popis Exif"
 #: Settings/GeneralPage.cpp:57
 #, kde-format
 msgid "Strip out camera generated default descriptions"
-msgstr ""
+msgstr "Odstranit výchozí popisy generované fotoaparátem"
 
 #: Settings/GeneralPage.cpp:69
 #, kde-format
@@ -5319,7 +5639,7 @@ msgstr "Zobrazit histogram"
 #: Settings/GeneralPage.cpp:99
 #, kde-format
 msgid "Use linear scale for histogram"
-msgstr ""
+msgstr "Pro histogram použít lineární měřítko"
 
 #: Settings/GeneralPage.cpp:103
 #, kde-format
@@ -5395,6 +5715,12 @@ msgid ""
 "automatically on start up. Alternatively, you can click the connection icon "
 "in the status bar to start listening."
 msgstr ""
+"<p>KPhotoAlbum umožňuje zobrazovat vaše obrázky na zařízeních s operačním "
+"systémem Android. KPhotoAlbum se automaticky spáruje s aplikací v systému "
+"Android. To však vyžaduje, aby aplikace KPhotoAlbum na vašem počítači "
+"naslouchala multicastovým zprávám. Zaškrtnutím tohoto políčka zajistíte, že "
+"KPhotoAlbum bude naslouchat automaticky při spuštění. Alternativně můžete "
+"kliknout na ikonu připojení na stavové liště a spustit naslouchání."
 
 #: Settings/GeneralPage.cpp:170
 #, kde-format
@@ -5404,6 +5730,10 @@ msgid ""
 "want to ignore in the input field, one per line. Be sure to add the exact "
 "comment, including all whitespace.</p>"
 msgstr ""
+"<p>Některé fotoaparáty automaticky ukládají obecné popisky ke každému "
+"snímku. Tyto popisky lze automaticky ignorovat.</p><p>Do vstupního pole "
+"zadejte popisky, které chcete ignorovat, vždy jeden na řádek. Ujistěte se, "
+"že zadáte přesný text popisku včetně všech mezer.</p>"
 
 #: Settings/SettingsDialog.cpp:47
 #, kde-format
@@ -5452,6 +5782,7 @@ msgstr "Kategorie skupiny:"
 msgctxt "@label/rich"
 msgid "<strong>Select a group on the left side to add tags to it</strong>"
 msgstr ""
+"<strong>Vyberte skupinu na levé straně a přidejte k ní značky.</strong>"
 
 #: Settings/TagGroupsPage.cpp:57
 #, kde-format
@@ -5460,6 +5791,8 @@ msgid ""
 "<strong>There are pending changes on the categories page.<nl> Please save "
 "the changes before working on tag groups.</strong>"
 msgstr ""
+"<strong>Na stránce kategorií jsou čekající změny.<nl> Před prací na "
+"skupinách značek prosím uložte změny.</strong>"
 
 #: Settings/TagGroupsPage.cpp:66
 #, kde-format
@@ -5528,6 +5861,8 @@ msgid ""
 "<para>Cannot rename group \"%1\" to \"%2\": \"%2\" already exists in "
 "category \"%3\"</para>"
 msgstr ""
+"<para>Nelze přejmenovat skupinu \"%1\" na \"%2\": \"%2\" již existuje v "
+"kategorii \"%3\"</para>"
 
 #: Settings/TagGroupsPage.cpp:510
 #, kde-kuit-format
@@ -5537,6 +5872,9 @@ msgid ""
 "will be moved to the super category of \"%1\" (\"%2\").<nl/> All other "
 "memberships of the sub-categories will stay intact.</para>"
 msgstr ""
+"<para>Opravdu chcete odstranit skupinu \"%1\"?</para><para>Podkategorie této "
+"skupiny budou přesunuty do nadřazené kategorie \"%1\" (\"%2\").<nl/>Všechna "
+"ostatní členství v těchto podkategoriích zůstanou beze změny.</para>"
 
 #: Settings/TagGroupsPage.cpp:516
 #, kde-kuit-format
@@ -5679,7 +6017,7 @@ msgstr "Zobrazit kategorie v pohledu s náhledy"
 #: Settings/ThumbnailsPage.cpp:84
 #, kde-format
 msgid "Threshold for automatic thumbnail view: "
-msgstr ""
+msgstr "Prahová hodnota pro automatické zobrazení náhledů: "
 
 #: Settings/ThumbnailsPage.cpp:88
 #, kde-format
@@ -5706,6 +6044,8 @@ msgid ""
 "<p>Thumbnail image size. Changing the thumbnail size here triggers a rebuild "
 "of the thumbnail database.</p>"
 msgstr ""
+"<p>Velikost náhledového obrázku. Změna velikosti náhledu v tomto nastavení "
+"spustí přebudování databáze náhledů.</p>"
 
 #: Settings/ThumbnailsPage.cpp:108
 #, kde-format
@@ -5719,6 +6059,14 @@ msgid ""
 "immediately build thumbnails for them and you won't have a delay later while "
 "browsing.</p>"
 msgstr ""
+"<p>Je-li tato volba nastavena, náhledy se vytvářejí podle potřeby. Při "
+"procházení databáze obrázků se skutečně vytvářejí pouze ty náhledy, které "
+"jsou právě potřebné. To znamená, že při změně velikosti náhledů zůstane "
+"KPhotoAlbum plynulé i v případě, že máte velké množství obrázků.</p><p>Pokud "
+"není tato volba nastavena, KPhotoAlbum vždy co nejdříve vytvoří náhledy pro "
+"všechny obrázky. To znamená, že jakmile jsou nalezeny nové obrázky, "
+"KPhotoAlbum pro ně okamžitě vytvoří náhledy a při prohlížení se později "
+"nevyskytnou žádná zpoždění.</p>"
 
 #: Settings/ThumbnailsPage.cpp:117
 #, kde-format
@@ -5765,6 +6113,9 @@ msgid ""
 "the thumbnails will be shown automatically. The alternative is to continue "
 "showing the browser until you press <i>Show Images</i></p>"
 msgstr ""
+"<p>Pokud při procházení klesne počet pod zde zadanou hodnotu, náhledy se "
+"zobrazí automaticky. Alternativou je pokračovat v prohlížení, dokud "
+"nestisknete <i>Zobrazit obrázky</i></p>"
 
 #: Settings/UntaggedGroupBox.cpp:24
 #, kde-format
@@ -5773,11 +6124,14 @@ msgid ""
 "automatically, so that they can be easily found. It will be removed as soon "
 "as the image has been annotated."
 msgstr ""
+"Pokud zde vyberete značku, bude automaticky přidána k novým (neznačeným) "
+"obrázkům, aby se daly snadno vyhledat. Jakmile bude obrázek opatřen "
+"popiskem, značka bude odstraněna."
 
 #: Settings/UntaggedGroupBox.cpp:45
 #, kde-format
 msgid "Show the untagged images tag as a normal tag"
-msgstr ""
+msgstr "Zobrazit štítek s neoznačenými obrázky jako běžný štítek"
 
 #: Settings/UntaggedGroupBox.cpp:54
 #, kde-format
@@ -5797,6 +6151,10 @@ msgid ""
 "stored in the database. Otherwise, it will be lost, and you will get an "
 "error about this tag being not present on the next start.</p>"
 msgstr ""
+"<p>Do kategorie \"%2\" byla přidána nová značka \"%1\", která se od nynějška "
+"bude používat pro obrázky bez značky.</p><p>Uložte prosím změny, aby se tato "
+"značka uložila do databáze. V opačném případě dojde k její ztrátě a při "
+"příštím spuštění se zobrazí chyba, že tato značka neexistuje.</p>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:26
 #, kde-format
@@ -5822,12 +6180,28 @@ msgid ""
 "maybe only back-end.</p><p><b><font color=red>You can at any time change the "
 "backend from Settings -> Viewer</font></b></p></html>"
 msgstr ""
+"<html><p>Bohužel neexistuje žádný videopřehrávač, který by všem fungoval "
+"hned po instalaci.</p><p>KPhotoAlbum proto obsahuje tři různé podpůrné "
+"vrstvy; vyberte si tu, která vám nejlépe vyhovuje.</p><p><b>VLC</b> se jeví "
+"jako nejlépe podporovaná podpůrná vrstva pro přehrávání videa, což znamená, "
+"že dokáže přehrát většinu video formátů. Má však jednu nevýhodu – vyžaduje "
+"X11. Pokud používáte Wayland, zjistíte, že se videa zobrazují ve vlastním "
+"okně, a v tomto případě pro vás VLC pravděpodobně nebude tou nejlepší "
+"volbou. Pokud naopak X11 používáte, pak je VLC pravděpodobně vaší nejlepší "
+"volbou.</p><p>KPhotoAlbum tradičně používá <b>Phonon</b> jako podpůrnou "
+"vrstvu pro přehrávání videa. Bohužel jsme zaznamenali jeho pády u mnoha "
+"různých video formátů – pravděpodobně proto, že náš systém nebyl správně "
+"nastaven.</p><p><b>QtMultimedia</b> je nejnovější podpůrná vrstva pro "
+"přehrávání videa ze všech tří. Jedná se o standardní součást Qt. Očekávejte, "
+"že se stane novou výchozí a možná i jedinou podpůrnou vrstvou.</"
+"p><p><b><font color=red>Podpůrnou vrstvu můžete kdykoli změnit v Nastavení -"
+"> Prohlížeč</font></b></p></html>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:55
 #: Settings/VideoPlayerSelectorDialog.cpp:64
 #, kde-format
 msgid " (NOT AVAILABLE)"
-msgstr " (NEDOSTUPNÝ)"
+msgstr " (NEDOSTUPNÉ)"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:93
 #, kde-format
@@ -5838,6 +6212,11 @@ msgid ""
 "ends. If you on the other hand got KPhotoAlbum from your system, then please "
 "talk to the maintainer of the package.</html>"
 msgstr ""
+"<html><h1>Chybějící podpůrná vrstva</h1>Dostupnost podpůrných vrstev závisí "
+"na nastavení systému v době kompilace KPhotoAlbum. Pokud jste si KPhotoAlbum "
+"zkompilovali sami, vyhledejte vývojářské balíčky příslušných podpůrných "
+"vrstev. Pokud jste naopak KPhotoAlbum získali z vašeho systému, obraťte se "
+"prosím na správce balíčku.</html>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:152
 #, kde-format
@@ -5975,10 +6354,9 @@ msgid "Video Backend:"
 msgstr "Podpůrná vrstva videa:"
 
 #: Settings/ViewerPage.cpp:112
-#, fuzzy, kde-format
-#| msgid "Annotation Mode"
+#, kde-format
 msgid "Default Annotation Mode"
-msgstr "Režim poznámek"
+msgstr "Výchozí režim poznámek"
 
 #: Settings/ViewerPage.cpp:114
 #, kde-format
@@ -6024,15 +6402,15 @@ msgstr "Zapnout filtr"
 #: ThumbnailView/FilterWidget.cpp:25
 #, kde-kuit-format
 msgid "Press <shortcut>Escape</shortcut> to clear filter."
-msgstr ""
+msgstr "Stiskněte <zkratka>Escape</zkratka> pro vymazání filtru."
 
 #: ThumbnailView/FilterWidget.cpp:32
 #, kde-format
 msgid "Filter view by rating: %1 star"
 msgid_plural "Filter view by rating: %1 stars"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Filtrovat zobrazení podle hodnocení: %1 hvězdička"
+msgstr[1] "Filtrovat zobrazení podle hodnocení: %1 hvězdičky"
+msgstr[2] "Filtrovat zobrazení podle hodnocení: %1 hvězdiček"
 
 #: ThumbnailView/FilterWidget.cpp:62
 #, kde-format
@@ -6046,6 +6424,8 @@ msgid ""
 "Tip: Use <shortcut>Alt+Shift+<placeholder>A-Z</placeholder></shortcut> to "
 "toggle a filter for that token."
 msgstr ""
+"Tip: Pomocí klávesové zkratky <shortcut>Alt+Shift+<placeholder>A–Z</"
+"placeholder></shortcut> můžete zapnout nebo vypnout filtr pro daný token."
 
 #: ThumbnailView/ThumbnailDND.cpp:92
 #, kde-format
@@ -6251,28 +6631,22 @@ msgstr[1] "%1 týdny"
 msgstr[2] "%1 týdnů"
 
 #: Utilities/Timespan.cpp:216
-#, fuzzy, kde-format
-#| msgctxt "Like \"This happened '3 weeks' ago\""
-#| msgid "%1 week"
-#| msgid_plural "%1 weeks"
+#, kde-format
 msgctxt "Like \"This happened 'about 6 weeks' ago\""
 msgid "about %1 week"
 msgid_plural "about %1 weeks"
-msgstr[0] "%1 týden"
-msgstr[1] "%1 týdny"
-msgstr[2] "%1 týdnů"
+msgstr[0] "asi %1 týden"
+msgstr[1] "asi %1 týdny"
+msgstr[2] "asi %1 týdnů"
 
 #: Utilities/Timespan.cpp:229
-#, fuzzy, kde-format
-#| msgctxt "Like \"The baby is '4 months' old\""
-#| msgid "%1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"This happened 'about 2 months' ago\""
 msgid "about %1 month"
 msgid_plural "about %1 months"
-msgstr[0] "%1 měsíc"
-msgstr[1] "%1 měsíce"
-msgstr[2] "%1 měsíců"
+msgstr[0] "asi %1 měsíc"
+msgstr[1] "asi %1 měsíce"
+msgstr[2] "asi %1 měsíců"
 
 #: Utilities/Timespan.cpp:256 Utilities/Timespan.cpp:259
 #, kde-format
@@ -6301,12 +6675,12 @@ msgstr "Přiřadit makro"
 #: Viewer/AnnotationHandler.cpp:69
 #, kde-format
 msgid "Select item for macro key <b>%1</b>"
-msgstr ""
+msgstr "Vyberte položku pro klávesu makra <b>%1</b>"
 
 #: Viewer/AnnotationHandler.cpp:126
 #, kde-format
 msgid "Tag Item"
-msgstr ""
+msgstr "Značka položky"
 
 #: Viewer/AnnotationHandler.cpp:126
 #, kde-format
@@ -6363,7 +6737,7 @@ msgstr "[ zoom x%1 ]"
 #: Viewer/InfoBox.cpp:60
 #, kde-format
 msgid "Show the geographic position of this image on a map"
-msgstr ""
+msgstr "Zobrazit zeměpisnou polohu tohoto obrázku na mapě"
 
 #: Viewer/PhononDisplay.cpp:183 Viewer/QtMultimediaDisplay.cpp:94
 #, kde-format
@@ -6638,21 +7012,17 @@ msgstr "Pozastavit"
 #: Viewer/ViewerWidget.cpp:632 Viewer/ViewerWidget.cpp:1156
 #, kde-format
 msgid "Tags and tokens locked"
-msgstr ""
+msgstr "Uzamčené značky a tokeny"
 
 #: Viewer/ViewerWidget.cpp:634
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tags"
+#, kde-format
 msgid "Assigning tags"
-msgstr "Přiřadit značky"
+msgstr "Přiřazování značek"
 
 #: Viewer/ViewerWidget.cpp:636
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tokens"
+#, kde-format
 msgid "Assigning tokens"
-msgstr "Přiřadit tokeny"
+msgstr "Přiřazování tokenů"
 
 #: Viewer/ViewerWidget.cpp:641
 #, kde-format
@@ -6825,6 +7195,10 @@ msgid ""
 "some platforms, this is a common problem with some video players.</"
 "p><p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>"
 msgstr ""
+"<p>Zdá se, že KPhotoAlbum dříve při přehrávání videa havarovalo. Na "
+"některých platformách se jedná o běžný problém u některých přehrávačů videa."
+"</p><p>Klikněte na <i>Pokračovat</i>, aby KPhotoAlbum vyzkoušelo jinou "
+"podpůrnou vrstvu...</p>"
 
 #: Viewer/ViewerWidget.cpp:1419
 #, kde-format
@@ -6832,6 +7206,8 @@ msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
 "will be used instead: <tt>%2</tt></p>"
 msgstr ""
+"<p>Podpůrná vrstva videa, jejíž provoz byl přerušen: <tt>%1</tt></"
+"p><p>Podpůrná vrstva videa, která bude použita místo ní: <tt>%2</tt></p>"
 
 #: Viewer/ViewerWidget.cpp:1432
 #, kde-format
@@ -6839,6 +7215,8 @@ msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
 "crashed at some point.</p><p>Crash detection is now turned off.</p>"
 msgstr ""
+"<p>KPhotoAlbum vyzkoušel všechny dostupné podpůrné vrstvy videa, ale každá z "
+"nich se v určitém okamžiku zhroutila.</p><p>Detekce pádů je nyní vypnutá.</p>"
 
 #: Viewer/ViewerWidget.cpp:1493
 #, kde-format

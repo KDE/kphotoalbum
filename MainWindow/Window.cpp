@@ -90,6 +90,8 @@
 #include <KColorSchemeMenu>
 #include <KConfigGroup>
 #include <KEditToolBar>
+#include <KIO/CommandLauncherJob>
+#include <KIO/JobUiDelegate>
 #include <KIconLoader>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -1089,6 +1091,18 @@ void MainWindow::Window::setupMenuBar()
     m_linkAction = actionCollection()->addAction(QStringLiteral("linkImagesTo"), this, std::bind(&Window::triggerCopyLinkAction, this, CopyLinkEngine::Link));
     m_linkAction->setText(i18np("Link image to ...", "Link images to ...", 1));
     actionCollection()->setDefaultShortcut(m_linkAction, QKeySequence(Qt::SHIFT | Qt::Key_F7));
+
+    m_openExternalImageAction = actionCollection()->addAction(QString::fromLatin1("openExternalImage"), this, [this]() {
+        Window::slotOpenInExternalTool(true);
+    });
+    m_openExternalImageAction->setText(i18n("Open in External Image Tool"));
+    actionCollection()->setDefaultShortcut(m_openExternalImageAction, QKeySequence(Qt::Key_F8));
+
+    m_openExternalVideoAction = actionCollection()->addAction(QString::fromLatin1("openExternalVideo"), this, [this]() {
+        Window::slotOpenInExternalTool(false);
+    });
+    m_openExternalVideoAction->setText(i18n("Open in External Video Tool"));
+    actionCollection()->setDefaultShortcut(m_openExternalVideoAction, QKeySequence(Qt::SHIFT | Qt::Key_F8));
 }
 
 void MainWindow::Window::slotExportToHTML()
@@ -1159,6 +1173,16 @@ void MainWindow::Window::runDemo()
     KProcess *process = new KProcess;
     *process << qApp->applicationFilePath() << QLatin1String("--demo");
     process->startDetached();
+}
+
+void MainWindow::Window::slotOpenInExternalTool(bool image)
+{
+    const auto command = image ? Settings::SettingsData::instance()->externalImageTool() : Settings::SettingsData::instance()->externalVideoTool();
+    const auto selection = selected().toStringList(DB::AbsolutePath);
+
+    KIO::CommandLauncherJob *job = new KIO::CommandLauncherJob(command, selection);
+    job->setUiDelegate(new KDialogJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
+    job->start();
 }
 
 bool MainWindow::Window::load()
@@ -1298,6 +1322,9 @@ void MainWindow::Window::contextMenuEvent(QContextMenuEvent *e)
         menu.addAction(m_view);
         menu.addAction(m_viewInNewWindow);
 
+        menu.addAction(m_openExternalImageAction);
+        menu.addAction(m_openExternalVideoAction);
+
         // "Invoke external program"
 
         ExternalPopup externalCommands { &menu };
@@ -1429,6 +1456,8 @@ void MainWindow::Window::updateContextMenuFromSelectionSize(int selectionSize)
     m_markUntagged->setEnabled(selectionSize >= 1);
     m_statusBar->mp_selected->setSelectionCount(selectionSize);
     m_clearSelection->setEnabled(selectionSize > 0);
+    m_openExternalImageAction->setEnabled(selectionSize > 0 && !anyVideosSelected() && !Settings::SettingsData::instance()->externalImageTool().isEmpty());
+    m_openExternalVideoAction->setEnabled(selectionSize > 0 && !anyImagesSelected() && !Settings::SettingsData::instance()->externalVideoTool().isEmpty());
 }
 
 void MainWindow::Window::rotateSelected(int angle)
@@ -1904,6 +1933,16 @@ void MainWindow::Window::checkIfVideoThumbnailerIsInstalled()
                                       "Please install the ffmpeg package</p>"),
                                  i18n("Video thumbnails are not available"), QString::fromLatin1("VideoThumbnailerNotInstalled"));
     }
+}
+
+bool MainWindow::Window::anyImagesSelected() const
+{
+    const auto selectedFiles = selected();
+    for (const DB::FileName &fileName : selectedFiles) {
+        if (!KPABase::isVideo(fileName))
+            return true;
+    }
+    return false;
 }
 
 bool MainWindow::Window::anyVideosSelected() const

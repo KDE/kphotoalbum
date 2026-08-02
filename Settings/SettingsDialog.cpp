@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003 - 2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -8,6 +9,7 @@
 #include "CategoryPage.h"
 #include "DatabaseBackendPage.h"
 #include "ExifPage.h"
+#include "ExternalToolsPage.h"
 #include "FileVersionDetectionPage.h"
 #include "GeneralPage.h"
 #include "TagGroupsPage.h"
@@ -41,6 +43,7 @@ Settings::SettingsDialog::SettingsDialog(QWidget *parent)
     m_exifPage = new Settings::ExifPage(this);
     m_birthdayPage = new Settings::BirthdayPage(this);
     m_databaseBackendPage = new Settings::DatabaseBackendPage(this);
+    m_externalToolsPage = new Settings::ExternalToolsPage(this);
 
     Data data[] = {
         { SettingsPage::GeneralPage, i18n("General"), "configure-shortcuts", m_generalPage },
@@ -52,6 +55,7 @@ Settings::SettingsDialog::SettingsDialog(QWidget *parent)
         { SettingsPage::ViewerPage, i18n("Viewer"), "document-preview", m_viewerPage },
         { SettingsPage::ExifPage, i18n("Exif/IPTC Information"), "document-properties", m_exifPage },
         { SettingsPage::DatabaseBackendPage, i18n("Database Backend"), "document-save", m_databaseBackendPage },
+        { SettingsPage::ExternalToolsPage, i18n("External Tools"), "system-run", m_externalToolsPage },
         { SettingsPage::GeneralPage, QString(), "", nullptr }
     };
 
@@ -89,6 +93,7 @@ void Settings::SettingsDialog::show()
     m_thumbnailsPage->loadSettings(opt);
     m_tagGroupsPage->loadSettings();
     m_databaseBackendPage->loadSettings(opt);
+    m_externalToolsPage->loadSettings(opt);
     m_viewerPage->loadSettings(opt);
     m_categoryPage->loadSettings(opt);
     m_exifPage->loadSettings(opt);
@@ -122,6 +127,7 @@ void Settings::SettingsDialog::slotMyOK()
     m_viewerPage->saveSettings(opt);
     m_exifPage->saveSettings(opt);
     m_databaseBackendPage->saveSettings(opt);
+    m_externalToolsPage->saveSettings(opt);
 
     Q_EMIT changed();
     KSharedConfig::openConfig()->sync();

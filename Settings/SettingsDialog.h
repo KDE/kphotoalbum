@@ -1,5 +1,6 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003 - 2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -27,6 +28,7 @@ class FileVersionDetectionPage;
 class PluginsPage;
 class ExifPage;
 class DatabaseBackendPage;
+class ExternalToolsPage;
 class BirthdayPage;
 
 /**
@@ -37,6 +39,7 @@ enum class SettingsPage {
     BirthdayPage,
     CategoryPage,
     DatabaseBackendPage,
+    ExternalToolsPage,
     ExifPage,
     FileVersionDetectionPage,
     GeneralPage,
@@ -73,6 +76,7 @@ private:
     Settings::ViewerPage *m_viewerPage;
     Settings::ExifPage *m_exifPage;
     Settings::DatabaseBackendPage *m_databaseBackendPage;
+    Settings::ExternalToolsPage *m_externalToolsPage;
     Settings::BirthdayPage *m_birthdayPage;
     QMap<SettingsPage, KPageWidgetItem *> m_pages;
 

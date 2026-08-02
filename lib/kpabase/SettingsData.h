@@ -138,6 +138,8 @@ public:
     property_copy(tTimeStamps, setTTimeStamps, TimeStampTrust);
     property_copy(excludeDirectories, setExcludeDirectories, QString);
     property_copy(browserUseNaturalSortOrder, setBrowserUseNaturalSortOrder, bool);
+    property_copy(externalImageTool, setExternalImageTool, QString);
+    property_copy(externalVideoTool, setExternalVideoTool, QString);
 #ifdef KPA_ENABLE_REMOTECONTROL
     property_copy(recentAndroidAddress, setRecentAndroidAddress, QString);
     property_copy(listenForAndroidDevicesOnStartup, setListenForAndroidDevicesOnStartup, bool);

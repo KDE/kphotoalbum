@@ -217,6 +217,7 @@ protected Q_SLOTS:
     void slotThumbnailSizeChanged();
     void slotMarkUntagged();
     void triggerCopyLinkAction(CopyLinkEngine::Action action);
+    void slotOpenInExternalTool(bool image);
 
 protected:
     void configureImages(bool oneAtATime);
@@ -236,6 +237,7 @@ protected:
     void createSearchBar();
     void executeStartupActions();
     void checkIfVideoThumbnailerIsInstalled();
+    bool anyImagesSelected() const;
     bool anyVideosSelected() const;
     bool queryClose() override;
 
@@ -272,6 +274,8 @@ private:
     QAction *m_viewInNewWindow;
     QAction *m_copyAction;
     QAction *m_linkAction;
+    QAction *m_openExternalImageAction;
+    QAction *m_openExternalVideoAction;
     KActionMenu *m_viewMenu;
     KToggleAction *m_smallListView;
     KToggleAction *m_largeListView;

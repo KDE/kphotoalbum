@@ -134,6 +134,8 @@ set(libSettings_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings/ViewerPage.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings/DatabaseBackendPage.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings/DatabaseBackendPage.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Settings/ExternalToolsPage.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Settings/ExternalToolsPage.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings/UntaggedGroupBox.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings/UntaggedGroupBox.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings/CategoriesGroupsWidget.cpp"

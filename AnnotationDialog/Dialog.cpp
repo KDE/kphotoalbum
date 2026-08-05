@@ -78,7 +78,6 @@
 #include <QtGlobal>
 
 #include <algorithm>
-#include <kwidgetsaddons_version.h>
 #include <tuple>
 
 #ifdef HAVE_MARBLE

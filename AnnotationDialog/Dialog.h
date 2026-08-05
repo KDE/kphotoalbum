@@ -218,6 +218,8 @@ private Q_SLOTS:
 private:
     QStackedWidget *m_stack;
     Viewer::ViewerWidget *m_fullScreenPreview;
+    // NOTE: m_origList and m_editList are always the same size and in the same
+    // order, and are only used in annotation mode.
     DB::ImageInfoList m_origList;
     QList<DB::ImageInfo> m_editList;
     int m_current;

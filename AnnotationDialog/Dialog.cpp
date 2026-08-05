@@ -78,6 +78,7 @@
 #include <QtGlobal>
 
 #include <algorithm>
+#include <kwidgetsaddons_version.h>
 #include <tuple>
 
 #ifdef HAVE_MARBLE
@@ -479,11 +480,19 @@ void AnnotationDialog::Dialog::slotIndexChanged(int index)
 void AnnotationDialog::Dialog::doneTagging()
 {
     saveAndClose();
-    if (DB::ImageDB::instance()->untaggedCategoryFeatureConfigured()) {
-        for (DB::ImageInfoListIterator it = m_origList.begin(); it != m_origList.end(); ++it) {
-            (*it)->removeCategoryInfo(Settings::SettingsData::instance()->untaggedCategory(),
-                                      Settings::SettingsData::instance()->untaggedTag());
+
+    // This method is called for both annotation mode and search mode.
+    if (m_setup != SearchMode) {
+        if (DB::ImageDB::instance()->untaggedCategoryFeatureConfigured()) {
+            for (DB::ImageInfoListIterator it = m_origList.begin(); it != m_origList.end(); ++it) {
+                qCDebug(AnnotationDialogLog) << __func__ << "removing untagged tag from" << (*it)->fileName().relative();
+                (*it)->removeCategoryInfo(Settings::SettingsData::instance()->untaggedCategory(),
+                                          Settings::SettingsData::instance()->untaggedTag());
+            }
         }
+
+        m_origList.clear();
+        m_editList.clear();
     }
 }
 
@@ -1436,7 +1445,11 @@ void AnnotationDialog::Dialog::slotRatingChanged(int)
 
 void AnnotationDialog::Dialog::continueLater()
 {
+    // Like doneTagging() but don't remove the "untagged" tag.
     saveAndClose();
+
+    m_origList.clear();
+    m_editList.clear();
 }
 
 void AnnotationDialog::Dialog::saveAndClose()

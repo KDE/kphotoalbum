@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-04 00:41+0000\n"
+"POT-Creation-Date: 2026-08-07 00:43+0000\n"
 "PO-Revision-Date: 2015-02-26 23:46+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -103,12 +103,12 @@ msgstr ""
 msgid "Revert This Item"
 msgstr "Vrati ovu stavku"
 
-#: AnnotationDialog/Dialog.cpp:231 AnnotationDialog/Dialog.cpp:1375
+#: AnnotationDialog/Dialog.cpp:231 AnnotationDialog/Dialog.cpp:1383
 #, kde-format
 msgid "Clear Form"
 msgstr "Obriši formu"
 
-#: AnnotationDialog/Dialog.cpp:234 AnnotationDialog/Dialog.cpp:1378
+#: AnnotationDialog/Dialog.cpp:234 AnnotationDialog/Dialog.cpp:1386
 #, kde-format
 msgid "Options..."
 msgstr "Opcije..."
@@ -123,7 +123,7 @@ msgstr "&Gotovo"
 msgid "Continue &Later"
 msgstr "Nastavi kasnije"
 
-#: AnnotationDialog/Dialog.cpp:250 AnnotationDialog/Dialog.cpp:872
+#: AnnotationDialog/Dialog.cpp:250 AnnotationDialog/Dialog.cpp:880
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
@@ -260,107 +260,107 @@ msgid ""
 "information is imported to this field if available.</para>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:634
+#: AnnotationDialog/Dialog.cpp:642
 #, fuzzy, kde-format
 #| msgid "KPhotoAlbum Annotations (%1/%2)"
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "KPhotoAlbum zabilješke (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:877
+#: AnnotationDialog/Dialog.cpp:885
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Traži"
 
-#: AnnotationDialog/Dialog.cpp:880
+#: AnnotationDialog/Dialog.cpp:888
 #, kde-format
 msgid "Done"
 msgstr "Završeno"
 
-#: AnnotationDialog/Dialog.cpp:887
+#: AnnotationDialog/Dialog.cpp:895
 #, fuzzy, kde-format
 #| msgid "Annotations"
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Zabilješke"
 
-#: AnnotationDialog/Dialog.cpp:936
+#: AnnotationDialog/Dialog.cpp:944
 #, fuzzy, kde-format
 #| msgid "Configure window layout..."
 msgid "Configure Window Layout..."
 msgstr "Konfiguriraj izgled prozora..."
 
-#: AnnotationDialog/Dialog.cpp:937
+#: AnnotationDialog/Dialog.cpp:945
 #, kde-format
 msgid "Save current layout globally"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:938
+#: AnnotationDialog/Dialog.cpp:946
 #, kde-format
 msgid "Save current layout for this DB"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:940
+#: AnnotationDialog/Dialog.cpp:948
 #, kde-format
 msgid "Reset layout"
 msgstr "Resetuj izgled"
 
-#: AnnotationDialog/Dialog.cpp:947 AnnotationDialog/Dialog.cpp:1330
+#: AnnotationDialog/Dialog.cpp:955 AnnotationDialog/Dialog.cpp:1338
 #: AnnotationDialog/ListSelect.cpp:108
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Poredaj po abeced (drvo)"
 
-#: AnnotationDialog/Dialog.cpp:951 AnnotationDialog/Dialog.cpp:1334
+#: AnnotationDialog/Dialog.cpp:959 AnnotationDialog/Dialog.cpp:1342
 #: AnnotationDialog/ListSelect.cpp:114
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Poredaj po abecedi (ravno)"
 
-#: AnnotationDialog/Dialog.cpp:955
+#: AnnotationDialog/Dialog.cpp:963
 #, fuzzy, kde-format
 #| msgid "Sort by date"
 msgid "Sort by Date"
 msgstr "Poredaj po datumu"
 
-#: AnnotationDialog/Dialog.cpp:971
+#: AnnotationDialog/Dialog.cpp:979
 #, fuzzy, kde-format
 #| msgid "Match tags from the first character."
 msgid "Match Tags from the First Character"
 msgstr "Uporedi tagove iz prvog lika."
 
-#: AnnotationDialog/Dialog.cpp:972
+#: AnnotationDialog/Dialog.cpp:980
 #, fuzzy, kde-format
 #| msgid "Match tags from word boundaries."
 msgid "Match Tags from Word Boundaries"
 msgstr "Uporedi tagove iz prvog ogranicenja."
 
-#: AnnotationDialog/Dialog.cpp:973
+#: AnnotationDialog/Dialog.cpp:981
 #, fuzzy, kde-format
 #| msgid "Match tags anywhere."
 msgid "Match Tags Anywhere"
 msgstr "Uporedi sve tagove."
 
-#: AnnotationDialog/Dialog.cpp:990
+#: AnnotationDialog/Dialog.cpp:998
 #, fuzzy, kde-format
 #| msgid "Show only selected Ctrl+S"
 msgid "Show Only Selected Ctrl+S"
 msgstr "Prikaži samo označeno Ctrl+S"
 
-#: AnnotationDialog/Dialog.cpp:1032 Map/MapView.cpp:360
+#: AnnotationDialog/Dialog.cpp:1040 Map/MapView.cpp:360
 #, fuzzy, kde-format
 #| msgid "Settings saved"
 msgid "Settings saved!"
 msgstr "Sačuvana podešavanja"
 
-#: AnnotationDialog/Dialog.cpp:1032
+#: AnnotationDialog/Dialog.cpp:1040
 #, fuzzy, kde-format
 #| msgid "Save Current Window Setup"
 msgid "Save current window setup"
 msgstr "Spasi trenutne postavke prozora"
 
-#: AnnotationDialog/Dialog.cpp:1097
+#: AnnotationDialog/Dialog.cpp:1105
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Some changes are made to annotations. Do you really want to cancel all "
@@ -372,14 +372,14 @@ msgstr ""
 "<p>Na zabilješkama su napravljene neke promjene. Da li stvarno želite "
 "otkazati sve promjenekoje ste nedavno napravili za svaku datoteku?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1098
+#: AnnotationDialog/Dialog.cpp:1106
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Da li da snimim izmjene?"
 
-#: AnnotationDialog/Dialog.cpp:1197
+#: AnnotationDialog/Dialog.cpp:1205
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -396,7 +396,7 @@ msgstr ""
 "možete pronaći dodatne savjete o njegovoj upotrebi čitajući o <a href="
 "\"help:/kphotoalbum/chp-tipkanje In.html\"> upišete u </a>. </p>"
 
-#: AnnotationDialog/Dialog.cpp:1205
+#: AnnotationDialog/Dialog.cpp:1213
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -409,52 +409,52 @@ msgstr ""
 "preporučuje da uzmete 5 minuta da pročitate <a href=\"help:/kphotoalbum/chp-"
 "typingIn.html\"> dokumentaciju za ovaj dijalog </a> </p>"
 
-#: AnnotationDialog/Dialog.cpp:1337
+#: AnnotationDialog/Dialog.cpp:1345
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Poredaj  najčešće korištene"
 
-#: AnnotationDialog/Dialog.cpp:1340
+#: AnnotationDialog/Dialog.cpp:1348
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "(De)aktiviraj sortiranje"
 
-#: AnnotationDialog/Dialog.cpp:1345
+#: AnnotationDialog/Dialog.cpp:1353
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "(De)aktiviraj prikaz samo odabranih predmeta"
 
-#: AnnotationDialog/Dialog.cpp:1349
+#: AnnotationDialog/Dialog.cpp:1357
 #, kde-format
 msgid "Annotate Next"
 msgstr "Zabilježi sljedeće"
 
-#: AnnotationDialog/Dialog.cpp:1353
+#: AnnotationDialog/Dialog.cpp:1361
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Zabilježi prethodno"
 
-#: AnnotationDialog/Dialog.cpp:1357
+#: AnnotationDialog/Dialog.cpp:1365
 #, kde-format
 msgid "OK dialog"
 msgstr "Uredu"
 
-#: AnnotationDialog/Dialog.cpp:1361
+#: AnnotationDialog/Dialog.cpp:1369
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Kopiraj oznake sa prethodne slike"
 
-#: AnnotationDialog/Dialog.cpp:1365 MainWindow/Window.cpp:850
+#: AnnotationDialog/Dialog.cpp:1373 MainWindow/Window.cpp:850
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Rotiraj u lijevo"
 
-#: AnnotationDialog/Dialog.cpp:1368 MainWindow/Window.cpp:854
+#: AnnotationDialog/Dialog.cpp:1376 MainWindow/Window.cpp:854
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Rotiraj u desno"
 
-#: AnnotationDialog/Dialog.cpp:1371
+#: AnnotationDialog/Dialog.cpp:1379
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "(De)aktiviraj prikaz cijelog ekrana"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-04 00:41+0000\n"
+"POT-Creation-Date: 2026-08-07 00:43+0000\n"
 "PO-Revision-Date: 2014-12-09 21:03+0100\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -100,12 +100,12 @@ msgstr ""
 msgid "Revert This Item"
 msgstr "Az elem visszaállítása"
 
-#: AnnotationDialog/Dialog.cpp:231 AnnotationDialog/Dialog.cpp:1375
+#: AnnotationDialog/Dialog.cpp:231 AnnotationDialog/Dialog.cpp:1383
 #, kde-format
 msgid "Clear Form"
 msgstr "Űrlap törlése"
 
-#: AnnotationDialog/Dialog.cpp:234 AnnotationDialog/Dialog.cpp:1378
+#: AnnotationDialog/Dialog.cpp:234 AnnotationDialog/Dialog.cpp:1386
 #, kde-format
 msgid "Options..."
 msgstr "Beállítások…"
@@ -120,7 +120,7 @@ msgstr "&Kész"
 msgid "Continue &Later"
 msgstr "Folytatás &később"
 
-#: AnnotationDialog/Dialog.cpp:250 AnnotationDialog/Dialog.cpp:872
+#: AnnotationDialog/Dialog.cpp:250 AnnotationDialog/Dialog.cpp:880
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
@@ -250,121 +250,121 @@ msgid ""
 "information is imported to this field if available.</para>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:634
+#: AnnotationDialog/Dialog.cpp:642
 #, fuzzy, kde-format
 #| msgid "KPhotoAlbum Annotations (%1/%2)"
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "KPhotoAlbum megjegyzések (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:877
+#: AnnotationDialog/Dialog.cpp:885
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Keresés"
 
-#: AnnotationDialog/Dialog.cpp:880
+#: AnnotationDialog/Dialog.cpp:888
 #, kde-format
 msgid "Done"
 msgstr "Kész"
 
-#: AnnotationDialog/Dialog.cpp:887
+#: AnnotationDialog/Dialog.cpp:895
 #, fuzzy, kde-format
 #| msgid "Annotations"
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Megjegyzések"
 
-#: AnnotationDialog/Dialog.cpp:936
+#: AnnotationDialog/Dialog.cpp:944
 #, fuzzy, kde-format
 #| msgid "Configure window layout..."
 msgid "Configure Window Layout..."
 msgstr "Ablakelrendezés beállítása…"
 
-#: AnnotationDialog/Dialog.cpp:937
+#: AnnotationDialog/Dialog.cpp:945
 #, kde-format
 msgid "Save current layout globally"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:938
+#: AnnotationDialog/Dialog.cpp:946
 #, kde-format
 msgid "Save current layout for this DB"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:940
+#: AnnotationDialog/Dialog.cpp:948
 #, kde-format
 msgid "Reset layout"
 msgstr "Elrendezés visszaállítása"
 
-#: AnnotationDialog/Dialog.cpp:947 AnnotationDialog/Dialog.cpp:1330
+#: AnnotationDialog/Dialog.cpp:955 AnnotationDialog/Dialog.cpp:1338
 #: AnnotationDialog/ListSelect.cpp:108
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Rendezés betűrendben (fa)"
 
-#: AnnotationDialog/Dialog.cpp:951 AnnotationDialog/Dialog.cpp:1334
+#: AnnotationDialog/Dialog.cpp:959 AnnotationDialog/Dialog.cpp:1342
 #: AnnotationDialog/ListSelect.cpp:114
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Rendezés betűrendben (lapos)"
 
-#: AnnotationDialog/Dialog.cpp:955
+#: AnnotationDialog/Dialog.cpp:963
 #, fuzzy, kde-format
 #| msgid "Sort by date"
 msgid "Sort by Date"
 msgstr "Rendezés dátum szerint"
 
-#: AnnotationDialog/Dialog.cpp:971
+#: AnnotationDialog/Dialog.cpp:979
 #, fuzzy, kde-format
 #| msgid "Match tags from the first character."
 msgid "Match Tags from the First Character"
 msgstr "Címkék illesztése az első karaktertől."
 
-#: AnnotationDialog/Dialog.cpp:972
+#: AnnotationDialog/Dialog.cpp:980
 #, fuzzy, kde-format
 #| msgid "Match tags from word boundaries."
 msgid "Match Tags from Word Boundaries"
 msgstr "Címkék illesztése a szóhatároktól."
 
-#: AnnotationDialog/Dialog.cpp:973
+#: AnnotationDialog/Dialog.cpp:981
 #, fuzzy, kde-format
 #| msgid "Match tags anywhere."
 msgid "Match Tags Anywhere"
 msgstr "Címkék illesztése bárhol."
 
-#: AnnotationDialog/Dialog.cpp:990
+#: AnnotationDialog/Dialog.cpp:998
 #, fuzzy, kde-format
 #| msgid "Show only selected Ctrl+S"
 msgid "Show Only Selected Ctrl+S"
 msgstr "Csak a kijelöltek megjelenítése Ctrl+S"
 
-#: AnnotationDialog/Dialog.cpp:1032 Map/MapView.cpp:360
+#: AnnotationDialog/Dialog.cpp:1040 Map/MapView.cpp:360
 #, fuzzy, kde-format
 #| msgid "Settings"
 msgid "Settings saved!"
 msgstr "Beállítások"
 
-#: AnnotationDialog/Dialog.cpp:1032
+#: AnnotationDialog/Dialog.cpp:1040
 #, fuzzy, kde-format
 #| msgid "Save Current Window Setup"
 msgid "Save current window setup"
 msgstr "A jelenlegi ablakbeállítás mentése"
 
-#: AnnotationDialog/Dialog.cpp:1097
+#: AnnotationDialog/Dialog.cpp:1105
 #, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1098
+#: AnnotationDialog/Dialog.cpp:1106
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Változtatások mentése?"
 
-#: AnnotationDialog/Dialog.cpp:1197
+#: AnnotationDialog/Dialog.cpp:1205
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -375,7 +375,7 @@ msgid ""
 "kphotoalbum/chp-typingIn.html\">typing in</a>.</p>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1205
+#: AnnotationDialog/Dialog.cpp:1213
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -384,52 +384,52 @@ msgid ""
 "\"help:/kphotoalbum/chp-typingIn.html\">documentation for this dialog</a></p>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1337
+#: AnnotationDialog/Dialog.cpp:1345
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1340
+#: AnnotationDialog/Dialog.cpp:1348
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Rendezés átváltása"
 
-#: AnnotationDialog/Dialog.cpp:1345
+#: AnnotationDialog/Dialog.cpp:1353
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1349
+#: AnnotationDialog/Dialog.cpp:1357
 #, kde-format
 msgid "Annotate Next"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1353
+#: AnnotationDialog/Dialog.cpp:1361
 #, kde-format
 msgid "Annotate Previous"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1357
+#: AnnotationDialog/Dialog.cpp:1365
 #, kde-format
 msgid "OK dialog"
 msgstr "OK párbeszédablak"
 
-#: AnnotationDialog/Dialog.cpp:1361
+#: AnnotationDialog/Dialog.cpp:1369
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Címkék másolása az előző képből"
 
-#: AnnotationDialog/Dialog.cpp:1365 MainWindow/Window.cpp:850
+#: AnnotationDialog/Dialog.cpp:1373 MainWindow/Window.cpp:850
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Forgatás balra"
 
-#: AnnotationDialog/Dialog.cpp:1368 MainWindow/Window.cpp:854
+#: AnnotationDialog/Dialog.cpp:1376 MainWindow/Window.cpp:854
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Forgatás jobbra"
 
-#: AnnotationDialog/Dialog.cpp:1371
+#: AnnotationDialog/Dialog.cpp:1379
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Teljes képernyős előnézet átváltása"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-04 00:41+0000\n"
+"POT-Creation-Date: 2026-08-07 00:43+0000\n"
 "PO-Revision-Date: 2025-11-11 18:42+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -98,12 +98,12 @@ msgstr ""
 msgid "Revert This Item"
 msgstr "Atjaunot šo vienumu"
 
-#: AnnotationDialog/Dialog.cpp:231 AnnotationDialog/Dialog.cpp:1375
+#: AnnotationDialog/Dialog.cpp:231 AnnotationDialog/Dialog.cpp:1383
 #, kde-format
 msgid "Clear Form"
 msgstr "Notīrīt veidni"
 
-#: AnnotationDialog/Dialog.cpp:234 AnnotationDialog/Dialog.cpp:1378
+#: AnnotationDialog/Dialog.cpp:234 AnnotationDialog/Dialog.cpp:1386
 #, kde-format
 msgid "Options..."
 msgstr "Opcijas..."
@@ -118,7 +118,7 @@ msgstr "&Pabeigt"
 msgid "Continue &Later"
 msgstr "&Turpināt vēlāk"
 
-#: AnnotationDialog/Dialog.cpp:250 AnnotationDialog/Dialog.cpp:872
+#: AnnotationDialog/Dialog.cpp:250 AnnotationDialog/Dialog.cpp:880
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
@@ -257,98 +257,98 @@ msgstr ""
 "sadaļā, apraksts, kas ir iegults „Exif“ informācijā tiek importēts šajā "
 "laukā, ja tas ir pieejams.</para>"
 
-#: AnnotationDialog/Dialog.cpp:634
+#: AnnotationDialog/Dialog.cpp:642
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "Anotācijas (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:877
+#: AnnotationDialog/Dialog.cpp:885
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Meklēt"
 
-#: AnnotationDialog/Dialog.cpp:880
+#: AnnotationDialog/Dialog.cpp:888
 #, kde-format
 msgid "Done"
 msgstr "Pabeigt"
 
-#: AnnotationDialog/Dialog.cpp:887
+#: AnnotationDialog/Dialog.cpp:895
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Anotācijas"
 
-#: AnnotationDialog/Dialog.cpp:936
+#: AnnotationDialog/Dialog.cpp:944
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "Konfigurēt logu izkārtojumu..."
 
-#: AnnotationDialog/Dialog.cpp:937
+#: AnnotationDialog/Dialog.cpp:945
 #, kde-format
 msgid "Save current layout globally"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:938
+#: AnnotationDialog/Dialog.cpp:946
 #, fuzzy, kde-format
 #| msgid "Save the current map settings"
 msgid "Save current layout for this DB"
 msgstr "Saglabāt pašreizējos kartes iestatījumus"
 
-#: AnnotationDialog/Dialog.cpp:940
+#: AnnotationDialog/Dialog.cpp:948
 #, kde-format
 msgid "Reset layout"
 msgstr "Atiestatīt izkārtojumu"
 
-#: AnnotationDialog/Dialog.cpp:947 AnnotationDialog/Dialog.cpp:1330
+#: AnnotationDialog/Dialog.cpp:955 AnnotationDialog/Dialog.cpp:1338
 #: AnnotationDialog/ListSelect.cpp:108
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Kārtot alfabētiski (koks)"
 
-#: AnnotationDialog/Dialog.cpp:951 AnnotationDialog/Dialog.cpp:1334
+#: AnnotationDialog/Dialog.cpp:959 AnnotationDialog/Dialog.cpp:1342
 #: AnnotationDialog/ListSelect.cpp:114
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Kārtot alfabētiski (plakans)"
 
-#: AnnotationDialog/Dialog.cpp:955
+#: AnnotationDialog/Dialog.cpp:963
 #, kde-format
 msgid "Sort by Date"
 msgstr "Kārtot pēc datuma"
 
-#: AnnotationDialog/Dialog.cpp:971
+#: AnnotationDialog/Dialog.cpp:979
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr "Meklēt birku atbilsmi no pirmās rakstzīmes"
 
-#: AnnotationDialog/Dialog.cpp:972
+#: AnnotationDialog/Dialog.cpp:980
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr "Meklēt birkas no vārdu robežām"
 
-#: AnnotationDialog/Dialog.cpp:973
+#: AnnotationDialog/Dialog.cpp:981
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr "Meklēt birkas visur"
 
-#: AnnotationDialog/Dialog.cpp:990
+#: AnnotationDialog/Dialog.cpp:998
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "Rādīt tikai atlasīto „Ctrl+S“"
 
-#: AnnotationDialog/Dialog.cpp:1032 Map/MapView.cpp:360
+#: AnnotationDialog/Dialog.cpp:1040 Map/MapView.cpp:360
 #, kde-format
 msgid "Settings saved!"
 msgstr "Iestatījumi ir saglabāti!"
 
-#: AnnotationDialog/Dialog.cpp:1032
+#: AnnotationDialog/Dialog.cpp:1040
 #, kde-format
 msgid "Save current window setup"
 msgstr "Saglabāt pašreizējo loga iestatījumu"
 
-#: AnnotationDialog/Dialog.cpp:1097
+#: AnnotationDialog/Dialog.cpp:1105
 #, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
@@ -357,13 +357,13 @@ msgstr ""
 "<p>Anotācijās ir izdarītas izmaiņas. Vai tiešām vēlaties izmest nesen "
 "veiktās izmaiņas katrai izmainītajai datnei?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1098
+#: AnnotationDialog/Dialog.cpp:1106
 #, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Vai noraidīt izmaiņas?"
 
-#: AnnotationDialog/Dialog.cpp:1197
+#: AnnotationDialog/Dialog.cpp:1205
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -380,7 +380,7 @@ msgstr ""
 "lietošanu varat uzzināt, lasot par <a href=\"help:/kphotoalbum/chp-typingIn."
 "html\">ierakstīšana</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1205
+#: AnnotationDialog/Dialog.cpp:1213
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -393,52 +393,52 @@ msgstr ""
 "minūtes, lai izlasītu <a href=\"help:/kphotoalbum/chp-typingIn.html\">šī "
 "lodziņa dokumentāciju.</a></p>"
 
-#: AnnotationDialog/Dialog.cpp:1337
+#: AnnotationDialog/Dialog.cpp:1345
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Kārtot pēc pēdējā lietotā"
 
-#: AnnotationDialog/Dialog.cpp:1340
+#: AnnotationDialog/Dialog.cpp:1348
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Pārslēgt kārtošanu"
 
-#: AnnotationDialog/Dialog.cpp:1345
+#: AnnotationDialog/Dialog.cpp:1353
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Pārslēgt tikai atlasīto vienumu rādīšanu"
 
-#: AnnotationDialog/Dialog.cpp:1349
+#: AnnotationDialog/Dialog.cpp:1357
 #, kde-format
 msgid "Annotate Next"
 msgstr "Anotēt nākamo"
 
-#: AnnotationDialog/Dialog.cpp:1353
+#: AnnotationDialog/Dialog.cpp:1361
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Anotēt iepriekšējo"
 
-#: AnnotationDialog/Dialog.cpp:1357
+#: AnnotationDialog/Dialog.cpp:1365
 #, kde-format
 msgid "OK dialog"
 msgstr "„Labi“ lodziņš"
 
-#: AnnotationDialog/Dialog.cpp:1361
+#: AnnotationDialog/Dialog.cpp:1369
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Kopēt birkas no iepriekšējā attēla"
 
-#: AnnotationDialog/Dialog.cpp:1365 MainWindow/Window.cpp:850
+#: AnnotationDialog/Dialog.cpp:1373 MainWindow/Window.cpp:850
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Pagriezt pretēji pulksteņrādītājam"
 
-#: AnnotationDialog/Dialog.cpp:1368 MainWindow/Window.cpp:854
+#: AnnotationDialog/Dialog.cpp:1376 MainWindow/Window.cpp:854
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Pagriezt pulksteņrādītāja virzienā"
 
-#: AnnotationDialog/Dialog.cpp:1371
+#: AnnotationDialog/Dialog.cpp:1379
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Pārslēgt pilnekrāna priekšskatījumu"

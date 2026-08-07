@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-04 00:41+0000\n"
+"POT-Creation-Date: 2026-08-07 00:43+0000\n"
 "PO-Revision-Date: 2026-07-22 18:11+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -98,12 +98,12 @@ msgstr ""
 msgid "Revert This Item"
 msgstr "Reveni iste elemento"
 
-#: AnnotationDialog/Dialog.cpp:231 AnnotationDialog/Dialog.cpp:1375
+#: AnnotationDialog/Dialog.cpp:231 AnnotationDialog/Dialog.cpp:1383
 #, kde-format
 msgid "Clear Form"
 msgstr "Netta  formulario"
 
-#: AnnotationDialog/Dialog.cpp:234 AnnotationDialog/Dialog.cpp:1378
+#: AnnotationDialog/Dialog.cpp:234 AnnotationDialog/Dialog.cpp:1386
 #, kde-format
 msgid "Options..."
 msgstr "Optiones..."
@@ -118,7 +118,7 @@ msgstr "&Facite"
 msgid "Continue &Later"
 msgstr "Comtinua &depost"
 
-#: AnnotationDialog/Dialog.cpp:250 AnnotationDialog/Dialog.cpp:872
+#: AnnotationDialog/Dialog.cpp:250 AnnotationDialog/Dialog.cpp:880
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
@@ -257,97 +257,97 @@ msgstr ""
 "le information Exif de imagine es importate a iste campo si disponibile.</"
 "para>"
 
-#: AnnotationDialog/Dialog.cpp:634
+#: AnnotationDialog/Dialog.cpp:642
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "Annotationes (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:877
+#: AnnotationDialog/Dialog.cpp:885
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Cerca"
 
-#: AnnotationDialog/Dialog.cpp:880
+#: AnnotationDialog/Dialog.cpp:888
 #, kde-format
 msgid "Done"
 msgstr "Facite"
 
-#: AnnotationDialog/Dialog.cpp:887
+#: AnnotationDialog/Dialog.cpp:895
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Annotationes"
 
-#: AnnotationDialog/Dialog.cpp:936
+#: AnnotationDialog/Dialog.cpp:944
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "Configura dispositione de fenestra..."
 
-#: AnnotationDialog/Dialog.cpp:937
+#: AnnotationDialog/Dialog.cpp:945
 #, kde-format
 msgid "Save current layout globally"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:938
+#: AnnotationDialog/Dialog.cpp:946
 #, kde-format
 msgid "Save current layout for this DB"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:940
+#: AnnotationDialog/Dialog.cpp:948
 #, kde-format
 msgid "Reset layout"
 msgstr "Refixa Disposition"
 
-#: AnnotationDialog/Dialog.cpp:947 AnnotationDialog/Dialog.cpp:1330
+#: AnnotationDialog/Dialog.cpp:955 AnnotationDialog/Dialog.cpp:1338
 #: AnnotationDialog/ListSelect.cpp:108
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Ordina alphabeticamente (arbore)"
 
-#: AnnotationDialog/Dialog.cpp:951 AnnotationDialog/Dialog.cpp:1334
+#: AnnotationDialog/Dialog.cpp:959 AnnotationDialog/Dialog.cpp:1342
 #: AnnotationDialog/ListSelect.cpp:114
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Ordina alphabeticamente (Plan)"
 
-#: AnnotationDialog/Dialog.cpp:955
+#: AnnotationDialog/Dialog.cpp:963
 #, kde-format
 msgid "Sort by Date"
 msgstr "Ordina per  data"
 
-#: AnnotationDialog/Dialog.cpp:971
+#: AnnotationDialog/Dialog.cpp:979
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr "Accopula Etiquettas ab le prime character"
 
-#: AnnotationDialog/Dialog.cpp:972
+#: AnnotationDialog/Dialog.cpp:980
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr "Accopula Etiquettas ab le Bordos de parola"
 
-#: AnnotationDialog/Dialog.cpp:973
+#: AnnotationDialog/Dialog.cpp:981
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr "Accopula Etiquettas Ubiques"
 
-#: AnnotationDialog/Dialog.cpp:990
+#: AnnotationDialog/Dialog.cpp:998
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "Monstra solmente selectionate Ctrl+S"
 
-#: AnnotationDialog/Dialog.cpp:1032 Map/MapView.cpp:360
+#: AnnotationDialog/Dialog.cpp:1040 Map/MapView.cpp:360
 #, kde-format
 msgid "Settings saved!"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1032
+#: AnnotationDialog/Dialog.cpp:1040
 #, kde-format
 msgid "Save current window setup"
 msgstr "Salveguarda configuration de fenestra currente"
 
-#: AnnotationDialog/Dialog.cpp:1097
+#: AnnotationDialog/Dialog.cpp:1105
 #, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
@@ -356,13 +356,13 @@ msgstr ""
 "<p>Alcun cambiamentos es facite a annotationes. Tu vermente vole deler tote "
 "le cambiamentos recente per cata file afficite?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1098
+#: AnnotationDialog/Dialog.cpp:1106
 #, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Abandona modificationes?"
 
-#: AnnotationDialog/Dialog.cpp:1197
+#: AnnotationDialog/Dialog.cpp:1205
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -373,7 +373,7 @@ msgid ""
 "kphotoalbum/chp-typingIn.html\">typing in</a>.</p>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1205
+#: AnnotationDialog/Dialog.cpp:1213
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -382,52 +382,52 @@ msgid ""
 "\"help:/kphotoalbum/chp-typingIn.html\">documentation for this dialog</a></p>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1337
+#: AnnotationDialog/Dialog.cpp:1345
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Ordina le plus recentemente usate"
 
-#: AnnotationDialog/Dialog.cpp:1340
+#: AnnotationDialog/Dialog.cpp:1348
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Commuta ordinar"
 
-#: AnnotationDialog/Dialog.cpp:1345
+#: AnnotationDialog/Dialog.cpp:1353
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Commuta Mostrar solmente elementos selectionate"
 
-#: AnnotationDialog/Dialog.cpp:1349
+#: AnnotationDialog/Dialog.cpp:1357
 #, kde-format
 msgid "Annotate Next"
 msgstr "Annota proxime"
 
-#: AnnotationDialog/Dialog.cpp:1353
+#: AnnotationDialog/Dialog.cpp:1361
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Annota Previe"
 
-#: AnnotationDialog/Dialog.cpp:1357
+#: AnnotationDialog/Dialog.cpp:1365
 #, kde-format
 msgid "OK dialog"
 msgstr "Dialogo de OK"
 
-#: AnnotationDialog/Dialog.cpp:1361
+#: AnnotationDialog/Dialog.cpp:1369
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Copia etiquettas ex previe image"
 
-#: AnnotationDialog/Dialog.cpp:1365 MainWindow/Window.cpp:850
+#: AnnotationDialog/Dialog.cpp:1373 MainWindow/Window.cpp:850
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Rota in senso anti-horari"
 
-#: AnnotationDialog/Dialog.cpp:1368 MainWindow/Window.cpp:854
+#: AnnotationDialog/Dialog.cpp:1376 MainWindow/Window.cpp:854
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Rota in senso horari"
 
-#: AnnotationDialog/Dialog.cpp:1371
+#: AnnotationDialog/Dialog.cpp:1379
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Commuta vista preliminar de schermo plen"

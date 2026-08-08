@@ -140,8 +140,6 @@ SettingsData::SettingsData(const QString &imageDirectory, DB::UIDelegate &delega
     , m_hasAskedAboutTimeStamps(false)
     , m_UI(delegate)
 {
-    m_hasAskedAboutTimeStamps = false;
-
     const QString s = STR("/");
     m_imageDirectory = imageDirectory.endsWith(s) ? imageDirectory : imageDirectory + s;
 
@@ -383,33 +381,34 @@ setValueFunc_(setVideoBackend, VideoBackend, "Viewer"_L1, "videoBackend", static
 
     VideoBackend SettingsData::videoBackend() const
 {
-    auto value = static_cast<VideoBackend>(cfgValue("Viewer"_L1, "videoBackend", static_cast<int>(VideoBackend::NotConfigured)));
+    const auto value = static_cast<VideoBackend>(cfgValue("Viewer"_L1, "videoBackend", static_cast<int>(VideoBackend::NotConfigured)));
     // validate input:
     switch (value) {
     case VideoBackend::VLC:
 #if !LIBVLC_FOUND
         qCWarning(BaseLog) << "Configuration value for Viewer.videoBackend is not available. Ignoring value...";
-        value = VideoBackend::NotConfigured;
+        return VideoBackend::NotConfigured;
 #endif
         break;
     case Settings::VideoBackend::QtAV:
         qCWarning(BaseLog) << "Configuration value for Viewer.videoBackend is deprecated. Ignoring value...";
-        value = VideoBackend::NotConfigured;
+        return VideoBackend::NotConfigured;
         break;
     case Settings::VideoBackend::Phonon:
 #if !Phonon4Qt6_FOUND
         qCWarning(BaseLog) << "Configuration value for Viewer.videoBackend is not available. Ignoring value...";
-        value = VideoBackend::NotConfigured;
+        return VideoBackend::NotConfigured;
 #endif
         break;
     case Settings::VideoBackend::QtMultimedia:
-        value = VideoBackend::QtMultimedia;
+        return VideoBackend::QtMultimedia;
         break;
     case VideoBackend::NotConfigured:
-        qCWarning(BaseLog) << "Ignoring invalid configuration value for Viewer.videoBackend...";
-        value = VideoBackend::NotConfigured;
+        break;
     }
-    return value;
+
+    qCWarning(BaseLog) << "Ignoring invalid configuration value" << value << "for Viewer.videoBackend...";
+    return VideoBackend::NotConfigured;
 }
 // clang-format off
 // property_enum(viewerTagMode, setViewerTagMode, ViewerTagMode, Viewer, ViewerTagMode::Locked)

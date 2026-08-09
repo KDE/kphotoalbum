@@ -385,7 +385,9 @@ setValueFunc_(setVideoBackend, VideoBackend, "Viewer"_L1, "videoBackend", static
     // validate input:
     switch (value) {
     case VideoBackend::VLC:
-#if !LIBVLC_FOUND
+#if LIBVLC_FOUND
+        return value;
+#else
         qCWarning(BaseLog) << "Configuration value for Viewer.videoBackend is not available. Ignoring value...";
         return VideoBackend::NotConfigured;
 #endif
@@ -395,7 +397,9 @@ setValueFunc_(setVideoBackend, VideoBackend, "Viewer"_L1, "videoBackend", static
         return VideoBackend::NotConfigured;
         break;
     case Settings::VideoBackend::Phonon:
-#if !Phonon4Qt6_FOUND
+#if Phonon4Qt6_FOUND
+        return value;
+#else
         qCWarning(BaseLog) << "Configuration value for Viewer.videoBackend is not available. Ignoring value...";
         return VideoBackend::NotConfigured;
 #endif

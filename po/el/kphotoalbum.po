@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-07 00:43+0000\n"
+"POT-Creation-Date: 2026-08-11 00:43+0000\n"
 "PO-Revision-Date: 2017-10-16 18:16+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -1651,13 +1651,13 @@ msgid "Places"
 msgstr "Τοποθεσίες"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:448
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:451
 #, kde-format
 msgid "Events"
 msgstr "Γεγονότα"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:458
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:461
 #, fuzzy, kde-format
 #| msgid "Untagged Images"
 msgid "untagged"
@@ -3298,7 +3298,7 @@ msgstr "Πρόσθετα"
 msgid "Main Toolbar"
 msgstr "Κύρια γραμμή εργαλείων"
 
-#: lib/kpabase/SettingsData.cpp:245
+#: lib/kpabase/SettingsData.cpp:243
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3316,7 +3316,7 @@ msgstr ""
 "μην είναι έγκυρο στην περίπτωση σάρωσης της εικόνας. Έτσι το ερώτημα είναι, "
 "να εμπιστεύεται το KPhotoAlbum τη χρονική σφραγίδα των εικόνων σας;"
 
-#: lib/kpabase/SettingsData.cpp:252
+#: lib/kpabase/SettingsData.cpp:250
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Εμπιστοσύνη στις χρονικές σφραγίδες;"

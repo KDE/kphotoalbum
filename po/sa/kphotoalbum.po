@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-07 00:43+0000\n"
+"POT-Creation-Date: 2026-08-11 00:43+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1614,13 +1614,13 @@ msgid "Places"
 msgstr "स्थानाः"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:448
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:451
 #, kde-format
 msgid "Events"
 msgstr "घटनाः"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:458
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:461
 #, kde-format
 msgid "untagged"
 msgstr "अनटैग्ड्"
@@ -3153,7 +3153,7 @@ msgstr "प्लगिन्स्"
 msgid "Main Toolbar"
 msgstr "मुख्य साधनपट्टी"
 
-#: lib/kpabase/SettingsData.cpp:245
+#: lib/kpabase/SettingsData.cpp:243
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3169,7 +3169,7 @@ msgstr ""
 "सन्दर्भे एतत् वैधं न भवितुम् अर्हति अतः प्रश्नः अस्ति यत्, KPhotoAlbum इत्यनेन भवतः चित्रेषु "
 "समयमुद्रिकायां विश्वासः कर्तव्यः वा?"
 
-#: lib/kpabase/SettingsData.cpp:252
+#: lib/kpabase/SettingsData.cpp:250
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "समयमुद्रिकासु विश्वासः?"

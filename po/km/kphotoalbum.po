@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-07 00:43+0000\n"
+"POT-Creation-Date: 2026-08-11 00:43+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -1654,13 +1654,13 @@ msgid "Places"
 msgstr "ទីកន្លែង"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:448
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:451
 #, kde-format
 msgid "Events"
 msgstr "ព្រឹត្តិការណ៍"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:458
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:461
 #, fuzzy, kde-format
 #| msgid "Untagged Images"
 msgid "untagged"
@@ -3273,7 +3273,7 @@ msgstr "កម្មវិធី​ជំនួយ​"
 msgid "Main Toolbar"
 msgstr "របារ​ឧបករណ៍​មេ"
 
-#: lib/kpabase/SettingsData.cpp:245
+#: lib/kpabase/SettingsData.cpp:243
 #, fuzzy, kde-format
 #| msgid ""
 #| "When reading time information of images, their EXIF info is used. Exif "
@@ -3296,7 +3296,7 @@ msgstr ""
 "ទោះ​បី​យ៉ាង​ណា​ វា​អាច​នឹង​មិន​ត្រឹម​ត្រូវ​ នៅ​ក្នុង​ករណី​ដែល​រូបភាព​ត្រូវ​បាន​វិភាគ​រក​ ។ ដូច្នេះ​សំណួរ​ក៏​អញ្ចឹង​ដែរ "
 "តើ  KPhotoAlbum គួរ​តែ​ទុក​ចិត្ត​លើ​ត្រា​ពេល​វេលា​ដែល​នៅ​លើ​រូបភាព​របស់​អ្នក​ដែរ​ឬទេ​ ?"
 
-#: lib/kpabase/SettingsData.cpp:252
+#: lib/kpabase/SettingsData.cpp:250
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "ទុក​ចិត្ត​លើ​ត្រា​ពេល​វេលា​ឬ​អត់ ?​"

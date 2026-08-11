@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-07 00:43+0000\n"
+"POT-Creation-Date: 2026-08-11 00:43+0000\n"
 "PO-Revision-Date: 2022-02-26 11:47+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: Hindi <kde-l10n-hi@kde.org>\n"
@@ -1572,13 +1572,13 @@ msgid "Places"
 msgstr "स्थान"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:448
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:451
 #, kde-format
 msgid "Events"
 msgstr ""
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:458
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:461
 #, fuzzy, kde-format
 #| msgid "New Images"
 msgid "untagged"
@@ -3104,7 +3104,7 @@ msgstr "प्लगइन्स"
 msgid "Main Toolbar"
 msgstr "मुख्य औज़ार पट्टी"
 
-#: lib/kpabase/SettingsData.cpp:245
+#: lib/kpabase/SettingsData.cpp:243
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3115,7 +3115,7 @@ msgid ""
 "on your images?"
 msgstr ""
 
-#: lib/kpabase/SettingsData.cpp:252
+#: lib/kpabase/SettingsData.cpp:250
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "समय चिह्न पर भरोसा करें?"

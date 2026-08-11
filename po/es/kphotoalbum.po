@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-07 00:43+0000\n"
+"POT-Creation-Date: 2026-08-11 00:43+0000\n"
 "PO-Revision-Date: 2026-07-04 23:52+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -1632,13 +1632,13 @@ msgid "Places"
 msgstr "Lugares"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:448
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:451
 #, kde-format
 msgid "Events"
 msgstr "Eventos"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:458
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:461
 #, kde-format
 msgid "untagged"
 msgstr "sin etiquetar"
@@ -3208,7 +3208,7 @@ msgstr "Complementos"
 msgid "Main Toolbar"
 msgstr "Barra de herramientas principal"
 
-#: lib/kpabase/SettingsData.cpp:245
+#: lib/kpabase/SettingsData.cpp:243
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3225,7 +3225,7 @@ msgstr ""
 "válida si la imagen ha sido escaneada). La pregunta es, ¿debe confiar "
 "KPhotoAlbum en la marca de tiempo de sus imágenes?"
 
-#: lib/kpabase/SettingsData.cpp:252
+#: lib/kpabase/SettingsData.cpp:250
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "¿Confiar en las marcas de tiempo?"

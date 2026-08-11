@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-07 00:43+0000\n"
+"POT-Creation-Date: 2026-08-11 00:43+0000\n"
 "PO-Revision-Date: 2024-04-22 16:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -1478,13 +1478,13 @@ msgid "Places"
 msgstr "地点"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:448
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:451
 #, kde-format
 msgid "Events"
 msgstr "事件"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:458
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:461
 #, kde-format
 msgid "untagged"
 msgstr "未标记"
@@ -2932,7 +2932,7 @@ msgstr "插件"
 msgid "Main Toolbar"
 msgstr "主工具栏"
 
-#: lib/kpabase/SettingsData.cpp:245
+#: lib/kpabase/SettingsData.cpp:243
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -2943,7 +2943,7 @@ msgid ""
 "on your images?"
 msgstr ""
 
-#: lib/kpabase/SettingsData.cpp:252
+#: lib/kpabase/SettingsData.cpp:250
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "信任时间标记？"

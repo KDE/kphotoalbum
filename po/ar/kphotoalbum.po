@@ -37,7 +37,7 @@ msgstr "وسم مستخدم فعلًا لمنطقة أخرى"
 #: AnnotationDialog/DateEdit.cpp:69
 #, kde-format
 msgid "tomorrow"
-msgstr "غداً"
+msgstr "غدًا"
 
 #: AnnotationDialog/DateEdit.cpp:70 Utilities/Timespan.cpp:184
 #, kde-format
@@ -251,7 +251,7 @@ msgid ""
 "information is imported to this field if available.</para>"
 msgstr ""
 "<para>نص وصفي للصورة.</para><para>إذا كان خيار <emphasis>استخدام وصف Exif</"
-"emphasis> مفعلاً تحت <interface>الإعدادات|ضبط دفتر الصور...|عام</interface>، "
+"emphasis> مفعلًا تحت <interface>الإعدادات|ضبط دفتر الصور...|عام</interface>، "
 "سيُستورد الوصف المضمن في معلومات Exif الخاصة بالصورة إلى هذا الحقل إذا كان "
 "متاحًا.</para>"
 
@@ -659,7 +659,7 @@ msgstr ""
 #: AnnotationDialog/ListSelect.cpp:444
 #, kde-format
 msgid "Really Delete %1?"
-msgstr "محو %1 حقاً ؟"
+msgstr "محو %1 حقًا ؟"
 
 #: AnnotationDialog/ListSelect.cpp:461
 #, kde-format
@@ -1564,7 +1564,7 @@ msgid ""
 msgstr ""
 "<p>ليس جميع الصور في قاعدة البيانات تحتوي على معلومات حول أحجام الصور؛ هذا "
 "مطلوب للحصول على أفضل نتيجة في عرض الصور المصغرة. لإصلاح هذا، انتقل ببساطة "
-"إلى قائمة <b>الصيانة</b>، واختر أولاً <b>إزالة كل الصور المصغرة</b>، وبعد ذلك "
+"إلى قائمة <b>الصيانة</b>، واختر أولًا <b>إزالة كل الصور المصغرة</b>، وبعد ذلك "
 "اختر <tt>بناء الصور المصغرة</tt>.</p><p>عدم القيام بذلك سيؤدي إلى وجود مساحة "
 "إضافية حول الصور في عرض الصور المصغرة - هذا كل شيء - لذا لا توجد ضرورة عاجلة "
 "للقيام بذلك.</p>"
@@ -2336,7 +2336,7 @@ msgid ""
 "new folder.</p><p>Should %2 be deleted first?</p>"
 msgstr ""
 "<p>مجلد الإخراج %1 موجود فعلًا. عادةً، هذا يعني أنه يجب عليك تحديد مجلد جديد.</"
-"p><p>هل يجب حذف %2 أولاً؟</p>"
+"p><p>هل يجب حذف %2 أولًا؟</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:441
 #, kde-format
@@ -2443,7 +2443,7 @@ msgstr ""
 #: ImageManager/ThumbnailBuilder.cpp:103
 #, kde-format
 msgid "Building all thumbnails may take a long time."
-msgstr "بناء جميع المصغرات قد يستغرق وقتًا طويلاً."
+msgstr "بناء جميع المصغرات قد يستغرق وقتًا طويلًا."
 
 #: ImageManager/ThumbnailBuilder.cpp:104
 #, kde-format
@@ -2489,7 +2489,7 @@ msgstr "لا تنسخ الملفات، ولّد فقط ملف .kim"
 #: ImportExport/Export.cpp:124
 #, kde-format
 msgid "Automatically copy next to .kim file"
-msgstr "انسخ آليّاً التالي إلى الملف .kim"
+msgstr "انسخ آليًّا التالي إلى الملف .kim"
 
 #: ImportExport/Export.cpp:125
 #, kde-format
@@ -2675,7 +2675,7 @@ msgid ""
 "ol>"
 msgstr ""
 "<h1><font size=\"+2\">مرحبًا بك في استيراد دفتر الصور</font></h1> سيرشدك هذا "
-"المعالج خلال خطوات عملية الاستيراد. الخطوات هي: <ol><li>أولاً، يجب عليك تحديد "
+"المعالج خلال خطوات عملية الاستيراد. الخطوات هي: <ol><li>أولًا، يجب عليك تحديد "
 "الصور التي تريد استيرادها من ملف التصدير. افعل ذلك بتحديد خانة الاختيار "
 "المجاورة للصورة.</li><li>بعد ذلك، يجب إخبار دفتر الصور بالمجلد الذي تريد وضع "
 "الصور فيه. يجب أن يكون هذا المجلد بالطبع ضمن المجلد الأساسي الذي يستخدمه "
@@ -3053,7 +3053,7 @@ msgstr "أزل الصور المصغرة غير المشار إليها من م�
 #, kde-format
 msgctxt "@info:shell"
 msgid "Be less verbose."
-msgstr "كن أقل تفصيلاً."
+msgstr "كن أقل تفصيلًا."
 
 #: kpa-thumbnailtool/main.cpp:97
 #, kde-format
@@ -3889,7 +3889,7 @@ msgid ""
 "Search for images and videos with only partial dates (like 1971 vs. "
 "11/7-1971)"
 msgstr ""
-"ابحث عن الصور و المرئيات ذات التاريخ غير التام ( مثلاً 1971 عن 11/7/1971 )"
+"ابحث عن الصور و المرئيات ذات التاريخ غير التام ( مثلًا 1971 عن 11/7/1971 )"
 
 #: MainWindow/InvalidDateFinder.cpp:70
 #, kde-format
@@ -3914,8 +3914,8 @@ msgid ""
 "Use <databaseFile> instead of the default. Deprecated - use '--db "
 "<databaseFile>' instead."
 msgstr ""
-"استخدم <databaseFile> بدلاً من الافتراضي. مهمل - استخدم '--db <databaseFile>' "
-"بدلاً من ذلك."
+"استخدم <databaseFile> بدلًا من الافتراضي. مهمل - استخدم '--db <databaseFile>' "
+"بدلًا من ذلك."
 
 #: MainWindow/Options.cpp:27 MainWindow/Options.cpp:37
 #, kde-format
@@ -3935,7 +3935,7 @@ msgstr "kphotoalbumrc"
 #: MainWindow/Options.cpp:36
 #, kde-format
 msgid "Use <databaseFile> instead of the default."
-msgstr "استخدم <databaseFile> بدلاً من المبدئي."
+msgstr "استخدم <databaseFile> بدلًا من المبدئي."
 
 #: MainWindow/Options.cpp:39
 #, kde-format
@@ -4158,7 +4158,7 @@ msgstr ""
 "بسهولة.</p><p>ابدأ بإظهار مكان صورك لـ دفتر الصور بالضغط على إنشاء قاعدة "
 "البيانات الخاصة بي. حدد هذا الزر أيضًا إذا كان لديك قاعدة بيانات موجودة لـ "
 "دفتر الصور تريد البدء في استخدامها مرة أخرى.</p><p>إذا كنت تشعر بمزيد من "
-"الأمان لتجربة دفتر الصور أولاً بمجموعة صور مُعدة مسبقًا، اضغط على زر تحميل "
+"الأمان لتجربة دفتر الصور أولًا بمجموعة صور مُعدة مسبقًا، اضغط على زر تحميل "
 "العرض التوضيحي.</p>"
 
 #: MainWindow/WelcomeDialog.cpp:60
@@ -4435,12 +4435,12 @@ msgstr "بدّل جميع المجموعات"
 #: MainWindow/Window.cpp:902
 #, kde-format
 msgid "Show &Oldest First"
-msgstr "اعرض ال&أقدم أولاً"
+msgstr "اعرض ال&أقدم أولًا"
 
 #: MainWindow/Window.cpp:907
 #, kde-format
 msgid "Show &Newest First"
-msgstr "اعرض الأ&حدث أولاً"
+msgstr "اعرض الأ&حدث أولًا"
 
 #: MainWindow/Window.cpp:912
 #, kde-format
@@ -4887,7 +4887,7 @@ msgid ""
 "android device's address.\n"
 "The android client can be downloaded from google play."
 msgstr ""
-"أندرويد الأيقونة إلى ما إذا كان دفتر الصور متصلاً بجهاز أندرويد.\n"
+"أندرويد الأيقونة إلى ما إذا كان دفتر الصور متصلًا بجهاز أندرويد.\n"
 "انقر على الأيقونة لتبديل الاستماع للعملاء في شبكة المنطقة المحلية.\n"
 "إذا لم تسمح شبكة المنطقة المحلية بحزم البث بين عميل الأندرويد ودفتر الصور، "
 "فانقر بزر الفأرة الأيمن على الأيقونة وحدد عنوان جهاز الأندرويد.\n"
@@ -5089,7 +5089,7 @@ msgid ""
 "</p>"
 msgstr ""
 "<p>لا يمكن تغيير اسم الفئة \"%1\" إلى \"%2\":</p><p>يوجد إجراء إعادة تسمية "
-"معلق على الفئة \"%2\". يرجى حفظ هذا التغيير أولاً.</p>"
+"معلق على الفئة \"%2\". يرجى حفظ هذا التغيير أولًا.</p>"
 
 #: Settings/CategoryPage.cpp:295
 #, kde-format
@@ -5144,7 +5144,7 @@ msgstr "اضغط ملفات النسخ الاحتياطي"
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
 msgid "Auto save every:"
-msgstr "احفظ آليّاً كلّ:"
+msgstr "احفظ آليًّا كلّ:"
 
 #: Settings/DatabaseBackendPage.cpp:34
 #, kde-format
@@ -5191,7 +5191,7 @@ msgid ""
 "that the XML database file is less readable by human eyes.</p>"
 msgstr ""
 "<p>يستخدم دفتر الصور ملف XML واحدًا كـ <i>قاعدة بيانات</i> له. مع الكثير من "
-"الصور، قد يستغرق قراءة هذا الملف وقتًا طويلاً. يمكن تقليل هذا الوقت إلى النصف "
+"الصور، قد يستغرق قراءة هذا الملف وقتًا طويلًا. يمكن تقليل هذا الوقت إلى النصف "
 "تقريبًا، بوضع علامة في مربع الاختيار هذا. العيب هو أن ملف قاعدة بيانات XML "
 "يصبح أقل قابلية للقراءة بالعين البشرية.</p>"
 
@@ -5373,7 +5373,7 @@ msgid ""
 "<li>You can group parts of the expression using parenthesis.</li> </"
 "ul>Example: <tt>-modified\\.(jpg|tiff)</tt> </p>"
 msgstr ""
-"<p>تعبير نمطي من نوع perl يجب أن يطابق ملفًا معدلاً. <ul><li>النقطة تطابق حرفًا "
+"<p>تعبير نمطي من نوع perl يجب أن يطابق ملفًا معدلًا. <ul><li>النقطة تطابق حرفًا "
 "واحدًا (<tt>\\.</tt> تطابق نقطة)</li>   <li>يمكن استخدام المحددات الكمية "
 "<tt>*</tt>,<tt>+</tt>,<tt>؟</tt>، أو يمكن     مطابقة تكرارات متعددة للتعبير "
 "باستخدام الأقواس المعقوفة (مثال: <tt>e{0,1}</tt> تطابق 0 أو 1 تكرارًا للحرف "
@@ -5712,7 +5712,7 @@ msgstr ""
 "<p>يستطيع دفتر الصور عرض صورك على أجهزة أندرويد. سيقوم دفتر الصور بإقران "
 "نفسه آليًا مع التطبيق من أندرويد. ومع ذلك، يتطلب هذا أن يكون دفتر الصور على "
 "جهازك المكتبي يستمع لرسائل البث الجماعي. سيؤدي تحديد خانة الاختيار هذه إلى "
-"جعل دفتر الصور يفعل ذلك آليًا عند بدء التشغيل. بدلاً من ذلك، يمكن النقر على "
+"جعل دفتر الصور يفعل ذلك آليًا عند بدء التشغيل. بدلًا من ذلك، يمكن النقر على "
 "أيقونة الاتصال في شريط الحالة لبدء الاستماع."
 
 #: Settings/GeneralPage.cpp:170
@@ -5923,7 +5923,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Really delete %1?"
-msgstr "محو %1 حقاً؟"
+msgstr "محو %1 حقًا؟"
 
 #: Settings/ThumbnailsPage.cpp:28
 #, kde-format
@@ -7213,7 +7213,7 @@ msgid ""
 "will be used instead: <tt>%2</tt></p>"
 msgstr ""
 "<p>الواجهة الخلفية للفيديو التي تمت مقاطعتها: <tt>%1</tt></p><p>الواجهة "
-"الخلفية للفيديو التي ستُستخدم بدلاً من ذلك: <tt>%2</tt></p>"
+"الخلفية للفيديو التي ستُستخدم بدلًا من ذلك: <tt>%2</tt></p>"
 
 #: Viewer/ViewerWidget.cpp:1432
 #, kde-format

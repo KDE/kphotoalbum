@@ -2,6 +2,7 @@
 SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
 SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 
 SPDX-License-Identifier: GFDL-1.2-only
 -->
@@ -10,10 +11,99 @@ SPDX-License-Identifier: GFDL-1.2-only
   <title
 >Il visore</title>
   <para
->La ragione per cui metti tutte le tue immagini in &kphotoalbum; e spendi ore e ore a descriverle, è ovviamente che a un certo punto le vorrai vedere. Per questo motivo &kphotoalbum; ha una visore in grado di visualizzare immagini e filmati. Puoi aprire il visore dalla vista miniature, come descritto nel<xref linkend="chp-thumbnail-view"/>.</para>
+>La ragione per cui metti tutte le tue immagini in &kphotoalbum; e spendi ore e ore a descriverle, è ovviamente che a un certo punto le vorrai vedere. Per questo motivo &kphotoalbum; ha una visore in grado di visualizzare immagini e filmati. Puoi aprire il visore dalla vista miniature, come descritto nel<xref linkend="chp-thumbnail-view"/>. </para>
 
-  <para
->Il visore può essere visto in <xref linkend="fig-viewer"/>. Il visore ovviamente mostra l'immagine, ma in più mostra anche le informazioni specificate per ogni immagine, incluso chi c'è nell'immagine, quando e dove è stata scattata, eccetera. </para>
+<sect1 id="sect-viewer-common-commands">
+<title
+>Comandi comuni del visore</title>
+<para
+>Il visore supporta sia immagini, sia filmati. Sono supportati i comandi seguenti per entrambe le tipologie: </para>
+
+<itemizedlist>
+<listitem>
+<para
+>Premi <keycap
+>Esc</keycap
+> per chiudere la finestra del visore. </para>
+</listitem>
+
+<listitem>
+<para
+>Premi il tasto <keycap
+>PagGiù</keycap
+> o la <keycap
+>Barra spaziatrice</keycap
+> per passare all'immagine o al filmato successivo, premi <keycap
+>PagSu</keycap
+> per passare all'immagine o al filmato precedente. </para>
+</listitem>
+
+<listitem>
+<para
+>Premi <keycombo
+>&Ctrl;<keycap
+>1</keycap
+></keycombo
+> per aprire la <link linkend="chp-typingIn"
+>finestra di dialogo delle annotazioni</link
+> per l'immagine o il filmato attivo. </para>
+</listitem>
+
+<listitem>
+<para
+>Premi <keycombo
+>&Ctrl;<keycap
+>4</keycap
+></keycombo
+> per impostare l'immagine o il filmato come primo di una pila (se ne fa già parte). </para>
+</listitem>
+
+<listitem>
+<para
+>Premi <keycombo
+>&Ctrl;<keycap
+>d</keycap
+></keycombo
+> per modificare la descrizione dell'immagine. </para>
+</listitem>
+
+<listitem>
+<para
+>Premi il tasto <keycap
+>&Enter;</keycap
+> o <keycap
+>F11</keycap
+> per attivare o disattivare la modalità a schermo intero mentre visualizzi un'immagine o un filmato.</para>
+</listitem>
+
+<listitem>
+<para
+>Premi il tasto <keycap
+>Canc</keycap
+> per rimuovere l'immagine o il filmato attuale dall'elenco del visore (come se non lo avessi selezionato per la visualizzazione) e avanzare all'elemento successivo nell'elenco. Se l'ultima immagine o l'ultimo elemento nell'elenco del visore è rimosso, la finestra del visore viene chiusa.</para>
+</listitem>
+
+<listitem>
+<para
+>Premi <keycombo
+>&Ctrl;<keycap
+>Canc</keycap
+></keycombo
+> per aggiungere l'immagine o il filmato attuale all'elenco delle eliminazioni del visore. Quando chiudi la finestra del visore &kphotoalbum; aprirà la finestra di dialogo <emphasis
+>Rimozione degli elementi</emphasis
+>, se l'elenco degli elementi da eliminare non è vuoto. </para>
+</listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="sect-viewer-images">
+<title
+>Visualizzare le immagini</title>
+<para
+>Consulta <xref linkend="sect-viewer-common-commands"/> per informazioni sui comandi supportati per entrambi immagini e filmati. </para>
+
+<para
+>Il visore può essere visto in <xref linkend="fig-viewer"/>. Il visore ovviamente mostra l'immagine, ma in più mostra anche le informazioni specificate per ogni immagine, incluso chi c'è nell'immagine, quando e dove è stata scattata, e via discorrendo. </para>
 
   <figure id="fig-viewer">
     <title
@@ -25,8 +115,22 @@ SPDX-License-Identifier: GFDL-1.2-only
     </mediaobject>
   </figure>
 
-  <para
->Nel caso che il riquadro informativo sia posizionato sopra parte delle immagini che vuoi vedere, puoi semplicemente trascinarlo via con il mouse da un'altra parte dell'immagine. È possibile configurare cosa dovrebbe essere visualizzato nella casella delle informazioni, e ovviamente se debba essere visualizzata o meno. Tutte le opzioni sono disponibili facendo clic destro col mouse sul visore. Il menu contestuale può essere visto nel<xref linkend="fig-viewer-contextmenu"/> qui sotto.</para>
+<sect2 id="viewer-infobox">
+<title
+>Il riquadro informativo</title>
+
+<para
+>Il visore è dotato di un riquadro informativo che può sovrapporsi all'immagine. Questo riquadro è posizionato in basso al centro in <xref linkend="fig-viewer"/>. </para>
+
+<para
+>Se il riquadro informativo si trova sopra una parte di immagine che vuoi visualizzare, puoi fare clic col &LMB; sul riquadro e trascinarlo in un punto qualsiasi dell'immagine. Premi <keycombo
+>&Ctrl;<keycap
+>i</keycap
+></keycombo
+> per attivare o disattivare il riquadro. </para>
+
+<para
+>È possibile configurare cosa dovrebbe essere visualizzato nel riquadro informativo, e ovviamente se debba essere visualizzata o meno. Tutte le opzioni sono disponibili facendo clic destro col mouse sul visore. Il menu contestuale può essere visto nel<xref linkend="fig-viewer-contextmenu"/> qui sotto.</para>
 
   <figure id="fig-viewer-contextmenu">
     <title
@@ -39,48 +143,78 @@ SPDX-License-Identifier: GFDL-1.2-only
   </figure>
 
   <para
->Alcune parole nel riquadro informazioni sono sottolineate. Se fai clic col mouse su una di queste parole il browser (vedi <xref linkend="chp-browsing"/> andrà nell'ambito di quell'elemento. Quindi se fai clic su <literal
+>Alcune parole nel riquadro informativo sono sottolineate. Se fai clic col &LMB; su una di queste parole il browser (vedi <xref linkend="chp-browsing"/> andrà nell'ambito di quell'elemento. Per esempio, nella demo se fai clic su <literal
 >Anne Helene</literal
-> il browser ti mostrerà tutte le immagini di Anne Helene, esattamente come se tu avessi selezionato <literal
+>, all'interno del riquadro informativo, il browser ti mostrerà tutte le immagini di Anne Helene, esattamente come se tu avessi selezionato <literal
 >Persone</literal
 > dalla radice del browser, e poi <literal
 >Anne Helene</literal
 >.</para>
 
 <para
->Nel riquadro delle informazioni puoi vedere un piccolo pulsante con il logo di &kphotoalbum;. Premere quel pulsante ti porterà al visore delle miniature. La vista miniature mostrerà tutte le immagini, e le immagini che hai appena visto nel visore saranno selezionate. L'idea è questa: navighi fino a una certa persona, e guardi le immagini di quella persona. Una delle immagini è, diciamo, dai tempi delle superiori, e ora vuoi vedere immagini da quel periodo. Usando il pulsante <guilabel
+>Nell'angolo in alto a destra del riquadro potrai osservare il piccolo pulsante <emphasis
+>Salta al contesto</emphasis
+> con il logo di &kphotoalbum;. Facendo clic col &LMB; sarai portato al <xref linkend="chp-thumbnail-view"/>. La vista miniature mostrerà tutte le immagini, e le immagini che hai appena visto nel visore saranno selezionate. L'idea è questa: navighi fino a una certa persona, e guardi le immagini di quella persona. Una delle immagini è, diciamo, dai tempi delle superiori, e ora vuoi vedere immagini da quel periodo. Usando il pulsante <guilabel
 >Salta al contesto</guilabel
 >, vieni portato alla vista miniature che mostra tutte le immagini, con quella attuale selezionata, e probabilmente tutte le tue foto delle superiori intorno.</para>
 
+<para
+>Se l'immagine attuale contiene coordinate di geolocalizzazione, vedrai il pulsante di una mappa sotto il pulsante <guilabel
+>Salta al contesto</guilabel
+>, all'interno del riquadro. Se fai clic col &LMB; su questo pulsante si aprirà una nuova finestra contenente una mappa che mostra dove è stata scattata la fotografia. </para>
+
+<note>
+<para
+>Il pulsante della mappa compare solo se &kphotoalbum; è stato compilato col supporto &marble;. </para>
+</note>
+</sect2>
+
+<sect2 id="viewer-navigation">
+<title
+>Visualizzare più immagini</title>
   <para
->Nel caso che tu abbia caricato più immagini nel visore, puoi andare avanti e indietro usando <keycap
->Pag↑</keycap
+>Nel caso in cui tu abbia caricato più immagini nel visore, oltre a spostarti avanti e indietro usando rispettivamente i tasti <keycap
+>PagSu</keycap
 > e <keycap
->Pag↓</keycap
-> sulla tastiera. Puoi andare alle immagini prima e ultima usando <keycap
->Home</keycap
+>PagGiù</keycap
+>, puoi spostarti sulla prima e l'ultima immagine usando rispettivamente i tasti <keycap
+>Inizio</keycap
 > e <keycap
 >Fine</keycap
 >. Queste funzioni sono ovviamente disponibili anche nel menu contestuale.</para>
 
-  <para
->Se più immagini sono state caricate nel visore, puoi chiedergli di eseguirne una presentazione, che vuol dire che &kphotoalbum; caricherà una nuova immagine ogni pochi secondi. Quanto rapidamente le immagini vengano sostituite, viene configurato premendo il tasto Ctrl e rispettivamente + (per un'attesa maggiore tra le immagini) o &ndash; (minore attesa tra le immagini). La presentazione si avvia e si ferma semplicemente premendo <keycombo
+<para
+>In alternativa, puoi visualizzare più immagini come presentazione. In tale modalità &kphotoalbum; carica una nuova immagine nel visore ogni tot secondi. Premi <keycombo
 >&Ctrl;<keycap
->S</keycap
+>r</keycap
 ></keycombo
->.</para>
+> per attivare o disattivare la modalità presentazione. Premi <keycombo
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+> per aumentare la velocità della presentazione o <keycombo
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+> per ridurla. </para>
+</sect2>
 
-  <para
->Una funzionalità molto utile del visore di &kphotoalbum; è la possibilità di andare in modalità a schermo intero. In questa modalità, il visore usa l'intera area dello schermo; premi semplicemente il tasto invio per commutare tra la modalità normale e a schermo intero.</para>
-
-  <para
->Usando il visore, puoi ingrandire e rimpicciolire la tua immagine, semplicemente trascinando un rettangolo col mouse. Premere il tasto - la rimpicciolirà di nuovo.Premere il tasto + ingrandirà al centro dell'immagine. <xref linkend="fig-marking-zoom-rectangle"/>, sotto, mostra come un rettangolo d'ingrandimento è segnato, e <xref linkend="fig-zoomed-view"/> mostra il risultato dell'ingrandimento.</para>
+<sect2 id="viewer-zooming">
+<title
+>Ingrandire e rimpicciolire</title>
+<para
+>Usando il visore puoi ingrandire e rimpicciolire l'immagine semplicemente trascinando un rettangolo col &LMB;. Se premi il il tasto <keycap
+>meno</keycap
+> la ridurrai di nuovo. Se premi il tasto <keycap
+>più</keycap
+> ingrandirai al centro dell'immagine. <xref linkend="fig-marking-zoom-rectangle"/>, sotto, mostra come viene segnato un rettangolo d'ingrandimento e <xref linkend="fig-zoomed-view"/> mostra il risultato dell'ingrandimento.</para>
 
 <para
->Premere il tasto punto ti permette di azzerare l'ingrandimento, in modo che l'immagine ne sia visualizzata senza. Premere il tasto uguale imposterà il livello di ingrandimento in modo che un pixel sullo schermo corrisponda a un pixel dell'immagine.</para>
-
-<para
->Nota, dal punto di vista tecnico, che l'unica operazione di ingrandimento che funziona quando si guarda un filmato è l'ingrandimento e il rimpicciolimento (i tasti più e meno).</para>
+>Premi il tasto <keycap
+>punto</keycap
+> per azzerare il livello di ingrandimento, in modo che l'immagine ne sia visualizzata alla sua dimensione normale. Se premi il tasto <keycap
+>=</keycap
+> imposterai il livello di ingrandimento in modo che un pixel sullo schermo corrisponda a un pixel dell'immagine.</para>
 
   <figure id="fig-marking-zoom-rectangle">
     <title
@@ -103,24 +237,181 @@ SPDX-License-Identifier: GFDL-1.2-only
       </imageobject>
     </mediaobject>
   </figure>
+</sect2>
 
+<sect2 id="viewer-rotating">
+<title
+>Ruotare le immagini</title>
   <para
->Scegliendo l'operazione Ruota dal menu contestuale puoi ruotare l'immagine (non funziona per i filmati). Puoi annotare l'immagine attuale semplicemente scegliendo <guimenuitem
->Annota</guimenuitem
-> nel menu contestuale.</para>
+>Premi il tasto <keycap
+>7</keycap
+> per ruotare l'immagine di 90° a sinistra. Il tasto <keycap
+>9</keycap
+> ruota l'immagine di 90° a destra. Il tasto <keycap
+>8</keycap
+> ruota l'immagine di 180° (ossia la ribalta). </para>
+<important>
+<para
+>Qualsiasi cambiamento alla rotazione di un'immagine nel visore è persistente.</para>
+</important>
+</sect2>
+</sect1>
 
+<sect1 id="sect-viewer-videos">
+<title
+>Visualizzare filmati</title>
+<para
+>Consulta <xref linkend="sect-viewer-common-commands"/> per informazioni sui comandi supportati per entrambi filmati e immagini. </para>
 
+<para
+>Quando un filmato è caricato nel visore, viene riprodotto automaticamente. Premi il tasto <keycap
+>p</keycap
+> per mettere in pausa il filmato e ripremilo per far ripartire la riproduzione. </para>
 
+<para
+>Se premi <keycap
+>Inizio</keycap
+> riavvi il filmato attuale dall'inizio, mentre <keycap
+>Fine</keycap
+> ferma il filmato attuale e lo riavvolge all'inizio. </para>
 
+<important>
+<para
+>Alcune funzionalità del visore non sono disponibili durante la visualizzazione di un filmato:</para>
+<itemizedlist>
+<listitem>
+<para
+>Il riquadro informativo non è visualizzabile.</para>
+</listitem>
+<listitem>
+<para
+>Le operazioni di ingrandimento diverse dalla modalità a schermo intero non sono supportate.</para>
+</listitem>
+<listitem>
+<para
+>Le operazioni di rotazione non sono supportate.</para>
+</listitem>
+<listitem>
+<para
+>La modalità presentazione non è supportata.</para>
+</listitem>
+</itemizedlist>
+</important>
+
+<warning>
+<para
+>Durante la visualizzazione di un filmato, possono essere attivati o disattivati i token (vedi <xref linkend="assigning-tokens-from-the-viewer"/>) e i tag (vedi <xref linkend="annotating-from-the-viewer"/>), ma non viene fornita un'immediata interazione con l'utente se qualcosa è cambiato. Puoi impostare la modalità di annotazione del visore a <emphasis
+>Bloccato</emphasis
+> per impedire attivazioni o disattivazioni accidentali di un token o un tag. </para>
+
+<para
+>Come detto sopra, il tasto <keycap
+>p</keycap
+> è utilizzato per attivare e disattivare la pausa, pertanto non è possibile usare questo tasto per attivare o disattivare un token o attribuire un tag durante la visualizzazione di un filmato. </para>
+</warning>
+
+<sect2 id="viewer-seeking">
+<title
+>Ricerca nei filmati</title>
+<para
+>Il visore supporta la ricerca all'interno di un filmato. Le associazioni di tasti sono elencate nella <xref linkend="table-video-seek-controls"/>. </para>
+
+<table id="table-video-seek-controls">
+<title
+>Controlli per la ricerca</title>
+<tgroup cols="3">
+<thead>
+<row>
+<entry
+>Durata della ricerca</entry>
+<entry
+>Ricerca indietro</entry>
+<entry
+>Ricerca avanti</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry
+>100 millisecondi</entry>
+<entry
+><keycombo
+>&Shift;<keycap
+>&Up;</keycap
+></keycombo
+></entry>
+<entry
+><keycombo
+>&Shift;<keycap
+>&Down;</keycap
+></keycombo
+></entry>
+</row>
+<row>
+<entry
+>1 secondo</entry>
+<entry
+><keycap
+>&Up;</keycap
+></entry>
+<entry
+><keycap
+>&Down;</keycap
+></entry>
+</row>
+<row>
+<entry
+>10 secondi</entry>
+<entry
+><keycap
+>&Left;</keycap
+></entry>
+<entry
+><keycap
+>&Right;</keycap
+></entry>
+</row>
+<row>
+<entry
+>1 minuto</entry>
+<entry
+><keycombo
+>&Shift;<keycap
+>&Left;</keycap
+></keycombo
+></entry>
+<entry
+><keycombo
+>&Shift;<keycap
+>&Right;</keycap
+></keycombo
+></entry>
+</row>
+<row>
+<entry
+>10 minuti</entry>
+<entry
+><keycombo
+>&Ctrl;<keycap
+>&Left;</keycap
+></keycombo
+></entry>
+<entry
+><keycombo
+>&Ctrl;<keycap
+>&Right;</keycap
+></keycombo
+></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</sect2>
+</sect1>
 
 <sect1 id="annotating-from-the-viewer">
 <title
 >Annotare le immagini dal visore</title>
-<para
->Normalmente, il metodo principale di attribuzioni di tag alle immagini si svolgeva tramite la <link linkend="chp-typingIn"
->finestra di dialogo delle annotazioni</link
->. Durante gli anni sono stati fatti diversi tentativi per integrare l'aggiunta di tag al visore: il primo è stato fatto assegnando token nel visore, poi è stata resa possibile l'attribuzione di tag digitando direttamente parte di un elemento di una categoria. In aggiunta, gli elementi delle categorie potevano essere assegnati ai tasti funzione nella tastiera. Il codice per tutte queste operazioni ora è stato modernizzato per rendere il flusso di lavoro più intuitivo e fruibile.</para>
-
 <para
 >Sono possibili tre modi per annotare le immagini nel visore:</para>
 <itemizedlist>
@@ -170,7 +461,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 
 
 
-<sect1 id="tokens">
+<sect1 id="assigning-tokens-from-the-viewer">
 <title
 >Impostare i token dal visore</title>
 <para
@@ -332,7 +623,14 @@ SPDX-License-Identifier: GFDL-1.2-only
 >&Ctrl;<keycap
 >a</keycap
 ></keycombo
-></para>
+>. Questo è anche il modo in cui apri la finestra di dialogo per visualizzare le associazioni di tasti per le macro. </para>
+
+<para
+>Premi <keycombo
+>&Ctrl;<keycap
+>c</keycap
+></keycombo
+> per copiare le annotazioni dall'immagine precedente nell'elenco del visore. </para>
 
 </sect1>
 </chapter>

@@ -150,6 +150,9 @@
             "name": "kphotoalbum",
             "buildsystem": "cmake-ninja",
             "builddir": true,
+            "config-opts": [
+                "-DBUILD_TESTING=OFF"
+            ],
             "sources": [
                 {
                     "type": "dir",

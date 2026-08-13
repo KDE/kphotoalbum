@@ -1388,8 +1388,8 @@ namespace Viewer
 static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSentinel &sentinel)
 {
     auto backend = Settings::SettingsData::instance()->videoBackend();
-    if (backend == Settings::VideoBackend::NotConfigured) {
-        // just select a backend for the user if no valid one is configured
+    if (backend == Settings::VideoBackend::NotConfigured || !Settings::availableVideoBackends().testFlag(backend)) {
+        // just select a backend for the user if no valid one is configured or if the configured one has disappeared
         backend = Settings::preferredVideoBackend(backend);
     }
     if (sentinel.hasCrashInfo()) {

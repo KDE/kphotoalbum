@@ -3525,27 +3525,20 @@ msgstr[1] "Len odstrániť %1 položky z databázy"
 msgstr[2] "Len odstrániť %1 položiek z databázy"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:74
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge Duplicates"
 msgstr "Zlúčiť duplikáty"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:84
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Below is a list of all images that are duplicate in your database.<br/"
-#| ">Select which you want merged, and which of the duplicates should be kept."
-#| "<br/>The tag and description from the deleted images will be transferred "
-#| "to the kept image</p>"
+#, kde-format
 msgid ""
 "<p>Below is a list of all files that are duplicated in your database.<br/"
 ">Select the files you want to keep.<br/>Annotations from the deleted files "
 "will be merged to the kept image.</p>"
 msgstr ""
-"<p>Nižšie je zoznam všetkých obrázkov, ktoré sú duplicitné vo vašej databáze."
-"<br/> Vyberte tie, ktoré chcete zlúčiť a ktoré z duplikátov sa majú zachovať."
-"<br/> Značka a popis z vymazaných obrázkov bude presunutý zo ponechaného "
-"obrázku</p>"
+"<p>Nižšie je zoznam všetkých súborov, ktoré sú vo vašej databáze duplicitné."
+"<br/>Vyberte súbory, ktoré chcete ponechať.<br/>Poznámky z odstránených "
+"súborov sa zlúčia s ponechaným obrázkom.</p>"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:93
 #, kde-format
@@ -3563,46 +3556,40 @@ msgid "&Block from database"
 msgstr "Zablokovať z databázy"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@label:textedit"
-#| msgid "Filter ... (%1)"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Filter ..."
-msgstr "Filter... (%1)"
+msgstr "Filter..."
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:113
 #, kde-format
 msgid "Filter duplicates by filename"
-msgstr ""
+msgstr "Filtrovať duplikáty podľa názvu súboru"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:137
-#, fuzzy, kde-format
-#| msgid ">="
+#, kde-format
 msgid ">"
-msgstr ">="
+msgstr ">"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:139
 #, kde-format
 msgid "Add files to keep"
-msgstr ""
+msgstr "Pridať súbory na ponechanie"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:144
-#, fuzzy, kde-format
-#| msgid "<="
+#, kde-format
 msgid "<"
-msgstr "<="
+msgstr "<"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:146
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Remove files to keep"
-msgstr "Vyberte obrázok na ponechanie:"
+msgstr "Odstrániť súbory na ponechanie"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:154
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Files to keep:"
-msgstr "Vyberte obrázok na ponechanie:"
+msgstr "Súbory na ponechanie:"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:164
 #, kde-format
@@ -3610,17 +3597,16 @@ msgid "Select &None"
 msgstr "Nevybrať žiad&ny"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:105
-#, fuzzy, kde-format
-#| msgid "Image Preview"
+#, kde-format
 msgctxt "@title:column Image preview"
 msgid "Preview"
-msgstr "Náhľad obrázka"
+msgstr "Náhľad"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:107
 #, kde-format
 msgctxt "@title:column Duplicate file"
 msgid "Duplicate %1"
-msgstr ""
+msgstr "Duplikát %1"
 
 #: MainWindow/ExternalPopup.cpp:55
 #, kde-format
@@ -4395,10 +4381,9 @@ msgid "Expand all stacks"
 msgstr "Rozbaliť všetky zásobníky"
 
 #: MainWindow/Window.cpp:896
-#, fuzzy, kde-format
-#| msgid "Collapse all stacks"
+#, kde-format
 msgid "Toggle all stacks"
-msgstr "Zabaliť všetky zásobníky"
+msgstr "Prepnúť všetky zásobníky"
 
 #: MainWindow/Window.cpp:902
 #, kde-format
@@ -4496,10 +4481,9 @@ msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Zobraziť obrázky a videá s nekompletnými dátumami..."
 
 #: MainWindow/Window.cpp:1021
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge duplicates..."
-msgstr "Zlúčiť duplikáty"
+msgstr "Zlúčiť duplikáty..."
 
 #: MainWindow/Window.cpp:1023 MainWindow/Window.cpp:1078
 #, kde-format
@@ -4738,10 +4722,9 @@ msgid "Rereading Exif information from all images"
 msgstr "Načítavam Exif informácie zo všetkých obrázkov"
 
 #: MainWindow/Window.cpp:1842
-#, fuzzy, kde-format
-#| msgid "No duplicates found"
+#, kde-format
 msgid "No duplicate files were found."
-msgstr "Duplikáty neboli nájdené!"
+msgstr "Nenašli sa žiadne duplicitné súbory."
 
 #: MainWindow/Window.cpp:1852
 #, no-c-format, kde-format

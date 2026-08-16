@@ -1,6 +1,7 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003 - 2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -170,6 +171,19 @@ void ImportDialog::createImagesPage()
         DB::ImageInfoPtr info = *it;
         ImageRow *ir = new ImageRow(info, this, m_kimFileReader, container);
         lay3->addWidget(ir->m_checkbox, row, 0);
+        connect(ir->m_checkbox, &QPushButton::clicked, this, [=, this]() {
+                bool valid = false;
+
+                for (ImageRow *row : std::as_const(m_imagesSelect)) {
+                    if (row->m_checkbox->isChecked()) {
+                        valid = true;
+                        break;
+                    }
+                }
+
+                // Disable the Next button unless at least one image is selected.
+                setValid(m_selectImagesPage, valid);
+            });
 
         QPixmap pixmap = m_kimFileReader->loadThumbnail(info->fileName().relative());
         if (!pixmap.isNull()) {
@@ -188,7 +202,7 @@ void ImportDialog::createImagesPage()
         m_imagesSelect.append(ir);
     }
 
-    addPage(top, i18n("Select Which Images to Import"));
+    m_selectImagesPage = addPage(top, i18n("Select Which Images to Import"));
 }
 
 void ImportDialog::createDestination()
@@ -333,15 +347,17 @@ void ImportDialog::next()
 
 void ImportDialog::slotSelectAll()
 {
-    selectImage(true);
+    selectImages(true);
+    setValid(m_selectImagesPage, true);
 }
 
 void ImportDialog::slotSelectNone()
 {
-    selectImage(false);
+    selectImages(false);
+    setValid(m_selectImagesPage, false);
 }
 
-void ImportDialog::selectImage(bool on)
+void ImportDialog::selectImages(bool on)
 {
     for (ImageRow *row : std::as_const(m_imagesSelect)) {
         row->m_checkbox->setChecked(on);

@@ -1,5 +1,6 @@
-// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003 - 2010 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -51,7 +52,7 @@ protected:
     void createDestination();
     void createCategoryPages();
     ImportMatcher *createCategoryPage(const QString &myCategory, const QString &otherCategory);
-    void selectImage(bool on);
+    void selectImages(bool on);
     DB::ImageInfoList selectedImages() const;
     void possiblyAddMD5CheckPage();
 
@@ -71,6 +72,7 @@ private:
     QLineEdit *m_destinationEdit = nullptr;
     KPageWidgetItem *m_destinationPage = nullptr;
     KPageWidgetItem *m_categoryMatcherPage = nullptr;
+    KPageWidgetItem *m_selectImagesPage = nullptr;
     KPageWidgetItem *m_dummy = nullptr;
     ImportMatcher *m_categoryMatcher = nullptr;
     ImportMatchers m_matchers;

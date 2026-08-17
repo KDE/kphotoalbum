@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2021 Yuri Chornoivan <yurchor@ukr.net>
 // SPDX-FileCopyrightText: 2021-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
-// SPDX-FileCopyrightText: 2021-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -14,6 +14,8 @@
 #include <QLoggingCategory>
 #include <QRadioButton>
 #include <QVBoxLayout>
+
+#include <vlc/libvlc_version.h>
 
 namespace Settings
 {
@@ -117,7 +119,7 @@ VideoBackend VideoPlayerSelectorDialog::backend() const
 constexpr VideoBackends availableVideoBackends()
 {
     VideoBackends availableBackends = VideoBackend::QtMultimedia;
-#if LIBVLC_FOUND
+#if LIBVLC_FOUND && (LIBVLC_VERSION_INT < LIBVLC_VERSION(4, 0, 0, 0))
     availableBackends |= VideoBackend::VLC;
 #endif
 #if Phonon4Qt6_FOUND

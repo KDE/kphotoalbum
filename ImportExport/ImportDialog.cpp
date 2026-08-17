@@ -158,8 +158,12 @@ void ImportDialog::createImagesPage()
     QPushButton *selectNone = new QPushButton(i18n("Deselect All"), container);
     lay2->addWidget(selectNone);
     lay2->addStretch(1);
-    connect(selectAll, &QPushButton::clicked, this, &ImportDialog::slotSelectAll);
-    connect(selectNone, &QPushButton::clicked, this, &ImportDialog::slotSelectNone);
+    connect(selectAll, &QPushButton::clicked, this, [=, this]() {
+            selectAllImages(true);
+            });
+    connect(selectNone, &QPushButton::clicked, this, [=, this]() {
+            selectAllImages(false);
+            });
 
     QGridLayout *lay3 = new QGridLayout;
     lay1->addLayout(lay3);
@@ -345,23 +349,15 @@ void ImportDialog::next()
     KAssistantDialog::next();
 }
 
-void ImportDialog::slotSelectAll()
+void ImportDialog::selectAllImages(bool on)
 {
-    selectImages(true);
-    setValid(m_selectImagesPage, true);
-}
+    Q_ASSERT (currentPage() == m_selectImagesPage);
 
-void ImportDialog::slotSelectNone()
-{
-    selectImages(false);
-    setValid(m_selectImagesPage, false);
-}
-
-void ImportDialog::selectImages(bool on)
-{
     for (ImageRow *row : std::as_const(m_imagesSelect)) {
         row->m_checkbox->setChecked(on);
     }
+
+    setValid(m_selectImagesPage, on);
 }
 
 DB::ImageInfoList ImportDialog::selectedImages() const

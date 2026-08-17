@@ -52,7 +52,6 @@ protected:
     void createDestination();
     void createCategoryPages();
     ImportMatcher *createCategoryPage(const QString &myCategory, const QString &otherCategory);
-    void selectImages(bool on);
     DB::ImageInfoList selectedImages() const;
     void possiblyAddMD5CheckPage();
 
@@ -60,14 +59,20 @@ protected Q_SLOTS:
     void slotEditDestination();
     void updateNextButtonState();
     void next() override;
-    void slotSelectAll();
-    void slotSelectNone();
     void slotHelp();
 
 Q_SIGNALS:
     void failedToCopy(QStringList files);
 
 private:
+    /**
+     * Selects or unselects all image selectors on the image selection page,
+     * and disables the Next button if no images are selected.
+     *
+     * @param on means select all images if true and unselect all images if false
+     */
+    void selectAllImages(bool on);
+
     DB::ImageInfoList m_images;
     QLineEdit *m_destinationEdit = nullptr;
     KPageWidgetItem *m_destinationPage = nullptr;

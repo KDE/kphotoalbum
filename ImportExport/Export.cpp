@@ -30,6 +30,7 @@
 #include <kpabase/FileNameList.h>
 #include <kpabase/FileNameUtil.h>
 #include <kpabase/FileUtil.h>
+#include <karchive_version.h>
 
 #include <KConfigGroup>
 #include <KHelpClient>
@@ -62,7 +63,18 @@ bool isRAW(const DB::FileName &fileName)
 
 void Export::imageExport(const DB::FileNameList &list)
 {
-    ExportConfig config(list.size());
+    quint64 totalSize = 0;
+    for (const auto &fileName : list) {
+        const auto fileInfo = QFileInfo(fileName.absolute());
+        const auto size = fileInfo.size();
+        if (size == 0) {
+            qCWarning(ImportExportLog) << "Can't determine size for"
+                                       << fileName.relative();
+        }
+        totalSize += size;
+    }
+
+    ExportConfig config(list.size(), totalSize);
     if (config.exec() == QDialog::Rejected)
         return;
 
@@ -89,7 +101,7 @@ void Export::imageExport(const DB::FileNameList &list)
 }
 
 // PENDING(blackie) add warning if images are to be copied into a non empty directory.
-ExportConfig::ExportConfig(qsizetype numberOfFiles)
+ExportConfig::ExportConfig(qsizetype numberOfFiles, quint64 totalSizeInBytes)
 {
     setWindowTitle(i18nc("@title:window", "Export Metadata / Copy Files"));
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel | QDialogButtonBox::Help);
@@ -120,6 +132,23 @@ ExportConfig::ExportConfig(qsizetype numberOfFiles)
     boxLay->addWidget(m_auto);
     boxLay->addWidget(m_link);
     boxLay->addWidget(m_symlink);
+
+#if (KARCHIVE_VERSION < QT_VERSION_CHECK(6,29,0))
+    // KZip silently creates an broken zip file if the zip file size exceeds
+    // 4GB.  This limit prevents the user from exporting a broken zip file.
+    // We can't predict the zip file size without creating it so keep the limit
+    // lower than 4GB.
+    const quint64 MAX_INLINE_BYTES = 4ULL * 1024 * 1024 * 1024 - // 4 GB
+                                     100 * 1024 * 1024;          // 100 MB
+
+    qCWarning(ImportExportLog) << "totalSizeInBytes=" << totalSizeInBytes
+                               << "MAX_INLINE_BYTES=" << MAX_INLINE_BYTES;
+
+    if (totalSizeInBytes > MAX_INLINE_BYTES) {
+        m_include->setEnabled(false);
+        m_include->setToolTip(i18n("The exported files are too large to fit in the .kim file."));
+    }
+#endif
 
     // Compress
     mp_compress = new QCheckBox(i18n("Compress export file"), top);

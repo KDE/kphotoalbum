@@ -1450,7 +1450,7 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSent
     case Settings::VideoBackend::QtMultimedia:
         return new QtMultimediaDisplay(parent);
     case Settings::VideoBackend::VLC:
-#if LIBVLC_FOUND
+#if LIBVLC_VERSION_INT < LIBVLC_VERSION(4, 0, 0, 0)
         return new VLCDisplay(parent);
 #else
         qCWarning(ViewerLog) << "Video backend VLC not available. Selecting first available backend...";

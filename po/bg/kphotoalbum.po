@@ -7394,16 +7394,3 @@ msgstr "Показване размер на изображението"
 #, kde-format
 msgid "Show Rating"
 msgstr "Показване на оценките"
-
-#~ msgid "Merge these images"
-#~ msgstr "Сливане на изображенията"
-
-#~ msgctxt "i for info"
-#~ msgid "i"
-#~ msgstr "i"
-
-#~ msgid "Select &All"
-#~ msgstr "Из&биране на всичко"
-
-#~ msgid "%1 of %2 selected"
-#~ msgstr "%1 от %2 избрано"

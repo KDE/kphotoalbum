@@ -33,6 +33,8 @@
 #include <QStringLiteral>
 #include <QThread>
 
+#include <vlc/libvlc_version.h>
+
 // enable _L1 string literal operator
 using namespace Qt::Literals::StringLiterals;
 
@@ -386,7 +388,9 @@ setValueFunc_(setVideoBackend, VideoBackend, "Viewer"_L1, "videoBackend", static
     switch (value) {
     case VideoBackend::VLC:
 #if LIBVLC_FOUND
+#if (LIBVLC_VERSION_INT < LIBVLC_VERSION(4, 0, 0, 0))
         return value;
+#endif
 #else
         qCWarning(BaseLog) << "Configuration value for Viewer.videoBackend is not available. Ignoring value...";
         return VideoBackend::NotConfigured;

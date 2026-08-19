@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-11 00:43+0000\n"
+"POT-Creation-Date: 2026-08-19 00:43+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -1654,13 +1654,13 @@ msgid "Places"
 msgstr "ទីកន្លែង"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:451
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:455
 #, kde-format
 msgid "Events"
 msgstr "ព្រឹត្តិការណ៍"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:461
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:465
 #, fuzzy, kde-format
 #| msgid "Untagged Images"
 msgid "untagged"
@@ -3273,7 +3273,7 @@ msgstr "កម្មវិធី​ជំនួយ​"
 msgid "Main Toolbar"
 msgstr "របារ​ឧបករណ៍​មេ"
 
-#: lib/kpabase/SettingsData.cpp:243
+#: lib/kpabase/SettingsData.cpp:245
 #, fuzzy, kde-format
 #| msgid ""
 #| "When reading time information of images, their EXIF info is used. Exif "
@@ -3296,7 +3296,7 @@ msgstr ""
 "ទោះ​បី​យ៉ាង​ណា​ វា​អាច​នឹង​មិន​ត្រឹម​ត្រូវ​ នៅ​ក្នុង​ករណី​ដែល​រូបភាព​ត្រូវ​បាន​វិភាគ​រក​ ។ ដូច្នេះ​សំណួរ​ក៏​អញ្ចឹង​ដែរ "
 "តើ  KPhotoAlbum គួរ​តែ​ទុក​ចិត្ត​លើ​ត្រា​ពេល​វេលា​ដែល​នៅ​លើ​រូបភាព​របស់​អ្នក​ដែរ​ឬទេ​ ?"
 
-#: lib/kpabase/SettingsData.cpp:250
+#: lib/kpabase/SettingsData.cpp:252
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "ទុក​ចិត្ត​លើ​ត្រា​ពេល​វេលា​ឬ​អត់ ?​"
@@ -6274,12 +6274,12 @@ msgid ""
 "error about this tag being not present on the next start.</p>"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:26
+#: Settings/VideoPlayerSelectorDialog.cpp:28
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:29
+#: Settings/VideoPlayerSelectorDialog.cpp:31
 #, kde-format
 msgid ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
@@ -6299,13 +6299,13 @@ msgid ""
 "backend from Settings -> Viewer</font></b></p></html>"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:55
-#: Settings/VideoPlayerSelectorDialog.cpp:64
+#: Settings/VideoPlayerSelectorDialog.cpp:57
+#: Settings/VideoPlayerSelectorDialog.cpp:66
 #, kde-format
 msgid " (NOT AVAILABLE)"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:93
+#: Settings/VideoPlayerSelectorDialog.cpp:95
 #, kde-format
 msgid ""
 "<html><h1>Missing back-end</h1>The back-ends which are not available are due "
@@ -6315,34 +6315,34 @@ msgid ""
 "talk to the maintainer of the package.</html>"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:152
+#: Settings/VideoPlayerSelectorDialog.cpp:154
 #, fuzzy, kde-format
 #| msgid "Database backend"
 msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
 msgstr "កម្មវិធី​ខាង​ក្រោយ​មូលដ្ឋាន​ទិន្នន័យ​"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:155
+#: Settings/VideoPlayerSelectorDialog.cpp:157
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:157
+#: Settings/VideoPlayerSelectorDialog.cpp:159
 #, fuzzy, kde-format
 #| msgid "Database backend"
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
 msgstr "កម្មវិធី​ខាង​ក្រោយ​មូលដ្ឋាន​ទិន្នន័យ​"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:159
+#: Settings/VideoPlayerSelectorDialog.cpp:161
 #, fuzzy, kde-format
 #| msgid "Database backend"
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
 msgstr "កម្មវិធី​ខាង​ក្រោយ​មូលដ្ឋាន​ទិន្នន័យ​"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:161
+#: Settings/VideoPlayerSelectorDialog.cpp:163
 #, fuzzy, kde-format
 #| msgid "Database backend"
 msgctxt "A friendly name for the video backend"
@@ -7379,107 +7379,107 @@ msgid ""
 "crashed at some point.</p><p>Crash detection is now turned off.</p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1493
+#: Viewer/ViewerWidget.cpp:1491
 #, fuzzy, kde-format
 #| msgid "Annotate..."
 msgid "Annotate"
 msgstr "ចារ​ពន្យល់​... "
 
-#: Viewer/ViewerWidget.cpp:1512
+#: Viewer/ViewerWidget.cpp:1510
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1514
+#: Viewer/ViewerWidget.cpp:1512
 #, fuzzy, kde-format
 #| msgid "Annotation Dialog"
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "ប្រអប់​ចំណារ​ពន្យល់​"
 
-#: Viewer/ViewerWidget.cpp:1515
+#: Viewer/ViewerWidget.cpp:1513
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1515
+#: Viewer/ViewerWidget.cpp:1513
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1518
+#: Viewer/ViewerWidget.cpp:1516
 #, fuzzy, kde-format
 #| msgid "Copy tags from previous image"
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "ចម្លង​ស្លាក​ពី​រូបភាព​មុន​"
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1517
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1522
+#: Viewer/ViewerWidget.cpp:1520
 #, fuzzy, kde-format
 #| msgid "Description"
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "សេចក្ដី​ពិពណ៌នា​"
 
-#: Viewer/ViewerWidget.cpp:1523
+#: Viewer/ViewerWidget.cpp:1521
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1526
+#: Viewer/ViewerWidget.cpp:1524
 #, fuzzy, kde-format
 #| msgid "Annotations"
 msgid "Annotation Mode"
 msgstr "ចំណារ​ពន្យល់​"
 
-#: Viewer/ViewerWidget.cpp:1528
+#: Viewer/ViewerWidget.cpp:1526
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1529
+#: Viewer/ViewerWidget.cpp:1527
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1533
+#: Viewer/ViewerWidget.cpp:1531
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1534
+#: Viewer/ViewerWidget.cpp:1532
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1538
+#: Viewer/ViewerWidget.cpp:1536
 #, fuzzy, kde-format
 #| msgid "Tokens"
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "ថូខឺន"
 
-#: Viewer/ViewerWidget.cpp:1539
+#: Viewer/ViewerWidget.cpp:1537
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1703
+#: Viewer/ViewerWidget.cpp:1701
 #, fuzzy, kde-format
 #| msgid "Tokens"
 msgid "Token %1"

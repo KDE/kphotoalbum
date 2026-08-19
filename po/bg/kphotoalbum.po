@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-11 00:43+0000\n"
+"POT-Creation-Date: 2026-08-19 00:43+0000\n"
 "PO-Revision-Date: 2026-07-20 20:03+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -1624,13 +1624,13 @@ msgid "Places"
 msgstr "Места"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:451
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:455
 #, kde-format
 msgid "Events"
 msgstr "Събития"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:461
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:465
 #, kde-format
 msgid "untagged"
 msgstr "без етикет"
@@ -3193,7 +3193,7 @@ msgstr "Приставки"
 msgid "Main Toolbar"
 msgstr "Главна лента с инструменти"
 
-#: lib/kpabase/SettingsData.cpp:243
+#: lib/kpabase/SettingsData.cpp:245
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3211,7 +3211,7 @@ msgstr ""
 "Така че въпросът е, трябва ли KPhotoAlbum да се доверява на времевия печат "
 "на вашите изображения?"
 
-#: lib/kpabase/SettingsData.cpp:250
+#: lib/kpabase/SettingsData.cpp:252
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Доверявате ли се на времевите печати?"
@@ -6187,12 +6187,12 @@ msgstr ""
 "и при следващото стартиране ще получите грешка, че този етикет не е наличен."
 "</p>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:26
+#: Settings/VideoPlayerSelectorDialog.cpp:28
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
 msgstr "<h1>Изберете видеоплейър</h1>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:29
+#: Settings/VideoPlayerSelectorDialog.cpp:31
 #, kde-format
 msgid ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
@@ -6228,13 +6228,13 @@ msgstr ""
 "color=red>Можете по всяко време да промените бекенд-а от Настройки -> "
 "Преглед</font></b></p></html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:55
-#: Settings/VideoPlayerSelectorDialog.cpp:64
+#: Settings/VideoPlayerSelectorDialog.cpp:57
+#: Settings/VideoPlayerSelectorDialog.cpp:66
 #, kde-format
 msgid " (NOT AVAILABLE)"
 msgstr " (Не е наличен)"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:93
+#: Settings/VideoPlayerSelectorDialog.cpp:95
 #, kde-format
 msgid ""
 "<html><h1>Missing back-end</h1>The back-ends which are not available are due "
@@ -6249,31 +6249,31 @@ msgstr ""
 "бекендовете. Ако пък сте получили KPhotoAlbum от вашата система, моля, "
 "свържете се с поддържащия екип на пакета.</html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:152
+#: Settings/VideoPlayerSelectorDialog.cpp:154
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
 msgstr "Бекенд за видео на QtMultimedia"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:155
+#: Settings/VideoPlayerSelectorDialog.cpp:157
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
 msgstr "Няма конфигуриран видео бекенд"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:157
+#: Settings/VideoPlayerSelectorDialog.cpp:159
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
 msgstr "Бекенд за Phonon видео"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:159
+#: Settings/VideoPlayerSelectorDialog.cpp:161
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
 msgstr "Бекенд за QtAV видео"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:161
+#: Settings/VideoPlayerSelectorDialog.cpp:163
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
@@ -7241,101 +7241,101 @@ msgstr ""
 "<p>KPhotoAlbum изпробва всички налични видео сървъри, но всеки от тях се "
 "срива в даден момент.</p><p>Откриването на сривове вече е изключено.</p>"
 
-#: Viewer/ViewerWidget.cpp:1493
+#: Viewer/ViewerWidget.cpp:1491
 #, kde-format
 msgid "Annotate"
 msgstr "Анотиране"
 
-#: Viewer/ViewerWidget.cpp:1512
+#: Viewer/ViewerWidget.cpp:1510
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "Помощ"
 
-#: Viewer/ViewerWidget.cpp:1514
+#: Viewer/ViewerWidget.cpp:1512
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Задаване на анотации"
 
-#: Viewer/ViewerWidget.cpp:1515
+#: Viewer/ViewerWidget.cpp:1513
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Добавяне на етикет"
 
-#: Viewer/ViewerWidget.cpp:1515
+#: Viewer/ViewerWidget.cpp:1513
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "CTRL+a"
 
-#: Viewer/ViewerWidget.cpp:1518
+#: Viewer/ViewerWidget.cpp:1516
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "Копиране на датата от предишното изображение"
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1517
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "CTRL+c"
 
-#: Viewer/ViewerWidget.cpp:1522
+#: Viewer/ViewerWidget.cpp:1520
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Редактиране на описание"
 
-#: Viewer/ViewerWidget.cpp:1523
+#: Viewer/ViewerWidget.cpp:1521
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "CTRL+d"
 
-#: Viewer/ViewerWidget.cpp:1526
+#: Viewer/ViewerWidget.cpp:1524
 #, kde-format
 msgid "Annotation Mode"
 msgstr "Режим на задаване на анотации"
 
-#: Viewer/ViewerWidget.cpp:1528
+#: Viewer/ViewerWidget.cpp:1526
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "Заключени"
 
-#: Viewer/ViewerWidget.cpp:1529
+#: Viewer/ViewerWidget.cpp:1527
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "CTRL+l"
 
-#: Viewer/ViewerWidget.cpp:1533
+#: Viewer/ViewerWidget.cpp:1531
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "Задаване на етикети"
 
-#: Viewer/ViewerWidget.cpp:1534
+#: Viewer/ViewerWidget.cpp:1532
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1538
+#: Viewer/ViewerWidget.cpp:1536
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Задаване на токени"
 
-#: Viewer/ViewerWidget.cpp:1539
+#: Viewer/ViewerWidget.cpp:1537
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "CTRL+t"
 
-#: Viewer/ViewerWidget.cpp:1703
+#: Viewer/ViewerWidget.cpp:1701
 #, kde-format
 msgid "Token %1"
 msgstr "Токен %1"

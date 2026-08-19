@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-11 00:43+0000\n"
+"POT-Creation-Date: 2026-08-19 00:43+0000\n"
 "PO-Revision-Date: 2025-02-09 08:38+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -1652,13 +1652,13 @@ msgid "Places"
 msgstr "Miejsca"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:451
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:455
 #, kde-format
 msgid "Events"
 msgstr "Wydarzenia"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:461
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:465
 #, kde-format
 msgid "untagged"
 msgstr "nieznaczony"
@@ -3231,7 +3231,7 @@ msgstr "Wtyczki"
 msgid "Main Toolbar"
 msgstr "Główny pasek narzędzi"
 
-#: lib/kpabase/SettingsData.cpp:243
+#: lib/kpabase/SettingsData.cpp:245
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3248,7 +3248,7 @@ msgstr ""
 "poprawny czas, jeśli obraz został zeskanowany. Pytanie więc brzmi: czy "
 "program KPhotoAlbum ma ufać znakom czasu na Twoich obrazów?"
 
-#: lib/kpabase/SettingsData.cpp:250
+#: lib/kpabase/SettingsData.cpp:252
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Czy znaczniki czasu są wiarygodne?"
@@ -6215,12 +6215,12 @@ msgstr ""
 "stracony, a przy następnym uruchomieniu otrzymasz błąd o tym, że ten "
 "znacznik jest niedostępny.</p>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:26
+#: Settings/VideoPlayerSelectorDialog.cpp:28
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
 msgstr "<h1>Wybierz odtwarzacz filmów</h1>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:29
+#: Settings/VideoPlayerSelectorDialog.cpp:31
 #, fuzzy, kde-format
 #| msgid ""
 #| "<html><p>Unfortunately, there is no video player which just works out of "
@@ -6266,13 +6266,13 @@ msgstr ""
 "był dobrze ustawiony.</p><p><b><font color=red>Odtwarzacz możesz zmienić w "
 "każdej chwili w Ustawienia -> Przeglądarka</font></b></p></html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:55
-#: Settings/VideoPlayerSelectorDialog.cpp:64
+#: Settings/VideoPlayerSelectorDialog.cpp:57
+#: Settings/VideoPlayerSelectorDialog.cpp:66
 #, kde-format
 msgid " (NOT AVAILABLE)"
 msgstr " (Niedostępny)"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:93
+#: Settings/VideoPlayerSelectorDialog.cpp:95
 #, kde-format
 msgid ""
 "<html><h1>Missing back-end</h1>The back-ends which are not available are due "
@@ -6287,7 +6287,7 @@ msgstr ""
 "programistycznych silników. Jeśli jednak masz KPhotoAlbum ze swojego "
 "systemu, to spróbuj porozmawiać z opiekunem pakietu.</html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:152
+#: Settings/VideoPlayerSelectorDialog.cpp:154
 #, fuzzy, kde-format
 #| msgctxt "A friendly name for the video backend"
 #| msgid "QtAV video backend"
@@ -6295,25 +6295,25 @@ msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
 msgstr "Obsługa filmów QtAV"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:155
+#: Settings/VideoPlayerSelectorDialog.cpp:157
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
 msgstr "Nieustawiona obsługa filmów"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:157
+#: Settings/VideoPlayerSelectorDialog.cpp:159
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
 msgstr "Obsługa filmów Phonon"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:159
+#: Settings/VideoPlayerSelectorDialog.cpp:161
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
 msgstr "Obsługa filmów QtAV"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:161
+#: Settings/VideoPlayerSelectorDialog.cpp:163
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
@@ -7309,101 +7309,101 @@ msgstr ""
 "<p>KPhotoAlbum wypróbował już wszystkie odtwarzacze filmów, lecz każdy z "
 "nich się wysypał.</p><p>Wykrywanie wysypywania zostało teraz wyłączone.</p>"
 
-#: Viewer/ViewerWidget.cpp:1493
+#: Viewer/ViewerWidget.cpp:1491
 #, kde-format
 msgid "Annotate"
 msgstr "Przypisz"
 
-#: Viewer/ViewerWidget.cpp:1512
+#: Viewer/ViewerWidget.cpp:1510
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "Pomoc"
 
-#: Viewer/ViewerWidget.cpp:1514
+#: Viewer/ViewerWidget.cpp:1512
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Okno przypisów"
 
-#: Viewer/ViewerWidget.cpp:1515
+#: Viewer/ViewerWidget.cpp:1513
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Dodaj znacznik"
 
-#: Viewer/ViewerWidget.cpp:1515
+#: Viewer/ViewerWidget.cpp:1513
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "CTRL+a"
 
-#: Viewer/ViewerWidget.cpp:1518
+#: Viewer/ViewerWidget.cpp:1516
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "Skopiuj datę z poprzedniego obrazu"
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1517
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "CTRL+c"
 
-#: Viewer/ViewerWidget.cpp:1522
+#: Viewer/ViewerWidget.cpp:1520
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Zmień opis"
 
-#: Viewer/ViewerWidget.cpp:1523
+#: Viewer/ViewerWidget.cpp:1521
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "CTRL+d"
 
-#: Viewer/ViewerWidget.cpp:1526
+#: Viewer/ViewerWidget.cpp:1524
 #, kde-format
 msgid "Annotation Mode"
 msgstr "Tryb przypisywania"
 
-#: Viewer/ViewerWidget.cpp:1528
+#: Viewer/ViewerWidget.cpp:1526
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "Zablokowana"
 
-#: Viewer/ViewerWidget.cpp:1529
+#: Viewer/ViewerWidget.cpp:1527
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "CTRL+l"
 
-#: Viewer/ViewerWidget.cpp:1533
+#: Viewer/ViewerWidget.cpp:1531
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "Przypisz znaczniki"
 
-#: Viewer/ViewerWidget.cpp:1534
+#: Viewer/ViewerWidget.cpp:1532
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1538
+#: Viewer/ViewerWidget.cpp:1536
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Przypisywanie tokenów"
 
-#: Viewer/ViewerWidget.cpp:1539
+#: Viewer/ViewerWidget.cpp:1537
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "CTRL+t"
 
-#: Viewer/ViewerWidget.cpp:1703
+#: Viewer/ViewerWidget.cpp:1701
 #, kde-format
 msgid "Token %1"
 msgstr "Token %1"

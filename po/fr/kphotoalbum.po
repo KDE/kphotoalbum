@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-11 00:43+0000\n"
+"POT-Creation-Date: 2026-08-19 00:43+0000\n"
 "PO-Revision-Date: 2026-07-05 10:00+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
@@ -1654,13 +1654,13 @@ msgid "Places"
 msgstr "Lieux"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:451
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:455
 #, kde-format
 msgid "Events"
 msgstr "Évènements"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:461
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:465
 #, kde-format
 msgid "untagged"
 msgstr "Images non étiquetées"
@@ -3243,7 +3243,7 @@ msgstr "Modules externes"
 msgid "Main Toolbar"
 msgstr "Barre principale"
 
-#: lib/kpabase/SettingsData.cpp:243
+#: lib/kpabase/SettingsData.cpp:245
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3262,7 +3262,7 @@ msgstr ""
 "conséquent, la question est, KPhotoAlbum doit-il faire confiance à "
 "l'horodatage de vos images ?"
 
-#: lib/kpabase/SettingsData.cpp:250
+#: lib/kpabase/SettingsData.cpp:252
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Faire confiance à l'horodatage ?"
@@ -6260,12 +6260,12 @@ msgstr ""
 "données. Sinon, elle sera perdue, et une erreur se produira au prochain "
 "démarrage car cette balise ne sera plus présente.</p>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:26
+#: Settings/VideoPlayerSelectorDialog.cpp:28
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
 msgstr "<h1>Sélectionner un lecteur vidéo</h1>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:29
+#: Settings/VideoPlayerSelectorDialog.cpp:31
 #, kde-format
 msgid ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
@@ -6304,13 +6304,13 @@ msgstr ""
 "changer de moteur depuis le menu Configuration / Afficheur</font></b></p>.</"
 "html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:55
-#: Settings/VideoPlayerSelectorDialog.cpp:64
+#: Settings/VideoPlayerSelectorDialog.cpp:57
+#: Settings/VideoPlayerSelectorDialog.cpp:66
 #, kde-format
 msgid " (NOT AVAILABLE)"
 msgstr " (NON DISPONIBLE)"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:93
+#: Settings/VideoPlayerSelectorDialog.cpp:95
 #, kde-format
 msgid ""
 "<html><h1>Missing back-end</h1>The back-ends which are not available are due "
@@ -6326,31 +6326,31 @@ msgstr ""
 "vous avez obtenu KPhotoAlbum grâce à votre système, veuillez vous adresser "
 "au mainteneur du paquet.</html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:152
+#: Settings/VideoPlayerSelectorDialog.cpp:154
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
 msgstr "Moteur vidéo de QtMultimedia"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:155
+#: Settings/VideoPlayerSelectorDialog.cpp:157
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
 msgstr "Moteur vidéo non configuré"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:157
+#: Settings/VideoPlayerSelectorDialog.cpp:159
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
 msgstr "Moteur vidéo de Phonon"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:159
+#: Settings/VideoPlayerSelectorDialog.cpp:161
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
 msgstr "Moteur vidéo de « QtAV »"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:161
+#: Settings/VideoPlayerSelectorDialog.cpp:163
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
@@ -7319,101 +7319,101 @@ msgstr ""
 "d'entre eux a planté à un moment donné.</p> <p>La détection de plantage est "
 "maintenant désactivée.</p>"
 
-#: Viewer/ViewerWidget.cpp:1493
+#: Viewer/ViewerWidget.cpp:1491
 #, kde-format
 msgid "Annotate"
 msgstr "Annoter"
 
-#: Viewer/ViewerWidget.cpp:1512
+#: Viewer/ViewerWidget.cpp:1510
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "Aide"
 
-#: Viewer/ViewerWidget.cpp:1514
+#: Viewer/ViewerWidget.cpp:1512
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Boîte de dialogue pour annotation"
 
-#: Viewer/ViewerWidget.cpp:1515
+#: Viewer/ViewerWidget.cpp:1513
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Ajouter une étiquette"
 
-#: Viewer/ViewerWidget.cpp:1515
+#: Viewer/ViewerWidget.cpp:1513
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "CTRL + A"
 
-#: Viewer/ViewerWidget.cpp:1518
+#: Viewer/ViewerWidget.cpp:1516
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "Copier des données à partir de l'image précédente"
 
-#: Viewer/ViewerWidget.cpp:1519
+#: Viewer/ViewerWidget.cpp:1517
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "CTRL + C"
 
-#: Viewer/ViewerWidget.cpp:1522
+#: Viewer/ViewerWidget.cpp:1520
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Modifier une description"
 
-#: Viewer/ViewerWidget.cpp:1523
+#: Viewer/ViewerWidget.cpp:1521
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "CTRL + D"
 
-#: Viewer/ViewerWidget.cpp:1526
+#: Viewer/ViewerWidget.cpp:1524
 #, kde-format
 msgid "Annotation Mode"
 msgstr "Mode d'annotation"
 
-#: Viewer/ViewerWidget.cpp:1528
+#: Viewer/ViewerWidget.cpp:1526
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "Verrouillé"
 
-#: Viewer/ViewerWidget.cpp:1529
+#: Viewer/ViewerWidget.cpp:1527
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "CTRL + I"
 
-#: Viewer/ViewerWidget.cpp:1533
+#: Viewer/ViewerWidget.cpp:1531
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "Associer des étiquettes"
 
-#: Viewer/ViewerWidget.cpp:1534
+#: Viewer/ViewerWidget.cpp:1532
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1538
+#: Viewer/ViewerWidget.cpp:1536
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Associer des jetons"
 
-#: Viewer/ViewerWidget.cpp:1539
+#: Viewer/ViewerWidget.cpp:1537
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "CTRL + t"
 
-#: Viewer/ViewerWidget.cpp:1703
+#: Viewer/ViewerWidget.cpp:1701
 #, kde-format
 msgid "Token %1"
 msgstr "Jeton %1"

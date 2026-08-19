@@ -33,7 +33,9 @@
 #include <QStringLiteral>
 #include <QThread>
 
+#if LIBVLC_FOUND
 #include <vlc/libvlc_version.h>
+#endif
 
 // enable _L1 string literal operator
 using namespace Qt::Literals::StringLiterals;

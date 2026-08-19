@@ -15,7 +15,9 @@
 #include <QRadioButton>
 #include <QVBoxLayout>
 
+#if LIBVLC_FOUND
 #include <vlc/libvlc_version.h>
+#endif
 
 namespace Settings
 {

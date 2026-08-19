@@ -13,12 +13,13 @@
 // SPDX-FileCopyrightText: 2016 - 2019 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2018 Yuri Chornoivan <yurchor@ukr.net>
-// SPDX-FileCopyrightText: 2025 Randall Rude <rsquared42@proton.me>
+// SPDX-FileCopyrightText: 2025 - 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "Export.h"
 
+#include "Logging.h"
 #include "XMLHandler.h"
 
 #include <DB/ImageDB.h>
@@ -29,7 +30,7 @@
 #include <kpabase/FileNameList.h>
 #include <kpabase/FileNameUtil.h>
 #include <kpabase/FileUtil.h>
-#include <kpabase/Logging.h>
+#include <karchive_version.h>
 
 #include <KConfigGroup>
 #include <KHelpClient>
@@ -67,7 +68,7 @@ void Export::imageExport(const DB::FileNameList &list)
         const auto fileInfo = QFileInfo(fileName.absolute());
         const auto size = fileInfo.size();
         if (size == 0) {
-            qCWarning(ImageManagerLog) << "Can't determine size for"
+            qCWarning(ImportExportLog) << "Can't determine size for"
                                        << fileName.relative();
         }
         totalSize += size;
@@ -115,7 +116,7 @@ ExportConfig::ExportConfig(qsizetype numberOfFiles, quint64 totalSizeInBytes)
     QVBoxLayout *lay1 = new QVBoxLayout(top);
 
     // Include images
-    QGroupBox *grp = new QGroupBox(i18n("How to export %1 files", numberOfFiles));
+    QGroupBox *grp = new QGroupBox(i18np("How do you want to export one file?", "How do you want to export %1 files?", numberOfFiles));
     lay1->addWidget(grp);
 
     QVBoxLayout *boxLay = new QVBoxLayout(grp);
@@ -132,6 +133,7 @@ ExportConfig::ExportConfig(qsizetype numberOfFiles, quint64 totalSizeInBytes)
     boxLay->addWidget(m_link);
     boxLay->addWidget(m_symlink);
 
+#if (KARCHIVE_VERSION < QT_VERSION_CHECK(6,29,0))
     // KZip silently creates an broken zip file if the zip file size exceeds
     // 4GB.  This limit prevents the user from exporting a broken zip file.
     // We can't predict the zip file size without creating it so keep the limit
@@ -139,13 +141,14 @@ ExportConfig::ExportConfig(qsizetype numberOfFiles, quint64 totalSizeInBytes)
     const quint64 MAX_INLINE_BYTES = 4ULL * 1024 * 1024 * 1024 - // 4 GB
                                      100 * 1024 * 1024;          // 100 MB
 
-    qCWarning(ImageManagerLog) << "totalSizeInBytes=" << totalSizeInBytes
+    qCWarning(ImportExportLog) << "totalSizeInBytes=" << totalSizeInBytes
                                << "MAX_INLINE_BYTES=" << MAX_INLINE_BYTES;
 
     if (totalSizeInBytes > MAX_INLINE_BYTES) {
         m_include->setEnabled(false);
         m_include->setToolTip(i18n("The exported files are too large to fit in the .kim file."));
     }
+#endif
 
     // Compress
     mp_compress = new QCheckBox(i18n("Compress export file"), top);

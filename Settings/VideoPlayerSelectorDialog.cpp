@@ -121,8 +121,10 @@ VideoBackend VideoPlayerSelectorDialog::backend() const
 constexpr VideoBackends availableVideoBackends()
 {
     VideoBackends availableBackends = VideoBackend::QtMultimedia;
-#if LIBVLC_FOUND && (LIBVLC_VERSION_INT < LIBVLC_VERSION(4, 0, 0, 0))
+#if LIBVLC_FOUND
+#if LIBVLC_VERSION_INT < LIBVLC_VERSION(4, 0, 0, 0)
     availableBackends |= VideoBackend::VLC;
+#endif
 #endif
 #if Phonon4Qt6_FOUND
     availableBackends |= VideoBackend::Phonon;

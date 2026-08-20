@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-19 00:43+0000\n"
+"POT-Creation-Date: 2026-08-20 00:42+0000\n"
 "PO-Revision-Date: 2026-07-30 19:15+0200\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -1634,13 +1634,13 @@ msgid "Places"
 msgstr "Místa"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:455
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
 #, kde-format
 msgid "Events"
 msgstr "Události"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:465
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
 #, kde-format
 msgid "untagged"
 msgstr "bez značek"
@@ -2437,74 +2437,78 @@ msgstr "Chcete znovu vygenerovat všechny náhledy?"
 msgid "Building thumbnails"
 msgstr "Sestavení náhledů"
 
-#: ImportExport/Export.cpp:87
+#: ImportExport/Export.cpp:88
 #, kde-format
 msgid "Save an export file"
 msgstr "Uložit exportní soubor"
 
-#: ImportExport/Export.cpp:89 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "Importní soubory KPhotoAlbum"
 
-#: ImportExport/Export.cpp:105
+#: ImportExport/Export.cpp:106
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
 msgstr "Zapsat metadata / kopírovat soubory"
 
-#: ImportExport/Export.cpp:118
-#, kde-format
-msgid "How to export %1 files"
-msgstr "Jak exportovat %1 soubory"
+#: ImportExport/Export.cpp:119
+#, fuzzy, kde-format
+#| msgid "How to export %1 files"
+msgid "How do you want to export one file?"
+msgid_plural "How do you want to export %1 files?"
+msgstr[0] "Jak exportovat %1 soubory"
+msgstr[1] "Jak exportovat %1 soubory"
+msgstr[2] "Jak exportovat %1 soubory"
 
-#: ImportExport/Export.cpp:122
+#: ImportExport/Export.cpp:123
 #, kde-format
 msgid "Include in .kim file"
 msgstr "Včetně .kim souboru"
 
-#: ImportExport/Export.cpp:123
+#: ImportExport/Export.cpp:124
 #, kde-format
 msgid "Do not copy files, only generate .kim file"
 msgstr "Soubory nekopírovat, pouze vytvořit soubor .kim"
 
-#: ImportExport/Export.cpp:124
+#: ImportExport/Export.cpp:125
 #, kde-format
 msgid "Automatically copy next to .kim file"
 msgstr "Automaticky překopírovat do .kim souboru"
 
-#: ImportExport/Export.cpp:125
+#: ImportExport/Export.cpp:126
 #, kde-format
 msgid "Hard link next to .kim file"
 msgstr "Pevný odkaz vedle .kim souboru"
 
-#: ImportExport/Export.cpp:126
+#: ImportExport/Export.cpp:127
 #, kde-format
 msgid "Symbolic link next to .kim file"
 msgstr "Symbolický odkaz vedle .kim souboru"
 
-#: ImportExport/Export.cpp:147
+#: ImportExport/Export.cpp:149
 #, kde-format
 msgid "The exported files are too large to fit in the .kim file."
 msgstr ""
 "Exportované soubory jsou příliš velké na to, aby se vešly do .kim souboru."
 
-#: ImportExport/Export.cpp:151
+#: ImportExport/Export.cpp:154
 #, kde-format
 msgid "Compress export file"
 msgstr "Komprimovat exportní soubor"
 
-#: ImportExport/Export.cpp:155
+#: ImportExport/Export.cpp:158
 #, kde-format
 msgid "Generate thumbnails"
 msgstr "Vytvořit náhledy"
 
-#: ImportExport/Export.cpp:163
+#: ImportExport/Export.cpp:166
 #, kde-format
 msgid "Limit maximum image dimensions to: "
 msgstr "Omezit maximální rozměry obrázku na: "
 
-#: ImportExport/Export.cpp:175
+#: ImportExport/Export.cpp:178
 #, kde-format
 msgid ""
 "<p>If your images are stored in a non-compressed file format then you may "
@@ -2518,12 +2522,12 @@ msgstr ""
 "p><p>Jinými slovy, volbu nevybírejte, pokud jsou vaše obrázky uloženy jako "
 "jpg, png nebo gif, ovšem pokud jsou uloženy jako tiff, vyberte ji.</p>"
 
-#: ImportExport/Export.cpp:181
+#: ImportExport/Export.cpp:184
 #, kde-format
 msgid "<p>Generate thumbnail images</p>"
 msgstr "<p>Vytvořit náhledy obrázků</p>"
 
-#: ImportExport/Export.cpp:184
+#: ImportExport/Export.cpp:187
 #, kde-format
 msgid ""
 "<p>With this option you may limit the maximum dimensions (width and height) "
@@ -2536,7 +2540,7 @@ msgstr ""
 "někdo chtít vidět exportované obrázky s většími rozměry, bude samozřejmě "
 "jejich kvalita horší.</p>"
 
-#: ImportExport/Export.cpp:191
+#: ImportExport/Export.cpp:194
 #, kde-format
 msgid ""
 "<p>When exporting images, bear in mind that there are two things the person "
@@ -2562,37 +2566,37 @@ msgstr ""
 "oddělit obrázky od souboru .kim a umístit je vedle sebe, aby měl uživatel "
 "přístup k obrázkům, které chce.</p>"
 
-#: ImportExport/Export.cpp:270
+#: ImportExport/Export.cpp:273
 #, kde-format
 msgid "Error creating zip file"
 msgstr "Chyba při vytváření zip souboru"
 
-#: ImportExport/Export.cpp:284
+#: ImportExport/Export.cpp:287
 #, kde-format
 msgid "&Cancel"
 msgstr "Z&rušit"
 
-#: ImportExport/Export.cpp:303
+#: ImportExport/Export.cpp:306
 #, kde-format
 msgid "Creating index file"
 msgstr "Vytváření indexového souboru"
 
-#: ImportExport/Export.cpp:315
+#: ImportExport/Export.cpp:318
 #, kde-format
 msgid "Creating thumbnails"
 msgstr "Vytváření náhledů"
 
-#: ImportExport/Export.cpp:338
+#: ImportExport/Export.cpp:341
 #, kde-format
 msgid "Copying image files"
 msgstr "Kopírování souborů s obrázky"
 
-#: ImportExport/Export.cpp:403
+#: ImportExport/Export.cpp:406
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Chyba zápisu do souboru %1"
 
-#: ImportExport/Export.cpp:431
+#: ImportExport/Export.cpp:434
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2616,7 +2620,7 @@ msgstr ""
 "soubor KPhotoAlbum, v jiném případě webový server Konqueroru oznámí, že je "
 "to čistý textový soubor.</p>"
 
-#: ImportExport/Export.cpp:440
+#: ImportExport/Export.cpp:443
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Jak používat exportní soubor"
@@ -2631,7 +2635,7 @@ msgstr "Exportní soubory KPhotoAlbum"
 msgid "Unable to create temporary file"
 msgstr "Nelze vytvořit dočasný soubor"
 
-#: ImportExport/ImportDialog.cpp:86
+#: ImportExport/ImportDialog.cpp:87
 #, kde-format
 msgid ""
 "<p>XML file did not specify the source of the images, this is a strong "
@@ -2640,7 +2644,7 @@ msgstr ""
 "<p>XML soubor nemá určen zdroj obrázků, což naznačuje, že je soubor s velkou "
 "pravděpodobností poškozen</p>"
 
-#: ImportExport/ImportDialog.cpp:120
+#: ImportExport/ImportDialog.cpp:121
 #, kde-format
 msgid ""
 "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This wizard "
@@ -2684,76 +2688,76 @@ msgstr ""
 "které tokeny se ve vaší databázi nenašly nebo které tokeny se shodovaly "
 "pouze částečně.</li></ol>"
 
-#: ImportExport/ImportDialog.cpp:139
+#: ImportExport/ImportDialog.cpp:140
 #, kde-format
 msgctxt "@title:tab introduction page"
 msgid "Introduction"
 msgstr "Úvod"
 
-#: ImportExport/ImportDialog.cpp:155 MainWindow/TokenEditor.cpp:60
+#: ImportExport/ImportDialog.cpp:156 MainWindow/TokenEditor.cpp:60
 #, kde-format
 msgid "Select All"
 msgstr "Vybrat vše"
 
-#: ImportExport/ImportDialog.cpp:157
+#: ImportExport/ImportDialog.cpp:158
 #, kde-format
 msgid "Deselect All"
 msgstr "Nevybrat nic"
 
-#: ImportExport/ImportDialog.cpp:191
+#: ImportExport/ImportDialog.cpp:209
 #, kde-format
 msgid "Select Which Images to Import"
 msgstr "Vybrat obrázky k importu"
 
-#: ImportExport/ImportDialog.cpp:203
+#: ImportExport/ImportDialog.cpp:221
 #, kde-format
 msgid "Destination of images: "
 msgstr "Umístění obrázků: "
 
-#: ImportExport/ImportDialog.cpp:216
+#: ImportExport/ImportDialog.cpp:234
 #, kde-format
 msgid "Destination of Images"
 msgstr "Umístění obrázků"
 
-#: ImportExport/ImportDialog.cpp:224
+#: ImportExport/ImportDialog.cpp:242
 #, kde-format
 msgid "The folder must be a subfolder of %1"
 msgstr "Složka musí být podsložkou %1"
 
-#: ImportExport/ImportDialog.cpp:227
+#: ImportExport/ImportDialog.cpp:245
 #, kde-format
 msgid "This folder is reserved for category images."
 msgstr "Tato složka je rezervována pro obrázky kategorií."
 
-#: ImportExport/ImportDialog.cpp:267
+#: ImportExport/ImportDialog.cpp:285
 #, kde-format
 msgid "Match Categories"
 msgstr "Vyhovující kategorie"
 
-#: ImportExport/ImportDialog.cpp:299
+#: ImportExport/ImportDialog.cpp:317
 #, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr "Složka %1 neexistuje. Má být vytvořena?"
 
-#: ImportExport/ImportDialog.cpp:300 MainWindow/WelcomeDialog.cpp:156
+#: ImportExport/ImportDialog.cpp:318 MainWindow/WelcomeDialog.cpp:156
 #, kde-format
 msgctxt "@title"
 msgid "Create folder?"
 msgstr "Vytvořit složku?"
 
-#: ImportExport/ImportDialog.cpp:304 MainWindow/WelcomeDialog.cpp:160
+#: ImportExport/ImportDialog.cpp:322 MainWindow/WelcomeDialog.cpp:160
 #: MainWindow/Window.cpp:1226
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
 msgstr "Vytvořit"
 
-#: ImportExport/ImportDialog.cpp:310
+#: ImportExport/ImportDialog.cpp:328
 #, kde-format
 msgid "Error creating folder %1"
 msgstr "Chyba při vytváření složky %1"
 
-#: ImportExport/ImportDialog.cpp:389
+#: ImportExport/ImportDialog.cpp:401
 #, kde-format
 msgid "How to resolve clashes"
 msgstr "Jak řešit konflikty"
@@ -3195,7 +3199,7 @@ msgstr "Moduly"
 msgid "Main Toolbar"
 msgstr "Hlavní panel nástrojů"
 
-#: lib/kpabase/SettingsData.cpp:245
+#: lib/kpabase/SettingsData.cpp:247
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3212,7 +3216,7 @@ msgstr ""
 "správné, nebo také nemusí v případě, že váš obrázek byl naskenován. Takže "
 "otázka zní, má KPhotoAlbum důvěřovat časovým značkám vašich snímků?"
 
-#: lib/kpabase/SettingsData.cpp:252
+#: lib/kpabase/SettingsData.cpp:254
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Věřit časovým razítkům?"
@@ -6156,12 +6160,12 @@ msgstr ""
 "značka uložila do databáze. V opačném případě dojde k její ztrátě a při "
 "příštím spuštění se zobrazí chyba, že tato značka neexistuje.</p>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:28
+#: Settings/VideoPlayerSelectorDialog.cpp:30
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
 msgstr "<h1>Vyberte přehrávač videa</h1>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:31
+#: Settings/VideoPlayerSelectorDialog.cpp:33
 #, kde-format
 msgid ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
@@ -6197,13 +6201,13 @@ msgstr ""
 "p><p><b><font color=red>Podpůrnou vrstvu můžete kdykoli změnit v Nastavení -"
 "> Prohlížeč</font></b></p></html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:57
-#: Settings/VideoPlayerSelectorDialog.cpp:66
+#: Settings/VideoPlayerSelectorDialog.cpp:59
+#: Settings/VideoPlayerSelectorDialog.cpp:68
 #, kde-format
 msgid " (NOT AVAILABLE)"
 msgstr " (NEDOSTUPNÉ)"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:95
+#: Settings/VideoPlayerSelectorDialog.cpp:97
 #, kde-format
 msgid ""
 "<html><h1>Missing back-end</h1>The back-ends which are not available are due "
@@ -6218,31 +6222,31 @@ msgstr ""
 "vrstev. Pokud jste naopak KPhotoAlbum získali z vašeho systému, obraťte se "
 "prosím na správce balíčku.</html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:154
+#: Settings/VideoPlayerSelectorDialog.cpp:158
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
 msgstr "Podpůrná video vrstva QtMultimedia"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:157
+#: Settings/VideoPlayerSelectorDialog.cpp:161
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
 msgstr "Nebyla nastavena podpůrná vrstva videa"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:159
+#: Settings/VideoPlayerSelectorDialog.cpp:163
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
 msgstr "Podpůrná vrstva videa Phonon"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:161
+#: Settings/VideoPlayerSelectorDialog.cpp:165
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
 msgstr "Podpůrná vrstva videa QtAV"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:163
+#: Settings/VideoPlayerSelectorDialog.cpp:167
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
@@ -7218,101 +7222,101 @@ msgstr ""
 "<p>KPhotoAlbum vyzkoušel všechny dostupné podpůrné vrstvy videa, ale každá z "
 "nich se v určitém okamžiku zhroutila.</p><p>Detekce pádů je nyní vypnutá.</p>"
 
-#: Viewer/ViewerWidget.cpp:1491
+#: Viewer/ViewerWidget.cpp:1493
 #, kde-format
 msgid "Annotate"
 msgstr "Poznamenat"
 
-#: Viewer/ViewerWidget.cpp:1510
+#: Viewer/ViewerWidget.cpp:1512
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "Nápověda"
 
-#: Viewer/ViewerWidget.cpp:1512
+#: Viewer/ViewerWidget.cpp:1514
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Dialog poznámek"
 
-#: Viewer/ViewerWidget.cpp:1513
+#: Viewer/ViewerWidget.cpp:1515
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Přidat značku"
 
-#: Viewer/ViewerWidget.cpp:1513
+#: Viewer/ViewerWidget.cpp:1515
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "CTRL+a"
 
-#: Viewer/ViewerWidget.cpp:1516
+#: Viewer/ViewerWidget.cpp:1518
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "Zkopírovat data z předchozího obrázku"
 
-#: Viewer/ViewerWidget.cpp:1517
+#: Viewer/ViewerWidget.cpp:1519
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "CTRL+c"
 
-#: Viewer/ViewerWidget.cpp:1520
+#: Viewer/ViewerWidget.cpp:1522
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Upravit popis"
 
-#: Viewer/ViewerWidget.cpp:1521
+#: Viewer/ViewerWidget.cpp:1523
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "CTRL+d"
 
-#: Viewer/ViewerWidget.cpp:1524
+#: Viewer/ViewerWidget.cpp:1526
 #, kde-format
 msgid "Annotation Mode"
 msgstr "Režim poznámek"
 
-#: Viewer/ViewerWidget.cpp:1526
+#: Viewer/ViewerWidget.cpp:1528
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "Uzamčeno"
 
-#: Viewer/ViewerWidget.cpp:1527
+#: Viewer/ViewerWidget.cpp:1529
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "CTRL+l"
 
-#: Viewer/ViewerWidget.cpp:1531
+#: Viewer/ViewerWidget.cpp:1533
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "Přiřadit značky"
 
-#: Viewer/ViewerWidget.cpp:1532
+#: Viewer/ViewerWidget.cpp:1534
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1536
+#: Viewer/ViewerWidget.cpp:1538
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Přiřadit tokeny"
 
-#: Viewer/ViewerWidget.cpp:1537
+#: Viewer/ViewerWidget.cpp:1539
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "CTRL+t"
 
-#: Viewer/ViewerWidget.cpp:1701
+#: Viewer/ViewerWidget.cpp:1703
 #, kde-format
 msgid "Token %1"
 msgstr "Token %1"

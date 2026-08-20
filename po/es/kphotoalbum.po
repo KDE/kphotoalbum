@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-19 00:43+0000\n"
+"POT-Creation-Date: 2026-08-20 00:42+0000\n"
 "PO-Revision-Date: 2026-07-04 23:52+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -1632,13 +1632,13 @@ msgid "Places"
 msgstr "Lugares"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:455
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
 #, kde-format
 msgid "Events"
 msgstr "Eventos"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:465
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
 #, kde-format
 msgid "untagged"
 msgstr "sin etiquetar"
@@ -2448,74 +2448,77 @@ msgstr "¿Desea reconstruir todas las miniaturas?"
 msgid "Building thumbnails"
 msgstr "Generando miniaturas"
 
-#: ImportExport/Export.cpp:87
+#: ImportExport/Export.cpp:88
 #, kde-format
 msgid "Save an export file"
 msgstr "Guardar un archivo de exportación"
 
-#: ImportExport/Export.cpp:89 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "Archivos de importación de KPhotoAlbum"
 
-#: ImportExport/Export.cpp:105
+#: ImportExport/Export.cpp:106
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
 msgstr "Exportar metadatos / copiar archivos"
 
-#: ImportExport/Export.cpp:118
-#, kde-format
-msgid "How to export %1 files"
-msgstr "Cómo exportar %1 archivos"
+#: ImportExport/Export.cpp:119
+#, fuzzy, kde-format
+#| msgid "How to export %1 files"
+msgid "How do you want to export one file?"
+msgid_plural "How do you want to export %1 files?"
+msgstr[0] "Cómo exportar %1 archivos"
+msgstr[1] "Cómo exportar %1 archivos"
 
-#: ImportExport/Export.cpp:122
+#: ImportExport/Export.cpp:123
 #, kde-format
 msgid "Include in .kim file"
 msgstr "Incluir en el archivo .kim"
 
-#: ImportExport/Export.cpp:123
+#: ImportExport/Export.cpp:124
 #, kde-format
 msgid "Do not copy files, only generate .kim file"
 msgstr "No copiar archivos, generar solo el archivo .kim"
 
-#: ImportExport/Export.cpp:124
+#: ImportExport/Export.cpp:125
 #, kde-format
 msgid "Automatically copy next to .kim file"
 msgstr "Copiar automáticamente junto al archivo .kim"
 
-#: ImportExport/Export.cpp:125
+#: ImportExport/Export.cpp:126
 #, kde-format
 msgid "Hard link next to .kim file"
 msgstr "Crear un enlace duro junto al archivo .kim"
 
-#: ImportExport/Export.cpp:126
+#: ImportExport/Export.cpp:127
 #, kde-format
 msgid "Symbolic link next to .kim file"
 msgstr "Symbolic link next to .kim file"
 
-#: ImportExport/Export.cpp:147
+#: ImportExport/Export.cpp:149
 #, kde-format
 msgid "The exported files are too large to fit in the .kim file."
 msgstr ""
 "Los archivos exportados son demasiado grandes para caber en el archivo .kim."
 
-#: ImportExport/Export.cpp:151
+#: ImportExport/Export.cpp:154
 #, kde-format
 msgid "Compress export file"
 msgstr "Comprimir archivo de exportación"
 
-#: ImportExport/Export.cpp:155
+#: ImportExport/Export.cpp:158
 #, kde-format
 msgid "Generate thumbnails"
 msgstr "Generar miniaturas"
 
-#: ImportExport/Export.cpp:163
+#: ImportExport/Export.cpp:166
 #, kde-format
 msgid "Limit maximum image dimensions to: "
 msgstr "Limitar el tamaño máximo de la imagen a: "
 
-#: ImportExport/Export.cpp:175
+#: ImportExport/Export.cpp:178
 #, kde-format
 msgid ""
 "<p>If your images are stored in a non-compressed file format then you may "
@@ -2529,12 +2532,12 @@ msgstr ""
 "p><p>En otras palabras, no lo marque si almacena las imágenes en formato "
 "jpg, png o gif; márquelo si sus imágenes tienen formato tiff.</p>"
 
-#: ImportExport/Export.cpp:181
+#: ImportExport/Export.cpp:184
 #, kde-format
 msgid "<p>Generate thumbnail images</p>"
 msgstr "<p>Generar miniaturas</p>"
 
-#: ImportExport/Export.cpp:184
+#: ImportExport/Export.cpp:187
 #, kde-format
 msgid ""
 "<p>With this option you may limit the maximum dimensions (width and height) "
@@ -2547,7 +2550,7 @@ msgstr ""
 "la calidad cuando alguien quiera ver las imágenes a mayor tamaño también "
 "será peor.</p>"
 
-#: ImportExport/Export.cpp:191
+#: ImportExport/Export.cpp:194
 #, kde-format
 msgid ""
 "<p>When exporting images, bear in mind that there are two things the person "
@@ -2573,37 +2576,37 @@ msgstr ""
 "imágenes del archivo .kim ubicando las primeras junto al segundo, para que "
 "el usuario pueda acceder solo a las que desee.</p>"
 
-#: ImportExport/Export.cpp:270
+#: ImportExport/Export.cpp:273
 #, kde-format
 msgid "Error creating zip file"
 msgstr "Error al crear archivo comprimido"
 
-#: ImportExport/Export.cpp:284
+#: ImportExport/Export.cpp:287
 #, kde-format
 msgid "&Cancel"
 msgstr "&Cancelar"
 
-#: ImportExport/Export.cpp:303
+#: ImportExport/Export.cpp:306
 #, kde-format
 msgid "Creating index file"
 msgstr "Creando archivo de índices"
 
-#: ImportExport/Export.cpp:315
+#: ImportExport/Export.cpp:318
 #, kde-format
 msgid "Creating thumbnails"
 msgstr "Creando miniaturas"
 
-#: ImportExport/Export.cpp:338
+#: ImportExport/Export.cpp:341
 #, kde-format
 msgid "Copying image files"
 msgstr "Copiando archivos de imágenes"
 
-#: ImportExport/Export.cpp:403
+#: ImportExport/Export.cpp:406
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Error al escribir en el archivo %1"
 
-#: ImportExport/Export.cpp:431
+#: ImportExport/Export.cpp:434
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2626,7 +2629,7 @@ msgstr ""
 "el servidor le comunicará a Konqueror que es un archivo de KPhotoAlbum; si "
 "no, lo interpretará como un archivo de texto plano.</p>"
 
-#: ImportExport/Export.cpp:440
+#: ImportExport/Export.cpp:443
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Como usar el archivo de exportación"
@@ -2641,7 +2644,7 @@ msgstr "Archivos de exportación de KPhotoAlbum"
 msgid "Unable to create temporary file"
 msgstr "No se pudo crear el archivo temporal"
 
-#: ImportExport/ImportDialog.cpp:86
+#: ImportExport/ImportDialog.cpp:87
 #, kde-format
 msgid ""
 "<p>XML file did not specify the source of the images, this is a strong "
@@ -2650,7 +2653,7 @@ msgstr ""
 "<p>El archivo XML no especifica el origen de las imágenes, lo que es un "
 "síntoma muy claro de que el archivo está dañado</p>"
 
-#: ImportExport/ImportDialog.cpp:120
+#: ImportExport/ImportDialog.cpp:121
 #, kde-format
 msgid ""
 "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This wizard "
@@ -2692,76 +2695,76 @@ msgstr ""
 "rojo para que vea qué identificadores no se encontraron en su base de datos "
 "o cuáles resultaron solo en una coincidencia parcial.</li></ol>"
 
-#: ImportExport/ImportDialog.cpp:139
+#: ImportExport/ImportDialog.cpp:140
 #, kde-format
 msgctxt "@title:tab introduction page"
 msgid "Introduction"
 msgstr "Introducción"
 
-#: ImportExport/ImportDialog.cpp:155 MainWindow/TokenEditor.cpp:60
+#: ImportExport/ImportDialog.cpp:156 MainWindow/TokenEditor.cpp:60
 #, kde-format
 msgid "Select All"
 msgstr "Seleccionar todo"
 
-#: ImportExport/ImportDialog.cpp:157
+#: ImportExport/ImportDialog.cpp:158
 #, kde-format
 msgid "Deselect All"
 msgstr "Deseleccionar todo"
 
-#: ImportExport/ImportDialog.cpp:191
+#: ImportExport/ImportDialog.cpp:209
 #, kde-format
 msgid "Select Which Images to Import"
 msgstr "Seleccionar qué imágenes importar"
 
-#: ImportExport/ImportDialog.cpp:203
+#: ImportExport/ImportDialog.cpp:221
 #, kde-format
 msgid "Destination of images: "
 msgstr "Destino de las imágenes: "
 
-#: ImportExport/ImportDialog.cpp:216
+#: ImportExport/ImportDialog.cpp:234
 #, kde-format
 msgid "Destination of Images"
 msgstr "Destino de las imágenes"
 
-#: ImportExport/ImportDialog.cpp:224
+#: ImportExport/ImportDialog.cpp:242
 #, kde-format
 msgid "The folder must be a subfolder of %1"
 msgstr "La carpeta debe ser una subcarpeta de %1"
 
-#: ImportExport/ImportDialog.cpp:227
+#: ImportExport/ImportDialog.cpp:245
 #, kde-format
 msgid "This folder is reserved for category images."
 msgstr "Esta carpeta está reservada para imágenes de categorías."
 
-#: ImportExport/ImportDialog.cpp:267
+#: ImportExport/ImportDialog.cpp:285
 #, kde-format
 msgid "Match Categories"
 msgstr "Corresponder categorías"
 
-#: ImportExport/ImportDialog.cpp:299
+#: ImportExport/ImportDialog.cpp:317
 #, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr "La carpeta %1 no existe. ¿Desea crearla?"
 
-#: ImportExport/ImportDialog.cpp:300 MainWindow/WelcomeDialog.cpp:156
+#: ImportExport/ImportDialog.cpp:318 MainWindow/WelcomeDialog.cpp:156
 #, kde-format
 msgctxt "@title"
 msgid "Create folder?"
 msgstr "¿Crear carpeta?"
 
-#: ImportExport/ImportDialog.cpp:304 MainWindow/WelcomeDialog.cpp:160
+#: ImportExport/ImportDialog.cpp:322 MainWindow/WelcomeDialog.cpp:160
 #: MainWindow/Window.cpp:1226
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
 msgstr "Crear"
 
-#: ImportExport/ImportDialog.cpp:310
+#: ImportExport/ImportDialog.cpp:328
 #, kde-format
 msgid "Error creating folder %1"
 msgstr "Ha ocurrido un error al crear la carpeta %1"
 
-#: ImportExport/ImportDialog.cpp:389
+#: ImportExport/ImportDialog.cpp:401
 #, kde-format
 msgid "How to resolve clashes"
 msgstr "Cómo resolver los conflictos"
@@ -3208,7 +3211,7 @@ msgstr "Complementos"
 msgid "Main Toolbar"
 msgstr "Barra de herramientas principal"
 
-#: lib/kpabase/SettingsData.cpp:245
+#: lib/kpabase/SettingsData.cpp:247
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3225,7 +3228,7 @@ msgstr ""
 "válida si la imagen ha sido escaneada). La pregunta es, ¿debe confiar "
 "KPhotoAlbum en la marca de tiempo de sus imágenes?"
 
-#: lib/kpabase/SettingsData.cpp:252
+#: lib/kpabase/SettingsData.cpp:254
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "¿Confiar en las marcas de tiempo?"
@@ -6181,12 +6184,12 @@ msgstr ""
 "contrario, se perderá y se le mostrará un error durante el siguiente inicio "
 "de la aplicación que le notificará que esta etiqueta no está presente.</p>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:28
+#: Settings/VideoPlayerSelectorDialog.cpp:30
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
 msgstr "<h1>Escoger un reproductor de vídeo</h1>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:31
+#: Settings/VideoPlayerSelectorDialog.cpp:33
 #, kde-format
 msgid ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
@@ -6223,13 +6226,13 @@ msgstr ""
 "color=red>Puede cambiar el motor en cualquier momento usando la opción "
 "«Preferencias -> Visor».</font></b></p></html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:57
-#: Settings/VideoPlayerSelectorDialog.cpp:66
+#: Settings/VideoPlayerSelectorDialog.cpp:59
+#: Settings/VideoPlayerSelectorDialog.cpp:68
 #, kde-format
 msgid " (NOT AVAILABLE)"
 msgstr " (No disponible)"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:95
+#: Settings/VideoPlayerSelectorDialog.cpp:97
 #, kde-format
 msgid ""
 "<html><h1>Missing back-end</h1>The back-ends which are not available are due "
@@ -6244,31 +6247,31 @@ msgstr ""
 "motores. Si, por el contrario, ha obtenido KPhotoAlbum de su sistema, "
 "póngase en contacto con el encargado de mantener el paquete.</html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:154
+#: Settings/VideoPlayerSelectorDialog.cpp:158
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
 msgstr "Motor de vídeo de QtMultimedia"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:157
+#: Settings/VideoPlayerSelectorDialog.cpp:161
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
 msgstr "Motor de vídeo sin configurar"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:159
+#: Settings/VideoPlayerSelectorDialog.cpp:163
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
 msgstr "Motor de vídeo de Phonon"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:161
+#: Settings/VideoPlayerSelectorDialog.cpp:165
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
 msgstr "Motor de vídeo de QtAV"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:163
+#: Settings/VideoPlayerSelectorDialog.cpp:167
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
@@ -7236,101 +7239,101 @@ msgstr ""
 "ellos han fallado en algún punto.</p><p>La detección de fallos se ha "
 "desactivado.</p>"
 
-#: Viewer/ViewerWidget.cpp:1491
+#: Viewer/ViewerWidget.cpp:1493
 #, kde-format
 msgid "Annotate"
 msgstr "Anotar"
 
-#: Viewer/ViewerWidget.cpp:1510
+#: Viewer/ViewerWidget.cpp:1512
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "Ayuda"
 
-#: Viewer/ViewerWidget.cpp:1512
+#: Viewer/ViewerWidget.cpp:1514
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Diálogo de anotación"
 
-#: Viewer/ViewerWidget.cpp:1513
+#: Viewer/ViewerWidget.cpp:1515
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Añadir etiqueta"
 
-#: Viewer/ViewerWidget.cpp:1513
+#: Viewer/ViewerWidget.cpp:1515
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "CTRL+a"
 
-#: Viewer/ViewerWidget.cpp:1516
+#: Viewer/ViewerWidget.cpp:1518
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "Copiar datos de la imagen anterior"
 
-#: Viewer/ViewerWidget.cpp:1517
+#: Viewer/ViewerWidget.cpp:1519
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "CTRL+c"
 
-#: Viewer/ViewerWidget.cpp:1520
+#: Viewer/ViewerWidget.cpp:1522
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Editar descripción"
 
-#: Viewer/ViewerWidget.cpp:1521
+#: Viewer/ViewerWidget.cpp:1523
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "CTRL+d"
 
-#: Viewer/ViewerWidget.cpp:1524
+#: Viewer/ViewerWidget.cpp:1526
 #, kde-format
 msgid "Annotation Mode"
 msgstr "Modo de anotación"
 
-#: Viewer/ViewerWidget.cpp:1526
+#: Viewer/ViewerWidget.cpp:1528
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "Fijado"
 
-#: Viewer/ViewerWidget.cpp:1527
+#: Viewer/ViewerWidget.cpp:1529
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "CTRL+l"
 
-#: Viewer/ViewerWidget.cpp:1531
+#: Viewer/ViewerWidget.cpp:1533
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "Asignar etiquetas"
 
-#: Viewer/ViewerWidget.cpp:1532
+#: Viewer/ViewerWidget.cpp:1534
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1536
+#: Viewer/ViewerWidget.cpp:1538
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Asignar tókenes"
 
-#: Viewer/ViewerWidget.cpp:1537
+#: Viewer/ViewerWidget.cpp:1539
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "CTRL+t"
 
-#: Viewer/ViewerWidget.cpp:1701
+#: Viewer/ViewerWidget.cpp:1703
 #, kde-format
 msgid "Token %1"
 msgstr "Token %1"

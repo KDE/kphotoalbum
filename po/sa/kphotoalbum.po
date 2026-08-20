@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-19 00:43+0000\n"
+"POT-Creation-Date: 2026-08-20 00:42+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1614,13 +1614,13 @@ msgid "Places"
 msgstr "स्थानाः"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:455
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
 #, kde-format
 msgid "Events"
 msgstr "घटनाः"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:465
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
 #, kde-format
 msgid "untagged"
 msgstr "अनटैग्ड्"
@@ -2414,75 +2414,77 @@ msgstr "किं भवान् स्वस्य सर्वाणि ल�
 msgid "Building thumbnails"
 msgstr "लघुचित्रस्य निर्माणम्"
 
-#: ImportExport/Export.cpp:87
+#: ImportExport/Export.cpp:88
 #, kde-format
 msgid "Save an export file"
 msgstr "निर्यातसञ्चिकां रक्षन्तु"
 
-#: ImportExport/Export.cpp:89 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "KPhotoAlbum आयात सञ्चिकाः"
 
-#: ImportExport/Export.cpp:105
+#: ImportExport/Export.cpp:106
 #, fuzzy, kde-format
 #| msgid "Read Exif Info from Files..."
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
 msgstr "Files तः Exif Info पठन्तु..."
 
-#: ImportExport/Export.cpp:118
+#: ImportExport/Export.cpp:119
 #, fuzzy, kde-format
 #| msgid "How to Use the Export File"
-msgid "How to export %1 files"
-msgstr "निर्यातसञ्चिकायाः उपयोगः कथं भवति"
+msgid "How do you want to export one file?"
+msgid_plural "How do you want to export %1 files?"
+msgstr[0] "निर्यातसञ्चिकायाः उपयोगः कथं भवति"
+msgstr[1] "निर्यातसञ्चिकायाः उपयोगः कथं भवति"
 
-#: ImportExport/Export.cpp:122
+#: ImportExport/Export.cpp:123
 #, kde-format
 msgid "Include in .kim file"
 msgstr ".kim सञ्चिकायां समावेशयन्तु"
 
-#: ImportExport/Export.cpp:123
+#: ImportExport/Export.cpp:124
 #, kde-format
 msgid "Do not copy files, only generate .kim file"
 msgstr "सञ्चिकाः प्रतिलिपिं न कुर्वन्तु, केवलं .kim सञ्चिकां जनयन्तु"
 
-#: ImportExport/Export.cpp:124
+#: ImportExport/Export.cpp:125
 #, kde-format
 msgid "Automatically copy next to .kim file"
 msgstr ".kim सञ्चिकायाः पार्श्वे स्वयमेव प्रतिलिपिं कुर्वन्तु"
 
-#: ImportExport/Export.cpp:125
+#: ImportExport/Export.cpp:126
 #, kde-format
 msgid "Hard link next to .kim file"
 msgstr ".kim सञ्चिकायाः पार्श्वे हार्डलिङ्क्"
 
-#: ImportExport/Export.cpp:126
+#: ImportExport/Export.cpp:127
 #, kde-format
 msgid "Symbolic link next to .kim file"
 msgstr ".kim सञ्चिकायाः पार्श्वे प्रतीकात्मकं लिङ्क्"
 
-#: ImportExport/Export.cpp:147
+#: ImportExport/Export.cpp:149
 #, kde-format
 msgid "The exported files are too large to fit in the .kim file."
 msgstr ""
 
-#: ImportExport/Export.cpp:151
+#: ImportExport/Export.cpp:154
 #, kde-format
 msgid "Compress export file"
 msgstr "निर्यातसञ्चिकां संपीडयन्तु"
 
-#: ImportExport/Export.cpp:155
+#: ImportExport/Export.cpp:158
 #, kde-format
 msgid "Generate thumbnails"
 msgstr "लघुचित्रं जनयन्तु"
 
-#: ImportExport/Export.cpp:163
+#: ImportExport/Export.cpp:166
 #, kde-format
 msgid "Limit maximum image dimensions to: "
 msgstr "अधिकतमं चित्रपरिमाणं यावत् सीमितं कुर्वन्तु: "
 
-#: ImportExport/Export.cpp:175
+#: ImportExport/Export.cpp:178
 #, kde-format
 msgid ""
 "<p>If your images are stored in a non-compressed file format then you may "
@@ -2496,12 +2498,12 @@ msgstr ""
 "यदि भवतः चित्राणि jpg, png अथवा gif इत्यत्र संगृहीताः सन्ति तर्हि एतत् न परीक्ष्यताम्; "
 "परन्तु यदि भवतः चित्राणि tiff मध्ये संगृहीताः सन्ति तर्हि एतत् पश्यन्तु ।</p>"
 
-#: ImportExport/Export.cpp:181
+#: ImportExport/Export.cpp:184
 #, kde-format
 msgid "<p>Generate thumbnail images</p>"
 msgstr "<p>लघुचित्रप्रतिमानि जनयन्तु</p>"
 
-#: ImportExport/Export.cpp:184
+#: ImportExport/Export.cpp:187
 #, kde-format
 msgid ""
 "<p>With this option you may limit the maximum dimensions (width and height) "
@@ -2514,7 +2516,7 @@ msgstr ""
 "चित्राणि बृहत्तरपरिमाणयुक्तानि द्रष्टुम् इच्छति तर्हि अवश्यमेव गुणवत्ता अपि दुर्गता भविष्यति ।"
 "</p>"
 
-#: ImportExport/Export.cpp:191
+#: ImportExport/Export.cpp:194
 #, kde-format
 msgid ""
 "<p>When exporting images, bear in mind that there are two things the person "
@@ -2539,37 +2541,37 @@ msgstr ""
 "सन्दर्भे इदं श्रेष्ठतया कार्यं करोति, चित्राणि .kim सञ्चिकां च पृथक् कर्तुं, तान् परस्परं पार्श्वे "
 "स्थापयित्वा, येन उपयोक्ता इच्छति चित्राणि प्राप्तुं शक्नोति ।</p>"
 
-#: ImportExport/Export.cpp:270
+#: ImportExport/Export.cpp:273
 #, kde-format
 msgid "Error creating zip file"
 msgstr "जिप् सञ्चिकां निर्मातुं त्रुटिः"
 
-#: ImportExport/Export.cpp:284
+#: ImportExport/Export.cpp:287
 #, kde-format
 msgid "&Cancel"
 msgstr "&निरसयतु"
 
-#: ImportExport/Export.cpp:303
+#: ImportExport/Export.cpp:306
 #, kde-format
 msgid "Creating index file"
 msgstr "अनुक्रमणिकासञ्चिकायाः निर्माणम्"
 
-#: ImportExport/Export.cpp:315
+#: ImportExport/Export.cpp:318
 #, kde-format
 msgid "Creating thumbnails"
 msgstr "लघुचित्रं रचयन्"
 
-#: ImportExport/Export.cpp:338
+#: ImportExport/Export.cpp:341
 #, kde-format
 msgid "Copying image files"
 msgstr "चित्रसञ्चिकानां प्रतिलिपिः"
 
-#: ImportExport/Export.cpp:403
+#: ImportExport/Export.cpp:406
 #, kde-format
 msgid "Error writing file %1"
 msgstr "%1 सञ्चिकालेखने त्रुटिः"
 
-#: ImportExport/Export.cpp:431
+#: ImportExport/Export.cpp:434
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2591,7 +2593,7 @@ msgstr ""
 "KPhotoAlbum सञ्चिका अस्ति यदा लिङ्क् क्लिक् करोति, अन्यथा जालसर्वरः केवलं konqueror "
 "इत्यस्मै वदिष्यति यत् एषा साधारणपाठसञ्चिका अस्ति</p>"
 
-#: ImportExport/Export.cpp:440
+#: ImportExport/Export.cpp:443
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "निर्यातसञ्चिकायाः उपयोगः कथं भवति"
@@ -2606,7 +2608,7 @@ msgstr "KPhotoAlbum सञ्चिकाः निर्यातयन्त�
 msgid "Unable to create temporary file"
 msgstr "अस्थायीसञ्चिकां निर्मातुं असमर्थः"
 
-#: ImportExport/ImportDialog.cpp:86
+#: ImportExport/ImportDialog.cpp:87
 #, kde-format
 msgid ""
 "<p>XML file did not specify the source of the images, this is a strong "
@@ -2615,7 +2617,7 @@ msgstr ""
 "<p>XML सञ्चिकायां चित्राणां स्रोतः न निर्दिष्टः, एतत् सञ्चिका दूषिता इति प्रबलं सूचकम् "
 "अस्ति</p>"
 
-#: ImportExport/ImportDialog.cpp:120
+#: ImportExport/ImportDialog.cpp:121
 #, kde-format
 msgid ""
 "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This wizard "
@@ -2656,76 +2658,76 @@ msgstr ""
 "भविष्यन्ति, अतः भवान् द्रष्टुं शक्नोति यत् भवतः दत्तांशकोशे कोऽपि टोकनः न प्राप्तः, अथवा के "
 "टोकन केवलं आंशिकमेलनम् आसीत् ।</li></ol>"
 
-#: ImportExport/ImportDialog.cpp:139
+#: ImportExport/ImportDialog.cpp:140
 #, kde-format
 msgctxt "@title:tab introduction page"
 msgid "Introduction"
 msgstr "आमुख"
 
-#: ImportExport/ImportDialog.cpp:155 MainWindow/TokenEditor.cpp:60
+#: ImportExport/ImportDialog.cpp:156 MainWindow/TokenEditor.cpp:60
 #, kde-format
 msgid "Select All"
 msgstr "सर्वं चिनोतु"
 
-#: ImportExport/ImportDialog.cpp:157
+#: ImportExport/ImportDialog.cpp:158
 #, kde-format
 msgid "Deselect All"
 msgstr "सर्वाणि अचयनं कुर्वन्तु"
 
-#: ImportExport/ImportDialog.cpp:191
+#: ImportExport/ImportDialog.cpp:209
 #, kde-format
 msgid "Select Which Images to Import"
 msgstr "कति चित्राणि आयातितव्यानि इति चिनोतु"
 
-#: ImportExport/ImportDialog.cpp:203
+#: ImportExport/ImportDialog.cpp:221
 #, kde-format
 msgid "Destination of images: "
 msgstr "बिम्बानां गन्तव्यं : "
 
-#: ImportExport/ImportDialog.cpp:216
+#: ImportExport/ImportDialog.cpp:234
 #, kde-format
 msgid "Destination of Images"
 msgstr "बिम्बानां गन्तव्यं"
 
-#: ImportExport/ImportDialog.cpp:224
+#: ImportExport/ImportDialog.cpp:242
 #, kde-format
 msgid "The folder must be a subfolder of %1"
 msgstr "पुटं %1 इत्यस्य उपपुटं भवितुमर्हति"
 
-#: ImportExport/ImportDialog.cpp:227
+#: ImportExport/ImportDialog.cpp:245
 #, kde-format
 msgid "This folder is reserved for category images."
 msgstr "एतत् पुटं श्रेणीचित्रेषु आरक्षितम् अस्ति ।"
 
-#: ImportExport/ImportDialog.cpp:267
+#: ImportExport/ImportDialog.cpp:285
 #, kde-format
 msgid "Match Categories"
 msgstr "मिलान श्रेणियाँ"
 
-#: ImportExport/ImportDialog.cpp:299
+#: ImportExport/ImportDialog.cpp:317
 #, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr "%1 पुटं नास्ति । किं तस्य सृष्टिः भवितुमर्हति ?"
 
-#: ImportExport/ImportDialog.cpp:300 MainWindow/WelcomeDialog.cpp:156
+#: ImportExport/ImportDialog.cpp:318 MainWindow/WelcomeDialog.cpp:156
 #, kde-format
 msgctxt "@title"
 msgid "Create folder?"
 msgstr "पुटं रचयन्तु?"
 
-#: ImportExport/ImportDialog.cpp:304 MainWindow/WelcomeDialog.cpp:160
+#: ImportExport/ImportDialog.cpp:322 MainWindow/WelcomeDialog.cpp:160
 #: MainWindow/Window.cpp:1226
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
 msgstr "निर्मियताम्"
 
-#: ImportExport/ImportDialog.cpp:310
+#: ImportExport/ImportDialog.cpp:328
 #, kde-format
 msgid "Error creating folder %1"
 msgstr "%1 पुटस्य निर्माणे त्रुटिः"
 
-#: ImportExport/ImportDialog.cpp:389
+#: ImportExport/ImportDialog.cpp:401
 #, kde-format
 msgid "How to resolve clashes"
 msgstr "संघर्षस्य समाधानं कथं करणीयम्"
@@ -3153,7 +3155,7 @@ msgstr "प्लगिन्स्"
 msgid "Main Toolbar"
 msgstr "मुख्य साधनपट्टी"
 
-#: lib/kpabase/SettingsData.cpp:245
+#: lib/kpabase/SettingsData.cpp:247
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3169,7 +3171,7 @@ msgstr ""
 "सन्दर्भे एतत् वैधं न भवितुम् अर्हति अतः प्रश्नः अस्ति यत्, KPhotoAlbum इत्यनेन भवतः चित्रेषु "
 "समयमुद्रिकायां विश्वासः कर्तव्यः वा?"
 
-#: lib/kpabase/SettingsData.cpp:252
+#: lib/kpabase/SettingsData.cpp:254
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "समयमुद्रिकासु विश्वासः?"
@@ -6068,12 +6070,12 @@ msgstr ""
 "भविष्यति । अन्यथा, नष्टं भविष्यति, अग्रिमे आरम्भे अस्य टैग् इत्यस्य अभावस्य विषये त्रुटिः "
 "प्राप्स्यति ।</p>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:28
+#: Settings/VideoPlayerSelectorDialog.cpp:30
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
 msgstr "<h1>एकं Video Player इति चिनोतु</h1>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:31
+#: Settings/VideoPlayerSelectorDialog.cpp:33
 #, fuzzy, kde-format
 #| msgid ""
 #| "<html><p>Unfortunately, there is no video player which just works out of "
@@ -6119,13 +6121,13 @@ msgstr ""
 "नासीत् इति कारणतः ।</p><p> <b><font color=red>भवान् कदापि Settings -&gt; "
 "Viewer इत्यस्मात् पृष्ठभागं परिवर्तयितुं शक्नोति</font></b></p></html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:57
-#: Settings/VideoPlayerSelectorDialog.cpp:66
+#: Settings/VideoPlayerSelectorDialog.cpp:59
+#: Settings/VideoPlayerSelectorDialog.cpp:68
 #, kde-format
 msgid " (NOT AVAILABLE)"
 msgstr " (न उपलब्धम्)"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:95
+#: Settings/VideoPlayerSelectorDialog.cpp:97
 #, kde-format
 msgid ""
 "<html><h1>Missing back-end</h1>The back-ends which are not available are due "
@@ -6139,7 +6141,7 @@ msgstr ""
 "पृष्ठभागस्य विकासकसङ्कुलं अन्वेष्टुम् । यदि भवान् अपरपक्षे स्वस्य प्रणाल्याः KPhotoAlbum "
 "प्राप्तवान्, तर्हि कृपया संकुलस्य परिपालकेन सह वार्तालापं कुर्वन्तु ।</html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:154
+#: Settings/VideoPlayerSelectorDialog.cpp:158
 #, fuzzy, kde-format
 #| msgctxt "A friendly name for the video backend"
 #| msgid "QtAV video backend"
@@ -6147,25 +6149,25 @@ msgctxt "A friendly name for the video backend"
 msgid "QtMultimedia video backend"
 msgstr "QtAV विडियो बैकएंड"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:157
+#: Settings/VideoPlayerSelectorDialog.cpp:161
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
 msgstr "अविन्यस्तं विडियो पृष्ठभागः"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:159
+#: Settings/VideoPlayerSelectorDialog.cpp:163
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
 msgstr "Phonon विडियो पृष्ठभाग"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:161
+#: Settings/VideoPlayerSelectorDialog.cpp:165
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
 msgstr "QtAV विडियो बैकएंड"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:163
+#: Settings/VideoPlayerSelectorDialog.cpp:167
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
@@ -7147,101 +7149,101 @@ msgstr ""
 "<p>KPhotoAlbum इत्यनेन सर्वाणि उपलब्धानि विडियो बैकएण्ड्-प्रयोगाः कृताः, परन्तु प्रत्येकं "
 "कस्मिन्चित् समये दुर्घटनाम् अभवत् ।</p><p> इदानीं दुर्घटनानिरीक्षणं निष्क्रियम् अस्ति ।</p>"
 
-#: Viewer/ViewerWidget.cpp:1491
+#: Viewer/ViewerWidget.cpp:1493
 #, kde-format
 msgid "Annotate"
 msgstr "टिप्पणीं कुरुत"
 
-#: Viewer/ViewerWidget.cpp:1510
+#: Viewer/ViewerWidget.cpp:1512
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "साहाय्यम्‌"
 
-#: Viewer/ViewerWidget.cpp:1512
+#: Viewer/ViewerWidget.cpp:1514
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "एनोटेशन संवाद"
 
-#: Viewer/ViewerWidget.cpp:1513
+#: Viewer/ViewerWidget.cpp:1515
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "टैगं योजयन्तु"
 
-#: Viewer/ViewerWidget.cpp:1513
+#: Viewer/ViewerWidget.cpp:1515
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "सीटीआरएल+क"
 
-#: Viewer/ViewerWidget.cpp:1516
+#: Viewer/ViewerWidget.cpp:1518
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "पूर्वचित्रात् आँकडानां प्रतिलिपिं कुर्वन्तु"
 
-#: Viewer/ViewerWidget.cpp:1517
+#: Viewer/ViewerWidget.cpp:1519
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "सीटीआरएल+ग"
 
-#: Viewer/ViewerWidget.cpp:1520
+#: Viewer/ViewerWidget.cpp:1522
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "विवरणं सम्पादयतु"
 
-#: Viewer/ViewerWidget.cpp:1521
+#: Viewer/ViewerWidget.cpp:1523
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "सीटीआरएल+घ"
 
-#: Viewer/ViewerWidget.cpp:1524
+#: Viewer/ViewerWidget.cpp:1526
 #, kde-format
 msgid "Annotation Mode"
 msgstr "एनोटेशन मोड"
 
-#: Viewer/ViewerWidget.cpp:1526
+#: Viewer/ViewerWidget.cpp:1528
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "तालाबद्धः"
 
-#: Viewer/ViewerWidget.cpp:1527
+#: Viewer/ViewerWidget.cpp:1529
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "सीटीआरएल+ल"
 
-#: Viewer/ViewerWidget.cpp:1531
+#: Viewer/ViewerWidget.cpp:1533
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "टैग्स नियुक्त करें"
 
-#: Viewer/ViewerWidget.cpp:1532
+#: Viewer/ViewerWidget.cpp:1534
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1536
+#: Viewer/ViewerWidget.cpp:1538
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "टोकन नियुक्तं कुर्वन्तु"
 
-#: Viewer/ViewerWidget.cpp:1537
+#: Viewer/ViewerWidget.cpp:1539
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "सीटीआरएल+ट"
 
-#: Viewer/ViewerWidget.cpp:1701
+#: Viewer/ViewerWidget.cpp:1703
 #, kde-format
 msgid "Token %1"
 msgstr "टोकन %1"

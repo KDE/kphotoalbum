@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-20 00:42+0000\n"
-"PO-Revision-Date: 2026-07-04 07:22+0200\n"
+"PO-Revision-Date: 2026-08-20 06:06+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -2436,12 +2436,11 @@ msgid "Export Metadata / Copy Files"
 msgstr "მეტამონაცემების გატანა / ფაილების კოპირება"
 
 #: ImportExport/Export.cpp:119
-#, fuzzy, kde-format
-#| msgid "How to export %1 files"
+#, kde-format
 msgid "How do you want to export one file?"
 msgid_plural "How do you want to export %1 files?"
-msgstr[0] "როგორ გაიტანოთ %1 ფაილი"
-msgstr[1] "როგორ გაიტანოთ %1 ფაილი"
+msgstr[0] "გნებავთ, გაიტანოთ ერთი ფაილი?"
+msgstr[1] "გნებავთ, გაიტანოთ %1 ფაილი?"
 
 #: ImportExport/Export.cpp:123
 #, kde-format

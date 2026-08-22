@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-20 00:42+0000\n"
-"PO-Revision-Date: 2026-07-04 19:12+0200\n"
+"PO-Revision-Date: 2026-08-21 13:56+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -2460,12 +2460,11 @@ msgid "Export Metadata / Copy Files"
 msgstr "Metagegevens exporteren / bestanden kopiëren"
 
 #: ImportExport/Export.cpp:119
-#, fuzzy, kde-format
-#| msgid "How to export %1 files"
+#, kde-format
 msgid "How do you want to export one file?"
 msgid_plural "How do you want to export %1 files?"
-msgstr[0] "Hoe %1 bestanden exporteren"
-msgstr[1] "Hoe %1 bestanden exporteren"
+msgstr[0] "Hoe wilt u %1 bestand exporteren?"
+msgstr[1] "Hoe wilt u %1 bestanden exporteren?"
 
 #: ImportExport/Export.cpp:123
 #, kde-format

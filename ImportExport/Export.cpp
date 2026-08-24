@@ -148,6 +148,8 @@ ExportConfig::ExportConfig(qsizetype numberOfFiles, quint64 totalSizeInBytes)
         m_include->setEnabled(false);
         m_include->setToolTip(i18n("The exported files are too large to fit in the .kim file."));
     }
+#else
+Q_UNUSED(totalSizeInBytes);
 #endif
 
     // Compress

@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-20 00:42+0000\n"
-"PO-Revision-Date: 2026-01-05 17:28+0200\n"
+"PO-Revision-Date: 2026-02-25 16:08+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -296,13 +296,12 @@ msgstr "Ikkuna-asettelun asetukset…"
 #: AnnotationDialog/Dialog.cpp:945
 #, kde-format
 msgid "Save current layout globally"
-msgstr ""
+msgstr "Tallenna nykyinen asettelu yleiseksi"
 
 #: AnnotationDialog/Dialog.cpp:946
-#, fuzzy, kde-format
-#| msgid "Save the current map settings"
+#, kde-format
 msgid "Save current layout for this DB"
-msgstr "Tallenna nykyisen kartan asetukset"
+msgstr "Tallenna tämän tietokannan nykyinen asettelu"
 
 #: AnnotationDialog/Dialog.cpp:948
 #, kde-format
@@ -2427,11 +2426,10 @@ msgid "KPhotoAlbum import files"
 msgstr "KPhotoAlbumin tuontitiedostot"
 
 #: ImportExport/Export.cpp:106
-#, fuzzy, kde-format
-#| msgid "Read Exif Info from Files..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Metadata / Copy Files"
-msgstr "Lue tiedostoista Exif-tieto…"
+msgstr "Vie metatietoa tai kopioi tiedostoja"
 
 #: ImportExport/Export.cpp:119
 #, fuzzy, kde-format
@@ -2469,7 +2467,7 @@ msgstr "Luo symbolinen linkki .kim-tiedoston oheen"
 #: ImportExport/Export.cpp:149
 #, kde-format
 msgid "The exported files are too large to fit in the .kim file."
-msgstr ""
+msgstr "Viedyt tiedostot ovat liian suuria mahtumaan .kim-tiedostoon."
 
 #: ImportExport/Export.cpp:154
 #, kde-format
@@ -6293,29 +6291,22 @@ msgid "Video Backend:"
 msgstr "Videotaustajärjestelmä:"
 
 #: Settings/ViewerPage.cpp:112
-#, fuzzy, kde-format
-#| msgid "Annotation Mode"
+#, kde-format
 msgid "Default Annotation Mode"
-msgstr "Merkintätila"
+msgstr "Oletusmerkintätila"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Locked"
+#, kde-format
 msgid "Locked"
 msgstr "Lukittu"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tags"
+#, kde-format
 msgid "Assign tags"
 msgstr "Kytke luokituksia"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tokens"
+#, kde-format
 msgid "Assign tokens"
 msgstr "Osoita merkkejä"
 
@@ -6951,27 +6942,22 @@ msgstr "Keskeytä"
 #: Viewer/ViewerWidget.cpp:632 Viewer/ViewerWidget.cpp:1156
 #, kde-format
 msgid "Tags and tokens locked"
-msgstr ""
+msgstr "Luokitukset ja merkit lukittu"
 
 #: Viewer/ViewerWidget.cpp:634
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tags"
+#, kde-format
 msgid "Assigning tags"
-msgstr "Kytke luokituksia"
+msgstr "Luokitusten kytkeminen"
 
 #: Viewer/ViewerWidget.cpp:636
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tokens"
+#, kde-format
 msgid "Assigning tokens"
-msgstr "Osoita merkkejä"
+msgstr "Merkkien osoittaminen"
 
 #: Viewer/ViewerWidget.cpp:641
-#, fuzzy, kde-format
-#| msgid "Annotation Mode"
+#, kde-format
 msgid "Annotation mode: %1"
-msgstr "Merkintätila"
+msgstr "Merkintätila: %1"
 
 #: Viewer/ViewerWidget.cpp:914
 #, kde-format

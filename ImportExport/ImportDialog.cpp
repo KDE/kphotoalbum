@@ -107,16 +107,16 @@ bool ImportDialog::readFile(const QByteArray &data)
 
 void ImportDialog::setupPages()
 {
-    createIntroduction();
+    createIntroductionPage();
+    createDestinationPage();
     createImagesPage();
-    createDestination();
     createCategoryPages();
     connect(this, &ImportDialog::currentPageChanged, this, &ImportDialog::updateNextButtonState);
     QPushButton *helpButton = buttonBox()->button(QDialogButtonBox::Help);
     connect(helpButton, &QPushButton::clicked, this, &ImportDialog::slotHelp);
 }
 
-void ImportDialog::createIntroduction()
+void ImportDialog::createIntroductionPage()
 {
     QString txt = i18n("<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>"
                        "This wizard will take you through the steps of an import operation. The steps are: "
@@ -209,7 +209,7 @@ void ImportDialog::createImagesPage()
     m_selectImagesPage = addPage(top, i18n("Select Which Images to Import"));
 }
 
-void ImportDialog::createDestination()
+void ImportDialog::createDestinationPage()
 {
     QWidget *top = new QWidget(this);
     QVBoxLayout *topLay = new QVBoxLayout(top);

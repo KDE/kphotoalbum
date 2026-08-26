@@ -47,9 +47,9 @@ protected:
 
     void setupPages();
     bool readFile(const QByteArray &data);
-    void createIntroduction();
+    void createIntroductionPage();
     void createImagesPage();
-    void createDestination();
+    void createDestinationPage();
     void createCategoryPages();
     ImportMatcher *createCategoryPage(const QString &myCategory, const QString &otherCategory);
     DB::ImageInfoList selectedImages() const;

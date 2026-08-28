@@ -40,6 +40,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Add action ('Ctrl-=') to toggle all stacks in the thumbnail view.
 
 ### Changed
+ - Tweak order of dialog pages for import dialog (#512204)
 
 ### Dependencies
 
@@ -47,6 +48,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
 ### Fixed
  - Fix incorrectly shown warning dialog about unsaved changes (#520244)
+ - Remove export file size limit (#512199)
 
 ### Removed
 

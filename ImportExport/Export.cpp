@@ -397,8 +397,10 @@ void Export::pixmapLoaded(ImageManager::ImageRequest *request, const QImage &ima
     buffer.open(QIODevice::WriteOnly);
     image.save(&buffer, QFileInfo(zipFileName).suffix().toLower().toLatin1().constData());
 
-    if (m_location == Inline || !m_copyingFiles)
-        m_zip->writeFile(zipFileName, data.constData());
+    if (m_location == Inline || !m_copyingFiles) {
+        m_zip->writeFile(zipFileName, buffer.data());
+        qCDebug(ImportExportLog) << "Zipped" << fileName.relative() << "as" << zipFileName;
+    }
     else {
         QString file = m_destdir + QLatin1String("/") + m_filenameMapper.uniqNameFor(fileName);
         QFile out(file);
@@ -408,6 +410,7 @@ void Export::pixmapLoaded(ImageManager::ImageRequest *request, const QImage &ima
         }
         out.write(data.constData(), data.size());
         out.close();
+        qCDebug(ImportExportLog) << "Wrote" << fileName.relative() << "to" << file;
     }
 
     qApp->processEvents(QEventLoop::AllEvents);

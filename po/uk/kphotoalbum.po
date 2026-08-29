@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-20 00:42+0000\n"
+"POT-Creation-Date: 2026-08-29 00:43+0000\n"
 "PO-Revision-Date: 2026-08-20 08:55+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -2526,22 +2526,22 @@ msgstr "Символічне посилання на теку файла .kim"
 msgid "The exported files are too large to fit in the .kim file."
 msgstr "Експортовані файли є надто великими, вони не вміщаються до файла .kim."
 
-#: ImportExport/Export.cpp:154
+#: ImportExport/Export.cpp:156
 #, kde-format
 msgid "Compress export file"
 msgstr "Стиснути файл експорту"
 
-#: ImportExport/Export.cpp:158
+#: ImportExport/Export.cpp:160
 #, kde-format
 msgid "Generate thumbnails"
 msgstr "Створити мініатюри"
 
-#: ImportExport/Export.cpp:166
+#: ImportExport/Export.cpp:168
 #, kde-format
 msgid "Limit maximum image dimensions to: "
 msgstr "Обмежити максимальні розміри зображення до: "
 
-#: ImportExport/Export.cpp:178
+#: ImportExport/Export.cpp:180
 #, kde-format
 msgid ""
 "<p>If your images are stored in a non-compressed file format then you may "
@@ -2556,12 +2556,12 @@ msgstr ""
 "позначки, якщо ваші зображення зберігаються у файлах jpg, png або gif; але "
 "позначте цей елемент, якщо ваші зображення збережено у файлах tiff.</p>"
 
-#: ImportExport/Export.cpp:184
+#: ImportExport/Export.cpp:186
 #, kde-format
 msgid "<p>Generate thumbnail images</p>"
 msgstr "<p>Створити зображення мініатюр</p>"
 
-#: ImportExport/Export.cpp:187
+#: ImportExport/Export.cpp:189
 #, kde-format
 msgid ""
 "<p>With this option you may limit the maximum dimensions (width and height) "
@@ -2574,7 +2574,7 @@ msgstr ""
 "експортований файл меншим, але, звичайно ж, погіршить якість експортованих "
 "зображень під час перегляді з вищими роздільними здатностями.</p>"
 
-#: ImportExport/Export.cpp:194
+#: ImportExport/Export.cpp:196
 #, kde-format
 msgid ""
 "<p>When exporting images, bear in mind that there are two things the person "
@@ -2601,37 +2601,37 @@ msgstr ""
 "розмістивши їх поруч, так, щоб користувач отримував доступ лише до потрібних "
 "зображень.</p>"
 
-#: ImportExport/Export.cpp:273
+#: ImportExport/Export.cpp:275
 #, kde-format
 msgid "Error creating zip file"
 msgstr "Помилка під час створення файла zip"
 
-#: ImportExport/Export.cpp:287
+#: ImportExport/Export.cpp:289
 #, kde-format
 msgid "&Cancel"
 msgstr "&Скасувати"
 
-#: ImportExport/Export.cpp:306
+#: ImportExport/Export.cpp:308
 #, kde-format
 msgid "Creating index file"
 msgstr "Створення файла індексу"
 
-#: ImportExport/Export.cpp:318
+#: ImportExport/Export.cpp:320
 #, kde-format
 msgid "Creating thumbnails"
 msgstr "Створення мініатюр"
 
-#: ImportExport/Export.cpp:341
+#: ImportExport/Export.cpp:343
 #, kde-format
 msgid "Copying image files"
 msgstr "Копіювання файлів зображень"
 
-#: ImportExport/Export.cpp:406
+#: ImportExport/Export.cpp:408
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Помилка запису файла %1"
 
-#: ImportExport/Export.cpp:434
+#: ImportExport/Export.cpp:436
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2656,7 +2656,7 @@ msgstr ""
 "клацання на посиланні, у іншому випадку сервер мережі просто повідомить "
 "konqueror, що відповідний файл є простим текстом.</p>"
 
-#: ImportExport/Export.cpp:443
+#: ImportExport/Export.cpp:445
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Спосіб використання експортованого файла"

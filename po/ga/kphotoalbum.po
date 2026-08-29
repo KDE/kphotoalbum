@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-graphics/kphotoalbum.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-20 00:42+0000\n"
+"POT-Creation-Date: 2026-08-29 00:43+0000\n"
 "PO-Revision-Date: 2007-06-29 09:44-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -2300,22 +2300,22 @@ msgstr ""
 msgid "The exported files are too large to fit in the .kim file."
 msgstr ""
 
-#: ImportExport/Export.cpp:154
+#: ImportExport/Export.cpp:156
 #, kde-format
 msgid "Compress export file"
 msgstr "Comhbhrúigh an comhad easpórtáilte"
 
-#: ImportExport/Export.cpp:158
+#: ImportExport/Export.cpp:160
 #, kde-format
 msgid "Generate thumbnails"
 msgstr "Déan mionsamhlacha"
 
-#: ImportExport/Export.cpp:166
+#: ImportExport/Export.cpp:168
 #, kde-format
 msgid "Limit maximum image dimensions to: "
 msgstr ""
 
-#: ImportExport/Export.cpp:178
+#: ImportExport/Export.cpp:180
 #, kde-format
 msgid ""
 "<p>If your images are stored in a non-compressed file format then you may "
@@ -2325,12 +2325,12 @@ msgid ""
 "tiff.</p>"
 msgstr ""
 
-#: ImportExport/Export.cpp:184
+#: ImportExport/Export.cpp:186
 #, kde-format
 msgid "<p>Generate thumbnail images</p>"
 msgstr "<p>Gin mionsamhlacha</p>"
 
-#: ImportExport/Export.cpp:187
+#: ImportExport/Export.cpp:189
 #, kde-format
 msgid ""
 "<p>With this option you may limit the maximum dimensions (width and height) "
@@ -2339,7 +2339,7 @@ msgid ""
 "exported images with larger dimensions.</p>"
 msgstr ""
 
-#: ImportExport/Export.cpp:194
+#: ImportExport/Export.cpp:196
 #, kde-format
 msgid ""
 "<p>When exporting images, bear in mind that there are two things the person "
@@ -2355,37 +2355,37 @@ msgid ""
 "</p>"
 msgstr ""
 
-#: ImportExport/Export.cpp:273
+#: ImportExport/Export.cpp:275
 #, kde-format
 msgid "Error creating zip file"
 msgstr "Earráid agus comhad zip á chruthú"
 
-#: ImportExport/Export.cpp:287
+#: ImportExport/Export.cpp:289
 #, kde-format
 msgid "&Cancel"
 msgstr "&Cealaigh"
 
-#: ImportExport/Export.cpp:306
+#: ImportExport/Export.cpp:308
 #, kde-format
 msgid "Creating index file"
 msgstr "Comhad innéacs á chruthú"
 
-#: ImportExport/Export.cpp:318
+#: ImportExport/Export.cpp:320
 #, kde-format
 msgid "Creating thumbnails"
 msgstr "Mionsamhlacha á gcruthú"
 
-#: ImportExport/Export.cpp:341
+#: ImportExport/Export.cpp:343
 #, kde-format
 msgid "Copying image files"
 msgstr "Comhaid íomhá á gcóipeáil"
 
-#: ImportExport/Export.cpp:406
+#: ImportExport/Export.cpp:408
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Earráid agus comhad %1 á scríobh"
 
-#: ImportExport/Export.cpp:434
+#: ImportExport/Export.cpp:436
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2399,7 +2399,7 @@ msgid ""
 "server will just tell konqueror that it is a plain text file.</p>"
 msgstr ""
 
-#: ImportExport/Export.cpp:443
+#: ImportExport/Export.cpp:445
 #, kde-format
 msgid "How to Use the Export File"
 msgstr ""

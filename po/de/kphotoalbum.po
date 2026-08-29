@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-20 00:42+0000\n"
+"POT-Creation-Date: 2026-08-29 00:43+0000\n"
 "PO-Revision-Date: 2023-08-14 21:58+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -2539,22 +2539,22 @@ msgstr "Symbolische Verknüpfung neben die .kim-Datei"
 msgid "The exported files are too large to fit in the .kim file."
 msgstr ""
 
-#: ImportExport/Export.cpp:154
+#: ImportExport/Export.cpp:156
 #, kde-format
 msgid "Compress export file"
 msgstr "Exportdatei komprimieren"
 
-#: ImportExport/Export.cpp:158
+#: ImportExport/Export.cpp:160
 #, kde-format
 msgid "Generate thumbnails"
 msgstr "Vorschaubilder erzeugen"
 
-#: ImportExport/Export.cpp:166
+#: ImportExport/Export.cpp:168
 #, kde-format
 msgid "Limit maximum image dimensions to: "
 msgstr "Maximale Bildgröße begrenzen auf: "
 
-#: ImportExport/Export.cpp:178
+#: ImportExport/Export.cpp:180
 #, kde-format
 msgid ""
 "<p>If your images are stored in a non-compressed file format then you may "
@@ -2570,12 +2570,12 @@ msgstr ""
 "JPEG, PNG oder GIF gespeichert haben. Wählen Sie sie, wenn Ihre Bilder im "
 "Format TIFF vorliegen.</p>"
 
-#: ImportExport/Export.cpp:184
+#: ImportExport/Export.cpp:186
 #, kde-format
 msgid "<p>Generate thumbnail images</p>"
 msgstr "<p>Vorschaubilder erzeugen</p>"
 
-#: ImportExport/Export.cpp:187
+#: ImportExport/Export.cpp:189
 #, kde-format
 msgid ""
 "<p>With this option you may limit the maximum dimensions (width and height) "
@@ -2588,7 +2588,7 @@ msgstr ""
 "Qualität verschlechtern, falls jemand Ihre exportierten Bilder in einem "
 "größeren Maßstab betrachtet.</p>"
 
-#: ImportExport/Export.cpp:194
+#: ImportExport/Export.cpp:196
 #, kde-format
 msgid ""
 "<p>When exporting images, bear in mind that there are two things the person "
@@ -2615,37 +2615,37 @@ msgstr ""
 "platzieren, um zu vermeiden, dass jeder alle Bilder (eine Datei) "
 "herunterladen muss.</p>"
 
-#: ImportExport/Export.cpp:273
+#: ImportExport/Export.cpp:275
 #, kde-format
 msgid "Error creating zip file"
 msgstr "Fehler beim Erstellen der ZIP-Datei"
 
-#: ImportExport/Export.cpp:287
+#: ImportExport/Export.cpp:289
 #, kde-format
 msgid "&Cancel"
 msgstr "A&bbrechen"
 
-#: ImportExport/Export.cpp:306
+#: ImportExport/Export.cpp:308
 #, kde-format
 msgid "Creating index file"
 msgstr "Indexdatei wird erstellt"
 
-#: ImportExport/Export.cpp:318
+#: ImportExport/Export.cpp:320
 #, kde-format
 msgid "Creating thumbnails"
 msgstr "Vorschaubilder werden erstellt"
 
-#: ImportExport/Export.cpp:341
+#: ImportExport/Export.cpp:343
 #, kde-format
 msgid "Copying image files"
 msgstr "Bilddateien werden kopiert"
 
-#: ImportExport/Export.cpp:406
+#: ImportExport/Export.cpp:408
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Fehler beim Schreiben der Datei %1"
 
-#: ImportExport/Export.cpp:434
+#: ImportExport/Export.cpp:436
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2670,7 +2670,7 @@ msgstr ""
 "Datei handelt. Ansonsten wird der Webserver Konqueror die Daten als eine "
 "einfache Textdatei anbieten.</p>"
 
-#: ImportExport/Export.cpp:443
+#: ImportExport/Export.cpp:445
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Wie werden Exportdateien verwendet"

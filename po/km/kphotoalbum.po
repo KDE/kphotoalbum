@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-20 00:42+0000\n"
+"POT-Creation-Date: 2026-08-29 00:43+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -2545,22 +2545,22 @@ msgstr "តំណ​និមិត្ត​សញ្ញា​នៅ​ក្ប
 msgid "The exported files are too large to fit in the .kim file."
 msgstr ""
 
-#: ImportExport/Export.cpp:154
+#: ImportExport/Export.cpp:156
 #, kde-format
 msgid "Compress export file"
 msgstr "បង្ហាប់​ឯកសារ​នាំចេញ"
 
-#: ImportExport/Export.cpp:158
+#: ImportExport/Export.cpp:160
 #, kde-format
 msgid "Generate thumbnails"
 msgstr "បង្កើត​រូបភាព​តូច"
 
-#: ImportExport/Export.cpp:166
+#: ImportExport/Export.cpp:168
 #, kde-format
 msgid "Limit maximum image dimensions to: "
 msgstr "កម្រិត​វិមាត្រ​អតិបរមា​របស់​រូបភាព​ត្រឹម: "
 
-#: ImportExport/Export.cpp:178
+#: ImportExport/Export.cpp:180
 #, kde-format
 msgid ""
 "<p>If your images are stored in a non-compressed file format then you may "
@@ -2574,12 +2574,12 @@ msgstr ""
 "និយាយ​ម្យ៉ាង​ទៀត កុំ​ធីក​វា​អី​ បើ​សិន​ជា​រូបភាព​របស់​អ្នក​ត្រូវ​បាន​រក្សា​ទុក​ក្នុង​ទ្រង់​ទ្រាយ​ jpg, png ឬ​ gif; "
 "ប៉ុន្តែ​ត្រូវ​តែ​ធីក​វា​ បើ​សិន​រូប​ភាព​របស់​អ្នក​ត្រូវ​បាន​រក្សា​ទុក​ក្នុង​ទ្រង់​ទ្រាយ​ tiff ។</p>"
 
-#: ImportExport/Export.cpp:184
+#: ImportExport/Export.cpp:186
 #, kde-format
 msgid "<p>Generate thumbnail images</p>"
 msgstr "<p>បង្កើត​រូបភាព​របស់​រូបភាព​តូចៗ</p>"
 
-#: ImportExport/Export.cpp:187
+#: ImportExport/Export.cpp:189
 #, kde-format
 msgid ""
 "<p>With this option you may limit the maximum dimensions (width and height) "
@@ -2591,7 +2591,7 @@ msgstr ""
 "ដូច្នេះ​នឹង​ធ្វើ​ឲ្យ​ឯកសារ​​នាំ​ចេញ​លទ្ធផលកាន់​តែ​តូច ប៉ុន្តែ​ពិត​មែន​ហើយ​ក៏​អាចនឹង​​ធ្វើ​ឲ្យ​គុណភាព​របស់​វា​កាន់​តែ​យ៉ាប់​"
 "ផង​ដែរ បើ​សិន​ជា​មាន​អ្នក​ណា​ម្នាក់​ចង់​មើល​រូបភាព​នាំ​ចេញ​ដែល​មាន​វិមាត្រ​ធំ​ជាង​នេះ ។</p>"
 
-#: ImportExport/Export.cpp:194
+#: ImportExport/Export.cpp:196
 #, kde-format
 msgid ""
 "<p>When exporting images, bear in mind that there are two things the person "
@@ -2616,37 +2616,37 @@ msgstr ""
 "បំបែក​រូបភាព​និង​ ឯកសារ​ .kim ចេញ​ពី​គ្នា ដោយ​ដាក់​ពួក​វា​នៅ​ក្បែរ​គ្នា​ ដូច្នេះ​អ្នក​ប្រើ​អាច​ចូល​ដំណើរ​ការ​"
 "រូបភាព​ដែល​គេ​ត្រូវ​ការ​បាន​ ។</p>"
 
-#: ImportExport/Export.cpp:273
+#: ImportExport/Export.cpp:275
 #, kde-format
 msgid "Error creating zip file"
 msgstr "កំហុស​ក្នុង​ការ​បង្កើត​ឯកសារ​ហ្ស៊ីប"
 
-#: ImportExport/Export.cpp:287
+#: ImportExport/Export.cpp:289
 #, kde-format
 msgid "&Cancel"
 msgstr "បោះបង់"
 
-#: ImportExport/Export.cpp:306
+#: ImportExport/Export.cpp:308
 #, kde-format
 msgid "Creating index file"
 msgstr "កំពុង​បង្កើត​​ឯកសារ​លិបិក្រម"
 
-#: ImportExport/Export.cpp:318
+#: ImportExport/Export.cpp:320
 #, kde-format
 msgid "Creating thumbnails"
 msgstr "កំពុង​​បង្កើត​រូបភាព​តូចៗ"
 
-#: ImportExport/Export.cpp:341
+#: ImportExport/Export.cpp:343
 #, kde-format
 msgid "Copying image files"
 msgstr "កំពុង​ចម្លង​ឯកសារ​រូបភាព"
 
-#: ImportExport/Export.cpp:406
+#: ImportExport/Export.cpp:408
 #, kde-format
 msgid "Error writing file %1"
 msgstr "កំហុស​ក្នុង​ការ​សរសេរ​ឯកសារ %1"
 
-#: ImportExport/Export.cpp:434
+#: ImportExport/Export.cpp:436
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2669,7 +2669,7 @@ msgstr ""
 "ពេល​ចុច​លើ​តំណ បើ​មិន​អញ្ចឹង​ទេ ម៉ាស៊ីន​បម្រើ​បណ្តាញ​របស់​អ្នក​នឹង​ប្រាប់​ konqueror ​ថា​វា​ជា​ឯកសារ​អត្ថបទ​"
 "ធម្មតា ។</p>"
 
-#: ImportExport/Export.cpp:443
+#: ImportExport/Export.cpp:445
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "របៀប​ប្រើ​ឯកសារ​នាំចេញ"

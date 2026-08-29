@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-20 00:42+0000\n"
+"POT-Creation-Date: 2026-08-29 00:43+0000\n"
 "PO-Revision-Date: 2026-08-20 11:19+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -2473,22 +2473,22 @@ msgstr "קישור סמלי ליד קובץ ‎.kim"
 msgid "The exported files are too large to fit in the .kim file."
 msgstr "הקבצים המיוצאים גדולים מכדי להיכנס בתוך קובץ ה־‎.kim"
 
-#: ImportExport/Export.cpp:154
+#: ImportExport/Export.cpp:156
 #, kde-format
 msgid "Compress export file"
 msgstr "דחיסת קובץ הייצוא"
 
-#: ImportExport/Export.cpp:158
+#: ImportExport/Export.cpp:160
 #, kde-format
 msgid "Generate thumbnails"
 msgstr "יצירת תמונות ממוזערות"
 
-#: ImportExport/Export.cpp:166
+#: ImportExport/Export.cpp:168
 #, kde-format
 msgid "Limit maximum image dimensions to: "
 msgstr "הגבלת ממדי התמונה המרביים לכדי: "
 
-#: ImportExport/Export.cpp:178
+#: ImportExport/Export.cpp:180
 #, kde-format
 msgid ""
 "<p>If your images are stored in a non-compressed file format then you may "
@@ -2502,12 +2502,12 @@ msgstr ""
 "אם התמונות שלך מאוחסנות ב־jpg,‏ png או gif, אבל כדאי לסמן את זה אם התמונות "
 "שלך מאוחסנות כ־tiff.</p>"
 
-#: ImportExport/Export.cpp:184
+#: ImportExport/Export.cpp:186
 #, kde-format
 msgid "<p>Generate thumbnail images</p>"
 msgstr "<p>יצירת תמונות ממוזערות</p>"
 
-#: ImportExport/Export.cpp:187
+#: ImportExport/Export.cpp:189
 #, kde-format
 msgid ""
 "<p>With this option you may limit the maximum dimensions (width and height) "
@@ -2519,7 +2519,7 @@ msgstr ""
 "שלך. הגדרת הערך הזה תוביל להקטנת הקובץ המיוצא, אבל תפחית מהאיכות, באופן "
 "טבעי, במקרה של הצגת התמונות בגדול.</p>"
 
-#: ImportExport/Export.cpp:194
+#: ImportExport/Export.cpp:196
 #, kde-format
 msgid ""
 "<p>When exporting images, bear in mind that there are two things the person "
@@ -2543,37 +2543,37 @@ msgstr ""
 "עדיף להפריד את התמונות מקובץ ה־‎.kim, על ידי הפרדתם זה לצד זה, כדי שלמשתמשים "
 "תהיה גישה לתמונות הרצויות.</p>"
 
-#: ImportExport/Export.cpp:273
+#: ImportExport/Export.cpp:275
 #, kde-format
 msgid "Error creating zip file"
 msgstr "שגיאה ביצירת קובץ zip"
 
-#: ImportExport/Export.cpp:287
+#: ImportExport/Export.cpp:289
 #, kde-format
 msgid "&Cancel"
 msgstr "&ביטול"
 
-#: ImportExport/Export.cpp:306
+#: ImportExport/Export.cpp:308
 #, kde-format
 msgid "Creating index file"
 msgstr "נוצר קובץ מפתח"
 
-#: ImportExport/Export.cpp:318
+#: ImportExport/Export.cpp:320
 #, kde-format
 msgid "Creating thumbnails"
 msgstr "נוצרות תמונות ממוזערות"
 
-#: ImportExport/Export.cpp:341
+#: ImportExport/Export.cpp:343
 #, kde-format
 msgid "Copying image files"
 msgstr "העתקת קובצי תמונות"
 
-#: ImportExport/Export.cpp:406
+#: ImportExport/Export.cpp:408
 #, kde-format
 msgid "Error writing file %1"
 msgstr "שגיאה בכתיבה לקובץ %1"
 
-#: ImportExport/Export.cpp:434
+#: ImportExport/Export.cpp:436
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2595,7 +2595,7 @@ msgstr ""
 "שלך להנחות את Konqueror שזה קובץ של KPhotoAlbum עם לחיצה על הקישור, אחרת "
 "השרת ינחה את Konqueror שזה קובץ טקסט רגיל.</p>"
 
-#: ImportExport/Export.cpp:443
+#: ImportExport/Export.cpp:445
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "איך להשתמש בקובץ הייצוא"

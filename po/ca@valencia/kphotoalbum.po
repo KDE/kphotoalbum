@@ -3,7 +3,7 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022, 2023 Antoni Bella Pérez <antonibella5@yahoo.com>
+# SPDX-FileCopyrightText: 2012-2020, 2022-2023 Antoni Bella Pérez <antonibella5@yahoo.com>
 # SPDX-FileCopyrightText: 2009 Manuel Tortosa Moreno <manutortosa@gmail.com>
 # SPDX-FileCopyrightText: 2007-2026 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
@@ -2572,7 +2572,7 @@ msgstr ""
 "persona que les importe necessitarà: <br/>1) la meta-informació (contingut "
 "de la imatge, data, etc.) <br/>2) les imatges mateixes.</p> <p>Les imatges "
 "mateixes poden estar al costat del fitxer .kim, o copiades dins el fitxer ."
-"kim. Copiar les imatges dins el fitxer .kim treballa bé per als destinataris "
+"kim. Copiar les imatges dins el fitxer .kim funciona bé per als destinataris "
 "que vullguen totes o la majoria de les imatges, per exemple, quan s'envia un "
 "grup sencer d'imatges. Per altra banda, quan ubiqueu les imatges en la Web, "
 "moltes persones les veuran, però només se'n descarregaran una part. En estos "
@@ -5546,7 +5546,7 @@ msgid ""
 "longer for the images to be preloaded.</p>"
 msgstr ""
 "<p>Calcula la suma de verificació MD5 mentre es precarreguen les imatges. "
-"Açò treballa bé si l'emmagatzematge és molt ràpid, com una unitat NVMe. Si "
+"Açò funciona bé si l'emmagatzematge és molt ràpid, com una unitat NVMe. Si "
 "l'emmagatzematge és lent, açò degrada el rendiment, ja que el càlcul de la "
 "suma de verificació ha d'esperar més per a precarregar les imatges.</p>"
 
@@ -5568,7 +5568,7 @@ msgstr ""
 "tindre-les en la memòria quan es calculen les sumes de verificació. En "
 "general, açò s'ha d'establir més alt per a un emmagatzematge més ràpid, però "
 "no més que el nombre de nuclis de la CPU. És 1 de manera predeterminada, el "
-"qual treballa bé amb els discs durs mecànics.</p>"
+"qual funciona bé amb els discs durs mecànics.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:230
 #, kde-format

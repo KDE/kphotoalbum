@@ -6875,7 +6875,7 @@ msgstr "Effacer l'allocation"
 #: Viewer/SelectCategoryAndValue.ui:14
 #, kde-format
 msgid "Dialog"
-msgstr "Boîte de dialogue"
+msgstr "Boite de dialogue"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
@@ -7336,7 +7336,7 @@ msgstr "Aide"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
-msgstr "Boîte de dialogue pour annotation"
+msgstr "Boite de dialogue pour annotation"
 
 #: Viewer/ViewerWidget.cpp:1515
 #, kde-format

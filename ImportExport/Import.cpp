@@ -1,5 +1,6 @@
-// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003 - 2010 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -10,6 +11,7 @@
 #include "KimFileReader.h"
 
 #include <MainWindow/Window.h>
+#include <kpabase/SettingsData.h>
 
 #include <KIO/Job>
 #include <KIO/JobUiDelegate>
@@ -25,8 +27,8 @@ void Import::imageImport()
 {
     QUrl url = QFileDialog::getOpenFileUrl(
         nullptr, /*parent*/
-        i18n("KPhotoAlbum Export Files"), /*caption*/
-        QUrl(), /* directory */
+        i18n("Import Files"), /*caption*/
+        Settings::SettingsData::instance()->importURL(), /* directory */
         i18n("KPhotoAlbum import files") + QString::fromLatin1("(*.kim)") /*filter*/
     );
     if (url.isEmpty())
@@ -92,6 +94,7 @@ void ImportExport::Import::exec(const QString &fileName)
     if (ok) {
         ImportHandler handler;
         handler.exec(dialog.settings(), &kimFileReader);
+        Settings::SettingsData::instance()->setImportURL(m_kimFileUrl.adjusted(QUrl::RemoveFilename | QUrl::RemovePassword));
     }
 
     delete this;

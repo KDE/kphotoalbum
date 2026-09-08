@@ -237,6 +237,12 @@ public:
     property_copy(updateDescription, setUpdateDescription, bool);
 
     ///////////////////////
+    //// Import Export ////
+    ///////////////////////
+
+    property_copy(importURL, setImportURL, QUrl);
+
+    ///////////////////////
     //// Miscellaneous ////
     ///////////////////////
 

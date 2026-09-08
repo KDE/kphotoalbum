@@ -32,6 +32,7 @@
 #include <QStringList>
 #include <QStringLiteral>
 #include <QThread>
+#include <QUrl>
 
 #if LIBVLC_FOUND
 #include <vlc/libvlc_version.h>
@@ -499,11 +500,19 @@ property_copy(updateDescription, setUpdateDescription, bool, ExifImport, false)
     // clang-format on
 
     ///////////////////////
+    //// Import Export ////
+    ///////////////////////
+
+    // clang-format off
+property_copy(importURL, setImportURL, QUrl, ImportExport, QUrl())
+    // clang-format on
+
+    ///////////////////////
     //// Miscellaneous ////
     ///////////////////////
 
     // clang-format off
-    property_ref_(HTMLBaseDir, setHTMLBaseDir, QString, groupForDatabase("HTML Settings"), QString::fromLatin1("%1/public_html").arg(QString::fromLocal8Bit(qgetenv("HOME"))))
+property_ref_(HTMLBaseDir, setHTMLBaseDir, QString, groupForDatabase("HTML Settings"), QString::fromLatin1("%1/public_html").arg(QString::fromLocal8Bit(qgetenv("HOME"))))
 property_ref_(HTMLBaseURL, setHTMLBaseURL, QString, groupForDatabase("HTML Settings"), STR("file://%1").arg(HTMLBaseDir()))
 property_ref_(HTMLDestURL, setHTMLDestURL, QString, groupForDatabase("HTML Settings"), STR("file://%1").arg(HTMLBaseDir()))
 property_ref_(HTMLCopyright, setHTMLCopyright, QString, groupForDatabase("HTML Settings"), QString())

@@ -4581,7 +4581,7 @@ msgstr "Fusionner les doublons..."
 #: MainWindow/Window.cpp:1023 MainWindow/Window.cpp:1078
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
-msgstr "Rafraîchir les vignettes et les sommes de contrôle sélectionnées"
+msgstr "Rafraichir les vignettes et les sommes de contrôle sélectionnées"
 
 #: MainWindow/Window.cpp:1027
 #, kde-format

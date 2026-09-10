@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2014-04-26 20:31+0200\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@nuug.no>\n"
@@ -1527,13 +1527,13 @@ msgid "Places"
 msgstr "Steder"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "Hendelser"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, kde-format
 msgid "untagged"
 msgstr ""
@@ -2309,7 +2309,7 @@ msgstr "Bygger miniatyrbilder"
 msgid "Save an export file"
 msgstr ""
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr ""
@@ -2460,12 +2460,12 @@ msgstr "Lager minibilder"
 msgid "Copying image files"
 msgstr "Kopierer bildefiler"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Feil ved skriving til fil %1"
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2488,17 +2488,17 @@ msgstr ""
 "KPhotoAlbum-fil når brukeren trykker på lenka, ellers vil tjeneren bare si "
 "at det er en ren tekstfil.</p>"
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Hvordan eksportfila brukes"
 
-#: ImportExport/Import.cpp:28
+#: ImportExport/Import.cpp:30
 #, kde-format
-msgid "KPhotoAlbum Export Files"
+msgid "Import Files"
 msgstr ""
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr "Klarte ikke opprette midlertidig fil"
@@ -3030,7 +3030,7 @@ msgstr "Programtillegg"
 msgid "Main Toolbar"
 msgstr "Hovedverktøylinje"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3041,7 +3041,7 @@ msgid ""
 "on your images?"
 msgstr ""
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Stole på tidsstempler? …"

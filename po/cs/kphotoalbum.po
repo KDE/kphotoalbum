@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2026-08-27 00:00+0200\n"
 "Last-Translator: Vít Pelčák <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -1634,13 +1634,13 @@ msgid "Places"
 msgstr "Místa"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "Události"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, kde-format
 msgid "untagged"
 msgstr "bez značek"
@@ -2442,7 +2442,7 @@ msgstr "Sestavení náhledů"
 msgid "Save an export file"
 msgstr "Uložit exportní soubor"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "Importní soubory KPhotoAlbum"
@@ -2590,12 +2590,12 @@ msgstr "Vytváření náhledů"
 msgid "Copying image files"
 msgstr "Kopírování souborů s obrázky"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Chyba zápisu do souboru %1"
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2619,17 +2619,18 @@ msgstr ""
 "soubor KPhotoAlbum, v jiném případě webový server Konqueroru oznámí, že je "
 "to čistý textový soubor.</p>"
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Jak používat exportní soubor"
 
-#: ImportExport/Import.cpp:28
-#, kde-format
-msgid "KPhotoAlbum Export Files"
-msgstr "Exportní soubory KPhotoAlbum"
+#: ImportExport/Import.cpp:30
+#, fuzzy, kde-format
+#| msgid "Import file."
+msgid "Import Files"
+msgstr "Importovat soubor."
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr "Nelze vytvořit dočasný soubor"
@@ -3198,7 +3199,7 @@ msgstr "Moduly"
 msgid "Main Toolbar"
 msgstr "Hlavní panel nástrojů"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3215,7 +3216,7 @@ msgstr ""
 "správné, nebo také nemusí v případě, že váš obrázek byl naskenován. Takže "
 "otázka zní, má KPhotoAlbum důvěřovat časovým značkám vašich snímků?"
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Věřit časovým razítkům?"
@@ -7374,6 +7375,9 @@ msgstr "Zobrazit velikosti obrázků"
 #, kde-format
 msgid "Show Rating"
 msgstr "Zobrazit hodnocení"
+
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "Exportní soubory KPhotoAlbum"
 
 #~ msgid "Merge these images"
 #~ msgstr "Sloučit tyto obrázky"

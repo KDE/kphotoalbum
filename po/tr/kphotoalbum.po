@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2026-08-21 19:25+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -1617,13 +1617,13 @@ msgid "Places"
 msgstr "Yerler"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "Olaylar"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, kde-format
 msgid "untagged"
 msgstr "künyelenmemiş"
@@ -2427,7 +2427,7 @@ msgstr "Küçük görseller yapılıyor"
 msgid "Save an export file"
 msgstr "Bir dışa aktarma dosyası kaydet"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "K Fotoğraf Albümü içe aktarma dosyaları"
@@ -2574,12 +2574,12 @@ msgstr "Küçük görseller oluşturuluyor"
 msgid "Copying image files"
 msgstr "Görsel dosyaları kopyalanıyor"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "%1 dosyası yazılırken hata"
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2604,17 +2604,18 @@ msgstr ""
 "bildirmesini sağlayacaktır, aksi durumlarda bunun yalnızca bir düz metin "
 "dosyası olduğunu bildirecektir.</p>"
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Dışa Aktarma Dosyası Nice Kullanılır"
 
-#: ImportExport/Import.cpp:28
-#, kde-format
-msgid "KPhotoAlbum Export Files"
-msgstr "K Fotoğraf Albümü Dışa Aktarma Dosyaları"
+#: ImportExport/Import.cpp:30
+#, fuzzy, kde-format
+#| msgid "Import file."
+msgid "Import Files"
+msgstr "Dosya içe aktar."
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr "Geçici dosya oluşturulamadı"
@@ -3181,7 +3182,7 @@ msgstr "Eklentiler"
 msgid "Main Toolbar"
 msgstr "Ana Araç Çubuğu"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3197,7 +3198,7 @@ msgstr ""
 "Albümü, görselin zaman damgasını kullanabilir; ancak bu görselin tarandığın "
 "durumda geçerli değildir. Görsellerinizin zaman damgalarına güvenilsin mi?"
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Zaman Damgalarına Güven?"
@@ -7326,6 +7327,9 @@ msgstr "Görsel Boyutunu Göster"
 #, kde-format
 msgid "Show Rating"
 msgstr "Derecelendirmeyi Göster"
+
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "K Fotoğraf Albümü Dışa Aktarma Dosyaları"
 
 #~ msgid "Merge these images"
 #~ msgstr "Bu görselleri birleştir"

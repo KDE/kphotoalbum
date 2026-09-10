@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2026-04-16 17:46+0300\n"
 "Last-Translator: Remigijus Jarmalavičius <remigijus@jarmalavicius.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -1519,13 +1519,13 @@ msgid "Places"
 msgstr "Vietos"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "Įvykiai"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, kde-format
 msgid "untagged"
 msgstr ""
@@ -2299,7 +2299,7 @@ msgstr "Sudaromos miniatiūros"
 msgid "Save an export file"
 msgstr "Importuoti failą"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, fuzzy, kde-format
 #| msgid "KPhotoAlbum"
 msgid "KPhotoAlbum import files"
@@ -2431,12 +2431,12 @@ msgstr "Sukuriamos miniatiūros"
 msgid "Copying image files"
 msgstr ""
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr ""
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2450,18 +2450,18 @@ msgid ""
 "server will just tell konqueror that it is a plain text file.</p>"
 msgstr ""
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr ""
 
-#: ImportExport/Import.cpp:28
+#: ImportExport/Import.cpp:30
 #, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
-msgid "KPhotoAlbum Export Files"
-msgstr "KPhotoAlbum"
+#| msgid "Import file"
+msgid "Import Files"
+msgstr "Importuoti failą"
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr ""
@@ -2991,7 +2991,7 @@ msgstr "Įskiepiai"
 msgid "Main Toolbar"
 msgstr "Pagrindinė įrankių juosta"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3002,7 +3002,7 @@ msgid ""
 "on your images?"
 msgstr ""
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr ""
@@ -6873,6 +6873,11 @@ msgstr "Rodyti paveikslo dydį"
 #| msgid "Show Date"
 msgid "Show Rating"
 msgstr "Rodyti datą"
+
+#, fuzzy
+#~| msgid "KPhotoAlbum"
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "KPhotoAlbum"
 
 #, fuzzy
 #~| msgid "Delete image"

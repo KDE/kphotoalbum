@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2026-08-20 11:19+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -1620,13 +1620,13 @@ msgid "Places"
 msgstr "מקומות"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "אירועים"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, kde-format
 msgid "untagged"
 msgstr "ללא תיוג"
@@ -2423,7 +2423,7 @@ msgstr "התמונות הממוזערות נבנות"
 msgid "Save an export file"
 msgstr "שמירת קובץ ייצוא"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "ייבוא קבצים ל־KPhotoAlbum"
@@ -2568,12 +2568,12 @@ msgstr "נוצרות תמונות ממוזערות"
 msgid "Copying image files"
 msgstr "העתקת קובצי תמונות"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "שגיאה בכתיבה לקובץ %1"
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2595,17 +2595,18 @@ msgstr ""
 "שלך להנחות את Konqueror שזה קובץ של KPhotoAlbum עם לחיצה על הקישור, אחרת "
 "השרת ינחה את Konqueror שזה קובץ טקסט רגיל.</p>"
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "איך להשתמש בקובץ הייצוא"
 
-#: ImportExport/Import.cpp:28
-#, kde-format
-msgid "KPhotoAlbum Export Files"
-msgstr "ייצוא קבצים מ־KPhotoAlbum"
+#: ImportExport/Import.cpp:30
+#, fuzzy, kde-format
+#| msgid "Import file."
+msgid "Import Files"
+msgstr "ייבוא קובץ."
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr "לא ניתן ליצור קובץ זמני"
@@ -3165,7 +3166,7 @@ msgstr "תוספים"
 msgid "Main Toolbar"
 msgstr "סרגל כלים ראשי"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3181,7 +3182,7 @@ msgstr ""
 "מדויק למשל במקרה של תמונה סרוקה. לכן השאלה היא, האם על KPhotoAlbum להאמין "
 "לחותמות הזמן של התמונות שלך?"
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "לסמוך על חותמות הזמן?"
@@ -7279,6 +7280,9 @@ msgstr "הצגת גודל תמונה"
 #, kde-format
 msgid "Show Rating"
 msgstr "הצגת דירוג"
+
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "ייצוא קבצים מ־KPhotoAlbum"
 
 #~ msgid "Merge these images"
 #~ msgstr "מיזוג התמונות האלה"

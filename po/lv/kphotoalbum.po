@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2025-11-11 18:42+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -1625,13 +1625,13 @@ msgid "Places"
 msgstr "Vietas"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "Notikumi"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, kde-format
 msgid "untagged"
 msgstr "bez birkas"
@@ -2434,7 +2434,7 @@ msgstr "Būvē sīktēlus"
 msgid "Save an export file"
 msgstr "Saglabāt eksporta datni"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "„KPhotoAlbum“ importa datnes"
@@ -2581,12 +2581,12 @@ msgstr "Veido sīktēlus"
 msgid "Copying image files"
 msgstr "Kopē attēlu datnes"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Kļūda, rakstot datni „%1“"
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2610,17 +2610,18 @@ msgstr ""
 "„KPhotoAlbum“ datne. Pretējā gadījumā tīmekļa serveris „Konqueror“ "
 "programmai norādīs, ka tā ir neformatēta teksta datne.</p>"
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Kā izmantot eksportēšanas datni"
 
-#: ImportExport/Import.cpp:28
-#, kde-format
-msgid "KPhotoAlbum Export Files"
-msgstr "„KPhotoAlbum“ eksportēšanas datnes"
+#: ImportExport/Import.cpp:30
+#, fuzzy, kde-format
+#| msgid "Import file."
+msgid "Import Files"
+msgstr "Importēt datni."
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr "Neizdodas izveidot pagaidu datni"
@@ -3188,7 +3189,7 @@ msgstr "Spraudņi"
 msgid "Main Toolbar"
 msgstr "Pamata rīkjosla"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3205,7 +3206,7 @@ msgstr ""
 "tomēr skenētiem attēliem tā var nebūt derīga. Tāpēc jautājums ir: vai "
 "„KPhotoAlbum“ uzticēties attēlā esošajiem laika zīmogiem?"
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Vai uzticēties laika zīmogiem?"
@@ -7390,6 +7391,9 @@ msgstr "Rādīt attēla izmēru"
 #, kde-format
 msgid "Show Rating"
 msgstr "Rādīt reitingu"
+
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "„KPhotoAlbum“ eksportēšanas datnes"
 
 #~ msgid "Merge these images"
 #~ msgstr "Apvienot šos attēlus"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2012-01-16 16:58+0700\n"
 "Last-Translator: Lê Hoàng Phương <herophuong93@gmail.com>\n"
 "Language-Team: Vietnamese <kde-i18n-vi@kde.org>\n"
@@ -1669,13 +1669,13 @@ msgid "Places"
 msgstr "Nơi"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr ""
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, fuzzy, kde-format
 #| msgid "New Images"
 msgid "untagged"
@@ -2513,7 +2513,7 @@ msgstr "Xây dựng mẫu ảnh"
 msgid "Save an export file"
 msgstr "Tạo tệp xuất dạng .kim"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, fuzzy, kde-format
 #| msgid "KPhotoAlbum database files (*.db)"
 msgid "KPhotoAlbum import files"
@@ -2672,12 +2672,12 @@ msgstr "Đang tạo các mẫu ảnh"
 msgid "Copying image files"
 msgstr "Đang sao chép các tệp ảnh"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Gặp lỗi khi ghi tệp %1"
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2701,18 +2701,18 @@ msgstr ""
 "liên kết. Nếu không thì trình phục vụ Mạng sẽ chỉ báo Konqueror biết nó là "
 "tệp văn bản chuẩn.</p>"
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Cách dùng tệp xuất"
 
-#: ImportExport/Import.cpp:28
+#: ImportExport/Import.cpp:30
 #, fuzzy, kde-format
-#| msgid "KPhotoAlbum database files (*.db)"
-msgid "KPhotoAlbum Export Files"
-msgstr "Các tệp co sở dữ liệu KPhotoAlbum (*.db)"
+#| msgid "Import file"
+msgid "Import Files"
+msgstr "Nhập tệp"
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, fuzzy, kde-format
 #| msgid "Unable to Create Directory"
 msgid "Unable to create temporary file"
@@ -3312,7 +3312,7 @@ msgstr "Bổ sung"
 msgid "Main Toolbar"
 msgstr "Thanh công cụ chính"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3323,7 +3323,7 @@ msgid ""
 "on your images?"
 msgstr ""
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Theo nhãn thời gian ?"
@@ -7457,6 +7457,11 @@ msgstr "Hiện cỡ ảnh"
 #| msgid "Show Ranges"
 msgid "Show Rating"
 msgstr "Hiện đánh giá"
+
+#, fuzzy
+#~| msgid "KPhotoAlbum database files (*.db)"
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "Các tệp co sở dữ liệu KPhotoAlbum (*.db)"
 
 #, fuzzy
 #~| msgid "Delete image"

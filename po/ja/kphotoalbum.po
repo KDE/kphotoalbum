@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2008-09-24 00:02+0900\n"
 "Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -1659,13 +1659,13 @@ msgid "Places"
 msgstr "場所"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "出来事"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, fuzzy, kde-format
 #| msgid "New Images"
 msgid "untagged"
@@ -2502,7 +2502,7 @@ msgstr "サムネイルを生成"
 msgid "Save an export file"
 msgstr ".kim エクスポートファイルを作成"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, fuzzy, kde-format
 #| msgid "KPhotoAlbum"
 msgid "KPhotoAlbum import files"
@@ -2661,12 +2661,12 @@ msgstr "サムネイルを作成"
 msgid "Copying image files"
 msgstr "画像ファイルをコピー"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "ファイル ‘%1’ の書き込みでエラー"
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2690,18 +2690,18 @@ msgstr ""
 "それが KPhotoAlbum ファイルであることを知らせます。この設定を行わなかった場合"
 "は、プレーンテキストファイルとして認識されます。</p>"
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "エクスポートファイルの使い方"
 
-#: ImportExport/Import.cpp:28
+#: ImportExport/Import.cpp:30
 #, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
-msgid "KPhotoAlbum Export Files"
-msgstr "KPhotoAlbum"
+#| msgid "Import file"
+msgid "Import Files"
+msgstr "インポートファイル"
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr "一時ファイルを作成できません"
@@ -3309,7 +3309,7 @@ msgstr "プラグイン"
 msgid "Main Toolbar"
 msgstr "メインツールバー"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3320,7 +3320,7 @@ msgid ""
 "on your images?"
 msgstr ""
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "タイムスタンプを信用しますか？"
@@ -7418,6 +7418,11 @@ msgstr "画像のサイズを表示"
 #| msgid "Show Ranges"
 msgid "Show Rating"
 msgstr "範囲を表示"
+
+#, fuzzy
+#~| msgid "KPhotoAlbum"
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "KPhotoAlbum"
 
 #, fuzzy
 #~| msgid "Delete image"

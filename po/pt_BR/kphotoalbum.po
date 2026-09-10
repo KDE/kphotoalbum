@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2026-08-20 06:02-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -1630,13 +1630,13 @@ msgid "Places"
 msgstr "Lugares"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "Eventos"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, kde-format
 msgid "untagged"
 msgstr "sem etiquetas"
@@ -2447,7 +2447,7 @@ msgstr "Construindo miniaturas"
 msgid "Save an export file"
 msgstr "Salvar um arquivo de exportação"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "Arquivos de importação do KPhotoAlbum"
@@ -2594,12 +2594,12 @@ msgstr "Criando miniaturas"
 msgid "Copying image files"
 msgstr "Copiando arquivos de imagens"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Erro no salvamento do arquivo %1"
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2624,17 +2624,18 @@ msgstr ""
 "KPhotoAlbum, quando clicar no link; caso contrário, o servidor web apenas "
 "dirá ao Konqueror que o arquivo é de texto normal.</p>"
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Como usar o arquivo de exportação"
 
-#: ImportExport/Import.cpp:28
-#, kde-format
-msgid "KPhotoAlbum Export Files"
-msgstr "Arquivos de exportação do KPhotoAlbum"
+#: ImportExport/Import.cpp:30
+#, fuzzy, kde-format
+#| msgid "Import file."
+msgid "Import Files"
+msgstr "Importar arquivo;"
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr "Não foi possível criar o arquivo temporário"
@@ -3207,7 +3208,7 @@ msgstr "Plugins"
 msgid "Main Toolbar"
 msgstr "Barra de ferramentas principal"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3224,7 +3225,7 @@ msgstr ""
 "não ser válido, no caso de a imagem ser digitalizada. Por isso, a questão "
 "aqui é se o KPhotoAlbum deverá confiar na data das suas imagens?"
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Confiar no formato de data e hora?"
@@ -7393,6 +7394,9 @@ msgstr "Mostrar tamanho da imagem"
 #, kde-format
 msgid "Show Rating"
 msgstr "Mostrar classificação"
+
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "Arquivos de exportação do KPhotoAlbum"
 
 #~ msgid "Merge these images"
 #~ msgstr "Mesclar estas imagens"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2014-03-19 18:59+0100\n"
 "Last-Translator: Manfred Wiese <m.j.wiese@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -1657,13 +1657,13 @@ msgid "Places"
 msgstr "Öörd"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "Begeefnissen"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, fuzzy, kde-format
 #| msgid "Untagged Images"
 msgid "untagged"
@@ -2500,7 +2500,7 @@ msgstr "Vöransichten warrt opstellt"
 msgid "Save an export file"
 msgstr ".kim-Exportdatei opstellen"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, fuzzy, kde-format
 #| msgid "KPhotoAlbum database files (*.db)"
 msgid "KPhotoAlbum import files"
@@ -2649,12 +2649,12 @@ msgstr "Vöransichten warrt opstellt"
 msgid "Copying image files"
 msgstr "Bilddateien warrt kopeert"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Datei \"%1\" lett sik nich schrieven."
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2677,18 +2677,18 @@ msgstr ""
 "anklickte Datei en KPhotoAlbum-Datei is, anners gellt se bloots as en "
 "eenfach Textdatei.</p>"
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Wodennig sik Exportdateien bruken laat"
 
-#: ImportExport/Import.cpp:28
+#: ImportExport/Import.cpp:30
 #, fuzzy, kde-format
-#| msgid "KPhotoAlbum database files (*.db)"
-msgid "KPhotoAlbum Export Files"
-msgstr "KPhotoAlbum-Datenbankdateien (*.db)"
+#| msgid "Import file"
+msgid "Import Files"
+msgstr "Datei importeren"
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr "Temporeerdatei lett sik nich opstellen"
@@ -3303,7 +3303,7 @@ msgstr "Modulen"
 msgid "Main Toolbar"
 msgstr "Hööft-Warktüüchbalken"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, fuzzy, kde-format
 #| msgid ""
 #| "When reading time information of images, their EXIF info is used. Exif "
@@ -3327,7 +3327,7 @@ msgstr ""
 "sünd se villicht leeg. Nu is de Fraag: Schall KPhotoAlbum de Tietmarken "
 "övernehmen?"
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Tietmarken övernehmen?"
@@ -7541,6 +7541,11 @@ msgstr "Bildgrött wiesen"
 #| msgid "Show Ranges"
 msgid "Show Rating"
 msgstr "Rebeden wiesen"
+
+#, fuzzy
+#~| msgid "KPhotoAlbum database files (*.db)"
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "KPhotoAlbum-Datenbankdateien (*.db)"
 
 #, fuzzy
 #~| msgid "Delete image"

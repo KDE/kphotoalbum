@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2010-04-16 06:52+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
@@ -1539,13 +1539,13 @@ msgid "Places"
 msgstr "ਥਾਵਾਂ"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "ਈਵੈਂਟ"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, fuzzy, kde-format
 #| msgid "Untagged Images"
 msgid "untagged"
@@ -2334,7 +2334,7 @@ msgstr "ਥੰਮਨੇਲ ਬਣਾਏ ਜਾ ਰਹੇ ਹਨ"
 msgid "Save an export file"
 msgstr "ਐਕਸਪੋਰਟ ਫਾਇਲ ਕੰਪਰੈੱਸ"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, fuzzy, kde-format
 #| msgid "KPhotoAlbum database files (*.db)"
 msgid "KPhotoAlbum import files"
@@ -2469,12 +2469,12 @@ msgstr "ਥੰਮਨੇਲ ਬਣਾਏ ਜਾ ਰਹੇ ਹਨ"
 msgid "Copying image files"
 msgstr "ਚਿੱਤਰ ਫਾਇਲਾਂ ਕਾਪੀ ਕੀਤੀਆਂ ਜਾ ਰਹੀਆਂ ਹਨ"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "ਫਾਇਲ %1 ਲਿਖਣ ਦੌਰਾਨ ਗਲਤੀ"
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2488,18 +2488,18 @@ msgid ""
 "server will just tell konqueror that it is a plain text file.</p>"
 msgstr ""
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "ਫਾਇਲ ਐਕਸਪੋਰਟ ਕਿੰਝ ਕਰੀਏ"
 
-#: ImportExport/Import.cpp:28
+#: ImportExport/Import.cpp:30
 #, fuzzy, kde-format
-#| msgid "KPhotoAlbum database files (*.db)"
-msgid "KPhotoAlbum Export Files"
-msgstr "ਕੇ-ਫੋਟੋ-ਐਲਬਮ ਡਾਟਾਬੇਸ ਫਾਇਲਾਂ (*.db)"
+#| msgid "Import file"
+msgid "Import Files"
+msgstr "ਫਾਇਲ ਇੰਪੋਰਟ"
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr "ਆਰਜ਼ੀ ਫਾਇਲ ਬਾਉਣ ਲਈ ਅਸਮਰੱਥ"
@@ -3044,7 +3044,7 @@ msgstr "ਪਲੱਗਇਨ"
 msgid "Main Toolbar"
 msgstr ""
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3055,7 +3055,7 @@ msgid ""
 "on your images?"
 msgstr ""
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr ""
@@ -6999,6 +6999,11 @@ msgstr "ਚਿੱਤਰ ਸਾਈਜ਼ ਵੇਖੋ"
 #| msgid "Show Ranges"
 msgid "Show Rating"
 msgstr "ਰੇਜ਼ ਵੇਖੋ"
+
+#, fuzzy
+#~| msgid "KPhotoAlbum database files (*.db)"
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "ਕੇ-ਫੋਟੋ-ਐਲਬਮ ਡਾਟਾਬੇਸ ਫਾਇਲਾਂ (*.db)"
 
 #, fuzzy
 #~| msgid "Delete Image"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1614,13 +1614,13 @@ msgid "Places"
 msgstr "स्थानाः"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "घटनाः"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, kde-format
 msgid "untagged"
 msgstr "अनटैग्ड्"
@@ -2419,7 +2419,7 @@ msgstr "लघुचित्रस्य निर्माणम्"
 msgid "Save an export file"
 msgstr "निर्यातसञ्चिकां रक्षन्तु"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "KPhotoAlbum आयात सञ्चिकाः"
@@ -2566,12 +2566,12 @@ msgstr "लघुचित्रं रचयन्"
 msgid "Copying image files"
 msgstr "चित्रसञ्चिकानां प्रतिलिपिः"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "%1 सञ्चिकालेखने त्रुटिः"
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2593,17 +2593,18 @@ msgstr ""
 "KPhotoAlbum सञ्चिका अस्ति यदा लिङ्क् क्लिक् करोति, अन्यथा जालसर्वरः केवलं konqueror "
 "इत्यस्मै वदिष्यति यत् एषा साधारणपाठसञ्चिका अस्ति</p>"
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "निर्यातसञ्चिकायाः उपयोगः कथं भवति"
 
-#: ImportExport/Import.cpp:28
-#, kde-format
-msgid "KPhotoAlbum Export Files"
-msgstr "KPhotoAlbum सञ्चिकाः निर्यातयन्तु"
+#: ImportExport/Import.cpp:30
+#, fuzzy, kde-format
+#| msgid "Import file."
+msgid "Import Files"
+msgstr "सञ्चिकां आयातयन्तु।"
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr "अस्थायीसञ्चिकां निर्मातुं असमर्थः"
@@ -3155,7 +3156,7 @@ msgstr "प्लगिन्स्"
 msgid "Main Toolbar"
 msgstr "मुख्य साधनपट्टी"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3171,7 +3172,7 @@ msgstr ""
 "सन्दर्भे एतत् वैधं न भवितुम् अर्हति अतः प्रश्नः अस्ति यत्, KPhotoAlbum इत्यनेन भवतः चित्रेषु "
 "समयमुद्रिकायां विश्वासः कर्तव्यः वा?"
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "समयमुद्रिकासु विश्वासः?"
@@ -7302,6 +7303,9 @@ msgstr "चित्रस्य आकारं दर्शयतु"
 #, kde-format
 msgid "Show Rating"
 msgstr "रेटिंग् दर्शयतु"
+
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "KPhotoAlbum सञ्चिकाः निर्यातयन्तु"
 
 #~ msgid "Merge these images"
 #~ msgstr "एतानि चित्राणि विलीनयन्तु"

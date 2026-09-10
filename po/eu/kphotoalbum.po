@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2026-01-04 12:37+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -1622,13 +1622,13 @@ msgid "Places"
 msgstr "Lekuak"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "Gertaerak"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, kde-format
 msgid "untagged"
 msgstr "Etiketarik gabeak"
@@ -2436,7 +2436,7 @@ msgstr "Eraiki koadro txikiak"
 msgid "Save an export file"
 msgstr "Sortu eta esportatu fitxategia"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "KPhotoAlbum inportazio fitxategiak"
@@ -2584,12 +2584,12 @@ msgstr "Koadro txikiak sortzen"
 msgid "Copying image files"
 msgstr "Irudien fitxategiak kopiatzen"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Errorea %1 fitxategia idaztean"
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2613,17 +2613,18 @@ msgstr ""
 "KPhotoAlbum fitxategi bat dela bere estekaren gainean klik egitean, bestela "
 "web zerbitzariak testu soileko fitxategia dela esango dio Konqueror-i.</p>"
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Nola erabili esportatzeko fitxategia"
 
-#: ImportExport/Import.cpp:28
-#, kde-format
-msgid "KPhotoAlbum Export Files"
-msgstr "KPhotoAlbum esportazio fitxategiak"
+#: ImportExport/Import.cpp:30
+#, fuzzy, kde-format
+#| msgid "Import file."
+msgid "Import Files"
+msgstr "Inportatu fitxategia."
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr "Ezin da aldi baterako fitxategia sortu"
@@ -3196,7 +3197,7 @@ msgstr "Pluginak"
 msgid "Main Toolbar"
 msgstr "Tresna-barra nagusia"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3214,7 +3215,7 @@ msgstr ""
 "den kasuan). Beraz, galdera hau da: KPhotoAlbumek irudien data-zigiluetan "
 "fidatu behar du?"
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Fidatu data-zigiluetaz?"
@@ -7397,6 +7398,9 @@ msgstr "Erakutsi irudiaren tamaina"
 #, kde-format
 msgid "Show Rating"
 msgstr "Erakutsi puntuazioa"
+
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "KPhotoAlbum esportazio fitxategiak"
 
 #~ msgid "Merge these images"
 #~ msgstr "Batu irudi hauek"

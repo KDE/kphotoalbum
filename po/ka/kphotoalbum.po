@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2026-08-20 06:06+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -1614,13 +1614,13 @@ msgid "Places"
 msgstr "ადგილები"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "მოვლენები"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, kde-format
 msgid "untagged"
 msgstr "ჭდის გარეშე"
@@ -2424,7 +2424,7 @@ msgstr "მინიატურების აგება"
 msgid "Save an export file"
 msgstr "გატანის ფაილის შენახვა"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "KPhotoAlbum-ის შემოსატანი ფაილები"
@@ -2572,12 +2572,12 @@ msgstr "მინიატურების შექმნა"
 msgid "Copying image files"
 msgstr "სურათის ფაილების კოპირება"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "ფაილის ჩაწერის შეცდომა %1"
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2601,17 +2601,18 @@ msgstr ""
 "შეატყობინოს, რომ ეს არის KPhotoAlbum-ის ფაილი; წინააღმდეგ შემთხვევაში, "
 "სერვერი მას აღიქვამს, როგორც ჩვეულებრივ ტექსტურ ფაილს.</p>"
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "როგორ გამოვიყენოთ გატანილი ფაილი"
 
-#: ImportExport/Import.cpp:28
-#, kde-format
-msgid "KPhotoAlbum Export Files"
-msgstr "KPhotoAlbum-ის გატანილი ფაილები"
+#: ImportExport/Import.cpp:30
+#, fuzzy, kde-format
+#| msgid "Import file."
+msgid "Import Files"
+msgstr "ფაილის შემოტანა."
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr "დროებითი ფაილის შექმნის შეცდომა"
@@ -3179,7 +3180,7 @@ msgstr "დამატებები"
 msgid "Main Toolbar"
 msgstr "ხელსაწყოთა მთავარი ზოლი"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3196,7 +3197,7 @@ msgstr ""
 "აიძულოს, რაც, შეიძლება, არ იყოს სწორი, თუ გამოსახულება დასკანერებულია. ასე "
 "რომ, კითხვაა, უნდა ენდოს KPhotoAlbum გამოსახულებების დროის შტამპს?"
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "ვენდო დროის შტამპებს?"
@@ -7344,6 +7345,9 @@ msgstr "გამოსახულების ზომის ჩვენე�
 #, kde-format
 msgid "Show Rating"
 msgstr "რეიტინგის ჩვენება"
+
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "KPhotoAlbum-ის გატანილი ფაილები"
 
 #~ msgid "Merge these images"
 #~ msgstr "ამ სურათების შერწყმა"

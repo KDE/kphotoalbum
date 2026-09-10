@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2025-12-16 21:17+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -1543,13 +1543,13 @@ msgid "Places"
 msgstr "地方"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "事件"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, kde-format
 msgid "untagged"
 msgstr "無標籤"
@@ -2358,7 +2358,7 @@ msgstr "建立縮圖中"
 msgid "Save an export file"
 msgstr "儲存 .kim 匯出檔"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "KPhotoAlbum 匯入檔"
@@ -2498,12 +2498,12 @@ msgstr "正在建立縮圖"
 msgid "Copying image files"
 msgstr "正在複製影像檔"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "寫入檔案 %1 時發生錯誤"
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2524,17 +2524,18 @@ msgstr ""
 "訴 konqueror 點擊的連結是一個 KPhotoAlbum 檔案。否則它只會告訴 konqueror 該檔"
 "案是一個普通的純文字檔。</p>"
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "如何使用匯出檔"
 
-#: ImportExport/Import.cpp:28
-#, kde-format
-msgid "KPhotoAlbum Export Files"
-msgstr "KPhotoAlbum 匯出檔"
+#: ImportExport/Import.cpp:30
+#, fuzzy, kde-format
+#| msgid "Import file."
+msgid "Import Files"
+msgstr "匯入檔。"
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr "無法建立暫存檔案"
@@ -3081,7 +3082,7 @@ msgstr "外掛程式"
 msgid "Main Toolbar"
 msgstr "主工具列"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, fuzzy, kde-format
 #| msgid ""
 #| "When reading time information of images, their EXIF info is used. Exif "
@@ -3103,7 +3104,7 @@ msgstr ""
 "KPhotoAlbum 可以用影像檔案的時間，只是若該影像是掃描進來的，此時間會不準確。"
 "所以我的問題是，KPhotoAlbum 是否應該相信您影像檔的時間？"
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "信任時間戳記嗎？"
@@ -7129,6 +7130,9 @@ msgstr "顯示影像大小"
 #, kde-format
 msgid "Show Rating"
 msgstr "顯示評分"
+
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "KPhotoAlbum 匯出檔"
 
 #~ msgid "Merge these images"
 #~ msgstr "合併這些影像"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2026-09-06 17:49+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -1638,13 +1638,13 @@ msgid "Places"
 msgstr "Llocs"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "Esdeveniments"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, kde-format
 msgid "untagged"
 msgstr "Sense etiquetar"
@@ -2454,7 +2454,7 @@ msgstr "S'estan construint les miniatures"
 msgid "Save an export file"
 msgstr "Desa un fitxer d'exportació"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "Fitxers d'importació del KPhotoAlbum"
@@ -2602,12 +2602,12 @@ msgstr "S'estan creant les miniatures"
 msgid "Copying image files"
 msgstr "S'estan copiant els fitxers d'imatge"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Error en escriure el fitxer %1"
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2631,17 +2631,18 @@ msgstr ""
 "un fitxer del KPhotoAlbum quan es cliqui a l'enllaç, en cas contrari, el "
 "servidor web informarà el Konqueror que és un fitxer de text.</p>"
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Com usar el fitxer d'exportació"
 
-#: ImportExport/Import.cpp:28
-#, kde-format
-msgid "KPhotoAlbum Export Files"
-msgstr "Fitxers d'exportació del KPhotoAlbum"
+#: ImportExport/Import.cpp:30
+#, fuzzy, kde-format
+#| msgid "Import file."
+msgid "Import Files"
+msgstr "Fitxer importat."
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr "No es pot crear el fitxer temporal"
@@ -3217,7 +3218,7 @@ msgstr "Connectors"
 msgid "Main Toolbar"
 msgstr "Barra d'eines principal"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3235,7 +3236,7 @@ msgstr ""
 "qüestió és: el KPhotoAlbum hauria de confiar en la marca de temps de les "
 "imatges?"
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Confio en les marques de temps?"
@@ -7408,6 +7409,9 @@ msgstr "Mostra la mida de la imatge"
 #, kde-format
 msgid "Show Rating"
 msgstr "Mostra la valoració"
+
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "Fitxers d'exportació del KPhotoAlbum"
 
 #~ msgid "Merge these images"
 #~ msgstr "Fusiona aquestes imatges"

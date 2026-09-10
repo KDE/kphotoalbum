@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2026-08-29 11:02+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -1656,13 +1656,13 @@ msgid "Places"
 msgstr "الأمكنة"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "الأحداث"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, kde-format
 msgid "untagged"
 msgstr "(غير الموسوم)"
@@ -2460,7 +2460,7 @@ msgstr "يبني المصغرات"
 msgid "Save an export file"
 msgstr "احفظ ملف تصدير"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "ملفات استيراد دفتر الصور"
@@ -2608,12 +2608,12 @@ msgstr "إنشاء المصغرات"
 msgid "Copying image files"
 msgstr "نسخ ملفات الصورة"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "خطأ عند كتابة الملف %1"
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2635,17 +2635,18 @@ msgstr ""
 "خادم الويب يخبر konqueror بأنه ملف دفتر الصور عند النقر على الرابط، وإلا "
 "فسيخبر خادم الويب konqueror بأنه ملف نصي عادي.</p>"
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "كيفية استعمال ملف التصدير"
 
-#: ImportExport/Import.cpp:28
-#, kde-format
-msgid "KPhotoAlbum Export Files"
-msgstr "ملفات تصدير دفتر الصور"
+#: ImportExport/Import.cpp:30
+#, fuzzy, kde-format
+#| msgid "Import file."
+msgid "Import Files"
+msgstr "استورد ملف"
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr "تعذر إنشاء ملف مؤقت"
@@ -3212,7 +3213,7 @@ msgstr "الملحقات"
 msgid "Main Toolbar"
 msgstr "شريط الأدوات الرئيس"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3228,7 +3229,7 @@ msgstr ""
 "ومع ذلك، قد لا يكون هذا صالحًا في حالة مسح الصورة ضوئيًا. لذا فإن السؤال هو، "
 "هل يجب على دفتر الصور الوثوق بالطابع الزمني على صورك؟"
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "أثق في دمغة التوقيت ؟"
@@ -7383,6 +7384,9 @@ msgstr "اعرض قياس الصورة"
 #, kde-format
 msgid "Show Rating"
 msgstr "أظهر التقييم"
+
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "ملفات تصدير دفتر الصور"
 
 #~ msgid "Merge these images"
 #~ msgstr "ادمج هذه الصور"

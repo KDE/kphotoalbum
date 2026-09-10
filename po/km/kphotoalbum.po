@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -1654,13 +1654,13 @@ msgid "Places"
 msgstr "ទីកន្លែង"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "ព្រឹត្តិការណ៍"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, fuzzy, kde-format
 #| msgid "Untagged Images"
 msgid "untagged"
@@ -2495,7 +2495,7 @@ msgstr "ស្ថាបនា​រូបភាព​តូច​ៗ​"
 msgid "Save an export file"
 msgstr "បង្កើត​ឯកសារ​នាំ​ចេញ​ .kim​"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, fuzzy, kde-format
 #| msgid "KPhotoAlbum"
 msgid "KPhotoAlbum import files"
@@ -2641,12 +2641,12 @@ msgstr "កំពុង​​បង្កើត​រូបភាព​តូច
 msgid "Copying image files"
 msgstr "កំពុង​ចម្លង​ឯកសារ​រូបភាព"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "កំហុស​ក្នុង​ការ​សរសេរ​ឯកសារ %1"
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2669,18 +2669,18 @@ msgstr ""
 "ពេល​ចុច​លើ​តំណ បើ​មិន​អញ្ចឹង​ទេ ម៉ាស៊ីន​បម្រើ​បណ្តាញ​របស់​អ្នក​នឹង​ប្រាប់​ konqueror ​ថា​វា​ជា​ឯកសារ​អត្ថបទ​"
 "ធម្មតា ។</p>"
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "របៀប​ប្រើ​ឯកសារ​នាំចេញ"
 
-#: ImportExport/Import.cpp:28
+#: ImportExport/Import.cpp:30
 #, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
-msgid "KPhotoAlbum Export Files"
-msgstr "KPhotoAlbum"
+#| msgid "Import file"
+msgid "Import Files"
+msgstr "ឯកសារ​នាំចូល"
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr "មិន​អាច​បង្កើត​ឯកសារ​បណ្តោះ​អាសន្ន​"
@@ -3274,7 +3274,7 @@ msgstr "កម្មវិធី​ជំនួយ​"
 msgid "Main Toolbar"
 msgstr "របារ​ឧបករណ៍​មេ"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, fuzzy, kde-format
 #| msgid ""
 #| "When reading time information of images, their EXIF info is used. Exif "
@@ -3297,7 +3297,7 @@ msgstr ""
 "ទោះ​បី​យ៉ាង​ណា​ វា​អាច​នឹង​មិន​ត្រឹម​ត្រូវ​ នៅ​ក្នុង​ករណី​ដែល​រូបភាព​ត្រូវ​បាន​វិភាគ​រក​ ។ ដូច្នេះ​សំណួរ​ក៏​អញ្ចឹង​ដែរ "
 "តើ  KPhotoAlbum គួរ​តែ​ទុក​ចិត្ត​លើ​ត្រា​ពេល​វេលា​ដែល​នៅ​លើ​រូបភាព​របស់​អ្នក​ដែរ​ឬទេ​ ?"
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "ទុក​ចិត្ត​លើ​ត្រា​ពេល​វេលា​ឬ​អត់ ?​"
@@ -7541,6 +7541,11 @@ msgstr "បង្ហាញ​ទំហំ​រូបភាព"
 #, kde-format
 msgid "Show Rating"
 msgstr "បង្ហាញ​ការ​វាយតម្លៃ"
+
+#, fuzzy
+#~| msgid "KPhotoAlbum"
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "KPhotoAlbum"
 
 #, fuzzy
 #~| msgid "Delete image"

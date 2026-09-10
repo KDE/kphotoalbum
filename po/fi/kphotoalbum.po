@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-29 00:43+0000\n"
+"POT-Creation-Date: 2026-09-10 00:43+0000\n"
 "PO-Revision-Date: 2026-02-25 16:08+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1612,13 +1612,13 @@ msgid "Places"
 msgstr "Paikat"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:457
+#: DB/XML/FileReader.cpp:549 lib/kpabase/SettingsData.cpp:458
 #, kde-format
 msgid "Events"
 msgstr "Tapahtumat"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:467
+#: DB/XML/FileReader.cpp:550 lib/kpabase/SettingsData.cpp:468
 #, kde-format
 msgid "untagged"
 msgstr "luokittelematta"
@@ -2420,7 +2420,7 @@ msgstr "Rakennetaan pienoiskuvia"
 msgid "Save an export file"
 msgstr "Tallenna vientitiedosto"
 
-#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:30
+#: ImportExport/Export.cpp:90 ImportExport/Import.cpp:32
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "KPhotoAlbumin tuontitiedostot"
@@ -2565,12 +2565,12 @@ msgstr "Luodaan pienoiskuvia"
 msgid "Copying image files"
 msgstr "Kopioidaan kuvatiedostoja"
 
-#: ImportExport/Export.cpp:408
+#: ImportExport/Export.cpp:410
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Virhe kirjoitettaessa tiedostoa %1"
 
-#: ImportExport/Export.cpp:436
+#: ImportExport/Export.cpp:439
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2593,17 +2593,18 @@ msgstr ""
 "napsautettaessa Konquerorille, että kyse on KPhotoAlbum-tiedostosta; muuten "
 "palvelin kertoo kyseessä olevan tavallinen tekstitiedosto.</p>"
 
-#: ImportExport/Export.cpp:445
+#: ImportExport/Export.cpp:448
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Kuinka vientitiedostoa käytetään"
 
-#: ImportExport/Import.cpp:28
-#, kde-format
-msgid "KPhotoAlbum Export Files"
-msgstr "KPhotoAlbumin vientitiedostot"
+#: ImportExport/Import.cpp:30
+#, fuzzy, kde-format
+#| msgid "Import file."
+msgid "Import Files"
+msgstr "Tuo tiedosto."
 
-#: ImportExport/Import.cpp:60
+#: ImportExport/Import.cpp:62
 #, kde-format
 msgid "Unable to create temporary file"
 msgstr "Ei voitu luoda väliaikaistiedostoa"
@@ -3166,7 +3167,7 @@ msgstr "Liitännäiset"
 msgid "Main Toolbar"
 msgstr "Päätyökalurivi"
 
-#: lib/kpabase/SettingsData.cpp:247
+#: lib/kpabase/SettingsData.cpp:248
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3182,7 +3183,7 @@ msgstr ""
 "voi kertoa lähinnä, milloin kuva on luettu. Kyse on siis siitä, tulisiko "
 "KPhotoAlbumin luottaa kuvien aikaleimoihin?"
 
-#: lib/kpabase/SettingsData.cpp:254
+#: lib/kpabase/SettingsData.cpp:255
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Luotetaanko aikaleimoihin?"
@@ -7303,6 +7304,9 @@ msgstr "Näytä kuvan koko"
 #, kde-format
 msgid "Show Rating"
 msgstr "Näytä arvostelu"
+
+#~ msgid "KPhotoAlbum Export Files"
+#~ msgstr "KPhotoAlbumin vientitiedostot"
 
 #~ msgid "Merge these images"
 #~ msgstr "Yhdistä nämä kuvat"

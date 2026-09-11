@@ -2405,10 +2405,9 @@ msgid "How to Use the Export File"
 msgstr "如何使用导出文件"
 
 #: ImportExport/Import.cpp:30
-#, fuzzy, kde-format
-#| msgid "Import file."
+#, kde-format
 msgid "Import Files"
-msgstr "导入文件."
+msgstr ""
 
 #: ImportExport/Import.cpp:62
 #, kde-format

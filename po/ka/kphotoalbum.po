@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-10 00:43+0000\n"
-"PO-Revision-Date: 2026-08-20 06:06+0200\n"
+"PO-Revision-Date: 2026-09-10 06:10+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -2607,10 +2607,9 @@ msgid "How to Use the Export File"
 msgstr "როგორ გამოვიყენოთ გატანილი ფაილი"
 
 #: ImportExport/Import.cpp:30
-#, fuzzy, kde-format
-#| msgid "Import file."
+#, kde-format
 msgid "Import Files"
-msgstr "ფაილის შემოტანა."
+msgstr "ფაილების შემოტანა"
 
 #: ImportExport/Import.cpp:62
 #, kde-format

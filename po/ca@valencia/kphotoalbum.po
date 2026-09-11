@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-10 00:43+0000\n"
-"PO-Revision-Date: 2026-09-06 17:49+0200\n"
+"PO-Revision-Date: 2026-09-10 12:32+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -2640,10 +2640,9 @@ msgid "How to Use the Export File"
 msgstr "Com utilitzar el fitxer d'exportació"
 
 #: ImportExport/Import.cpp:30
-#, fuzzy, kde-format
-#| msgid "Import file."
+#, kde-format
 msgid "Import Files"
-msgstr "Fitxer importat."
+msgstr "Importa fitxers"
 
 #: ImportExport/Import.cpp:62
 #, kde-format
@@ -7410,6 +7409,3 @@ msgstr "Mostra la mida de la imatge"
 #, kde-format
 msgid "Show Rating"
 msgstr "Mostra la valoració"
-
-#~ msgid "KPhotoAlbum Export Files"
-#~ msgstr "Fitxers d'exportació de KPhotoAlbum"

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-10 00:43+0000\n"
-"PO-Revision-Date: 2026-08-20 06:28+0200\n"
+"PO-Revision-Date: 2026-09-10 07:15+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -2635,10 +2635,9 @@ msgid "How to Use the Export File"
 msgstr "Kako uporabiti izvozno datoteko"
 
 #: ImportExport/Import.cpp:30
-#, fuzzy, kde-format
-#| msgid "Import file."
+#, kde-format
 msgid "Import Files"
-msgstr "Uvozi datoteko."
+msgstr "Uvozi datoteke"
 
 #: ImportExport/Import.cpp:62
 #, kde-format

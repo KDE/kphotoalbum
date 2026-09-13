@@ -57,6 +57,14 @@ ecm_add_test(
    )
 
 ecm_add_test(
+    TestUniqFilenameMapper.h
+    TestUniqFilenameMapper.cpp
+    ../Utilities/UniqFilenameMapper.cpp
+    TEST_NAME TestUniqFilenameMapper
+    LINK_LIBRARIES Qt6::Core Qt6::Test KF6::I18n KPA::Base
+    )
+
+ecm_add_test(
     TestThumbnailCacheConverter.h
     TestThumbnailCacheConverter.cpp
     ../kpa-thumbnailtool/ThumbnailCacheConverter.cpp

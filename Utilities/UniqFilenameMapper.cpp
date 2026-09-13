@@ -1,9 +1,12 @@
 // SPDX-FileCopyrightText: 2003 - 2010 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2023 Alexander Lohnau <alexander.lohnau@gmx.de>
+// SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "UniqFilenameMapper.h"
+
+#include <kpabase/Logging.h>
 
 #include <QFileInfo>
 
@@ -52,6 +55,7 @@ QString Utilities::UniqFilenameMapper::uniqNameFor(const DB::FileName &filename)
 
     m_origToUniq.insert(filename, uniqFile);
     m_uniqFiles.insert(uniqFile);
+    qCDebug(UtilitiesLog) << "Unique name for" << filename.absolute() << "is" << uniqFile;
     return uniqFile;
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

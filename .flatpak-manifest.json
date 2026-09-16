@@ -65,8 +65,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.8.tar.gz",
-                    "sha256": "ea51b0609f58a9afa063b60daa1539948b62247721e154f4fff0ad3aec9f9756",
+                    "url": "https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.9.tar.gz",
+                    "sha256": "700b76b97695b2fab4ef8c79619c68ae57d09e0c130724791cafbd39e0eb4aef",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 769,
@@ -114,8 +114,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.kde.org/stable/release-service/26.08.0/src/libkdcraw-26.08.0.tar.xz",
-                    "sha256": "cb4a21e94adb2adc4ac7f267d0e35c0449786514bd92c28bfdb75941d79c8e7e",
+                    "url": "https://download.kde.org/stable/release-service/26.08.1/src/libkdcraw-26.08.1.tar.xz",
+                    "sha256": "cf49479043a75557f82b0213019c45291d612267e454b66d939f04b189c4f182",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 8763,
@@ -135,8 +135,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.kde.org/stable/release-service/26.08.0/src/marble-26.08.0.tar.xz",
-                    "sha256": "d91506f09629e744531910f2b1e95b1dec3373772390e205971de5f995cdc6e5",
+                    "url": "https://download.kde.org/stable/release-service/26.08.1/src/marble-26.08.1.tar.xz",
+                    "sha256": "a8d5fbfb6b8cc4a8517df6e75143afcdaebcd7995f88f7a459d6b17c9bae1a98",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 8763,

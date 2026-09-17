@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2003 - 2020 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2021 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
-// SPDX-FileCopyrightText: 2025 Randall Rude <rsquared42@proton.me>
+// SPDX-FileCopyrightText: 2025 - 2026 Randall Rude <rsquared42@proton.me>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -154,9 +154,11 @@ bool ImportExport::ImportHandler::copyFilesFromZipFile()
 
     m_totalCopied = 0;
     m_progress = new QProgressDialog(MainWindow::Window::theMainWindow());
-    m_progress->setWindowTitle(i18nc("@title:window", "Copying Images"));
+    m_progress->setWindowTitle(i18nc("@title:window", "Copying Files"));
     m_progress->setMinimum(0);
-    m_progress->setMaximum(2 * m_pendingCopies.count());
+    // The maximum is times two because the progress count includes copying the
+    // file and updating the ImageInfo for each file (see updateDB() below).
+    m_progress->setMaximum(2 * images.size());
     m_progress->show();
 
     for (DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it) {
@@ -166,6 +168,9 @@ bool ImportExport::ImportHandler::copyFilesFromZipFile()
             if (data.isNull())
                 return false;
             QString newName = m_fileMapper->uniqNameFor(fileName);
+            m_progress->setLabelText(newName);
+
+            qCDebug(ImportExportLog) << "Copying" << fileName.absolute() << " -> " << newName;
 
             QFile out(newName);
             if (!out.open(QIODevice::WriteOnly)) {
@@ -188,7 +193,8 @@ bool ImportExport::ImportHandler::copyFilesFromZipFile()
 void ImportExport::ImportHandler::updateDB()
 {
     disconnect(m_progress, &QProgressDialog::canceled, this, &ImportHandler::stopCopyingImages);
-    m_progress->setLabelText(i18n("Updating Database"));
+    m_progress->setWindowTitle(i18nc("@title:window", "Updating Database"));
+
     int len = Settings::SettingsData::instance()->imageDirectory().length();
     // image directory is always a prefix of destination
     if (len == m_settings.destination().length())
@@ -208,6 +214,8 @@ void ImportExport::ImportHandler::updateDB()
             qCDebug(ImportExportLog) << info->fileName().absolute() << " -> " << name;
             info->setFileName(DB::FileName::fromAbsolutePath(name));
         }
+
+        m_progress->setLabelText(info->fileName().absolute());
 
         if (isImageAlreadyInDB(info)) {
             qCDebug(ImportExportLog) << "Updating ImageInfo for " << info->fileName().absolute();

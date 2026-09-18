@@ -135,6 +135,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
         KJobWidgets::setWindow(statJob.get(), MainWindow::Window::theMainWindow());
         if (statJob->exec()) {
             QUrl dest = QUrl::fromLocalFile(m_fileMapper->uniqNameFor(fileName));
+            m_progress->setLabelText(dest.path());
             m_job = KIO::file_copy(src, dest, -1, KIO::HideProgressInfo);
             connect(m_job, &KIO::FileCopyJob::result, this, &ImportHandler::aCopyJobCompleted);
             succeeded = true;

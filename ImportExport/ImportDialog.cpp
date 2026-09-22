@@ -280,6 +280,7 @@ void ImportDialog::createCategoryPages()
     }
 
     if (!categories.isEmpty()) {
+        categories.sort();
         m_categoryMatcher = new ImportMatcher(QString(), QString(), categories, DB::ImageDB::instance()->categoryCollection()->categoryNames(DB::CategoryCollection::IncludeSpecialCategories::No),
                                               false, this);
         m_categoryMatcherPage = addPage(m_categoryMatcher, i18n("Match Categories"));

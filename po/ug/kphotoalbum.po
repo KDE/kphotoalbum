@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-10 00:43+0000\n"
-"PO-Revision-Date: 2026-05-31 19:27-0400\n"
+"PO-Revision-Date: 2026-09-22 18:03+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
-"Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
+"Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -550,7 +550,7 @@ msgstr ""
 #: AnnotationDialog/ListSelect.cpp:361
 #, kde-format
 msgid "<b>%1</b>"
-msgstr "<b>%1</b>"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:367 Settings/CategoryPage.cpp:73
 #, kde-format
@@ -681,7 +681,7 @@ msgstr ""
 #, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
-msgstr "%1 (%2)"
+msgstr ""
 
 #: AnnotationDialog/ResizableFrame.cpp:56
 #, kde-format
@@ -695,13 +695,13 @@ msgctxt ""
 "%1 is a prefix like 'Associate with', %2 is the tag name and %3 is the tag's "
 "category"
 msgid "%1 %2 (%3)"
-msgstr "%1 %2 (%3)"
+msgstr ""
 
 #: AnnotationDialog/ResizableFrame.cpp:316
 #, kde-format
 msgctxt "%1 is the tag name and %2 is the tag's category"
 msgid "%1 (%2)"
-msgstr "%1 (%2)"
+msgstr ""
 
 #: AnnotationDialog/ResizableFrame.cpp:357
 #, kde-format
@@ -843,7 +843,7 @@ msgstr[0] "%1 سۈرەت"
 msgctxt "@item:intable number of videos with a specific tag."
 msgid "1 video"
 msgid_plural "%1 videos"
-msgstr[0] ""
+msgstr[0] "%1 سىن"
 
 #: Browser/AbstractCategoryModel.cpp:166
 #, kde-format
@@ -1069,7 +1069,7 @@ msgstr[0] ""
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."
 msgid "%1 | %2"
-msgstr "%1 | %2"
+msgstr ""
 
 #: DateBar/ViewHandler.cpp:106
 #, kde-format
@@ -1109,7 +1109,7 @@ msgstr ""
 #: DateBar/ViewHandler.cpp:347
 #, kde-format
 msgid "10 Seconds"
-msgstr ""
+msgstr "10 سېكۇنت"
 
 #: DB/Category.cpp:326
 #, kde-format
@@ -1416,7 +1416,7 @@ msgstr ""
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
-msgstr "%1<br/>"
+msgstr ""
 
 #: DB/XML/FileReader.cpp:501
 #, kde-format
@@ -1684,21 +1684,21 @@ msgstr ""
 #, kde-format
 msgctxt "File permission shortcut for \"reading allowed\""
 msgid "r"
-msgstr "r"
+msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:124 Exif/MetaDataDisplay.cpp:130
 #: Exif/MetaDataDisplay.cpp:136
 #, kde-format
 msgctxt "File permission shortcut for \"writing allowed\""
 msgid "w"
-msgstr "w"
+msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:126 Exif/MetaDataDisplay.cpp:132
 #: Exif/MetaDataDisplay.cpp:138
 #, kde-format
 msgctxt "File permission shortcut for \"executing allowed\""
 msgid "x"
-msgstr "x"
+msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:157
 #, kde-format
@@ -1706,7 +1706,7 @@ msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and its octal representation (e.g. \"0644\")"
 msgid "%1 (%2)"
-msgstr "%1 (%2)"
+msgstr ""
 
 #: Exif/ReReadDialog.cpp:28
 #, kde-format
@@ -2136,7 +2136,7 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:528 MainWindow/SplashScreen.cpp:52
 #, kde-format
 msgid "%1"
-msgstr "%1"
+msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:539
 #, kde-format
@@ -2394,10 +2394,9 @@ msgid "How to Use the Export File"
 msgstr ""
 
 #: ImportExport/Import.cpp:30
-#, fuzzy, kde-format
-#| msgid "Import"
+#, kde-format
 msgid "Import Files"
-msgstr "ئىمپورت قىل"
+msgstr ""
 
 #: ImportExport/Import.cpp:62
 #, kde-format
@@ -2968,7 +2967,7 @@ msgstr ""
 #: main.cpp:85
 #, kde-format
 msgid "KPhotoAlbum"
-msgstr "KPhotoAlbum"
+msgstr ""
 
 #: main.cpp:87
 #, kde-format
@@ -3047,7 +3046,7 @@ msgstr ""
 #: main.cpp:138
 #, kde-format
 msgid "Teemu Rytilahti"
-msgstr "Teemu Rytilahti"
+msgstr ""
 
 #: main.cpp:139
 #, kde-format
@@ -3079,7 +3078,7 @@ msgstr ""
 #: main.cpp:151
 #, kde-format
 msgid "Will Stephenson"
-msgstr "Will Stephenson"
+msgstr ""
 
 #: main.cpp:152
 #, kde-format
@@ -3245,12 +3244,10 @@ msgid "&Block from database"
 msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Filters"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Filter ..."
-msgstr "سۈزگۈچ"
+msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:113
 #, kde-format
@@ -3288,11 +3285,10 @@ msgid "Select &None"
 msgstr "ھەممىنى تاللىما(&N)"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:105
-#, fuzzy, kde-format
-#| msgid "Image Preview"
+#, kde-format
 msgctxt "@title:column Image preview"
 msgid "Preview"
-msgstr "سۈرەتنى ئالدىن كۆزەت"
+msgstr "ئالدىن كۆزەت"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:107
 #, kde-format
@@ -3884,7 +3880,7 @@ msgstr "ساقلاۋاتىدۇ…"
 #: MainWindow/Window.cpp:546
 #, kde-format
 msgid "Saving... Done"
-msgstr ""
+msgstr "ساقلاۋاتىدۇ… تامام"
 
 #: MainWindow/Window.cpp:694
 #, kde-format
@@ -3988,10 +3984,9 @@ msgid "Expand all stacks"
 msgstr ""
 
 #: MainWindow/Window.cpp:896
-#, fuzzy, kde-format
-#| msgid "Toggle playback"
+#, kde-format
 msgid "Toggle all stacks"
-msgstr "قويۇشنى ئالماشتۇر"
+msgstr ""
 
 #: MainWindow/Window.cpp:902
 #, kde-format
@@ -4193,7 +4188,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1120
 #, kde-format
 msgid "Auto saving.... Done"
-msgstr ""
+msgstr "Auto saving.... تامام"
 
 #: MainWindow/Window.cpp:1220
 #, kde-format
@@ -4340,7 +4335,7 @@ msgstr ""
 #, kde-format
 msgctxt "The number of images in an area of the map"
 msgid "%1"
-msgstr "%1"
+msgstr ""
 
 #: Map/MapView.cpp:168
 #, kde-format
@@ -5813,13 +5808,13 @@ msgstr ""
 #, kde-format
 msgctxt "width x height"
 msgid "%1x%2"
-msgstr "%1x%2"
+msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:71
 #, kde-format
 msgctxt "short for: x megapixels"
 msgid " (%1MP)"
-msgstr " (%1MP)"
+msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:76
 #, kde-format
@@ -6303,7 +6298,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
-msgstr "%1 %2"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:556
 #, kde-format
@@ -6597,7 +6592,7 @@ msgstr "بەلگە تەقسىملە"
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
-msgstr "F2"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1538
 #, kde-format

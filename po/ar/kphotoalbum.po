@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-10 00:43+0000\n"
+"POT-Creation-Date: 2026-09-28 00:43+0000\n"
 "PO-Revision-Date: 2026-09-11 11:06+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -2738,35 +2738,35 @@ msgstr "يجب أن يكون المجلد مجلدًا فرعيًا لـ %1"
 msgid "This folder is reserved for category images."
 msgstr "هذا المجلد محجوز لصور الفئات."
 
-#: ImportExport/ImportDialog.cpp:285
+#: ImportExport/ImportDialog.cpp:286
 #, kde-format
 msgid "Match Categories"
 msgstr "مواءمة الأصناف"
 
-#: ImportExport/ImportDialog.cpp:317
+#: ImportExport/ImportDialog.cpp:318
 #, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr "المجلد %1 غير موجود. هل يجب إنشاؤه؟"
 
-#: ImportExport/ImportDialog.cpp:318 MainWindow/WelcomeDialog.cpp:156
+#: ImportExport/ImportDialog.cpp:319 MainWindow/WelcomeDialog.cpp:156
 #, kde-format
 msgctxt "@title"
 msgid "Create folder?"
 msgstr "إنشاء مجلد؟"
 
-#: ImportExport/ImportDialog.cpp:322 MainWindow/WelcomeDialog.cpp:160
+#: ImportExport/ImportDialog.cpp:323 MainWindow/WelcomeDialog.cpp:160
 #: MainWindow/Window.cpp:1226
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
 msgstr "أنشئ"
 
-#: ImportExport/ImportDialog.cpp:328
+#: ImportExport/ImportDialog.cpp:329
 #, kde-format
 msgid "Error creating folder %1"
 msgstr "خطأ في إنشاء المجلّد %1"
 
-#: ImportExport/ImportDialog.cpp:401
+#: ImportExport/ImportDialog.cpp:402
 #, kde-format
 msgid "How to resolve clashes"
 msgstr "كيفية حل التعارضات"
@@ -2804,15 +2804,27 @@ msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "تابع دون سؤال"
 
-#: ImportExport/ImportMatcher.cpp:37
-#, kde-format
-msgid "Key in file"
+#: ImportExport/ImportMatcher.cpp:38
+#, fuzzy, kde-format
+#| msgid "Key in file"
+msgid "Key in import file"
 msgstr "المفتاح في الملف"
 
-#: ImportExport/ImportMatcher.cpp:44
+#: ImportExport/ImportMatcher.cpp:45
 #, kde-format
 msgid "Key in your database"
 msgstr "المفتاح في قاعدة بياناتك"
+
+#: ImportExport/ImportMatcher.cpp:105
+#, kde-format
+msgid "The import key partially matches this key in your database"
+msgstr ""
+
+#: ImportExport/ImportMatcher.cpp:123
+#, fuzzy, kde-format
+#| msgid "How many images are in your database:"
+msgid "This key is not currently in your database"
+msgstr "كمّ من الصور موجودة في قاعدة بياناتك:"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
@@ -8822,9 +8834,6 @@ msgstr "أظهر التقييم"
 #, fuzzy
 #~ msgid "<h1>%1 Survey Completed</h1>"
 #~ msgstr "<h1> المسح اكتمل</h1>"
-
-#~ msgid "How many images are in your database:"
-#~ msgstr "كمّ من الصور موجودة في قاعدة بياناتك:"
 
 #~ msgid "How many percentages of your images are scanned in: "
 #~ msgstr "كمّ بلمئة من صورك تم مسحها: "

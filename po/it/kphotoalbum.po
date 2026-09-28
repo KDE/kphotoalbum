@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-10 00:43+0000\n"
+"POT-Creation-Date: 2026-09-28 00:43+0000\n"
 "PO-Revision-Date: 2026-09-10 22:27+0200\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -2727,35 +2727,35 @@ msgstr "La cartella deve essere una sottocartella di %1"
 msgid "This folder is reserved for category images."
 msgstr "Questa cartella è riservata alle immagini delle categorie."
 
-#: ImportExport/ImportDialog.cpp:285
+#: ImportExport/ImportDialog.cpp:286
 #, kde-format
 msgid "Match Categories"
 msgstr "Corrispondi a categorie"
 
-#: ImportExport/ImportDialog.cpp:317
+#: ImportExport/ImportDialog.cpp:318
 #, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr "La cartella %1 non esiste. Vuoi crearla?"
 
-#: ImportExport/ImportDialog.cpp:318 MainWindow/WelcomeDialog.cpp:156
+#: ImportExport/ImportDialog.cpp:319 MainWindow/WelcomeDialog.cpp:156
 #, kde-format
 msgctxt "@title"
 msgid "Create folder?"
 msgstr "Creare la cartella?"
 
-#: ImportExport/ImportDialog.cpp:322 MainWindow/WelcomeDialog.cpp:160
+#: ImportExport/ImportDialog.cpp:323 MainWindow/WelcomeDialog.cpp:160
 #: MainWindow/Window.cpp:1226
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
 msgstr "Crea"
 
-#: ImportExport/ImportDialog.cpp:328
+#: ImportExport/ImportDialog.cpp:329
 #, kde-format
 msgid "Error creating folder %1"
 msgstr "Errore nella creazione della cartella %1"
 
-#: ImportExport/ImportDialog.cpp:401
+#: ImportExport/ImportDialog.cpp:402
 #, kde-format
 msgid "How to resolve clashes"
 msgstr "Come risolvere i conflitti"
@@ -2793,15 +2793,27 @@ msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "Continua senza chiedere"
 
-#: ImportExport/ImportMatcher.cpp:37
-#, kde-format
-msgid "Key in file"
+#: ImportExport/ImportMatcher.cpp:38
+#, fuzzy, kde-format
+#| msgid "Key in file"
+msgid "Key in import file"
 msgstr "Chiave nel file"
 
-#: ImportExport/ImportMatcher.cpp:44
+#: ImportExport/ImportMatcher.cpp:45
 #, kde-format
 msgid "Key in your database"
 msgstr "Chiave nella tua banca dati"
+
+#: ImportExport/ImportMatcher.cpp:105
+#, kde-format
+msgid "The import key partially matches this key in your database"
+msgstr ""
+
+#: ImportExport/ImportMatcher.cpp:123
+#, fuzzy, kde-format
+#| msgid "How many images are in your database:"
+msgid "This key is not currently in your database"
+msgstr "Quante immagini ci sono nella tua banca dati:"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
@@ -9465,9 +9477,6 @@ msgstr "Mostra voto"
 
 #~ msgid "<h1>%1 Survey Completed</h1>"
 #~ msgstr "<h1>Sondaggio %1 completato</h1>"
-
-#~ msgid "How many images are in your database:"
-#~ msgstr "Quante immagini ci sono nella tua banca dati:"
 
 #~ msgid "How many percentages of your images are scanned in: "
 #~ msgstr "Quale percentuale delle tue immagini sono scansionate: "

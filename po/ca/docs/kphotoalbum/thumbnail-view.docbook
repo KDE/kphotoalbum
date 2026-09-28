@@ -126,7 +126,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Les imatges tenen el tall de la cantonada (això és, imatges 1-4) no estan disponibles al disc. Les miniatures, d'altra banda, estan disponibles per a imatges 5-9, tot i que les imatges no es troben al disc. Per tant, el &kphotoalbum;, pot mostrar les miniatures d'aquestes imatges, però no pot visualitzar-les al visualitzador. (Utilitzarem el tall de la cantonada de les miniatures per a indicar si la imatge no es troba al disc, però aquesta característica sembla no estar funcionant actualment). </para>
 
 <para
->Com podeu veure, aquesta característica requereix copiar fitxers dins i fora dels vostres directoris, el &kphotoalbum; no té cap tipus de suport per a demanar-vos que inseriu el CD que heu etiquetat, bla, bla. Per tant, si us plau, oblideu-vos d'aquesta característica si sou el tipus de persona que no us agrada jugar amb els fitxers, &etc;, i en el seu lloc, simplement assegureu-vos de comprar discs durs prou grans per a emmagatzemar sempre totes les vostres imatges.</para>
+>Com podeu veure, aquesta característica requereix copiar fitxers dins i fora dels vostres directoris, el &kphotoalbum; no té cap mena de suport per a demanar-vos que inseriu el CD que heu etiquetat, bla, bla. Per tant, si us plau, oblideu-vos d'aquesta característica si sou el tipus de persona que no us agrada jugar amb els fitxers, &etc;, i en el seu lloc, simplement assegureu-vos de comprar discs durs prou grans per a emmagatzemar sempre totes les vostres imatges.</para>
 
 </sect1>
 

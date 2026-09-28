@@ -120,7 +120,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >, el &kphotoalbum; importarà la base de dades exportada amb la característica descrita en el <xref linkend="chp-importExport"/>.</para>
 
 <para
->L'assistent d'importació consisteix en quatre passos. En el primer heu d'especificar les imatges que voleu importar. A continuació, heu d'especificar en quin directori posar les imatges importades.</para>
+>L'assistent d'importació consisteix en quatre passos. Al primer heu d'especificar les imatges que voleu importar. A continuació, heu d'especificar en quin directori posar les imatges importades.</para>
 
 <para
 >El més probable és que crideu a la categoria de persones, <emphasis

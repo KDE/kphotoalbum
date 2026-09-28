@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-10 00:43+0000\n"
+"POT-Creation-Date: 2026-09-28 00:43+0000\n"
 "PO-Revision-Date: 2026-01-04 12:37+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -2723,35 +2723,35 @@ msgstr "Karpetak %1(r)en azpikarpeta izan behar du"
 msgid "This folder is reserved for category images."
 msgstr "Karpeta hau kategoria irudietarako erreserbatuta dago."
 
-#: ImportExport/ImportDialog.cpp:285
+#: ImportExport/ImportDialog.cpp:286
 #, kde-format
 msgid "Match Categories"
 msgstr "Bat datozten kategoriak"
 
-#: ImportExport/ImportDialog.cpp:317
+#: ImportExport/ImportDialog.cpp:318
 #, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr "%1 karpeta ez da existitzen. Sortu beharko litzateke?"
 
-#: ImportExport/ImportDialog.cpp:318 MainWindow/WelcomeDialog.cpp:156
+#: ImportExport/ImportDialog.cpp:319 MainWindow/WelcomeDialog.cpp:156
 #, kde-format
 msgctxt "@title"
 msgid "Create folder?"
 msgstr "Karpeta sortu?"
 
-#: ImportExport/ImportDialog.cpp:322 MainWindow/WelcomeDialog.cpp:160
+#: ImportExport/ImportDialog.cpp:323 MainWindow/WelcomeDialog.cpp:160
 #: MainWindow/Window.cpp:1226
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
 msgstr "Sortu"
 
-#: ImportExport/ImportDialog.cpp:328
+#: ImportExport/ImportDialog.cpp:329
 #, kde-format
 msgid "Error creating folder %1"
 msgstr "Errorea %1 karpeta sortzean"
 
-#: ImportExport/ImportDialog.cpp:401
+#: ImportExport/ImportDialog.cpp:402
 #, kde-format
 msgid "How to resolve clashes"
 msgstr "Nola konpondu talkak"
@@ -2789,15 +2789,27 @@ msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "Jarraitu galdetu gabe"
 
-#: ImportExport/ImportMatcher.cpp:37
-#, kde-format
-msgid "Key in file"
+#: ImportExport/ImportMatcher.cpp:38
+#, fuzzy, kde-format
+#| msgid "Key in file"
+msgid "Key in import file"
 msgstr "Gakoa fitxategian"
 
-#: ImportExport/ImportMatcher.cpp:44
+#: ImportExport/ImportMatcher.cpp:45
 #, kde-format
 msgid "Key in your database"
 msgstr "Gakoa datu-basean"
+
+#: ImportExport/ImportMatcher.cpp:105
+#, kde-format
+msgid "The import key partially matches this key in your database"
+msgstr ""
+
+#: ImportExport/ImportMatcher.cpp:123
+#, fuzzy, kde-format
+#| msgid "How many images are in your database:"
+msgid "This key is not currently in your database"
+msgstr "Nombre d'image dans votre base de données :"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
@@ -9286,9 +9298,6 @@ msgstr "Erakutsi puntuazioa"
 
 #~ msgid "<h1>%1 Survey Completed</h1>"
 #~ msgstr "<h1>%1 Sondage complet</h1>"
-
-#~ msgid "How many images are in your database:"
-#~ msgstr "Nombre d'image dans votre base de données :"
 
 #~ msgid "How many percentages of your images are scanned in: "
 #~ msgstr "Pourcentage d'images numérisées parmi vos images : "

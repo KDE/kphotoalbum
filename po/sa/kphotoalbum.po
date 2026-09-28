@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-10 00:43+0000\n"
+"POT-Creation-Date: 2026-09-28 00:43+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -2700,35 +2700,35 @@ msgstr "पुटं %1 इत्यस्य उपपुटं भवितु
 msgid "This folder is reserved for category images."
 msgstr "एतत् पुटं श्रेणीचित्रेषु आरक्षितम् अस्ति ।"
 
-#: ImportExport/ImportDialog.cpp:285
+#: ImportExport/ImportDialog.cpp:286
 #, kde-format
 msgid "Match Categories"
 msgstr "मिलान श्रेणियाँ"
 
-#: ImportExport/ImportDialog.cpp:317
+#: ImportExport/ImportDialog.cpp:318
 #, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr "%1 पुटं नास्ति । किं तस्य सृष्टिः भवितुमर्हति ?"
 
-#: ImportExport/ImportDialog.cpp:318 MainWindow/WelcomeDialog.cpp:156
+#: ImportExport/ImportDialog.cpp:319 MainWindow/WelcomeDialog.cpp:156
 #, kde-format
 msgctxt "@title"
 msgid "Create folder?"
 msgstr "पुटं रचयन्तु?"
 
-#: ImportExport/ImportDialog.cpp:322 MainWindow/WelcomeDialog.cpp:160
+#: ImportExport/ImportDialog.cpp:323 MainWindow/WelcomeDialog.cpp:160
 #: MainWindow/Window.cpp:1226
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
 msgstr "निर्मियताम्"
 
-#: ImportExport/ImportDialog.cpp:328
+#: ImportExport/ImportDialog.cpp:329
 #, kde-format
 msgid "Error creating folder %1"
 msgstr "%1 पुटस्य निर्माणे त्रुटिः"
 
-#: ImportExport/ImportDialog.cpp:401
+#: ImportExport/ImportDialog.cpp:402
 #, kde-format
 msgid "How to resolve clashes"
 msgstr "संघर्षस्य समाधानं कथं करणीयम्"
@@ -2766,14 +2766,26 @@ msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "अपृच्छन् निरन्तरं कुर्वन्तु"
 
-#: ImportExport/ImportMatcher.cpp:37
-#, kde-format
-msgid "Key in file"
+#: ImportExport/ImportMatcher.cpp:38
+#, fuzzy, kde-format
+#| msgid "Key in file"
+msgid "Key in import file"
 msgstr "सञ्चिकायां कीलं कुर्वन्तु"
 
-#: ImportExport/ImportMatcher.cpp:44
+#: ImportExport/ImportMatcher.cpp:45
 #, kde-format
 msgid "Key in your database"
+msgstr "भवतः दत्तांशकोषं कीलं कुर्वन्तु"
+
+#: ImportExport/ImportMatcher.cpp:105
+#, kde-format
+msgid "The import key partially matches this key in your database"
+msgstr ""
+
+#: ImportExport/ImportMatcher.cpp:123
+#, fuzzy, kde-format
+#| msgid "Key in your database"
+msgid "This key is not currently in your database"
 msgstr "भवतः दत्तांशकोषं कीलं कुर्वन्तु"
 
 #: ImportExport/KimFileReader.cpp:27

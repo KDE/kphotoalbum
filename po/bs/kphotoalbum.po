@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-10 00:43+0000\n"
+"POT-Creation-Date: 2026-09-28 00:43+0000\n"
 "PO-Revision-Date: 2015-02-26 23:46+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -2857,38 +2857,38 @@ msgstr "Direktorij mora biti subdirektorij od %1"
 msgid "This folder is reserved for category images."
 msgstr ""
 
-#: ImportExport/ImportDialog.cpp:285
+#: ImportExport/ImportDialog.cpp:286
 #, kde-format
 msgid "Match Categories"
 msgstr "Kategorije podudaranja"
 
-#: ImportExport/ImportDialog.cpp:317
+#: ImportExport/ImportDialog.cpp:318
 #, fuzzy, kde-format
 #| msgid "Directory %1 does not exist. Should it be created?"
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr "Direktorij %1 ne postoji. Da li ga treba kreirai?"
 
-#: ImportExport/ImportDialog.cpp:318 MainWindow/WelcomeDialog.cpp:156
+#: ImportExport/ImportDialog.cpp:319 MainWindow/WelcomeDialog.cpp:156
 #, fuzzy, kde-format
 #| msgid "Base directory:"
 msgctxt "@title"
 msgid "Create folder?"
 msgstr "Osnovni direktorij:"
 
-#: ImportExport/ImportDialog.cpp:322 MainWindow/WelcomeDialog.cpp:160
+#: ImportExport/ImportDialog.cpp:323 MainWindow/WelcomeDialog.cpp:160
 #: MainWindow/Window.cpp:1226
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
 msgstr ""
 
-#: ImportExport/ImportDialog.cpp:328
+#: ImportExport/ImportDialog.cpp:329
 #, fuzzy, kde-format
 #| msgid "Error creating zip file %1"
 msgid "Error creating folder %1"
 msgstr "Greška u kreiranju zip datoteke %1"
 
-#: ImportExport/ImportDialog.cpp:401
+#: ImportExport/ImportDialog.cpp:402
 #, kde-format
 msgid "How to resolve clashes"
 msgstr "Kako riješiti sukobe"
@@ -2929,14 +2929,26 @@ msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "Nastavi bez pitanja"
 
-#: ImportExport/ImportMatcher.cpp:37
-#, kde-format
-msgid "Key in file"
+#: ImportExport/ImportMatcher.cpp:38
+#, fuzzy, kde-format
+#| msgid "Key in file"
+msgid "Key in import file"
 msgstr "Ključ u fajlu"
 
-#: ImportExport/ImportMatcher.cpp:44
+#: ImportExport/ImportMatcher.cpp:45
 #, kde-format
 msgid "Key in your database"
+msgstr "Ključ u vašoj bazi podataka"
+
+#: ImportExport/ImportMatcher.cpp:105
+#, kde-format
+msgid "The import key partially matches this key in your database"
+msgstr ""
+
+#: ImportExport/ImportMatcher.cpp:123
+#, fuzzy, kde-format
+#| msgid "Key in your database"
+msgid "This key is not currently in your database"
 msgstr "Ključ u vašoj bazi podataka"
 
 #: ImportExport/KimFileReader.cpp:27

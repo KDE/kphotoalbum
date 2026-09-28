@@ -140,7 +140,7 @@ SPDX-License-Identifier: GFDL-1.2-only
   <title
 >Categories</title>
   <para
->En el <xref linkend="chp-typingIn"/> es descriu com podeu especificar diferents propietats per a cada imatge, incloses <literal
+>A <xref linkend="chp-typingIn"/> es descriu com podeu especificar propietats diferents per a cada imatge, incloses <literal
 >Gent</literal
 >, <literal
 >Llocs</literal
@@ -155,7 +155,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >.</para>
 
 <para
->A la <xref linkend="fig-options-group"/> a continuació podeu veure el diàleg que s'utilitza per a configurar quines categories existeixen. Especifiqueu una etiqueta i una icona per a cada categoria.</para>
+>A la <xref linkend="fig-options-group"/> de sota podeu veure el diàleg que s'utilitza per a configurar quines categories existeixen. Especifiqueu una etiqueta i una icona per a cada categoria.</para>
 
 <figure id="fig-options-group">
 <title

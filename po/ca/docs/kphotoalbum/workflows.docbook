@@ -82,7 +82,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >&Ctrl;<keycap
 >F</keycap
 ></keycombo
->. No obstant això, si s'invoca la cerca des de la finestra principal, la selecció actual s'aprofundeix per a obtenir una coincidència més precisa. De totes maneres, en aquest punt vaig de nou a les imatges millor valorades, refinant sobre la valoració. Per exemple, si tinc 5 fotografies similars d'una espècie Nudibranch, en general disminueixo la valoració de les imatges més dolentes i podria incrementar les més bones. Comparar les imatges es pot fer seleccionant les que voleu comparar i iniciar el visualitzador. L'esborrat de les imatges des del visualitzador es pot fer amb la tecla <keycap
+>. No obstant això, si s'invoca la cerca des de la finestra principal, la selecció actual s'aprofundeix per a obtenir una coincidència més precisa. De totes maneres, en aquest punt vaig de nou a les imatges millor valorades, refinant sobre la valoració. Per exemple, si tinc 5 fotografies similars d'una espècie Nudibranch, en general disminueixo la valoració de les imatges més dolentes i podria incrementar les més bones. Comparar les imatges es pot fer seleccionant les que voleu comparar i iniciar el visualitzador. L'esborrament de les imatges des del visualitzador es pot fer amb la tecla <keycap
 >Supr</keycap
 >. Això només s'inhabilita en la visualització de la imatge actual, mentre que en el visualitzador no s'esborra o elimina res. Això permet la comparació de 2 o 3 bones imatges, una al costat de l'altra, movent-nos entre elles amb les tecles <keysym
 >Re Pàg</keysym
@@ -126,7 +126,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></listitem>
   <listitem
 ><para
->Pel proper pas almenys teniu dues opcions simples: <orderedlist>
+>Pel pas següent almenys teniu dues opcions simples: <orderedlist>
   <listitem
 ><para
 >Podeu deixar que Autopano Pro trobi automàticament els panorames des del directori de fotografies. </para

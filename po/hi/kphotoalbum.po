@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-10 00:43+0000\n"
+"POT-Creation-Date: 2026-09-28 00:43+0000\n"
 "PO-Revision-Date: 2022-02-26 11:47+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: Hindi <kde-l10n-hi@kde.org>\n"
@@ -2631,38 +2631,38 @@ msgstr "डिरेक्ट्री को %1 की सबडिरेक्
 msgid "This folder is reserved for category images."
 msgstr ""
 
-#: ImportExport/ImportDialog.cpp:285
+#: ImportExport/ImportDialog.cpp:286
 #, kde-format
 msgid "Match Categories"
 msgstr "श्रेणियाँ मिलाएं"
 
-#: ImportExport/ImportDialog.cpp:317
+#: ImportExport/ImportDialog.cpp:318
 #, fuzzy, kde-format
 #| msgid "Directory %1 does not exists. Should it be created?"
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr "डिरेक्ट्री %1 मौजूद नहीं है. क्या इसे बनाया जाए?"
 
-#: ImportExport/ImportDialog.cpp:318 MainWindow/WelcomeDialog.cpp:156
+#: ImportExport/ImportDialog.cpp:319 MainWindow/WelcomeDialog.cpp:156
 #, fuzzy, kde-format
 #| msgid "Base directory:"
 msgctxt "@title"
 msgid "Create folder?"
 msgstr "आधार डिरेक्ट्री:"
 
-#: ImportExport/ImportDialog.cpp:322 MainWindow/WelcomeDialog.cpp:160
+#: ImportExport/ImportDialog.cpp:323 MainWindow/WelcomeDialog.cpp:160
 #: MainWindow/Window.cpp:1226
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
 msgstr ""
 
-#: ImportExport/ImportDialog.cpp:328
+#: ImportExport/ImportDialog.cpp:329
 #, fuzzy, kde-format
 #| msgid "Error creating zip file %1"
 msgid "Error creating folder %1"
 msgstr "ज़िप फ़ाइल %1 तैयार करने में त्रुटि"
 
-#: ImportExport/ImportDialog.cpp:401
+#: ImportExport/ImportDialog.cpp:402
 #, fuzzy, kde-format
 #| msgid "How to Handle Images"
 msgid "How to resolve clashes"
@@ -2705,15 +2705,27 @@ msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "बिना पूछे जारी रखें"
 
-#: ImportExport/ImportMatcher.cpp:37
-#, kde-format
-msgid "Key in file"
+#: ImportExport/ImportMatcher.cpp:38
+#, fuzzy, kde-format
+#| msgid "Key in file"
+msgid "Key in import file"
 msgstr "फ़ाइल में भरें"
 
-#: ImportExport/ImportMatcher.cpp:44
+#: ImportExport/ImportMatcher.cpp:45
 #, kde-format
 msgid "Key in your database"
 msgstr "अपना डाटा बेस भरें"
+
+#: ImportExport/ImportMatcher.cpp:105
+#, kde-format
+msgid "The import key partially matches this key in your database"
+msgstr ""
+
+#: ImportExport/ImportMatcher.cpp:123
+#, fuzzy, kde-format
+#| msgid "How many images are in your database:"
+msgid "This key is not currently in your database"
+msgstr "आपके डाटाबेस में कितनी छवियाँ हैं:"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
@@ -8033,9 +8045,6 @@ msgstr "सीमाएँ दिखाएं"
 
 #~ msgid "<h1>%1 Survey Completed</h1>"
 #~ msgstr "<h1>%1 सर्वे सम्पन्न</h1>"
-
-#~ msgid "How many images are in your database:"
-#~ msgstr "आपके डाटाबेस में कितनी छवियाँ हैं:"
 
 #~ msgid "How many percentages of your images are scanned in: "
 #~ msgstr "आपकी छवियों में से कितने प्रतिशत को यहां स्कैन कर लिया गया है:"

@@ -80,7 +80,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 <para
 >Premeu <keycap
 >&Del;</keycap
-> per a eliminar la imatge o el vídeo actual de la llista del visualitzador (com si no l'hagéssiu seleccionat per a la seva visualització) i aneu a l'element següent de la llista del visualitzador. Si s'elimina l'última imatge o vídeo de la llista del visualitzador, es tanca la finestra del visualitzador.</para>
+> per a eliminar la imatge o el vídeo actual de la llista del visualitzador (com si no l'haguéreu seleccionat per a la seva visualització) i aneu a l'element següent de la llista del visualitzador. Si s'elimina l'última imatge o vídeo de la llista del visualitzador, es tanca la finestra del visualitzador.</para>
 </listitem>
 
 <listitem>
@@ -192,7 +192,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >&Ctrl;<keycap
 >+</keycap
 ></keycombo
-> per a fer que la presentació de diapositives vagi més ràpid o <keycombo
+> per a fer que la presentació de diapositives vagi més de pressa o <keycombo
 >&Ctrl;<keycap
 >-</keycap
 ></keycombo

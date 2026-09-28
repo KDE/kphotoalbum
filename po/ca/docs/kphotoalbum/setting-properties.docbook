@@ -62,7 +62,7 @@ SPDX-License-Identifier: GFDL-1.2-only
     <para
 >A la <xref linkend="fig-image-config-window"/> a continuació podeu veure la finestra per a anotar imatges i vídeos. En aquesta finestra podeu especificar la data, l'etiqueta<footnote
 ><para
->L'etiqueta s'inicia amb el nom del fitxer. L'etiqueta s'utilitza en el navegador, i quan les imatges s'exporten a les pàgines &HTML;.</para
+>L'etiqueta s'inicia amb el nom del fitxer. L'etiqueta s'utilitza en el navegador, i quan les imatges s'exporten a les pàgines &HTML;</para
 ></footnote
 >, una descripció i el més important, diferents <emphasis
 >categories</emphasis
@@ -143,7 +143,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Las Vegas, San Francisco, Los Angeles i Califòrnia estan ubicats als EUA. D'altra banda, San Francisco i Los Angeles es troben a Califòrnia.</para>
 
 <para
->En lloc d'especificar per a cada imatge de Sant Francisco, que està a San Francisco, Califòrnia, i als EUA, li podeu dir al &kphotoalbum; que San Francisco i Los Angeles estan a Califòrnia, i Califòrnia, entre d'altres es troben als EUA. Si ho feu, el navegador (vegeu <xref linkend="chp-browsing"/>) us oferirà un element dels EUA, i un element de Califòrnia, a més de tots els elements normals. Seleccionant Califòrnia, veureu totes les imatges de San Francisco, Los Angeles, &etc;</para>
+>En lloc d'especificar per a cada imatge de San Francisco, que està a San Francisco, Califòrnia, i als EUA, li podeu dir al &kphotoalbum; que San Francisco i Los Angeles estan a Califòrnia, i Califòrnia, entre d'altres es troben als EUA. Si ho feu, el navegador (vegeu <xref linkend="chp-browsing"/>) us oferirà un element dels EUA, i un element de Califòrnia, a més de tots els elements normals. Seleccionant Califòrnia, veureu totes les imatges de San Francisco, Los Angeles, &etc;</para>
 
 <para
 >A la <xref linkend="fig-usa-as-a-member"/> podeu veure una finestra del navegador, que conté els EUA com una supercategoria. Per a indicar que aquest és un grup que utilitza una icona especial.</para>

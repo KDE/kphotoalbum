@@ -17,7 +17,7 @@ SPDX-License-Identifier: GFDL-1.2-only
   <!ENTITY kappname "&kphotoalbum;">
   <!ENTITY package "extragear-graphics">
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE"> 
+  <!ENTITY % English "INCLUDE">
 
   <!ENTITY introduction SYSTEM "introduction.docbook">
   <!ENTITY setting-properties SYSTEM "setting-properties.docbook">
@@ -32,10 +32,10 @@ SPDX-License-Identifier: GFDL-1.2-only
 ]>
 
 <book id="kphotoalbum" lang="&language;">
-  
+
   <bookinfo>
     <title>The &kphotoalbum; Handbook</title>
-    
+
     <authorgroup>
       <author>
         <firstname>Jesper K.</firstname>
@@ -45,29 +45,29 @@ SPDX-License-Identifier: GFDL-1.2-only
         <firstname>Miika</firstname>
         <surname>Turkia</surname>
       </author>
-      
+
       <!-- TRANS:ROLES_OF_TRANSLATORS -->
     </authorgroup>
-    
+
     <copyright>
       <year>2003-2007</year>
       <holder>Jesper K. Pedersen</holder>
-      
+
     </copyright>
     <copyright>
       <year>2012</year>
       <holder>Miika Turkia</holder>
     </copyright>
-    
+
     <date>2012-02-23</date>
     <releaseinfo>4.2</releaseinfo>
-    
+
     <abstract>
     <para><inlinemediaobject>
     <imageobject><imagedata fileref="splash-large.png" format="PNG" scalefit="1" /></imageobject>
     <textobject><phrase>&kphotoalbum; logo</phrase></textobject>
     </inlinemediaobject></para>
-    
+
     <para>
   This is the user manual for &kphotoalbum; &mdash; a digital image cataloguing
   software that supports annotation, browsing, searching and viewing of digital
@@ -83,10 +83,8 @@ menu and select <guimenuitem>Run &kphotoalbum; demo</guimenuitem>. That will loa
         </itemizedlist></para>
 
    <para>If you prefer to print out this document, then you may find it as
-on long PDF document at <ulink url="http://docs.kde.org/">&kde;
-docs</ulink>. A direct link is available at <ulink
-url="http://kphotoalbum.org/index.php?page=documentation">&kphotoalbum;'s
-Homepage</ulink>.</para>
+on long PDF document at <ulink url="https://docs.kde.org/index.php?application=kphotoalbum">&kde;
+docs</ulink>.</para>
 </abstract>
     <keywordset>
       <keyword>KDE</keyword>
@@ -95,7 +93,7 @@ Homepage</ulink>.</para>
       <keyword>Image Database</keyword>
     </keywordset>
   </bookinfo>
-  
+
   &introduction;
   &setting-properties;
   &browsing;

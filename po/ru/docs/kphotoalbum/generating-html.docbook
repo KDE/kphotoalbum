@@ -1,0 +1,150 @@
+<!--
+SPDX-FileCopyrightText: 2004-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-generating-html">
+    <title
+>Создание &HTML;</title>
+    <para
+>&kphotoalbum; позволяет создавать &HTML; из фотоальбома. Эта возможность доступна в меню <menuchoice
+><guimenu
+>Файл</guimenu
+><guimenuitem
+>Создать &HTML;</guimenuitem
+></menuchoice
+></para>
+    
+    <para
+>Перед созданием страниц &HTML; необходимо указать некоторые сведения, распределённые по трём страницам: <guilabel
+>Содержимое</guilabel
+>, <guilabel
+>Размещение</guilabel
+> и <guilabel
+>Назначение</guilabel
+>. В следующем разделе подробно описана каждая страница.</para>
+
+    <sect1 id="the_content_page">
+      <title
+>Страница <guilabel
+>Содержимое</guilabel
+></title>
+      <para
+>На странице содержимого указывается, какая информация должна быть сформирована для страниц &HTML;.</para>
+
+	<figure id="html-content">
+	<title
+>Настройка содержимого генератора HTML</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-content.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
+
+      <para
+>Сначала укажите заголовок страниц обзора и описание, создаваемое на этих страницах. Если выбранное оформление поддерживает уведомление об авторских правах, его также можно указать здесь. </para>
+
+      <para
+>Далее указывается, нужно ли создавать файл экспорта &kphotoalbum; и помещать его на страницу обзора. Подробнее о файлах экспорта см. в <xref linkend="chp-importExport"/>. А также нужно ли включать фильмы в страницу или делать их доступными для загрузки.</para>
+
+      <para
+>Наконец, можно указать, какая информация должна быть сформирована на страницах &HTML;. Так можно не включать информацию, которая может быть очевидна читателю страниц (например, эти снимки сделаны на вечеринке, где были все). Учтите, что &kphotoalbum; в настоящее время не позволяет исключать отдельные категории из файла экспорта, поэтому не стоит рассчитывать на это как на способ скрыть информацию, которую не должны видеть читатели страниц.</para>
+    </sect1>
+
+    <sect1 id="the_layout_page">
+      <title
+>Страница <guilabel
+>Размещение</guilabel
+></title>
+      <para
+>На странице размещения указывается, как должны выглядеть страницы &HTML;. Большинство параметров на этой странице не требуют дополнительных пояснений. При выборе оформления показывается его краткое описание, дающее представление о внешнем виде.</para>
+
+	<figure id="html-layout">
+	<title
+>Настройка размещения в генераторе HTML</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-layout.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
+
+      <para
+>В нижней части этой страницы можно указать несколько разрешений для изображений. Тогда читателям страниц не придётся загружать изображения в большом разрешении, например 1600x1200, только чтобы посмотреть их на мониторе, поддерживающем не более 800x600.</para>
+      
+      <para
+>В любой момент читатели могут изменить разрешение на любое из указанных. Это позволяет просматривать изображения в низком разрешении (и потому быстро их загружать), а увидев особо интересное изображение — переключиться на высокое разрешение.</para>
+    </sect1>
+
+    <sect1 id="the_destination_page">
+      <title
+>Страница <guilabel
+>Назначение</guilabel
+></title>
+      <para
+>На странице назначения укажите несколько папок и URL-адресов, определяющих, куда помещаются страницы.</para>
+
+      <para
+>Идея в том, что для всех создаваемых наборов страниц указывается общий базовый каталог, а для каждого нового набора — новая вложенная папка.</para>
+
+	<figure id="html-destination">
+	<title
+>Настройка места назначения генератора HTML</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-destination.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
+
+      <para
+>Сначала укажите базовый каталог для всех изображений. Этот каталог будет запоминаться от сеанса к сеансу и позволит раз и навсегда указать, куда должны помещаться все последующие изображения. Здесь можно указать каталог или любой <ulink url="help:/kioslave/index.html"
+>протокол</ulink
+>, поддерживаемый &kde;. Примеры: <itemizedlist>
+          <listitem
+><para
+>ftp://someserver/my-upload-area/images (загрузка по FTP)</para
+></listitem>
+          <listitem
+><para
+>fish://someserver/home/foo/images (загрузка по SSH)</para
+></listitem>
+          <listitem
+><para
+>smb://someserver/c/images (загрузка в общий ресурс Windows)</para
+></listitem>
+        </itemizedlist>
+      </para>
+      
+      <para
+>После создания снимков может потребоваться проверить, действительно ли они доступны аудитории. Если указать URL в поле <guilabel
+>Базовый URL</guilabel
+>, после создания страниц &HTML; будет запущен веб-браузер. Указанный здесь URL должен соответствовать каталогу, указанному выше. Таким образом, веб-браузер откроется на вложенных папках этого URL.</para>
+      
+      <para
+>После создания страниц &HTML; они могут ещё не оказаться в конечном месте назначения, и может потребоваться особая процедура выгрузки, не зависящая от &kphotoalbum;. Чтобы работала функция импорта (см. <xref linkend="chp-importExport"/>), необходимо указать конечное место назначения страниц. Вложенная папка текущего набора сюда опять же не входит.</para>
+
+      <para
+>Три поля ввода, описанные выше, задают базовые папки и базовые URL-адреса. В этих местах будет создана вложенная папка с именем, указанным в <guilabel
+>Папка вывода</guilabel
+>.</para>
+    </sect1>
+
+</chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

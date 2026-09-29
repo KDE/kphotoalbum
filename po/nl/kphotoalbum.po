@@ -13,14 +13,14 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-28 00:43+0000\n"
-"PO-Revision-Date: 2026-09-10 10:32+0200\n"
+"PO-Revision-Date: 2026-09-28 11:15+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -2801,10 +2801,9 @@ msgid "Continue without Asking"
 msgstr "Doorgaan zonder te vragen"
 
 #: ImportExport/ImportMatcher.cpp:38
-#, fuzzy, kde-format
-#| msgid "Key in file"
+#, kde-format
 msgid "Key in import file"
-msgstr "Sleutel in bestand"
+msgstr "Sleutel in geïmporteerd bestand"
 
 #: ImportExport/ImportMatcher.cpp:45
 #, kde-format
@@ -2815,12 +2814,13 @@ msgstr "Sleutel in uw database"
 #, kde-format
 msgid "The import key partially matches this key in your database"
 msgstr ""
+"De geïmporteerde sleutel komt gedeeltelijk overeen met deze sleutel in uw "
+"database."
 
 #: ImportExport/ImportMatcher.cpp:123
-#, fuzzy, kde-format
-#| msgid "Key in your database"
+#, kde-format
 msgid "This key is not currently in your database"
-msgstr "Sleutel in uw database"
+msgstr "Deze sleutel in nu niet in uw database"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format

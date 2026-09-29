@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-28 00:43+0000\n"
-"PO-Revision-Date: 2026-09-10 06:10+0200\n"
+"PO-Revision-Date: 2026-09-28 05:09+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -2777,10 +2777,9 @@ msgid "Continue without Asking"
 msgstr "გაგრძელება კითხვის გარეშე"
 
 #: ImportExport/ImportMatcher.cpp:38
-#, fuzzy, kde-format
-#| msgid "Key in file"
+#, kde-format
 msgid "Key in import file"
-msgstr "გასაღები ფაილში"
+msgstr "გასაღები შემოსატან ფაილში"
 
 #: ImportExport/ImportMatcher.cpp:45
 #, kde-format
@@ -2791,12 +2790,13 @@ msgstr "გასაღები თქვენს მონაცემთა 
 #, kde-format
 msgid "The import key partially matches this key in your database"
 msgstr ""
+"შემოტანის გასაღები თქვენს მონაცემთა ბაზაში არსებულ ამ გასაღებს ნაწილობრივ "
+"ემთხვევა"
 
 #: ImportExport/ImportMatcher.cpp:123
-#, fuzzy, kde-format
-#| msgid "Key in your database"
+#, kde-format
 msgid "This key is not currently in your database"
-msgstr "გასაღები თქვენს მონაცემთა ბაზაში"
+msgstr "ეს გასაღები ამჟამად თქვენს მონაცემთა ბაზაში არაა"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format

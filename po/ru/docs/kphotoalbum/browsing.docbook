@@ -1,0 +1,181 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2007 Jan Kundrát <jkt@flaska.net>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-browsing">
+  <title
+>Обзор</title>
+  <para
+>После добавления комментариев к изображениям и видео &kphotoalbum; позволяет просматривать их. Если сравнить это с <xref linkend="fig-empty-browser-window"/> , можно увидеть, что теперь в каждой из категорий <literal
+>Люди</literal
+>, <literal
+>Места</literal
+> и <literal
+>Ключевые слова</literal
+> доступны элементы.</para>
+
+  <para
+>В окне обзора показываются категории, в которые вводились данные при комментировании изображений и видео. Кроме того, здесь есть элементы для поиска по данным EXIF изображений, для обзора структуры папок жёсткого диска и, конечно, для показа самих миниатюр. Опишем каждый элемент по порядку.</para
+> 
+  
+  <para
+>При щелчке мышью по разделу <literal
+>Люди</literal
+> окно обзора изменится, как показано на <xref linkend="fig-browser-for-persons"/>.</para>
+  
+  <figure id="fig-browser-for-persons">
+    <title
+>Окно обзора, когда выбран раздел «Люди».</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-for-persons.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>Теперь обзор заполнен людьми, указанными для изображений и видео <footnote
+><para
+>Можно заметить, что элемент <literal
+>Pets</literal
+> имеет особый значок. Подробнее об этом см. <xref linkend="sec-specifying-categories"/>.</para
+></footnote
+>; выбор человека возвращает обзор в исходное состояние. Однако на этот раз <emphasis
+>область действия</emphasis
+> ограничена выбранным человеком. Это означает, что показываются сведения только об изображениях и видео, содержащих этого человека. См. <xref linkend="fig-browser-for-jesper"/> ниже — это результат выбора человека <literal
+>Jesper</literal
+>; указание на это видно в нижней части окна. В правом нижнем углу <xref linkend="fig-browser-for-jesper"/> видно, что число подходящих изображений и видео уменьшилось с 25 до 13, тогда как общее число изображений осталось прежним.</para>
+
+  <para
+>Обратите внимание: если в области видимости только несколько изображений, &kphotoalbum; сразу перейдёт к просмотру миниатюр (см. <xref linkend="chp-thumbnail-view"/>). Это поведение настраивается в параметрах просмотра миниатюр (см. <xref linkend="opt-thumbnails"/>). </para>
+  
+  <figure id="fig-browser-for-jesper">
+    <title
+>Окно обзора, ограниченное областью человека <literal
+>Jesper</literal
+></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-for-jesper.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>Если теперь продолжить выбор нового человека, будут найдены изображения, содержащие обоих людей. Действуя так и далее, можно сузить нужный набор изображений с тысяч до нескольких.</para>
+  
+  <para
+>Завершив ограничение области изображений, выберите значок <guilabel
+>Показать миниатюры</guilabel
+>, чтобы увидеть именно те изображения, которые соответствуют текущей области.</para>
+
+
+
+
+
+
+
+
+  <sect1 id="sect-adding-preview-images-to-the-browser">
+  <title
+>Добавление изображений предварительного просмотра в окно обзора</title>
+  <para
+>Если посмотреть на <xref linkend="fig-browser-for-persons"/>, можно заметить, что перед именем каждого человека показывается один и тот же значок. На самом деле &kphotoalbum; позволяет показывать изображение предварительного просмотра для каждого человека <footnote
+><para
+>Это, разумеется, относится также к местам, ключевым словам и другим категориям, созданным самостоятельно.</para
+></footnote
+>, как показано на <xref linkend="fig-imagesForPersons"/>.</para>
+
+  <figure id="fig-imagesForPersons">
+    <title
+>Изображения для каждого отдельного человека</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="imagesForPersons.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Чтобы показывать изображения вместе с именами, нажмите кнопку в самом правом углу панели инструментов — откроется всплывающее меню, в котором можно выбрать представление для выбранной категории. Обратите внимание: представления настраиваются для каждой категории отдельно — так, для раздела «Люди» можно использовать представление со значками, а для ключевых слов — обычный список (если не удаётся подобрать подходящие изображения для ключевых слов).</para
+>  
+
+
+<para
+>Однако указать, какие изображения использовать для каждого человека, придётся самостоятельно. Для этого откройте окно просмотра (см. <xref linkend="chp-viewer"/>) и выберите в контекстном меню <guimenuitem
+>Редактировать категории…</guimenuitem
+> — откроется редактор категорий, показанный на <xref linkend="fig-categoryEditor"/>. В редакторе категорий выбирается изображение для нужного человека. В окне просмотра можно увеличить часть изображения и таким образом обрезать его до нужного фрагмента.</para>
+
+
+  <figure id="fig-categoryEditor">
+    <title
+>Редактор категорий</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="categoryEditor.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  </sect1>
+
+
+
+
+
+
+
+
+
+
+  
+  <sect1 id="sect-general-image-searches">
+    <title
+>Общий поиск изображений</title>
+    <para
+>Если в окне обзора выбрать элемент <guilabel
+>Поиск</guilabel
+>, откроется диалоговое окно, очень похожее на то, которое использовалось для настройки свойств изображений. Это окно показано на <xref linkend="fig-search"/> ниже.</para>
+    
+    <figure id="fig-search">
+      <title
+>Диалог поиска</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="search.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+    
+    <para
+>Если ввести строку в поле метки или описания, поиск этого текста будет выполняться по подстроке. Также можно указать дату для поиска — либо часть даты, например 1971, либо полную дату. Можно также указать диапазоны дат, например 1971–1980.</para>
+    
+    <para
+>Элемент «Параметры» позволяет использовать лишь очень ограниченную форму записи выражения, как показано в примере на <xref linkend="fig-search"/>. Здесь выполняется поиск изображений с <literal
+>Jesper</literal
+>, но без <literal
+>Anne Helene</literal
+>.</para>
+    
+    <para
+>Допустимые операции: &amp; (означает «и»), | (означает «или») и ! (означает «не»).</para>
+    
+  </sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

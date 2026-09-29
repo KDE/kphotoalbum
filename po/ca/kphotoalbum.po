@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-28 00:43+0000\n"
-"PO-Revision-Date: 2026-09-10 12:32+0200\n"
+"PO-Revision-Date: 2026-09-28 08:25+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -2807,10 +2807,9 @@ msgid "Continue without Asking"
 msgstr "Continua sense preguntar"
 
 #: ImportExport/ImportMatcher.cpp:38
-#, fuzzy, kde-format
-#| msgid "Key in file"
+#, kde-format
 msgid "Key in import file"
-msgstr "Clau al fitxer"
+msgstr "Clau al fitxer d'importació"
 
 #: ImportExport/ImportMatcher.cpp:45
 #, kde-format
@@ -2821,12 +2820,13 @@ msgstr "Clau a la base de dades"
 #, kde-format
 msgid "The import key partially matches this key in your database"
 msgstr ""
+"La clau d'importació coincideix parcialment amb aquesta clau a la base de "
+"dades"
 
 #: ImportExport/ImportMatcher.cpp:123
-#, fuzzy, kde-format
-#| msgid "Key in your database"
+#, kde-format
 msgid "This key is not currently in your database"
-msgstr "Clau a la base de dades"
+msgstr "Actualment aquesta clau no és a la base de dades"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format

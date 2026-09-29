@@ -1,0 +1,207 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-options">
+  <title
+>Настройка &kphotoalbum;</title>
+  <para
+>При выборе пункта <menuchoice
+><guimenu
+>Настройка</guimenu
+><guimenuitem
+>Настроить KPhotoAlbum…</guimenuitem
+></menuchoice
+> в строке меню открывается диалоговое окно параметров. В этой главе рассказывается о доступных в нём параметрах настройки.</para>
+
+
+<sect1 id="opt-general">
+  <title
+>Основные параметры</title>
+
+<para
+>Ниже показана страница настройки основных параметров. Некоторые из этих параметров кратко описаны здесь; кроме того, во время настройки можно вызвать информационное меню, щёлкнув правой кнопкой мыши по любому параметру и выбрав пункт меню <guimenuitem
+>Что это?</guimenuitem
+>.</para>
+
+<figure id="fig-options-general">
+<title
+>Общие параметры</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-general.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Параметр использования сведений об ориентации из EXIF автоматически поворачивает снимки так, как они были сделаны. Большинство цифровых камер встраивают в файлы RAW миниатюру, и довольно часто она достаточно велика, а то и полноразмерна. Использование встроенной миниатюры ускоряет все операции с изображениями: декодирование файлов RAW занимает много времени, а миниатюра обрабатывается во много раз быстрее. Можно также указать минимальный размер миниатюры, чтобы при слишком маленькой миниатюре изображение RAW всё же декодировалось.</para>
+</sect1>
+
+<sect1 id="opt-search-new">
+  <title
+>Параметры поиска новых изображений</title>
+<para
+>В левой панели доступны другие параметры, например <guimenuitem
+>Поиск файлов и версии</guimenuitem
+>. Эти параметры определяют поведение &kphotoalbum; при обнаружении новых изображений. Поиск новых изображений может выполняться автоматически при запуске или вручную из меню <guimenu
+>Обслуживание</guimenu
+>. Эти возможности подробно описаны в меню справки, но некоторые из них стоит кратко описать и здесь.</para>
+
+<figure id="fig-options-file-versions">
+<title
+>Поиск файлов и версии</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-file-versions.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para>
+<itemizedlist mark='opencircle'>
+    <listitem
+><para
+>Возможно, некоторые папки, создаваемые другими программами просмотра изображений или файловыми менеджерами, следует исключить из поиска. Это список, разделённый запятыми; при необходимости в него легко добавить новые папки.</para
+></listitem>
+    <listitem>
+        <para
+>Новые версии одних и тех же файлов можно до некоторой степени обнаруживать автоматически. Если требуется например, автоматически помещать новые версии одного и того же изображения в стек, можно настроить регулярное выражение, по которому будет проверяться, является ли новый файл новой версией исходного файла. Приведённые ниже параметры, первый из которых — регулярное выражение поиска, а второй — проверка исходного файла, помогут начать, но, возможно, потребуют настройки с учётом принятого соглашения об именовании:</para>
+    <orderedlist>
+    <listitem
+><para
+>(_(v){0,1}([0-9]){1,2}){0,1}\.(jpg|JPG|tif|TIF|png|PNG)</para
+></listitem>
+    <listitem
+><para
+>.CR2;.NEF;.JPG;.jpg</para
+></listitem>
+    </orderedlist>
+    </listitem>
+</itemizedlist
+>Обратите внимание, что текст замены исходного файла может содержать несколько суффиксов, разделённых точкой с запятой, а ссылку на совпадение регулярного выражения можно указать в формате \1. Исходный файл ищется в том же каталоге, что и новый файл. Кроме того, пример регулярного выражения соответствует, например, следующим файлам: example_v1.jpg, example_12.tif, example.PNG. </para>
+</sect1>
+
+<sect1 id="opt-thumbnails">
+  <title
+>Параметры просмотра миниатюр</title>
+  <para
+>Для просмотра миниатюр настраивать почти нечего. В основном это размер миниатюр и размер всплывающих подсказок (если планируется использовать подсказки, которые можно включить в меню <menuchoice
+><guimenu
+>Настройка</guimenu
+><guimenuitem
+>Показывать подсказки в окне миниатюр</guimenuitem
+></menuchoice
+> или комбинацией клавиш <keycombo
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+>). Кроме того, можно включить показ дополнительной информации рядом с миниатюрами, например меток и категорий. </para>
+<figure>
+<title
+>Параметры просмотра миниатюр</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-thumbnailview.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</sect1>
+
+<sect1 id="opt-viewer">
+  <title
+>Параметры просмотра</title>
+  <para
+>Ещё одна довольно простая настройка. В основном здесь можно выбрать предпочтительный размер окна просмотра или слайд-шоу либо показывать их в полноэкранном режиме. Здесь же задаётся основной интервал слайд-шоу. Алгоритм масштабирования может быть <emphasis
+>Лучший</emphasis
+> или <emphasis
+>Самый быстрый</emphasis
+>. Если компьютер достаточно быстр для лучшего масштабирования, выбирайте его, иначе отдайте предпочтение скорости. </para>
+<figure>
+<title
+>Параметры окна просмотра</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-viewer.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</sect1>
+
+
+
+
+<sect1 id="sec-specifying-categories">
+  <title
+>Категории</title>
+  <para
+>В разделе <xref linkend="chp-typingIn"/> описано, как задавать различные свойства для каждого изображения, в том числе <literal
+>Люди</literal
+>, <literal
+>Места</literal
+> и <literal
+>Ключевые слова</literal
+>. Допускается создание собственных категорий, поэтому при желании можно создать категории <literal
+>Предметы</literal
+>, <literal
+>Животные</literal
+> или <literal
+>Альбомы</literal
+>.</para>
+
+<para
+>На <xref linkend="fig-options-group"/> ниже показано диалоговое окно, в котором настраивается, какие категории существуют. Для каждой категории указываются метка и значок.</para>
+
+<figure id="fig-options-group">
+<title
+>Настройка категорий</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-groups.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</sect1>
+
+
+
+
+<sect1 id="sec-member-groups-in-options-dialog">
+<title
+>Подкатегории</title>
+
+<para
+>В разделе <xref linkend="sec-member-groups-in-property-editor"/> рассматривались подкатегории. В диалоговом окне параметров можно настроить целые группы элементов, то есть настроить все элементы группы за один раз, а не настраивать все группы для элемента, как это было в разделе <xref linkend="sec-member-groups-in-property-editor"/>.</para>
+
+<para
+>На рисунке <xref linkend="fig-options-member"/> показана страница настройки для задания групп элементов. В верхней части расположен раскрывающийся список, в котором указывается настраиваемая в данный момент категория. Слева показан список с текущей категорией, а справа — список с подкатегориями.</para>
+
+<figure id="fig-options-member">
+<title
+>Настройка групп элементов</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-member.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+</sect1>
+
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

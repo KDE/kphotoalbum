@@ -1,0 +1,157 @@
+<!--
+SPDX-FileCopyrightText: 2004-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-importExport">
+  <title
+>Импорт и экспорт</title>
+  <para
+>Если вы бываете на семейном празднике, собрании в компании, конференции или другом мероприятии, где могут присутствовать другие пользователи &kphotoalbum;, возможно, вам захочется поделиться с ними своими изображениями. Разумеется, можно создать страницы &HTML; для их просмотра, но, поскольку время на классификацию всех изображений (кто изображён на снимках, где они сделаны и т. д.) уже потрачено, нет причин выполнять всю эту работу заново.</para>
+
+    <para
+>&kphotoalbum; позволяет экспортировать набор изображений в файл <literal role="extension"
+>.kim</literal
+>, который другие пользователи могут импортировать в свою базу данных, чтобы получить вашу классификацию этих изображений.</para>
+
+    <para
+>Существует два вида файлов <literal role="extension"
+>.kim</literal
+> — встроенные и внешние, в зависимости от того, находятся ли сами изображения в файле или в другом месте. Размещение изображений в файле имеет очевидное преимущество: файл самодостаточен, но столь же очевидный недостаток — файл получается довольно большим.</para>
+
+    <para
+>Создать файл <literal role="extension"
+>.kim</literal
+> можно двумя способами: непосредственно через <menuchoice
+><guimenu
+>Файл</guimenu
+><guimenuitem
+>Экспорт…</guimenuitem
+></menuchoice
+> или вместе со страницами &HTML; (см. <xref linkend="chp-generating-html"/>). Создание файла <literal role="extension"
+>.kim</literal
+> во время экспорта &HTML; приводит к созданию внешнего файла <literal role="extension"
+>.kim</literal
+>.</para>
+
+    <para
+>Внешние файлы <literal role="extension"
+>.kim</literal
+> выполняют поиск изображений одним из двух способов: сначала изображения ищутся рядом с файлом <literal role="extension"
+>.kim</literal
+>, а если они не найдены — по URL-адресу, указанному при создании файла <literal role="extension"
+>.kim</literal
+>. Последний способ возможен только для файлов <literal role="extension"
+>.kim</literal
+>, созданных при экспорте &HTML;.</para>
+    
+    <sect1 id="chp-exportDialog">
+      <title
+>Диалоговое окно экспорта</title>
+      <para
+>В этом разделе описывается диалоговое окно экспорта, которое вызывается из меню <menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Экспорт…</guimenuitem
+></menuchoice
+>.</para>
+
+      <para
+>Наиболее важная часть этого диалогового окна — указание того, должен ли файл <literal role="extension"
+>.kim</literal
+> быть внутренним или внешним (см. описание выше). Доступны следующие три возможности: <itemizedlist>
+          <listitem
+><para
+>Включить в файл <literal role="extension"
+>.kim</literal
+> — это будет внутренний файл</para
+></listitem>
+          <listitem
+><para
+>Ручное копирование рядом с файлом .kim — здесь изображения необходимо скопировать самостоятельно рядом с файлом .kim</para
+></listitem>
+          <listitem
+><para
+>Скопировать автоматически рядом с файлом .kim — в этом случае &kphotoalbum; скопирует изображения самостоятельно.</para
+></listitem>
+        </itemizedlist>
+      </para>
+      
+      <para
+>Между нами говоря, файлы <literal role="extension"
+>.kim</literal
+> — на самом деле просто zip-архивы. Обычно сжимать файлы не имеет смысла, поскольку изображения обычно уже сжаты в JPEG, а сам файл XML совсем невелик. Если всё же нужно выжать последние байты, это можно сделать, установив флажок <guilabel
+>Сжимать экспортируемый файл</guilabel
+></para>
+
+      <para
+>Последний параметр на странице — <guilabel
+>Ограничить максимальный из размеров изображения до:</guilabel
+>. При отправке изображений друзьям может не понадобиться отправлять их в полном размере, так как файл <literal role="extension"
+>.kim</literal
+> может быть очень большим. Для этого можно указать, что максимальный размер изображения должен составлять, например, не более 800 пикселей в каждом направлении.</para>
+    </sect1>
+
+
+
+
+    
+<sect1 id="chp-importDialog">
+  <title
+>Диалоговое окно импорта</title>
+<para
+>Если выбрать файл <literal role="extension"
+>.kim</literal
+> в веб-браузере или команду <menuchoice
+><guimenu
+>Файл</guimenu
+><guimenuitem
+>Импорт…</guimenuitem
+></menuchoice
+>, &kphotoalbum; импортирует базу данных, экспортированную с помощью возможности, описанной в <xref linkend="chp-importExport"/>.</para>
+
+<para
+>Мастер импорта состоит из четырёх шагов. Сначала укажите, какие изображения нужно импортировать. Затем укажите папку, в которую следует поместить импортированные изображения.</para>
+
+<para
+>Возможно, категорию людей вы называете <emphasis
+>personen</emphasis
+> (если вы немец), а я по-датски могу назвать эту категорию <emphasis
+>personer</emphasis
+>. На третьем шаге диалогового окна импорта необходимо указать, какую категорию из файла импорта импортировать, а также с какими категориями в базе данных они сопоставляются.</para>
+
+<para
+>В своих базах данных я могу называть себя <emphasis
+>я</emphasis
+>, тогда как в вашей базе данных я записан как Jesper K. Pedersen. На четвёртом шаге настраивается сопоставление для каждой из импортируемых категорий. Это показано на <xref linkend="fig-import-dialog"/>.</para>
+
+<figure id="fig-import-dialog">
+<title
+>Сопоставление людей в диалоговом окне импорта </title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="import-dialog.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>На снимке экрана видно, что Donna совпадает и в файле .kim, и в моей базе данных — имя показано чёрным цветом, что указывает на полное совпадение в базе данных. Остальные три имени в базе данных не найдены, хотя Jesper и Anne Helene найдены как совпадение по подстроке, поэтому они предложены. Наконец, в моей базе данных не было Spiff (или я назвал его совсем иначе), поэтому &kphotoalbum; просто предлагает Spiff в качестве имени при импорте.</para>
+
+</sect1>
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-28 00:43+0000\n"
-"PO-Revision-Date: 2026-09-10 12:28+0200\n"
+"PO-Revision-Date: 2026-09-28 13:43+0200\n"
 "Last-Translator: Libor Filipek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2795,10 +2795,9 @@ msgid "Continue without Asking"
 msgstr "Pokračovat bez dotazování"
 
 #: ImportExport/ImportMatcher.cpp:38
-#, fuzzy, kde-format
-#| msgid "Key in file"
+#, kde-format
 msgid "Key in import file"
-msgstr "Klíč v souboru"
+msgstr "Klíč v importovaném souboru"
 
 #: ImportExport/ImportMatcher.cpp:45
 #, kde-format
@@ -2808,13 +2807,12 @@ msgstr "Klíč ve vaší databázi"
 #: ImportExport/ImportMatcher.cpp:105
 #, kde-format
 msgid "The import key partially matches this key in your database"
-msgstr ""
+msgstr "Importovaný klíč se částečně shoduje s tímto klíčem ve vaší databázi"
 
 #: ImportExport/ImportMatcher.cpp:123
-#, fuzzy, kde-format
-#| msgid "Key in your database"
+#, kde-format
 msgid "This key is not currently in your database"
-msgstr "Klíč ve vaší databázi"
+msgstr "Tento klíč se v současné době nachází ve vaší databázi"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format

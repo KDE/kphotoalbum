@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-28 00:43+0000\n"
-"PO-Revision-Date: 2026-09-10 07:15+0200\n"
+"PO-Revision-Date: 2026-09-28 07:35+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -2803,10 +2803,9 @@ msgid "Continue without Asking"
 msgstr "Nadaljuj brez spraševanja"
 
 #: ImportExport/ImportMatcher.cpp:38
-#, fuzzy, kde-format
-#| msgid "Key in file"
+#, kde-format
 msgid "Key in import file"
-msgstr "Ključ v datoteki"
+msgstr "Ključ v datoteki uvoza"
 
 #: ImportExport/ImportMatcher.cpp:45
 #, kde-format
@@ -2816,13 +2815,12 @@ msgstr "Ključ v vaši zbirki podatkov"
 #: ImportExport/ImportMatcher.cpp:105
 #, kde-format
 msgid "The import key partially matches this key in your database"
-msgstr ""
+msgstr "Uvozni ključ se delno ujema s tem ključem v vaši zbirki podatkov"
 
 #: ImportExport/ImportMatcher.cpp:123
-#, fuzzy, kde-format
-#| msgid "Key in your database"
+#, kde-format
 msgid "This key is not currently in your database"
-msgstr "Ključ v vaši zbirki podatkov"
+msgstr "Tega ključa trenutno ni v vaši zbirki podatkov"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format

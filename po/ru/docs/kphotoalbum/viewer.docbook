@@ -1,0 +1,647 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-viewer">
+  <title
+>Окно просмотра</title>
+  <para
+>Причина, по которой все изображения помещаются в &kphotoalbum; и на их описание уходят часы, конечно же, в том, что рано или поздно их захочется посмотреть. Для этого в &kphotoalbum; есть окно просмотра, позволяющее показывать изображения и видео. Окно просмотра открывается из режима миниатюр, как описано в <xref linkend="chp-thumbnail-view"/>. </para>
+
+<sect1 id="sect-viewer-common-commands">
+<title
+>Общие команды окна просмотра</title>
+<para
+>Окно просмотра поддерживает как изображения, так и видео. Для изображений и видео поддерживаются следующие команды: </para>
+
+<itemizedlist>
+<listitem>
+<para
+>Чтобы закрыть окно просмотра, нажмите <keycap
+>Esc</keycap
+>. </para>
+</listitem>
+
+<listitem>
+<para
+>Нажмите <keycap
+>Page Down</keycap
+> или клавишу <keycap
+>Space</keycap
+>, чтобы перейти к следующему изображению или видео, а для перехода к предыдущему нажмите <keycap
+>Page Up</keycap
+>. </para>
+</listitem>
+
+<listitem>
+<para
+>Чтобы открыть <link linkend="chp-typingIn"
+>окно комментирования</link
+> для текущего изображения или видео, нажмите <keycombo
+>&Ctrl;<keycap
+>1</keycap
+></keycombo
+>. </para>
+</listitem>
+
+<listitem>
+<para
+>Нажмите <keycombo
+>&Ctrl;<keycap
+>4</keycap
+></keycombo
+>, чтобы сделать изображение или видео первым в стеке (если оно уже входит в стек). </para>
+</listitem>
+
+<listitem>
+<para
+>Чтобы изменить описание изображения, нажмите <keycombo
+>&Ctrl;<keycap
+>d</keycap
+></keycombo
+>. </para>
+</listitem>
+
+<listitem>
+<para
+>Для переключения полноэкранного режима при просмотре изображения или видео нажмите <keycap
+>&Enter;</keycap
+> или <keycap
+>F11</keycap
+>.</para>
+</listitem>
+
+<listitem>
+<para
+>Нажмите <keycap
+>Delete</keycap
+>, чтобы удалить текущее изображение или видео из списка просмотра (как если бы оно не было выбрано для просмотра) и перейти к следующему элементу списка просмотра. Если из списка просмотра удаляется последнее изображение или видео, окно просмотра закрывается.</para>
+</listitem>
+
+<listitem>
+<para
+>Нажмите <keycombo
+>&Ctrl;<keycap
+>Delete</keycap
+></keycombo
+>, чтобы добавить текущее изображение или видео в список удаления окна просмотра. При закрытии окна просмотра &kphotoalbum; откроет диалоговое окно <emphasis
+>Удаление элементов</emphasis
+>, если список удаления не пуст. </para>
+</listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="sect-viewer-images">
+<title
+>Просмотр изображений</title>
+<para
+>Сведения о командах окна просмотра, поддерживаемых как для изображений, так и для видео, см. в разделе <xref linkend="sect-viewer-common-commands"/>. </para>
+
+<para
+>Окно просмотра показано на <xref linkend="fig-viewer"/>. Окно просмотра, разумеется, показывает изображение, но вдобавок к этому выводит сведения, указанные для каждого изображения, в том числе кто на нём изображён, где и когда сделан снимок, и т. д. </para>
+
+  <figure id="fig-viewer">
+    <title
+>Окно просмотра</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<sect2 id="viewer-infobox">
+<title
+>Окно сведений</title>
+
+<para
+>Окно просмотра может показывать поверх изображения окно сведений. На <xref linkend="fig-viewer"/> оно расположено внизу по центру. </para>
+
+<para
+>Если окно сведений закрывает часть изображения, которую нужно увидеть, щёлкните левой кнопкой мыши по окну сведений и перетащите его в другое место изображения. Чтобы включить или отключить окно сведений, нажмите <keycombo
+>&Ctrl;<keycap
+>i</keycap
+></keycombo
+>. </para>
+
+<para
+>Можно настроить, что показывать в окне сведений, и, разумеется, показывать ли его вообще. Все эти параметры доступны по щелчку правой кнопкой мыши в окне просмотра. Контекстное меню показано ниже на <xref linkend="fig-viewer-contextmenu"/>.</para>
+
+  <figure id="fig-viewer-contextmenu">
+    <title
+>Контекстное меню окна просмотра</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer-contextmenu.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Некоторые слова в окне сведений подчёркнуты. Если щёлкнуть левой кнопкой мыши по одному из этих слов, окно обзора (см. <xref linkend="chp-browsing"/>) перейдёт в область этого элемента. Например, если в демонстрационном примере щёлкнуть по <literal
+>Anne Helene</literal
+> в окне сведений, окно обзора покажет все изображения Anne Helene — точно так же, как если бы в корне окна обзора был выбран пункт <literal
+>People</literal
+>, а затем <literal
+>Anne Helene</literal
+>.</para>
+
+<para
+>В правом верхнем углу окна сведений находится небольшая кнопка <emphasis
+>Перейти к контексту</emphasis
+> с логотипом &kphotoalbum;. Щелчок левой кнопкой мыши по этой кнопке приведёт к переходу в <xref linkend="chp-thumbnail-view"/>. В режиме миниатюр показываются все изображения, причём изображение, которое только что было открыто в окне просмотра, будет выделено. Смысл этого в следующем: выполняется переход к определённому человеку и просматриваются его изображения. Одно из изображений относится, скажем, ко времени обучения в старших классах, и теперь требуется посмотреть изображения того периода. С помощью кнопки <guilabel
+>Перейти к контексту</guilabel
+> выполняется переход в режим миниатюр, где показаны все изображения, текущее находится в фокусе, а вокруг него, скорее всего, все снимки времён старших классов.</para>
+
+<para
+>Если текущее изображение содержит координаты геолокации, под кнопкой <guilabel
+>Перейти к контексту</guilabel
+> в окне сведений появится кнопка карты. Щелчок левой кнопкой мыши по этой кнопке откроет новое окно с картой, на которой показано, где был сделан снимок. </para>
+
+<note>
+<para
+>Кнопка карты показывается, только если &kphotoalbum; собран с поддержкой &marble;. </para>
+</note>
+</sect2>
+
+<sect2 id="viewer-navigation">
+<title
+>Просмотр дополнительных изображений</title>
+  <para
+>Если в окно просмотра загружено несколько изображений, то помимо перехода вперёд и назад с помощью клавиш <keycap
+>Page Down</keycap
+> и <keycap
+>Page Up</keycap
+> соответственно, к первому и последнему изображению можно перейти с помощью клавиш <keycap
+>Home</keycap
+> и <keycap
+>End</keycap
+>. Эти функции, разумеется, доступны и из контекстного меню.</para>
+
+<para
+>Кроме того, несколько изображений можно показывать в режиме слайд-шоу. В режиме слайд-шоу &kphotoalbum; каждые несколько секунд загружает в окно просмотра новое изображение. Нажмите <keycombo
+>&Ctrl;<keycap
+>r</keycap
+></keycombo
+>, чтобы включить или выключить слайд-шоу. Нажмите <keycombo
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+>, чтобы ускорить слайд-шоу, или <keycombo
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+>, чтобы замедлить его. </para>
+</sect2>
+
+<sect2 id="viewer-zooming">
+<title
+>Увеличение и уменьшение масштаба</title>
+<para
+>В окне просмотра можно изменять масштаб изображения, растягивая прямоугольник левой кнопкой мыши. Нажатие клавиши <keycap
+>минус</keycap
+> снова уменьшает масштаб. Нажатие клавиши <keycap
+>плюс</keycap
+> увеличивает масштаб в центре изображения. На рисунке <xref linkend="fig-marking-zoom-rectangle"/> ниже показано, как отмечается прямоугольник масштабирования, а <xref linkend="fig-zoomed-view"/> показывает результат масштабирования.</para>
+
+<para
+>Нажмите клавишу <keycap
+>точка</keycap
+>, чтобы сбросить масштаб и показать изображение в обычном размере. Нажатие клавиши <keycap
+>=</keycap
+> устанавливает такой масштаб, при котором каждому пикселю экрана соответствует пиксель изображения.</para>
+
+  <figure id="fig-marking-zoom-rectangle">
+    <title
+>Масштабирование в окне просмотра</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="marking-zoom-rectangle.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <figure id="fig-zoomed-view">
+    <title
+>Масштабирование в окне просмотра</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="zoomed-view.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+</sect2>
+
+<sect2 id="viewer-rotating">
+<title
+>Поворот изображений</title>
+  <para
+>Нажмите клавишу <keycap
+>7</keycap
+>, чтобы повернуть изображение на 90 градусов влево. Клавиша <keycap
+>9</keycap
+> поворачивает изображение на 90 градусов вправо. Клавиша <keycap
+>8</keycap
+> поворачивает изображение на 180 градусов (то есть переворачивает его вверх ногами). </para>
+<important>
+<para
+>Любое изменение поворота изображения в окне просмотра сохраняется.</para>
+</important>
+</sect2>
+</sect1>
+
+<sect1 id="sect-viewer-videos">
+<title
+>Просмотр видео</title>
+<para
+>Сведения о командах окна просмотра, поддерживаемых как для видео, так и для изображений, см. в разделе <xref linkend="sect-viewer-common-commands"/>. </para>
+
+<para
+>При загрузке видео в окно просмотра воспроизведение начинается автоматически. Чтобы приостановить видео, нажмите клавишу <keycap
+>p</keycap
+>, а для возобновления воспроизведения нажмите её ещё раз. </para>
+
+<para
+>Нажмите <keycap
+>Home</keycap
+>, чтобы начать воспроизведение текущего видео с начала, а <keycap
+>End</keycap
+> останавливает видео и перематывает его в начало. </para>
+
+<important>
+<para
+>Некоторые возможности окна просмотра недоступны при просмотре видео:</para>
+<itemizedlist>
+<listitem>
+<para
+>Окно сведений не показывается на видео.</para>
+</listitem>
+<listitem>
+<para
+>Для видео не поддерживаются операции масштабирования, кроме переключения полноэкранного режима.</para>
+</listitem>
+<listitem>
+<para
+>Для видео операции поворота не поддерживаются.</para>
+</listitem>
+<listitem>
+<para
+>Для видео режим слайд-шоу не поддерживается.</para>
+</listitem>
+</itemizedlist>
+</important>
+
+<warning>
+<para
+>Ярлыки (см. <xref linkend="assigning-tokens-from-the-viewer"/>) и метки (см. <xref linkend="annotating-from-the-viewer"/>) можно переключать при показе видео в окне просмотра, но пользователь не получает немедленного отклика о том, что что-то изменилось. Чтобы случайно не переключить ярлык или метку, режим комментирования окна просмотра можно установить в <emphasis
+>Заблокировано</emphasis
+>. </para>
+
+<para
+>Как отмечено выше, клавиша <keycap
+>p</keycap
+> переключает паузу, поэтому при просмотре видео её нельзя использовать для переключения ярлыка или метки. </para>
+</warning>
+
+<sect2 id="viewer-seeking">
+<title
+>Перемотка видео</title>
+<para
+>Окно просмотра поддерживает перемотку внутри видео. Комбинации клавиш перечислены в <xref linkend="table-video-seek-controls"/>. </para>
+
+<table id="table-video-seek-controls">
+<title
+>Управление перемоткой видео</title>
+<tgroup cols="3">
+<thead>
+<row>
+<entry
+>Длительность перемотки</entry>
+<entry
+>Перемотать назад</entry>
+<entry
+>Перемотать вперёд</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry
+>100 мс</entry>
+<entry
+><keycombo
+>&Shift;<keycap
+>&Up;</keycap
+></keycombo
+></entry>
+<entry
+><keycombo
+>&Shift;<keycap
+>&Down;</keycap
+></keycombo
+></entry>
+</row>
+<row>
+<entry
+>1 с</entry>
+<entry
+><keycap
+>&Up;</keycap
+></entry>
+<entry
+><keycap
+>&Down;</keycap
+></entry>
+</row>
+<row>
+<entry
+>10 с</entry>
+<entry
+><keycap
+>&Left;</keycap
+></entry>
+<entry
+><keycap
+>&Right;</keycap
+></entry>
+</row>
+<row>
+<entry
+>1 минута</entry>
+<entry
+><keycombo
+>&Shift;<keycap
+>&Left;</keycap
+></keycombo
+></entry>
+<entry
+><keycombo
+>&Shift;<keycap
+>&Right;</keycap
+></keycombo
+></entry>
+</row>
+<row>
+<entry
+>10 минут</entry>
+<entry
+><keycombo
+>&Ctrl;<keycap
+>&Left;</keycap
+></keycombo
+></entry>
+<entry
+><keycombo
+>&Ctrl;<keycap
+>&Right;</keycap
+></keycombo
+></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</sect2>
+</sect1>
+
+<sect1 id="annotating-from-the-viewer">
+<title
+>Добавление комментариев к изображениям из окна просмотра</title>
+<para
+>В окне просмотра доступны три режима комментирования изображений:</para>
+<itemizedlist>
+    <listitem
+><para
+><emphasis
+>Заблокировано</emphasis
+> — это режим по умолчанию при запуске окна просмотра: в нём не происходит ни комментирования, ни присвоения ярлыков. Благодаря этому изображения не будут случайно прокомментированы при просмотре.</para
+></listitem>
+    <listitem
+><para
+><emphasis
+>Назначение ярлыков</emphasis
+> — позволяет задать ярлыки изображениям простым нажатием клавиши от A до Z на клавиатуре.</para
+></listitem>
+    <listitem
+><para
+><emphasis
+>Назначение меток</emphasis
+> — позволяет назначить макросы клавише. Например, <emphasis
+>L</emphasis
+> может означать установку элемента <emphasis
+>Las Vegas</emphasis
+> в категории <emphasis
+>Location</emphasis
+>. Кроме того, это позволяет задать для изображения любую метку.</para
+></listitem>
+</itemizedlist>
+<para
+>Режимы выбираются из контекстного меню, как показано на <xref linkend="fig-ctxmenu-for-mode-selection"/>. </para>
+<para
+>Оба режима подробно описаны ниже. </para>
+
+  <figure id="fig-ctxmenu-for-mode-selection">
+    <title
+>Выбор режима комментирования в окне просмотра</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="annotation-mode.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+</sect1>
+
+
+
+
+<sect1 id="assigning-tokens-from-the-viewer">
+<title
+>Установка ярлыков из окна просмотра</title>
+<para
+>Представьте, что нужно отправить несколько изображений в фотолабораторию для печати на бумаге. Чтобы понять, какие из них нужны, запустите окно просмотра и, просматривая каждое изображение, пометьте их как <emphasis
+>хорошие</emphasis
+>, <emphasis
+>плохие</emphasis
+> или <emphasis
+>возможно</emphasis
+>.</para>
+
+<para
+>Конечно, можно создать несколько новых элементов (скажем, <emphasis
+>Хорошо</emphasis
+>, <emphasis
+>Плохо</emphasis
+>, <emphasis
+>Возможно</emphasis
+>) для существующей категории, например категории <emphasis
+>Альбом</emphasis
+>. Однако, поскольку эти метки, скорее всего, не понадобятся после отправки изображений в фотолабораторию, есть более простой способ — просто установить ярлыки на изображениях. Ярлыки обозначаются буквами от A до Z, и ярлык устанавливается простым нажатием соответствующей буквы. В <xref linkend="fig-images-with-tokens"/> показано изображение, на котором установлены ярлыки A, B и C.</para>
+
+  <figure id="fig-images-with-tokens">
+    <title
+>Изображение с ярлыками</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images-with-tokens.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Чтобы это работало, необходимо находиться в режиме <emphasis
+>Назначение ярлыков</emphasis
+>. См. <xref linkend="fig-ctxmenu-for-mode-selection"/></para>
+
+<para
+>После того как на изображениях заданы ярлыки, их можно будет просматривать в окне обзора обычным образом, как показано на <xref linkend="fig-tokens-in-browser"/>. Поэтому, когда отмечены изображения, которые нужно отредактировать, напечатать или ещё что-то сделать, достаточно перейти к этим изображениям и обработать набор оттуда, например, с помощью пункта <emphasis
+>Копировать изображения в…</emphasis
+> контекстного меню.</para>
+
+  <figure id="fig-tokens-in-browser">
+    <title
+>Ярлыки в окне обзора</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-browser.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Категории (и особенно ярлыки) можно показывать в режиме миниатюр. При показе категорий в режиме миниатюр можно также добавлять ярлыки к изображениям: достаточно нажать клавишу с буквой ярлыка, когда изображение выделено. Это показано в <xref linkend="fig-tokens-in-thumbnail-viewer"/>.</para>
+
+  <figure id="fig-tokens-in-thumbnail-viewer">
+    <title
+>Ярлыки в окне миниатюр</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-thumbnail-viewer.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+
+
+</sect1>
+
+<sect1>
+    <title
+>Добавление меток к изображениям из окна просмотра</title>
+<para
+>Присвоение меток изображениям может быть утомительным даже в &kphotoalbum;, по крайней мере, если накопились тысячи или десятки тысяч изображений, которым ещё предстоит присвоить метки. К счастью, теперь метки можно добавлять нажатием одной клавиши при просмотре изображений. В основе такого способа работы с изображениями лежит понимание того, что на большинстве изображений присутствуют одни и те же несколько человек в одних и тех же нескольких местах, а время от времени появляются и несколько «гостей» — например, место отпуска или друзья, гостившие неделю.</para>
+
+<para
+>Чтобы назначить метки изображениям во время их просмотра, необходимо перейти в <emphasis
+>режим назначения меток</emphasis
+> — см. <xref linkend="fig-ctxmenu-for-mode-selection"/>. После включения этого режима достаточно нажать буквенную клавишу на клавиатуре, чтобы назначить метку или применить уже назначенную.</para>
+
+<para
+>На рисунке <xref linkend="fig-assign-macro-step1"/> ниже клавиша <keycap
+>s</keycap
+> только что нажата при просмотре изображений в <emphasis
+>режиме назначения меток</emphasis
+>. В результате открылось диалоговое окно, в котором можно указать, какую метку назначить этой клавише.</para>
+
+<figure id="fig-assign-macro-step1">
+  <title
+>Шаг 1 — назначение макроса клавише <emphasis
+>s</emphasis
+></title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-step1.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>Затем в поле ввода набрано <emphasis
+>sp</emphasis
+>, и предлагаются варианты «People / Je<emphasis
+>sp</emphasis
+>er» и «People / <emphasis
+>Sp</emphasis
+>iff». Оба варианта совпали с набранными буквами. Нажатие стрелки вниз для выбора <emphasis
+>Spiff</emphasis
+> и нажатие клавиши Enter назначит букву <emphasis
+>s</emphasis
+> для добавления метки <emphasis
+>People / Spiff</emphasis
+> к просматриваемому изображению. Это назначение сохранится для будущих сеансов. Чтобы переназначить букву s другой метке, нажмите <keycombo action="simul"
+>&Shift;<keycap
+>s</keycap
+></keycombo
+>.</para>
+
+<figure id="fig-assign-macro-step2">
+  <title
+>Шаг 2 — назначение макроса — ввод <emphasis
+>sp</emphasis
+></title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-step2.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>Ниже на <xref linkend="fig-assign-macro-overview"/> показаны существующие комбинации клавиш в правой части диалогового окна.</para>
+<figure id="fig-assign-macro-overview">
+  <title
+>Обзор назначенных комбинаций клавиш</title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-overview.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>Если метки, которую требуется назначить, ещё нет в базе данных, нажмите кнопку <emphasis
+>Добавить новую</emphasis
+>, чтобы создать её. Это показано ниже на <xref linkend="fig-assign-macro-add-new-value.png"/></para>
+
+<figure id="fig-assign-macro-add-new-value.png">
+  <title
+>Добавление новой метки</title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-add-new-value.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>При добавлении меток к изображениям из окна просмотра может потребоваться добавить метку, не привязывая её к клавише. Для этого просто нажмите <keycombo
+>&Ctrl;<keycap
+>a</keycap
+></keycombo
+>. Этим же способом открывается диалоговое окно для просмотра привязок клавиш макросов. </para>
+
+<para
+>Нажмите <keycombo
+>&Ctrl;<keycap
+>c</keycap
+></keycombo
+>, чтобы скопировать комментарии предыдущего изображения в списке окна просмотра. </para>
+
+</sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

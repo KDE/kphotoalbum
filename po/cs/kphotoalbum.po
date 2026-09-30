@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-28 00:43+0000\n"
+"POT-Creation-Date: 2026-09-30 00:43+0000\n"
 "PO-Revision-Date: 2026-09-28 13:43+0200\n"
 "Last-Translator: Libor Filipek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -2761,34 +2761,43 @@ msgstr "Chyba při vytváření složky %1"
 msgid "How to resolve clashes"
 msgstr "Jak řešit konflikty"
 
-#: ImportExport/ImportHandler.cpp:95 ImportExport/ImportHandler.cpp:157
+#: ImportExport/ImportHandler.cpp:95
 #, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "Kopíruji obrázky"
 
-#: ImportExport/ImportHandler.cpp:172
+#: ImportExport/ImportHandler.cpp:158
+#, fuzzy, kde-format
+#| msgid "Copying image files"
+msgctxt "@title:window"
+msgid "Copying Files"
+msgstr "Kopírování souborů s obrázky"
+
+#: ImportExport/ImportHandler.cpp:178
 #, kde-format
 msgid "Error when writing image %1"
 msgstr "Chyba během zápisu obrázku %1"
 
-#: ImportExport/ImportHandler.cpp:191
-#, kde-format
+#: ImportExport/ImportHandler.cpp:197
+#, fuzzy, kde-format
+#| msgid "Updating Database"
+msgctxt "@title:window"
 msgid "Updating Database"
 msgstr "Probíhá aktualizace databáze"
 
-#: ImportExport/ImportHandler.cpp:236
+#: ImportExport/ImportHandler.cpp:245
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
 msgstr "Nelze kopírovat z některého z následujících umístění:"
 
-#: ImportExport/ImportHandler.cpp:237
+#: ImportExport/ImportHandler.cpp:246
 #, kde-format
 msgctxt "@title"
 msgid "Copy failed"
 msgstr "Kopírování selhalo"
 
-#: ImportExport/ImportHandler.cpp:243
+#: ImportExport/ImportHandler.cpp:252
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"

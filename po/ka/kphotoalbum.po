@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-28 00:43+0000\n"
+"POT-Creation-Date: 2026-09-30 00:43+0000\n"
 "PO-Revision-Date: 2026-09-28 05:09+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -2743,34 +2743,43 @@ msgstr "შეცდომა საქაღალდის შექმნი�
 msgid "How to resolve clashes"
 msgstr "როგორ გადავჭრათ კონფლიქტები"
 
-#: ImportExport/ImportHandler.cpp:95 ImportExport/ImportHandler.cpp:157
+#: ImportExport/ImportHandler.cpp:95
 #, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "გამოსახულებების კოპირება"
 
-#: ImportExport/ImportHandler.cpp:172
+#: ImportExport/ImportHandler.cpp:158
+#, fuzzy, kde-format
+#| msgid "Copying image files"
+msgctxt "@title:window"
+msgid "Copying Files"
+msgstr "სურათის ფაილების კოპირება"
+
+#: ImportExport/ImportHandler.cpp:178
 #, kde-format
 msgid "Error when writing image %1"
 msgstr "გამოსახულების ჩაწერის შეცდომა: %1"
 
-#: ImportExport/ImportHandler.cpp:191
-#, kde-format
+#: ImportExport/ImportHandler.cpp:197
+#, fuzzy, kde-format
+#| msgid "Updating Database"
+msgctxt "@title:window"
 msgid "Updating Database"
 msgstr "ბაზის განახლება"
 
-#: ImportExport/ImportHandler.cpp:236
+#: ImportExport/ImportHandler.cpp:245
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
 msgstr "ვერ დავაკოპირე ერთ-ერთი შემდეგი მდებარეობიდან:"
 
-#: ImportExport/ImportHandler.cpp:237
+#: ImportExport/ImportHandler.cpp:246
 #, kde-format
 msgctxt "@title"
 msgid "Copy failed"
 msgstr "კოპირების შეცდომა"
 
-#: ImportExport/ImportHandler.cpp:243
+#: ImportExport/ImportHandler.cpp:252
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"

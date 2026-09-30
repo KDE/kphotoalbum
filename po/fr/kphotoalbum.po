@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-28 00:43+0000\n"
+"POT-Creation-Date: 2026-09-30 00:43+0000\n"
 "PO-Revision-Date: 2026-09-11 09:05+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
@@ -2803,34 +2803,43 @@ msgstr "Erreur pendant la création du dossier %1"
 msgid "How to resolve clashes"
 msgstr "Comment résoudre les conflits"
 
-#: ImportExport/ImportHandler.cpp:95 ImportExport/ImportHandler.cpp:157
+#: ImportExport/ImportHandler.cpp:95
 #, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "Copie des images"
 
-#: ImportExport/ImportHandler.cpp:172
+#: ImportExport/ImportHandler.cpp:158
+#, fuzzy, kde-format
+#| msgid "Copying image files"
+msgctxt "@title:window"
+msgid "Copying Files"
+msgstr "Copie des fichiers image"
+
+#: ImportExport/ImportHandler.cpp:178
 #, kde-format
 msgid "Error when writing image %1"
 msgstr "Erreur pendant l'écriture de l'image %1"
 
-#: ImportExport/ImportHandler.cpp:191
-#, kde-format
+#: ImportExport/ImportHandler.cpp:197
+#, fuzzy, kde-format
+#| msgid "Updating Database"
+msgctxt "@title:window"
 msgid "Updating Database"
 msgstr "Mise à jour de la base de donnée"
 
-#: ImportExport/ImportHandler.cpp:236
+#: ImportExport/ImportHandler.cpp:245
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
 msgstr "Impossible de copier de l'un des emplacements suivants :"
 
-#: ImportExport/ImportHandler.cpp:237
+#: ImportExport/ImportHandler.cpp:246
 #, kde-format
 msgctxt "@title"
 msgid "Copy failed"
 msgstr "Impossible d'effectuer la copie"
 
-#: ImportExport/ImportHandler.cpp:243
+#: ImportExport/ImportHandler.cpp:252
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"

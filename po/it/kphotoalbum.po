@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-28 00:43+0000\n"
-"PO-Revision-Date: 2026-09-10 22:27+0200\n"
+"POT-Creation-Date: 2026-09-30 00:43+0000\n"
+"PO-Revision-Date: 2026-09-29 20:06+0200\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2760,44 +2760,52 @@ msgstr "Errore nella creazione della cartella %1"
 msgid "How to resolve clashes"
 msgstr "Come risolvere i conflitti"
 
-#: ImportExport/ImportHandler.cpp:95 ImportExport/ImportHandler.cpp:157
+#: ImportExport/ImportHandler.cpp:95
 #, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "Copia delle immagini"
 
-#: ImportExport/ImportHandler.cpp:172
+#: ImportExport/ImportHandler.cpp:158
+#, fuzzy, kde-format
+#| msgid "Copying image files"
+msgctxt "@title:window"
+msgid "Copying Files"
+msgstr "Copia di file immagine"
+
+#: ImportExport/ImportHandler.cpp:178
 #, kde-format
 msgid "Error when writing image %1"
 msgstr "Errore durante la scrittura dell'immagine %1"
 
-#: ImportExport/ImportHandler.cpp:191
-#, kde-format
+#: ImportExport/ImportHandler.cpp:197
+#, fuzzy, kde-format
+#| msgid "Updating Database"
+msgctxt "@title:window"
 msgid "Updating Database"
 msgstr "Aggiornamento della banca dati"
 
-#: ImportExport/ImportHandler.cpp:236
+#: ImportExport/ImportHandler.cpp:245
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
 msgstr "Impossibile copiare da una delle seguenti posizioni:"
 
-#: ImportExport/ImportHandler.cpp:237
+#: ImportExport/ImportHandler.cpp:246
 #, kde-format
 msgctxt "@title"
 msgid "Copy failed"
 msgstr "Copia non riuscita"
 
-#: ImportExport/ImportHandler.cpp:243
+#: ImportExport/ImportHandler.cpp:252
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "Continua senza chiedere"
 
 #: ImportExport/ImportMatcher.cpp:38
-#, fuzzy, kde-format
-#| msgid "Key in file"
+#, kde-format
 msgid "Key in import file"
-msgstr "Chiave nel file"
+msgstr "Chiave nel file di importazione"
 
 #: ImportExport/ImportMatcher.cpp:45
 #, kde-format
@@ -2808,12 +2816,13 @@ msgstr "Chiave nella tua banca dati"
 #, kde-format
 msgid "The import key partially matches this key in your database"
 msgstr ""
+"La chiave di importazione corrisponde parzialmente con la chiave presente "
+"nella tua banca dati"
 
 #: ImportExport/ImportMatcher.cpp:123
-#, fuzzy, kde-format
-#| msgid "How many images are in your database:"
+#, kde-format
 msgid "This key is not currently in your database"
-msgstr "Quante immagini ci sono nella tua banca dati:"
+msgstr "Questa chiave non è attualmente nella tua banca dati"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format

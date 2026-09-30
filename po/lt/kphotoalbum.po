@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-28 00:43+0000\n"
-"PO-Revision-Date: 2026-04-16 17:46+0300\n"
+"POT-Creation-Date: 2026-09-30 00:43+0000\n"
+"PO-Revision-Date: 2026-09-30 02:10+0300\n"
 "Last-Translator: Remigijus Jarmalavičius <remigijus@jarmalavicius.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
 "Language: lt\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -490,13 +490,13 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
-msgstr ""
+msgstr "Pasukti prieš laikrodžio rodyklę"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:357
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
-msgstr ""
+msgstr "Pasukti pagal laikrodžio rodyklę"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:358
 #, kde-format
@@ -1160,7 +1160,7 @@ msgstr "10 sekundžių"
 #: DB/Category.cpp:326
 #, kde-format
 msgid "Unable to create folder '%1'."
-msgstr ""
+msgstr "Nepavyko sukurti aplanko „%1“."
 
 #: DB/Category.cpp:326
 #, kde-format
@@ -2571,34 +2571,44 @@ msgstr "Klaida kuriant aplanką %1"
 msgid "How to resolve clashes"
 msgstr ""
 
-#: ImportExport/ImportHandler.cpp:95 ImportExport/ImportHandler.cpp:157
+#: ImportExport/ImportHandler.cpp:95
 #, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "Kopijuojami paveikslai"
 
-#: ImportExport/ImportHandler.cpp:172
+#: ImportExport/ImportHandler.cpp:158
+#, fuzzy, kde-format
+#| msgctxt "@title:window"
+#| msgid "Copying Images"
+msgctxt "@title:window"
+msgid "Copying Files"
+msgstr "Kopijuojami paveikslai"
+
+#: ImportExport/ImportHandler.cpp:178
 #, kde-format
 msgid "Error when writing image %1"
 msgstr ""
 
-#: ImportExport/ImportHandler.cpp:191
-#, kde-format
+#: ImportExport/ImportHandler.cpp:197
+#, fuzzy, kde-format
+#| msgid "Updating Database"
+msgctxt "@title:window"
 msgid "Updating Database"
 msgstr "Atnaujinama duomenų bazė"
 
-#: ImportExport/ImportHandler.cpp:236
+#: ImportExport/ImportHandler.cpp:245
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
 msgstr ""
 
-#: ImportExport/ImportHandler.cpp:237
+#: ImportExport/ImportHandler.cpp:246
 #, kde-format
 msgctxt "@title"
 msgid "Copy failed"
 msgstr "Nepavyko nukopijuoti"
 
-#: ImportExport/ImportHandler.cpp:243
+#: ImportExport/ImportHandler.cpp:252
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
@@ -3364,10 +3374,9 @@ msgid "Filter duplicates by filename"
 msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:137
-#, fuzzy, kde-format
-#| msgid ">="
+#, kde-format
 msgid ">"
-msgstr ">="
+msgstr ">"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:139
 #, kde-format
@@ -3375,10 +3384,9 @@ msgid "Add files to keep"
 msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:144
-#, fuzzy, kde-format
-#| msgid "<="
+#, kde-format
 msgid "<"
-msgstr "<="
+msgstr "<"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:146
 #, fuzzy, kde-format
@@ -3399,11 +3407,10 @@ msgid "Select &None"
 msgstr "Pasirinkti nieko"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:105
-#, fuzzy, kde-format
-#| msgid "Image Preview"
+#, kde-format
 msgctxt "@title:column Image preview"
 msgid "Preview"
-msgstr "Paveikslo peržiūra"
+msgstr "Peržiūra"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:107
 #, kde-format
@@ -3669,10 +3676,9 @@ msgid "Starts KPhotoAlbum with a prebuilt set of demo images."
 msgstr ""
 
 #: MainWindow/Options.cpp:42
-#, fuzzy, kde-format
-#| msgid "Import file"
+#, kde-format
 msgid "Import file."
-msgstr "Importuoti failą"
+msgstr "Importuoti failą."
 
 #: MainWindow/Options.cpp:43
 #, kde-format
@@ -3832,10 +3838,9 @@ msgid "Total"
 msgstr "Iš viso"
 
 #: MainWindow/StatusBar.cpp:104
-#, fuzzy, kde-format
-#| msgid "Thumbnail size:"
+#, kde-format
 msgid "Thumbnail settings..."
-msgstr "Miniatiūrų dydis:"
+msgstr "Miniatiūrų nuostatos..."
 
 #: MainWindow/TokenEditor.cpp:36
 #, kde-format

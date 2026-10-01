@@ -5,13 +5,13 @@
 # Franklin Weng <franklin@goodhorse.idv.tw>, 2010, 2011, 2012, 2013, 2014.
 # Frank Weng (a.k.a. Franklin) <franklin at goodhorse dot idv dot tw>, 2008, 2009, 2010.
 # pan93412 <pan93412@gmail.com>, 2019.
-# SPDX-FileCopyrightText: 2024, 2025 Kisaragi Hiu <mail@kisaragi-hiu.com>
+# SPDX-FileCopyrightText: 2024-2026 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-30 00:43+0000\n"
-"PO-Revision-Date: 2025-12-16 21:17+0900\n"
+"PO-Revision-Date: 2026-10-01 04:22+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 26.03.70\n"
+"X-Generator: Lokalize 26.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -58,14 +58,11 @@ msgid "Description"
 msgstr "敘述"
 
 #: AnnotationDialog/Dialog.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "(You have differing descriptions on individual images, setting text here "
-#| "will override them all)"
+#, kde-format
 msgid ""
 "(You have differing descriptions on individual images.  Enter text to append "
 "to or replace the descriptions.)"
-msgstr "（您每一張影像的描述都不同。在此輸入的文字會覆蓋全部）"
+msgstr "（您每一張影像的描述都不同。在此輸入文字來加入描述尾端或是取代描述。）"
 
 #: AnnotationDialog/Dialog.cpp:135
 #, kde-format
@@ -225,12 +222,12 @@ msgstr "只尋找 RAW 檔"
 #: AnnotationDialog/Dialog.cpp:439
 #, kde-format
 msgid "Append"
-msgstr ""
+msgstr "加到最後"
 
 #: AnnotationDialog/Dialog.cpp:440
 #, kde-format
 msgid "Append new text to each description"
-msgstr ""
+msgstr "將新文字加到各個描述尾端"
 
 #: AnnotationDialog/Dialog.cpp:441
 #, kde-format
@@ -240,7 +237,7 @@ msgstr "取代"
 #: AnnotationDialog/Dialog.cpp:442
 #, kde-format
 msgid "Replace each description with the new text"
-msgstr ""
+msgstr "將各個描述取代為新文字"
 
 #: AnnotationDialog/Dialog.cpp:451
 #, kde-format
@@ -286,18 +283,17 @@ msgstr "設定視窗佈局…"
 #: AnnotationDialog/Dialog.cpp:945
 #, kde-format
 msgid "Save current layout globally"
-msgstr ""
+msgstr "全域儲存目前佈局"
 
 #: AnnotationDialog/Dialog.cpp:946
-#, fuzzy, kde-format
-#| msgid "Save the current map settings"
+#, kde-format
 msgid "Save current layout for this DB"
-msgstr "儲存目前的地圖設定"
+msgstr "為此資料庫儲存目前佈局"
 
 #: AnnotationDialog/Dialog.cpp:948
 #, kde-format
 msgid "Reset layout"
-msgstr "重置佈局"
+msgstr "重設佈局"
 
 #: AnnotationDialog/Dialog.cpp:955 AnnotationDialog/Dialog.cpp:1338
 #: AnnotationDialog/ListSelect.cpp:108
@@ -982,17 +978,17 @@ msgstr "\"%1\" 和 \"%2\""
 #: CategoryListView/CheckDropItem.cpp:122
 #, kde-format
 msgid "\"%1\""
-msgstr ""
+msgstr "\"%1\""
 
 #: CategoryListView/CheckDropItem.cpp:124
 #, kde-format
 msgid ", \"%1\""
-msgstr ""
+msgstr "，\"%1\""
 
 #: CategoryListView/CheckDropItem.cpp:127
 #, kde-format
 msgid " and \"%1\""
-msgstr ""
+msgstr " 與 \"%1\""
 
 #: CategoryListView/CheckDropItem.cpp:131
 #, kde-format
@@ -1055,7 +1051,7 @@ msgstr "縮小"
 #, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
-msgstr ""
+msgstr "清除日期選擇"
 
 #: DateBar/DateBarWidget.cpp:128
 #, kde-kuit-format
@@ -1285,13 +1281,13 @@ msgstr "影片"
 #: DB/ImageDB.cpp:1024
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
-msgstr ""
+msgstr "KPhotoAlbum - 需要手動修復 (%1)"
 
 #: DB/ImageDB.cpp:1025
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
-msgstr ""
+msgstr "、"
 
 #: DB/NewImageFinder.cpp:488
 #, kde-format
@@ -1358,7 +1354,7 @@ msgstr ""
 #: DB/XML/FileReader.cpp:63
 #, kde-format
 msgid "XML database file version mismatch"
-msgstr ""
+msgstr "XML 資料庫檔案版本不符"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
@@ -1480,7 +1476,7 @@ msgstr ""
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
-msgstr ""
+msgstr "<li>%1：<br/>"
 
 #: DB/XML/FileReader.cpp:498
 #, kde-format
@@ -1492,7 +1488,7 @@ msgstr "%1<br/>"
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
-msgstr ""
+msgstr "</li>"
 
 #: DB/XML/FileReader.cpp:506
 #, kde-format
@@ -1623,10 +1619,9 @@ msgid "Error creating zip file %1"
 msgstr "建立 zip 檔 %1 時發生錯誤"
 
 #: DB/XML/NumberedBackup.cpp:43 DB/XML/NumberedBackup.cpp:48
-#, fuzzy, kde-format
-#| msgid "Error playing media"
+#, kde-format
 msgid "Error Making Numbered Backup"
-msgstr "播放媒體時發生錯誤"
+msgstr "進行編號備份時發生錯誤"
 
 #: DB/XML/NumberedBackup.cpp:48
 #, kde-format
@@ -1676,10 +1671,9 @@ msgid "<p>Database path: <filename>%1</filename></p>"
 msgstr ""
 
 #: DB/XML/XmlReader.cpp:94
-#, fuzzy, kde-format
-#| msgid "Converting database"
+#, kde-format
 msgid "Error while reading database file"
-msgstr "轉換資料庫"
+msgstr "讀取資料庫檔案時發生錯誤"
 
 #: Exif/InfoDialog.cpp:35
 #, kde-format
@@ -2530,10 +2524,9 @@ msgid "How to Use the Export File"
 msgstr "如何使用匯出檔"
 
 #: ImportExport/Import.cpp:30
-#, fuzzy, kde-format
-#| msgid "Import file."
+#, kde-format
 msgid "Import Files"
-msgstr "匯入檔。"
+msgstr "匯入檔案"
 
 #: ImportExport/Import.cpp:62
 #, kde-format
@@ -2663,11 +2656,10 @@ msgid "Copying Images"
 msgstr "複製影像中"
 
 #: ImportExport/ImportHandler.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title:window"
 msgid "Copying Files"
-msgstr "正在複製影像檔"
+msgstr "正在複製檔案"
 
 #: ImportExport/ImportHandler.cpp:178
 #, kde-format
@@ -2675,8 +2667,7 @@ msgid "Error when writing image %1"
 msgstr "寫入影像 %1 時發生錯誤"
 
 #: ImportExport/ImportHandler.cpp:197
-#, fuzzy, kde-format
-#| msgid "Updating Database"
+#, kde-format
 msgctxt "@title:window"
 msgid "Updating Database"
 msgstr "更新資料庫"
@@ -2699,10 +2690,9 @@ msgid "Continue without Asking"
 msgstr "繼續，不要詢問"
 
 #: ImportExport/ImportMatcher.cpp:38
-#, fuzzy, kde-format
-#| msgid "Key in file"
+#, kde-format
 msgid "Key in import file"
-msgstr "檔案中的鍵值"
+msgstr "匯入檔案中的鍵值"
 
 #: ImportExport/ImportMatcher.cpp:45
 #, kde-format
@@ -2828,10 +2818,9 @@ msgid "Conflicting commandline options: %1 and %2!\n"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:44
-#, fuzzy, kde-format
-#| msgid "Run KPhotoAlbum Demo"
+#, kde-format
 msgid "KPhotoAlbum Thumbnail Tool"
-msgstr "執行 KPhotoAlbum 範例"
+msgstr "KPhotoAlbum 縮圖工具"
 
 #: kpa-thumbnailtool/main.cpp:46
 #, kde-format
@@ -3443,8 +3432,7 @@ msgid_plural "Only remove %1 items from database"
 msgstr[0] "只刪除資料庫中的 %1 個項目"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:74
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge Duplicates"
 msgstr "合併重複的項目"
 
@@ -3479,46 +3467,40 @@ msgid "&Block from database"
 msgstr "從資料庫阻擋(&B)"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@label:textedit"
-#| msgid "Filter ... (%1)"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Filter ..."
-msgstr "過濾… (%1)"
+msgstr "過濾 ..."
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:113
 #, kde-format
 msgid "Filter duplicates by filename"
-msgstr ""
+msgstr "依檔案名稱過濾重複的項目"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:137
-#, fuzzy, kde-format
-#| msgid ">="
+#, kde-format
 msgid ">"
-msgstr ">="
+msgstr ">"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:139
 #, kde-format
 msgid "Add files to keep"
-msgstr ""
+msgstr "新增要保留的檔案"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:144
-#, fuzzy, kde-format
-#| msgid "<="
+#, kde-format
 msgid "<"
-msgstr "<="
+msgstr "<"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:146
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Remove files to keep"
-msgstr "選擇要保留的影像："
+msgstr "移除要保留的檔案"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:154
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Files to keep:"
-msgstr "選擇要保留的影像："
+msgstr "要保留的檔案："
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:164
 #, kde-format
@@ -3526,17 +3508,16 @@ msgid "Select &None"
 msgstr "全部不選 (&N)"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:105
-#, fuzzy, kde-format
-#| msgid "Image Preview"
+#, kde-format
 msgctxt "@title:column Image preview"
 msgid "Preview"
-msgstr "影像預覽"
+msgstr "預覽"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:107
 #, kde-format
 msgctxt "@title:column Duplicate file"
 msgid "Duplicate %1"
-msgstr ""
+msgstr "再製 %1"
 
 #: MainWindow/ExternalPopup.cpp:55
 #, kde-format
@@ -4168,11 +4149,10 @@ msgstr ""
 "的堆疊嗎？"
 
 #: MainWindow/Window.cpp:399
-#, fuzzy, kde-format
-#| msgid "Stacking Error"
+#, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
-msgstr "堆疊錯誤"
+msgstr "堆疊問題"
 
 #: MainWindow/Window.cpp:409
 #, kde-format
@@ -4308,10 +4288,9 @@ msgid "Expand all stacks"
 msgstr "展開所有的堆疊"
 
 #: MainWindow/Window.cpp:896
-#, fuzzy, kde-format
-#| msgid "Collapse all stacks"
+#, kde-format
 msgid "Toggle all stacks"
-msgstr "折起所有的堆疊"
+msgstr "切換所有的堆疊"
 
 #: MainWindow/Window.cpp:902
 #, kde-format
@@ -4409,10 +4388,9 @@ msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "用不完整的日期顯示影像與影片..."
 
 #: MainWindow/Window.cpp:1021
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge duplicates..."
-msgstr "合併重複的項目"
+msgstr "合併重複的項目..."
 
 #: MainWindow/Window.cpp:1023 MainWindow/Window.cpp:1078
 #, fuzzy, kde-format
@@ -4643,10 +4621,9 @@ msgid "Rereading Exif information from all images"
 msgstr "重新從所有影像讀取 EXIF 資訊"
 
 #: MainWindow/Window.cpp:1842
-#, fuzzy, kde-format
-#| msgid "No duplicates found"
+#, kde-format
 msgid "No duplicate files were found."
-msgstr "找不到重複"
+msgstr "沒有找到重複檔案。"
 
 #: MainWindow/Window.cpp:1852
 #, fuzzy, no-c-format, kde-format
@@ -4765,10 +4742,9 @@ msgstr ""
 "Android 用戶端可從 Google Play 商店下載。"
 
 #: RemoteControl/ConnectionIndicator.cpp:90
-#, fuzzy, kde-format
-#| msgid "Server address:"
+#, kde-format
 msgid "Android device address: "
-msgstr "伺服器位址："
+msgstr "Android 檔案位址："
 
 #: RemoteControl/Server.cpp:32
 #, kde-format
@@ -5829,10 +5805,9 @@ msgid "9:16"
 msgstr "9:16"
 
 #: Settings/ThumbnailsPage.cpp:61
-#, fuzzy, kde-format
-#| msgid "Space around cells"
+#, kde-format
 msgid "Space around cells:"
-msgstr "在儲存格周圍加空白"
+msgstr "在儲存格周圍加空白："
 
 #: Settings/ThumbnailsPage.cpp:69
 #, kde-format
@@ -6142,29 +6117,22 @@ msgid "Video Backend:"
 msgstr "影片後端："
 
 #: Settings/ViewerPage.cpp:112
-#, fuzzy, kde-format
-#| msgid "Annotation Mode"
+#, kde-format
 msgid "Default Annotation Mode"
-msgstr "註記模式"
+msgstr "預設註記模式"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Locked"
+#, kde-format
 msgid "Locked"
 msgstr "已鎖定"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tags"
+#, kde-format
 msgid "Assign tags"
 msgstr "指定標籤"
 
 #: Settings/ViewerPage.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tokens"
+#, kde-format
 msgid "Assign tokens"
 msgstr "指定標記"
 
@@ -6409,20 +6377,14 @@ msgid_plural "%1 weeks"
 msgstr[0] "%1 週"
 
 #: Utilities/Timespan.cpp:216
-#, fuzzy, kde-format
-#| msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
-#| msgid "ca. %1 week"
-#| msgid_plural "ca. %1 weeks"
+#, kde-format
 msgctxt "Like \"This happened 'about 6 weeks' ago\""
 msgid "about %1 week"
 msgid_plural "about %1 weeks"
 msgstr[0] "大約 %1 週"
 
 #: Utilities/Timespan.cpp:229
-#, fuzzy, kde-format
-#| msgctxt "Like \"This happened 'ca. 2 months' ago\""
-#| msgid "ca. %1 month"
-#| msgid_plural "ca. %1 months"
+#, kde-format
 msgctxt "Like \"This happened 'about 2 months' ago\""
 msgid "about %1 month"
 msgid_plural "about %1 months"
@@ -6790,27 +6752,22 @@ msgstr "暫停"
 #: Viewer/ViewerWidget.cpp:632 Viewer/ViewerWidget.cpp:1156
 #, kde-format
 msgid "Tags and tokens locked"
-msgstr ""
+msgstr "標籤與標記皆已鎖定"
 
 #: Viewer/ViewerWidget.cpp:634
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tags"
+#, kde-format
 msgid "Assigning tags"
-msgstr "指定標籤"
+msgstr "正在指定標籤"
 
 #: Viewer/ViewerWidget.cpp:636
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Assign Tokens"
+#, kde-format
 msgid "Assigning tokens"
-msgstr "指定標記"
+msgstr "正在指定標記"
 
 #: Viewer/ViewerWidget.cpp:641
-#, fuzzy, kde-format
-#| msgid "Annotation Mode"
+#, kde-format
 msgid "Annotation mode: %1"
-msgstr "註記模式"
+msgstr "註記模式：%1"
 
 #: Viewer/ViewerWidget.cpp:914
 #, kde-format

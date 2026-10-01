@@ -19,8 +19,7 @@ SPDX-License-Identifier: GFDL-1.2-only
   <!ENTITY kappname "&kphotoalbum;">
   <!ENTITY package "extragear-graphics">
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % Russian "INCLUDE"
-> 
+  <!ENTITY % Russian "INCLUDE">
 
   <!ENTITY introduction SYSTEM "introduction.docbook">
   <!ENTITY setting-properties SYSTEM "setting-properties.docbook">
@@ -35,11 +34,11 @@ SPDX-License-Identifier: GFDL-1.2-only
 ]>
 
 <book id="kphotoalbum" lang="&language;">
-  
+
   <bookinfo>
     <title
 >Руководство пользователя &kphotoalbum;</title>
-    
+
     <authorgroup>
       <author
 ><firstname
@@ -53,7 +52,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 > <surname
 >Turkia</surname
 > </author>
-      
+
       <othercredit role="translator"
 ><firstname
 >Александр</firstname
@@ -70,13 +69,13 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></othercredit
 > 
     </authorgroup>
-    
+
     <copyright>
       <year
 >2003-2007</year>
       <holder
 >Jesper K. Pedersen</holder>
-      
+
     </copyright>
     <copyright>
       <year
@@ -84,12 +83,12 @@ SPDX-License-Identifier: GFDL-1.2-only
       <holder
 >Miika Turkia</holder>
     </copyright>
-    
+
     <date
 >23 февраля 2012 г.</date>
     <releaseinfo
 >4.2</releaseinfo>
-    
+
     <abstract>
     <para
 ><inlinemediaobject>
@@ -101,7 +100,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></textobject>
     </inlinemediaobject
 ></para>
-    
+
     <para
 >Это руководство пользователя &kphotoalbum; &mdash; приложения для каталогизации цифровых изображений с поддержкой комментариев, навигации, поиска и просмотра изображений и видео. Тем, кто не любит читать документацию, а предпочитает сразу пробовать, предлагаются несколько других вариантов: <itemizedlist>
           <listitem
@@ -122,10 +121,8 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></para>
 
    <para
->Если этот документ удобнее распечатать, его можно найти в виде одного длинного PDF-документа в <ulink url="http://docs.kde.org"
+>Если этот документ удобнее распечатать, его можно найти в виде одного длинного PDF-документа в <ulink url="https://docs.kde.org/index.php?application=kphotoalbum"
 >документации &kde;</ulink
->. Прямая ссылка есть на <ulink url="http://kphotoalbum.org/index.php?page=documentation"
->домашней странице &kphotoalbum;</ulink
 >.</para>
 </abstract>
     <keywordset>
@@ -139,7 +136,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >База данных изображений</keyword>
     </keywordset>
   </bookinfo>
-  
+
   &introduction;
   &setting-properties;
   &browsing;

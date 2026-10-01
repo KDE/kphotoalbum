@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-30 00:43+0000\n"
-"PO-Revision-Date: 2026-09-28 18:33+0200\n"
+"PO-Revision-Date: 2026-09-30 08:30+0200\n"
 "Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -2806,11 +2806,10 @@ msgid "Copying Images"
 msgstr "Копирование изображений"
 
 #: ImportExport/ImportHandler.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title:window"
 msgid "Copying Files"
-msgstr "Копирование файлов изображений"
+msgstr "Копирование файлов"
 
 #: ImportExport/ImportHandler.cpp:178
 #, kde-format
@@ -2818,8 +2817,7 @@ msgid "Error when writing image %1"
 msgstr "Ошибка записи изображения %1"
 
 #: ImportExport/ImportHandler.cpp:197
-#, fuzzy, kde-format
-#| msgid "Updating Database"
+#, kde-format
 msgctxt "@title:window"
 msgid "Updating Database"
 msgstr "Обновление базы данных"

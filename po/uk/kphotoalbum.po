@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-30 00:43+0000\n"
-"PO-Revision-Date: 2026-09-28 09:22+0300\n"
+"PO-Revision-Date: 2026-09-30 15:06+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2806,11 +2806,10 @@ msgid "Copying Images"
 msgstr "Копіювання зображень"
 
 #: ImportExport/ImportHandler.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title:window"
 msgid "Copying Files"
-msgstr "Копіювання файлів зображень"
+msgstr "Копіювання файлів"
 
 #: ImportExport/ImportHandler.cpp:178
 #, kde-format
@@ -2818,8 +2817,7 @@ msgid "Error when writing image %1"
 msgstr "Помилка під час запису зображення %1"
 
 #: ImportExport/ImportHandler.cpp:197
-#, fuzzy, kde-format
-#| msgid "Updating Database"
+#, kde-format
 msgctxt "@title:window"
 msgid "Updating Database"
 msgstr "Оновлення бази даних"

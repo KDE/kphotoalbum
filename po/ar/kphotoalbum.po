@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-30 00:43+0000\n"
-"PO-Revision-Date: 2026-09-11 11:06+0400\n"
+"PO-Revision-Date: 2026-09-30 18:44+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -2778,11 +2778,10 @@ msgid "Copying Images"
 msgstr "ينسخ الصور"
 
 #: ImportExport/ImportHandler.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title:window"
 msgid "Copying Files"
-msgstr "نسخ ملفات الصورة"
+msgstr "ينسخ الملفات"
 
 #: ImportExport/ImportHandler.cpp:178
 #, kde-format
@@ -2790,8 +2789,7 @@ msgid "Error when writing image %1"
 msgstr "حدث خطأ عند كتابة الصورة %1"
 
 #: ImportExport/ImportHandler.cpp:197
-#, fuzzy, kde-format
-#| msgid "Updating Database"
+#, kde-format
 msgctxt "@title:window"
 msgid "Updating Database"
 msgstr "يحدّث قاعدة البيانات"
@@ -2814,10 +2812,9 @@ msgid "Continue without Asking"
 msgstr "تابع دون سؤال"
 
 #: ImportExport/ImportMatcher.cpp:38
-#, fuzzy, kde-format
-#| msgid "Key in file"
+#, kde-format
 msgid "Key in import file"
-msgstr "المفتاح في الملف"
+msgstr "المفتاح في ملف الاستيراد"
 
 #: ImportExport/ImportMatcher.cpp:45
 #, kde-format
@@ -2827,13 +2824,12 @@ msgstr "المفتاح في قاعدة بياناتك"
 #: ImportExport/ImportMatcher.cpp:105
 #, kde-format
 msgid "The import key partially matches this key in your database"
-msgstr ""
+msgstr "مفتاح الاستيراد يتطابق جزئيًا مع هذا المفتاح الموجود في قاعدة بياناتك"
 
 #: ImportExport/ImportMatcher.cpp:123
-#, fuzzy, kde-format
-#| msgid "How many images are in your database:"
+#, kde-format
 msgid "This key is not currently in your database"
-msgstr "كمّ من الصور موجودة في قاعدة بياناتك:"
+msgstr "هذا المفتاح ليس في قاعدة بياناتك"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format

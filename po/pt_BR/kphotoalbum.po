@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-30 00:43+0000\n"
-"PO-Revision-Date: 2026-09-28 06:17-0300\n"
+"PO-Revision-Date: 2026-09-30 09:46-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -2773,11 +2773,10 @@ msgid "Copying Images"
 msgstr "Copiando imagens"
 
 #: ImportExport/ImportHandler.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title:window"
 msgid "Copying Files"
-msgstr "Copiando arquivos de imagens"
+msgstr "Copiando arquivos"
 
 #: ImportExport/ImportHandler.cpp:178
 #, kde-format
@@ -2785,8 +2784,7 @@ msgid "Error when writing image %1"
 msgstr "Erro ao salvar a imagem %1"
 
 #: ImportExport/ImportHandler.cpp:197
-#, fuzzy, kde-format
-#| msgid "Updating Database"
+#, kde-format
 msgctxt "@title:window"
 msgid "Updating Database"
 msgstr "Atualizando banco de dados"

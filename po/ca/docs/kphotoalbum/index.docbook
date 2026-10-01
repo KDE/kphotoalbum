@@ -19,8 +19,7 @@ SPDX-License-Identifier: GFDL-1.2-only
   <!ENTITY kappname "&kphotoalbum;">
   <!ENTITY package "extragear-graphics">
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % Catalan  "INCLUDE"
-> 
+  <!ENTITY % Catalan  "INCLUDE">
 
   <!ENTITY introduction SYSTEM "introduction.docbook">
   <!ENTITY setting-properties SYSTEM "setting-properties.docbook">
@@ -35,11 +34,11 @@ SPDX-License-Identifier: GFDL-1.2-only
 ]>
 
 <book id="kphotoalbum" lang="&language;">
-  
+
   <bookinfo>
     <title
 >El manual del &kphotoalbum;</title>
-    
+
     <authorgroup>
       <author
 ><firstname
@@ -53,16 +52,16 @@ SPDX-License-Identifier: GFDL-1.2-only
 > <surname
 >Turkia</surname
 > </author>
-      
+
       &traductor.Antoni.Bella; 
     </authorgroup>
-    
+
     <copyright>
       <year
 >2003-2007</year>
       <holder
 >Jesper K. Pedersen</holder>
-      
+
     </copyright>
     <copyright>
       <year
@@ -70,12 +69,12 @@ SPDX-License-Identifier: GFDL-1.2-only
       <holder
 >Miika Turkia</holder>
     </copyright>
-    
+
     <date
 >23 de febrer de 2012</date>
     <releaseinfo
 >4.2</releaseinfo>
-    
+
     <abstract>
     <para
 ><inlinemediaobject>
@@ -87,7 +86,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></textobject>
     </inlinemediaobject
 ></para>
-    
+
     <para
 >Aquest és el manual d'usuari pel &kphotoalbum;: un programari per a la catalogació digital d'imatges que suporta anotació, navegació, cerca i visualització d'imatges digitals i vídeos. Si no sou el tipus de persona que us agrada llegir la documentació, però voleu provar coses, heus aquí algunes alternatives: <itemizedlist>
           <listitem
@@ -108,10 +107,8 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></para>
 
    <para
->Si preferiu imprimir aquest document, llavors el podeu trobar com un document PDF a <ulink url="https://docs.kde.org/"
->&kde; docs</ulink
->. Un enllaç directe està disponible a la <ulink url="https://www.kphotoalbum.org/documentation/"
->pàgina inicial del &kphotoalbum;</ulink
+>Si preferiu imprimir aquest document, llavors el podeu trobar com un document PDF sencer a <ulink url="https://docs.kde.org/index.php?application=kphotoalbum"
+>docs de &kde;</ulink
 >.</para>
 </abstract>
     <keywordset>
@@ -125,7 +122,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Imatge de la base de dades</keyword>
     </keywordset>
   </bookinfo>
-  
+
   &introduction;
   &setting-properties;
   &browsing;

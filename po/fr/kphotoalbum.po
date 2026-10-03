@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-30 00:43+0000\n"
-"PO-Revision-Date: 2026-09-11 09:05+0200\n"
+"PO-Revision-Date: 2026-10-01 16:26+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -2810,11 +2810,10 @@ msgid "Copying Images"
 msgstr "Copie des images"
 
 #: ImportExport/ImportHandler.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title:window"
 msgid "Copying Files"
-msgstr "Copie des fichiers image"
+msgstr "Copie des fichiers en cours"
 
 #: ImportExport/ImportHandler.cpp:178
 #, kde-format
@@ -2822,11 +2821,10 @@ msgid "Error when writing image %1"
 msgstr "Erreur pendant l'écriture de l'image %1"
 
 #: ImportExport/ImportHandler.cpp:197
-#, fuzzy, kde-format
-#| msgid "Updating Database"
+#, kde-format
 msgctxt "@title:window"
 msgid "Updating Database"
-msgstr "Mise à jour de la base de donnée"
+msgstr "Mise à jour de la base de donnée en cours"
 
 #: ImportExport/ImportHandler.cpp:245
 #, kde-format
@@ -2846,10 +2844,9 @@ msgid "Continue without Asking"
 msgstr "Continuer sans demander"
 
 #: ImportExport/ImportMatcher.cpp:38
-#, fuzzy, kde-format
-#| msgid "Key in file"
+#, kde-format
 msgid "Key in import file"
-msgstr "Clé dans le fichier"
+msgstr "Clé dans le fichier d'importation"
 
 #: ImportExport/ImportMatcher.cpp:45
 #, kde-format
@@ -2860,12 +2857,13 @@ msgstr "Clé dans votre base de donnée"
 #, kde-format
 msgid "The import key partially matches this key in your database"
 msgstr ""
+"La clé d'importation correspond partiellement à cette clé dans votre base de "
+"données."
 
 #: ImportExport/ImportMatcher.cpp:123
-#, fuzzy, kde-format
-#| msgid "Key in your database"
+#, kde-format
 msgid "This key is not currently in your database"
-msgstr "Clé dans votre base de donnée"
+msgstr "Cette clé n'est pas actuellement  dans votre base de donnée."
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format

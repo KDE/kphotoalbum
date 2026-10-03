@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-30 00:43+0000\n"
-"PO-Revision-Date: 2026-02-25 16:08+0200\n"
+"PO-Revision-Date: 2026-09-05 11:01+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -2432,12 +2432,11 @@ msgid "Export Metadata / Copy Files"
 msgstr "Vie metatietoa tai kopioi tiedostoja"
 
 #: ImportExport/Export.cpp:119
-#, fuzzy, kde-format
-#| msgid "How to Use the Export File"
+#, kde-format
 msgid "How do you want to export one file?"
 msgid_plural "How do you want to export %1 files?"
-msgstr[0] "Kuinka vientitiedostoa käytetään"
-msgstr[1] "Kuinka vientitiedostoa käytetään"
+msgstr[0] "Kuinka haluat viedä yhden tiedoston?"
+msgstr[1] "Kuinka haluat viedä %1 tiedostoa?"
 
 #: ImportExport/Export.cpp:123
 #, kde-format
@@ -3521,27 +3520,20 @@ msgstr[0] "Poista tietue vain tietokannasta"
 msgstr[1] "Poista %1 tietuetta vain tietokannasta"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:74
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge Duplicates"
 msgstr "Yhdistä kaksoiskappaleet"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:84
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Below is a list of all images that are duplicate in your database.<br/"
-#| ">Select which you want merged, and which of the duplicates should be kept."
-#| "<br/>The tag and description from the deleted images will be transferred "
-#| "to the kept image</p>"
+#, kde-format
 msgid ""
 "<p>Below is a list of all files that are duplicated in your database.<br/"
 ">Select the files you want to keep.<br/>Annotations from the deleted files "
 "will be merged to the kept image.</p>"
 msgstr ""
 "<p>Alla on luettelo kuvista, joilla on kaksoiskappale tietokannassasi.<br/"
-">Valitse, mitkä haluat yhdistettävän ja mitkä kaksoiskappaleet säilytettävän."
-"<br/>Poistettavien kuvien luokitukset ja kuvaukset siirretään säilytettäviin "
-"kuviin.</p>"
+">Valitse säilytettävät tiedostot.<br/>Poistettavan kuvan merkinnät "
+"yhdistetään säilytettävään.</p>"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:93
 #, kde-format
@@ -3559,46 +3551,40 @@ msgid "&Block from database"
 msgstr "&Estä tietokannasta"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@label:textedit"
-#| msgid "Filter ... (%1)"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Filter ..."
-msgstr "Suodata… (%1)"
+msgstr "Suodata…"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:113
 #, kde-format
 msgid "Filter duplicates by filename"
-msgstr ""
+msgstr "Suodata kaksoiskappaleet tiedostonimen mukaan"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:137
-#, fuzzy, kde-format
-#| msgid ">="
+#, kde-format
 msgid ">"
-msgstr ">="
+msgstr ">"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:139
 #, kde-format
 msgid "Add files to keep"
-msgstr ""
+msgstr "Lisää säilytettävät tiedostot"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:144
-#, fuzzy, kde-format
-#| msgid "<="
+#, kde-format
 msgid "<"
-msgstr "<="
+msgstr "<"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:146
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Remove files to keep"
-msgstr "Valitse pidettävä kuva:"
+msgstr "Poista säilytettävät tiedostot"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:154
-#, fuzzy, kde-format
-#| msgid "Select image to keep:"
+#, kde-format
 msgid "Files to keep:"
-msgstr "Valitse pidettävä kuva:"
+msgstr "Säilytettävät tiedostot:"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:164
 #, kde-format
@@ -3606,17 +3592,16 @@ msgid "Select &None"
 msgstr "Poista &valinnat"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:105
-#, fuzzy, kde-format
-#| msgid "Image Preview"
+#, kde-format
 msgctxt "@title:column Image preview"
 msgid "Preview"
-msgstr "Kuvan esikatselu"
+msgstr "Esikatsele"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:107
 #, kde-format
 msgctxt "@title:column Duplicate file"
 msgid "Duplicate %1"
-msgstr ""
+msgstr "Monista %1"
 
 #: MainWindow/ExternalPopup.cpp:55
 #, kde-format
@@ -4395,10 +4380,9 @@ msgid "Expand all stacks"
 msgstr "Avaa kaikki niput"
 
 #: MainWindow/Window.cpp:896
-#, fuzzy, kde-format
-#| msgid "Collapse all stacks"
+#, kde-format
 msgid "Toggle all stacks"
-msgstr "Sulje kaikki niput"
+msgstr "Käännä kaikkien nippujen tila"
 
 #: MainWindow/Window.cpp:902
 #, kde-format
@@ -4496,10 +4480,9 @@ msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Näytä kuvat ja videot, joiden päiväys on puutteellinen…"
 
 #: MainWindow/Window.cpp:1021
-#, fuzzy, kde-format
-#| msgid "Merge duplicates"
+#, kde-format
 msgid "Merge duplicates..."
-msgstr "Yhdistä kaksoiskappaleet"
+msgstr "Yhdistä kaksoiskappaleet…"
 
 #: MainWindow/Window.cpp:1023 MainWindow/Window.cpp:1078
 #, kde-format
@@ -4736,10 +4719,9 @@ msgid "Rereading Exif information from all images"
 msgstr "Luetaan uudelleen kaikkien kuvien Exif-tietoja"
 
 #: MainWindow/Window.cpp:1842
-#, fuzzy, kde-format
-#| msgid "No duplicates found"
+#, kde-format
 msgid "No duplicate files were found."
-msgstr "Kaksoiskappaleita ei löytynyt"
+msgstr "Kaksoiskappaleita ei löytynyt."
 
 #: MainWindow/Window.cpp:1852
 #, no-c-format, kde-format
@@ -6579,26 +6561,20 @@ msgstr[0] "1 viikko"
 msgstr[1] "%1 viikkoa"
 
 #: Utilities/Timespan.cpp:216
-#, fuzzy, kde-format
-#| msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
-#| msgid "ca. %1 week"
-#| msgid_plural "ca. %1 weeks"
+#, kde-format
 msgctxt "Like \"This happened 'about 6 weeks' ago\""
 msgid "about %1 week"
 msgid_plural "about %1 weeks"
-msgstr[0] "n. %1 viikko"
-msgstr[1] "n. %1 viikkoa"
+msgstr[0] "noin viikko"
+msgstr[1] "noin %1 viikkoa"
 
 #: Utilities/Timespan.cpp:229
-#, fuzzy, kde-format
-#| msgctxt "Like \"This happened 'ca. 2 months' ago\""
-#| msgid "ca. %1 month"
-#| msgid_plural "ca. %1 months"
+#, kde-format
 msgctxt "Like \"This happened 'about 2 months' ago\""
 msgid "about %1 month"
 msgid_plural "about %1 months"
-msgstr[0] "n. %1 kuukausi"
-msgstr[1] "n. %1 kuukautta"
+msgstr[0] "noin kuukausi"
+msgstr[1] "noin %1 kuukautta"
 
 #: Utilities/Timespan.cpp:256 Utilities/Timespan.cpp:259
 #, kde-format

@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-30 00:43+0000\n"
-"PO-Revision-Date: 2026-10-01 16:26+0200\n"
+"PO-Revision-Date: 2026-10-03 08:29+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -2863,7 +2863,7 @@ msgstr ""
 #: ImportExport/ImportMatcher.cpp:123
 #, kde-format
 msgid "This key is not currently in your database"
-msgstr "Cette clé n'est pas actuellement  dans votre base de donnée."
+msgstr "Cette clé n'est pas actuellement dans votre base de donnée."
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
@@ -5250,15 +5250,14 @@ msgid ""
 msgstr ""
 "<p>KPhotoAlbum permet d'enregistrer le fichier « XML »de base de données en "
 "conservant des copies (Par exemple, pour un fichier de base de données nommé "
-"« index.xml », les archives sont nommées « index.xml~1~ », « index."
-"xml~2~ »,  etc.). De plus, vous pouvez utiliser la boite de dialogue de "
-"réglage pour spécifier le nombre de fichiers d'archive à conserver. "
-"KPhotoAlbum supprimera les fichiers d'archive les plus anciens lorsque le "
-"nombre maximal d'archives spécifié est atteint. </p><p>Le fichier « XML » de "
-"base de données peut devenir volumineux si vous possédez un grand nombre "
-"d'images. Dans ce cas, il est utile de demander à KPhotoAlbum de compresser "
-"au format « zip » les fichiers d'archive pour économiser de l'espace sur le "
-"disque.</p>"
+"« index.xml », les archives sont nommées « index.xml~1~ », « index.xml~2~ », "
+"etc.). De plus, vous pouvez utiliser la boite de dialogue de réglage pour "
+"spécifier le nombre de fichiers d'archive à conserver. KPhotoAlbum "
+"supprimera les fichiers d'archive les plus anciens lorsque le nombre maximal "
+"d'archives spécifié est atteint. </p><p>Le fichier « XML » de base de "
+"données peut devenir volumineux si vous possédez un grand nombre d'images. "
+"Dans ce cas, il est utile de demander à KPhotoAlbum de compresser au format "
+"« zip » les fichiers d'archive pour économiser de l'espace sur le disque.</p>"
 
 #: Settings/DatabaseBackendPage.cpp:68
 #, kde-format

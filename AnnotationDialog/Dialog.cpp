@@ -285,11 +285,6 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     layout->addWidget(buttonBox);
 
     connect(DB::ImageDB::instance(), &DB::ImageDB::imagesDeleted, this, &Dialog::slotDiscardFiles);
-
-    // Restore the last position and size
-    QTimer::singleShot(0, this, [this] {
-        Settings::SettingsData::instance()->restoreWindowGeometry(Settings::AnnotationDialog, Settings::DatabaseScope, windowHandle());
-    });
 }
 
 QDockWidget *AnnotationDialog::Dialog::createDock(const QString &title, const QString &name,
@@ -1116,9 +1111,6 @@ void AnnotationDialog::Dialog::reject()
 
 void AnnotationDialog::Dialog::closeDialog()
 {
-    // Save the window position and size
-    Settings::SettingsData::instance()->saveWindowGeometry(Settings::AnnotationDialog, Settings::DatabaseScope, windowHandle());
-
     // the dialog is usually reused, so clear residual data upon closing it...
     loadInfo({});
 #ifdef HAVE_MARBLE
@@ -1744,12 +1736,20 @@ AnnotationDialog::ListSelect *AnnotationDialog::Dialog::listSelectForCategory(co
 
 void AnnotationDialog::Dialog::showEvent(QShowEvent *event)
 {
+    // Restore the last position and size
+    QTimer::singleShot(0, this, [this] {
+        Settings::SettingsData::instance()->restoreWindowGeometry(Settings::AnnotationDialog, Settings::DatabaseScope, windowHandle());
+    });
+
     showFloatingWindows();
     event->accept();
 }
 
 void AnnotationDialog::Dialog::hideEvent(QHideEvent *event)
 {
+    // Save the window position and size
+    Settings::SettingsData::instance()->saveWindowGeometry(Settings::AnnotationDialog, Settings::DatabaseScope, windowHandle());
+
     hideFloatingWindows();
     event->accept();
 }

@@ -1,7 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
- */
-
 // SPDX-FileCopyrightText: 2003-2021 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2005-2007 Dirk Mueller <mueller@kde.org>
 // SPDX-FileCopyrightText: 2006-2008 Tuomas Suutari <tuomas@nepnep.net>
@@ -12,7 +8,8 @@
 // SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2019 Robert Krawitz <rlk@alum.mit.edu>
-// SPDX-FileCopyrightText: 2014-2025 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2026 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -275,8 +272,8 @@ public:
     bool locked() const;
     void setLocked(bool locked, bool force);
 
-    void saveWindowGeometry(WindowId id, const QWindow *window);
-    void restoreWindowGeometry(WindowId id, QWindow *window);
+    void saveWindowGeometry(WindowId id, SettingsScope scope, const QWindow *window);
+    void restoreWindowGeometry(WindowId id, SettingsScope scope, QWindow *window);
     void saveWindowState(WindowId id, SettingsScope scope, const QByteArray &state);
     QByteArray windowState(WindowId id);
 

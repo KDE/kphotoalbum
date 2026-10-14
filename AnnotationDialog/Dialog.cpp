@@ -288,7 +288,7 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
 
     // Restore the last position and size
     QTimer::singleShot(0, this, [this] {
-        Settings::SettingsData::instance()->restoreWindowGeometry(Settings::AnnotationDialog, windowHandle());
+        Settings::SettingsData::instance()->restoreWindowGeometry(Settings::AnnotationDialog, Settings::DatabaseScope, windowHandle());
     });
 }
 
@@ -1126,7 +1126,7 @@ void AnnotationDialog::Dialog::reject()
 void AnnotationDialog::Dialog::closeDialog()
 {
     // Save the window position and size
-    Settings::SettingsData::instance()->saveWindowGeometry(Settings::AnnotationDialog, windowHandle());
+    Settings::SettingsData::instance()->saveWindowGeometry(Settings::AnnotationDialog, Settings::DatabaseScope, windowHandle());
 
     // the dialog is usually reused, so clear residual data upon closing it...
     loadInfo({});

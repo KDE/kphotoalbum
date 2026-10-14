@@ -13,9 +13,9 @@
 // SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
 // SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2012-2024, 2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2025 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2019 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2014-2026 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -605,16 +605,16 @@ getValueFunc_(bool, locked, groupForDatabase("Privacy Settings"), "locked", fals
     Q_EMIT locked(lock, lockExcludes());
 }
 
-void SettingsData::saveWindowGeometry(WindowId id, const QWindow *window)
+void SettingsData::saveWindowGeometry(WindowId id, SettingsScope scope, const QWindow *window)
 {
-    auto stateConfig = KSharedConfig::openStateConfig()->group(s_windowIdKeys.value(id));
+    auto stateConfig = KSharedConfig::openStateConfig()->group(windowIdGroup(id, scope));
     KWindowConfig::saveWindowPosition(window, stateConfig);
     KWindowConfig::saveWindowSize(window, stateConfig);
 }
 
-void SettingsData::restoreWindowGeometry(WindowId id, QWindow *window)
+void SettingsData::restoreWindowGeometry(WindowId id, SettingsScope scope, QWindow *window)
 {
-    auto stateConfig = KSharedConfig::openStateConfig()->group(s_windowIdKeys.value(id));
+    auto stateConfig = KSharedConfig::openStateConfig()->group(windowIdGroup(id, scope));
     KWindowConfig::restoreWindowPosition(window, stateConfig);
     KWindowConfig::restoreWindowSize(window, stateConfig);
 }

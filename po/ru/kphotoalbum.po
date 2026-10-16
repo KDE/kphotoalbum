@@ -4888,7 +4888,7 @@ msgstr "Показать миниатюры"
 #, kde-format
 msgctxt "@action to group, as in aggregate thumbnails into clusters"
 msgid "Group adjacent thumbnails into clickable clusters"
-msgstr "Сгруппировать соседние миниатюры в кликабельные кластеры"
+msgstr "Сгруппировать соседние миниатюры в кластеры, по которым можно щёлкнуть"
 
 #: Map/MapView.cpp:203
 #, kde-format

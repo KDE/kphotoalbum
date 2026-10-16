@@ -139,7 +139,6 @@ protected Q_SLOTS:
     void continueLater();
     void slotClearSearchForm();
     void slotOptions();
-    void slotSaveWindowSetup(Settings::SettingsScope scope);
     void slotDeleteOption(DB::Category *, const QString &);
     void slotRenameOption(DB::Category *, const QString &, const QString &);
     void reject() override;

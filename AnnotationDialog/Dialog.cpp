@@ -285,11 +285,6 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     layout->addWidget(buttonBox);
 
     connect(DB::ImageDB::instance(), &DB::ImageDB::imagesDeleted, this, &Dialog::slotDiscardFiles);
-
-    // Restore the last position and size
-    QTimer::singleShot(0, this, [this] {
-        Settings::SettingsData::instance()->restoreWindowGeometry(Settings::AnnotationDialog, windowHandle());
-    });
 }
 
 QDockWidget *AnnotationDialog::Dialog::createDock(const QString &title, const QString &name,
@@ -942,8 +937,7 @@ void AnnotationDialog::Dialog::slotOptions()
     QMenu *dockMenu = m_dockWindow->createPopupMenu();
     m_optionsMenu->addMenu(dockMenu)
         ->setText(i18n("Configure Window Layout..."));
-    QAction *saveCurrent = dockMenu->addAction(i18n("Save current layout globally"));
-    QAction *saveCurrentPerDb = dockMenu->addAction(i18n("Save current layout for this DB"));
+    QAction *saveCurrent = dockMenu->addAction(i18n("Save current layout"));
     dockMenu->addSeparator();
     QAction *reset = dockMenu->addAction(i18n("Reset layout"));
 
@@ -1007,9 +1001,8 @@ void AnnotationDialog::Dialog::slotOptions()
     // execute menu and handle response
     QAction *res = m_optionsMenu->exec(QCursor::pos());
     if (res == saveCurrent) {
-        slotSaveWindowSetup(Settings::GlobalScope);
-    } else if (res == saveCurrentPerDb) {
-        slotSaveWindowSetup(Settings::DatabaseScope);
+        Settings::SettingsData::instance()->saveWindowState(Settings::AnnotationDialog, Settings::DatabaseScope, m_dockWindow->saveState());
+        QMessageBox::information(this, i18n("Save current window setup"), i18n("Settings saved!"));
     } else if (res == reset) {
         slotResetLayout();
     } else if (res == matchFromBeginning) {
@@ -1031,13 +1024,6 @@ int AnnotationDialog::Dialog::exec()
     const int ret = QDialog::exec();
     // don't do cleanup here! the dialog may even be deleted already at this point!
     return ret;
-}
-
-void AnnotationDialog::Dialog::slotSaveWindowSetup(Settings::SettingsScope scope)
-{
-    Settings::SettingsData::instance()->saveWindowState(Settings::AnnotationDialog, scope,
-                                                        m_dockWindow->saveState());
-    QMessageBox::information(this, i18n("Save current window setup"), i18n("Settings saved!"));
 }
 
 void AnnotationDialog::Dialog::closeEvent(QCloseEvent *e)
@@ -1125,9 +1111,6 @@ void AnnotationDialog::Dialog::reject()
 
 void AnnotationDialog::Dialog::closeDialog()
 {
-    // Save the window position and size
-    Settings::SettingsData::instance()->saveWindowGeometry(Settings::AnnotationDialog, windowHandle());
-
     // the dialog is usually reused, so clear residual data upon closing it...
     loadInfo({});
 #ifdef HAVE_MARBLE
@@ -1753,12 +1736,20 @@ AnnotationDialog::ListSelect *AnnotationDialog::Dialog::listSelectForCategory(co
 
 void AnnotationDialog::Dialog::showEvent(QShowEvent *event)
 {
+    // Restore the last position and size
+    QTimer::singleShot(0, this, [this] {
+        Settings::SettingsData::instance()->restoreWindowGeometry(Settings::AnnotationDialog, Settings::DatabaseScope, windowHandle());
+    });
+
     showFloatingWindows();
     event->accept();
 }
 
 void AnnotationDialog::Dialog::hideEvent(QHideEvent *event)
 {
+    // Save the window position and size
+    Settings::SettingsData::instance()->saveWindowGeometry(Settings::AnnotationDialog, Settings::DatabaseScope, windowHandle());
+
     hideFloatingWindows();
     event->accept();
 }

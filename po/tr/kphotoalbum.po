@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-17 00:47+0000\n"
-"PO-Revision-Date: 2026-09-30 10:15+0300\n"
+"PO-Revision-Date: 2026-10-17 19:22+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -292,10 +292,9 @@ msgid "Configure Window Layout..."
 msgstr "Pencere Yerleşimini Yapılandır…"
 
 #: AnnotationDialog/Dialog.cpp:940
-#, fuzzy, kde-format
-#| msgid "Save current layout globally"
+#, kde-format
 msgid "Save current layout"
-msgstr "Geçerli Yerleşimi Global Olarak Kaydet"
+msgstr "Geçerli Yerleşimi Kaydet"
 
 #: AnnotationDialog/Dialog.cpp:942
 #, kde-format

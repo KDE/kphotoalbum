@@ -13,14 +13,14 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-17 00:47+0000\n"
-"PO-Revision-Date: 2026-09-30 15:53+0200\n"
+"PO-Revision-Date: 2026-10-17 14:00+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 26.08.1\n"
+"X-Generator: Lokalize 26.08.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -296,10 +296,9 @@ msgid "Configure Window Layout..."
 msgstr "Vensterindeling configureren..."
 
 #: AnnotationDialog/Dialog.cpp:940
-#, fuzzy, kde-format
-#| msgid "Save current layout globally"
+#, kde-format
 msgid "Save current layout"
-msgstr "Huidige indeling globaal opslaan"
+msgstr "Huidige indeling opslaan"
 
 #: AnnotationDialog/Dialog.cpp:942
 #, kde-format

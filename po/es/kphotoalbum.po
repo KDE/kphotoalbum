@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-17 00:47+0000\n"
-"PO-Revision-Date: 2026-10-01 00:18+0100\n"
+"PO-Revision-Date: 2026-10-18 00:02+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 26.08.1\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -294,10 +294,9 @@ msgid "Configure Window Layout..."
 msgstr "Configurar la distribución de la ventana…"
 
 #: AnnotationDialog/Dialog.cpp:940
-#, fuzzy, kde-format
-#| msgid "Save current layout globally"
+#, kde-format
 msgid "Save current layout"
-msgstr "Guardar la distribución actual globalmente"
+msgstr "Guardar la distribución actual"
 
 #: AnnotationDialog/Dialog.cpp:942
 #, kde-format
@@ -7406,6 +7405,3 @@ msgstr "Mostrar tamaño de imagen"
 #, kde-format
 msgid "Show Rating"
 msgstr "Mostrar puntuación"
-
-#~ msgid "Save current layout for this DB"
-#~ msgstr "Guardar la distribución actual para esta base de datos"

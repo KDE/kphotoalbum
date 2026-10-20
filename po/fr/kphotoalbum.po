@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-17 00:47+0000\n"
-"PO-Revision-Date: 2026-10-03 08:29+0200\n"
+"PO-Revision-Date: 2026-10-18 10:32+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -308,10 +308,9 @@ msgid "Configure Window Layout..."
 msgstr "Configurer l'agencement de la fenêtre..."
 
 #: AnnotationDialog/Dialog.cpp:940
-#, fuzzy, kde-format
-#| msgid "Save current layout globally"
+#, kde-format
 msgid "Save current layout"
-msgstr "Enregistrer la disposition courante en totalité"
+msgstr "Enregistrer la disposition courante"
 
 #: AnnotationDialog/Dialog.cpp:942
 #, kde-format

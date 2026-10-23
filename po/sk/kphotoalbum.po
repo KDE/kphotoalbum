@@ -285,10 +285,9 @@ msgid "Configure Window Layout..."
 msgstr "Nastaviť rozloženie okien..."
 
 #: AnnotationDialog/Dialog.cpp:940
-#, fuzzy, kde-format
-#| msgid "Save current layout globally"
+#, kde-format
 msgid "Save current layout"
-msgstr "Uložiť aktuálne rozloženie globálne"
+msgstr "Uložiť aktuálne rozloženie"
 
 #: AnnotationDialog/Dialog.cpp:942
 #, kde-format
@@ -2755,11 +2754,10 @@ msgid "Copying Images"
 msgstr "Kopírujem obrázky"
 
 #: ImportExport/ImportHandler.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title:window"
 msgid "Copying Files"
-msgstr "Kopírujem súbory obrázkov"
+msgstr "Kopírujú sa súbory"
 
 #: ImportExport/ImportHandler.cpp:178
 #, kde-format
@@ -2767,8 +2765,7 @@ msgid "Error when writing image %1"
 msgstr "Chyba pri zápise obrázku %1"
 
 #: ImportExport/ImportHandler.cpp:197
-#, fuzzy, kde-format
-#| msgid "Updating Database"
+#, kde-format
 msgctxt "@title:window"
 msgid "Updating Database"
 msgstr "Aktualizujem databázu"
@@ -2791,10 +2788,9 @@ msgid "Continue without Asking"
 msgstr "Pokračovať bez opýtania"
 
 #: ImportExport/ImportMatcher.cpp:38
-#, fuzzy, kde-format
-#| msgid "Key in file"
+#, kde-format
 msgid "Key in import file"
-msgstr "Kľúč v súbore"
+msgstr "Kľúč v súbore importu"
 
 #: ImportExport/ImportMatcher.cpp:45
 #, kde-format
@@ -2804,13 +2800,12 @@ msgstr "Kľúč vo vašej databáze"
 #: ImportExport/ImportMatcher.cpp:105
 #, kde-format
 msgid "The import key partially matches this key in your database"
-msgstr ""
+msgstr "Kľúč importu sa čiastočne zhoduje s týmto kľúčom vo vašej databáze"
 
 #: ImportExport/ImportMatcher.cpp:123
-#, fuzzy, kde-format
-#| msgid "Key in your database"
+#, kde-format
 msgid "This key is not currently in your database"
-msgstr "Kľúč vo vašej databáze"
+msgstr "Tento kľúč momentálne nie je vo vašej databáze"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format

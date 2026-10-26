@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -17,7 +17,7 @@ class FileNameList;
 class ImageInfoList : public QList<ImageInfoPtr>
 {
 public:
-    void sortAndMergeBackIn(ImageInfoList &subListToSort);
+    void sortAndMergeBackIn(const ImageInfoList &subListToSort);
     ImageInfoList sort() const;
     void appendList(ImageInfoList &other);
     void printItems();

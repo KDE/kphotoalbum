@@ -6,7 +6,7 @@
 // SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
 // SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
 // SPDX-FileCopyrightText: 2008 Tuomas Suutari <tuomas@nepnep.net>
-// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2013-2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2014-2020 Robert Krawitz <rlk@alum.mit.edu>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
@@ -80,25 +80,25 @@ ImageInfoList ImageInfoList::sort() const
     return res;
 }
 
-void ImageInfoList::sortAndMergeBackIn(ImageInfoList &subListToSort)
+void ImageInfoList::sortAndMergeBackIn(const ImageInfoList &subListToSort)
 {
     if (subListToSort.isEmpty()) {
         return;
     }
-    ImageInfoList sorted = subListToSort.sort();
+    const ImageInfoList sorted = subListToSort.sort();
 
     // depending on view sort order, the first or the last index may be the first index
     const int insertIndex = qMin(indexOf(subListToSort.constFirst()), indexOf(subListToSort.constLast()));
     Q_ASSERT(insertIndex >= 0);
 
     // Delete the items we will merge in.
-    for (ImageInfoListIterator it = sorted.begin(); it != sorted.end(); ++it)
+    for (ImageInfoListConstIterator it = sorted.begin(); it != sorted.end(); ++it)
         remove(*it);
 
     ImageInfoListIterator insertIt = begin() + insertIndex;
 
     // Now merge in the items
-    for (ImageInfoListIterator it = sorted.begin(); it != sorted.end(); ++it) {
+    for (ImageInfoListConstIterator it = sorted.begin(); it != sorted.end(); ++it) {
         insertIt = insert(insertIt, *it);
         ++insertIt;
     }

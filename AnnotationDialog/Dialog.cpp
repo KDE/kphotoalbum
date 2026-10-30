@@ -132,12 +132,12 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     m_dockWindow->setDockNestingEnabled(true);
 
     // -------------------------------------------------- Dock widgets
-    m_generalDock = createDock(i18n("Label and Dates"), QString::fromLatin1("Label and Dates"), Qt::TopDockWidgetArea, createDateWidget(shortCutManager));
+    m_generalDock = createDock(i18n("Label and Dates"), QString::fromLatin1("Label and Dates"), Qt::LeftDockWidgetArea, createDateWidget(shortCutManager));
 
     m_preview = new ImagePreviewWidget(m_actions, &m_editList);
     connect(m_preview, &ImagePreviewWidget::togglePreview, this, &Dialog::togglePreview);
 
-    m_previewDock = createDock(i18n("Image Preview"), QString::fromLatin1("Image Preview"), Qt::TopDockWidgetArea, m_preview);
+    m_previewDock = createDock(i18n("Image Preview"), QString::fromLatin1("Image Preview"), Qt::RightDockWidgetArea, m_preview);
 
     QWidget *descriptionWidgets = createDescriptionWidgets();
     m_descriptionDock = createDock(i18n("Description"), QString::fromLatin1("description"), Qt::LeftDockWidgetArea, descriptionWidgets);
@@ -170,11 +170,15 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     m_mapDock = createDock(
         i18n("Map"),
         QString::fromLatin1("map"),
-        Qt::LeftDockWidgetArea,
+        m_previewDock->dockLocation(),
         m_annotationMapContainer);
     shortCutManager.addDock(m_mapDock, m_annotationMapContainer);
     connect(m_mapDock, &QDockWidget::visibilityChanged, this, &Dialog::annotationMapVisibilityChanged);
     m_mapDock->setWhatsThis(i18nc("@info:whatsthis", "The map widget allows you to view the location of images if GPS coordinates are found in the Exif information."));
+
+    m_mapDock->setSizePolicy(m_preview->sizePolicy());
+    m_dockWindow->tabifyDockWidget(m_previewDock, m_mapDock);
+    m_previewDock->raise();
 #endif
 
     // -------------------------------------------------- Categories
@@ -1296,20 +1300,7 @@ void AnnotationDialog::Dialog::loadWindowLayout()
     }
 
     if (!m_dockWindow->restoreState(state)) {
-        // create default layout
-        // label/date/rating in a visual block with description:
-        m_dockWindow->splitDockWidget(m_generalDock, m_descriptionDock, Qt::Vertical);
-
-        // more space for description:
-        m_dockWindow->resizeDocks({ m_generalDock, m_descriptionDock }, { 60, 100 }, Qt::Vertical);
-        // more space for preview:
-        m_dockWindow->resizeDocks({ m_generalDock, m_descriptionDock, m_previewDock }, { 200, 200, 800 }, Qt::Horizontal);
-#ifdef HAVE_MARBLE
-        // group the map with the preview
-        m_dockWindow->tabifyDockWidget(m_previewDock, m_mapDock);
-        // make sure the preview tab is active:
-        m_previewDock->raise();
-#endif
+        qCWarning(AnnotationDialogLog) << "Could not restore state!";
         return;
     }
 }

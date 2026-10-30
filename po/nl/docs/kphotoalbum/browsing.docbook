@@ -49,7 +49,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >in de reeks</emphasis
 > van de geselecteerde persoon. Dat betekent dat we alleen informatie tonen over afbeeldingen en video's die die persoon bevatten. Zie onderstaand <xref linkend="fig-browser-for-jesper"/>, wat het resultaat is van onze selectie van de Persoon <literal
 >Jesper</literal
->, u kunt een indicatie daarvan onderaan het venster zien. Vergelijk eens <xref linkend="fig-browser-with-images"/> met <xref linkend="fig-browser-for-jesper"/>, waar u zult zien dat het aantal beschikbare afbeeldingen en video's naar beneden is gegaan van 25 naar 12 en de hoeveelheid items voor de verschillende categorieën ook gewijzigd is.</para>
+>, u kunt een indicatie daarvan onderaan het venster zien. Rechtsonder in <xref linkend="fig-browser-for-jesper"/> ziet u dat het aantal overeenkomende afbeeldingen en video's is gedaald van 25 naar 13, terwijl het totale aantal afbeeldingen gelijk is gebleven.</para>
 
   <para
 >Merk op dat als er slechts een paar afbeeldingen in the scoop zijn, &kphotoalbum; direct naar de miniatuurweergave zal gaan (zie <xref linkend="chp-thumbnail-view"/>). U kunt dit gedrag in de instellingen van de miniaturenviewer configureren (zie <xref linkend="opt-thumbnails"/>). </para>

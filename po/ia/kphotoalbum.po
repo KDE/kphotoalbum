@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-17 00:47+0000\n"
-"PO-Revision-Date: 2026-09-14 18:33+0200\n"
+"PO-Revision-Date: 2026-10-30 16:42+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -286,10 +286,9 @@ msgid "Configure Window Layout..."
 msgstr "Configura dispositione de fenestra..."
 
 #: AnnotationDialog/Dialog.cpp:940
-#, fuzzy, kde-format
-#| msgid "Save current window setup"
+#, kde-format
 msgid "Save current layout"
-msgstr "Salveguarda configuration de fenestra currente"
+msgstr "Salveguarda disposition currente"
 
 #: AnnotationDialog/Dialog.cpp:942
 #, kde-format
@@ -2551,11 +2550,10 @@ msgid "Copying Images"
 msgstr "Copiar images"
 
 #: ImportExport/ImportHandler.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title:window"
 msgid "Copying Files"
-msgstr "Copiante files de imagine"
+msgstr "Copiante  files"
 
 #: ImportExport/ImportHandler.cpp:178
 #, kde-format
@@ -2563,8 +2561,7 @@ msgid "Error when writing image %1"
 msgstr "Error quando scribe image %1"
 
 #: ImportExport/ImportHandler.cpp:197
-#, fuzzy, kde-format
-#| msgid "Updating Database"
+#, kde-format
 msgctxt "@title:window"
 msgid "Updating Database"
 msgstr "Actualisante base de datos"
@@ -2587,10 +2584,9 @@ msgid "Continue without Asking"
 msgstr "Condinua sin demandar"
 
 #: ImportExport/ImportMatcher.cpp:38
-#, fuzzy, kde-format
-#| msgid "Key in file"
+#, kde-format
 msgid "Key in import file"
-msgstr "Clave in file"
+msgstr "Clave in file de importar"
 
 #: ImportExport/ImportMatcher.cpp:45
 #, kde-format
@@ -2603,10 +2599,9 @@ msgid "The import key partially matches this key in your database"
 msgstr ""
 
 #: ImportExport/ImportMatcher.cpp:123
-#, fuzzy, kde-format
-#| msgid "Key in your database"
+#, kde-format
 msgid "This key is not currently in your database"
-msgstr "Clave in tu base de datos"
+msgstr "Iste clave non es currentemente in tu base de datos"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
@@ -4357,7 +4352,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1628
 #, kde-format
 msgid "Open List of Files"
-msgstr ""
+msgstr "Aperi lista de files"
 
 #: MainWindow/Window.cpp:1629
 #, kde-format
@@ -5253,7 +5248,7 @@ msgstr "Preferentias"
 #, kde-format
 msgctxt "@label"
 msgid "Categories and groups:"
-msgstr ""
+msgstr "Categorias e gruppos:"
 
 #: Settings/TagGroupsPage.cpp:46
 #, kde-format
@@ -5412,12 +5407,12 @@ msgstr ""
 #: Settings/ThumbnailsPage.cpp:32
 #, kde-format
 msgid "No Image Preview"
-msgstr ""
+msgstr "Nulle Vista preliminar de Imagine"
 
 #: Settings/ThumbnailsPage.cpp:38
 #, kde-format
 msgid "Thumbnail image size:"
-msgstr ""
+msgstr "Dimension de imagine de miniatura:"
 
 #: Settings/ThumbnailsPage.cpp:47
 #, kde-format
@@ -5585,7 +5580,7 @@ msgstr "Necun seligite"
 #: Settings/UntaggedGroupBox.cpp:117
 #, kde-format
 msgid "New tag added"
-msgstr ""
+msgstr "Nove etiquetta (tag) addite"
 
 #: Settings/UntaggedGroupBox.cpp:118
 #, kde-format
@@ -6442,7 +6437,7 @@ msgstr ""
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
-msgstr ""
+msgstr "%1&nbsp;s"
 
 #: Viewer/ViewerWidget.cpp:1248
 #, kde-format

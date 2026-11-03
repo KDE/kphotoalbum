@@ -2782,8 +2782,7 @@ msgid "Error when writing image %1"
 msgstr "Produciuse un erro ao escribir a imaxe %1"
 
 #: ImportExport/ImportHandler.cpp:197
-#, fuzzy, kde-format
-#| msgid "Updating Database"
+#, kde-format
 msgctxt "@title:window"
 msgid "Updating Database"
 msgstr "Actualizando a base de datos"

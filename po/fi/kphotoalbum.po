@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-17 00:47+0000\n"
-"PO-Revision-Date: 2026-09-05 11:01+0300\n"
+"PO-Revision-Date: 2026-10-06 13:18+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -2594,10 +2594,9 @@ msgid "How to Use the Export File"
 msgstr "Kuinka vientitiedostoa käytetään"
 
 #: ImportExport/Import.cpp:30
-#, fuzzy, kde-format
-#| msgid "Import file."
+#, kde-format
 msgid "Import Files"
-msgstr "Tuo tiedosto."
+msgstr "Tuo tiedostoja"
 
 #: ImportExport/Import.cpp:62
 #, kde-format
@@ -2733,11 +2732,10 @@ msgid "Copying Images"
 msgstr "Kopioidaan kuvia"
 
 #: ImportExport/ImportHandler.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title:window"
 msgid "Copying Files"
-msgstr "Kopioidaan kuvatiedostoja"
+msgstr "Kopioidaan tiedostoja"
 
 #: ImportExport/ImportHandler.cpp:178
 #, kde-format
@@ -2745,11 +2743,10 @@ msgid "Error when writing image %1"
 msgstr "Virhe kirjoitettaessa kuvaa %1"
 
 #: ImportExport/ImportHandler.cpp:197
-#, fuzzy, kde-format
-#| msgid "Updating Database"
+#, kde-format
 msgctxt "@title:window"
 msgid "Updating Database"
-msgstr "Tietokannan päivitys"
+msgstr "Päivitetään tietokantaa"
 
 #: ImportExport/ImportHandler.cpp:245
 #, kde-format
@@ -2769,10 +2766,9 @@ msgid "Continue without Asking"
 msgstr "Jatka kysymättä"
 
 #: ImportExport/ImportMatcher.cpp:38
-#, fuzzy, kde-format
-#| msgid "Key in file"
+#, kde-format
 msgid "Key in import file"
-msgstr "Avain tiedostossa"
+msgstr "Avain tuontitiedostossa"
 
 #: ImportExport/ImportMatcher.cpp:45
 #, kde-format
@@ -2782,12 +2778,12 @@ msgstr "Avain tietokannassasi"
 #: ImportExport/ImportMatcher.cpp:105
 #, kde-format
 msgid "The import key partially matches this key in your database"
-msgstr ""
+msgstr "Tuontiavain vastaa osin tietokannassa olevaa."
 
 #: ImportExport/ImportMatcher.cpp:123
-#, fuzzy, kde-format
+#, kde-format
 msgid "This key is not currently in your database"
-msgstr "Luo oma tietokanta"
+msgstr "Tätä avainta ei ole tietokannassasi"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format

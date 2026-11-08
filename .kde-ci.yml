@@ -4,7 +4,6 @@
 Dependencies:
  - 'on': ['@all']
    'require':
-    'libraries/phonon': '@latest-kf6'
     'frameworks/karchive': '@latest-kf6'
     'frameworks/kcompletion': '@latest-kf6'
     'frameworks/kconfig': '@latest-kf6'

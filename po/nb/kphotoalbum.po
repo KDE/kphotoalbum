@@ -391,12 +391,12 @@ msgstr "Sorter mest nylig brukt"
 #: AnnotationDialog/Dialog.cpp:1322
 #, kde-format
 msgid "Toggle Sorting"
-msgstr "Slå sortering av/på"
+msgstr "Slå sortering på/av"
 
 #: AnnotationDialog/Dialog.cpp:1327
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
-msgstr "Slå av/på visning av bare valgte elementer"
+msgstr "Slå på/av visning av bare valgte elementer"
 
 #: AnnotationDialog/Dialog.cpp:1331
 #, kde-format
@@ -431,7 +431,7 @@ msgstr "Roter med klokka"
 #: AnnotationDialog/Dialog.cpp:1353
 #, kde-format
 msgid "Toggle fullscreen preview"
-msgstr "Slå av/på forhåndsvisning i fullskjerm"
+msgstr "Slå på/av forhåndsvisning i fullskjerm"
 
 #: AnnotationDialog/ImagePreview.cpp:514
 #, kde-format
@@ -6567,7 +6567,7 @@ msgstr "Piksel for piksel-visning"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
-msgstr "Slå fullskjerm av/på"
+msgstr "Slå fullskjerm på/av"
 
 #: Viewer/ViewerWidget.cpp:426
 #, kde-format

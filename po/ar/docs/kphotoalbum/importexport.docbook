@@ -1,0 +1,157 @@
+<!--
+SPDX-FileCopyrightText: 2004-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-importExport">
+  <title
+>صدّر/استورد</title>
+  <para
+>إذا حضرت حفلة عائلية، أو اجتماع شركة، أو مؤتمر، أو أي حدث آخر قد يتواجد فيه مستخدمون آخرون لـدفتر الصور، فقد ترغب في مشاركة صورك مع هؤلاء الأشخاص. يمكنك بالطبع اختيار إنشاء صفحات &HTML; ليتصفحوها، ولكن نظرًا لأنك قد أمضيت وقتًا بالفعل في تصنيف جميع الصور (من في الصور، وأين التقطت، وما إلى ذلك)، فلا داعي لأن يعيدوا كل هذا العمل.</para>
+
+    <para
+>يتيح لك دفتر الصور تصدير مجموعة من صورك إلى ملف <literal role="extension"
+>.kim</literal
+>، يمكن للأشخاص الآخرين استيراده إلى قاعدة بياناتهم للحصول على تصنيفك لهذه الصور.</para>
+
+    <para
+>يوجد نوعان مختلفان من ملفات <literal role="extension"
+>.kim</literal
+>، المضمنة أو الخارجية، وذلك بالإشارة إلى ما إذا كانت الصور نفسها موجودة داخل الملف أم في موقع آخر. وضع الصور في الملف له الميزة الواضحة أن الملف مكتفٍ ذاتيًا، بينما له العيب الواضح بنفس القدر أن الملف كبير جدًا.</para>
+
+    <para
+>هناك مكانان يمكنك من خلالهما إنشاء ملف <literal role="extension"
+>.kim</literal
+>، وهما مباشرة من <menuchoice
+><guimenu
+>ملف</guimenu
+><guimenuitem
+>تصدير...</guimenuitem
+></menuchoice
+>، أو مع صفحات &HTML; (انظر <xref linkend="chp-generating-html"/>). إنشاء ملف <literal role="extension"
+>.kim</literal
+> أثناء تصدير &HTML; سينشئ ملف <literal role="extension"
+>.kim</literal
+> خارجيًا.</para>
+
+    <para
+>ستبحث ملفات <literal role="extension"
+>.kim</literal
+> الخارجية عن الصور بإحدى طريقتين. أولًا، ستحاول البحث عن الصور بجوار ملف <literal role="extension"
+>.kim</literal
+>، وإذا لم تُعثر عليها، ستبحث عنها في عنوان URL المحدد عند إنشاء ملف <literal role="extension"
+>.kim</literal
+>. لاحظ أن الأخير ممكن فقط لملفات <literal role="extension"
+>.kim</literal
+> المنشأة أثناء تصدير &HTML;.</para>
+    
+    <sect1 id="chp-exportDialog">
+      <title
+>حوار التصدير</title>
+      <para
+>سيخبرك هذا القسم عن حوار التصدير الذي تصل إليه من <menuchoice
+><guimenu
+>ملف</guimenu
+> <guimenuitem
+>تصدير...</guimenuitem
+></menuchoice
+>.</para>
+
+      <para
+>الجزء الأكثر أهمية في هذا الحوار هو تحديد ما إذا كان ملف <literal role="extension"
+>.kim</literal
+> يجب أن يكون داخليًا أم خارجيًا (انظر الوصف أعلاه). لديك الخيارات الثلاثة التالية: <itemizedlist>
+          <listitem
+><para
+>تضمين في ملف <literal role="extension"
+>.kim</literal
+> - سيكون هذا ملفًا داخليًا</para
+></listitem>
+          <listitem
+><para
+>نسخ يدوي بجوار ملف .kim - هنا يجب نسخ الصور بنفسك بجوار ملف .kim</para
+></listitem>
+          <listitem
+><para
+>نسخ آلي بجوار ملف .kim - هنا سينسخ دفتر الصور الصور لك.</para
+></listitem>
+        </itemizedlist>
+      </para>
+      
+      <para
+>بيني وبينك، ملفات <literal role="extension"
+>.kim</literal
+> هي في الحقيقة مجرد ملفات مضغوطة. عادة لا يستحق العناء ضغط الملفات لأن الصور عادة ما تكون مضغوطة بالفعل بصيغة JPEG، وملف XML نفسه صغير جدًا. إذا كنت تريد حقًا تقليص آخر بايتات قليلة، فلا يزال بإمكانك فعل ذلك بوضع علامة <guilabel
+>ضغط ملف التصدير</guilabel
+></para>
+
+      <para
+>الخيار الأخير في الصفحة هو <guilabel
+>تحديد أقصى بُعد للصورة</guilabel
+>. عند إرسال بعض الصور إلى بعض الأصدقاء، قد لا ترغب في إرسال صور بالحجم الكامل، لأن ملف <literal role="extension"
+>.kim</literal
+> قد يكون ضخمًا. لهذا، يمكنك تحديد أن الحد الأقصى لأبعاد الصور يجب أن يكون، على سبيل المثال، 800 بكسل كحد أقصى في كل اتجاه.</para>
+    </sect1>
+
+
+
+
+    
+<sect1 id="chp-importDialog">
+  <title
+>حوار الاستيراد</title>
+<para
+>عند تحديد ملف <literal role="extension"
+>.kim</literal
+> من متصفح ويب، أو اختيار <menuchoice
+><guimenu
+>ملف</guimenu
+><guimenuitem
+>استيراد...</guimenuitem
+></menuchoice
+>، سيستورد دفتر الصور قاعدة البيانات المصدرة بالوظائف الموضحة في <xref linkend="chp-importExport"/>.</para>
+
+<para
+>يتكون معالج الاستيراد من أربع خطوات. أولًا، يجب تحديد الصور التي تريد استيرادها. بعد ذلك، يجب تحديد الدليل الذي ستوضع فيه الصور المستوردة.</para>
+
+<para
+>من المحتمل أن تسمي فئة الأشخاص <emphasis
+>personen</emphasis
+> (إذا كنت ألمانيًا)، بينما قد أسمي هذه الفئة بالدانماركية <emphasis
+>personer</emphasis
+>. في الخطوة الثالثة من حوار الاستيراد، يجب تحديد الفئة من ملف الاستيراد المراد استيرادها، بالإضافة إلى الفئات في قاعدة بياناتك التي تطابقها.</para>
+
+<para
+>قد أسمي نفسي في قواعد بياناتي <emphasis
+>me</emphasis
+>، بينما في قاعدة بياناتك أُدعى Jesper K. Pedersen. تتيح لك الخطوة الرابعة إعداد المطابقة لكل فئة من الفئات المستوردة. يمكن رؤية ذلك في <xref linkend="fig-import-dialog"/>.</para>
+
+<figure id="fig-import-dialog">
+<title
+>مطابقة الأشخاص في حوار الاستيراد </title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="import-dialog.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>في لقطة الشاشة قد ترى أن Donna هي نفسها في كل من ملف .kim وفي قاعدة بياناتي - يُظهر الاسم باللون الأسود للإشارة إلى تطابق تام في قاعدة البيانات. الأسماء الثلاثة الأخرى لم تُعثر عليها في قاعدة البيانات، على الرغم من العثور على Jesper و Anne Helene كتطابق جزئي، لذا فهي مقترحة. أخيرًا، في قاعدة بياناتي لم يكن لدي Spiff (أو ربما سميته بشكل مختلف تمامًا)، لذا يقترح دفتر الصور ببساطة Spiff لاسم الاستيراد.</para>
+
+</sect1>
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

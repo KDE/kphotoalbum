@@ -1,0 +1,647 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+SPDX-FileCopyrightText: 2026 Randall Rude <rsquared42@proton.me>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-viewer">
+  <title
+>العارض</title>
+  <para
+>السبب الذي يدفعك لوضع كل صورك في دفتر الصور، وقضاء ساعات بعد ساعات في وصفها، هو بالطبع أنك تريد في وقت ما النظر إليها. لهذا الغرض، يمتلك دفتر الصور عارضًا قادرًا على عرض صورك وفيديوهاتك. تفتح العارض من عرض الصور المصغرة كما هو موصوف في <xref linkend="chp-thumbnail-view"/>. </para>
+
+<sect1 id="sect-viewer-common-commands">
+<title
+>أوامر العارض الشائعة</title>
+<para
+>يدعم العارض كلًا من الصور والفيديوهات. الأوامر التالية مدعومة لكل من الصور والفيديوهات: </para>
+
+<itemizedlist>
+<listitem>
+<para
+>اضغط <keycap
+>Esc</keycap
+> لإغلاق نافذة العارض. </para>
+</listitem>
+
+<listitem>
+<para
+>اضغط إما <keycap
+>Page Down</keycap
+> أو مفتاح <keycap
+>المسافة</keycap
+> للانتقال إلى الصورة أو الفيديو التالي، واضغط <keycap
+>Page Up</keycap
+> للانتقال إلى الصورة أو الفيديو السابق. </para>
+</listitem>
+
+<listitem>
+<para
+>اضغط <keycombo
+>&Ctrl;<keycap
+>1</keycap
+></keycombo
+> لفتح <link linkend="chp-typingIn"
+>حوار التعليق</link
+> للصورة أو الفيديو الحالي. </para>
+</listitem>
+
+<listitem>
+<para
+>اضغط <keycombo
+>&Ctrl;<keycap
+>4</keycap
+></keycombo
+> لتعيين الصورة أو الفيديو كأول عنصر في مجموعته (إذا كان بالفعل جزءًا من مجموعة). </para>
+</listitem>
+
+<listitem>
+<para
+>اضغط <keycombo
+>&Ctrl;<keycap
+>d</keycap
+></keycombo
+> لتحرير وصف الصورة. </para>
+</listitem>
+
+<listitem>
+<para
+>اضغط إما <keycap
+>&Enter;</keycap
+> أو <keycap
+>F11</keycap
+> لتبديل وضع ملء الشاشة أثناء عرض صورة أو فيديو.</para>
+</listitem>
+
+<listitem>
+<para
+>اضغط <keycap
+>Delete</keycap
+> لإزالة الصورة أو الفيديو الحالي من قائمة العارض (كما لو لم تختره للعرض) والتقدم إلى العنصر التالي في قائمة العارض. إذا أُزيلت آخر صورة أو فيديو في قائمة العارض، تُغلق نافذة العارض.</para>
+</listitem>
+
+<listitem>
+<para
+>اضغط <keycombo
+>&Ctrl;<keycap
+>Delete</keycap
+></keycombo
+> لإضافة الصورة أو الفيديو الحالي إلى قائمة حذف العارض. عند إغلاق نافذة العارض، سيفتح دفتر الصور حوار <emphasis
+>إزالة العناصر</emphasis
+> إذا لم تكن قائمة الحذف فارغة. </para>
+</listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="sect-viewer-images">
+<title
+>عرض الصور</title>
+<para
+>انظر <xref linkend="sect-viewer-common-commands"/> لأوامر العارض المدعومة لكل من الصور والفيديوهات. </para>
+
+<para
+>يمكن رؤية العارض في <xref linkend="fig-viewer"/>. العارض بالطبع يريك الصورة، ولكن بالإضافة إلى ذلك يريك أيضًا المعلومات التي حددتها لكل صورة، بما في ذلك من في الصورة، وأين ومتى التُقطت، إلخ… </para>
+
+  <figure id="fig-viewer">
+    <title
+>العارض</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<sect2 id="viewer-infobox">
+<title
+>مربع المعلومات</title>
+
+<para
+>يوفر العارض مربع معلومات يمكن تركيبه فوق الصورة. يقع مربع المعلومات في أسفل المنتصف في <xref linkend="fig-viewer"/>. </para>
+
+<para
+>إذا كان مربع المعلومات يقع فوق جزء من الصورة تريد رؤيته بالفعل، يمكنك النقر بالزر الأيسر للفأرة على مربع المعلومات وسحبه إلى مكان آخر على الصورة. اضغط <keycombo
+>&Ctrl;<keycap
+>i</keycap
+></keycombo
+> لتبديل إظهار مربع المعلومات أو إخفائه. </para>
+
+<para
+>من الممكن ضبط ما يجب إظهاره في مربع المعلومات، وبالطبع ما إذا كان يجب إظهاره على الإطلاق. كل هذه الخيارات متاحة بالنقر بالزر الأيمن للفأرة على العارض. يمكن رؤية قائمة السياق في <xref linkend="fig-viewer-contextmenu"/> أدناه.</para>
+
+  <figure id="fig-viewer-contextmenu">
+    <title
+>قائمة سياق العارض</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer-contextmenu.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>بعض الكلمات في مربع المعلومات مسطّر تحتها خط. إذا نقرت بالزر الأيسر للفأرة على إحدى هذه الكلمات، سينتقل المستعرض (انظر <xref linkend="chp-browsing"/>) إلى نطاق ذلك العنصر. على سبيل المثال، في العرض التوضيحي إذا نقرت على <literal
+>Anne Helene</literal
+> في مربع المعلومات، سيعرض لك المستعرض كل صور Anne Helene، تمامًا كما لو كنت حددت <literal
+>الأشخاص</literal
+> من جذر المستعرض، ثم حددت <literal
+>Anne Helene</literal
+>.</para>
+
+<para
+>في الزاوية العلوية اليمنى من مربع المعلومات، يمكنك رؤية زر صغير <emphasis
+>الانتقال إلى السياق</emphasis
+> مع شعار دفتر الصور. النقر بالزر الأيسر للفأرة على هذا الزر سينتقل إلى <xref linkend="chp-thumbnail-view"/>. سيعرض عرض الصور المصغرة كل الصور، وستكون الصورة التي كانت لديك في العارض محددة. الفكرة وراء ذلك هي التالية: تتصفح إلى شخص معين، وتنظر إلى صور ذلك الشخص. إحدى الصور هي من، لنقل، فترة مدرستك الثانوية، والآن تريد رؤية صور من تلك الفترة الزمنية. باستخدام زر <guilabel
+>الانتقال إلى السياق</guilabel
+>، تُنقل إلى عرض الصور المصغرة الذي يعرض كل الصور، مع كون الصورة الحالية في بؤرة التركيز ومن المحتمل أن تكون كل صور مدرستك الثانوية حولها.</para>
+
+<para
+>إذا كانت الصورة الحالية تحتوي على إحداثيات جغرافية، سترى زر خريطة أسفل زر <guilabel
+>الانتقال إلى السياق</guilabel
+> في مربع المعلومات. النقر بالزر الأيسر للفأرة على هذا الزر سيفتح نافذة جديدة بخريطة تظهر أين التُقطت الصورة. </para>
+
+<note>
+<para
+>يُعرض زر الخريطة فقط إذا كان دفتر الصور قد جُمّع مع دعم &marble;. </para>
+</note>
+</sect2>
+
+<sect2 id="viewer-navigation">
+<title
+>عرض المزيد من الصور</title>
+  <para
+>في حال قمت بتحميل عدة صور في العارض، بالإضافة إلى التحرك للأمام والخلف باستخدام مفتاحي <keycap
+>Page Up</keycap
+> و<keycap
+>Page Down</keycap
+> على التوالي، يمكنك الذهاب إلى أول وآخر الصور باستخدام <keycap
+>Home</keycap
+> و<keycap
+>End</keycap
+>. هذه الوظائف متاحة بالطبع أيضًا من قائمة السياق.</para>
+
+<para
+>بدلًا من ذلك، يمكنك عرض عدة صور كعرض شرائح. في وضع عرض الشرائح، يحمّل دفتر الصور صورة جديدة في العارض كل بضع ثوانٍ. اضغط <keycombo
+>&Ctrl;<keycap
+>r</keycap
+></keycombo
+> لتبديل عرض الشرائح تشغيلًا أو إيقافًا. اضغط <keycombo
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+> لجعل عرض الشرائح أسرع أو <keycombo
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+> لجعله أبطأ. </para>
+</sect2>
+
+<sect2 id="viewer-zooming">
+<title
+>التكبير والتصغير</title>
+<para
+>باستخدام العارض، يمكنك التكبير والتصغير في صورتك عن طريق سحب مستطيل بالزر الأيسر للفأرة. الضغط على مفتاح <keycap
+>ناقص</keycap
+> سيصغّر مرة أخرى. الضغط على مفتاح <keycap
+>زائد</keycap
+> سيكبّر في مركز الصورة. <xref linkend="fig-marking-zoom-rectangle"/> أدناه يوضح كيف يُحدد مستطيل التكبير، و<xref linkend="fig-zoomed-view"/> يظهر نتيجة التكبير.</para>
+
+<para
+>اضغط على مفتاح <keycap
+>نقطة</keycap
+> لإعادة مستوى التكبير إلى وضعه الطبيعي بحيث تُعرض الصورة بحجمها الطبيعي. الضغط على مفتاح <keycap
+>=</keycap
+> سيضبط مستوى التكبير بحيث يقابل كل بكسل على الشاشة بكسلًا في الصورة.</para>
+
+  <figure id="fig-marking-zoom-rectangle">
+    <title
+>التكبير في العارض</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="marking-zoom-rectangle.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <figure id="fig-zoomed-view">
+    <title
+>التكبير في العارض</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="zoomed-view.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+</sect2>
+
+<sect2 id="viewer-rotating">
+<title
+>يدوّر الصّور</title>
+  <para
+>اضغط مفتاح <keycap
+>7</keycap
+> لتدوير الصورة 90 درجة لليسار. مفتاح <keycap
+>9</keycap
+> يدور الصورة 90 درجة لليمين. مفتاح <keycap
+>8</keycap
+> يدور الصورة 180 درجة (أي يقلبها رأسًا على عقب). </para>
+<important>
+<para
+>أي تغيير في تدوير الصورة في العارض يكون دائمًا.</para>
+</important>
+</sect2>
+</sect1>
+
+<sect1 id="sect-viewer-videos">
+<title
+>عرض الفيديوهات</title>
+<para
+>انظر <xref linkend="sect-viewer-common-commands"/> لأوامر العارض المدعومة لكل من الفيديوهات والصور. </para>
+
+<para
+>عند تحميل فيديو في العارض، يبدأ تشغيل الفيديو آليًا. اضغط مفتاح <keycap
+>p</keycap
+> لإيقاف الفيديو مؤقتًا، واضغطه مرة أخرى لاستئناف تشغيل الفيديو. </para>
+
+<para
+>اضغط <keycap
+>Home</keycap
+> لإعادة تشغيل الفيديو الحالي من البداية، و<keycap
+>End</keycap
+> يوقف الفيديو الحالي ويعيده إلى البداية. </para>
+
+<important>
+<para
+>بعض ميزات العارض غير متاحة عند عرض فيديو:</para>
+<itemizedlist>
+<listitem>
+<para
+>لا يمكن عرض مربع المعلومات على فيديو.</para>
+</listitem>
+<listitem>
+<para
+>عمليات التكبير/التصغير غير تبديل وضع ملء الشاشة غير مدعومة للفيديوهات.</para>
+</listitem>
+<listitem>
+<para
+>عمليات التدوير غير مدعومة للفيديوهات.</para>
+</listitem>
+<listitem>
+<para
+>وضع عرض الشرائح غير مدعوم للفيديوهات.</para>
+</listitem>
+</itemizedlist>
+</important>
+
+<warning>
+<para
+>يمكن تبديل كل من الرموز (انظر <xref linkend="assigning-tokens-from-the-viewer"/>) والوسوم (انظر <xref linkend="annotating-from-the-viewer"/>) عند عرض فيديو في العارض، لكن لا توجد تغذية راجعة فورية للمستخدم بأن شيئًا قد تغير. يمكنك ضبط وضع تعليق العارض على <emphasis
+>مقفل</emphasis
+> لتجنب تبديل رمز أو وسم عن طريق الخطأ. </para>
+
+<para
+>كما ذُكر أعلاه، يُستخدم مفتاح <keycap
+>p</keycap
+> لتبديل الإيقاف المؤقت، لذا لا يمكن استخدام هذا المفتاح لتبديل رمز أو وسم أثناء عرض فيديو. </para>
+</warning>
+
+<sect2 id="viewer-seeking">
+<title
+>البحث في الفيديو</title>
+<para
+>يدعم العارض البحث داخل فيديو. روابط المفاتيح مُدرجة في <xref linkend="table-video-seek-controls"/>. </para>
+
+<table id="table-video-seek-controls">
+<title
+>ضوابط البحث في الفيديو</title>
+<tgroup cols="3">
+<thead>
+<row>
+<entry
+>مدة البحث</entry>
+<entry
+>بحث للخلف</entry>
+<entry
+>بحث للأمام</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry
+>100 ملي ثانية</entry>
+<entry
+><keycombo
+>&Shift;<keycap
+>&Up;</keycap
+></keycombo
+></entry>
+<entry
+><keycombo
+>&Shift;<keycap
+>&Down;</keycap
+></keycombo
+></entry>
+</row>
+<row>
+<entry
+>1 ثانية</entry>
+<entry
+><keycap
+>&Up;</keycap
+></entry>
+<entry
+><keycap
+>&Down;</keycap
+></entry>
+</row>
+<row>
+<entry
+>10 ثوانٍ</entry>
+<entry
+><keycap
+>&Left;</keycap
+></entry>
+<entry
+><keycap
+>&Right;</keycap
+></entry>
+</row>
+<row>
+<entry
+>1 دقيقة</entry>
+<entry
+><keycombo
+>&Shift;<keycap
+>&Left;</keycap
+></keycombo
+></entry>
+<entry
+><keycombo
+>&Shift;<keycap
+>&Right;</keycap
+></keycombo
+></entry>
+</row>
+<row>
+<entry
+>10 دقائق</entry>
+<entry
+><keycombo
+>&Ctrl;<keycap
+>&Left;</keycap
+></keycombo
+></entry>
+<entry
+><keycombo
+>&Ctrl;<keycap
+>&Right;</keycap
+></keycombo
+></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</sect2>
+</sect1>
+
+<sect1 id="annotating-from-the-viewer">
+<title
+>تعليق الصور من العارض</title>
+<para
+>توجد ثلاث أوضاع لتعليق الصور في العارض:</para>
+<itemizedlist>
+    <listitem
+><para
+><emphasis
+>مقفل</emphasis
+> - هذا هو الوضع المبدئي عند بدء العارض - هنا لن يحدث أي تعليق أو وسم رمزي. يضمن هذا عدم تعليق الصور عن طريق الخطأ عند عرضها.</para
+></listitem>
+    <listitem
+><para
+><emphasis
+>تعيين الرموز</emphasis
+> - يسمح لك هذا بتعيين رموز على الصور، ببساطة بالضغط على مفتاح من A-Z على لوحة المفاتيح.</para
+></listitem>
+    <listitem
+><para
+><emphasis
+>تعيين الوسوم</emphasis
+> - يسمح لك هذا بتعيين وحدات ماكرو لمفتاح لوحة مفاتيح. كمثال، <emphasis
+>L</emphasis
+> قد يعني تعيين العنصر <emphasis
+>لاس فيغاس</emphasis
+> في فئة <emphasis
+>الموقع</emphasis
+>. بالإضافة إلى ذلك، يسمح لك أيضًا بتعيين أي وسم على صورة.</para
+></listitem>
+</itemizedlist>
+<para
+>تُختار الأوضاع من قائمة السياق كما يظهر في <xref linkend="fig-ctxmenu-for-mode-selection"/>. </para>
+<para
+>يُوصف الوضعان بالتفصيل أدناه. </para>
+
+  <figure id="fig-ctxmenu-for-mode-selection">
+    <title
+>اختيار وضع التعليق من العارض</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="annotation-mode.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+</sect1>
+
+
+
+
+<sect1 id="assigning-tokens-from-the-viewer">
+<title
+>تعيين الرموز من العارض</title>
+<para
+>تخيل أنك تريد إرسال عدد من الصور إلى طابعة لتطويرها على ورق. لترى أيها تريد، تبدأ العارض على الصور، وتوسمها كـ <emphasis
+>جيد</emphasis
+>، <emphasis
+>سيئ</emphasis
+>، أو <emphasis
+>ربما</emphasis
+>، أثناء فحص كل واحدة.</para>
+
+<para
+>يمكنك بالطبع إنشاء بضع عناصر جديدة (قل <emphasis
+>جيد</emphasis
+>، <emphasis
+>سيئ</emphasis
+>، <emphasis
+>ربما</emphasis
+>) لفئة موجودة، مثل فئة <emphasis
+>الألبوم</emphasis
+>. ومع ذلك، نظرًا لأنك على الأرجح لا تحتاج هذه الوسوم بمجرد إرسال الصور إلى الطابعة، توجد طريقة أسهل، وهي ببساطة تعيين رموز على الصور. تُسمى الرموز من A إلى Z، وتعين رمزًا ببساطة بالضغط على حرفه. في <xref linkend="fig-images-with-tokens"/> قد ترى صورة حيث عُينت الرموز A وB وC.</para>
+
+  <figure id="fig-images-with-tokens">
+    <title
+>صورة مع رموز</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images-with-tokens.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>لكي يعمل هذا، يجب أن تكون في وضع <emphasis
+>تعيين الرموز</emphasis
+>. انظر <xref linkend="fig-ctxmenu-for-mode-selection"/></para>
+
+<para
+>بمجرد تعيين الرموز على صورك، ستكون متاحة للتصفح المنتظم في المتصفح، كما يظهر في <xref linkend="fig-tokens-in-browser"/>. لذا عندما تضع علامات على الصور التي تحتاج إلى تحرير أو طباعة أو أي شيء آخر، تصفح ببساطة إلى الصور، وعالج المجموعة من هناك، مثلًا باستخدام <emphasis
+>نسخ الصور إلى...</emphasis
+> من قائمة السياق.</para>
+
+  <figure id="fig-tokens-in-browser">
+    <title
+>الرموز كما تُرى في المتصفح</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-browser.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>قد تُعرض الفئات (وخاصة الرموز) في عارض الصور المصغرة. عند إظهار الفئات في عارض الصور المصغرة، يمكنك أيضًا إضافة رموز إلى الصور، ببساطة بالضغط على حرف الرمز عندما تكون الصورة محددة، يمكن رؤية هذا في <xref linkend="fig-tokens-in-thumbnail-viewer"/></para>
+
+  <figure id="fig-tokens-in-thumbnail-viewer">
+    <title
+>الرموز كما تُرى في عارض الصور المصغرة</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-thumbnail-viewer.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+
+
+</sect1>
+
+<sect1>
+    <title
+>وسم الصور من العارض</title>
+<para
+>يمكن أن يكون وسم الصور مرهقًا، حتى في دفتر الصور، على الأقل عندما تتأخر ويكون لديك آلاف أو عشرات الآلاف من الصور التي تحتاج إلى وسم مناسب. لحسن الحظ، أصبح من الممكن الآن إضافة وسوم بضغطة مفتاح واحدة عند عرض الصور. الفكرة وراء هذه الطريقة في العمل مع الصور هي أن معظم الصور تكون مع نفس الأشخاص القلائل في نفس الأماكن القليلة، بالإضافة إلى بضع ظهورات "ضيوف" من وقت لآخر - قل موقع إجازتك، أو بعض الأصدقاء الذين زاروك لمدة أسبوع.</para>
+
+<para
+>لوسم صورك أثناء عرضها، تحتاج إلى الدخول إلى وضع <emphasis
+>تعيين الوسوم</emphasis
+> - انظر <xref linkend="fig-ctxmenu-for-mode-selection"/>. مع تمكين هذا، اضغط ببساطة على مفتاح حرف على لوحة المفاتيح إما لتعيين الوسم المعين أو استخدامه.</para>
+
+<para
+>في <xref linkend="fig-assign-macro-step1"/> أدناه، ضغطت للتو على <keycap
+>s</keycap
+> أثناء مشاهدة الصور وكوني في وضع <emphasis
+>تعيين الوسوم</emphasis
+>. أظهر هذا الحوار حيث يمكنني تحديد الوسم الذي سيُعين لذلك المفتاح.</para>
+
+<figure id="fig-assign-macro-step1">
+  <title
+>الخطوة 1 - تعيين ماكرو للمفتاح <emphasis
+>s</emphasis
+></title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-step1.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>بعد ذلك، في حقل التحرير كتبت <emphasis
+>sp</emphasis
+> مما يقترح "الأشخاص / Je<emphasis
+>sp</emphasis
+>er" و"الأشخاص / <emphasis
+>Sp</emphasis
+>iff". كلاهما طابق الحروف التي كتبتها. بالضغط على السهم لأسفل لاختيار <emphasis
+>Spiff</emphasis
+> والضغط على إدخال، سيُعين الحرف <emphasis
+>s</emphasis
+> لإضافة الوسم <emphasis
+>الأشخاص / Spiff</emphasis
+> إلى الصورة المعروضة. سيُحفظ هذا التعيين للجلسات المستقبلية. لإعادة تعيين s إلى وسم آخر، اضغط ببساطة على <keycombo action="simul"
+>&Shift;<keycap
+>s</keycap
+></keycombo
+>.</para>
+
+<figure id="fig-assign-macro-step2">
+  <title
+>الخطوة 2 - تعيين ماكرو - كتابة <emphasis
+>sp</emphasis
+></title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-step2.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>في <xref linkend="fig-assign-macro-overview"/> أدناه يمكنك رؤية روابط المفاتيح الموجودة في الجانب الأيمن من الحوار.</para>
+<figure id="fig-assign-macro-overview">
+  <title
+>نظرة عامة على روابط المفاتيح المعينة</title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-overview.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>إذا كانت الوسم الذي تريد تعيينه غير موجود مسبقًا في قاعدة بياناتك، فاضغط ببساطة على زر <emphasis
+>إضافة جديد</emphasis
+> لإنشائه. يمكن رؤية ذلك في <xref linkend="fig-assign-macro-add-new-value.png"/> أدناه</para>
+
+<figure id="fig-assign-macro-add-new-value.png">
+  <title
+>إضافة وسم جديد</title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-add-new-value.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>أثناء وسم الصور من العارض، قد ترغب في إضافة وسم دون ربطه بمفتاح. لفعل ذلك، اضغط ببساطة على <keycombo
+>&Ctrl;<keycap
+>أ</keycap
+></keycombo
+>. هذه أيضًا هي طريقة فتح الحوار لرؤية روابط المفاتيح الكلية. </para>
+
+<para
+>اضغط <keycombo
+>&Ctrl;<keycap
+>ج</keycap
+></keycombo
+> لنسخ التعليقات من الصورة السابقة في قائمة العارض. </para>
+
+</sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

@@ -1,0 +1,181 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2007 Jan Kundrát <jkt@flaska.net>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-browsing">
+  <title
+>التصفح</title>
+  <para
+>بمجرد أن تشرح صورك وفيديوهاتك، يكون &kphotoalbum; جاهزًا ليتيح لك التصفح بين صورك. إذا قارنت ذلك بـ <xref linkend="fig-empty-browser-window"/>، سترى أنه أصبحت هناك عناصر متاحة في كل فئة من فئات <literal
+>الأشخاص</literal
+> و<literal
+>الأماكن</literal
+> و<literal
+>الكلمات المفتاحية</literal
+>.</para>
+
+  <para
+>في نافذة المتصفح، يمكنك رؤية الفئات التي أدخلت معلومات عنها عند شرح صورك وفيديوهاتك. بالإضافة إلى ذلك، هناك عناصر للبحث بناءً على معلومات EXIF في الصور، وتصفح هيكل مجلدات قرصك الصلب، وبالطبع عرض الصور المصغرة الفعلية. دعنا نصف كل عنصر بدوره.</para
+> 
+  
+  <para
+>عند الضغط على <literal
+>الأشخاص</literal
+>، ستتغير نافذة المتصفح، كما ترى في <xref linkend="fig-browser-for-persons"/>.</para>
+  
+  <figure id="fig-browser-for-persons">
+    <title
+>نافذة المتصفح عند اختيار الأشخاص.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-for-persons.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>المتصفح الآن مليء بالأشخاص الذين حددتهم لصورك وفيديوهاتك<footnote
+><para
+>قد تلاحظ أن العنصر <literal
+>الحيوانات الأليفة</literal
+> له أيقونة خاصة. للتفاصيل حول ذلك، انظر <xref linkend="sec-specifying-categories"/>.</para
+></footnote
+>، اختيار شخص سيعيدك إلى الحالة الأصلية للمتصفح. هذه المرة، مع ذلك، نحن <emphasis
+>في نطاق</emphasis
+> الشخص الذي اخترناه. هذا يعني أننا نعرض فقط معلومات عن الصور والفيديوهات التي تحتوي على ذلك الشخص. انظر <xref linkend="fig-browser-for-jesper"/> أدناه، وهو نتيجة اختيارنا للشخص <literal
+>Jesper</literal
+>، يمكنك رؤية إشارة إلى ذلك في أسفل النافذة. في الجانب الأيمن السفلي من <xref linkend="fig-browser-for-jesper"/>، سترى أن عدد الصور والفيديوهات المطابقة انخفض من 25 إلى 13، بينما بقي العدد الإجمالي للصور كما هو.</para>
+
+  <para
+>لاحظ أنه إذا كان هناك عدد قليل فقط من الصور في النطاق، سينتقل &kphotoalbum; مباشرة إلى عارض الصور المصغرة (انظر <xref linkend="chp-thumbnail-view"/>). يمكنك ضبط هذا السلوك في إعدادات عارض الصور المصغرة (انظر <xref linkend="opt-thumbnails"/>). </para>
+  
+  <figure id="fig-browser-for-jesper">
+    <title
+>المتصفح محدود بنطاق الشخص <literal
+>Jesper</literal
+></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-for-jesper.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>إذا واصلنا الآن اختيار شخص جديد، فسنصل إلى الصور التي تحتوي على كلا الشخصين. بالاستمرار بهذه الطريقة، يمكنك تضييق مجموعة الصور التي في ذهنك إلى بضع صور من مجموعة تضم آلافًا.</para>
+  
+  <para
+>عند الانتهاء من تحديد نطاق الصور، يمكنك اختيار أيقونة <guilabel
+>عرض الصور المصغرة</guilabel
+> لرؤية تلك الصور التي تطابق نطاقك الحالي تمامًا.</para>
+
+
+
+
+
+
+
+
+  <sect1 id="sect-adding-preview-images-to-the-browser">
+  <title
+>إضافة صور معاينة إلى المتصفح</title>
+  <para
+>بالنظر إلى <xref linkend="fig-browser-for-persons"/> سترى أن لكل شخص نفس الأيقونة أمام اسمه. &kphotoalbum; قادر فعليًا على عرض صورة معاينة لكل شخص فردي<footnote
+><para
+>هذا ينطبق بالطبع أيضًا على الأماكن والكلمات المفتاحية والفئات الأخرى التي عرّفتها بنفسك.</para
+></footnote
+> كما يمكن رؤيته في <xref linkend="fig-imagesForPersons"/>.</para>
+
+  <figure id="fig-imagesForPersons">
+    <title
+>صور لكل شخص فردي</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="imagesForPersons.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>لعرض الصور مع الأسماء، اختر زر الأداة في أقصى يمين شريط الأدوات، سيفتح ذلك قائمة منبثقة، حيث يمكنك اختيار العرض الذي تريد استخدامه للفئة المعطاة. لاحظ أنه يجب ضبط العروض لكل فئة - بهذه الطريقة يمكنك مثلًا استخدام عرض أيقونات للأشخاص، ولكن عرض قائمة عادية للكلمات المفتاحية (في حال لم تتمكن من ابتكار صور جيدة لكلماتك المفتاحية).</para
+>  
+
+
+<para
+>ومع ذلك، من مسؤوليتك أن تخبره بالصور التي يجب استخدامها لكل شخص فردي. للقيام بذلك، يجب فتح العارض (انظر <xref linkend="chp-viewer"/>)، ومن قائمة السياق اختر <guimenuitem
+>إظهار محرر الفئات</guimenuitem
+>، سيفتح ذلك محرر الفئات الذي يمكن رؤيته في <xref linkend="fig-categoryEditor"/>. في محرر الفئات، تختار الصورة للشخص المعطى. في العارض، من الممكن التكبير إلى جزء من الصورة، وبالتالي قص الجزء الذي يجب عرضه.</para>
+
+
+  <figure id="fig-categoryEditor">
+    <title
+>محرر الفئات</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="categoryEditor.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  </sect1>
+
+
+
+
+
+
+
+
+
+
+  
+  <sect1 id="sect-general-image-searches">
+    <title
+>عمليات بحث عامة عن الصور</title>
+    <para
+>إذا اخترت العنصر <guilabel
+>بحث</guilabel
+> في المتصفح، ستصل إلى حوار يشبه إلى حد كبير الحوار الذي استخدمته لتعيين خصائص صورك. يمكنك رؤية هذا الحوار في <xref linkend="fig-search"/> أدناه.</para>
+    
+    <figure id="fig-search">
+      <title
+>حوار البحث</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="search.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+    
+    <para
+>إذا كتبت سلسلة نصية في حقل التسمية أو الوصف، فسيتم البحث عن ذلك النص باستخدام عمليات بحث عن سلاسل فرعية. وبالمثل، يمكنك أيضًا تحديد تاريخ للبحث عنه، إما كجزء من تاريخ، مثل 1971، أو كتاريخ كامل. يمكنك أيضًا تحديد نطاقات تاريخية، مثل 1971-1980.</para>
+    
+    <para
+>عنصر الخيارات يسمح بصيغة محدودة جدًا لكتابة تعبير، كما ترى في المثال في <xref linkend="fig-search"/>. هنا نبحث عن صور تحتوي على <literal
+>Jesper</literal
+>، ولكن بدون <literal
+>Anne Helene</literal
+>.</para>
+    
+    <para
+>العمليات المسموح بها هي &amp; (بمعنى: و)، | (بمعنى: أو)، و ! (بمعنى: ليس).</para>
+    
+  </sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

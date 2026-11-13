@@ -1,0 +1,254 @@
+<!--
+SPDX-FileCopyrightText: 2003 Stephan Kulow <coolo@kde.org>
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 André Marcelo Alvarenga <alvarenga@kde.org>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-typingIn">
+  <title
+>تعليق صورك</title>
+  <para
+>في <xref linkend="fig-empty-browser-window"/> يمكنك رؤية مثال للنافذة التي ستستقبلك بمجرد بدء دفتر الصور مع صورك الخاصة.</para>
+
+  <para
+>في أعلى الشاشة ستجد قائمة وشريط أدوات، كما تعرف من أي تطبيق &kde;. أسفل شريط الأدوات ترى نافذة المتصفح. في نافذة المتصفح يمكنك اختيار فئات مختلفة لتحديد الصور التي ستفحصها. في <xref linkend="chp-browsing"/> سنعود إلى المتصفح، لكن الآن، ببساطة اضغط على العنصر <guibutton
+>إظهار الصور المصغرة</guibutton
+>، الذي سيعرض لك عرضًا مصغرًا لجميع صورك.</para>
+
+  <figure id="fig-empty-browser-window">
+    <title
+>بدء دفتر الصور مع صورك الخاصة</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="empty-browser-window.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+    <para
+>الميزة الرئيسة لـ دفتر الصور هي أنه يمكنك تعليق صورك. يتضمن ذلك من في صورة معينة، وأين التُقطت، إلخ… يمكنك فعل ذلك إما لصورة واحدة في كل مرة، أو يمكنك تعليق عدد من الصور في وقت واحد (على سبيل المثال، كل هذه الصور تحتوي على الشخص <emphasis
+>يسبير</emphasis
+>، والتُقطت في <emphasis
+>كوبنهاغن</emphasis
+>.)</para>
+
+    <para
+>لتعليق الصور، اختر الصور المعنية، واذهب إلى <menuchoice
+><guimenu
+>تحرير</guimenu
+> <guisubmenu
+>تعليق العناصر الفردية</guisubmenu
+></menuchoice
+>. الآن تعلق على صورك المختارة واحدة تلو الأخرى. إذا اخترت بدلًا من ذلك <guimenuitem
+>تعليق عناصر متعددة في وقت واحد</guimenuitem
+>، فستعلق على جميع العناصر المختارة كما لو كانت عنصرًا واحدًا. بعبارة أخرى، مع هذا الخيار تعلق بشكل جماعي على صورتك - مثلًا قول إن كل هذه الصور التُقطت في كوبنهاغن. هذان الخياران متاحان أيضًا من قائمة سياقية، تحصل عليها بالنقر بزر الفأرة الأيمن في نظرة الصور المصغرة أو باستخدام اختصار لوحة المفاتيح. مثال على ذلك يمكن رؤيته في <xref linkend="fig-edit-properties-menu"/>.</para>
+
+    <figure id="fig-edit-properties-menu">
+      <title
+>قائمة سياقية لتحرير الخصائص</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="edit-properties-menu.png"
+            format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para
+>في <xref linkend="fig-image-config-window"/> أدناه يمكنك رؤية نافذة تعليق الصور والفيديوهات. في هذه النافذة يمكنك تحديد تاريخ العنصر، ولصيقة العنصر <footnote
+><para
+>اللصيقة تُهيأ إلى اسم الملف. تُستخدم اللصيقة في المتصفح، وعند تصدير الصور إلى صفحات &HTML;</para
+></footnote
+>، ووصفًا للعنصر، والأهم من ذلك <emphasis
+>فئات</emphasis
+> مختلفة للعنصر. في لقطة الشاشة، هذه الفئات هي <literal
+>أشخاص</literal
+> و<literal
+>أماكن</literal
+> و<literal
+>كلمات مفتاحية</literal
+>، ولكن كما سترى في <xref linkend="sec-specifying-categories"/>، يمكن تغيير هذه الفئات الثلاث المحددة مسبقًا حسب تفضيلاتك. </para>
+
+    <figure id="fig-image-config-window">
+      <title
+>تعليق الصور والفيديوهات</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="image-config-window.png"
+            format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para
+>كل هذه التعليقات يمكن استخدامها للبحث والتصفح، كما سنرى في <xref linkend="chp-browsing"/>. عند الطلب يمكنك رؤية هذه التعليقات عند عرض العناصر في العارض المدمج.</para>
+
+
+
+
+    <sect1 id="sect-specifying-options">
+      <title
+>الفئات</title>
+      <para
+>في <xref linkend="fig-image-config-window"/> هناك ثلاثة مربعات قوائم مدمجة مع حقول تحرير لتحديد الأشخاص والأماكن والكلمات المفتاحية. هذه الأدوات هي جزء مهم جدًا من دفتر الصور، حيث ستستخدمها مرارًا وتكرارًا عند تحديد معلومات عن صورك.</para>
+
+      <para
+>يمكنك تحديد خاصية من مربع القائمة، ببساطة باختيارها (اختر مثلًا <literal
+>دونا</literal
+> لتحديد أن دونا موجودة في الصورة المعطاة. بدلًا من ذلك يمكنك كتابة اسمها في حقل التحرير. عندما تبدأ بكتابة اسم في حقل التحرير، سيبحث دفتر الصور في مربع القائمة، ويبحث عن أول عنصر يطابق ما كتبته حتى الآن، ويكمله. وبالتالي كتابة <literal
+>دو</literal
+> قد تكون كافية للعثور على <literal
+>دونا</literal
+>. بمجرد العثور على العنصر الذي تبحث عنه، اضغط ببساطة على مفتاح الإدخال لتحديد هذا العنصر في مربع القائمة. سيُنقل العنصر الآن إلى أعلى العرض، لذا في المرة القادمة التي تحتاج فيها العنصر المعطى سيكون من الأسهل العثور عليه.</para>
+
+      <para
+>الفكرة وراء نقل العناصر إلى الأعلى عند تحديدها هي، أنه عند الذهاب مثلًا إلى حفلة عائلية، قد تحصل على 50 صورة كلها بنفس 5-10 أشخاص. عند كتابة معلومات عن هذه الصور الخمسين، سيكون لديك 5-10 أشخاص في أعلى مربع القائمة بمجرد كتابة أسمائهم في المرة الأولى.</para>
+
+     <para
+>إذا كنت تفضل أن تكون القائمة مرتبة أبجديًا بدلًا من ذلك، ببساطة اضغط على أيقونة الفرز أسفل مربع القائمة.</para>
+    </sect1>
+
+
+    <sect1 id="sect-specifying-properties-for-one-image-at-a-time">
+      <title
+>تعليق عنصر واحد في كل مرة</title>
+      <para
+>عند تحديد خصائص لصورة واحدة في كل مرة، يمكنك بالطبع اختيار عدد من الصور، وقول، <emphasis
+>أريد تعليق هذه الصور</emphasis
+>. في هذه الحالة، ستجد زرًا للسابق والتالي أسفل الصورة في الزاوية اليمنى العليا. </para>
+    </sect1>
+
+    <sect1 id="sect-specifying-properties-for-all-images-simultaneously">
+      <title
+>تعليق عناصر متعددة في وقت واحد</title>
+      <para
+>إذا كان لديك عدة صور مع نفس الشخص مثلًا، فقد يكون من الأكثر ملاءمة اختيار تلك الصور، وتحديد أن هذا الشخص موجود في جميع الصور باستخدام <emphasis
+>تعليق عناصر متعددة في وقت واحد</emphasis
+>.</para>
+      <para
+>إذا أردت تعليق كومة من الصور يمكنك فعل ذلك عندما تكون الكومة مطوية. تحتاج فقط إلى اختيار الصورة العلوية من الكومة وتعليق صور متعددة. (إذا علقت صورة واحدة، فسيتم تعليق الصورة المختارة فقط، رأس الكومة في هذه الحالة.) بالطبع فتح الكومة واختيار جميع الصور يعمل أيضًا.</para>
+
+    </sect1>
+
+
+<sect1 id="sec-member-groups-in-property-editor">
+<title
+>الفئات الفرعية</title>
+  <para
+>لاس فيغاس، سان فرانسيسكو، لوس أنجلوس، وكاليفورنيا كلها تقع في الولايات المتحدة. علاوة على ذلك، سان فرانسيسكو ولوس أنجلوس تقعان في كاليفورنيا.</para>
+
+<para
+>بدلًا من تحديد لكل صورة من سان فرانسيسكو أنها في سان فرانسيسكو، وفي كاليفورنيا، وفي الولايات المتحدة، يمكنك بدلًا من ذلك إخبار دفتر الصور أن سان فرانسيسكو ولوس أنجلوس في كاليفورنيا، وأن كاليفورنيا من بين آخرين في الولايات المتحدة. بفعل ذلك، سيعرض لك المتصفح (انظر <xref linkend="chp-browsing"/>) عنصرًا للولايات المتحدة، وعنصرًا لكاليفورنيا بالإضافة إلى جميع عناصرك العادية. باختيار كاليفورنيا، سترى جميع الصور من سان فرانسيسكو، لوس أنجلوس، إلخ…</para>
+
+<para
+>في <xref linkend="fig-usa-as-a-member"/> يمكنك رؤية نافذة متصفح، تحتوي على الولايات المتحدة كفئة عليا. للإشارة لك أن هذه مجموعة، يُستخدم أيقونة خاصة.</para>
+
+<figure id="fig-usa-as-a-member">
+<title
+>متصفح يظهر الولايات المتحدة كفئة عليا</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="usa-as-a-member.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>في القائمة السياقية لحوار التعليق، من الممكن إضافة عنصر إلى فئة عليا أو فرعية موجودة أو جديدة. بالإضافة إلى ذلك، يمكنك ببساطة سحب عنصر إلى فئة لجعله فئة فرعية لذلك العنصر. لاحظ أن هذا يتطلب أن تكون حاليًا ترتب فئاتك أبجديًا. انظر <xref linkend="fig-membergroup-config"/>.</para>
+
+<figure id="fig-membergroup-config">
+<title
+>فئات معروضة في العرض الأبجدي لحوار التعليق</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="member-group-setting.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+</sect1>
+
+
+
+
+
+
+  <sect1 id="sect-changing-layout-of-the-property-window">
+    <title
+>تغيير تخطيط حوار التعليق</title>
+    <para
+>من الممكن تحريك عناصر حوار التعليق، ببساطة من الشريط في أعلى الإطارات، وتحريكها - يمكنك حتى جعل إطار نافذة مستقلة بذاتها.</para>
+
+    <para
+>بمجرد العثور على تخطيط يعمل جيدًا على شاشتك، واستخدامك لـ دفتر الصور، …إلخ ببساطة اضغط على زر <guibutton
+>خيارات...</guibutton
+>، الذي سيعرض قائمة منبثقة يمكنك من خلالها حفظ تخطيط النافذة الحالي.</para>
+
+    <para
+>يمكنك أيضًا اختيار إخفاء إطار، أو تمكين بعض الإطارات غير المرئية افتراضيًا. يمكنك دائمًا العودة إلى التخطيط الأصلي بالذهاب عبر زر <guibutton
+>خيارات...</guibutton
+>، واختيار <guimenuitem
+>إعادة تعيين التخطيط</guimenuitem
+> من القائمة المنبثقة. يمكن رؤية هذا في <xref linkend="fig-redisplay-frames"/>.</para>
+
+
+  <figure id="fig-redisplay-frames">
+    <title
+>إظهار النوافذ المخفية سابقًا.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="redisplay-frames.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  </sect1>
+
+<sect1>
+    <title
+>التعليق أثناء عرض الصور</title>
+    <para
+>لعقود قليلة، كنا نوسم صورنا كما هو موصوف أعلاه، لكن في صيف 2023، أصبح من الممكن وسم الصور أثناء عرضها. لا تدعم هذه الإمكانية كل الميزات الموصوفة أعلاه، لكنها تقدم سير عمل أسرع بكثير لوسم الصور.</para>
+    <para
+>الميزات المفقودة عند التعليق على الصور من العارض، والتي تحتاج إلى الدخول إلى هذا الحوار من أجلها هي:</para>
+    <itemizedlist>
+    <listitem
+><para
+>التعليق على صور متعددة في وقت واحد</para
+></listitem>
+    <listitem
+><para
+>وسم أجزاء فردية من الصورة (هذا الوجه هو ...)</para
+></listitem>
+    <listitem
+><para
+>إعداد مجموعات الوسوم (&ie; تحديد أن لاس فيغاس تقع في الولايات المتحدة، لذا سترى صورًا موسومة بلاس فيغاس عند مشاهدة صور من الولايات المتحدة)</para
+></listitem>
+    <listitem
+><para
+>ضبط تواريخ الصور</para
+></listitem>
+    </itemizedlist>
+    <para>
+    <link linkend="annotating-from-the-viewer"
+>انظر القسم الخاص بالتعليق من العارض</link>
+    </para>
+</sect1>
+</chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

@@ -1,0 +1,58 @@
+<!--
+SPDX-FileCopyrightText: 2005-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2010 Burkhard Lück <lueck@hube-lueck.de>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-datebar">
+  <title
+>شريط التاريخ</title>
+
+<para
+>في أسفل النافذة الرئيسة لدفتر الصور، ستجد شريط البيانات (انظر <xref linkend="fig-datebar"/>). وكما يشير الاسم، فإنه يعرض إحصائيات التاريخ للصور في قاعدة بياناتك.</para>
+
+<figure id="fig-datebar">
+<title
+>شريط التاريخ</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>تشير الأشرطة الفردية إلى عدد الصور ضمن الفترة المعطاة. في الشكل أعلاه، قد ترى أن لدي 261 صورة من يناير 2005. ترمز الأشرطة إلى معلومتين، وهما عدد الصور التي لها تاريخ دقيق ضمن الفترة المعطاة، وعدد الصور التي لها تداخل مع الفترة المعطاة. الصورة التي تاريخها 2005 ستُحتسب كتداخل لجميع أشهر 2005، بينما الصورة من 24 يناير 2005 ستُحتسب كتاريخ دقيق لشهر يناير 2005. تُعرض التطابقات الدقيقة باللون الأخضر، بينما تُعرض التطابقات غير الدقيقة باللون الأصفر. وهكذا، في ديسمبر 2004، لدي 86 صورة بعدد دقيق، و61 صورة بعدد تداخل. (أعرف الأعداد بتحريك المؤشر فوق النطاق المعطى، حيث يُظهر ذلك الأعداد في شريط الحالة).</para>
+
+<para
+>يقدم لك شريط التاريخ عددًا من الدرجات المختلفة، حيث يعرض كل شريط نطاقًا زمنيًا مختلفًا. النطاقات هي السنوات، الأشهر، الأسابيع، الأيام، الساعات، و10 دقائق. يُظهر <xref linkend="fig-datebar-for-minutes"/> جزءًا من قاعدة بياناتي حيث يعرض كل شريط 10 دقائق فقط.</para>
+
+<figure id="fig-datebar-for-minutes">
+<title
+>شريط التاريخ يعرض فترات زمنية مدتها 10 دقائق</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar-for-minutes.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>شريط التاريخ تفاعلي بطريقتين: أولًا، يمكنك التنقل في عرض الصور المصغرة من قاعدة البيانات - اختيار تاريخ سيُمرر عرض الصور المصغرة بحيث تُعرض أول صورة من ذلك التاريخ. ثانيًا، عندما تتنقل في عرض الصور المصغرة، سيتحدّث شريط التاريخ لعرض تاريخ الصور المعروضة حاليًا.</para>
+
+<para
+>يمكنك أيضًا سحب نطاق في شريط البيانات. تفعل ذلك بالضغط وسحب الفأرة في جزء المسطرة من شريط التاريخ، أي على الطوابع الزمنية. عندما تختار نطاقًا، سيعرض عارض الصور المصغرة صورًا من ذلك النطاق فقط. تُلغي التحديد بالضغط على زر الإلغاء في الجانب الأيسر من شريط التاريخ.</para>
+
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

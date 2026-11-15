@@ -49,6 +49,8 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Fixed
  - Fix incorrectly shown warning dialog about unsaved changes (#520244)
  - Remove export file size limit (#512199)
+ - Fix ThumbnailViewer drag and drop on Wayland (#528795)
+
 
 ### Removed
 

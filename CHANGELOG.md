@@ -37,10 +37,13 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
 ### Added
  - Add keyboard shortcut ('=') to toggle (i.e. expand/collapse) the currently selected stack in the thumbnail view (#185871)
- - Add action ('Ctrl-=') to toggle all stacks in the thumbnail view.
+ - Add action ('Ctrl-=') to toggle all stacks in the thumbnail view
 
 ### Changed
  - Tweak order of dialog pages for import dialog (#512204)
+ - Improve UI for "merge duplicates" feature
+ - Improve default layout for annotation dialog
+
 
 ### Dependencies
 
@@ -49,6 +52,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Fixed
  - Fix incorrectly shown warning dialog about unsaved changes (#520244)
  - Remove export file size limit (#512199)
+ - Fix thumbnail generation for .kim export files
  - Fix ThumbnailViewer drag and drop on Wayland (#528795)
 
 

@@ -22,6 +22,7 @@
 
 #include <QApplication>
 #include <QCursor>
+#include <QDebug>
 #include <QScreen>
 
 /**
@@ -110,6 +111,7 @@ void ThumbnailView::ThumbnailToolTip::placeWindow()
         }
     }
 
+    // FIXME(jzarl) on Wayland, moving a widget programmatically has no effect. Maybe the tooltip could be drawn on top of the thumbnailWidget instead of using a different widget?
     move(pos);
 }
 

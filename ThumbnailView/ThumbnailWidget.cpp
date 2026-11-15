@@ -1,13 +1,13 @@
-// SPDX-FileCopyrightText: 2006-2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2006, 2007 Dirk Mueller <mueller@kde.org>
 // SPDX-FileCopyrightText: 2006-2010 Tuomas Suutari <tuomas@nepnep.net>
 // SPDX-FileCopyrightText: 2006-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2007 Laurent Montel <montel@kde.org>
 // SPDX-FileCopyrightText: 2007-2009 Jan Kundrát <jkt@flaska.net>
-// SPDX-FileCopyrightText: 2008-2009 Henner Zeller <h.zeller@acm.org>
-// SPDX-FileCopyrightText: 2009-2010 Hassan Ibraheem <hasan.ibraheem@gmail.com>
+// SPDX-FileCopyrightText: 2008, 2009 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2009, 2010 Hassan Ibraheem <hasan.ibraheem@gmail.com>
 // SPDX-FileCopyrightText: 2010-2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
-// SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2012-2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2018-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2020 Robert Krawitz <rlk@alum.mit.edu>
 // SPDX-FileCopyrightText: 2020 Wolfgang Bauer <wbauer@tmo.at>
@@ -276,7 +276,12 @@ void ThumbnailView::ThumbnailWidget::reload(SelectionUpdateMethod method)
 
 DB::FileName ThumbnailView::ThumbnailWidget::mediaIdUnderCursor() const
 {
-    const QModelIndex index = indexUnderCursor();
+    return mediaIdAtPosition(mapFromGlobal(QCursor::pos()));
+}
+
+DB::FileName ThumbnailView::ThumbnailWidget::mediaIdAtPosition(const QPoint &position) const
+{
+    const QModelIndex index = indexAtPosition(position);
     if (index.isValid())
         return model()->imageAt(index.row());
     else
@@ -285,7 +290,12 @@ DB::FileName ThumbnailView::ThumbnailWidget::mediaIdUnderCursor() const
 
 QModelIndex ThumbnailView::ThumbnailWidget::indexUnderCursor() const
 {
-    return indexAt(mapFromGlobal(QCursor::pos()));
+    return indexAtPosition(mapFromGlobal(QCursor::pos()));
+}
+
+QModelIndex ThumbnailView::ThumbnailWidget::indexAtPosition(const QPoint &position) const
+{
+    return indexAt(position);
 }
 
 void ThumbnailView::ThumbnailWidget::dragMoveEvent(QDragMoveEvent *event)

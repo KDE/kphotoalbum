@@ -1,10 +1,11 @@
 // SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022, 2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "SelectionInteraction.h"
 
+#include "Logging.h"
 #include "ThumbnailFactory.h"
 #include "ThumbnailWidget.h"
 
@@ -50,6 +51,7 @@ void ThumbnailView::SelectionInteraction::startDrag()
     for (const DB::FileName &fileName : selection) {
         urls.append(QUrl::fromLocalFile(fileName.absolute()));
     }
+    qCDebug(ThumbnailViewLog) << "Starting mouse drag with URLs:" << urls;
     QDrag *drag = new QDrag(MainWindow::Window::theMainWindow());
     QMimeData *data = new QMimeData;
     data->setUrls(urls);

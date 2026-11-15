@@ -2,13 +2,14 @@
  * SPDX-FileCopyrightText: 2006-2013 Jesper K. Pedersen <jesper.pedersen@kdab.com>
  * SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
  * SPDX-FileCopyrightText: 2007 Laurent Montel <montel@kde.org>
- * SPDX-FileCopyrightText: 2007-2008 Jan Kundrát <jkt@flaska.net>
+ * SPDX-FileCopyrightText: 2007, 2008 Jan Kundrát <jkt@flaska.net>
  * SPDX-FileCopyrightText: 2007-2010 Tuomas Suutari <tuomas@nepnep.net>
  * SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
- * SPDX-FileCopyrightText: 2012-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+ * SPDX-FileCopyrightText: 2012-2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
  * SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
  * SPDX-FileCopyrightText: 2020 Robert Krawitz <rlk@alum.mit.edu>
  * SPDX-FileCopyrightText: 2022 Tobias Leupold <tl@stonemx.de>
+ *
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
@@ -55,8 +56,33 @@ public:
     explicit ThumbnailWidget(ThumbnailFactory *factory);
 
     void reload(SelectionUpdateMethod method);
+    /**
+     * @brief mediaIdUnderCursor returns the FileName of the item under the cursor.
+     * @note Do not call this method in situations where QCursor::pos() is not expected to work (such as inside event handlers on Wayland)
+     * @return the FileName of the media item under the cursor, or an invalid FileName if no item is that that position
+     */
     DB::FileName mediaIdUnderCursor() const;
+    /**
+     * @brief mediaIdAtPosition returns the FileName of the item under the at the (local) position.
+     * @param position a widget-local cursor position
+     * @return the FileName of the media item at the given position, or an invalid FileName if no item is that that position
+     */
+    DB::FileName mediaIdAtPosition(const QPoint &position) const;
+    /**
+     * @brief indexUnderCursor returns the model index of the item at the cursor.
+     * In case there is no item at the cursor, the QModelIndex is not valid.
+     * @note Do not call this method in situations where QCursor::pos() is not expected to work (such as inside event handlers on Wayland)
+     * @return the model index of the item under the cursor
+     */
     QModelIndex indexUnderCursor() const;
+    /**
+     * @brief indexAtPosition returns the model index of the item at the (local) position.
+     * In case there is no item at the cursor, the QModelIndex is not valid.
+     *
+     * @param position a widget-local cursor position
+     * @return the model index of the item under the cursor
+     */
+    QModelIndex indexAtPosition(const QPoint &position) const;
 
     bool isMouseOverStackIndicator(const QPoint &point);
     bool isGridResizing() const;

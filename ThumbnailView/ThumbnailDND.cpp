@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022-2026 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
@@ -33,21 +33,22 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent(QDragMoveEvent *event)
 
     removeDropIndications();
 
-    const DB::FileName fileName = widget()->mediaIdUnderCursor();
+    const auto &position = event->position();
+    const DB::FileName fileName = widget()->mediaIdAtPosition(position.toPoint());
     if (fileName.isNull()) {
         // cursor not in drop zone (e.g. empty space right/below of the thumbnails)
         return;
     }
 
-    const QRect rect = widget()->visualRect(widget()->indexUnderCursor());
+    const QRect rect = widget()->visualRect(widget()->indexAtPosition(position.toPoint()));
 
-    if (event->position().y() < 10) {
-        widget()->scrollTo(widget()->indexUnderCursor(), QAbstractItemView::PositionAtCenter);
+    if (position.y() < 10) {
+        widget()->scrollTo(widget()->indexAtPosition(position.toPoint()), QAbstractItemView::PositionAtCenter);
     }
-    if (event->position().y() > widget()->viewport()->visibleRegion().cbegin()->height() - 10) {
-        widget()->scrollTo(widget()->indexUnderCursor(), QAbstractItemView::PositionAtCenter);
+    if (position.y() > widget()->viewport()->visibleRegion().cbegin()->height() - 10) {
+        widget()->scrollTo(widget()->indexAtPosition(position.toPoint()), QAbstractItemView::PositionAtCenter);
     }
-    const bool isLeftHalfOfItem = (event->position().x() - rect.x() < rect.width() / 2);
+    const bool isLeftHalfOfItem = (position.x() - rect.x() < rect.width() / 2);
     if (isLeftHalfOfItem) {
         model()->setLeftDropItem(fileName);
         const int index = model()->indexOf(fileName) - 1;

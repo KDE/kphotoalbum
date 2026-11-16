@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-11 00:58+0000\n"
+"POT-Creation-Date: 2026-11-16 01:03+0000\n"
 "PO-Revision-Date: 2026-10-18 00:02+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -6468,7 +6468,7 @@ msgstr ""
 "Consejo: Use <shortcut>Alt+Mayúsculas+<placeholder>A-Z</placeholder></"
 "shortcut> para conmutar un filtro para dicho elemento."
 
-#: ThumbnailView/ThumbnailDND.cpp:92
+#: ThumbnailView/ThumbnailDND.cpp:93
 #, kde-format
 msgid ""
 "<p><b>Really reorder thumbnails?</b></p><p>By dragging images around in the "
@@ -6484,7 +6484,7 @@ msgstr ""
 "<b>Mantenimiento -&gt; Ordenar todas por fecha y hora</b> o <b>Ver -&gt; "
 "Ordenar la selección por fecha y hora</b>.</p>"
 
-#: ThumbnailView/ThumbnailDND.cpp:99
+#: ThumbnailView/ThumbnailDND.cpp:100
 #, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"

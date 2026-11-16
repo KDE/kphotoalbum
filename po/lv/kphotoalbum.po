@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-11 00:58+0000\n"
+"POT-Creation-Date: 2026-11-16 01:03+0000\n"
 "PO-Revision-Date: 2025-11-11 18:42+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -6453,7 +6453,7 @@ msgstr ""
 "Padoms: lai pārslēgtu filtru attiecīgajam marķierim, lietojiet <shortcut>Alt"
 "+Shift+<placeholder>A—Z</placeholder></shortcut>."
 
-#: ThumbnailView/ThumbnailDND.cpp:92
+#: ThumbnailView/ThumbnailDND.cpp:93
 #, kde-format
 msgid ""
 "<p><b>Really reorder thumbnails?</b></p><p>By dragging images around in the "
@@ -6468,7 +6468,7 @@ msgstr ""
 ">Kārtot visu pēc datuma un laika</b> vai <b>Skatīt —&gt; Kārtot atlasīto pēc "
 "datuma un laika</b>.</p>"
 
-#: ThumbnailView/ThumbnailDND.cpp:99
+#: ThumbnailView/ThumbnailDND.cpp:100
 #, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"

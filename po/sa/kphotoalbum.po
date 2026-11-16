@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-11 00:58+0000\n"
+"POT-Creation-Date: 2026-11-16 01:03+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -6374,7 +6374,7 @@ msgstr ""
 "युक्तिः: तस्य टोकनस्य कृते फ़िल्टरं टॉग्ल् कर्तुं <shortcut>Alt+Shift+<placeholder>A-Z</"
 "placeholder></shortcut> इत्यस्य उपयोगं कुर्वन्तु ।"
 
-#: ThumbnailView/ThumbnailDND.cpp:92
+#: ThumbnailView/ThumbnailDND.cpp:93
 #, kde-format
 msgid ""
 "<p><b>Really reorder thumbnails?</b></p><p>By dragging images around in the "
@@ -6389,7 +6389,7 @@ msgstr ""
 "<b>Maintenance -&gt; Sort All By Date and Time</b> अथवा <b>View -&gt; Sort "
 "Selected By Date and Time इत्यस्य</b> उपयोगं कुर्वन्तु ।</p>"
 
-#: ThumbnailView/ThumbnailDND.cpp:99
+#: ThumbnailView/ThumbnailDND.cpp:100
 #, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"

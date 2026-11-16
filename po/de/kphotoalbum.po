@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-11 00:58+0000\n"
+"POT-Creation-Date: 2026-11-16 01:03+0000\n"
 "PO-Revision-Date: 2023-08-14 21:58+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -6604,7 +6604,7 @@ msgstr ""
 "Tipp: Verwenden Sie <shortcut>Alt+Umschalt+<placeholder>A-Z</placeholder></"
 "shortcut> um einen Filter für das Kürzel ein- oder auszuschalten."
 
-#: ThumbnailView/ThumbnailDND.cpp:92
+#: ThumbnailView/ThumbnailDND.cpp:93
 #, kde-format
 msgid ""
 "<p><b>Really reorder thumbnails?</b></p><p>By dragging images around in the "
@@ -6621,7 +6621,7 @@ msgstr ""
 "oder <b>Bilder -&gt; Ausgewählte Bilder nach Datum && Zeit sortieren</b> "
 "verwenden.</p>"
 
-#: ThumbnailView/ThumbnailDND.cpp:99
+#: ThumbnailView/ThumbnailDND.cpp:100
 #, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"

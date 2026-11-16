@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-11 00:58+0000\n"
+"POT-Creation-Date: 2026-11-16 01:03+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -6550,7 +6550,7 @@ msgid ""
 "toggle a filter for that token."
 msgstr ""
 
-#: ThumbnailView/ThumbnailDND.cpp:92
+#: ThumbnailView/ThumbnailDND.cpp:93
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p><b>Really reorder thumbnails?</b></p><p>By dragging images around in "
@@ -6570,7 +6570,7 @@ msgstr ""
 "ជាក់​លាក់​សម្រាប់​រូបភាព​ ។ ម្យ៉ាង​វិញ​ទៀត បើ​សិន​រូបភាព​មាន​ត្រា​ពេល​វេលា​ត្រឹម​ត្រូវ​ អ្នក​គួរ​តែ​ប្រើ  "
 "<b>រូបភាព​ -&gt; ​តម្រៀប​ជម្រើស​តាម​កាល​បរិច្ឆេទ និង​ពេល​វេលា</b>។</p>"
 
-#: ThumbnailView/ThumbnailDND.cpp:99
+#: ThumbnailView/ThumbnailDND.cpp:100
 #, fuzzy, kde-format
 #| msgid "Reorder Thumbnails"
 msgctxt "@title"

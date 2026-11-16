@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-11 00:58+0000\n"
+"POT-Creation-Date: 2026-11-16 01:03+0000\n"
 "PO-Revision-Date: 2026-10-17 07:25+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -6459,7 +6459,7 @@ msgstr ""
 "Namig: Uporabite <shortcut>izmenjalka+dvigalka+<placeholder>A-Z,</"
 "placeholder> </shortcut>, da preklopite filter za ta žeton."
 
-#: ThumbnailView/ThumbnailDND.cpp:92
+#: ThumbnailView/ThumbnailDND.cpp:93
 #, kde-format
 msgid ""
 "<p><b>Really reorder thumbnails?</b></p><p>By dragging images around in the "
@@ -6474,7 +6474,7 @@ msgstr ""
 "časovne žige, uporabite  <b>Vzdrževanje -&gt; Razvrsti vse po datumu in "
 "času</b> ali <b>Pogled  -&gt; Razvrsti izbrano po datumu in času</b> .</p>"
 
-#: ThumbnailView/ThumbnailDND.cpp:99
+#: ThumbnailView/ThumbnailDND.cpp:100
 #, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"

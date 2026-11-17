@@ -19,8 +19,7 @@ SPDX-License-Identifier: GFDL-1.2-only
   <!ENTITY kappname "&kphotoalbum;">
   <!ENTITY package "extragear-graphics">
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % Brazilian-Portuguese "INCLUDE"
-> 
+  <!ENTITY % Brazilian-Portuguese "INCLUDE">
 
   <!ENTITY introduction SYSTEM "introduction.docbook">
   <!ENTITY setting-properties SYSTEM "setting-properties.docbook">
@@ -35,11 +34,11 @@ SPDX-License-Identifier: GFDL-1.2-only
 ]>
 
 <book id="kphotoalbum" lang="&language;">
-  
+
   <bookinfo>
     <title
 >Manual do &kphotoalbum;</title>
-    
+
     <authorgroup>
       <author
 ><firstname
@@ -53,7 +52,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 > <surname
 >Turkia</surname
 > </author>
-      
+
       <othercredit role="translator"
 ><firstname
 >Marcus</firstname
@@ -62,7 +61,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 ><affiliation
 ><address
 ><email
->marcus.gama@gmail.com</email
+>marcus.gama@kde.org</email
 ></address
 ></affiliation
 ><contrib
@@ -70,13 +69,13 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></othercredit
 > 
     </authorgroup>
-    
+
     <copyright>
       <year
 >2003-2007</year>
       <holder
 >Jesper K. Pedersen</holder>
-      
+
     </copyright>
     <copyright>
       <year
@@ -84,12 +83,12 @@ SPDX-License-Identifier: GFDL-1.2-only
       <holder
 >Miika Turkia</holder>
     </copyright>
-    
+
     <date
 >23/02/2012</date>
     <releaseinfo
 >4.2</releaseinfo>
-    
+
     <abstract>
     <para
 ><inlinemediaobject>
@@ -101,7 +100,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></textobject>
     </inlinemediaobject
 ></para>
-    
+
     <para
 >Este é o manual do usuário para o &kphotoalbum; &mdash; um programa de catalogação de imagens digitais que suporta anotação, navegação, pesquisa e visualização de vídeos e imagens digitais. Se você não for o tipo de pessoa que goste de ler a documentação, mas que gostaria de experimentar as coisas, existem algumas alternativas: <itemizedlist>
           <listitem
@@ -122,10 +121,8 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></para>
 
    <para
->Se você preferir imprimir este documento, então poderá encontrá-lo num longo documento PDF na <ulink url="http://docs.kde.org/"
+>Se preferir imprimir este documento, você pode encontrá-lo como um documento PDF único na <ulink url="https://docs.kde.org/index.php?application=kphotoalbum"
 >documentação do &kde;</ulink
->. Um link direto está disponível no <ulink url="http://kphotoalbum.org/index.php?page=documentation"
->site do &kphotoalbum;</ulink
 >.</para>
 </abstract>
     <keywordset>
@@ -139,7 +136,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Base de Dados de Imagens</keyword>
     </keywordset>
   </bookinfo>
-  
+
   &introduction;
   &setting-properties;
   &browsing;
@@ -170,7 +167,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Créditos e licença</title>
     <para
 >Tradução de Marcus Gama <email
->marcus.gama@gmail.com</email
+>marcus.gama@kde.org</email
 ></para
 > &underFDL; &underGPL; </chapter>
 

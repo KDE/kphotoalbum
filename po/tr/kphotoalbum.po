@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-16 01:03+0000\n"
-"PO-Revision-Date: 2026-10-17 19:22+0300\n"
+"PO-Revision-Date: 2026-11-16 19:22+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -77,7 +77,7 @@ msgstr "Etiketler ve Tarihler"
 #: AnnotationDialog/Dialog.cpp:140
 #, kde-format
 msgid "Image Preview"
-msgstr "Görsel Önizlemesi"
+msgstr "Görsel Ön İzlemesi"
 
 #: AnnotationDialog/Dialog.cpp:164 DB/ImageDB.cpp:396
 #, kde-format
@@ -441,7 +441,7 @@ msgstr "Saat yönünde döndür"
 #: AnnotationDialog/Dialog.cpp:1353
 #, kde-format
 msgid "Toggle fullscreen preview"
-msgstr "Tam ekran önizlemeyi aç/kapat"
+msgstr "Tam ekran ön izlemeyi aç/kapat"
 
 #: AnnotationDialog/ImagePreview.cpp:514
 #, kde-format
@@ -524,7 +524,7 @@ msgstr "Görseldeki alanlar yalnızca tek görsel açıklama kipinde görünür.
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
-msgstr "Tam ekran önizlemeyi aç/kapat"
+msgstr "Tam ekran ön izlemeyi aç/kapat"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:356
 #, kde-format
@@ -3608,7 +3608,7 @@ msgstr "&Hiçbirini Seçme"
 #, kde-format
 msgctxt "@title:column Image preview"
 msgid "Preview"
-msgstr "Önizleme"
+msgstr "Ön İzleme"
 
 #: MainWindow/DuplicateMerger/DuplicatesModel.cpp:107
 #, kde-format
@@ -3750,7 +3750,7 @@ msgstr ""
 "name=\"videoPreview\">Video küçük görseli desteği</a></h2><p>K Fotoğraf "
 "Albümü, videolardan küçük görselleri çıkarmak için <tt>ffmpeg</tt> "
 "yazılımını kullanabilir. Bu küçük görseller, küçük görsel görüntüleyicisinde "
-"videoları önizlemek için kullanılır.</p><p>Bu özellik yalnızca FFmpeg "
+"videoları ön izlemek için kullanılır.</p><p>Bu özellik yalnızca FFmpeg "
 "kuruluysa kullanılabilir.</p><h2><a name=\"videoInfo\">Video üst verisi "
 "desteği</a></h2><p>K Fotoğraf Albümü, videolardan uzunluk verisini çıkarmak "
 "için <tt>ffprobe</tt> yazılımını kullanabilir. Video küçük görsellerinin "
@@ -5917,12 +5917,12 @@ msgstr "%1 gerçekten silinsin mi?"
 #: Settings/ThumbnailsPage.cpp:28
 #, kde-format
 msgid "Tooltip preview image size:"
-msgstr "İpucu önizlemesi görsel boyutu:"
+msgstr "İpucu ön izlemesi görsel boyutu:"
 
 #: Settings/ThumbnailsPage.cpp:32
 #, kde-format
 msgid "No Image Preview"
-msgstr "Görsel Önizleme Yok"
+msgstr "Görsel Ön İzleme Yok"
 
 #: Settings/ThumbnailsPage.cpp:38
 #, kde-format
@@ -6015,7 +6015,7 @@ msgid ""
 msgstr ""
 "<p>Küçük görsel görünümünde <b>Ayarlar → İpuçlarını Göster</b>’i seçerseniz "
 "küçük görseller hakkında bilgi veren küçük bir ipucu görürsünüz. Bu pencere "
-"küçük bir önizleme içerir. Bu seçenek görsel boyutunu ayarlar.</p>"
+"küçük bir ön izleme içerir. Bu seçenek görsel boyutunu ayarlar.</p>"
 
 #: Settings/ThumbnailsPage.cpp:104
 #, kde-format

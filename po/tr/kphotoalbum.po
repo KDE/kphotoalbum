@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-16 01:03+0000\n"
-"PO-Revision-Date: 2026-11-16 19:22+0300\n"
+"PO-Revision-Date: 2026-11-19 19:39+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -2922,7 +2922,8 @@ msgstr "K Fotoğraf Albümü Küçük Görsel Aracı"
 #, kde-format
 msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr ""
-"K Fotoğraf Albümü küçük görsel önbelleğini denetlemek ve düzenlemek için araç"
+"K Fotoğraf Albümü küçük görsel ön belleğini denetlemek ve düzenlemek için "
+"araç"
 
 #: kpa-thumbnailtool/main.cpp:48
 #, kde-format
@@ -3009,7 +3010,7 @@ msgstr ".thumbnail klasörünü içeren klasör."
 #, kde-format
 msgctxt "@info:shell"
 msgid "Print information about thumbnail cache."
-msgstr "Küçük görsel önbelleği hakkında bilgi yazdır."
+msgstr "Küçük görsel ön belleği hakkında bilgi yazdır."
 
 #: kpa-thumbnailtool/main.cpp:73
 #, kde-format
@@ -3023,7 +3024,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Check thumbnail cache for consistency of thumbnail dimensions."
-msgstr "Küçük görsel önbelleğini, görsel boyutu tutarlılığı için denetle."
+msgstr "Küçük görsel ön belleğini, görsel boyutu tutarlılığı için denetle."
 
 #: kpa-thumbnailtool/main.cpp:77
 #, kde-format
@@ -3032,7 +3033,7 @@ msgid ""
 "Fix inconsistent thumbnails by removing them from the cache (requires --"
 "check-thumbnail-dimensions)."
 msgstr ""
-"Tutarsız küçük görselleri, onları önbellekten kaldırarak düzelt (--check-"
+"Tutarsız küçük görselleri, onları ön bellekten kaldırarak düzelt (--check-"
 "thumbnail-dimensions gerektirir)."
 
 #: kpa-thumbnailtool/main.cpp:79
@@ -3064,7 +3065,7 @@ msgstr "%1, bir klasör değil!\n"
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail cache folder: %1\n"
-msgstr "Küçük görsel önbellek klasörü: %1\n"
+msgstr "Küçük görsel ön bellek klasörü: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:117
 #, kde-format
@@ -6256,7 +6257,7 @@ msgstr " sn"
 #: Settings/ViewerPage.cpp:63
 #, kde-format
 msgid "Image cache:"
-msgstr "Görsel önbelleği:"
+msgstr "Görsel ön belleği:"
 
 #: Settings/ViewerPage.cpp:69
 #, kde-format

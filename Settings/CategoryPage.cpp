@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003 - 2026 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
@@ -385,7 +385,7 @@ void Settings::CategoryPage::newCategory()
     m_currentCategory->markAsNewCategory();
     Q_EMIT categoryChangesPending();
     m_currentCategory->setLabel(checkedCategory);
-    m_currentCategory->setSelected(true);
+    m_categoriesListWidget->setCurrentItem(m_currentCategory);
     m_categoriesListWidget->blockSignals(false);
 
     m_positionable->setChecked(false);

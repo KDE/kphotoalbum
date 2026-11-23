@@ -187,6 +187,21 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     // Let's first assume we don't have positionable categories
     m_positionableCategories = false;
 
+    // If the number of categories is large, tabify the category docks to
+    // avoid making the dialog wider than the screen.
+    const unsigned maxCategoryColumns = 7;
+    const bool tabifyCategories = categories.size() / maxCategoryColumns;
+    QVector<QDockWidget *> categoryDocks;
+
+    // Ensure the special category docks are created last so there is no
+    // obvious gap in how the categories are tabified (special category docks
+    // are hidden by default).
+    std::sort(categories.begin(), categories.end(), [](const DB::CategoryPtr& c1, const DB::CategoryPtr& c2) {
+              return !c1->isSpecialCategory() && c2->isSpecialCategory();
+    });
+
+    qCDebug(AnnotationDialogLog) << "tabifyCategories:" << tabifyCategories << "categories.size():" << categories.size() << "maxCategoryColumns:" << maxCategoryColumns;
+
     for (QList<DB::CategoryPtr>::ConstIterator categoryIt = categories.constBegin(); categoryIt != categories.constEnd(); ++categoryIt) {
         ListSelect *sel = createListSel(*categoryIt);
 
@@ -200,8 +215,21 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
                                        sel);
         shortCutManager.addDock(dock, sel->lineEdit());
 
-        if ((*categoryIt)->isSpecialCategory())
+        if (tabifyCategories) {
+            if (categoryDocks.size() >= maxCategoryColumns) {
+                const unsigned index = categoryDocks.size() % maxCategoryColumns;
+
+                qCDebug(AnnotationDialogLog) << "tabify dock" << (*categoryIt)->name() << "size:" << categoryDocks.size() << "index:" << index;
+                m_dockWindow->tabifyDockWidget(categoryDocks[index], dock);
+                categoryDocks[index]->raise();
+            }
+        }
+
+        categoryDocks << dock;
+
+        if ((*categoryIt)->isSpecialCategory()) {
             dock->hide();
+        }
 
         // Pass the positionable selection to the object
         sel->setPositionable((*categoryIt)->positionable());

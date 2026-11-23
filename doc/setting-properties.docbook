@@ -64,8 +64,8 @@ the date of the item, the label of the item <footnote><para>The label is
           browser, and when the images are exported to &HTML;
           pages</para></footnote>, a description for the item, and most important
 different <emphasis>categories</emphasis> for the item. In the screen shot, these categories are
-<literal>People</literal>, <literal>Places</literal>, and
-<literal>Keywords</literal>, but as you will see in <xref
+<literal>Events</literal>, <literal>Places</literal>, and
+<literal>People</literal>, but as you will see in <xref
         linkend="sec-specifying-categories"/>, these three predefined
 categories may be changed to your preferences.
  </para>
@@ -90,8 +90,8 @@ may see these annotations when viewing the items in the build-in viewer.</para>
     <sect1 id="sect-specifying-options">
       <title>Categories</title>
       <para>In <xref linkend="fig-image-config-window"/> there are three
-list boxes combined with line edits for specifying people, places and
-keywords. These widget are a very important part of &kphotoalbum;,
+list boxes combined with line edits for specifying events, people, and
+places. These widgets are a very important part of &kphotoalbum;,
 as you will use them over and over again, when specifying information about
 your images.</para>
 

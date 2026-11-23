@@ -32,8 +32,8 @@ number of images, and setting properties like location, people on images,
 and date of image.</para></listitem>
       
       <listitem><para>It must be easy to search for images. &kphotoalbum; offers to
-describe images with a number of properties. These includes date, people,
-places, plus a keyword field the user can use for custom keywords like
+describe images with a number of properties. These includes date, events, people, and
+places, plus a field the user can use for custom keywords like
 <emphasis>Album 7</emphasis> or <emphasis>Holiday trip to
 Italy</emphasis>. With &kphotoalbum; you can  search for images in each of
 the categories - e.g. find all the images with Jesper on them from the

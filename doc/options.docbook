@@ -134,8 +134,8 @@ example_12.tif, example.PNG.
   <title>Categories</title>
   <para>In <xref linkend="chp-typingIn"/> it was described how you could
 specify different properties for each image, these included
-<literal>People</literal>, <literal>Places</literal> and
-<literal>Keywords</literal>. It is possible to specify your own categories, so
+<literal>Events</literal>, <literal>People</literal> and
+<literal>Places</literal>. It is possible to specify your own categories, so
 if you prefer you could get an <literal>Items</literal>, a
 <literal>Animals</literal>, or a <literal>Albums</literal> category your self.</para>
 

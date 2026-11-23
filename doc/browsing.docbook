@@ -11,8 +11,8 @@ SPDX-License-Identifier: GFDL-1.2-only
   <para>Once you have annotated your images and videos, &kphotoalbum; is ready to let you
     browse through your images. If you compare that to <xref
       linkend="fig-empty-browser-window"/> , you will see that there now is
-    items available in each of the categories for <literal>People</literal>,
-    <literal>Places</literal>, and <literal>Keywords</literal>.</para>
+    items available in each of the categories for <literal>Events</literal>,
+    <literal>People</literal>, and <literal>Places</literal>.</para>
 
   <para>In the browser window you can see the categories you typed
 information into when annotating your images and videos. In addition there
@@ -83,7 +83,7 @@ matching your current scope.</para>
   <para>Looking at <xref linkend="fig-browser-for-persons"/> you will see
 that each person has the same icon in front of his name. &kphotoalbum; is actually
 capable of showing a preview image for each individual person <footnote><para>This of
-course also applies to places, keywords, and other categories you
+course also applies to events, places, and other categories you
 have defined yourself.</para></footnote> as can be seen in  <xref
 linkend="fig-imagesForPersons"/>.</para>
 
@@ -101,8 +101,8 @@ button to the very right of the toolbar, that will bring up a popup menu,
 where you can chose which view you want to use for the given
 category. Notice views must be configured for each category - that way you
 may for example use an icon view for people, but a plain list view for
-keywords (in case you can't come up with good images for your
-keywords).</para>  
+events (in case you can't come up with good images for your
+events).</para>
 
 
 <para>It is, however, your job to tell it which images to use for each

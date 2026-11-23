@@ -270,10 +270,9 @@ msgid "Configure Window Layout..."
 msgstr "配置窗口布局..."
 
 #: AnnotationDialog/Dialog.cpp:944
-#, fuzzy, kde-format
-#| msgid "Save current window setup"
+#, kde-format
 msgid "Save current layout"
-msgstr "保存当前窗口设置"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:946
 #, kde-format
@@ -2522,11 +2521,10 @@ msgid "Copying Images"
 msgstr "正在复制图像"
 
 #: ImportExport/ImportHandler.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title:window"
 msgid "Copying Files"
-msgstr "正在复制图像文件"
+msgstr ""
 
 #: ImportExport/ImportHandler.cpp:178
 #, kde-format
@@ -2534,11 +2532,10 @@ msgid "Error when writing image %1"
 msgstr "写入图像 %1 出错"
 
 #: ImportExport/ImportHandler.cpp:197
-#, fuzzy, kde-format
-#| msgid "Updating Database"
+#, kde-format
 msgctxt "@title:window"
 msgid "Updating Database"
-msgstr "正在更新数据库"
+msgstr ""
 
 #: ImportExport/ImportHandler.cpp:245
 #, kde-format
@@ -2558,10 +2555,9 @@ msgid "Continue without Asking"
 msgstr ""
 
 #: ImportExport/ImportMatcher.cpp:38
-#, fuzzy, kde-format
-#| msgid "Import file."
+#, kde-format
 msgid "Key in import file"
-msgstr "导入文件."
+msgstr ""
 
 #: ImportExport/ImportMatcher.cpp:45
 #, kde-format
@@ -6527,7 +6523,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
-msgstr "重启启动"
+msgstr "重新播放"
 
 #: Viewer/ViewerWidget.cpp:1337
 #, kde-format

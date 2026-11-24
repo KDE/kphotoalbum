@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-16 01:03+0000\n"
-"PO-Revision-Date: 2026-11-19 19:39+0300\n"
+"PO-Revision-Date: 2026-11-23 18:15+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1587,7 +1587,7 @@ msgid ""
 "you already have KDEDIRS set, simply append the string as if you where "
 "setting the <b>PATH</b> environment variable</p>"
 msgstr ""
-"<p>K Fotoğraf Albümü, öntanımlı bir ayar dosyası yükleyemedi. Bu, kurulum "
+"<p>K Fotoğraf Albümü, varsayılan bir ayar dosyası yükleyemedi. Bu, kurulum "
 "hatası olduğunu gösterir</p><p>K Fotoğraf Albümü’nü kendiniz kurduysanız "
 "çevre değişkeni <b>KDEDIRS</b>’ı en üst kurulum klasörünü gösterecek şekilde "
 "ayarlamayı unutmayın.</p><p>cmake komutunu, örneğin <tt>--prefix=/usr/local/"
@@ -1599,7 +1599,7 @@ msgstr ""
 #: DB/XML/FileReader.cpp:541
 #, kde-format
 msgid "No default setup file found"
-msgstr "Öntanımlı ayar dosyası bulunamadı"
+msgstr "Varsayılan ayar dosyası bulunamadı"
 
 #: DB/XML/FileReader.cpp:547 Settings/BirthdayPage.cpp:135
 #, kde-format
@@ -2320,7 +2320,7 @@ msgstr "Herhangi bir tema bulunamadı — olası kurulum hatası"
 #: HTMLGenerator/HTMLDialog.cpp:546
 #, kde-format
 msgid "More than one theme is set as default, using theme %1"
-msgstr "Birden fazla tema öntanımlı olarak ayarlanmış, %1 teması kullanılıyor"
+msgstr "Birden fazla tema varsayılan olarak ayarlanmış, %1 teması kullanılıyor"
 
 #: HTMLGenerator/HTMLDialog.cpp:553
 #, kde-format
@@ -3881,7 +3881,7 @@ msgid ""
 "Use <databaseFile> instead of the default. Deprecated - use '--db "
 "<databaseFile>' instead."
 msgstr ""
-"Öntanımlı yerine <veri-tabanı-dosyası> kullanın. Eski; yerine “--db <veri-"
+"Varsayılan yerine <veri-tabanı-dosyası> kullanın. Eski; yerine “--db <veri-"
 "tabanı-dosyası>” kullanın."
 
 #: MainWindow/Options.cpp:27 MainWindow/Options.cpp:37
@@ -3902,7 +3902,7 @@ msgstr "kphotoalbumrc"
 #: MainWindow/Options.cpp:36
 #, kde-format
 msgid "Use <databaseFile> instead of the default."
-msgstr "Öntanımlı yerine <veri-tabanı-dosyası> kullanın."
+msgstr "Varsayılan yerine <veri-tabanı-dosyası> kullanın."
 
 #: MainWindow/Options.cpp:39
 #, kde-format
@@ -5392,7 +5392,7 @@ msgstr ""
 "<p>Eğer bu seçenek ayarlı ise görsellerin yeni sürümleri otomatik olarak "
 "yığılacak ve yığının en üstüne gelecektir. Bu yöntemle, yığın kapatılmış "
 "konumda iken en üstte yeni görsel görünecektir — K Fotoğraf Albümü’nün "
-"öntanımlı davranışı budur.</p>"
+"varsayılan davranışı budur.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:151
 #, kde-format
@@ -5518,7 +5518,7 @@ msgstr ""
 "<p>Sağlama toplamları hesaplanırken görselleri belleğe önyüklemek için "
 "kullanılacak iş parçacığı sayısı. Bu, hızlı depolama kullanırken olabilecek "
 "en yüksek sayıda olmalıdır (ancak CPU’nuzun çekirdek sayısından fazla "
-"değil). Öntanımlı sayı, mekanik sabit diskler için iyi çalışan 1’dir.</p>"
+"değil). Varsayılan sayı, mekanik sabit diskler için iyi çalışan 1’dir.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:230
 #, kde-format
@@ -5599,7 +5599,7 @@ msgstr "Exif açıklamasını kullan"
 #: Settings/GeneralPage.cpp:57
 #, kde-format
 msgid "Strip out camera generated default descriptions"
-msgstr "Kameranın ürettiği öntanımlı tanımlamaları çıkar"
+msgstr "Kameranın ürettiği varsayılan tanımlamaları çıkar"
 
 #: Settings/GeneralPage.cpp:69
 #, kde-format
@@ -5680,7 +5680,7 @@ msgid ""
 "you want to use this as a default description for your images.</p>"
 msgstr ""
 "<p>JPEG görselleri bir açıklama içerebilir. Bu kutucuğu işaretlerseniz "
-"görselleriniz için bu açıklamayı öntanımlı olarak kullanabilirsiniz.</p>"
+"görselleriniz için bu açıklamayı varsayılan olarak kullanabilirsiniz.</p>"
 
 #: Settings/GeneralPage.cpp:159
 #, kde-format
@@ -6173,7 +6173,7 @@ msgstr ""
 "çöktüğünü gözlemledik; büyük olasılıkla bizim sistemimiz düzgünce "
 "yapılandırılmamıştı.</p><p><b>QtMultimedia</b>, bunların arasından en yeni "
 "video oynatıcısı arka ucudur. Qt’nin standart bir bileşenidir. Yakın zamanda "
-"öntanımlı seçenek olmasını ve hatta tek arka uç olarak kalmasını "
+"varsayılan seçenek olmasını ve hatta tek arka uç olarak kalmasını "
 "bekleyebilirsiniz.</p><p><b><font color=red>Arka ucu, “Ayarlar → "
 "Görüntüleyici” menüsünden istediğiniz zaman değiştirebilirsiniz</font></b></"
 "p></html>"
@@ -6337,7 +6337,7 @@ msgstr "Video Arka Ucu:"
 #: Settings/ViewerPage.cpp:112
 #, kde-format
 msgid "Default Annotation Mode"
-msgstr "Öntanımlı Ek Açıklama Kipi"
+msgstr "Varsayılan Ek Açıklama Kipi"
 
 #: Settings/ViewerPage.cpp:114
 #, kde-format

@@ -141,11 +141,11 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Categories</title>
   <para
 >A <xref linkend="chp-typingIn"/> es descriu com podeu especificar propietats diferents per a cada imatge, incloses <literal
->Gent</literal
+>Esdeveniments</literal
 >, <literal
->Llocs</literal
+>Gent</literal
 > i <literal
->Paraules clau</literal
+>Llocs</literal
 >. És possible especificar les vostres pròpies categories, de manera que si ho preferiu, podeu obtenir una categoria <literal
 >Elements</literal
 >, <literal

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-16 01:03+0000\n"
-"PO-Revision-Date: 2026-10-17 08:05+0200\n"
+"PO-Revision-Date: 2026-11-20 17:47+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -2620,7 +2620,7 @@ msgid ""
 msgstr ""
 "<p>Altres usuaris de KPhotoAlbum poden carregar ara el fitxer importat dins "
 "la seua base de dades, seleccionant <b>Importa</b> en el menú Fitxer.</p> "
-"<p>Si l'han trobat a un lloc web, i el servidor web està configurat "
+"<p>Si l'han trobat en un lloc web, i el servidor web està configurat "
 "correctament, tot el que necessiten és clicar-lo des de Konqueror. Per a "
 "habilitar-ho, el vostre servidor web cal que estiga configurat per a "
 "funcionar amb KPhotoAlbum. Ho podeu fer afegint la línia següent al <b>/etc/"
@@ -2792,7 +2792,7 @@ msgstr "S'ha produït un error mentre s'escrivia la imatge %1"
 #, kde-format
 msgctxt "@title:window"
 msgid "Updating Database"
-msgstr "Actualització de la base de dades"
+msgstr "Actualitzeu la base de dades"
 
 #: ImportExport/ImportHandler.cpp:245
 #, kde-format
@@ -3919,8 +3919,8 @@ msgid ""
 "Use <databaseFile> instead of the default. Deprecated - use '--db "
 "<databaseFile>' instead."
 msgstr ""
-"Utilitza <fitxerBaseDades> en lloc del predeterminat. En desús -utilitzeu «--"
-"db <fitxerBaseDades>» en el seu lloc-."
+"Utilitza <fitxerBaseDades> en lloc del predeterminat. En desús, utilitzeu «--"
+"db <fitxerBaseDades>» en el seu lloc."
 
 #: MainWindow/Options.cpp:27 MainWindow/Options.cpp:37
 #, kde-format
@@ -5428,7 +5428,7 @@ msgid ""
 "file is found or we run out of options.</p>"
 msgstr ""
 "<p>Una cadena que s'utilitza per a substituir la coincidència des de "
-"<i>Expressió regular per a la busca de les versions dels fitxers</i>. Esta "
+"l'<i>Expressió regular per a la busca de les versions dels fitxers</i>. Esta "
 "pot ser un punt i coma (<tt>;</tt>) separant la llista. Cada cadena "
 "s'utilitza per a substituir la coincidència en el nom del fitxer nou fins "
 "que es trobe un fitxer original o ens quedem sense opcions.</p>"
@@ -5625,7 +5625,7 @@ msgstr ""
 #: Settings/GeneralPage.cpp:29
 #, kde-format
 msgid "Loading New Images"
-msgstr "Càrrega de les imatges noves"
+msgstr "Carregueu les imatges noves"
 
 #: Settings/GeneralPage.cpp:37
 #, kde-format
@@ -6330,7 +6330,7 @@ msgstr "Interval entre diapositives:"
 #: Settings/ViewerPage.cpp:60
 #, kde-format
 msgid " sec"
-msgstr " seg"
+msgstr " s"
 
 #: Settings/ViewerPage.cpp:63
 #, kde-format

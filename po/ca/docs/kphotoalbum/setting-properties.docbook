@@ -66,12 +66,12 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></footnote
 >, una descripció i el més important, diferents <emphasis
 >categories</emphasis
-> per a l'element. A la captura de pantalla, aquestes categories són <literal
->Gent</literal
+> per a l'element. A la captura de pantalla, aquestes categories són<literal
+>Esdeveniments</literal
 >, <literal
->Llocs</literal
+>Gent</literal
 > i <literal
->Paraules clau</literal
+>Llocs</literal
 >, però com es veu a la <xref linkend="sec-specifying-categories"/>, aquestes tres categories predefinides es poden canviar segons les vostres preferències. </para>
 
     <figure id="fig-image-config-window">
@@ -95,7 +95,7 @@ SPDX-License-Identifier: GFDL-1.2-only
       <title
 >Categories</title>
       <para
->A la <xref linkend="fig-image-config-window"/> hi ha tres quadres de llista combinats amb la línia d'edició per a especificar les categories gent, llocs i paraules clau. Aquests ginys són una part molt important del &kphotoalbum;, ja que les utilitzareu una vegada i una altra, quan especifiqueu informació sobre les vostres imatges.</para>
+>A la <xref linkend="fig-image-config-window"/> hi ha tres quadres de llista combinats amb la línia d'edició per a especificar les categories esdeveniments, gent i llocs. Aquests ginys són una part molt important del &kphotoalbum;, ja que les utilitzareu una vegada i una altra, quan especifiqueu informació sobre les vostres imatges.</para>
 
       <para
 >Podeu especificar una propietat des d'un quadre de llista, simplement seleccionant-la (seleccioneu <literal

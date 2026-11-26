@@ -10,12 +10,12 @@ SPDX-License-Identifier: GFDL-1.2-only
   <title
 >Navegar</title>
   <para
->Una vegada anotades les vostres imatges i vídeos, &kphotoalbum; estarà llest per a navegar per les imatges. Si es compara amb la <xref linkend="fig-empty-browser-window"/>, veureu que ara hi ha elements en cadascuna de les categories de <literal
->Gent</literal
+>Una vegada anotades les vostres imatges i vídeos, &kphotoalbum; estarà llest per a navegar per les imatges. Si es compara amb la <xref linkend="fig-empty-browser-window"/>, veureu que ara hi ha elements en cadascuna de les categories d'<literal
+>Esdeveniments</literal
 >, <literal
->Llocs</literal
+>Gent</literal
 > i <literal
->Paraules clau</literal
+>Llocs</literal
 >.</para>
 
   <para
@@ -86,7 +86,7 @@ SPDX-License-Identifier: GFDL-1.2-only
   <para
 >Pel que fa a la <xref linkend="fig-browser-for-persons"/>, veureu que cada persona disposa de la mateixa icona al davant del seu nom. &kphotoalbum; és capaç de mostrar una imatge de vista prèvia individual per a cada persona <footnote
 ><para
->Per descomptat, això també és aplicable als llocs, paraules clau i altres categories que hàgiu definit.</para
+>Per descomptat, això també és aplicable als esdeveniments, llocs i altres categories que hàgiu definit.</para
 ></footnote
 > tal com podeu veure a la <xref linkend="fig-imagesForPersons"/>.</para>
 
@@ -101,8 +101,7 @@ SPDX-License-Identifier: GFDL-1.2-only
   </figure>
 
 <para
->Per a mostrar les imatges juntament amb els noms, escolliu el botó d'eina al costat dret de la barra d'eines, això obrirà un menú emergent en el qual podreu escollir quina vista voleu utilitzar per a la categoria indicada. Tingueu present que les vistes s'han de configurar per a cada categoria -d'aquesta manera podreu, per exemple, utilitzar una vista d'icones per a la gent, però una simple vista de llista per a les paraules clau (en el cas que no podeu arranjar bones imatges per les paraules clau)-.</para
->  
+>Per a mostrar les imatges juntament amb els noms, escolliu el botó d'eina al costat dret de la barra d'eines, això obrirà un menú emergent en el qual podreu escollir quina vista voleu utilitzar per a la categoria indicada. Tingueu present que les vistes s'han de configurar per a cada categoria, d'aquesta manera podreu, per exemple, utilitzar una vista d'icones per a la gent, però una simple vista de llista per als esdeveniments (en el cas que no podeu arranjar bones imatges per als esdeveniments).</para>
 
 
 <para
